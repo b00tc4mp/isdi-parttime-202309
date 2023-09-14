@@ -1,0 +1,96 @@
+/* Para dejar comentarios */
+
+div h1, div h3 {
+    color: rgb(60, 7, 90);
+    border: 5px beige solid;  /*Para poner un borde, sale en puntitos y si pones solid sale bien, si pones dotted salen puntos: Hay: dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden.*/
+    border-style: solid;
+    border-color: blue;
+    border-radius: 5px; /* Para que el borde sea redondeado*/
+    border-width: 10px; /* El grosor del marco*/
+}
+
+/* Para seleccionar los elementos con id tenemos que usar el # e indicar el nombre del id=*/
+#fondo {
+    background-color: rgba(255, 0, 0, 0.3); /* Es como un subrayado. El rgba es para hacer colores transparentes*/
+    opacity: 0.3; /*le da transparencia al elemento completo y no solo al subrrayar*/
+    background-image: url("coffe.png"); /* Arrastro la imagen a vsc a la parte donde tengo las carpetas y los archivos y le pongo el nombre que quiero*/
+    background-size: auto; /*Si abro y cierro la ventana hay que usar cover no auto*/
+    height: 400px;
+    background-repeat: no-repeat; /* Para que no se repita*/
+    background-position: left; 
+}
+
+.margen {
+    background-color: blueviolet;
+    margin: 15px 20px 25px 30px;
+    padding: 30px 25px 20px 15px; /*El padding es la distancia entre las letras y el subrrayado*/
+    border: solid 1px black;
+    overflow: visible; /*Visible te borra las letras que salgan fuera del marco. scroll te pone una barra desplegable para poder mover y ver todo el texto*/
+    outline: 1px solid red;
+}
+
+.text {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    text-decoration: line-through;
+    text-shadow: 3px 5px 5px blue;
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color: gray;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:active {
+    color: blueviolet;
+}
+
+/*El orden tiene que ser así. El link se verá azul cuando ya esté visitado saldrá gris. Hover es cuando paso el ratón por encima y active es cuando estoy pinchando el link. Y tiene que ser en ese orden */
+
+ul {
+    background-color: cyan;
+    list-style-type: circle;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: solid 1px white;
+    padding: 5px;
+}
+
+th {
+    background-color: tomato;
+    color: white;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: blueviolet;
+}
+
+tr.hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+span {
+    display: block;
+}
+
+.inline { 
+    display: inline;
+}
+

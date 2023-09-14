@@ -1,0 +1,324 @@
+// ESTRUCTURA GENÉRICA DE HTML
+
+
+
+1. Empezar SIEMPRE por
+<!DOCTYPE html>
+
+
+
+2. Apertura de lenguaje HTML con <html> y cierre
+
+</html>
+
+
+
+3. Si queremos hacer comentarios, usamos el código <!----->
+
+
+
+4. ENCABEZADO: para crear TÍTULO con
+
+<head> y cierre </head>
+
+- <title></title> : Dentro insertamos el TÍTULO que queremos que aparezca en el buscador web
+
+
+
+5. CUERPO: a través de
+
+<body> y cierre </body>. TODO lo que haya dentro, pasa a formar parte del CUERPO de la página.
+
+- <nav></nav> : Sirve para crear un espacio de navegación entre páginas web (menú, contacto, pagos...).
+
+- <a></a> : Dentro de <nav> creamos los vínculos con el término href="" y la página web a la que queremos acceder.
+    Podemos usar el término target="_blank" para que se abra en una página web nueva blanca.
+
+    => Ejemplo: <a href="./index.html">Brown Bear</a>
+
+    - <br> : Mueve párrafo hacia abajo
+
+    - <h1></h1> : Puede haber hasta H6. Empieza desde el H1 más grande, así hasta el más pequeño (H6)
+
+    - <p></p> : Para crear líneas de TEXTO
+
+    - <span></span> :
+
+    - <em></em> : Hace el texto en CURSIVA
+
+    - <strong></strong> : Hace el texto en NEGRITA
+
+    -
+    <hr> : Entre secciones; determina los cambios en el cuerpo
+
+    - <img> : Para vincular IMÁGENES. Usamos el término src="" para determinar la URL (dirección) de la imagen y alt=""
+    para determinar a la sección que per
+
+    => Ejemplo: <img src="https://content.codecademy.com/courses/web-101/web101-image_brownbear.jpg"
+        alt="A Brown Bear" />
+
+    - <video></video> : Para vincular VÍDEOS
+
+    => Ejemplo: <video
+        src="https://content.codecademy.com/courses/freelance-1/unit-1/lesson-2/htmlcss1-vid_brown-bear.mp4" width="320"
+        height="240" controls>Video not supported</video>
+
+    - <url></url> : Para viuncular DIRECCIONES WEB.
+
+    => Ejemplo: <url href="www.google.es"></url>
+
+
+
+
+
+    6. LISTAS: podemos crear listas de texto.
+
+    - <ol></ol> : Creamos listas con NÚMEROS
+
+    - <ul></ul> : Creamos listas con PUNTOS
+
+    - <li></li> : Dentro del tipo de lista que queremos crear, añadimos los (LI) para crear las líneas de clasificación
+
+
+
+    7. DIVISIONES: para albergar bloques (como funciones en JS) en la página usamos <div> y su cierre </div>. En id=""
+    indicamos el nombre de la sección y dentro, el texto a mostrar
+
+    => Ejemplo: <div id="media">Media</div>
+
+
+
+    8. CONTENIDO: usamos el <main> y el cierre </main> para encapsular el contenido dominante dentro de una página web.
+
+    => Ejemplo: <main>
+        <p>This is where the main content will go once the page is built out!</p>
+    </main>
+
+
+
+    9. SECCIONES: define elementos en un documento, como capítulos, encabezados o cualquier otra área del documento con
+    el mismo tema mediante el código <section> y el cierre </section>.
+
+    - ARTÍCULOS: dentro del apartado <section> incluimos los diversos artículos que queremos añadir en nuestra página
+        web mediante el código <article></article>
+
+        => Ejemplo: <section>
+            <article>Información sobre medusas</article>
+        </section>
+
+        - ELEMENTO APARTE: el elemento aparte <aside></aside> se utiliza para marcar información adicional que puede
+        mejorar otro elemento pero que no es necesaria para comprender el
+
+        contenido principal. Se puede usar junto con <section> como con <article>. (Bibliografías, notas finales,
+                comentarios, etc).
+
+                => Ejemplo: <section>
+                    <aside>Texto</aside>
+                </section>
+
+                - IMAGEN O ILUSTRACIÓN: con <figure> y el cierre </figure>, <figure>es un elemento utilizado para
+                    encapsular medios como una imagen, ilustración, diagrama, fragmento de código al
+
+                    que se hace referencia en el flujo principal del documento.
+
+                    => Ejemplo: <figure><img src="overwatch.jpg"></figure>
+
+                    - TÍTULOS: dentro de <figure> podemos usar el código <figcaption></figcaption> para indicar un
+                        TÍTULO de la imagen-diagrama-ilustración que acabamos de añadir a la web.
+
+                        => Ejemplo: <figure><img src="overwatch.jpg">
+                            <figcaption>Nombre de la imagen</figcaption>
+                        </figure>
+
+                        - AUDIO: el elemento <audio></audio> se utiliza para incrustar contenido de audio en un
+                        documento. Dentro, hay que especificar el elemento con el código
+                        <source>, el atributo
+
+                        src="URL de imagen" y atributo tpye="audio/mp3". Si añadimos A <audio> el atributo AUTOPLAY
+                            CONTROLS, muestra automáticamente los controles de audio en el navegador.
+
+                            => Ejemplo: <audio>
+                                <source src="iAmAnAudioFile.mp3" type="audio/mp3">
+                            </audio>
+
+                            => Ejemplo: <audio autoplay controls></audio>
+
+                            - VIDEO E INSERCCIONES: Al utilizar un código <video></video>, podemos agregar videos a
+                            nuestro sitio web.
+
+                            => Ejemplo: <video src="coding.mp4" controls>Video not supported</video>
+
+                            Algunos atributos a añadir a este elemento son:
+
+                            - controls => Cuando se agregue, se agregará un botón de reproducción/pausa al video junto
+                            con control de volumen y una opción de pantalla completa.
+
+                            - autoplay => El atributo que hace que un vídeo se reproduzca automáticamente tan pronto
+                            como se carga la página.
+
+                            - loop => Este atributo hace que el vídeo se reproduzca continuamente.
+
+                            - GIFS: con el código <embed> puede incrustar cualquier contenido multimedia, incluidos
+                            vídeos, archivos de audio y gifs de una fuente externa.
+
+                            => Ejemplo: <embed src="download.gif" />
+
+
+
+                            10. PIE DE PÁGINA: para establecer pies de página en nuestra página web, usamos el código
+                            <footer> y su cierre </footer>. Dentro, incluiremos información, contacto, etc.
+
+                            => Ejemplo: <footer>
+                                <p>Contact me at +1 234 567 8910 </p>
+                            </footer>
+
+
+
+
+
+
+
+                            // TABLAS
+
+
+
+                            1. Empezamos siemmpre con el inicio <table> y su cierre </table>
+
+
+
+                            2. ENCABEZADO: para crear un encabezado de tabla, usamos el código <thead> con su cierre
+                            </thead>
+
+
+
+                            3. CUERPO: con el comando <tbody> y cierre </tbody>
+
+                            - <tr></tr> : Agrega FILAS en las tablas
+
+                            - <th></th> : Para agregar los TÍTULOS de las tablas
+
+                            - <td></td> : Añade DATOS a las filas (números, texto...)
+
+
+
+                            4. PIE DE PÁGINA: con el comando <tfoot> y su cierre </tfoot>, determinamos lo que se
+                            incluye en el pie de página
+
+
+
+
+
+
+
+                            // FORMULARIOS
+
+
+
+                            1. Empezamos creando formularios con el término <form> y su cierre </form>
+
+                            - El atributo action="" determina DÓNDE va la información del formulario
+
+                            - El atributo method="" indica CÓMO se envía y PROCESA la información
+
+                            => Ejemplo: <form action="submission.html" method="POST"></form>
+
+
+
+                            2. SECCIÓN: Lo que en body sería un DIV, con <section></section> establecemos el apartado al
+                            que corresponde el formulario a crear
+
+                            - SIEMPRE lleva incluido un <label> y un <imput>
+
+                                    - <label></label> : Digamos que es el nombre o la llamada al formulario. Incluimos
+                                    el atributo for="" para dar nombre al formulario
+
+                                    => Ejemplo: <label for="username">Nombre de usuario</label>
+
+                                    - <input> : Agrega campos para que los usuarios ingresen información en el
+                                    formulario. El atributo type="" determina el tipo de formulario; el atributo name
+                                    ="" el nombre dado y
+
+                                    el atributo id="" también al grupo/nombre que pertenece
+
+
+
+                                    A. Type="text" : para crea un campo de una sola fila para la entrada de texto. (para
+                                    introducir texto).
+
+                                    => Ejemplo: <input type="text" name="patty" id="patty">
+
+
+
+                                    B. Type="number" : crea un campo en el que se alojan números.
+
+                                    => Ejemplo: <input type="number" name="number1" id="number1">
+
+
+
+                                    C. Type="password" : para crear un campo de una sola fila que censura la entrada de
+                                    texto. (salen asteriscos).
+
+                                    => Ejemplo:
+
+
+
+                                    D. Type="range" : para crea un control deslizante para seleccionar entre un rango de
+                                    números. Además, añade los atributos value="" que indica el valor; min="" para
+                                    determinar
+
+                                    el rango mínimo por el que empezar y max="", el máximo a alcanzar.
+
+                                    => <input type="range" name="doneness" id="doneness" value="3" min="1" max="5">
+
+
+
+                                    E. Type="checkbox" : crea una única casilla de verificación que se puede combinar
+                                    con otras casillas. Añade atributo value="" que sirve para indicar el valor al que
+                                    hacer
+
+                                    referencia.
+
+                                    => Ejemplo: <input type="checkbox" name="topping" id="lettuce" value="lettuce">
+
+
+
+                                    F. Type="radio" : crea un botón de opción que permite ELEGIR SOLO UNA. Importante
+                                    determinar en id="" y value="" el valor correcto, como SÍ o NO.
+
+                                    Solo deja seleccionar uno. De tener varios, pincha sobre el que quieres (es un
+                                    botón)
+
+                                    => Ejemplo: <input type="radio" name="cheese" id="yes" value="yes">
+
+
+
+                                    G. Type="submit" : crea un botón de envío. Boton de enviar
+
+                                    => Ejemplo: <input type="submit" value="Submit">
+
+
+
+                                    - <span></span> : Crea dentro lo que sería la pregunta de SÍ o NO donde aloja el
+                                    <input type="radio"> para configurarlo
+
+                                    => Ejemplo: <span>Would you like to add cheese?</span>
+
+                                    - <select></select> : Se usa para agregar un elemento desplegable con múltiples
+                                    opciones.
+
+                                    => Ejemplo: <select name="bun" id="bun"></select>
+
+                                    - <datalist></datalist> : Agrega un desplegable pero para BUSCAR las opciones
+                                    disponibles.
+
+                                    => Ejemplo: <datalist id="sauces"></datalist>
+
+                                    - <option></option> : Se usa para agregar elementos tanto en <select> como en
+                                        <datalist>
+
+                                            => Ejemplo: <option value="ketchup"></option>
+
+                                            - <textarea></textarea> : Añade un campo de entrada de texto EN BLANCO que
+                                            tiene un área personalizable. Agrega como atributos filas y columnas
+
+                                            => Ejemplo: <textarea id="extra" name="extra" rows="3" cols="40"></textarea>
