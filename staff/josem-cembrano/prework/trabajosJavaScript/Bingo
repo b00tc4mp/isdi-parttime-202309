@@ -1,0 +1,303 @@
+/*
+BINGO GAME! 🎲🎰
+Realiza un programa que simule un Bingo. Cuando se ejecute, pedirá el nombre del jugador y deberá guardarse. Durante el primer turno se mostrará un cartón con 15 números (excluyendo el 0 siempre), 
+para pasar al siguiente turno el usuario deberá confirmar mediante confirm() visualizándose otro número, si coincide con alguno de los existentes en el cartón, 
+cambiará por una "X" o un 0. El cartón se mostrará, al final de cada turno, con los cambios efectuados, indicándole al usuario qué número se ha encontrado. 
+El programa deberá preguntar al usuario al inicio de cada turno si desea continuar, en caso de que se continúe, seguirá el mismo patrón que hasta el momento.
+
+Por supuesto, cuando todos los números de una misma linea estén en "X", mostrará una única vez el mensaje "LINEA!", pero la ejecución seguirá, el juego solo acabará cuando todos los números estén a "X".
+
+Cuando el juego concluya, deberá decirle al usuario en cuantos turnos se ha completado el cartón. Por último, deberá preguntar si desea volver a jugar.
+
+Empieza por la versión más básica! (No se entrega)
+Why?
+Comenzar por una versión muy pequeña y básica nos hará tener un programa de principio a fin, es decir, que empieza, que acaba y haga lo que queramos a muy pequeña escala, 
+una vez lo tengamos todo bien dividido podremos empezar a extenderlo tanto como queramos.
+
+Si funciona con 5 números deberá funcionar con 15, no? 😁
+
+Requisitos de la versión mínima:
+Cartón con solo 5 números, sin necesidad de ser generados random. Solo necesitamos un número random cuando recorramos el cartón y veamos si hay alguna coincidencia. 
+No necesitamos asegurarnos que el número random de cada turno no haya salido en turnos anteriores, recuerda que estamos en la mínima versión posible, eso ya lo solucionaremos. 
+Si hay coincidencia, remplazaremos el número por una 'x' y mostramos el cartón modificado
+
+Sepáralo todo en funciones, englobado en una función global llamada bingo(), tal que:
+
+-Function! => Generar Numero Random Bombo
+
+-Function! => Nuevo turno (Match carton[i] === randomNum)
+
+-Function! => Preguntar Nuevo Turno 
+
+
+
+Pro 👊🏼
+
+Cuando se muestre la carta, se preguntará al usuario si realmente quiere ese cartón o generar otro, si realmente quiere ese cartón, deberá responder "yes" para proceder.
+Los números del cartón deben aparecer de una forma amigable y ordenados de menor a mayor.
+Los números del cartón no se pueden repetir.
+Establece un sistema de puntos, en cuantos más turnos se complete el cartón, menos puntos (el sistema de puntos intégralo como quieras), por el contrario, a menos turnos, más puntos.
+Antes de empezar el juego, muestra el sistema de puntos al usuario.
+Ranking de usuarios (ordenado por puntos).*/
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+let user = "";
+let changeCardBoard = 0;
+const infoNumberCardBoard = 5;
+let userBalls = 0;
+const min = 1;
+const max = 50;
+const noRepeatNumbers = [];
+let line = "";
+const saveNumbers = [];
+let anotherRandomNumber = 0;
+let points = 100;
+let fail = points - 1;
+let userPoints = 0;
+const noRepeatBall = [];
+let lineCount = 0;
+let ranking = [];
+const completedLines = [0, 0, 0];
+
+const welcome = () => {//BIENVENIDA AL USUARIO
+    user = prompt(`Bienvenido al 🎲BINGO ISDI CODERS!!🎲\nCUAL VA A SER SU NOMBRE EN EL JUEGO??`);
+    if (user === "") {
+        alert(`Introduzca un nombre correctamente.`);
+        welcome();
+    } else if (user === null) {
+        alert(`Hasta pronto desconocido...`);
+        return;
+    } else {
+        alert(`Juguemos!! ${user.toUpperCase()}.`);
+        instructions();
+    }
+}
+
+const instructions = () => {//INSTRUCCIONES
+    alert (`Lea atentamente la INFORMACIÓN DEL JUEGO:\n\nComenzará con 100 puntos y a medida que salgan bolas se le restarán 2 puntos en el caso de que el nº de bola no coincida con ningún numero de su cartón,\n\nLa "LINEA", (fila de 10 numeros tachada), otorga 5 puntos, y el "BINGO", (carton tachado en su totalidad) 20 puntos, al finalizar podrá ver su puntuación en el ranking.`)
+    moreCardBoard();
+};
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+const generateCard = () => {//ESTA FUNCIÓN ES PARA QUE ME GENERE EL CARTON Y "EN FILAS DE 5 NUMEROS" Y SIN REPETIRSE LOS NUMEROS.
+
+    const cardBoarLines = [];
+    while (noRepeatNumbers.length < 15) {
+        const numberCardBoard = Math.floor(Math.random() * (max - min + 1)) + min;
+        if (!noRepeatNumbers.includes(numberCardBoard)) {
+            noRepeatNumbers.push(numberCardBoard);
+        }
+    }
+
+    for (let i = 0; i < noRepeatNumbers.length; i++) {
+        line += saveNumbers[i] ? '⭐' : noRepeatNumbers[i];
+        if ((i + 1) % 5 !== 0) {
+            line += ' '; // ESTA LINEA ES PARA AGREGAR UN ESPACIO DESPUES DE CADA NUMERO O ESTRELLA
+        }
+
+        if ((i + 1) % 5 === 0 || i === noRepeatNumbers.length - 1) {//AGREGA LAS LINEAS PARA FORMAR EL CARTON
+            cardBoarLines.push(line);
+            line = "";
+        }
+    }
+
+    console.log("\nCartón generado:");
+    console.log(cardBoarLines.join('\n')); // PARA VISUALIZAR LA INFORMACION DEL CARTON Y JUGADOR EN LA CONSOLA CON LINEAS SEPARADAS
+    console.log(`---Comienza con ${points}---`);
+    console.log(cardBoarLines.join('\n'));
+}
+generateCard();
+
+
+
+
+const moreCardBoard = () => {////ESTA FUNCIÓN ES PARA GENERAR NUEVOS CARTONES Y QUE SE VISUALICE AL USUARIO EL MAXIMO DE CARTONES QUE SE PUEDEN GENERAR Y LOS QUE LE QUEDAN
+    if (changeCardBoard < infoNumberCardBoard) {
+        changeCardBoard++;
+        let infoUserCardBoardTotal = infoNumberCardBoard - changeCardBoard;
+
+        if (infoUserCardBoardTotal === 0) {
+            alert(`Ya no puede generar ningún cartón más. Se quedará con el último cartón generado.`);
+            console.log(``);
+        } else {
+            const confirmation = confirm(`• "Click" en (Aceptar) para generar más cartones.\n• "Click" en (Cancelar) si desea quedarse con el cartón generado.\n\nPuede cambiarlo --> (${infoUserCardBoardTotal}) <-- veces más.`);
+            
+            if (confirmation) {
+                saveNumbers.length = 0;
+                noRepeatNumbers.length = 0;
+                generateCard();
+                moreCardBoard();
+            }
+        }
+    } else {
+        console.log(`Has alcanzado el máximo de 5 cambios de cartón.`);
+    }
+    
+    balls();
+};
+
+
+
+
+
+
+
+const replaceNumberCard = (index) => {//SUSTITUIR POR ⭐
+    saveNumbers[index] = '⭐';
+};
+
+
+
+
+
+
+
+const totalUserPoints = () => {//PUNTUACION PARA EL USUARIO
+    if (!noRepeatNumbers.includes(noRepeatBall[noRepeatBall.length - 1])) {
+        userPoints -= 1;
+        console.log(`${userPoints} puntos extra!!`);
+    }
+}
+
+
+
+
+
+const playAgain = () => {//FUNCION PARA EL FUNCIONAMIENTO DEL JUEGO
+
+        alert (`JUGUEMOS!!...`)
+
+        points = 100;
+        changeCardBoard = 0;
+        userPoints = 0;
+        completedLines.fill(0);//ESTE METODO LO QUE HACE ES REEMPLAZAR EL ARRAY POR EL "0" PARA QUE EL USUARIO COMIENCE CON TODO RESETEADO Y LA SINTAXIS ES ESTA////..fill(valor, inicio, final);////
+        noRepeatBall.length = 0;
+        saveNumbers.length = 0;
+        noRepeatNumbers.length = 0;
+
+        const newUser = prompt(`Bienvenido al 🎲BINGO ISDI CODERS!!🎲\nCUAL VA A SER SU NOMBRE EN EL JUEGO??`);
+        if (newUser === "") {
+            alert(`Introduzca un nombre correctamente.`);
+            playAgain();
+        } else if (newUser === null) {
+            alert(`Hasta pronto desconocido...`);
+            return;
+        } else {
+            user = newUser;
+            alert(`Juguemos!! ${user.toUpperCase()}.`);
+            generateCard();
+            moreCardBoard();
+            balls();
+        }
+
+
+
+};
+
+
+
+
+
+
+
+
+const checkLineBingo = () => {//CANTAR LINEA Y BINGO
+    for (let i = 0; i < saveNumbers.length; i += 5) {
+        if (saveNumbers[i] && saveNumbers[i + 1] && saveNumbers[i + 2] && saveNumbers[i + 3] && saveNumbers[i + 4]) {
+            userPoints += 10;
+            console.log(`LINEA!! PUNTOS EXTRA!!`);
+
+            completedLines[Math.floor(i / 5)]++;
+        }
+    }
+
+    if (completedLines[0] >= 1 && completedLines[1] >= 1 && completedLines[2] >= 1) {
+        userPoints += 20;
+        console.log(`BINGO!! EL TOTAL DE PUNTOS ACUMULADOS ES:---${userPoints}---`);
+
+        ranking.push({ user, points: userPoints }); // Agregar los datos del jugador al ranking
+        
+        console.log(`Ranking de Jugadores:`);
+        for (let i = 0; i < ranking.length; i++) {
+            console.log(`${i + 1}. ${ranking[i].user} ••${ranking[i].points}•• puntos`);
+        }
+
+        let exit = prompt (`Quiere volver a jugar?? Escribe "SI" para empezar un nuevo BINGO, o, "NO" para salir del juego.`)
+
+        switch (exit){
+    
+            case "SI":
+                playAgain();
+                break;
+
+            case "NO":
+                exitBingo();
+                break;
+
+    
+            default:
+                alert (`Escriba "SI" o "NO"`)
+                break;
+        }
+    }
+};
+
+
+
+
+const exitBingo = () => {
+    alert (`gracias por jugar`)
+}
+
+
+
+
+
+
+
+
+
+const balls = () => {//GENERAR BOLAS ALEATORIAS SIN QUE SE REPITA
+    alert(`El bombo está dando vueltas...presione aceptar para ver cuál es la bola que ha salido al azar...`);
+
+    const minBall = 1;
+    const maxBall = 50;
+
+    while (noRepeatBall.length < maxBall) {
+        const numberBall = Math.floor(Math.random() * (maxBall - minBall + 1)) + minBall;
+        if (!noRepeatBall.includes(numberBall)) {
+            noRepeatBall.push(numberBall);
+            alert(`Están saliendo las bolas-->(Nº:${numberBall})<-- \nPresione (Aceptar) para visualizar la marca en el cartón de la consola y o sacar nueva bola.`);
+            const indexOnCard = noRepeatNumbers.indexOf(numberBall);
+            if (indexOnCard !== -1) {
+                if (!saveNumbers[indexOnCard]) {
+                    saveNumbers[indexOnCard] = '⭐';
+                    generateCard();
+                    checkLineBingo();
+                }
+            }
+        }
+    }
+
+    totalUserPoints();
+
+    console.log(`Ranking de Jugadores:`);
+    for (let i = 0; i < ranking.length; i++) {
+        console.log(`${i + 1}. ${ranking[i].user} ••${ranking[i].points}•• puntos`);
+    }
+};
+
+
+
+
+welcome();
+

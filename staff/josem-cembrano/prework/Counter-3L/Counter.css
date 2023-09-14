@@ -1,0 +1,92 @@
+body {
+  font-family: Verdana;
+  background-color: #0a0a0aef;
+  margin: 0;
+  padding: 0;
+}
+
+
+.container {
+  text-align: center;
+  margin-top: 300px;
+  margin-right: 582px;
+  margin-left: 600px;
+  padding-bottom: px;
+  border: 3px solid rgb(61, 1, 1);
+  border-radius: 40px;
+  box-shadow: 7px 5px 10px rgb(0, 0, 0);
+  background-position: center;
+  background-image: url('https://i.pinimg.com/736x/18/ee/12/18ee12354b040a0f3e0dad248438170d.jpg')
+}
+
+
+@font-face {
+font-family: 'gangofthree';
+src: url('./gangofthree.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+
+h1 {
+font-family: 'gangofthree', sans-serif;
+}
+
+
+
+
+.counter {
+  font-size: 36px;
+  font-weight: bold;
+  color: #530707;
+}
+
+.counter::before {
+  font-family: 'monospace';
+  content: "ISDI  C";
+  color: rgb(5, 140, 202);
+}
+
+.counter::after {
+  font-family: 'monospace';
+  content: "DERS";
+  color: rgb(0, 0, 0);
+}
+
+
+
+
+.buttons button {
+  font-family: Arial;
+  color: white;
+  font-size: 30px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px solid black;
+  background-image: url('https://media.tenor.com/fqAMFHpkw5cAAAAd/sharingan.gif');
+  background-size: cover;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: pulse 1s infinite;
+  background-position: center;
+  margin-bottom: 5px;
+}
+
+
+
+h1 {
+  color: rgba(0, 0, 0, 0.726);
+  font-size: 35px;
+}
+
+
+.firm {
+  color: antiquewhite;
+  text-align: center;
+  font-family: 'Lucida Sans';
+  opacity: 60%;
+  font-weight: bold;
+  margin-top: 50px;
+}

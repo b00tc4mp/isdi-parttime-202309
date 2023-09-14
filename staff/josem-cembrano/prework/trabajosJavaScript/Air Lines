@@ -1,0 +1,188 @@
+const flights = [
+    { id: 00, to: "New York", from: "Barcelona", cost: 700, layover: false },
+    { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, layover: true },
+    { id: 02, to: "Paris", from: "Barcelona", cost: 210, layover: false },
+    { id: 03, to: "Roma", from: "Barcelona", cost: 150, layover: false },
+    { id: 04, to: "London", from: "Madrid", cost: 200, layover: false },
+    { id: 05, to: "Madrid", from: "Barcelona", cost: 90, layover: false },
+    { id: 06, to: "Tokyo", from: "Madrid", cost: 1500, layover: true },
+    { id: 07, to: "Shangai", from: "Barcelona", cost: 800, layover: true },
+    { id: 08, to: "Sydney", from: "Barcelona", cost: 150, layover: true },
+    { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, layover: false }
+];
+
+let user = "";
+const layoverFalse = "(Sin escala)";
+const layoverTrue = "(Con escala)";
+let fullCost = 0;
+
+const wellcomeUser = () => {
+    user = prompt(`Gracias por elegir nuestro buscador de vuelos. ¿Cuál es su nombre?`);
+    if (!user || user.trim() === "") {
+        alert(`Por favor, ingrese un nombre de usuario válido.`);
+        wellcomeUser();
+    }
+};
+
+
+const flightNow = () => {
+    alert(`Hola ${user}, continúe para ver los vuelos disponibles en pantalla.`);
+
+    for (let i = 0; i < flights.length; i++) {
+        const layoverInfo = flights[i].layover ? layoverTrue : layoverFalse;
+        console.log(`El vuelo con destino ${flights[i].to} que sale de ${flights[i].from}, cuesta ${flights[i].cost}€ y es ${layoverInfo}.`);
+    }
+};
+
+
+const flightInformation = () => {
+    alert(`Actualmente esta es la información disponible de los vuelos`);
+
+    for (let i = 0; i < flights.length; i++) {
+        fullCost += flights[i].cost;
+    }
+
+    const averageCost = fullCost / flights.length;
+    alert(`En este momento el precio medio de los vuelos es ${averageCost}€`);
+
+    let sumLayover = 0;
+    for (let i = 0; i < flights.length; i++) {
+        if (flights[i].layover === true) {
+            sumLayover += 1;
+        }
+    }
+    alert(`En este momento ${sumLayover} vuelos realizan escalas.`);
+
+    const lastFlights = flights.slice(-5);
+    alert(`A continuación le mostramos los últimos vuelos en el día de hoy:`);
+    for (let i = 0; i < lastFlights.length; i++) {
+        console.log(`El vuelo con destino ${lastFlights[i].to} con salida de ${lastFlights[i].from}.`);
+    }
+};
+
+const directIndirect = layover => {
+    return layover ? layoverTrue : layoverFalse;
+};
+
+const theUser = () => {
+    let money = prompt(`Buscaremos vuelos según el precio que indique o un precio menor. Indique el precio numérico:`);
+
+    if (money === null) {
+        alert(`Operación cancelada. Hasta luego.`);
+        return;
+    }
+
+    money = parseFloat(money);
+
+    while (isNaN(money) || money <= 0) {
+        alert(`Por favor, indique un precio válido mayor a 0.`);
+        money = parseFloat(prompt(`Buscaremos vuelos según el precio que indique o un precio menor. Indique el precio numérico:`));
+        
+        if (money === null) {
+            alert(`Operación cancelada. Hasta luego.`);
+            return;
+        }
+    }
+
+    const filterFlights = flights.filter(airTravel => airTravel.cost <= money);
+    if (filterFlights.length === 0) {
+        alert(`No hay vuelos disponibles dentro del rango de precio.`);
+    } else {
+        alert(`Estos son los vuelos que se ajustan al precio que busca (${money}€):`);
+        filterFlights.forEach(airTravel => {
+            const layoverInfo = directIndirect(airTravel.layover);
+            console.log(`El vuelo con destino ${airTravel.to} que sale de ${airTravel.from}, cuesta ${airTravel.cost}€ y es ${layoverInfo}.`);
+        });
+        
+        const continueSearch = confirm(`¿Desea realizar otra búsqueda?`);
+        if (continueSearch) {
+            theUser();
+        } else {
+            alert(`Gracias por utilizar nuestro buscador!!`);
+        }
+    }
+};
+
+const addFlight = () => {
+  const newFlight = {
+    id: flights.length,
+    to: prompt(`Ingrese el destino del nuevo vuelo:`),
+    from: prompt(`Ingrese el origen del nuevo vuelo:`),
+    cost: parseFloat(prompt(`Ingrese el costo del nuevo vuelo:`)),
+    layover: confirm(`¿El vuelo tiene escala? (Aceptar para sí, Cancelar para no)`)
+  };
+
+  flights.push(newFlight);
+
+  alert(`Vuelo agregado con éxito.`);
+
+  flightNow();
+  
+  answer();
+};
+
+const theAdmin = () => {
+    const addDelete = prompt(`Indique si quiere ("añadir") o ("eliminar") un vuelo`);
+  
+    if (addDelete.toLowerCase() === "añadir") {
+        addFlight();
+
+    } else if (addDelete.toLowerCase() === "eliminar") {
+        const idToDelete = parseInt(prompt(`Especifique el número de "ID" del vuelo para eliminarlo.`));
+        
+        if (!isNaN(idToDelete)) {
+            const deleteIndex = flights.findIndex(airTravel => airTravel.id === idToDelete);
+
+            if (deleteIndex !== -1) {
+                const deleteTravel = flights[deleteIndex];
+                const pushDelete = confirm(`¿Le gustaría borrar definitivamente el vuelo con origen ${deleteTravel.from} y destino ${deleteTravel.to}?`);
+                
+                if (pushDelete) {
+                    flights.splice(deleteIndex, 1);
+                    alert(`Vuelo eliminado con éxito.`);
+                } else {
+                    alert(`Operación cancelada.`);
+                }
+            } else {
+                alert(`No se encontró ningún vuelo con el ID especificado.`);
+            }
+        } else {
+            alert(`Por favor, ingrese un número de ID válido.`);
+        }
+        
+        answer();
+    } else {
+        console.log(`Ups!! Pruebe de nuevo...`);
+        theAdmin();
+    }
+};
+
+const answer = () => {
+    const answer1 = confirm(`Necesita realizar alguna otra tarea?`);
+    answer1 ? userAdmin() : goodBye();
+};
+
+const goodBye = () => {
+    alert(`No llores porque se acabó, sonríe porque sucedió...`);
+};
+
+const userAdmin = () => {
+    const whoAreYou = prompt(`Hola!! Por favor indique si es usted: \n(user) o (admin) ?`);
+    
+    if (whoAreYou === null) {
+        alert(`Hasta luego!`);
+    } else {
+        const whoAreYouLower = whoAreYou.toLowerCase();
+        if (whoAreYouLower === "user") {
+            theUser();
+        } else if (whoAreYouLower === "admin") {
+            theAdmin();
+        } else {
+            alert(`Por favor escriba únicamente (user) o (admin)`);
+            userAdmin();
+        }
+    }
+};
+
+wellcomeUser();
+userAdmin();
