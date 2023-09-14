@@ -1,0 +1,58 @@
+body {
+  background-color: #ccc;
+}
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  margin-top: 18rem;
+  border-radius: 1rem;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30%;
+  height: 15rem;
+  padding: 2rem;
+  box-shadow: 1px 1px 5px gray;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.container .output {
+  border: none;
+  width: 80%;
+  text-align: center;
+  font-size: 7rem;
+  font-weight: 700;
+}
+
+.container .actions {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1400px) {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+.container .btn {
+  border-radius: 1rem;
+  background-color: white;
+  min-width: 8rem;
+  color: black;
+  padding: 1rem;
+  font-weight: 700;
+  transition: all;
+  transition-duration: 300ms;
+
+  &:hover {
+    cursor: pointer;
+    background-color: gray;
+  }
+}
