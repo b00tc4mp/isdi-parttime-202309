@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Calculadora Pro HTML/CSS</title>
+            <meta charset="utf-8">
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <div class="calculator">
+                <div class="control-size-buttons">
+                    <button class="size-button red"></button>
+                    <button class="size-button yelow"></button>
+                    <button class="size-button green"></button>
+                </div>
+                <div class="current-result">0</div>
+                <div class="operation-area">               
+                        <button class="button other-buttons" onclick=clearResult(this)>AC</button>
+                        <button class="button other-buttons" onclick="changeSign(this)">+⁄-</button>
+                        <button class="button other-buttons" onclick="getPercentage(this)">%</button>
+                        <button class="button operators" onclick="divideNumber(this)">/</button>  
+                    
+                        <button class="button numbers" value=7 onclick="getNextDigit(this)">7</button>
+                        <button class="button numbers" value=8 onclick="getNextDigit(this)">8</button>
+                        <button class="button numbers" value=9 onclick="getNextDigit(this)">9</button>
+                        <button class="button operators" onclick="multiplyNumber(this)">x</button>
+                    
+                        <button class="button numbers" value=4 onclick="getNextDigit(this)">4</button>
+                        <button class="button numbers" value=5 onclick="getNextDigit(this)">5</button>
+                        <button class="button numbers" value=6 onclick="getNextDigit(this)">6</button>
+                        <button class="button operators" onclick="substractNumber(this)">-</button>
+                    
+                        <button class="button numbers" value=1 onclick="getNextDigit(this)">1</button>
+                        <button class="button numbers" value=2 onclick="getNextDigit(this)">2</button>
+                        <button class="button numbers" value=3 onclick="getNextDigit(this)">3</button>
+                        <button class="button operators" onclick="addNumber(this)">+</button>
+                    
+                        <button class="button numbers zero" value=0 onclick="getNextDigit(this)">0</button>
+                        <button class="button numbers" text='.' onclick="getNextDot(this)">.</button>
+                        <button class="button operators equal" onclick="getResult(this)">=</button>
+                </div> 
+            </div>   
+            <script src="main.js"></script> 
+        </body>
+    </html>

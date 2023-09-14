@@ -1,0 +1,106 @@
+const getNumbers = () => {
+	let numbers = []
+    let numberOfElements 
+    let newNumber
+    let counter = 0
+
+    while (true) {
+        numberOfElements = parseInt(prompt (`Introduce con cuántos números quieres operar:`))
+        if (numberOfElements  === 0 || isNaN(numberOfElements)) {
+            alert (`Valor introducido erróneo. No puede ser 0 o no numérico`)
+        } else {
+            break
+        }
+    }
+    console.log(counter, numberOfElements)
+
+    while(counter < numberOfElements){
+        newNumber = parseFloat(prompt (`Introduce número ${counter+1}º:`))
+        if (newNumber  === 0 || isNaN(Number(newNumber))) {
+            alert (`Valor introducido erróneo. No puede ser 0 o no numérico`)
+        } else {
+            numbers.push(newNumber)
+            counter +=1
+        }
+    }        
+    return numbers
+}
+
+const addNumbers = (numbers) => {
+    let result = 0
+    for (let i = 0; i < numbers.length; i++) {
+        result += numbers[i]
+    }
+    return result
+}
+
+const substractNumbers = (numbers) => {
+    let result = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        result -= numbers[i]
+    }
+    return result
+}
+
+const multiplyNumbers = (numbers) => {
+    let result = 1
+    for (let i = 0; i < numbers.length; i++) {
+        result *= numbers[i]
+    }
+    return result
+}
+
+const divideNumbers = (numbers) => {
+    let result = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        result /= numbers[i]
+    }
+    return result
+}
+
+const squareRootNumber = (numbers) => {
+    let result = Math.sqrt(numbers[0])
+    return result
+}
+
+const startCalculator = () =>{
+    while(true){
+        let numbers = getNumbers()
+        console.log(`Números con los que operar: ${numbers}`)
+
+        if (numbers.length === 1){
+            let result = squareRootNumber (numbers)
+            alert (`Hay un sólo número. En consola puedes ver su raíz cuadrada`)
+            if (result % 1 != 0) {
+                result = result.toFixed(3)
+            } 
+            console.log(`\nLa raíz cuadrada de ${numbers[0]} es ${result}`)
+        } else {
+            let results = {
+                Suma: addNumbers(numbers),
+                Resta: substractNumbers(numbers),
+                Multiplicacion: multiplyNumbers(numbers),
+                Division: divideNumbers(numbers)
+            }
+            
+            for (let key in results){
+                if (results[key] % 1 != 0){
+                    results[key] = results[key].toFixed(3)
+                }
+            }
+            
+            alert (`En consola puedes ver los resultados de las cuatro operaciones básicas con los números introducidos`)
+            console.log('\nResultados:')
+            for (let key in results){
+                console.log(`${key}: ${results[key]}`)
+            }
+        }
+
+        let exitOrContinue = confirm ('¿Quieres salir del programa?\n\nEscape o cancelar reinicia la calculadora')
+        if (exitOrContinue) {
+            alert (`¡¡ Hasta la próxima !!`)
+            break
+        } else {            
+        }
+    }
+}
