@@ -1,0 +1,120 @@
+.game {
+    display: inline-block;
+    justify-content: space-between; /* Alinea los elementos a los lados de la pantalla */
+    padding: 20px; /* Añade espacio entre los elementos */
+}
+
+body {
+    position: absolute;
+    height: 22.5em;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    background-color:cadetblue
+}
+
+.panel {
+    padding-left: 2em;
+}
+
+
+.letters-container {
+    display: flex;
+    flex-direction: column; /* Las letras estarán en columnas */
+    align-items: flex-start; /* Alinea las letras a la izquierda */
+}
+
+
+.letters-A-N {
+    position: center;
+    display: flex;
+    flex-direction: row;
+    align-items: wrap; 
+}
+
+
+.letters-Ñ-Z {
+    position: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.letters {
+    display: block;
+    width: 2.55em;
+    transition: all .3s ease-in-out;
+    border: 3px solid #030303;
+    background-image: radial-gradient(circle, #0074d9, #004b8d);
+    color: #fff;
+    line-height: 2.25em;
+    text-align: center;
+    text-decoration: none;
+    cursor: default;
+}
+
+.score .points {
+    display: block;
+    width: 3.25em;
+    transition: all .3s ease-in-out;
+    border: 2px solid #fff;
+    background-image: radial-gradient(circle, #0074d9, #004b8d);
+    color: #fff;
+    line-height: 2.25em;
+    text-align: center;
+}
+
+.count-down {
+    display: block;
+    width: 3.25em;
+    transition: all .3s ease-in-out;
+    border: 2px solid #fff;
+    background-image: radial-gradient(circle, #0074d9, #004b8d);
+    color: #fff;
+    line-height: 2.25em;
+    text-align: center;
+}
+
+.controls .close {
+    float: right;
+    background-color :cadetblue;
+    border-style: none;
+    font-size: 55px;
+    color: #d90000;
+    cursor: pointer;
+}
+
+
+.tittle-container {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    color:rgb(2, 76, 141);
+    padding: .5rem;
+    margin: 0px;
+}
+
+
+.Text .description-tittle {
+    flex-grow: 1; /* Ocupa el espacio restante en el centro */
+    padding: 20px; /* Añade espacio alrededor del texto */
+    color: #fff; /* Cambia el color del texto */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    border-radius: 5px; /* Añade bordes redondeados */
+
+}
+
+.Text .description-text {
+    flex-grow: 1; /* Ocupa el espacio restante en el centro */
+    padding: 20px; /* Añade espacio alrededor del texto */
+    color: #fff; /* Cambia el color del texto */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    border-radius: 5px; /* Añade bordes redondeados */
+}
+
+.sign {
+    text-align: center;
+    font-size: 20px;
+}
