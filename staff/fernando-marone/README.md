@@ -1,4 +1,0 @@
-# Fernando Marone
-
-## GitHub
-
