@@ -1,0 +1,494 @@
+const cartonRandom = [];
+
+let bomboFull = [];
+let bombo = [];
+let linCarton1 = [];
+let linCarton2 = [];
+let linCarton3 = [];
+let xArray = ["X","X","X","X","X"];
+let xArrayBingo = ["X","X","X","X","X","X","X","X","X","X","X","X","X","X","X"];
+const min = 1;
+const max = 90;
+const numbersOfCarton = 15;
+const numbersOfBalls = 90; 
+let sayLine = false;
+let sayBingo = false;
+const bomboMaxNumbers = 90;
+let numberInside = 0;
+let pointsInit = 1000;
+let movements = 0;
+let nameUser;
+
+let players = [
+    {
+        "name": "Trix",
+        "points": 910
+
+    },
+
+    {
+        "name": "Dori",
+        "points": 900
+
+    },
+
+    {
+        "name": "Anna",
+        "points": 930
+
+    }
+
+
+
+
+
+
+]
+
+
+/////////////////////////////////////////////////////
+
+const addUserRanking = () => {
+
+    let enterNewUser = {
+        "name": nameUser,
+        "points": pointsInit,
+        
+      }
+      players.unshift(enterNewUser);
+
+}
+
+
+
+const sortArrayObject = (array) => {
+    
+    array.sort(function (a, b) {
+      if (a.points < b.points) {
+        return 1;
+      }
+      if (a.points > b.points) {
+        return -1;
+      }
+      
+      return 0;
+    });
+}
+
+
+
+////////////////////////////////////////////////////////////
+
+
+const exitBingo = () => {
+    
+    alert(`Muchas gracias por haber jugado con nosotros. Vuelva pronto.`)
+  }
+
+
+
+///////////////////////////////////////////////////////////
+
+const getPoints = () => {
+    pointsInit = pointsInit -1;
+}
+
+
+const getNumberMovements = () => {
+    movements = movements +1;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////
+
+const getRandomNum = (min, max) => {
+    let number = Math.random() * (max - min) + min;
+    number = Math.trunc(number)
+
+    return number
+
+} 
+
+
+////////////////////////////////////////////////////////////
+
+
+const getRandomCarton1 = () => {
+
+    while(cartonRandom.length < numbersOfCarton ){
+
+        let aleatoryNum = getRandomNum(min,max);
+        
+        let exists = false;
+        for(let i=0;i<cartonRandom.length;i++){
+          if(cartonRandom [i] == aleatoryNum){
+              exists = true;
+              break;
+          }
+        }
+        if(!exists){
+            cartonRandom[cartonRandom.length] = aleatoryNum;
+        }
+        cartonRandom.sort(function(a,b){return a-b});
+      }
+      alert(` 
+        ${cartonRandom[0]} |  ${cartonRandom[1]} | ${cartonRandom[2]} | ${cartonRandom[3]} | ${cartonRandom[4]} |
+        ${cartonRandom[5]} | ${cartonRandom[6]} | ${cartonRandom[7]} | ${cartonRandom[8]} | ${cartonRandom[9]}| 
+        ${cartonRandom[10]} | ${cartonRandom[11]} | ${cartonRandom[12]} | ${cartonRandom[13]} | ${cartonRandom[14]}|`)
+
+      return cartonRandom
+}
+
+
+
+
+
+const deleteRandomCarton = (array) => {
+    array.length = 0;
+}
+
+
+
+/////////////////////////////////////////
+
+
+const createBombo = () => {
+
+    for (let i = 1; i < bomboMaxNumbers; i++){
+        numberInside = numberInside + 1;
+    
+        bomboFull.push(numberInside);
+    
+    
+    }
+   return bomboFull
+}
+
+
+const deleteNumberBombo = (array, number) => {
+
+    for (let i = 0; i < array.length; i++){
+        if(array[i] === number){
+            array.splice(i,1);
+        }
+    }
+
+}
+
+
+const emptyBombo = () => {
+    bomboFull.length = 0;
+    return bomboFull
+}
+
+
+
+
+//////////////////////////////////////
+
+
+const isEqual = (array1, array2) => {
+
+    let isEqual = JSON.stringify(array1) === JSON.stringify(array2);
+return isEqual
+
+}
+
+
+const checkTheX = () => {
+
+    linCarton1 = cartonRandom.slice(0, 5);
+    linCarton2= cartonRandom.slice(5, 10);
+    linCarton3 = cartonRandom.slice(10, 15);
+
+    let result1 =  isEqual(linCarton1,xArray);
+    let result2 =  isEqual(linCarton2,xArray);
+    let result3 =  isEqual(linCarton3,xArray);
+
+    //let resultBingo =  cartonRandom.equals(xArrayBingo);
+    let resultBingo =  isEqual(cartonRandom,xArrayBingo);
+
+    if (resultBingo === true){
+
+        sayBingo = true;
+        alert(`BINGO!!  FELICIDADES HA GANADO LA PARTIDA`);
+       
+
+
+    } 
+
+
+
+    if (sayLine === false && result1 === true){
+        alert(`Felicidades ha conseguido una LINEA`);
+        sayLine = true;
+        checkTheX();
+        playAgain();
+
+    } else if (sayLine === false && result2 === true) {
+        alert(`Felicidades ha conseguido una LINEA`);
+        sayLine = true;
+        playAgain();
+
+    } else if (sayLine === false && result3 === true) {
+        alert(`Felicidades ha conseguido una LINEA`);
+        sayLine = true;
+        playAgain();
+
+    } else if (sayBingo === true){
+        endGame();
+        
+    } else {
+        playAgain();
+         
+
+    }
+
+    
+    }
+
+   
+
+
+
+
+
+    
+/////////////////////////////////////
+
+const endGame = () => {
+    alert(`La partida se ha acabado. Su puntuación ha sido ${pointsInit}`);
+    alert(`ha necesitado ${movements} tiradas para hacer Bingo.`);
+    addUserRanking();
+    sortArrayObject(players);
+    alert(`A continuación mostramos su posición en el ranking`);
+    alert(JSON.stringify(players, null, 4));
+    deleteRandomCarton(cartonRandom);
+    emptyBombo(bomboFull);
+    playAnotherTime();
+}
+    
+
+
+
+
+///////////////////////////////////////////////
+
+const updateCarton = (cartonRandom, number) => {
+
+    for (let i = 0; i < cartonRandom.length; i++){
+        if(cartonRandom[i] === number){
+            cartonRandom.splice(i,1,"X");
+        }
+    }
+
+    alert(` Su carton es:
+        ${cartonRandom[0]} |  ${cartonRandom[1]} | ${cartonRandom[2]} | ${cartonRandom[3]} | ${cartonRandom[4]} |
+        ${cartonRandom[5]} | ${cartonRandom[6]} | ${cartonRandom[7]} | ${cartonRandom[8]} | ${cartonRandom[9]}| 
+        ${cartonRandom[10]} | ${cartonRandom[11]} | ${cartonRandom[12]} | ${cartonRandom[13]} | ${cartonRandom[14]}|`)
+return cartonRandom
+
+
+}
+
+
+
+
+
+
+
+
+
+const checkCarton1 = () => {
+
+
+
+    let number = bomboFull[Math.floor(Math.random() * bomboFull.length)];
+
+    alert(`El número que ha salido del bombo es ${number}`)
+
+    let search = cartonRandom.includes(number);
+
+    if (search === true){
+        alert(`Felicidades tienes el número en el cartón`)
+        deleteNumberBombo(bomboFull, number);
+        
+        updateCarton(cartonRandom, number);
+        checkTheX();
+         
+
+    }else{
+        alert(`No tiene el número en su cartón`)
+        deleteNumberBombo(bomboFull, number);
+        
+        playAgain();
+    }
+
+
+}
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+const playAgain = () => {
+
+    getNumberMovements();
+    getPoints();
+    let wannaPlay = prompt("Quiere tirar bola (P) o prefiere salir (E)?").toUpperCase()
+     
+     switch (wannaPlay) {
+           case "P":
+             checkCarton1();
+             
+               break
+           
+ 
+               case "E":
+                exitBingo();
+               break
+           
+           default:
+               alert("El valor no es correcto")
+               playAgain();
+               
+       }
+ }
+ 
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+const generateAnotherCarton = () => {
+    alert(`Le estamos generando un cartón`)
+    let playCarton = getRandomCarton1();
+    let acceptCarton = prompt("Quiere jugar con este cartón (YES), elegir otro (OTHER) o prefiere salir (EXIT)?").toUpperCase()
+
+    switch (acceptCarton) {
+        case "YES":
+            playAgain();
+            break
+
+            case "OTHER":
+            deleteRandomCarton(cartonRandom);
+            generateCarton();
+            break
+
+            case "EXIT":
+              exitBingo();
+            break
+        
+        default:
+            alert("El valor no es correcto")
+            
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+const generateCarton = () => {
+
+    alert(`Le estamos generando un cartón`)
+
+    let playCarton = getRandomCarton1();
+
+    
+    
+
+    let acceptCarton = prompt("Quiere jugar con este cartón (YES), elegir otro (OTHER) o prefiere salir (EXIT)?").toUpperCase()
+
+    switch (acceptCarton) {
+        case "YES":
+            playAgain();
+            break
+
+            case "OTHER":
+            deleteRandomCarton(cartonRandom);
+            
+            generateAnotherCarton ();
+            break
+
+            case "EXIT":
+              exitBingo();
+            break
+        
+        default:
+            alert("El valor no es correcto")
+            
+    }
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+
+
+const playAnotherTime = () => {
+    alert("Muchas gracias por jugar con nosotros.")
+    let enterBingo = prompt("Quiere volver a jugar (PLAY) o prefiere salir (EXIT)?").toUpperCase()
+
+    switch (enterBingo) {
+        case "PLAY":
+            emptyBombo();
+            firstMenu();
+            break
+
+            case "EXIT":
+              exitBingo();
+            break
+        
+        default:
+            alert("El valor no es correcto")
+            
+    }
+
+}
+
+
+
+
+
+
+const firstMenu = () => {
+
+   
+    alert("Bienvenido a nuestro juego de Bingo. Empezará con 1000 puntos y cada vez que salga una bola del bombo, se restará 1 punto. Al terminar la partida, le indicaremos su puntuación")
+    
+    let enterBingo = prompt("Quiere jugar (PLAY) o prefiere salir (EXIT)?").toUpperCase()
+    
+    switch (enterBingo) {
+          case "PLAY":
+            nameUser = prompt("Indíquenos su nombre, por favor")
+            
+            createBombo();
+            generateCarton();
+              break
+
+              case "EXIT":
+                exitBingo();
+              break
+          
+          default:
+              alert("El valor no es correcto")
+              
+      }
+}
+
+firstMenu();

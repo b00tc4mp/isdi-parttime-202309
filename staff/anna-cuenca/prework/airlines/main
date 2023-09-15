@@ -1,0 +1,326 @@
+///// AIRLINES ////
+
+const flights = [
+    { id: 00, to: "New York", from: "Barcelona", cost: 700, layover: false },
+    { id: 01, to: "Los Angeles", from: "Madrid", cost: 1100, layover: true },
+    { id: 02, to: "Paris", from: "Barcelona", cost: 210, layover: false },
+    { id: 03, to: "Roma", from: "Barcelona", cost: 150, layover: false },
+    { id: 04, to: "London", from: "Madrid", cost: 200, layover: false },
+    { id: 05, to: "Madrid", from: "Barcelona", cost: 90, layover: false },
+    { id: 06, to: "Tokyo", from: "Madrid", cost: 1500, layover: true },
+    { id: 07, to: "Shangai", from: "Barcelona", cost: 800, layover: true },
+    { id: 08, to: "Sydney", from: "Barcelona", cost: 150, layover: true },
+    { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, layover: false },
+  ];
+  
+  
+
+  
+  const welcomeMessage = () => {
+    
+    alert(`¡Hola! ${nameUser} Bienvenido/a a ISDI coders Airlines`);
+    
+  }
+  
+  
+  
+  const showFlightsInfo = (flights) => {
+    console.log(flights);
+  }
+
+
+
+  
+  const showFlights = (flights) => {
+    alert(` A continuación le mostramos los vuelos ${nameUser}`);
+    for (i = 0; i < flights.length; i++){
+      
+      if (flights[i].layover === false){
+        console.log(`El vuelo con origen ${flights[i].from}, y destino: ${flights[i].to} tiene un coste de ${flights[i].cost} euros y no realiza ninguna escala.`);
+      }else{
+        console.log(`El vuelo con origen ${flights[i].from}, y destino: ${flights[i].to} tiene un coste de ${flights[i].cost} euros y realiza escala.`);
+      }
+      
+    }
+  }
+  
+
+
+
+  const mediaCostFlights = (flights) => {
+    alert(` ${nameUser} a continuación le mostraremos el coste medio de los vuelos`);
+    let sum = 0;
+    for (i = 0; i < flights.length; i++){
+      sum = sum + flights[i].cost;
+      
+    
+    }
+    console.log(`El coste medio de los vuelos es ${sum/flights.length}`);
+  }
+  
+ 
+
+
+  const showConnectingFlights = (flights) => {
+    alert(` ${nameUser} a continuación le mostraremos los vuelos que realizan escala`);
+    for (let i = 0; i < flights.length; i++){
+      if (flights[i].layover === true){
+        console.log(`El vuelo con origen ${flights[i].from}, y destino: ${flights[i].to} efectua escala.`);
+      }
+    }
+  }
+  
+ 
+
+
+  const showLastFlights = (flights) => {
+    alert(` ${nameUser} estos son los últimos vuelos del día`);
+    for (let i = 0; i < flights.length; i++){
+      if (flights[i].id > 4){
+        console.log(`Vuelo con origen ${flights[i].from}, y destino: ${flights[i].to}.`);
+      }
+    }
+    
+  }
+  
+  
+
+
+  const showUpdatedFlights = (flights) => {
+    alert(`A continuación le mostramos los vuelos actualizados ${nameUser}`);
+    for (i = 0; i < flights.length; i++){
+      
+      if (flights[i].layover === false){
+        console.log(`El vuelo con origen ${flights[i].from}, y destino: ${flights[i].to} tiene un coste de ${flights[i].cost} euros y no realiza ninguna escala.`);
+      }else{
+        console.log(`El vuelo con origen ${flights[i].from}, y destino: ${flights[i].to} tiene un coste de ${flights[i].cost} euros y realiza escala.`);
+      }
+      
+    }
+  }
+  
+  const checkNumentries = (flights) => {
+   
+    if (flights.length > 15){
+        alert(`No puede introducir más vuelos ${nameUser}`);
+    }
+  }
+
+
+
+const addFlight = (flights) => {
+
+    if(flights.length > 14){
+
+        alert(` ${nameUser} no se pueden introducir más vuelos`);
+        rolAdmin()
+
+
+    }else{
+
+        let flightadded = {id: 0, to: " ", from: " ", cost: 0, layover: false}
+    
+        let addTo = prompt("Introduzca la ciudad de destino")
+    
+        let addFrom = prompt("Introduzca la ciudad de origen")
+   
+        let addCost = prompt("Introduzca el precio")
+  
+        let addConnecting = prompt("El vuelo realiza escalas (S/N)?").toUpperCase()
+    
+         switch (addConnecting) {
+            case "S":
+              flightadded.layover = true;
+              break
+            case "N":
+              flightadded.layover = false;
+              break
+          
+             default:
+              alert("El valor no es correcto")
+              
+              
+             }
+    
+        flights.push({id: Object.keys(flights).length ,to: addTo, from: addFrom, cost: addCost, layover: flightadded.layover});
+    
+    
+        console.log(flightadded);
+    
+        return flights;
+    }
+
+    }
+    
+    
+    
+    const deleteFlight = (flights) => {
+
+        let eraseFlightId = prompt("Introduzca el ID del vuelo que quiera eliminar")
+        flights.splice(eraseFlightId - 1, 1)
+        alert(`El vuelo con ID ${eraseFlightId} ha sido eliminado`)
+     
+     }
+
+
+
+
+     const searchFlightPrice = (flights) => {
+
+        let priceUserList;
+
+        let priceUser = prompt("Introduzca la cantidad que se quiera gastar como máximo")
+
+        for (let i = 0; i < flights.length; i++){
+            if (priceUser >= flights[i].cost){
+                priceUserList = console.log(flights[i]);
+            }
+        }
+
+       
+
+
+     }
+
+
+  
+
+
+
+
+   const retornFun = () => {
+    let retornFun = prompt("Quiere volver a elección de rol (R) o salir (E)?").toUpperCase()
+    
+    switch (retornFun) {
+          case "R":
+            rolAdmin()
+              break
+          case "E":
+            exitFun()
+              break
+          
+          default:
+              alert("El valor no es correcto")
+              
+      }
+   }
+
+   const exitFun = () => {
+    alert(` ${nameUser} muchas gracias por visitar ISDI AIRLINES, vuelva pronto.`);
+   }
+
+
+  const rolAdmin = () => {
+    alert(` ${nameUser} ha entrado como ADMIN`);
+
+    let adminFun = prompt("Quiere añadir un vuelo (A) o eliminar un vuelo (D) o salir (E)?").toUpperCase()
+    
+    switch (adminFun) {
+          case "A":
+            checkNumentries(flights);
+            addFlight(flights);
+            showUpdatedFlights(flights);
+            showFlightsInfo(flights);
+            rolAdmin()
+              break
+          case "D":
+              deleteFlight(flights);
+              showUpdatedFlights(flights);
+              showFlightsInfo(flights);
+              rolAdmin()
+              break
+
+          case "E":
+            askUserRol()
+              break
+          
+          default:
+              alert("El valor no es correcto")
+              
+      }
+    
+
+    
+  }
+  
+  
+  const rolUserEntry = () => {
+    alert(` ${nameUser} ha entrado como USER`);
+
+    let userFun = prompt("Quiere buscar un vuelo (S), volver a elección de Rol (R) o salir (E)?").toUpperCase()
+
+    switch (userFun) {
+        case "S":
+          searchFlightPrice(flights);
+          alert(`A continuación se muestran los vuelos que coinciden con sus criterios.`)
+          rolUserEntry()
+            break
+        case "R":
+            askUserRol()
+            
+            break
+
+        case "E":
+            exitFun()
+            break
+        
+        default:
+            alert("El valor no es correcto")
+            
+    }
+  }
+
+
+  const askUserRol = () => {
+   
+    let rolUser = prompt("¿Quiere acceder como ADMIN (A) , USER (U) o SALIR (E) ?").toUpperCase()
+    switch (rolUser) {
+        case "A":
+            rolAdmin()
+            break
+        case "U":
+            rolUserEntry()
+            break
+
+        case "E":
+            exitFun()
+            break
+        
+        default:
+            alert("El rol introducido no es correcto")
+            askUserRol()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+let nameUser = prompt("Indíquenos su nombre, por favor.");
+
+welcomeMessage();
+
+showFlights(flights);
+
+console.log("__________________________________________________________________________________");
+
+
+
+mediaCostFlights(flights);
+
+console.log("__________________________________________________________________________________");
+
+showConnectingFlights(flights);
+
+console.log("__________________________________________________________________________________");
+
+showLastFlights(flights);
+
+console.log("__________________________________________________________________________________");
+
+askUserRol();

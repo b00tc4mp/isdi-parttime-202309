@@ -1,0 +1,221 @@
+let numbersArray = [];
+let operationResults = [];
+
+/////////////////////////////////////////////////////////////////////
+
+const welcomeMessage = () => {
+    alert(`Bienvenido a la calculadora ISDI`)
+  }
+
+
+  const exitCalculator = () => {
+    alert(`Los resultados de sus operaciones son ${operationResults}`)
+    alert(`Muchas gracias por haber usado nuestra calculadora.`)
+  }
+
+////////////////////////////////////////////////////////////////////
+
+
+const isIntegerFunction = (numberValue1) => {
+
+    let isIntegerNumber = Number.isInteger(numberValue1);
+
+    if (isIntegerNumber === true){
+
+       return  numberValue1;
+    } else {
+        return numberValue1.toFixed(3);
+    }  
+  
+}
+
+
+
+
+const squareRoot = () => {
+
+    let square = Math.sqrt(numbersArray);
+    
+
+    
+
+    alert(`La raíz cuadrada de su número es ${isIntegerFunction(square)}`)
+    operationResults.push(isIntegerFunction(square));
+
+    return square
+  }
+
+
+
+
+
+  const additionNumbers = () => {
+
+    let addValue = 0;
+
+    for (let i = 0; i<numbersArray.length; i++){
+        addValue = addValue + numbersArray[i]
+        
+    }
+
+    
+
+    alert(`El resultado de la suma de sus números es ${isIntegerFunction(addValue)}`)
+    operationResults.push(isIntegerFunction(addValue));
+
+    return addValue
+  }
+
+
+
+
+
+  const subtractNumbers = () => {
+
+    let subtractValue = numbersArray[0];
+    
+
+    for (let i = 1; i<numbersArray.length; i++){
+
+        subtractValue-=numbersArray[i];
+        
+    }
+
+    
+
+    alert(`El resultado de la resta de sus números es ${isIntegerFunction(subtractValue)}`)
+    operationResults.push(isIntegerFunction(subtractValue));
+
+    return subtractValue
+  }
+
+
+
+
+  const multiplyNumbers = () => {
+
+    let multiplyValue = numbersArray[0];
+    
+
+    for (let i = 1; i<numbersArray.length; i++){
+
+        multiplyValue*=numbersArray[i];
+        
+    }
+
+    
+
+    alert(`El resultado de la resta de sus números es ${isIntegerFunction(multiplyValue)}`)
+    operationResults.push(isIntegerFunction(multiplyValue));
+
+    return multiplyValue
+  }
+
+
+
+  const divisionNumbers = () => {
+
+    let divisionValue = numbersArray[0];
+    
+
+    for (let i = 1; i<numbersArray.length; i++){
+
+        divisionValue/=numbersArray[i];
+        
+    }
+
+    
+
+    alert(`El resultado de la división de sus números es ${isIntegerFunction(divisionValue)}`)
+    operationResults.push(isIntegerFunction(divisionValue));
+
+    return divisionValue
+  }
+
+
+
+////////////////////////////////////////////////////////////////////
+
+const deleteArrayInfo = () => {
+    numbersArray.length = 0;
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+
+  const enterNumberFunction = () => {
+    let enterNumbers = prompt("Cuántos números quiere introducir?")
+    enterNumbers = parseInt(enterNumbers);
+
+    for (i = 1; i<enterNumbers+1; i++){
+       number = prompt(`Introduzca el número ${i}`)
+       number = parseInt(number);
+       numbersArray.push(number);
+       
+    }
+    
+   }
+
+
+
+
+   const checkNumberLeng = () => {
+    let numbersArrayLong = numbersArray.length
+
+
+    if (numbersArrayLong === 1){
+        squareRoot(numbersArray);
+        deleteArrayInfo();
+        enterCal();
+    }else{
+       
+        additionNumbers(numbersArray);
+        subtractNumbers(numbersArray);
+        multiplyNumbers(numbersArray);
+        divisionNumbers(numbersArray);
+        deleteArrayInfo();
+        enterCal();
+        
+    }
+    
+   }
+
+
+
+
+
+
+
+  const enterCal = () => {
+    let enterCal = prompt("Quiere hacer una operación (O) o prefiere salir (S)?").toUpperCase()
+    
+    switch (enterCal) {
+          case "O":
+            enterNumberFunction();
+            checkNumberLeng();
+              break
+          
+
+              case "S":
+                exitCalculator();
+              break
+          
+          default:
+              alert("El valor no es correcto")
+              
+      }
+   }
+
+
+
+
+   ////// FUNCIONAMIENTO ////
+
+   welcomeMessage();
+   enterCal();
