@@ -21,7 +21,12 @@ botones.forEach(boton => {
 
         if (boton.id === "igual") {
             try {
-                pantalla.textContent = eval(pantalla.textContent);
+                const resultado = eval(pantalla.textContent);
+                if (isNaN(resultado) || !isFinite(resultado)) {
+                    pantalla.textContent = "Error!";
+                } else {
+                    pantalla.textContent = resultado;
+                }
             } catch {
                 pantalla.textContent = "Error!";
             }
