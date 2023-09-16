@@ -1,19 +1,19 @@
-let count = 0;          // VARIABLE CONTADOR
-let maxCount = 20;      // LÍMITE MÁXIMO CONTADOR  
+let count = 0;
+let maxCount = 20;  
 
 
-const countDisplay = document.querySelector('.counter'); // DEVUELVE LA CLASE EN '' INDICADO DEL HTML
+const countDisplay = document.querySelector('.counter');
 const incrementButton = document.querySelector('.increase-button');
 const decrementButton = document.querySelector('.decrease-buttom');
 const resetButton = document.querySelector('.restart-butom');
 
 
-const updateDisplay = () => {   // ACTUALIZA LA FUNCIÓN DEL CONTENIDO 'COUNT' DEL HTML
+const updateDisplay = () => {
     countDisplay.textContent = count;
 }
 
 
-const getIncrement = () => {    // FUNCIÓN INCREMENTO
+const getIncrement = () => {
     if (count < maxCount) {
         count++;
         updateDisplay();
@@ -23,7 +23,7 @@ const getIncrement = () => {    // FUNCIÓN INCREMENTO
 };
 
 
-const getDecrement = () => {    // FUNCIÓN DECRECIMIENTO
+const getDecrement = () => {
     if (count > 0) {
         count--;
         updateDisplay();
@@ -33,7 +33,7 @@ const getDecrement = () => {    // FUNCIÓN DECRECIMIENTO
 }
 
 
-const getReset = () => {        // FUNCIÓN REINICIO
+const getReset = () => {
     count = 0;
     updateDisplay();
 }

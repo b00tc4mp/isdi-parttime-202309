@@ -1,6 +1,6 @@
-const display = document.querySelector(".screen"); // PANTALLA
-const buttons = document.querySelectorAll(".btn"); // BOTONES
-const maxLength = 16; // LONGITUD MÁXIMA DE DISPLAY
+const display = document.querySelector(".screen");
+const buttons = document.querySelectorAll(".btn");
+const maxLength = 16;
 
 
 buttons.forEach(button => {
