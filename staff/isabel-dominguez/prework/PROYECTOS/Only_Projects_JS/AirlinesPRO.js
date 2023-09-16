@@ -223,29 +223,3 @@ const doExitProgram = () => {
 adminOrUser();
 
 
-// Este código JavaScript representa un proyecto de líneas aéreas que interactúa con el usuario a través de avisos y alertas en el entorno del navegador.El programa permite al usuario ver información sobre vuelos, realizar acciones como usuario o administrador, y añadir o eliminar vuelos.Desglosemos las diferentes partes del código:
-
-// Datos: El código comienza con un array llamado flights, que contiene información de vuelos como objetos con propiedades como id, to, from, cost, y layover.
-
-// Función getUserName: Esta función pide al usuario que introduzca su nombre y devuelve el nombre introducido.
-
-// Función showFlights: Esta función muestra la lista de vuelos disponibles para hoy en la consola.Recorre la matriz de vuelos e imprime los detalles del vuelo, indicando si tiene escala o si es un vuelo directo.
-
-// Función showFlightsInfo: Esta función proporciona algunas estadísticas e información sobre los vuelos.Calcula y muestra el coste medio de los vuelos, el número de vuelos con escala y los detalles de los últimos 5 vuelos de hoy.
-
-// Función adminOrUser: Esta función pregunta al usuario si es un "ADMINISTRADOR" o un "USUARIO" y luego redirige a las funciones correspondientes: isAnAdmin para administradores e isUser para usuarios normales.Si la entrada no es ni "admin" ni "user", llama a la función doExitProgram para salir del programa.
-
-// Función translateLayover: La función ahora acepta correctamente el valor de escala como argumento y devuelve la traducción adecuada en función de si el vuelo tiene escala o no.
-
-// Función isUser: Esta función permite al usuario introducir un precio, y muestra los vuelos que tienen un coste igual o inferior al precio introducido.Utiliza los métodos filter y every array para filtrar y mostrar los vuelos relevantes en la consola.
-
-// Función isAnAdmin: Esta función permite a un administrador añadir un nuevo vuelo o eliminar un vuelo existente de la matriz de vuelos basándose en la entrada del usuario.Utiliza prompt, confirm y forEach para interactuar con el administrador.
-
-// Función doAnswerUser: Esta función pregunta al usuario si desea realizar alguna otra acción después de completar su acción anterior.Si el usuario confirma, vuelve a llamar a adminOrUser; en caso contrario, llama a doExitProgram para salir del programa.
-
-// Función doExitProgram: Esta función muestra un mensaje de despedida y finaliza el programa.
-
-// Ten en cuenta que el código utiliza console.log para mostrar información en la consola y alert para mostrar mensajes en ventanas emergentes.
-
-
-

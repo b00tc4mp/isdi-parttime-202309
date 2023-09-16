@@ -11,6 +11,8 @@ for (let i = 0; i < data.length; i++) {
         console.log("We found your data! Your name is " + data[i].name + " and your age is " + data[i].age);
     }
 }
+
 // También se puede escribir así la concatenación
 
 console.log(`We found your data! Your name is ${data[i].name} and your age is ${data[i].age}`);
+
