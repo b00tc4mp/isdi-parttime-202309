@@ -7,7 +7,6 @@
 body {
     position: absolute;
     height: 22.5em;
-    position: absolute;
     top: 25%;
     left: 50%;
     margin: 0;
@@ -76,13 +75,28 @@ body {
     text-align: center;
 }
 
+.controls .answerd {
+
+}
+
+.controls. .okey {
+
+}
+
+.controls .pasapalabra {
+
+}
+
 .controls .close {
-    float: right;
+    position: absolute;
+    font-size: 55px;
+    top: 10px;
+    right: 10px;
     background-color :cadetblue;
     border-style: none;
-    font-size: 55px;
     color: #d90000;
     cursor: pointer;
+    z-index: 2;
 }
 
 
@@ -98,10 +112,10 @@ body {
 
 
 .Text .description-tittle {
-    flex-grow: 1; /* Ocupa el espacio restante en el centro */
+    position: fixed;
+    flex-grow: 1; 
     padding: 20px; /* Añade espacio alrededor del texto */
     color: #fff; /* Cambia el color del texto */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
     border-radius: 5px; /* Añade bordes redondeados */
 
 }
@@ -110,7 +124,6 @@ body {
     flex-grow: 1; /* Ocupa el espacio restante en el centro */
     padding: 20px; /* Añade espacio alrededor del texto */
     color: #fff; /* Cambia el color del texto */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
     border-radius: 5px; /* Añade bordes redondeados */
 }
 

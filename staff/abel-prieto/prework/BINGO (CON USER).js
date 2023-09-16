@@ -1,16 +1,16 @@
-let getUserName = '';               // VARIABLE NOMBRE USUARIO
-let randomNumber = 0;               // VARIABLES NÚMEROS RANDOM 
-let anotherRandomNumber = 0;        // NÚMERO RANDOM QUE HA SALIDO
-let bingoCard = [];                 // ARRAY NÚMEROS BINGO
-let repeatNumber = [];              // VARIABLE PARA METER NÚMEROS BOLAS NO REPETIDAS
-let cardLength = 15;                // LÍMITE NÚMEROS BINGO
-let turn = 0;                       // VARIABLE TURNO
-let score = 50;                     // VARIABLE MÍNIMA PUNTUACIÓN
-let totalScore = [];                // ARRAY PUNTUACIÓN REGRESIVO 
-let validImput = false;             // CONDICIÓN EN PLAYBINGO PARA OPCIONES INVÁLIDAS
-let checkLine = false;              // CONDICIÓN DE CANTAR LÍNEA
-let letsContinue = true;            // CONDICIÓN PARA SALIR DEL JUEGO
-let ranking = [];                   // RANKING - USUARIOS Y SCORE
+let getUserName = '';               
+let randomNumber = 0;              
+let anotherRandomNumber = 0;       
+let bingoCard = [];                
+let repeatNumber = [];              
+let cardLength = 15;               
+let turn = 0;                       
+let score = 50;                     
+let totalScore = [];                
+let validImput = false;             
+let checkLine = false;              
+let letsContinue = true;            
+let ranking = [];                   
 
 
 const getGreetings = () => {
@@ -29,13 +29,13 @@ const getGreetings = () => {
 };
 
 
-const createCard = () => { // PRIMER CARTÓN
+const createCard = () => { 
     generateCard();
     alert('¡Cartón generado!')
 };
 
 
-const getRules = () => { // REGLAS + PUNTUACIÓN
+const getRules = () => { 
     console.log(`                      📝   REGLAS   📝                       `);
     console.log('---------------------------------------------------------------');
     console.log('Empezamos con 100 Puntos. Por cada cartón sin anotar, se restarán 3 puntos por turno y por cada número acertado, sumará 10 puntos.')
@@ -67,13 +67,13 @@ const getCard = () => {
 };
  
 
-const getRandomNumber = () => { // CARTÓN
+const getRandomNumber = () => {
     randomNumber = Math.floor(Math.random() * 50) + 1;
     return
 };
 
 
-const getAnotherRandomNumber = () => { // BOLA
+const getAnotherRandomNumber = () => { 
     anotherRandomNumber = Math.floor(Math.random() * 50) + 1;
 
     while(repeatNumber.includes(anotherRandomNumber)) {
@@ -84,7 +84,7 @@ const getAnotherRandomNumber = () => { // BOLA
 };
 
 
-const generateCard = () => { // NÚMEROS ALEATORIOS
+const generateCard = () => { 
     for (let i = 0; i < cardLength; i++) {
         getRandomNumber();
 
@@ -102,7 +102,7 @@ const generateCard = () => { // NÚMEROS ALEATORIOS
 };
 
 
-const removeNumbers = () => { // RESTART BINGO
+const removeNumbers = () => { 
     bingoCard.splice(0, bingoCard.length); 
 };
 
@@ -116,9 +116,9 @@ const restartTurn = () => {
 
 
 const playBingo = () => {
-    getLine();  // COMPROBAR SI HAY LÍNEA
-    getBingo(); // COMPROBAR SI HAY BINGO
-    getTurns(); // INDICA EL Nº TURNO
+    getLine();  
+    getBingo(); 
+    getTurns(); 
     totalScore.push(score);
     console.log(`Turno Nº: ${turn}          🎰   B|I|N|G|O   🎰         Puntos: ${score} `);
     console.log('---------------------------------------------------------------');
@@ -128,7 +128,7 @@ const playBingo = () => {
     console.log('---------------------------------------------------------------');
     getAnotherRandomNumber();
     
-    while (!validImput && letsContinue) { // SI HAY UNA EQUIVOCACIÓN, VUELVE ATRÁS A PREGUNTAR AL USUARIO
+    while (!validImput && letsContinue) { 
         let anotherCard = prompt(`¿Está la bola |${anotherRandomNumber}| en el cartón? Indique (S) de SI para tachar con una 'X', (N) de NO para una nueva tirada o EXIT para salir`);
         switch(anotherCard) {
             case 'S':
@@ -163,19 +163,19 @@ const playBingo = () => {
 };
 
 
-const newCard = () => { // REMPLAZAR VALOR POR 'X'
+const newCard = () => { 
     let indexReplace = bingoCard.findIndex(number => number === anotherRandomNumber);
     bingoCard.splice(indexReplace, 1, 'X');
     alert('¡Número tachado!');
 };
 
 
-const getTurns = () => { // TURNOS
+const getTurns = () => {
     turn += 1;
 };
 
 
-const getScore = () => { // SISTEMA DE PUNTUACIÓN X TURNO
+const getScore = () => { 
     score -= 3;
     if (bingoCard.includes(anotherRandomNumber)) {
         score += 13;
@@ -183,10 +183,10 @@ const getScore = () => { // SISTEMA DE PUNTUACIÓN X TURNO
 };
 
 
-const stateGeneralCondition = (currentValue) => currentValue === 'X'; // REGLA BÁSICA SI HAY LÍNEA
+const stateGeneralCondition = (currentValue) => currentValue === 'X'; 
 
 
-const getLine = () => { // CANTAR LÍNEA
+const getLine = () => { 
     if (checkLine === false) {
         if (bingoCard.slice(0, 5).every(stateGeneralCondition)) {
             score += 20
@@ -210,7 +210,7 @@ const singLine = () => {
 };
 
 
-const getBingo = () => { // CANTAR BINGO
+const getBingo = () => { 
     if (bingoCard.every(stateGeneralCondition)) {
         alert('¡Enhorabuena! ¡Ha cantado BINGO!');
         getShowRanking();
@@ -231,7 +231,7 @@ const getShowRanking = () => {
 };
 
 
-const isExit = () => { // SALIDA
+const isExit = () => { 
     let playAgain = prompt('¿Desea volver a JUGAR otro Bingo o quiere SALIR del juego?');
     switch(playAgain) {
         case "JUGAR":
@@ -240,7 +240,7 @@ const isExit = () => { // SALIDA
             getGreetings();
             break
         case "SALIR":
-            letsContinue = false; // ROMPE EL BUCLE DE JUEGO
+            letsContinue = false; 
             alert(`¡Hasta la próxima, ${getUserName.toUpperCase()}! 👋`);
             break
         default: 
