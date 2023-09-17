@@ -21,7 +21,7 @@ createScorecard(scorecard)
 
 /*
 0. get the game going => playBingo()
-1. get player's name and ask if they want to play.  => getUserName() and startGame()
+1. get player's name and ask if they want to play => startGame() and getUserName()
 2. create scorecard with random numbers [jumbleNumbers()] and display it => createScoreboard()
 3. draw a random number => drawNumber()
 4. check if number on scorecard and replace with an x if it's there. Then ask player if they want the next number: checkIfNumberIsOnScoreboard()
@@ -77,6 +77,7 @@ const getUserName = () => {
 //  Start the game: confirm the player wants to play
 const startGame = () => {
   const usernames = getUserName();
+  debugger
   if(!usernames) {
     return
   }
