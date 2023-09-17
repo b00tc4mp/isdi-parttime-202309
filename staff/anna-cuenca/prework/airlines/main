@@ -172,8 +172,14 @@ const addFlight = (flights) => {
         let priceUser = prompt("Introduzca la cantidad que se quiera gastar como máximo")
 
         for (let i = 0; i < flights.length; i++){
-            if (priceUser >= flights[i].cost){
+            if (flights.every((flight) => flight.cost > +priceUser)){
+              alert(`No existen vuelos con ese precio`)
+              rolUserEntry();
+            } else {
+              
+              if (priceUser >= flights[i].cost){
                 priceUserList = console.log(flights[i]);
+            
             }
         }
 
@@ -183,7 +189,7 @@ const addFlight = (flights) => {
      }
 
 
-  
+    }
 
 
 
@@ -205,9 +211,7 @@ const addFlight = (flights) => {
       }
    }
 
-   const exitFun = () => {
-    alert(` ${nameUser} muchas gracias por visitar ISDI AIRLINES, vuelva pronto.`);
-   }
+
 
 
   const rolAdmin = () => {
@@ -295,15 +299,9 @@ const addFlight = (flights) => {
 
 
 
+const enterProgram = () => {
 
-
-
-
-
-
-let nameUser = prompt("Indíquenos su nombre, por favor.");
-
-welcomeMessage();
+  welcomeMessage();
 
 showFlights(flights);
 
@@ -324,3 +322,23 @@ showLastFlights(flights);
 console.log("__________________________________________________________________________________");
 
 askUserRol();
+
+}
+
+
+
+
+
+let nameUser = prompt("Indíquenos su nombre, por favor.");
+
+
+
+
+
+const exitFun = () => {
+  alert(` ${nameUser} muchas gracias por visitar ISDI AIRLINES, vuelva pronto.`);
+ }
+
+
+ 
+enterProgram();
