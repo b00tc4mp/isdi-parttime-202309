@@ -1,0 +1,143 @@
+html {
+  font-family: "Bungee", cursive;
+  color: rgb(249, 246, 246);
+  border-color: #363535;
+  text-shadow: 1px 0px 0px black, 0px 1px 0px black, -1px 0px 0px black,
+    0px -1px 0px black;
+}
+
+body {
+  background-color: rgb(201, 199, 198);
+  margin: 0;
+  padding: 0%;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 15px;
+  margin: 5px;
+  width: 100%;
+}
+
+img {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 10px;
+}
+.container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 75px);
+  grid-template-rows: repeat(5, 75px);
+  gap: 0.5rem;
+  background-color: rgb(53, 50, 50);
+  width: 320px;
+  height: 500px;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+  background: linear-gradient(#555353, #363535);
+  color: rgb(255, 255, 255);
+  border: 0;
+  padding: 1rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.7rem;
+  box-shadow: inset 0 6px 1px 0 rgba(0, 0, 0, 0.35),
+    0 5px 5px rgba(0, 0, 0, 0.5), 0 15px 25px rgba(0, 0, 0, 0.35);
+}
+
+.displayScreen {
+  grid-column: 1/-1;
+  margin: 10px 10px 20 px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: lightslategray;
+  border-radius: 15px;
+  word-break: break-all;
+}
+
+.previous-Number {
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.current-Number {
+  color: rgb(0, 0, 0);
+  font-size: 1.6rem;
+}
+
+.expand {
+  grid-column: span 2;
+}
+
+.operator {
+  background: rgb(244, 240, 24);
+  color: rgb(33, 33, 33);
+}
+
+.operator:hover {
+  background: rgb(255, 253, 161);
+  color: rgb(33, 33, 33);
+}
+
+.equal {
+  color: rgb(33, 33, 33);
+  background: rgb(5, 209, 94);
+}
+
+.equal:hover {
+  color: rgb(33, 33, 33);
+  background: rgb(0, 243, 142);
+}
+
+.special {
+  color: rgb(255, 255, 255);
+  background: rgb(173, 3, 3);
+}
+
+.special:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(233, 4, 4);
+}
+
+.number:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(102, 100, 100);
+}
+
+.dot:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(102, 100, 100);
+}

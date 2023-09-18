@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Gloria Hallelujah", cursive;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.counter__container {
+  display: flex;
+  width: 300px;
+  height: 480px;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 14px;
+  background: #e0e0e0;
+  box-shadow: inset 5px -5px 10px #aaaaaa, inset -5px 5px 10px #ffffff;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.counter {
+  font-size: 6rem;
+}
+
+.button1 {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  border-radius: 7px;
+  background: #e0e0e0;
+  box-shadow: inset -10px -10px 5px #5a5a5a, inset 10px 10px 5px #ffffff;
+}
+
+.button2 {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  border-radius: 7px;
+  background: #e0e0e0;
+  box-shadow: inset -10px -10px 5px #5a5a5a, inset 10px 10px 5px #ffffff;
+}
+
+.button3 {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  border-radius: 7px;
+  background: #e0e0e0;
+  box-shadow: inset -10px -10px 5px #5a5a5a, inset 10px 10px 5px #ffffff;
+}
+
+button {
+  margin: 5px;
+  width: 70px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 2rem;
+  background: white;
+  border: none;
+  border-radius: 8px;
+}
+
+span {
+  color: darkslategray;
+}
+
+footer {
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 15px;
+  margin: 5px;
+  width: 100%;
+}
+
+img {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  margin: 10px;
+}
