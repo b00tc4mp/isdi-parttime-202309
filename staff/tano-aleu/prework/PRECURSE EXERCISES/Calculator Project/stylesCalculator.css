@@ -1,0 +1,168 @@
+/* style.css */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.calculator {
+    background-color: #3d3a3a ;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+    padding: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 90%;
+}
+
+.number {
+    color: #f0f0f0;
+}
+
+.display {
+    font-size: 46px;
+    padding: 10px;
+    background-color:#3d3a3a;
+    margin-top: 15px;
+    text-align: right;
+    padding-right: 10px;
+    color: #f0f0f0;
+    border-radius: 15px;
+   
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    border-radius: 15px;
+}
+
+button {
+    font-size: 24px;
+    padding: 15px 20px;
+    border: none;
+    background-color: #7a7575;
+    cursor: pointer;
+    opacity: 90%;
+}
+
+button:hover {
+    background-color: #c0c0c0;
+}
+
+.numberZero {
+    grid-column: span 2;
+    font-size: 24px;
+    padding: 15px 0;
+    border: none;
+    background-color: #7a7575;
+    cursor: pointer;
+    color: white;
+    border-left: 15px;
+    border-bottom-left-radius: 12px;
+}
+
+
+.operator {
+    background-color: #f0a830;
+    color: white;
+}
+
+.calculate {
+    background-color: #f0a830;
+    color: white;
+    border-bottom-right-radius:  12px;
+
+}
+
+.calculate:hover {
+    background-color: #e09828;
+
+}
+
+.operator:hover {
+    background-color: #e09828;
+}
+
+.special {
+    background-color: #2f2a2a;
+    color: #f0f0f0;
+    opacity: 90%;
+}
+
+.special:hover {
+    background-color: #c0c0c0;
+}
+
+.clear {
+    background-color: #696262;
+    color: white;
+}
+
+.clear:hover {
+    background-color: #d32f2f;
+}
+
+.decimal {
+    background-color: #7a7575;
+    color: white;
+
+}
+
+.decimal:hover {
+    background-color: #c0c0c0;
+}
+
+.control-buttons-container {
+    display: flex;
+    width: 10px; /* Ancho total de los botones */
+    height: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    
+}
+
+
+.button-red {
+    background-color: #FF5B5B; 
+  
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-yellow {
+    background-color: #FFC647; 
+
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Botón Verde (Expandir) */
+.button-green {
+    background-color: #4BCA81; /* Verde */
+    width: 10px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
