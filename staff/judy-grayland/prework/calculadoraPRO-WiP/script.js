@@ -6,37 +6,26 @@ Si el usuario introduce una letra, deberá mostrarle un aviso de que lo que ha i
 Los resultados deberían almacenarse dentro de una array y mostrarlos de una forma amigable al usuario
 */
 
+// regex to test if number: /^\d+$/.test(input)
+// if number -> parseInt(number)
+
+// array to store user inputs
 const userOperands = []
+
+// operations with two numbers:
+console.log(userOperands)
+console.log(`${userOperands[0]} + ${userOperands[1]} = ${userOperands[0]+userOperands[1]}`)
+console.log(`${userOperands[0]} - ${userOperands[1]} = ${userOperands[0]-userOperands[1]}`)
+console.log(`${userOperands[0]} * ${userOperands[1]} = ${userOperands[0]*userOperands[1]}`)
+console.log(`${userOperands[0]} / ${userOperands[1]} = ${userOperands[0]/userOperands[1]}`)
+
+
 const doOperation = () => {
   let firstNumber = prompt("What\'s your first number?");
   if(firstNumber === null) {
     alert('Sorry to see you go!');
     return
   }
-  if(!/^\d+$/.test(firstNumber)) {
-    alert('You must put in a number');
-    userOperands.pop()
-    doOperation()
-  }
-  if(/^\d+$/.test(firstNumber)) {
-    firstNumber = parseInt(firstNumber);
-    userOperands.push(firstNumber)
-  }  
-  
-  let secondNumber = prompt("What\'s your second number?");
-  if(secondNumber === null) {
-    alert('Sorry to see you go!')
-  }
-  if(/^\d+$/.test(secondNumber)) {
-    secondNumber = parseInt(secondNumber);
-    userOperands.push(secondNumber)
-  }
-  if(!/^\d+$/.test(secondNumber)) {
-    alert('You must put in a number')
-    userOperands.pop()
-    doOperation()
-  }
-
   if(firstNumber === "") {
     console.log(`The square root of ${secondNumber} is ${Math.sqrt(secondNumber)}`)
     return
@@ -45,12 +34,9 @@ const doOperation = () => {
     console.log(`The square root of ${firstNumber} is ${Math.sqrt(firstNumber)}`)
     return
   }
-  console.log(userOperands)
-  console.log(`${userOperands[0]} + ${userOperands[1]} = ${userOperands[0]+userOperands[1]}`)
-  console.log(`${userOperands[0]} - ${userOperands[1]} = ${userOperands[0]-userOperands[1]}`)
-  console.log(`${userOperands[0]} * ${userOperands[1]} = ${userOperands[0]*userOperands[1]}`)
-  console.log(`${userOperands[0]} / ${userOperands[1]} = ${userOperands[0]/userOperands[1]}`)
+
 }
+
 const useCalculator = () => {
   const greeting = alert('Hi! Let\'s do some basic operations between two numbers');
   doOperation()
