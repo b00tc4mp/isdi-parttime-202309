@@ -1,0 +1,97 @@
+const getNumbers = () => {
+    let numbers = []
+    let newNumber = Number()
+    let addMoreNumbers = true
+    while (addMoreNumbers){
+        newNumber = parseFloat(prompt (`Introduce un número:`))
+        if (isNaN(Number(newNumber))) {
+            alert (`Valor introducido erróneo. Tiene que ser numérico`)
+        } else {
+            numbers.push(newNumber)
+        }
+        addMoreNumbers = moreNumbers()
+    }
+    return numbers
+}
+
+const moreNumbers = () => {
+    let moreNumbers = confirm (`Pulsa "ACEPTAR" para introducir otro número\n"CANCELAR" para no introducir más`)
+    return moreNumbers
+}
+
+const addNumbers = (...numbers) => {
+    let result = 0
+    for (const number of numbers)
+    result += number
+    return result
+}
+
+const substractNumbers = (firstNumber, ...numbers) => {
+    let result = firstNumber
+    for (const number of numbers)
+        result -= number
+    return result
+}
+
+const multiplyNumbers = (...numbers) => {
+    let result = 1
+    for (const number of numbers)
+    result *= number
+    return result
+}
+
+const divideNumbers = (firstNumber, ...numbers) => {
+    let result = firstNumber
+    for (const number of numbers)
+        result /= number
+    return result
+}
+
+const squareRootNumber = (numbers) => {
+    let result = Math.sqrt(numbers[0])
+    return result
+}
+
+const startCalculator = () =>{
+    while(true){
+        let numbers = getNumbers()
+        console.log(`\nNúmeros con los que operar: ${numbers}`)
+
+        if (numbers.length === 1){
+            let result = squareRootNumber (numbers)
+            alert (`Hay un sólo número. En consola puedes ver su raíz cuadrada`)
+            if (result % 1 != 0) {
+                result = result.toFixed(3)
+            } 
+            console.log(`\nLa raíz cuadrada de ${numbers[0]} es ${result}`)
+        } else {
+            let results = {
+                Suma: addNumbers(...numbers),
+                Resta: substractNumbers(...numbers),
+                Multiplicacion: multiplyNumbers(...numbers),
+                Division: divideNumbers(...numbers)
+            }
+            
+            for (let key in results){
+                if (results[key] % 1 != 0){
+                    results[key] = results[key].toFixed(3)
+                }
+            }
+            
+            alert (`En consola puedes ver los resultados de las cuatro operaciones básicas con los números introducidos`)
+            console.log('\nResultados:')
+            for (let key in results){
+                console.log(`${key}: ${results[key]}`)
+            }
+        }
+
+        let exitOrContinue = confirm ('¿Quieres volver a jugar?')
+        if (!exitOrContinue) {
+            alert (`¡¡ Hasta la próxima !!`)
+            break
+        } else {            
+        }
+    }
+}
+
+startCalculator()
