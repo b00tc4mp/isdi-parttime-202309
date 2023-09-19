@@ -99,7 +99,7 @@ const flights = [
     }
   }
   
-  const checkNumentries = (flights) => {
+  const checkNumEntries = (flights) => {
    
     if (flights.length > 15){
         alert(`No puede introducir más vuelos ${nameUser}`);
@@ -221,7 +221,7 @@ const addFlight = (flights) => {
     
     switch (adminFun) {
           case "A":
-            checkNumentries(flights);
+            checkNumEntries(flights);
             addFlight(flights);
             showUpdatedFlights(flights);
             showFlightsInfo(flights);
