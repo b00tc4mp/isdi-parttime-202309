@@ -230,7 +230,6 @@ const shearchPrice = () => {
         isUser()
     }
 }
-
 const isExit = () => {
     let sayExit = confirm('Press ACCEPT if you want to exit the program or CANCEL to carry out any other operation')
     if (sayExit === true) {
