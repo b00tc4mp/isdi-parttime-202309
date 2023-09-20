@@ -1,1 +1,1 @@
-console.log("hola")
+document.getElementById("register").style.display = 'none'
