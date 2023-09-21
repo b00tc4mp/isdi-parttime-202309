@@ -1,0 +1,77 @@
+* {
+    font-family: Georgia, 'Times New Roman', Times, ;
+}
+
+body {
+    background-color:rgb(197, 214, 208);
+}
+
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+p {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+#register {
+    text-align: center;
+    border: 3px solid rgb(0, 0, 0);
+    background-color:blanchedalmond;
+    border-style: groove;
+    border-radius: 25px;
+    position: relative;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 30px;}
+
+#login {
+    text-align: center;
+    border: 3px solid rgb(0, 0, 0);
+    background-color:rgba(138, 219, 113, 0.26);
+    border-style: groove;
+    border-radius: 25px;
+    position: relative;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+#register_button {
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 20px;
+    font-size: 20px;
+    background-color:rgb(4, 54, 146);
+    border-bottom-color:rgb(3, 3, 3);
+    color: #FFFF;
+}
+
+#login_button {
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 20px;
+    font-size: 20px;
+    background-color:rgb(4, 54, 146);
+    border-bottom-color:rgb(3, 3, 3);
+    color: #FFFF;
+}
+
+#email_register {
+    margin-left: 27px;
+}
+
+#password_register {
+    margin-left: 4px;
+}
+
+#email_login {
+    margin-left: 23px;
+}
