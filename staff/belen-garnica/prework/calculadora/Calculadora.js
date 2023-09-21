@@ -42,7 +42,7 @@ const main = () => {
       resultsArray.forEach((result) => console.log(result));
       console.log("¡Hasta luego!");
       break;
-    } else if (continuar !== "siyes") {
+    } else if (continuar !== "si") {
       console.log("Respuesta no válida. Por favor, ingresa 'si' o 'no'.");
     }
   }

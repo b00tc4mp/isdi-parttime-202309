@@ -36,7 +36,7 @@ for (let i = 0; i < flights.length; i++) {
     if (flights[i].from === 0 && flights[i].to)
     console.log('El vuelo con origen', flights[i].from)
 };
-function FlightInfo(flight) {
+function showFlightInfo(flight) {
    const layoverText = flight.layover ? "con escalas" : "sin escalas";
    console.log(
      `El vuelo con origen: ${flight.from} y destino: ${flight.to} tiene un coste de ${flight.cost}€ y ${layoverText}.`
