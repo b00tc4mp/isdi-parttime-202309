@@ -1,3 +1,4 @@
+// TODO: delete this file once open comments are resolved
 const flights = [
   { id: '00', to: "New York", from: "Barcelona", cost: 700, layover: false },
   { id: '01', to: "Los Angeles", from: "Madrid", cost: 1100, layover: true },
