@@ -1,6 +1,7 @@
 //registro en DB y gestion de errores.
 
 var users = []
+var user = {}
 
 var registerView = document.getElementById('register')
 registerView.style.display = 'none'
@@ -43,7 +44,8 @@ registerForm.onsubmit = function (event) {
         alert('El usuario ya está registrado con este correo electrónico.');
     } else {
         // Si el usuario no existe, agregarlo a la lista de usuarios
-        var user = {
+
+        user = {
             name: name,
             email: email,
             password: password
