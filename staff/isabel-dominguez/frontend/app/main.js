@@ -1,10 +1,14 @@
-document.getElementById('register').style.display = 'none';
-
 var registerView = document.getElementById('register');
+var homeView = document.getElementById('home');
 var loginView = document.getElementById('login');
+
+registerView.style.display = 'none';
+homeView.style.display = 'none';
+
 var registerLoginLink = registerView.querySelector('a');
 var loginRegisterLink = loginView.querySelector('a');
-var users = []
+
+var users = [];
 
 registerLoginLink.onclick = function (event) {
     event.preventDefault();
@@ -18,26 +22,66 @@ loginRegisterLink.onclick = function (event) {
     registerView.style.display = 'block';
 };
 
-
-var registerForm = document.querySelector('#tuFormularioID');
+var registerForm = registerView.querySelector('form');
 
 registerForm.onsubmit = function (event) {
     event.preventDefault();
 
-    var name = registerForm.querySelector('#name').value;
-    var email = registerForm.querySelector('#email').value;
-    var password = registerForm.querySelector('#password').value;
+    var nameInput = registerForm.querySelector('#name');
+    var emailInput = registerForm.querySelector('#email');
+    var passwordInput = registerForm.querySelector('#password');
 
-    var user = {};
+    var name = nameInput.value;
+    var email = emailInput.value;
+    var password = passwordInput.value;
 
-    user.name = name;
-    user.email = email;
-    user.password = password;
+    var userExists = users.some(function (user) {
+        return user.email === email;
+    });
 
-    users.push(user);
+    if (userExists) {
+        alert('The user already exists. Please log in instead of registering.');
+    } else {
+        var user = {
+            name: name,
+            email: email,
+            password: password
+        };
 
-    registerView.style.display = 'none';
-    loginView.style.display = 'block';
-}
+        users.push(user);
 
+        nameInput.value = '';
+        emailInput.value = '';
+        passwordInput.value = '';
 
+        registerView.style.display = 'none';
+        loginView.style.display = 'block';
+    }
+};
+
+var loginForm = loginView.querySelector('form');
+
+loginForm.onsubmit = function (event) {
+    event.preventDefault();
+
+    var emailInput = loginForm.querySelector('#email');
+    var passwordInput = loginForm.querySelector('#password');
+
+    var email = emailInput.value;
+    var password = passwordInput.value;
+
+    var user = users.find(function (user) {
+        return user.email === email && user.password === password;
+    });
+
+    if (user) {
+        loginView.style.display = 'none';
+        homeView.style.display = 'block';
+    } else {
+        alert('Incorrect credentials. Please try again.');
+    }
+};
+
+// TODO check user is new, otherwise show error DONE
+// TODO implement log in functionality DONE
+// TODO show user name logged in when entering in Home (Hello, >name<!)

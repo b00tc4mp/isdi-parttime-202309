@@ -1,6 +1,6 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: #26866b;
+    background-color: #c45481;
     margin: 0;
     padding: 0;
     display: flex;
@@ -29,13 +29,13 @@ input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #49bc1c;
+    border: 1px solid #c45481;
     border-radius: 5px;
 }
 
 button {
     padding: 10px 20px;
-    background-color: #1951c2;
+    background-color: #674589;
     color: #000000;
     border: none;
     border-radius: 5px;
@@ -44,6 +44,6 @@ button {
 }
 
 button:hover {
-    background-color: #49bc1c;
+    background-color: #ab0e4d;
 }
 
