@@ -75,13 +75,17 @@ loginForm.onsubmit = function (event) {
     });
 
     if (user) {
+        var username = user.name;
+
         loginView.style.display = 'none';
         homeView.style.display = 'block';
+        document.getElementById('username').textContent = `Hello, ${username}!`;
     } else {
-        alert('Incorrect credentials. Please try again.');
+        alert('The E-mail or password is incorrect. Please try again.');
     }
 };
 
+
 // TODO check user is new, otherwise show error DONE
 // TODO implement log in functionality DONE
-// TODO show user name logged in when entering in Home (Hello, >name<!)
+// TODO show user name logged in when entering in Home (Hello, >name<!) DONE
