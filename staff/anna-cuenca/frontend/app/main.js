@@ -1,8 +1,25 @@
 
+// Functions //
+
+
+
 
 // Storage //
 
 var users = []
+
+var userFalse = {}
+
+var userExists = false;
+    
+
+
+
+    userFalse.name = 'pepito'
+    userFalse.email = 'pepitogrillo@gmail.com'
+    userFalse.password = '1230'
+
+    users.push(userFalse)
 
 
 
@@ -36,24 +53,46 @@ registerForm.onsubmit = function(event){
     var password = passwordInput.value
 
     var user = {}
+    
+
+
 
     user.name = name
     user.email = email
     user.password = password
 
+    var found = false;
+    for(var i = 0; i < users.length; i++){
+        if (users[i].email == user.email){
+            found = true;
+            console.log('Error this mail is already used, please login')
+            registerView.style.display = 'none'
+            loginView.style.display = 'block'
+            break
+        } else {
+            found = false;
+            console.log(`Thanks for register, ${user.name}`)
+            users.push(user)
+            registerView.style.display = 'none'
+            loginView.style.display = 'none'
+            homeView.style.display = 'block'
+            homeView.innerText = "Hello, " + name
+            break
+        }
+    }
 
-    // TODO check user is new, otherwise show error
 
-    users.push(user)
+ 
 
-    nameInput.value = ''
-    emailInput.value = ''
-    passwordInput.value = ''
+   
 
-    registerView.style.display = 'none'
-    loginView.style.display = 'block'
+ 
+    
+
+
+
 }
-
+  
 
 
 
@@ -84,4 +123,3 @@ var homeView = document.getElementById('home')
 homeView.style.display = 'none'
 
 
-// TODO show user name logged in when entering in home (Hello, name user)
