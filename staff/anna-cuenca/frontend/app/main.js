@@ -68,16 +68,19 @@ registerForm.onsubmit = function(event){
     user.email = email
     user.password = password
 
-    var found = false;
+    //var found = false;
     for(var i = 0; i < users.length; i++){
         if (users[i].email == user.email){
-            found = true;
-            console.log('Error this mail is already used, please login')
+            //found = true;
+            console.log('ERROR this mail is already used, please login')
+            nameInput.value = ''
+            emailInput.value = ''
+            passwordInput.value = ''
             registerView.style.display = 'none'
             loginView.style.display = 'block'
             break
         } else {
-            found = false;
+            //found = false;
             console.log(`Thanks for register, ${user.name}`)
             users.push(user)
             registerView.style.display = 'none'
@@ -133,12 +136,27 @@ loginRegisterLink.onclick = function (event){
          user.email = email
          user.password = password
 
+         //var found = false;
+        for(var i = 0; i < users.length; i++){
+            if (users[i].email == user.email){
+            //found = true;
+            console.log(`Welcome ${users[i].name}`)
+            registerView.style.display = 'none'
+            loginView.style.display = 'none'
+            homeView.style.display = 'block'
+            homeView.innerText = "Hello, " + users[i].name
+            break
 
-         console.log(`Thanks for login, ${user.email}`)
-         users.push(user)
-         loginView.style.display = 'none'
-         homeView.style.display = 'block'
-         homeView.innerText = "Hello again" + email
+         } else {
+            //found = false;
+            console.log(`ERROR: Unregistered user`)
+            emailInput.value = ''
+            passwordInput.value = ''
+            registerView.style.display = 'none'
+            homeView.style.display = 'none'
+            break
+        }
+    }
 
 }
 
