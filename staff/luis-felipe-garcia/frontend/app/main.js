@@ -100,9 +100,11 @@ loginForm.onsubmit = function (event) {
             var wellcomeMessage = document.createElement('h2');
             wellcomeMessage.textContent = `Hola ${users[indexOfUser].name}`;
             homeView.appendChild(wellcomeMessage);
+        } else {
+            loginView.querySelector("#user_dont_exist").style.display = 'block';
         }
     } else {
-        loginView.querySelector("#user_dont_exist").style.display = 'block'
+        loginView.querySelector("#user_dont_exist").style.display = 'block';
     }
 }
 
