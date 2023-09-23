@@ -22,6 +22,13 @@ var userExists = false;
     users.push(userFalse)
 
 
+// home  //
+
+var homeView = document.getElementById('home')
+
+homeView.style.display = 'none'
+
+
 
 
 // Register //
@@ -81,16 +88,6 @@ registerForm.onsubmit = function(event){
         }
     }
 
-
- 
-
-   
-
- 
-    
-
-
-
 }
   
 
@@ -105,21 +102,47 @@ var loginRegisterLink = loginView.querySelector('a') //de los elementos de login
 
 
 
+
 loginRegisterLink.onclick = function (event){
     event.preventDefault()
 
     loginView.style.display = 'none'
 
     registerView.style.display = 'block'
+    
 
-    //TODO implement login functionality
+}
+
+    //Implement login funcionality
+
+    var loginForm = loginView.querySelector('form')
+
+    loginForm.onsubmit = function(event){
+         event.preventDefault()
+
+         var loginForm = loginView.querySelector('form')
+         var emailInput = loginForm.querySelector('#email')
+         var passwordInput = loginForm.querySelector('#password')
+     
+         var email = emailInput.value
+         var password = passwordInput.value
+
+         var user = {}
+
+        
+         user.email = email
+         user.password = password
+
+
+         console.log(`Thanks for login, ${user.email}`)
+         users.push(user)
+         loginView.style.display = 'none'
+         homeView.style.display = 'block'
+         homeView.innerText = "Hello again" + email
+
 }
 
 
-// home  //
 
-var homeView = document.getElementById('home')
-
-homeView.style.display = 'none'
 
 
