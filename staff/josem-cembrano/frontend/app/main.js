@@ -41,7 +41,8 @@ registerForm.onsubmit = function (event) {
 
     if (userExists) {
         // Mostrar un mensaje de error o tomar alguna acción adecuada
-        alert('El usuario ya está registrado con este correo electrónico.');
+        userExists.preventDefault()
+        alert('El usuario ya está registrado con este correo electrónico.')
     } else {
         // Si el usuario no existe, agregarlo a la lista de usuarios
 
