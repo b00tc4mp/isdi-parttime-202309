@@ -1,6 +1,7 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: #c45481;
+    background-image: url('red.jpg');
+    background-size: cover;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,11 +11,13 @@ body {
 }
 
 h1 {
+    color: #fff;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
 form {
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,13 +32,13 @@ input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #c45481;
+    border: 3px solid #23c4cf;
     border-radius: 5px;
 }
 
 button {
     padding: 10px 20px;
-    background-color: #674589;
+    background-color: #23c4cf;
     color: #000000;
     border: none;
     border-radius: 5px;
@@ -44,6 +47,15 @@ button {
 }
 
 button:hover {
-    background-color: #ab0e4d;
+    background-color: #fff;
 }
 
+div a {
+    color: #fff;
+    line-height: 4;
+}
+
+div p {
+    color: #fff;
+    font-size: large;
+}
