@@ -49,6 +49,8 @@ registerForm.onsubmit = function(event) {
     if (isUsernameAvaliable) {
         // Mensaje de ERROR
         document.getElementById('register').querySelector('p').innerText = 'Error: Account already exists';
+    } else if (username === ''|| email === '' || password === '') {
+        document.getElementById('register').querySelector('p').innerText = 'Error: No account register yet';
     } else {
         // Continuar con el proceso de registro
         users.push(user)
