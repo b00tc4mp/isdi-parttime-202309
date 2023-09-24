@@ -1,5 +1,5 @@
 * {
-    font-family: Georgia, 'Times New Roman', Times, ;
+    font-family: Georgia, 'Times New Roman', Times;
 }
 
 body {
@@ -64,14 +64,14 @@ p {
     color: #FFFF;
 }
 
-#email_register {
-    margin-left: 27px;
+#username {
+    margin-left: 30px;
 }
 
-#password_register {
+#password {
     margin-left: 4px;
 }
 
-#email_login {
-    margin-left: 23px;
+#email {
+    margin-left: 30px;
 }
