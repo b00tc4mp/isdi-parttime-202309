@@ -1,0 +1,67 @@
+/* Estilo para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3ecec;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para los contenedores de registro, inicio de sesión y bienvenida */
+#register, #login, #home {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+/* Estilo para los títulos */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para etiquetas de formulario y campos de entrada */
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Estilo para los enlaces de registro e inicio de sesión */
+a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+/* Estilo para el botón de submit */
+button[type="submit"] {
+    background-color: #0073e6;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Estilo para el botón de submit cuando se pasa el mouse por encima */
+button[type="submit"]:hover {
+    background-color: #005bb9;
+}
+
+/* Estilo para el mensaje de error */
+.error {
+    color: #ff0000;
+    margin-top: 10px;
+    font-weight: bold;
+}
