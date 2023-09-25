@@ -103,6 +103,7 @@ loginForm.onsubmit = function(event) {
         registerView.style.display = 'none'
         loginView.style.display = 'none'
         homeView.style.display = 'block'
+        exitView.style.display = 'block'
 
         var userLog = { // Coincida email y constraseña, las dos
             username: users.find(user => user.email === emailLogin && user.password === passwordLogin).username
@@ -127,6 +128,25 @@ document.body.addEventListener('click', function() { // Hace que modifique nueva
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
 
+
+
+// BUTTON EXIT
+
+
+var exitView = document.getElementById('exit')
+var exitButton = document.getElementById('exit_button')
+exitView.style.display = 'none'
+
+exitButton.addEventListener('click', function(event) { // Salir del apartado LOGIN
+    event.preventDefault() 
+
+    exitView.style.display = 'none'
+    homeView.style.display = 'none'
+    registerView.style.display = 'none'
+    loginView.style.display = 'block'
+
+    userLogin.splice(1, 1)
+})
 
 
 
