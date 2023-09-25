@@ -111,7 +111,7 @@ loginForm.onsubmit = function(event) {
 
         userLogin.push(userLog)
 
-        document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username 
+        document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username + ' 👤'
     } else { 
         // Mensaje de ERROR
         document.getElementById('login').querySelector('p').innerText = 'Error: Email or password wrong. Try again'

@@ -3,7 +3,9 @@
 }
 
 body {
+    background-image: url(https://basicappleguy.com/s/Rancho_Cucamonga_NoTree_16.png);
     background-color:rgb(197, 214, 208);
+    background-size: cover;
 }
 
 
@@ -24,7 +26,7 @@ p {
     top: 120px;
     text-align: center;
     border: 3px solid rgb(0, 0, 0);
-    background-color:blanchedalmond;
+    background-color:rgba(255, 235, 205, 0.26);
     border-style: groove;
     border-radius: 25px;
     position: relative;
@@ -46,7 +48,7 @@ p {
 }
 
 #home {
-    background-color:rgb(168, 154, 154);
+    background-color:rgba(59, 56, 56, 0.26);
     color: #FFFF;
     border-radius: 25px;
 }
@@ -76,9 +78,9 @@ p {
 
 
 #exit_button {
-    position: absolute; /* Coloca el botón de forma absoluta */
-    top: 45px; /* Distancia desde la parte superior */
-    right: 20px; /* Distancia desde la izquierda */
+    position: absolute;
+    top: 45px;
+    right: 20px;
     background-color:rgb(4, 54, 146);
     color: #FFFF;
 }
