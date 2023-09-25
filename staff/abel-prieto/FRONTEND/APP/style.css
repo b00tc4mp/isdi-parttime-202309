@@ -84,13 +84,13 @@ p {
 }
 
 #username {
-    margin-left: 30px;
+    margin-left: 3px;
 }
 
 #password {
-    margin-left: 4px;
+    margin-left: 3px;
 }
 
 #email {
-    margin-left: 30px;
+    margin-left: 0px;
 }
