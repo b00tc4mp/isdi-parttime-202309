@@ -44,13 +44,13 @@ registerForm.onsubmit = function(event) {
     passwordInput.value = '';
 
     // Busque el usuario registrado
-    var isUsernameAvaliable = users.some(u => u.username === user.username)
+    var isUsernameAvaliable = users.some(u => u.username === user.username || u.email === user.email)
 
     if (isUsernameAvaliable) {
         // Mensaje de ERROR
         document.getElementById('register').querySelector('p').innerText = 'Error: Account already exists';
     } else if (username === ''|| email === '' || password === '') {
-        document.getElementById('register').querySelector('p').innerText = 'Error: No account register yet';
+        document.getElementById('register').querySelector('p').innerText = 'Error: Please, do it again';
     } else {
         // Continuar con el proceso de registro
         users.push(user)
@@ -104,7 +104,7 @@ loginForm.onsubmit = function(event) {
         loginView.style.display = 'none'
         homeView.style.display = 'block'
 
-        var userLog = { // No coincida o email o constraseña o las dos
+        var userLog = { // Coincida email y constraseña, las dos
             username: users.find(user => user.email === emailLogin && user.password === passwordLogin).username
         }
 
