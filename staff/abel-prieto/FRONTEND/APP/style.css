@@ -20,8 +20,8 @@ p {
 }
 
 
-
 #register {
+    top: 120px;
     text-align: center;
     border: 3px solid rgb(0, 0, 0);
     background-color:blanchedalmond;
@@ -33,6 +33,7 @@ p {
     padding: 30px;}
 
 #login {
+    top: 120px;
     text-align: center;
     border: 3px solid rgb(0, 0, 0);
     background-color:rgba(138, 219, 113, 0.26);
@@ -43,6 +44,14 @@ p {
     margin: 20px auto;
     padding: 30px;
 }
+
+#home {
+    background-color:rgb(168, 154, 154);
+    color: #FFFF;
+    border-radius: 25px;
+}
+
+
 
 #register_button {
     text-align: center;
@@ -60,15 +69,16 @@ p {
     margin-top: 20px;
     font-size: 20px;
     background-color:rgb(4, 54, 146);
+    border-style: solid;
     border-bottom-color:rgb(3, 3, 3);
     color: #FFFF;
 }
 
 
 #exit_button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: absolute; /* Coloca el botón de forma absoluta */
+    top: 45px; /* Distancia desde la parte superior */
+    right: 20px; /* Distancia desde la izquierda */
     background-color:rgb(4, 54, 146);
     color: #FFFF;
 }

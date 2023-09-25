@@ -145,7 +145,7 @@ exitButton.addEventListener('click', function(event) { // Salir del apartado LOG
     registerView.style.display = 'none'
     loginView.style.display = 'block'
 
-    userLogin.splice(1, 1)
+    userLogin.splice(0, 1)
 })
 
 
