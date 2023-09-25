@@ -21,7 +21,7 @@ body{
     align-items: center;
     text-align: center;
     color: black;
-    background-color: rgba(228, 223, 223, 0.822);
+    background-color: rgba(7, 13, 74, 0.708);
     height: 250px;
     width: 350px;
     padding: 20px;
@@ -35,7 +35,7 @@ body{
     align-items: center;
     text-align: center;
     color: black;
-    background-color: rgba(228, 223, 223, 0.822);
+    background-color: rgba(7, 13, 74, 0.708);
     height: 300px;
     width: 350px;
     padding: 20px;
@@ -68,7 +68,7 @@ body{
     padding-bottom: 20px;
     font-family: 'Press Start 2P', cursive;
     font-style:bold;
-    color: rgb(25, 25, 67);
+    color: rgb(216, 216, 218);
 }
 
 label{
@@ -87,23 +87,25 @@ input {
 }
 
 input::placeholder {
-    color:rgb(190, 191, 193);
+    color:rgba(58, 59, 59, 0.842);
     
 }
 
 .fa-solid {
     padding-right: 10px;
     font-size: 20px;
-    color: rgb(39, 4, 85);
+    color: rgb(245, 244, 246);
 }
 
 p{
     font-family: 'Inconsolata', monospace;
     font-size: 13px;
     padding: 15px;
+    color: rgb(255, 255, 255);
 }
 
 a{
     font-family: 'Inconsolata', monospace;
-    font-size: 13px;
+    font-size: 15px;
+    color: white;
 }
