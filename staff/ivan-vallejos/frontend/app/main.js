@@ -1,6 +1,7 @@
 /// storage
 
 var users = []
+var userLogin=[] 
 
 // register
 
@@ -36,16 +37,18 @@ registerForm.onsubmit = function (event) {
     user.email = email
     user.password = password
 
-    // TODO check user is new, otherwise show error
+    var isUsernameAvaliable = users.some(u => u.username === user.username || u.email === user.email)
 
-    users.push(user)
-
-    nameInput.value = ''
-    emailInput.value = ''
-    passwordInput.value = ''
-
-    registerView.style.display = 'none'
-    loginView.style.display = 'block'
+    if (isUsernameAvaliable) {
+        document.getElementById('register').querySelector('p').innerText = 'Error: Account already exists';
+    } else if (username === ''|| email === '' || password === '') {
+        document.getElementById('register').querySelector('p').innerText = 'Error: Please, do it again';
+    } else {
+        users.push(user)
+        registerView.style.display = 'none';
+        homeView.style.display = 'none';
+        loginView.style.display = 'block';
+    }  
 }
 
 // login
@@ -58,8 +61,42 @@ loginRegisterLink.onclick = function (event) {
 
     loginView.style.display = 'none'
     registerView.style.display = 'block'
+    homeView.style.display = 'none'
+}
 
-    // TODO implement login functionality
+var loginForm = loginView.querySelector('form')
+
+loginForm.onsubmit = function(event) {
+    event.preventDefault() 
+
+    var emailLoginInput = loginForm.querySelector('#email')
+    var passwordLoginInput = loginForm.querySelector('#password')
+
+    var emailLogin = emailLoginInput.value 
+    var passwordLogin = passwordLoginInput.value
+
+    emailLoginInput.value = ''
+    passwordLoginInput.value = ''
+
+    // Busque el usuario introducido en registro
+    var checkEmailAndPassword = users.some(u => u.email === emailLogin && u.password === passwordLogin)
+
+    if (checkEmailAndPassword) {
+        //Entre el login y redirija a HOME
+        registerView.style.display = 'none'
+        loginView.style.display = 'none'
+        homeView.style.display = 'block'
+
+        var userLog = { // Coincida email y constraseña, las dos
+            username: users.find(user => user.email === emailLogin && user.password === passwordLogin).username
+        }
+
+        userLogin.push(userLog)
+
+        document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username 
+    } else { 
+        // Mensaje de ERROR
+    }
 }
 
 // home
@@ -67,5 +104,16 @@ loginRegisterLink.onclick = function (event) {
 var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
+var exitButton = document.getElementById('exit_button')
+exitView.style.display = 'none'
 
-// TODO show user name logged in when entering in Home (Hello, >name<!)
+exitButton.addEventListener('click', function(event) { // Salir del apartado LOGIN
+    event.preventDefault() 
+
+    exitView.style.display = 'none'
+    homeView.style.display = 'none'
+    registerView.style.display = 'none'
+    loginView.style.display = 'block'
+
+    userLogin.splice(0, 1)
+})
