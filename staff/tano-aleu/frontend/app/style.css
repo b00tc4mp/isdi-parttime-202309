@@ -1,0 +1,80 @@
+/* Estilo global para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para los contenedores de las vistas */
+#register, #login, #home {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo para los títulos de las vistas */
+h1 {
+    color: #333;
+}
+
+/* Estilo para los formularios */
+form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para los enlaces */
+a {
+    text-decoration: none;
+    color: #007bff;
+    margin-top: 10px;
+    display: block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para la vista "home" */
+#home {
+    text-align: center;
+    padding: 40px;
+}
+
+#username {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+}
