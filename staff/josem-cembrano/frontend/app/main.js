@@ -42,7 +42,7 @@ registerForm.onsubmit = function (event) {
     });
 
     if (userExists) {
-        // Mostrar un mensaje de error o tomar alguna acción adecuada
+        // Mostrar un mensaje de error.
         alert('Este usuario ya ha sido registrado');
         nameInput.value = '';
         emailInput.value = '';
@@ -55,7 +55,7 @@ registerForm.onsubmit = function (event) {
             password: password
         };
 
-        // TODO: Verificar y agregar el usuario a tu base de datos o arreglo de usuarios
+        // TODO: Verificar y agregar el usuario a tu base de datos (array)
         users.push(user);
 
         nameInput.value = '';
