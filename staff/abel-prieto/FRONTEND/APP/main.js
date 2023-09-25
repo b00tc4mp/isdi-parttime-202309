@@ -1,7 +1,6 @@
 // STORAGE
 
 var users = []
-var userLogin = []
  
 
 // REGISTER
@@ -109,8 +108,6 @@ loginForm.onsubmit = function(event) {
             username: users.find(user => user.email === emailLogin && user.password === passwordLogin).username
         }
 
-        userLogin.push(userLog)
-
         document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username + ' 👤'
     } else { 
         // Mensaje de ERROR
@@ -144,8 +141,6 @@ exitButton.addEventListener('click', function(event) { // Salir del apartado LOG
     homeView.style.display = 'none'
     registerView.style.display = 'none'
     loginView.style.display = 'block'
-
-    userLogin.splice(0, 1)
 })
 
 
