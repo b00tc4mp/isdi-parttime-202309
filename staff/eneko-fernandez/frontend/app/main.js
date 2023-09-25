@@ -29,6 +29,9 @@ registerForm.addEventListener("submit", e => {
     var email = registerForm.querySelector('#email').value
     var password = registerForm.querySelector('#password').value
     var user = {name, email, password}
+
+    if(Object.values(user).some(val => val === '' )) return 
+    
     if(users.some(user => user.email === email)) {
        var errorUserExist = document.createElement("p")
        errorUserExist.innerText = "El email ya está en uso"
@@ -36,9 +39,10 @@ registerForm.addEventListener("submit", e => {
        return
     }
     users.push(user)
-     registerForm.querySelector('#name').value = ''
-     registerForm.querySelector('#email').value = ''
-     registerForm.querySelector('#password').value = ''
+
+    registerForm.querySelector('#name').value = ''
+    registerForm.querySelector('#email').value = ''
+    registerForm.querySelector('#password').value = ''
     
     loginView.style.display = "block"
     registerView.style.display = 'none'
