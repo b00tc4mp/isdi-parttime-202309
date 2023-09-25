@@ -20,6 +20,7 @@ body {
 /* Estilo para los títulos de las vistas */
 h1 {
     color: #333;
+
 }
 
 /* Estilo para los formularios */
@@ -32,9 +33,11 @@ form {
 
 label {
     display: block;
+    margin-top: 10px;
     margin-bottom: 5px;
     font-weight: bold;
     color: #333;
+
 }
 
 

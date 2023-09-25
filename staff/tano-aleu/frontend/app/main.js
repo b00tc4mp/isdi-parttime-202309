@@ -11,12 +11,9 @@ homeView.style.display = 'none'
 
 var loginLink = registerView.querySelector('a')
 var registerLink = loginView.querySelector('a')
-
-// Array para almacenar los usuarios
-
-var users = []
-
-// Manejo de eventos para cambiar entre vistas
+//
+//
+//--> Eventos para cambiar entre vistas
 
 loginLink.onclick = function (event) {
     event.preventDefault()
@@ -31,7 +28,11 @@ registerLink.onclick = function (event) {
 
 }
 
-// Manejo del formulario de registro
+// Array para almacenar los usuarios
+
+var users = []
+
+// Formulario de registro
 
 var registerForm = registerView.querySelector('form')
 
@@ -54,7 +55,7 @@ registerForm.onsubmit = function (event) {
         });
 
         if (userExists) {
-            alert('The user already exists. Please log in instead of registering.');
+            alert('User already exists.');
         } else {
             var user = {
                 name: name,
@@ -75,7 +76,7 @@ registerForm.onsubmit = function (event) {
 };
 
 
-// Manejo del formulario de inicio de sesion
+// Formulario de inicio de sesion
 
 var loginForm = loginView.querySelector('form')
 
@@ -105,6 +106,5 @@ loginForm.onsubmit = function (event) {
         alert('The E-mail or password is incorrect. Please try again')
     }
 }
-
 
 
