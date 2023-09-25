@@ -10,7 +10,7 @@ var users = [
         email: 'belen@gmail.com',
         password: '123123'
     }
-];
+]
 
 //register
 
@@ -35,6 +35,8 @@ registerForm.onsubmit = function (event) {
 
     var emailInput = registerForm.querySelector('#email')
     var email = emailInput.value
+    var nameInput = registerForm.querySelector('#name')
+    var passwordInput = registerForm.querySelector('#password')
 
     var userFound = false
 
@@ -47,12 +49,13 @@ registerForm.onsubmit = function (event) {
 
     if (userFound) {
         alert('User already exists')
-        
+        nameInput.value = ''
+        emailInput.value = ''
+        passwordInput.value = ''
         return
     }
 
-    var nameInput = registerForm.querySelector('#name')
-    var passwordInput = registerForm.querySelector('#password')
+
 
     var name = nameInput.value
     var password = passwordInput.value
@@ -99,7 +102,7 @@ loginForm.onsubmit = function (event) {
     for (var i = 0; i < users.length && !foundUser; i++) {
         var user = users[i]
 
-        if (user.email === email) 
+        if (user.email === email)
             foundUser = user
     }
 
@@ -112,14 +115,14 @@ loginForm.onsubmit = function (event) {
 
     var password = passwordInput.value
 
-    if (foundUser.password !== password) {
+    if (user.password !== password) {
         alert('Wrong credentials')
 
         return
     }
 
     emailInput.value = ''
-    passwordInput = ''
+    passwordInput.value = ''
 
     var homeTitle = homeView.querySelector('h1')
 
