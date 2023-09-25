@@ -1,0 +1,51 @@
+/*DESKTOP STYLE*/
+
+*{
+    font-family: "Martian Mono", Times, serif;
+}
+#login button, .button_register  {
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background-color: #4299e1;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    font-size: 16px;
+    border-bottom: 4px solid #2b6cb0;
+    font-weight: 700;
+    color: white;
+    line-height: 26px;
+    margin: 0em 2em;
+}
+
+
+a{
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background-color: #e15a42;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-bottom: 4px solid #b54848;
+    font-weight: 700;
+    color: white;
+    line-height: 26px;
+    text-decoration: none;
+}
+
+input{
+    padding-left: 1em;
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+    input[type="text"] {
+        width: 300px; /* Ajusta el ancho según tus necesidades */
+        height: 40px; /* Ajusta la altura según tus necesidades */
+    }
+
+
+
