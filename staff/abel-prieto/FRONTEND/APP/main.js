@@ -49,7 +49,7 @@ registerForm.onsubmit = function(event) {
         // Mensaje de ERROR
         document.getElementById('register').querySelector('p').innerText = 'Error: Account already exists';
     } else if (username === ''|| email === '' || password === '') {
-        document.getElementById('register').querySelector('p').innerText = 'Error: Please, do it again';
+        document.getElementById('register').querySelector('p').innerText = 'Please, enter a valid email address';
     } else {
         // Continuar con el proceso de registro
         users.push(user)
@@ -111,7 +111,7 @@ loginForm.onsubmit = function(event) {
         document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username + ' 👤'
     } else { 
         // Mensaje de ERROR
-        document.getElementById('login').querySelector('p').innerText = 'Error: Email or password wrong. Try again'
+        document.getElementById('login').querySelector('p').innerText = 'Error: Wrong email or password... Try again'
     }
 }
 
