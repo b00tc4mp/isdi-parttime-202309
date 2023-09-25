@@ -83,17 +83,17 @@ var loginForm = loginView.querySelector('form');
 loginForm.onsubmit = function (event) {
     event.preventDefault();
 
-    var userMailInput = loginForm.querySelector('#email').value;
-    var userPasswordInput = loginForm.querySelector('#password').value;
+    var userMail = loginForm.querySelector('#email').value;
+    var userPassword = loginForm.querySelector('#password').value;
 
-    if (userAlredyExist(userMailInput)) {
+    if (userAlredyExist(userMail)) {
         var indexOfUser = users.findIndex(function(user){
-            return user.email === userMailInput;
+            return user.email === userMail;
             
         });
 
         var passwordOfUser = users[indexOfUser].password;
-        if (userPasswordInput === passwordOfUser) {
+        if (userPassword === passwordOfUser) {
             loginView.style.display = 'none';
             homeView.style.display = 'block';
 
