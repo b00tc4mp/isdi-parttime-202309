@@ -1,110 +1,139 @@
-// Obtención de elementos del DOM y ocultamiento inicial:
+// storage
 
-var loginView = document.getElementById('login')
-var homeView = document.getElementById('home')
+var users = [
+    {
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
+        password: '123123123'
+    },
+    {
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
+        password: '123123123'
+    }
+]
+
+// register
+
 var registerView = document.getElementById('register')
 
 registerView.style.display = 'none'
-homeView.style.display = 'none'
 
-// Obtencion de enlaces de cambio de vista
+var registerLoginLink = registerView.querySelector('a')
 
-var loginLink = registerView.querySelector('a')
-var registerLink = loginView.querySelector('a')
-//
-//
-//--> Eventos para cambiar entre vistas
-
-loginLink.onclick = function (event) {
+registerLoginLink.onclick = function (event) {
     event.preventDefault()
+
     registerView.style.display = 'none'
     loginView.style.display = 'block'
 }
 
-registerLink.onclick = function (event) {
-    event.preventDefault()
-    registerView.style.display = 'block'
-    loginView.style.display = 'none'
-
-}
-
-// Array para almacenar los usuarios
-
-var users = []
-
-// Formulario de registro
-
 var registerForm = registerView.querySelector('form')
 
 registerForm.onsubmit = function (event) {
-    event.preventDefault();
+    event.preventDefault()
 
-    var nameInput = registerForm.querySelector('#name');
-    var emailInput = registerForm.querySelector('#registerEmail');
-    var passwordInput = registerForm.querySelector('#registerPassword');
+    var emailInput = registerForm.querySelector('#registerEmail')
+    var email = emailInput.value
 
-    var name = nameInput.value;
-    var email = emailInput.value;
-    var password = passwordInput.value;
+    var userFound = false
 
-    if (name === '' || email === '' || password === '') {
-        alert('Please enter your name, email, and password.');
-    } else {
-        var userExists = users.some(function (user) {
-            return user.email === email;
-        });
+    for (var i = 0; i < users.length && !userFound; i++) {
+        var user = users[i]
 
-        if (userExists) {
-            alert('User already exists.');
-        } else {
-            var user = {
-                name: name,
-                email: email,
-                password: password
-            };
-
-            users.push(user);
-
-            nameInput.value = '';
-            emailInput.value = '';
-            passwordInput.value = '';
-
-            registerView.style.display = 'none';
-            loginView.style.display = 'block';
-        }
+        if (user.email === email)
+            userFound = true
     }
-};
 
+    if (userFound) {
+        alert('User already exists')
 
-// Formulario de inicio de sesion
+        return
+    }
+
+    var nameInput = registerForm.querySelector('#name')
+    var passwordInput = registerForm.querySelector('#registerPassword')
+
+    var name = nameInput.value
+    var password = passwordInput.value
+
+    var user = {}
+
+    user.name = name
+    user.email = email
+    user.password = password
+
+    users.push(user)
+
+    nameInput.value = ''
+    emailInput.value = ''
+    passwordInput.value = ''
+
+    registerView.style.display = 'none'
+    loginView.style.display = 'block'
+}
+
+// login
+
+var loginView = document.getElementById('login')
+var loginRegisterLink = loginView.querySelector('a')
+
+loginRegisterLink.onclick = function (event) {
+    event.preventDefault()
+
+    loginView.style.display = 'none'
+    registerView.style.display = 'block'
+}
 
 var loginForm = loginView.querySelector('form')
 
 loginForm.onsubmit = function (event) {
-    event.preventDefault();
+    event.preventDefault()
 
     var emailInput = loginForm.querySelector('#loginEmail')
-    var passwordInput = loginForm.querySelector('#loginPassword')
 
     var email = emailInput.value
+
+    var foundUser = null
+
+    for (var i = 0; i < users.length && !foundUser; i++) {
+        var user = users[i]
+
+        if (user.email === email)
+            foundUser = user
+    }
+
+    if (!foundUser) {
+        alert('User not found')
+
+        return
+    }
+
+    var passwordInput = loginForm.querySelector('#loginPassword')
+
     var password = passwordInput.value
 
-    var user = users.find(function (user) {
-        return user.email === email && user.password === password
-    })
+    if (foundUser.password !== password) {
+        alert('Wrong credentials')
 
-    if (user) {
-
-        var username = user.name
-
-        loginView.style.display = 'none'
-        homeView.style.display = 'block'
-        document.getElementById('username').textContent = `Hello, ${username}!`
-
-    } else {
-
-        alert('The E-mail or password is incorrect. Please try again')
+        return
     }
+
+    emailInput.value = ''
+    passwordInput.value = ''
+
+    var homeTitle = homeView.querySelector('h1')
+
+    homeTitle.innerText = 'Hello, ' + foundUser.name + '!'
+
+    loginView.style.display = 'none'
+    homeView.style.display = 'block'
 }
 
+// home
 
+var homeView = document.getElementById('home')
+
+homeView.style.display = 'none'
+
+// TODO show user name logged in when entering in Home (Hello, >name<!)
