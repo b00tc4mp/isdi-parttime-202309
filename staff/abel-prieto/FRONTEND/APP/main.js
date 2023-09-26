@@ -24,15 +24,33 @@ var registerForm = registerView.querySelector('form')
 registerForm.onsubmit = function(event) {
     event.preventDefault()
     
-    var nameInput = registerForm.querySelector('#username')
     var emailInput = registerForm.querySelector('#email')
-    var passwordInput = registerForm.querySelector('#password')
-    
-    var username = nameInput.value
     var email = emailInput.value
+
+    var userFound = false
+
+    for (i = 0; i < users.length && !userFound; i++) {
+        var user = users[i]
+
+        if (user.email === email) 
+            userFound = true
+    }
+
+    if (userFound) {
+        alert('User already exist')
+
+        return
+    }
+    
+    var nameInput = registerForm.querySelector('#username')
+    var passwordInput = registerForm.querySelector('#password')
+
+    var username = nameInput.value
     var password = passwordInput.value
     
     var user = {}
+
+    users.push(user)
     
     user.username = username
     user.email = email
@@ -42,26 +60,9 @@ registerForm.onsubmit = function(event) {
     emailInput.value = '';
     passwordInput.value = '';
 
-    // Busque el usuario registrado
-    var isUsernameAvaliable = users.some(u => u.username === user.username || u.email === user.email)
-
-    if (isUsernameAvaliable) {
-        // Mensaje de ERROR
-        document.getElementById('register').querySelector('p').innerText = 'Error: Account already exists';
-    } else if (username === ''|| email === '' || password === '') {
-        document.getElementById('register').querySelector('p').innerText = 'Please, enter a valid email address';
-    } else {
-        // Continuar con el proceso de registro
-        users.push(user)
-        registerView.style.display = 'none';
-        homeView.style.display = 'none';
-        loginView.style.display = 'block';
-    }
+    registerView.style.display = 'none';
+    loginView.style.display = 'block';
 }
-
-document.body.addEventListener('click', function() { // Hace que modifique nuevamente el <p> del ERROR al ORIGINAL.
-    document.getElementById('register').querySelector('p').innerText = 'Create an account';
-});
 
 
 // LOGIN
@@ -75,7 +76,6 @@ loginRegisterLink.onclick = function(event) {
     event.preventDefault() 
 
     loginView.style.display = 'none'
-    homeView.style.display = 'none'
     registerView.style.display = 'block'
 }
 
@@ -85,63 +85,45 @@ var loginForm = loginView.querySelector('form')
 loginForm.onsubmit = function(event) {
     event.preventDefault() 
 
-    var emailLoginInput = loginForm.querySelector('#email')
-    var passwordLoginInput = loginForm.querySelector('#password')
+    var emailInput = loginForm.querySelector('#email')
+    var email = emailInput.value 
 
-    var emailLogin = emailLoginInput.value 
-    var passwordLogin = passwordLoginInput.value
+    var foundUser = null
 
-    emailLoginInput.value = ''
-    passwordLoginInput.value = ''
+    for (i = 0; i < users.length && !foundUser; i++) {
+        var user = users[i]
 
-    // Busque el usuario introducido en registro
-    var checkEmailAndPassword = users.some(u => u.email === emailLogin && u.password === passwordLogin)
-
-    if (checkEmailAndPassword) {
-        //Entre el login y redirija a HOME
-        registerView.style.display = 'none'
-        loginView.style.display = 'none'
-        homeView.style.display = 'block'
-        exitView.style.display = 'block'
-
-        var userLog = { // Coincida email y constraseña, las dos
-            username: users.find(user => user.email === emailLogin && user.password === passwordLogin).username
-        }
-
-        document.getElementById('home').querySelector('p').textContent = 'Welcome, ' + userLog.username + ' 👤'
-    } else { 
-        // Mensaje de ERROR
-        document.getElementById('login').querySelector('p').innerText = 'Error: Wrong email or password... Try again'
+        if (user.email === email) 
+            foundUser = user
+        
     }
-}
 
-document.body.addEventListener('click', function() { // Hace que modifique nuevamente el <p> del ERROR al ORIGINAL.
-    document.getElementById('login').querySelector('p').innerText = 'Introduce your email and password:';
-});
+    if (!foundUser) {
+        alert('User not found')
+
+        return
+    }   
+
+    var passwordInput = loginForm.querySelector('#password')
+    var password = passwordInput.value
+
+    if (foundUser.password !== password) {
+        alert('Wrong credentials')
+
+        return
+    }
+
+    emailInput.value = ''
+    passwordInput.value = ''
+
+    loginView.style.display = 'none'
+    homeView.style.display = 'block'
+}
 
 // HOME
 
 
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
-
-
-
-// BUTTON EXIT
-
-
-var exitView = document.getElementById('exit')
-var exitButton = document.getElementById('exit_button')
-exitView.style.display = 'none'
-
-exitButton.addEventListener('click', function(event) { // Salir del apartado LOGIN
-    event.preventDefault() 
-
-    exitView.style.display = 'none'
-    homeView.style.display = 'none'
-    registerView.style.display = 'none'
-    loginView.style.display = 'block'
-})
-
 
 
