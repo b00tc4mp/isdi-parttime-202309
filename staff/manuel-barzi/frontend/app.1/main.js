@@ -1,3 +1,20 @@
+// storage
+
+var users = [
+    {
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
+        password: '123123123'
+    },
+    {
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
+        password: '123123123'
+    }
+]
+
+// register
+
 var registerView = document.getElementById('register')
 
 registerView.style.display = 'none'
@@ -16,21 +33,37 @@ var registerForm = registerView.querySelector('form')
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var nameInput = registerForm.querySelector('#name')
     var emailInput = registerForm.querySelector('#email')
-    var passwordInput = registerForm.querySelector('#password')
-
-    var name = nameInput.value
     var email = emailInput.value
-    var password = passwordInput.value
 
-    var userRegistered = registerUser(name, email, password)
+    var userFound = false
 
-    if (!userRegistered) {
+    for (var i = 0; i < users.length && !userFound; i++) {
+        var user = users[i]
+
+        if (user.email === email)
+            userFound = true
+    }
+
+    if (userFound) {
         alert('User already exists')
 
         return
     }
+
+    var nameInput = registerForm.querySelector('#name')
+    var passwordInput = registerForm.querySelector('#password')
+
+    var name = nameInput.value
+    var password = passwordInput.value
+
+    var user = {}
+
+    user.name = name
+    user.email = email
+    user.password = password
+
+    users.push(user)
 
     nameInput.value = ''
     emailInput.value = ''
