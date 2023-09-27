@@ -1,18 +1,3 @@
-// storage
-
-var users = [
-    {
-        name: 'user.a',
-        email: 'user.a@email.com',
-        password: 'usera'
-    },
-    {
-        name: 'user.b',
-        email: 'user.b@email.com',
-        password: 'userb'
-    }
-]
-
 // register
 
 var registerView = document.getElementById('register')
