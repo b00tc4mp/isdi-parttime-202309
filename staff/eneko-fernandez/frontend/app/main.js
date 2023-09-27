@@ -1,11 +1,8 @@
-var users = []
-
 var registerView = document.getElementById("register")
 registerView.style.display = 'none'
 var loginView = document.getElementById('login')
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
-
 
 var registerLink =  document.querySelector('#login > a')
 var loginLink =  document.querySelector('#register > a')
@@ -22,32 +19,59 @@ loginLink.addEventListener("click", e => {
     registerView.style.display = 'none'
 })
 
+function showLogin(){
+    loginView.style.display = "block"
+    registerView.style.display = 'none'
+}
+
+function showRegister() {
+    loginView.style.display = "none"
+    registerView.style.display = 'block'
+}
+function throwError(msg, view) {
+    var errorExist = document.querySelector(".error")
+
+    if(errorExist) {
+        errorExist.remove('')
+    }
+   
+    var errorUserExist = document.createElement("p")
+    errorUserExist.classList.add("error")
+    errorUserExist.innerText = msg
+    view.append(errorUserExist)
+}
+
+function clearInputs (view) {
+    view.querySelector('#name').value = ''
+    view.querySelector('#email').value = ''
+    view.querySelector('#password').value = ''
+}
+
+function welcomeUser (user) {
+    homeView.querySelector("h1").innerText = "Bienvenido " + user.name 
+    loginView.style.display = "none"
+    registerView.style.display = 'none'
+    homeView.style.display = 'block'
+}
+
 var registerForm = registerView.querySelector('form')
 registerForm.addEventListener("submit", e => {
     e.preventDefault()
     var name = registerForm.querySelector('#name').value
     var email = registerForm.querySelector('#email').value
     var password = registerForm.querySelector('#password').value
-    var user = {name, email, password}
+    
+    if(checkValidEmail(email)) return throwError("Todos los campos son obigatorios.", registerForm)
 
-    if(Object.values(user).some(val => val === '' )) return 
-    
-    if(users.some(user => user.email === email)) {
-       var errorUserExist = document.createElement("p")
-       errorUserExist.innerText = "El email ya está en uso"
-       registerView.append(errorUserExist)
-       return
-    }
-    users.push(user)
+    if (existUser(email)) return throwError("El email ya está en uso", registerForm)
+       
+    registerUser(name,email, password)
 
-    registerForm.querySelector('#name').value = ''
-    registerForm.querySelector('#email').value = ''
-    registerForm.querySelector('#password').value = ''
-    
-    loginView.style.display = "block"
-    registerView.style.display = 'none'
-    
+    clearInputs(registerForm)
+
+    showLogin()
 })
+
 
 var loginForm = loginView.querySelector('form')
 loginForm.addEventListener("submit", e => {
@@ -56,28 +80,15 @@ loginForm.addEventListener("submit", e => {
     var email = loginForm.querySelector('#email').value
     var password = loginForm.querySelector('#password').value
 
-    if(!users.some(user => user.email === email)) {
-        var errorUserNotExist = document.createElement("p")
-        errorUserNotExist.innerText = "El usuario no existe"
-        loginView.append(errorUserNotExist)
-        return
-    }
-    
-    users.forEach(user => {
-        if(user.email === email && user.password === password) {
-            homeView.querySelector("h1").innerText = "Bienvenido " + user.name 
-            loginForm.querySelector('#email').value = ''
-            loginForm.querySelector('#password').value = ''
-            loginView.style.display = "none"
-            registerView.style.display = 'none'
-            homeView.style.display = 'block'
-        } else {
-            var errorUserNotMatch = document.createElement("p")
-            errorUserNotMatch.innerText = "Contraseña incorrecta"
-            loginView.append(errorUserNotMatch)
-        }
-    })
+    if(checkValidEmail(email)) return throwError("Todos los campos son obigatorios.", loginForm)
 
+     if (!existUser(email)) return throwError("El email no existe", loginForm)
     
+     if(!loginUser(email, password)) 
+        throwError("Contraseña incorrecta", loginForm)
+     
+    if(userFound(email, password)){
+        welcomeUser(userFound(email, password))
+    } 
 })
 
