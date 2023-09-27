@@ -13,7 +13,6 @@ var users = [
     }
 ]
 
- 
 function userExistByEmail(email) {
     for (i = 0; i < users.length; i++) {
         var user = users[i]
@@ -35,11 +34,10 @@ function createUser(username, email, password) {
     users.push(user)
 }
 
-
 // LOGIN DATA
 
 function showMessage() {
     var homeTittle = homeView.querySelector('h1')
-    
+
     homeTittle.innerText = 'Hello ' + foundUser.username + '!'
 }
