@@ -48,7 +48,7 @@ body{
     font-size: 12px;
 }
 
-.button-login {
+.button-login, .button-register {
     border: none;
     border-radius: 20px;
     padding: 10px;
@@ -58,7 +58,7 @@ body{
     font-size: 10px;    
 }
 
-.button-login:hover{
+.button-login:hover, .button-register:hover{
     background-color: rgb(82, 61, 177);
     color: rgb(254, 254, 254);
 }
