@@ -86,10 +86,8 @@ loginForm.addEventListener('submit', (e) => {
 
   if (!existUser(email)) return throwError('El email no existe', loginForm)
 
-  if (!loginUser(email, password))
-    throwError('Contraseña incorrecta', loginForm)
+  if (!userFound(email, password))
+    return throwError('Contraseña incorrecta', loginForm)
 
-  if (userFound(email, password)) {
-    welcomeUser(userFound(email, password))
-  }
+  welcomeUser(userFound(email, password))
 })
