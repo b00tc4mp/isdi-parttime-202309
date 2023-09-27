@@ -1,94 +1,95 @@
-var registerView = document.getElementById("register")
-registerView.style.display = 'none'
-var loginView = document.getElementById('login')
-var homeView = document.getElementById('home')
-homeView.style.display = 'none'
+var registerView = document.getElementById("register");
+registerView.style.display = "none";
+var loginView = document.getElementById("login");
+var homeView = document.getElementById("home");
+homeView.style.display = "none";
 
-var registerLink =  document.querySelector('#login > a')
-var loginLink =  document.querySelector('#register > a')
+var registerLink = document.querySelector("#login > a");
+var loginLink = document.querySelector("#register > a");
 
-registerLink.addEventListener("click", e => {
-    e.preventDefault()
-    loginView.style.display = "none"
-    registerView.style.display = 'block'
-})
+registerLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  loginView.style.display = "none";
+  registerView.style.display = "block";
+});
 
-loginLink.addEventListener("click", e => {
-    e.preventDefault()
-    loginView.style.display = "block"
-    registerView.style.display = 'none'
-})
+loginLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  loginView.style.display = "block";
+  registerView.style.display = "none";
+});
 
-function showLogin(){
-    loginView.style.display = "block"
-    registerView.style.display = 'none'
+function showLogin() {
+  loginView.style.display = "block";
+  registerView.style.display = "none";
 }
 
 function showRegister() {
-    loginView.style.display = "none"
-    registerView.style.display = 'block'
+  loginView.style.display = "none";
+  registerView.style.display = "block";
 }
 function throwError(msg, view) {
-    var errorExist = document.querySelector(".error")
+  var errorExist = document.querySelector(".error");
 
-    if(errorExist) {
-        errorExist.remove('')
-    }
-   
-    var errorUserExist = document.createElement("p")
-    errorUserExist.classList.add("error")
-    errorUserExist.innerText = msg
-    view.append(errorUserExist)
+  if (errorExist) {
+    errorExist.remove("");
+  }
+
+  var errorUserExist = document.createElement("p");
+  errorUserExist.classList.add("error");
+  errorUserExist.innerText = msg;
+  view.append(errorUserExist);
 }
 
-function clearInputs (view) {
-    view.querySelector('#name').value = ''
-    view.querySelector('#email').value = ''
-    view.querySelector('#password').value = ''
+function clearInputs(view) {
+  view.querySelector("#name").value = "";
+  view.querySelector("#email").value = "";
+  view.querySelector("#password").value = "";
 }
 
-function welcomeUser (user) {
-    homeView.querySelector("h1").innerText = "Bienvenido " + user.name 
-    loginView.style.display = "none"
-    registerView.style.display = 'none'
-    homeView.style.display = 'block'
+function welcomeUser(user) {
+  homeView.querySelector("h1").innerText = "Bienvenido " + user.name;
+  loginView.style.display = "none";
+  registerView.style.display = "none";
+  homeView.style.display = "block";
 }
 
-var registerForm = registerView.querySelector('form')
-registerForm.addEventListener("submit", e => {
-    e.preventDefault()
-    var name = registerForm.querySelector('#name').value
-    var email = registerForm.querySelector('#email').value
-    var password = registerForm.querySelector('#password').value
-    
-    if(checkValidEmail(email)) return throwError("Todos los campos son obigatorios.", registerForm)
+var registerForm = registerView.querySelector("form");
+registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  var name = registerForm.querySelector("#name").value;
+  var email = registerForm.querySelector("#email").value;
+  var password = registerForm.querySelector("#password").value;
 
-    if (existUser(email)) return throwError("El email ya está en uso", registerForm)
-       
-    registerUser(name,email, password)
+  if (checkValidEmail(email))
+    return throwError("Todos los campos son obigatorios.", registerForm);
 
-    clearInputs(registerForm)
+  if (existUser(email))
+    return throwError("El email ya está en uso", registerForm);
 
-    showLogin()
-})
+  registerUser(name, email, password);
 
+  clearInputs(registerForm);
 
-var loginForm = loginView.querySelector('form')
-loginForm.addEventListener("submit", e => {
-    e.preventDefault()
-   
-    var email = loginForm.querySelector('#email').value
-    var password = loginForm.querySelector('#password').value
+  showLogin();
+});
 
-    if(checkValidEmail(email)) return throwError("Todos los campos son obigatorios.", loginForm)
+var loginForm = loginView.querySelector("form");
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-     if (!existUser(email)) return throwError("El email no existe", loginForm)
-    
-     if(!loginUser(email, password)) 
-        throwError("Contraseña incorrecta", loginForm)
-     
-    if(userFound(email, password)){
-        welcomeUser(userFound(email, password))
-    } 
-})
+  var email = loginForm.querySelector("#email").value;
+  var password = loginForm.querySelector("#password").value;
 
+  if (checkValidEmail(email))
+    return throwError("Todos los campos son obigatorios.", loginForm);
+
+  if (!existUser(email)) return throwError("El email no existe", loginForm);
+
+  if (!loginUser(email, password))
+    throwError("Contraseña incorrecta", loginForm);
+
+  if (userFound(email, password)) {
+    welcomeUser(userFound(email, password));
+  }
+});
