@@ -12,7 +12,6 @@ function registerUser(username, email, password) {
     return true
 }
 
-
 // LOGIN LOGIC
 
 var foundUser = null
