@@ -1,7 +1,7 @@
 function registerUser(name, email, password) {
-    if (!name.trim().length) throw new Error('name is empty')
-    if (!email.trim().length) throw new Error('email is empty')
-    if (!password.trim().length) throw new Error('password is empty')
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'password')
 
     var user = findUserByEmail(email)
 
@@ -12,8 +12,8 @@ function registerUser(name, email, password) {
 }
 
 function authenticateUser(email, password) {
-    if (!email.trim().length) throw new Error('email is empty')
-    if (!password.trim().length) throw new Error('password is empty')
+    validateText(email, 'email')
+    validateText(password, 'password')
 
     var user = findUserByEmail(email)
 
@@ -22,7 +22,7 @@ function authenticateUser(email, password) {
 }
 
 function retrieveUser(email) {
-    if (!email.trim().length) throw new Error('email is empty')
+    validateText(email, 'email')
 
     var user = findUserByEmail(email)
 

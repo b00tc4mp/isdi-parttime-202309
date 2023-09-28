@@ -87,4 +87,3 @@ var homeView = document.getElementById('home')
 homeView.style.display = 'none'
 
 // TODO show user name logged in when entering in Home (Hello, >name<!)
-
