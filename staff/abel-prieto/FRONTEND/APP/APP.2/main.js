@@ -24,18 +24,20 @@ registerForm.onsubmit = function (event) {
     var email = emailInput.value
     var password = passwordInput.value
 
-    try {
-        registerUser(name, email, password)
+    var userRegistered = registerUser(name, email, password)
 
-        nameInput.value = ''
-        emailInput.value = ''
-        passwordInput.value = ''
+    if (!userRegistered) {
+        alert('User already exists')
 
-        registerView.style.display = 'none'
-        loginView.style.display = 'block'
-    } catch (error) {
-        alert(error.message)
+        return
     }
+
+    nameInput.value = ''
+    emailInput.value = ''
+    passwordInput.value = ''
+
+    registerView.style.display = 'none'
+    loginView.style.display = 'block'
 }
 
 // login
@@ -61,23 +63,25 @@ loginForm.onsubmit = function (event) {
     var email = emailInput.value
     var password = passwordInput.value
 
-    try {
-        authenticateUser(email, password)
+    var userAuthenticated = authenticateUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
+    if (!userAuthenticated) {
+        alert('Wrong credentials')
 
-        var homeTitle = homeView.querySelector('h1')
-
-        var user = retrieveUser(email)
-
-        homeTitle.innerText = 'Hello, ' + user.name + '!'
-
-        loginView.style.display = 'none'
-        homeView.style.display = 'block'
-    } catch (error) {
-        alert(error.message)
+        return
     }
+
+    emailInput.value = ''
+    passwordInput.value = ''
+
+    var homeTitle = homeView.querySelector('h1')
+
+    var user = retrieveUser(email)
+
+    homeTitle.innerText = 'Hello, ' + user.name + '!'
+
+    loginView.style.display = 'none'
+    homeView.style.display = 'block'
 }
 
 // home

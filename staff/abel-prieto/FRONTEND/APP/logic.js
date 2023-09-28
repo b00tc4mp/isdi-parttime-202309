@@ -1,27 +1,33 @@
-// REGISTER LOGIC
+function registerUser(name, email, password) {
+    if (!name.trim().length) throw new Error('name is empty')
+    if (!email.trim().length) throw new Error('email is empty')
+    if (!password.trim().length) throw new Error('password is empty')
 
-function registerUser(username, email, password) {
-    var userExists = userExistByEmail(email)
+    var user = findUserByEmail(email)
 
-    if (userExists) 
-        return false
-    
+    if (user)
+        throw new Error('user already exists')
 
-    createUser(username, email, password)
-
-    return true
+    createUser(name, email, password)
 }
 
-// LOGIN LOGIC
+function authenticateUser(email, password) {
+    if (!email.trim().length) throw new Error('email is empty')
+    if (!password.trim().length) throw new Error('password is empty')
 
-var foundUser = null
+    var user = findUserByEmail(email)
 
-function userAlreadyCreatedByEmail(email) {
-    for (i = 0; i < users.length && !foundUser; i++) {
-        var user = users[i]
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
+}
 
-        if (user.email === email) 
-            foundUser = user
-        
-    }
+function retrieveUser(email) {
+    if (!email.trim().length) throw new Error('email is empty')
+
+    var user = findUserByEmail(email)
+
+    if (!user)
+        throw new Error('user not found')
+
+    return user
 }
