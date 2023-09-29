@@ -78,6 +78,45 @@ loginForm.onsubmit = function (event) {
         loginView.style.display = 'none'
         homeView.style.display = 'block'
         homeButton.style.display = 'block'
+
+        //////////
+
+        // var sendNewEmail = document.getElementById('change_email')
+
+        // sendNewEmail.onclick = function(event) {
+        //     event.preventDefault()
+
+        //     registerView.style.display = 'none'
+        //     loginView.style.display = 'none'
+        //     homeView.style.display = 'block'
+        //     homeButton.style.display = 'block'
+        // }
+
+        // var sendNewPassword = document.getElementById('change_password')
+
+        // sendNewPassword.onclick = function(event) {
+        //     event.preventDefault()
+
+        //     registerView.style.display = 'none'
+        //     loginView.style.display = 'none'
+        //     homeView.style.display = 'block'
+        //     homeButton.style.display = 'block'
+        // }
+
+        // var changeEmailForm = homeView.querySelector('form')
+
+        // changeEmailForm.onsubmit = function(event) {
+        //     event.preventDefault()
+
+        //     var newEmailInput = homeView.querySelector('#new_email')        
+        //     var newEmail = newEmailInput.value
+
+        //     var email = findUserByEmail(email)
+
+        //     changeActualEmail(email)
+
+        //     newEmailInput.value = '';
+        // }
     } catch (error) {
         alert(error.message)
     }
@@ -90,9 +129,12 @@ var homeView = document.getElementById('home')
 homeView.style.display = 'none'
 
 // BUTTON LOGOUT
+
 var homeButton = document.getElementById('home_button')
 
 homeButton.onclick = function (event) {
+    event.preventDefault()
+    
     registerView.style.display = 'none'
     homeView.style.display = 'none'
     homeButton.style.display = 'none'
