@@ -1,9 +1,19 @@
 // REGISTER LOGIC
 
+function validateString(string, explain) {
+    if (!string.trim().length) trhow new Error(explain + ' is empty')
+}
+
+
+
 function registerUser(name, email, password) {
-    if (!name.trim().length) throw new Error('name is empty')
-    if (!email.trim().length) throw new Error('email is empty')
-    if (!password.trim().length) throw new Error('password is empty')
+    validateString(name, 'name')
+    validateString(email, 'email')
+    validateString(password, 'password')
+
+    // if (!name.trim().length) throw new Error('name is empty')
+    // if (!email.trim().length) throw new Error('email is empty')
+    // if (!password.trim().length) throw new Error('password is empty')
 
     var user = findUserByEmail(email)
 
