@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="validators.js" defer></script>
+    <script src="validator.js" defer></script>
     <script src="data.js" defer></script>
     <script src="logic.js" defer></script>
     <script src="main.js" defer></script>
@@ -66,6 +66,32 @@
     
     <div id="home">
         <h1>HOME PAGE</h1>
+
+        <button id="home_button">Log Out</button>
+
+        <h2>Changes credentials</h2>
+        <form>
+            <p>Change your email: </p>
+
+            <label for="email_change">Email</label>
+            <input id="email_change" type="text" placeholder="Entry your new email">
+            <button id="change_email">Change Email</button>
+            <p>Change your password: </p>
+
+            <label for="original_password">Original password</label>
+            <input for="original_password" type="text" placeholder="Entry your original password">
+            
+            <br>
+            
+            <label for="first_try_password">New password</label>
+            <input for="first_try_password" type="password" placeholder="Entry your NEW password">
+            
+            <br>
+            
+            <label for="second_try_password">New password again</label>
+            <input for="second_try_password" type="password" placeholder="Entry AGAIN your NEW password">
+            <button id="change_password">Change Password</button>
+        </form>
     </div>
 
 

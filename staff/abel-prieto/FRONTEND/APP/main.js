@@ -77,6 +77,7 @@ loginForm.onsubmit = function (event) {
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
+        homeButton.style.display = 'block'
     } catch (error) {
         alert(error.message)
     }
@@ -87,3 +88,13 @@ loginForm.onsubmit = function (event) {
 var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
+
+// BUTTON LOGOUT
+var homeButton = document.getElementById('home_button')
+
+homeButton.onclick = function (event) {
+    registerView.style.display = 'none'
+    homeView.style.display = 'none'
+    homeButton.style.display = 'none'
+    loginView.style.display = 'block'
+}
