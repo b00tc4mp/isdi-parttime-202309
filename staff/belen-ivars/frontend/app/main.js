@@ -1,25 +1,10 @@
-// storage
-var users = [
-    {
-        name: 'Ana',
-        email: 'ana@gmail.com',
-        password: '123123'
-    },
-    {
-        name: 'Belén',
-        email: 'belen@gmail.com',
-        password: '123123'
-    }
-]
-
-//register
+// register
 
 var registerView = document.getElementById('register')
 
 registerView.style.display = 'none'
 
 var registerLoginLink = registerView.querySelector('a')
-
 
 registerLoginLink.onclick = function (event) {
     event.preventDefault()
@@ -34,46 +19,26 @@ registerForm.onsubmit = function (event) {
     event.preventDefault()
 
     var emailInput = registerForm.querySelector('#email')
-    var email = emailInput.value
     var nameInput = registerForm.querySelector('#name')
     var passwordInput = registerForm.querySelector('#password')
 
-    var userFound = false
-
-    for (var i = 0; i < users.length && !userFound; i++) {
-        var user = users[i]
-
-        if (user.email === email)
-            userFound = true
-    }
-
-    if (userFound) {
-        alert('User already exists')
-        nameInput.value = ''
-        emailInput.value = ''
-        passwordInput.value = ''
-        return
-    }
-
-
-
+    var email = emailInput.value
     var name = nameInput.value
     var password = passwordInput.value
 
-    var user = {}
+    try {
+        registerUser(name, email, password)
 
-    user.name = name
-    user.email = email
-    user.password = password
+        nameInput.value = ''
+        emailInput.value = ''
+        passwordInput.value = ''
 
-    users.push(user)
+        registerView.style.display = 'none'
+        loginView.style.display = 'block'
 
-    nameInput.value = ''
-    emailInput.value = ''
-    passwordInput.value = ''
-
-    registerView.style.display = 'none'
-    loginView.style.display = 'block'
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
 // login
@@ -94,47 +59,62 @@ loginForm.onsubmit = function (event) {
     event.preventDefault()
 
     var emailInput = loginForm.querySelector('#email')
-
-    var email = emailInput.value
-
-    var foundUser = null
-
-    for (var i = 0; i < users.length && !foundUser; i++) {
-        var user = users[i]
-
-        if (user.email === email)
-            foundUser = user
-    }
-
-    if (!foundUser) {
-        alert('User not found')
-
-        return
-    }
     var passwordInput = loginForm.querySelector('#password')
 
+    var email = emailInput.value
     var password = passwordInput.value
 
-    if (user.password !== password) {
-        alert('Wrong credentials')
+    try {
+        authenticateUser(email, password)
 
-        return
+        emailInput.value = ''
+        passwordInput.value = ''
+
+        var homeTitle = homeView.querySelector('h1')
+
+        var user = retrieveUser(email)
+
+        homeTitle.innerText = 'Hello, ' + user.name + '!'
+
+        loginView.style.display = 'none'
+        homeView.style.display = 'block'
+    } catch (error) {
+        alert(error.message)
     }
-
-    emailInput.value = ''
-    passwordInput.value = ''
-
-    var homeTitle = homeView.querySelector('h1')
-
-    homeTitle.innerText = 'Hello, ' + foundUser.name + '!'
-
-    loginView.style.display = 'none'
-    homeView.style.display = 'block'
 }
-
-
 
 // home
 
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
+
+var logoutButton = homeView.querySelector('button')
+
+logoutButton.onclick = function (event) {
+    event.preventDefault()
+
+    // var user = retrieveUser(email)
+
+    if (confirm('Are you sure you want to leave?')) {
+        alert('See you soon')
+
+        homeView.style.display = 'none'
+        loginView.style.display = 'block'
+    }
+
+}
+
+var homeSettingsLink = homeView.querySelector('a')
+
+homeSettingsLink.onclick = function (event) {
+    event.preventDefault()
+
+    homeView.style.display = 'none'
+    settingsView.style.display = 'block'
+}
+
+// settings
+
+var settingsView = document.getElementById('settings')
+settingsView.style.display = 'none'
+
