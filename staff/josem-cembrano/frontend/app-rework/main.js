@@ -86,6 +86,13 @@ var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
+///////////////////////////////
+
+
+
+/////////////////////////////////////
+
+
 var logout = document.getElementsByClassName('Logout');
 
 for (var i = 0; i < logout.length; i++) {
