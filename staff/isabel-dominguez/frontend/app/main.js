@@ -1,7 +1,6 @@
-var registerView = document.getElementById('register')
-
-registerView.style.display = 'none'
-
+//REGISTER
+var registerView = document.getElementById('register');
+registerView.style.display = 'none';
 var registerLoginLink = registerView.querySelector('a')
 
 registerLoginLink.onclick = function (event) {
@@ -38,9 +37,8 @@ registerForm.onsubmit = function (event) {
     }
 }
 
-// login
-
-var loginView = document.getElementById('login')
+//LOGIN
+var loginView = document.getElementById('login');
 var loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
@@ -71,7 +69,7 @@ loginForm.onsubmit = function (event) {
 
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Hello, ' + user.name + '!'
+        homeTitle.innerText = 'Welcome ' + user.name + '!'
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
@@ -80,10 +78,6 @@ loginForm.onsubmit = function (event) {
     }
 }
 
-// home
-
-var homeView = document.getElementById('home')
-
-homeView.style.display = 'none'
-
-// TODO show user name logged in when entering in Home (Hello, >name<!)
+//HOME
+var homeView = document.getElementById('home');
+homeView.style.display = 'none';

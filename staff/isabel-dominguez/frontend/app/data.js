@@ -1,15 +1,4 @@
-var users = [
-    {
-        name: 'Wendy Darling',
-        email: 'wendy@darling.com',
-        password: '123123123'
-    },
-    {
-        name: 'Peter Pan',
-        email: 'peter@pan.com',
-        password: '123123123'
-    }
-]
+var users = []
 
 function createUser(name, email, password) {
     var user = {}
@@ -22,12 +11,10 @@ function createUser(name, email, password) {
 }
 
 function findUserByEmail(email) {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.email === email)
-            return user
-    }
-
-    return null
+    var foundEmail = users.find(user => user.email === email);
+    return foundEmail !== undefined ? foundEmail : null;
 }
+
+
+// Utilizo un operador ternario para cambiar el undefined por null porque no es lo mismo decirle que el email que estoy 
+// buscando no existe, que decirle que aún no está definido o inicializado.
