@@ -34,7 +34,7 @@ loginForm.onsubmit = function (event) {
     var foundUser = checkAndGetUser(email)
 
     if (!foundUser) {
-        alert('User not found')
+        alert('Wrong credentials')
         return
     }
 

@@ -8,6 +8,14 @@ function registerUser(name, email, password) {
     return true
 }
 
+function autenticateUser (email, password) {
+
+}
+
+function retrieveUser (email) {
+
+}
+
 
 /*function checkAndGetUser(email) {
     var userExists = userExistsByEmail(email)
