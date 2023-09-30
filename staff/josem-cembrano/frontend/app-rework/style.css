@@ -5,6 +5,21 @@
 }
 
 
+#changeCredentials {
+    background-size: 125% auto;
+    color: rgb(120, 126, 126);
+    width: 350px;
+    max-width: 100%;
+    padding: 3rem;
+    border-radius: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+    box-shadow: 0px 0px 70px rgb(32, 32, 32);
+    border: 3px solid #c2a145;
+}
+
+
 #settings {
     background-color: #bd9860;;
     color: rgb(145, 84, 6);
