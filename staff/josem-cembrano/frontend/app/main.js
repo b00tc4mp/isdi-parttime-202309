@@ -86,4 +86,12 @@ var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
+var logout = document.getElementsByClassName('Logout');
+
+for (var i = 0; i < logout.length; i++) {
+  logout[i].addEventListener('click', function() {
+    return
+  });
+} 
+
 // TODO show user name logged in when entering in Home (Hello, >name<!)
