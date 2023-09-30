@@ -1,6 +1,19 @@
+// storage
 
+var users = [
+{
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
+        password: '123123123'
+},
+{
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
+        password: '123123123'
+}
+]
 
-// presentation (view)
+// register
 
 var registerView = document.getElementById('register')
 
@@ -17,25 +30,40 @@ registerLoginLink.onclick = function (event) {
 
 var registerForm = registerView.querySelector('form')
 
-
-
-
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
     var emailInput = registerForm.querySelector('#email')
+    var email = emailInput.value
+
+    var userFound = false
+
+    for (var i = 0; i < users.length && !userFound; i++) {
+        var user = users[i]
+
+        if (user.email === email)
+            userFound = true
+    }
+
+    if (userFound) {
+        alert('User already exists')
+
+        return
+    }
+
     var nameInput = registerForm.querySelector('#name')
     var passwordInput = registerForm.querySelector('#password')
 
-    var email = emailInput.value 
     var name = nameInput.value
     var password = passwordInput.value
+ 
+    var user = {}
 
-    var userRegistered = registerUser(name, email, password)
+    user.name = name
+    user.email = email
+    user.password = password
 
-    if (!userRegistered){
-        alert('User already exists')
-    } 
+    users.push(user)
 
     nameInput.value = ''
     emailInput.value = ''
@@ -44,9 +72,6 @@ registerForm.onsubmit = function (event) {
     registerView.style.display = 'none'
     loginView.style.display = 'block'
 }
-
-
-    
 
 // login
 
