@@ -1,15 +1,20 @@
 function registerUser(name, email, password) {
-    validateText(name, 'Name')
-    validateText(email, 'E-mail')
-    validateText(password, 'Password')
+    validateText(name, 'Name');
+    validateText(email, 'E-mail');
+    validateText(password, 'Password');
 
-    var user = findUserByEmail(email)
+    var user = findUserByEmail(email);
 
-    if (user)
-        throw new Error('User already exists!')
+    if (user) {
+        clearFormFields(registerForm);
+        throw new Error('User already exists!');
+    }
 
-    createUser(name, email, password)
+    createUser(name, email, password);
+    
+    clearFormFields(registerForm);
 }
+
 
 function authenticateUser(email, password) {
     validateText(email, 'email')

@@ -26,9 +26,7 @@ registerForm.onsubmit = function (event) {
     try {
         registerUser(name, email, password)
 
-        nameInput.value = ''
-        emailInput.value = ''
-        passwordInput.value = ''
+        clearFormFields(registerForm);
 
         registerView.style.display = 'none'
         loginView.style.display = 'block'
@@ -62,8 +60,7 @@ loginForm.onsubmit = function (event) {
     try {
         authenticateUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
+        clearFormFields(loginForm);
 
         var homeTitle = homeView.querySelector('h1')
 

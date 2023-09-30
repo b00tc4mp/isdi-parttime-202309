@@ -1,5 +1,12 @@
 var users = []
 
+function clearFormFields(form) {
+    var inputs = form.querySelectorAll('input');
+    inputs.forEach(function (input) {
+        input.value = '';
+    });
+}
+
 function createUser(name, email, password) {
     var user = {}
 
