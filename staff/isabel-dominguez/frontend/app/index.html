@@ -44,6 +44,37 @@
 
     <div id="home">
         <h1>Hello, Home!</h1>
+        <h2>Do you want to change your credentials?</h2>
+        <button id="goback">Go back</button>
+        <button id="changepass">Change password</button>
+        <button id="changeemail">Change E-mail</button>
+
+        <form id="changepassform">
+            <h2>Do you want to change your credentials?</h2>
+            <label for="currentPassword">Current password:</label>
+            <input id="currentPassword" type="password"><br>
+    
+            <label for="newPassword">New password:</label>
+            <input id="newPassword" type="password"><br>
+    
+            <label for="confirmPassword">Confirm password:</label>
+            <input id="confirmPassword" type="password"><br>
+    
+            <button>Change password ✅</button>
+        </form>
+
+        <form id="changeemailform">
+            <label for="currentEmail">Current E-mail:</label>
+            <input id="currentEmail" type="email"><br>
+    
+            <label for="newEmail">New E-mail:</label>
+            <input id="newEmail" type="email"><br>
+    
+            <label for="confirmNewEmail">Confirm new E-mail:</label>
+            <input id="confirmNewEmail" type="email"><br>
+    
+            <button>Change E-mail ✅</button>
+        </form>
     </div>
 
     <script src="validators.js"></script>

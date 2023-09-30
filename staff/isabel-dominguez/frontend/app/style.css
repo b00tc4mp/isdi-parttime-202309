@@ -10,7 +10,7 @@ body {
     height: 100vh;
 }
 
-h1 {
+h1, h2 {
     color: #fff;
     font-size: 24px;
     margin-bottom: 20px;
@@ -58,4 +58,16 @@ div a {
 div p {
     color: #fff;
     font-size: large;
+}
+
+#home #goback {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #fff;
+    color: #000000;
+}
+
+#home #goback:hover{
+    background-color: #23c4cf;
 }

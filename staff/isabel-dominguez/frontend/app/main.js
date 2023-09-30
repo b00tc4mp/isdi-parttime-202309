@@ -66,7 +66,7 @@ loginForm.onsubmit = function (event) {
 
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Welcome ' + user.name + '!'
+        homeTitle.innerText = 'Welcome!👋 ' + user.name + '!'
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
@@ -78,3 +78,37 @@ loginForm.onsubmit = function (event) {
 //HOME
 var homeView = document.getElementById('home');
 homeView.style.display = 'none';
+
+//Go back
+var goBackButton = homeView.querySelector('#goback');
+
+goBackButton.onclick = function (event) {
+    event.preventDefault()
+
+    homeView.style.display = 'none'
+    loginView.style.display = 'block'
+}
+
+
+//Change password
+var passwordChangeForm = homeView.querySelector('#changepassform');
+passwordChangeForm.style.display = 'none';
+
+changePasswordButton.onclick = function (event) {
+    event.preventDefault();
+    homeView.style.display = 'none';
+    passwordChangeForm.style.display = 'block';
+}
+
+
+//Change e-mail
+var emailChangeForm = homeView.querySelector('#changeemailform');
+emailChangeForm.style.display = 'none';
+
+changeEmailButton.onclick = function (event) {
+    event.preventDefault();
+    homeView.style.display = 'none';
+    passwordChangeForm.style.display = 'none';
+    emailChangeForm.style.display = 'block';
+}
+
