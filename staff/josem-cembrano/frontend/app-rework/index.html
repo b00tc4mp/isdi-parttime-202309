@@ -4,53 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro e Inicio de Sesión</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favihack.ico" type="image/x-icon">
-
+    <title>App</title>
 </head>
 
 <body>
     <div id="register">
         <h1>Register</h1>
 
-        <form id="registerForm">
-            <label for="name"><b>Name</b></label>
-            <input id="name" type="text" required>
+        <form>
+            <label for="name">Name</label>
+            <input id="name" type="text">
 
-            <label for="email"><b>Email</b></label>
-            <input id="email" type="email" required>
+            <label for="email">E-mail</label>
+            <input id="email" type="email">
 
-            <label for="password"><b>Pasword</b></label>
-            <input id="password" type="password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password">
 
-            <button type="submit"><i>Register</i></button>
+            <button>Register</button>
         </form>
 
-        <a href="#" id="registerLoginLink">Inicia sesión</a>
+        <a href="">Login</a>
     </div>
 
     <div id="login">
-        <h1>login</h1>
+        <h1>Login</h1>
 
-        <form id="loginForm">
-            <label for="loginEmail"><b>Email</b></label>
-            <input id="loginEmail" type="email" required>
+        <form>
+            <label for="email">E-mail</label>
+            <input id="email" type="email">
 
-            <label for="loginPassword"><b>Pasword</b></label>
-            <input id="loginPassword" type="password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password">
 
-            <button type="submit"><i>Let's Go!</i></button>
+            <button>Login</button>
         </form>
 
-        <a href="#" id="loginRegisterLink"><b><i>Regístrate</i></b></a>
+        <a href="">Register</a>
     </div>
 
-    <div id="home" style="display: none;">
-        <h1><i>Carpe Diem</i></h1>
-        <!-- Contenido de la página de bienvenida -->
-    </div>
+    <div id="home">
+        <h1>Hello, Home!</h1>
+        <div id="settings">
+            <h3>Setting Account</h3>
+            <a href="pagina2.html"><button>Privacy</button></a>
+            <br><br><br>
+        </div>
 
+    <script src="validators.js"></script>
+
+    <script src="data.js"></script>
+    <script src="logic.js"></script>
     <script src="main.js"></script>
 </body>
 

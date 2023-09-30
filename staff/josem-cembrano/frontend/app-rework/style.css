@@ -4,6 +4,25 @@
     text-align: center;
 }
 
+
+#settings {
+    background-color: #bd9860;;
+    color: rgb(145, 84, 6);
+    border: 0;
+    padding: 1.5rem .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 2px solid #4d300a;
+    font-weight: bold;
+    box-shadow: 5px 5px 15px rgb(0, 0, 0);
+}
+
+
+
+
 #register, #login {
     max-width: 500px;
     margin: 300px auto 0;
