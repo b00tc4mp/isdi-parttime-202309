@@ -1,3 +1,5 @@
+//Register
+
 var registerView = document.getElementById('register')
 
 registerView.style.display = 'none'
@@ -86,20 +88,75 @@ var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
+var viewCredentials = document.getElementById('settings')
+
+viewCredentials.style.display = 'none'
+
+
 ///////////////////////////////
+
+user = true
+
+var changeEmailButton = document.getElementById('changeEmail');
+var changePasswordButton = document.getElementById('changePassword');
+
+if (user) {
+
+    changeEmailButton.style.display = 'block';
+    changePasswordButton.style.display = 'block';
+} else {
+
+    changeEmailButton.style.display = 'none';
+    changePasswordButton.style.display = 'none';
+}
+
+var homeElement = document.getElementById('home'); // Selecciona el elemento <div> con el ID "home"
+var privacityLink = homeElement.querySelector('#privacity'); // Selecciona el elemento <a> con el ID "privacity"
+var changeCredentialsButton = privacityLink.querySelector('button');
+
+
+
+
+changeCredentialsButton.onclick = function (event) {
+    event.preventDefault()
+
+    changeCredentialsButton.style.display = 'none'
+    viewCredentials.style.display = 'block'
+
+}
+
+
+
+var changeEmailView = document.getElementById('changeEmail')
+
+var linkChangeEmail = changeEmailView.querySelector('a')
+
+linkChangeEmail.onclick = function (event) {
+    event.preventDefault()
+
+    changeEmailView.style.display = 'none'
+    changePasswordView.style.display = "block"
+
+}
+
+
+var changePasswordView = document.getElementById('changePassword')
+changePasswordView.style.display = "none"
+
+var linkChangePassword = changePasswordView.querySelector('a')
+
+linkChangePassword.onclick = function (event) {
+    event.preventDefault()
+
+    changePasswordView.style.display = 'none'
+    changeEmailView.style.display = "block"
+
+}
 
 
 
 /////////////////////////////////////
 
-
-var logout = document.getElementsByClassName('Logout');
-
-for (var i = 0; i < logout.length; i++) {
-  logout[i].addEventListener('click', function() {
-    return
-  });
-} 
 
 // TODO show user name logged in when entering in Home (Hello, >name<!)
 
