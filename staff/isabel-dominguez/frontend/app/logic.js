@@ -15,7 +15,6 @@ function registerUser(name, email, password) {
     clearFormFields(registerForm);
 }
 
-
 function authenticateUser(email, password) {
     validateText(email, 'email')
     validateText(password, 'password')
@@ -36,3 +35,13 @@ function retrieveUser(email) {
 
     return user
 }
+
+
+function updateUserPassword(currentPass, newPass) {
+}
+
+
+function updateUserEmail(currentEmail, newEmail) {
+}
+
+  

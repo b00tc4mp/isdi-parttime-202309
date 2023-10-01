@@ -70,6 +70,8 @@ loginForm.onsubmit = function (event) {
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
+        passwordChangeForm.style.display = 'none'
+        emailChangeForm.style.display = 'none'
     } catch (error) {
         alert(error.message)
     }
@@ -77,7 +79,7 @@ loginForm.onsubmit = function (event) {
 
 //HOME
 var homeView = document.getElementById('home');
-homeView.style.display = 'none';
+homeView.style.display = 'none'
 
 //Go back
 var goBackButton = homeView.querySelector('#goback');
@@ -89,26 +91,98 @@ goBackButton.onclick = function (event) {
     loginView.style.display = 'block'
 }
 
-
 //Change password
-var passwordChangeForm = homeView.querySelector('#changepassform');
-passwordChangeForm.style.display = 'none';
+var passwordChangeForm = document.getElementById('changepassform');
+var changepassButton = document.getElementById('changepass');
 
-changePasswordButton.onclick = function (event) {
+changepassButton.onclick = function (event) {
     event.preventDefault();
-    homeView.style.display = 'none';
-    passwordChangeForm.style.display = 'block';
+
+    passwordChangeForm.style.display = 'block'
+    emailChangeForm.style.display = 'none'
+    changepassButton.style.display = 'none'
+    changeemailButton.style.display = 'none'
 }
 
-
-//Change e-mail
-var emailChangeForm = homeView.querySelector('#changeemailform');
-emailChangeForm.style.display = 'none';
-
-changeEmailButton.onclick = function (event) {
+passwordChangeForm.onsubmit = function (event) {
     event.preventDefault();
+
+    var currentPassInput = passwordChangeForm.querySelector('#currentPassword');
+    var newPassInput = passwordChangeForm.querySelector('#newPassword');
+
+    var currentPass = currentPassInput.value;
+    var newPass = newPassInput.value;
+
+    try {
+        authenticateUser(email, currentPass);
+        updateUserPassword(currentPass, newPass);
+
+        clearFormFields(passwordChangeForm);
+
+        loginView.style.display = 'none';
+        homeView.style.display = 'none';
+        passwordChangeForm.style.display = 'block';
+        emailChangeForm.style.display = 'none';
+    } catch (error) {
+        alert(error.message);
+    }
+} 
+
+var passButtonChange = document.getElementById('passbuttonchange');
+
+passButtonChange.onclick = function (event) {
+    event.preventDefault();
+
+    loginView.style.display = 'block';
     homeView.style.display = 'none';
     passwordChangeForm.style.display = 'none';
-    emailChangeForm.style.display = 'block';
+    emailChangeForm.style.display = 'none';
 }
 
+//Change e-mail
+var emailChangeForm = document.getElementById('changeemailform');
+var changeemailButton = document.getElementById('changeemail');
+
+changeemailButton.onclick = function (event) {
+    event.preventDefault();
+
+    emailChangeForm.style.display = 'block'
+    passwordChangeForm.style.display = 'none'
+    changepassButton.style.display = 'none'
+    changeemailButton.style.display = 'none'
+}
+
+emailChangeForm.onsubmit = function (event) {
+    event.preventDefault();
+
+    var newEmailInput = emailChangeForm.querySelector('#newEmail');
+    var currentEmailInput = emailChangeForm.querySelector('#currentEmail');
+
+    var newEmail = newEmailInput.value;
+    var currentEmail = currentEmailInput.value;
+
+    try {
+        authenticateUser(email, password);
+        updateUserEmail(currentEmail, newEmail);
+
+        clearFormFields(emailChangeForm);
+
+        loginView.style.display = 'none';
+        homeView.style.display = 'none';
+        passwordChangeForm.style.display = 'none';
+        emailChangeForm.style.display = 'block';
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+var emailButtonChange = document.getElementById('emailbuttonchange');
+
+emailButtonChange.onclick = function (event) {
+    event.preventDefault();
+
+    loginView.style.display = 'block';
+    homeView.style.display = 'none';
+    passwordChangeForm.style.display = 'none';
+    emailChangeForm.style.display = 'none';
+}

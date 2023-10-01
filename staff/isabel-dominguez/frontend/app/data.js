@@ -1,4 +1,4 @@
-var users = []
+var users = [];
 
 function clearFormFields(form) {
     var inputs = form.querySelectorAll('input');
@@ -21,7 +21,6 @@ function findUserByEmail(email) {
     var foundEmail = users.find(user => user.email === email);
     return foundEmail !== undefined ? foundEmail : null;
 }
-
 
 // Utilizo un operador ternario para cambiar el undefined por null porque no es lo mismo decirle que el email que estoy 
 // buscando no existe, que decirle que aún no está definido o inicializado.
