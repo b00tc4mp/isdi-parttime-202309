@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-
-
 </head>
 
 <body>
@@ -49,40 +47,41 @@
     <div id="home">
         <h1>Hello, Home!</h1>
 
-       
+        <button>Change Mail</button>
+        <button>Change Password</button>
+   
         <div id="changemail">
-            <a href="">Change email</a>
-
             <form>
                 <label for="email">Old E-mail</label>
-                <input id="email" type="email">
+                <input id="email2" type="email">
     
                 <label for="password">New E-mail</label>
-                <input type="password" id="password">
-    
-                <button>Login</button>
+                <input id="email2" type="email">  
+
             </form>
-
-        </div>
         
+        <a href="">New mail</a>
+        </div>      
+               
         <div id="changepassword">
-            <a href="">Change possword</a>
-
             <form>
-                <label for="email">Old Password</label>
-                <input id="email" type="email">
+                <label for="password">Old Password</label>
+                <input id="password2" type="password">
     
                 <label for="password">New Password</label>
-                <input type="password" id="password">
+                <input type="password" id="password2">
     
-                <button>Login</button>
             </form>
-
+    
+        <a href="">New Password</a>
         </div>
-              
-        <a href="">logout</a>
-                  
-    </div>
+
+
+        <div>   
+            <a href="">logout</a>  
+        </div>
+
+</div>
 
         <!-- TODO implement logout <button>Logout</button> (onclick) -->
 
@@ -95,7 +94,6 @@
     <script src="logic.js"></script>
     <script src="main.js"></script>
 
-    
 </body>
 
 </html>

@@ -31,3 +31,16 @@ function retrieveUser(email) {
 
     return user
 }
+
+function checkuser(email) {
+    validateText(email, 'email')
+
+    var user = findUserByEmail(email)
+
+    if (!user)
+        throw new Error('user not found')
+
+    return user
+
+    // old email === new email2
+}
