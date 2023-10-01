@@ -1,9 +1,9 @@
 // business (logic)
 
 function registerUser (name, email, password) {
-    validatetext(name, 'name')
-    validatetext(email, 'email')
-    validatetext(password, 'password')
+    if (!name.trim().length) throw new Error('name is empty')
+    if (!email.trim().length) throw new Error('email is empty')
+    if (!password.trim().length) throw new Error('password is empty')
 
 
     var user = findUserByEmail(email)
@@ -16,8 +16,8 @@ function registerUser (name, email, password) {
 }
 
 function authenticateUser(email, password) {
-    validatetext(email, 'email')
-    validatetext(password, 'password')
+    if (!email.trim().length) throw new Error('email is empty')
+    if (!password.trim().length) throw new Error('password is empty')
 
     var user = findUserByEmail (email)
 
@@ -26,7 +26,7 @@ function authenticateUser(email, password) {
 }
 
 function retrieverUser(email) {
-    validatetext(email, 'email')
+    if (!email.trim().length) throw new Error('email is empty')
 
     var user = findUserByEmail(email)
 
