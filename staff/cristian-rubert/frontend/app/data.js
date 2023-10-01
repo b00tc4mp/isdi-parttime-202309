@@ -31,8 +31,8 @@ function findUserByEmail(email) {
 
     return null
 }
-
-function changeUserByEmail(email) {
+//function guardar nueva clave
+function findUserByEmail(email) {
     for (var i = 0; i < users.length; i++) {
         var user = users[i]
 

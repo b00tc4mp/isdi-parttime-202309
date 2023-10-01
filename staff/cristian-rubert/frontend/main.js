@@ -1,7 +1,5 @@
 var registerView = document.getElementById('register')
-
 registerView.style.display = 'none'
-
 var registerLoginLink = registerView.querySelector('a')
 
 registerLoginLink.onclick = function (event) {
@@ -88,15 +86,13 @@ homeView.style.display = 'none'
 
 // logout
 
-var logoutButton = homeView.querySelector('#logout')
+var logoutButton = homeView.querySelector('logout')
 
 logoutButton.onclick = function (event) {
     event.preventDefault()
-
     homeView.style.display = 'none'
     loginView.style.display = 'block'
 }
-
 
 // changemail 
 var changemailview = document.getElementById('changemail')
@@ -107,22 +103,23 @@ var changemailLoginLink = changemailview.querySelector('a')
 
 changemailLoginLink.onclick = function (event) {
     event.preventDefault()
-
-    changemailview.style.display = 'block'
     homeView.style.display = 'none'
+    loginView.style.display = 'none'
+    changemailview.style.display = 'block'
+    changepasswordview.style.display = 'none'
 }
 
-var mailForm = registerView.querySelector('form')
+// var mailForm = changemailview.querySelector('form')
 
-mailForm.onsubmit = function (event) {
-    event.preventDefault()
+// mailForm.onsubmit = function (event) {
+//     event.preventDefault()
 
-    var emailInput = mailForm.querySelector('#email')
-    var passwordInput = mailForm.querySelector('#password')
+//     var emailInput = mailForm.querySelector('#email')
+//     var passwordInput = mailForm.querySelector('#password')
 
-    var email2 = emailInput.value
-    var password2 = passwordInput.value
-}
+//     var email2 = emailInput.value
+//     var password2 = passwordInput.value
+// }
 
 // changepassword
 
@@ -130,23 +127,26 @@ var changepasswordview = document.getElementById('changepassword')
 
 changepasswordview.style.display = 'none'
 
+var changepasswordview = document.getElementById('login')
+
 var changempasswordLink = changepasswordview.querySelector('a')
 
 changempasswordLink.onclick = function (event) {
     event.preventDefault()
-
-    changemailview.style.display = 'block'
     homeView.style.display = 'none'
+    loginView.style.display = 'none'
+    changemailview.style.display = 'block'
+    changepasswordview.style.display = 'none'
 }
 
-var passwordForm = registerView.querySelector('form')
+// var passwordForm = registerView.querySelector('form')
 
-mailForm.onsubmit = function (event) {
-    event.preventDefault()
+// passwordForm.onsubmit = function (event) {
+//     event.preventDefault()
 
-    var emailInput = passwordForm.querySelector('#email')
-    var passwordInput = passwordForm.querySelector('#password')
+//     var emailInput = passwordForm.querySelector('#email')
+//     var passwordInput = passwordForm.querySelector('#password')
 
-    var email2 = emailInput.value
-    var password2 = passwordInput.value
-}
+//     var email2 = emailInput.value
+//     var password2 = passwordInput.value
+// }
