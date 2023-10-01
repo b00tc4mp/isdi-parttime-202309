@@ -1,57 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
 </head>
 
 <body>
     <div id="register">
-        
-       <h1>Hello, Register!</h1> 
-    
-        <form action="">
-               
+        <h1>Register</h1>
+
+        <form>
             <label for="name">Name</label>
             <input id="name" type="text">
-
 
             <label for="email">E-mail</label>
             <input id="email" type="email">
 
             <label for="password">Password</label>
             <input type="password" id="password">
-            <button>Login</button>
 
+            <button>Register</button>
         </form>
-        
+
+        <a href="">Login</a>
     </div>
 
-        <div id="login">
-        
-            <h1>Hello, Login!</h1> 
-         
-             <form action="">
-                    
-                 <label for="email">E-mail</label>
-                 <input id="email" type="email">
-     
-                 <label for="password">Password</label>
-                 <input type="password" id="password">
-                 <button>Register</button>
-     
-             </form>
-     
-            <a href="">register</a>
+    <div id="login">
+        <h1>Login</h1>
 
+        <form>
+            <label for="email">E-mail</label>
+            <input id="email" type="email">
 
+            <label for="password">Password</label>
+            <input type="password" id="password">
 
+            <button>Login</button>
+        </form>
+
+        <a href="">Register</a>
     </div>
 
+    <div id="home">
+        <h1>Hello, Home!</h1>
+
+       
+        <div id="changemail">
+            <a href="">Change email</a>
+
+            <form>
+                <label for="email">Old E-mail</label>
+                <input id="email" type="email">
+    
+                <label for="password">New E-mail</label>
+                <input type="password" id="password">
+    
+                <button>Login</button>
+            </form>
+
+        </div>
+        
+        <div id="changepassword">
+            <a href="">Change possword</a>
+
+            <form>
+                <label for="email">Old Password</label>
+                <input id="email" type="email">
+    
+                <label for="password">New Password</label>
+                <input type="password" id="password">
+    
+                <button>Login</button>
+            </form>
+
+        </div>
+              
+        <a href="">logout</a>
+                  
+    </div>
+
+        <!-- TODO implement logout <button>Logout</button> (onclick) -->
+
+        <!-- TODO implement change email panel (form) -->
+
+        <!-- TODO implement change password panel (form) -->
+    <script src="validators.js"></script>
+
+    <script src="data.js"></script>
+    <script src="logic.js"></script>
     <script src="main.js"></script>
 
+    
 </body>
 
 </html>
