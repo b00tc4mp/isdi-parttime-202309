@@ -1,8 +1,6 @@
 body {
     background-color: #ccc;
     height: 100vh;
-    display: flex;
-    align-items: center;
     padding: 0;
     margin: 0;
 }
@@ -29,9 +27,17 @@ button {
     background-color: #b2eca8cc;
 }
 
+.main {
+    display: flex;
+    height: 100vh;
+    
+    align-items: center;
+    margin: 0 auto;
+}
 
 #register, #login {
     width: 50%;
+    
     margin: 0 auto;
     border-radius: 1rem;
     background-color: white;
@@ -43,6 +49,72 @@ button {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.svg {
+    width: 3.5rem;
+    position: relative;
+}
+.hidden {
+    display: none;
+    
+}
+
+.nav {
+     position: absolute;
+    background-color: white;
+    padding: .3rem;
+    box-shadow: 1px 1px 1px gray;
+    border-radius: 1rem;
+    transform: translateX(-10rem);
+    width: 12rem;
+    
+}
+
+.nav .ul{
+    width: 100%;
+    list-style: none;
+    text-align: center;
+}
+
+.nav  .ul > span{
+    display: flex;
+    flex-direction: column;
+    gap: 3;
+    padding: .5rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.nav > .ul span:last-child{
+    background-color: orange;
+    color: white;
+    font-weight: 600;
+    border-radius: 1rem;
+}
+
+.form-change-email , .form-change-password {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.success {
+    color: green;
+    text-align: center;
 }
 
 

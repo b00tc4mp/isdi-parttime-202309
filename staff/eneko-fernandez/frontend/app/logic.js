@@ -7,9 +7,6 @@ function checkValidEmail(email) {
   return email === ''
 }
 
-function userFound(email, password) {
-  var user = users.find(
-    (user) => user.email === email && user.password === password
-  )
-  return user
+function checkPassword(userPassword, password) {
+  return userPassword === password
 }

@@ -7,41 +7,84 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="register">
-            <h1>Register</h1>
-            <form class="form">
-                <label for="name">Name</label>
-                <input id="name" type="text">
+        <main class="main">
 
-                <label for="email">E-mail</label>
-                <input id="email" type="email">
+            <div id="register">
+                <h1>Register</h1>
+                <form class="form">
+                    <label for="name">Name</label>
+                    <input id="name" type="text">
 
-                <label for="password">Password</label>
-                <input id="password" type="password">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email">
 
-                <button>Register</button>
-            </form>
-            <a href>Login</a>
-        </div>
+                    <label for="password">Password</label>
+                    <input id="password" type="password">
 
-        <div id="login">
-            <h1>Login</h1>
-            <form class="form">
-                <label for="email">E-mail</label>
-                <input id="email" type="email">
+                    <button>Register</button>
+                </form>
+                <a href>Login</a>
+            </div>
 
-                <label for="password">Password</label>
-                <input id="password" type="password">
+            <div id="login">
+                <h1>Login</h1>
+                <form class="form">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email">
 
-                <button>Login</button>
-            </form>
+                    <label for="password">Password</label>
+                    <input id="password" type="password">
 
-            <a href>Register</a>
-        </div>
+                    <button>Login</button>
+                </form>
+
+                <a href>Register</a>
+            </div>
+        </main>
 
         <div id="home">
-            <h1></h1>
+            <div class="flex">
+                <h1></h1>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor"
+                        class="svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+
+                    </svg>
+
+                    <nav class="hidden nav ">
+                        <div class="ul">
+                            <span class="change-email-btn">Change email</span>
+                            <span class="change-pass-btn">Change password</span>
+                            <span class="sign-out">Sign out</span>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <form class="form form-change-email hidden">
+                <label for="email">E-mail</label>
+                <input id="email" type="email">
+
+                <label for="email">New e-mail</label>
+                <input id="newEmail" type="email">
+                <button>Save</button>
+            </form>
+
+            <form class="form form-change-password hidden">
+                <label for="password">Password</label>
+                <input id="password" type="password">
+
+                <label for="password">New password</label>
+                <input id="newPassword" type="password">
+                <button>Save</button>
+            </form>
+
         </div>
+
         <script src="data.js"></script>
         <script src="logic.js"></script>
         <script src="main.js"></script>
