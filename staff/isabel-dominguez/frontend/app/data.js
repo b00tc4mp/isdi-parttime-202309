@@ -1,4 +1,15 @@
-var users = [];
+var users = [
+    {
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
+        password: '123123123'
+    },
+    {
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
+        password: '123123123'
+    }
+]
 
 function clearFormFields(form) {
     var inputs = form.querySelectorAll('input');

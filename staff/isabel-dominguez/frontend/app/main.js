@@ -89,7 +89,7 @@ goBackButton.onclick = function (event) {
 
     homeView.style.display = 'none'
     loginView.style.display = 'block'
-}
+};
 
 //Change password
 var passwordChangeForm = document.getElementById('changepassform');
@@ -102,42 +102,36 @@ changepassButton.onclick = function (event) {
     emailChangeForm.style.display = 'none'
     changepassButton.style.display = 'none'
     changeemailButton.style.display = 'none'
-}
+};
 
 passwordChangeForm.onsubmit = function (event) {
     event.preventDefault();
 
     var currentPassInput = passwordChangeForm.querySelector('#currentPassword');
     var newPassInput = passwordChangeForm.querySelector('#newPassword');
+    // añadir confirm password
 
     var currentPass = currentPassInput.value;
     var newPass = newPassInput.value;
 
     try {
-        authenticateUser(email, currentPass);
-        updateUserPassword(currentPass, newPass);
+        // authenticateUser(email, currentPass);
+        // poner aqui user.password = newPass ?
+        updateUserPassword(currentPass, newPass); //añadir confirm password
 
         clearFormFields(passwordChangeForm);
 
-        loginView.style.display = 'none';
+        loginView.style.display = 'block';
         homeView.style.display = 'none';
-        passwordChangeForm.style.display = 'block';
+        passwordChangeForm.style.display = 'none';
         emailChangeForm.style.display = 'none';
+        changepassButton.style.display = 'inline-block'
+        changeemailButton.style.display = 'inline-block'
+
     } catch (error) {
         alert(error.message);
     }
 } 
-
-var passButtonChange = document.getElementById('passbuttonchange');
-
-passButtonChange.onclick = function (event) {
-    event.preventDefault();
-
-    loginView.style.display = 'block';
-    homeView.style.display = 'none';
-    passwordChangeForm.style.display = 'none';
-    emailChangeForm.style.display = 'none';
-}
 
 //Change e-mail
 var emailChangeForm = document.getElementById('changeemailform');
@@ -162,7 +156,7 @@ emailChangeForm.onsubmit = function (event) {
     var currentEmail = currentEmailInput.value;
 
     try {
-        authenticateUser(email, password);
+        // authenticateUser(email, password);
         updateUserEmail(currentEmail, newEmail);
 
         clearFormFields(emailChangeForm);

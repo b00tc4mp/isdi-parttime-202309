@@ -38,6 +38,20 @@ function retrieveUser(email) {
 
 
 function updateUserPassword(currentPass, newPass) {
+    validateText(currentPass, 'Current password')
+    validateText(newPass, 'new password')
+
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+        
+        if (currentPass === newPass) {
+            throw new Error('Wrong credentials!');
+        } else {
+            user.password = newPass
+        }
+    }
+
+    return newPass
 }
 
 
