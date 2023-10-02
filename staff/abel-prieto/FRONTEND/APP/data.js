@@ -27,6 +27,8 @@ function createUser(name, email, password) {
 }
 
 function findUserByEmail(email) {
+    validateText(email, 'email')
+
     for (var i = 0; i < users.length; i++) {
         var user = users[i]
 
@@ -37,14 +39,3 @@ function findUserByEmail(email) {
     return null
 }
 
-// // FUNCIÓN CAMBIAR EMAIL
-
-// function changeActualEmail(email) {
-//     for (var i = 0; i < users.length; i++) {
-//         var user = users[i]
-
-//         if (user.email !== newEmail)
-//             user.email = newEmail
-//             alert('Email changed succesfully!')
-//     }
-// }
