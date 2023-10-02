@@ -48,6 +48,8 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
+var emailLoggedIn = null
+
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
@@ -67,6 +69,8 @@ loginForm.onsubmit = function (event) {
         var user = retrieveUser(email)
 
         homeTitle.innerText = 'Welcome!👋 ' + user.name + '!'
+
+        emailLoggedIn = email
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
@@ -115,8 +119,6 @@ passwordChangeForm.onsubmit = function (event) {
     var newPass = newPassInput.value;
 
     try {
-        // authenticateUser(email, currentPass);
-        // poner aqui user.password = newPass ?
         updateUserPassword(currentPass, newPass); //añadir confirm password
 
         clearFormFields(passwordChangeForm);
@@ -151,32 +153,25 @@ emailChangeForm.onsubmit = function (event) {
 
     var newEmailInput = emailChangeForm.querySelector('#newEmail');
     var currentEmailInput = emailChangeForm.querySelector('#currentEmail');
+    var putPasswordInput = emailChangeForm.querySelector('#putpassword');
 
     var newEmail = newEmailInput.value;
-    var currentEmail = currentEmailInput.value;
+    var email = currentEmailInput.value;
+    var putPassword = putPasswordInput.value;
 
     try {
-        // authenticateUser(email, password);
-        updateUserEmail(currentEmail, newEmail);
+        updateUserEmail(email, newEmail, putPassword, emailLoggedIn);
+        alert('E-mail changed')
 
         clearFormFields(emailChangeForm);
 
-        loginView.style.display = 'none';
+        loginView.style.display = 'block';
         homeView.style.display = 'none';
         passwordChangeForm.style.display = 'none';
-        emailChangeForm.style.display = 'block';
+        emailChangeForm.style.display = 'none';
+        changepassButton.style.display = 'inline-block'
+        changeemailButton.style.display = 'inline-block'
     } catch (error) {
         alert(error.message);
     }
-}
-
-var emailButtonChange = document.getElementById('emailbuttonchange');
-
-emailButtonChange.onclick = function (event) {
-    event.preventDefault();
-
-    loginView.style.display = 'block';
-    homeView.style.display = 'none';
-    passwordChangeForm.style.display = 'none';
-    emailChangeForm.style.display = 'none';
 }

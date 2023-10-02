@@ -16,13 +16,14 @@ function registerUser(name, email, password) {
 }
 
 function authenticateUser(email, password) {
-    validateText(email, 'email')
-    validateText(password, 'password')
+    validateText(email, 'email');
+    validateText(password, 'password');
 
-    var user = findUserByEmail(email)
+    var user = findUserByEmail(email);
 
-    if (!user || user.password !== password)
-        throw new Error('Wrong credentials!')
+    if (!user || user.password !== password) {
+        throw new Error('Wrong credentials!');
+    }
 }
 
 function retrieveUser(email) {
@@ -35,7 +36,6 @@ function retrieveUser(email) {
 
     return user
 }
-
 
 function updateUserPassword(currentPass, newPass) {
     validateText(currentPass, 'Current password')
@@ -54,8 +54,22 @@ function updateUserPassword(currentPass, newPass) {
     return newPass
 }
 
+function updateUserEmail(email, newEmail, putPassword) {
+    validateText(email, 'email')
+    validateText(newEmail, 'new email')
+    validateText(putPassword, 'password')
 
-function updateUserEmail(currentEmail, newEmail) {
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== putPassword)
+        throw new Error('wrong credentials')
+
+    if (newEmail === email)
+        throw new Error('The new E-mail is same to current E-mail!')
+
+    user.email = newEmail
 }
 
   
+
+

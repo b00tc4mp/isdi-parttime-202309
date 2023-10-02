@@ -28,10 +28,8 @@ function createUser(name, email, password) {
     users.push(user)
 }
 
-function findUserByEmail(email) {
+function findUserByEmail(email, newEmail) {
     var foundEmail = users.find(user => user.email === email);
     return foundEmail !== undefined ? foundEmail : null;
 }
 
-// Utilizo un operador ternario para cambiar el undefined por null porque no es lo mismo decirle que el email que estoy 
-// buscando no existe, que decirle que aún no está definido o inicializado.
