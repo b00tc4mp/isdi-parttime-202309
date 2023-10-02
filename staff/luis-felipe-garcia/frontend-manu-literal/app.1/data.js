@@ -2,12 +2,12 @@ var users = [
     {
         name: 'Wendy Darling',
         email: 'wendy@darling.com',
-        password: '1'
+        password: '123123123'
     },
     {
         name: 'Peter Pan',
         email: 'peter@pan.com',
-        password: '1'
+        password: '123123123'
     }
 ]
 

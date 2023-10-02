@@ -31,20 +31,3 @@ function retrieveUser(email) {
 
     return user
 }
-
-function validateCurrentPassword(currentPassword) {
-    if (currentPassword !== user.password) {
-        throw new Error('Current password wrong')}
-}
-
-var checkCoincidence = function (itemToCheck, checkedItem, textToMessage) {
-    if (itemToCheck !== checkedItem) {
-        throw new Error(`${textToMessage} do not match`)
-    }
-}
-
-var checkElementsChanges = function (currentElement, newElement, textToMessage) {
-    if (newElement === currentElement) {
-        throw new Error(textToMessage)
-    }
-}
