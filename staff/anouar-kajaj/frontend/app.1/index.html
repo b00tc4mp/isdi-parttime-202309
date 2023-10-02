@@ -1,72 +1,46 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App</title>
+    <title>Document</title>
 </head>
 
 <body>
     <div id="register">
         <h1>Register</h1>
-
         <form>
             <label for="name">Name</label>
             <input id="name" type="text">
-
             <label for="email">E-mail</label>
             <input id="email" type="email">
-
             <label for="password">Password</label>
-            <input type="password" id="password">
-
-            <input type="checkbox" onclick="showPassword()">Show Password
-
+            <input id="password" type="password">
             <button>Register</button>
         </form>
-
         <a href="">Login</a>
     </div>
 
+
     <div id="login">
         <h1>Login</h1>
-
         <form>
             <label for="email">E-mail</label>
             <input id="email" type="email">
-
             <label for="password">Password</label>
-            <input type="password" id="password">
-
-            <input type="checkbox" onclick="showPassword()">Show Password
-
+            <input id="password" type="password">
             <button>Login</button>
         </form>
-
         <a href="">Register</a>
     </div>
 
     <div id="home">
-        <h1>Hello, Home!</h1>
-       
-        <button id="logout">Logout</button>
-        
+        <h1>Homepage</h1>
     </div>
 
-    <script src="data.js"></script>
-    <script src="logic.js"></script>
     <script src="main.js"></script>
-    <script>  
-        function showPassword() {  
-          var getPassword = document.getElementById("password");  
-          if (getPassword.type === "password") {  
-            getPassword.type = "text";  
-          } else {  
-            getPassword.type = "password";  
-          }  
-        }  
-        </script>  
 </body>
 
 </html>
