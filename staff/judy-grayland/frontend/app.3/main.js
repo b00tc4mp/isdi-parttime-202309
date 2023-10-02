@@ -26,7 +26,7 @@ registerForm.onsubmit = function (event) {
   var password = passwordInput.value
 
   try {
-    registerUser(name, email, password)
+    var userRegistered = registerUser(name, email, password)
     nameInput.value = ''
     emailInput.value = ''
     passwordInput.value = ''
@@ -36,10 +36,18 @@ registerForm.onsubmit = function (event) {
   } catch (error) {
     alert(error.message)
   }
+
+  if (!userRegistered) {
+    alert('User already exists')
+    return
+  }
 }
 
-//login
+//data
 
+//logic
+
+//view
 var loginView = document.getElementById('login')
 
 var loginRegisterLink = loginView.querySelector('a')
@@ -52,9 +60,6 @@ loginRegisterLink.onclick = function (event) {
 }
 
 var loginForm = loginView.querySelector('form')
-
-// var email
-// var password
 
 loginForm.onsubmit = function (event) {
   event.preventDefault()
@@ -84,28 +89,3 @@ loginForm.onsubmit = function (event) {
 }
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
-
-// var logoutBtn = document.getElementById('logout-btn')
-// logoutBtn.onclick = function (event) {
-//   event.preventDefault()
-//   homeView.style.display = 'none'
-//   loginView.style.display = 'block'
-// }
-
-// var accountSettingsView = document.getElementById('accountSettings')
-// accountSettingsView.style.display = 'none'
-
-// var homeAccountSettingsLink = homeView.querySelector('a')
-// homeAccountSettingsLink.onclick = function (event) {
-//   event.preventDefault()
-//   accountSettingsView.style.display = 'block'
-// }
-
-// var changeEmailForm = document.getElementById('changeEmail')
-// changeEmailForm.onsubmit = function (event) {
-//   event.preventDefault()
-//   var oldEmailInput = changeEmailForm.querySelector('#old-email')
-//   var oldEmail = oldEmailInput.value
-
-//   if (oldEmail === email) alert('howdy')
-// }
