@@ -99,7 +99,11 @@ user = true
 
 var changeEmailButton = document.getElementById('changeEmail');
 var changePasswordButton = document.getElementById('changePassword');
-
+var viewNewEmail = document.getElementById("viewChangeEmail")
+var viewNewPassword = document.getElementById("viewChangePassword")
+viewNewPassword.style.display = 'none';
+viewNewEmail.style.display = 'none';
+var viewhomeuser = function () {
 if (user) {
 
     changeEmailButton.style.display = 'block';
@@ -108,6 +112,7 @@ if (user) {
 
     changeEmailButton.style.display = 'none';
     changePasswordButton.style.display = 'none';
+  }
 }
 
 var homeElement = document.getElementById('home'); // Selecciona el elemento <div> con el ID "home"
@@ -129,13 +134,24 @@ changeCredentialsButton.onclick = function (event) {
 
 var changeEmailView = document.getElementById('changeEmail')
 
-var linkChangeEmail = changeEmailView.querySelector('a')
+changeEmailView.addEventListener("click", function (event) {
+    event.preventDefault()
+
+    changeEmailButton.style.display = 'none'
+    changePasswordButton.style.display = 'none' 
+    viewNewEmail.style.display = 'block'
+});
+
+
+
+var viewDivEmail = document.getElementById("viewChangeEmail")
 
 linkChangeEmail.onclick = function (event) {
     event.preventDefault()
 
-    changeEmailView.style.display = 'none'
+    changeEmailView.style.display = 'block'
     changePasswordView.style.display = "block"
+    viewDivEmail.style.display = "none"
 
 }
 
@@ -155,8 +171,8 @@ linkChangePassword.onclick = function (event) {
 
 
 
-/////////////////////////////////////
 
-
-// TODO show user name logged in when entering in Home (Hello, >name<!)
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
