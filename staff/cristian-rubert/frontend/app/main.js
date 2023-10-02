@@ -80,13 +80,37 @@ loginForm.onsubmit = function (event) {
     }
 }
 
-// home
+// home view
 
 var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
-// logout
+// button link change mail
+
+var linknewmail = homeView.querySelector('#newmail')
+
+linknewmail.onclick = function (event) {
+    event.preventDefault()
+    
+    changemailview.style.display = 'block'
+    homeView.style.display = 'none'
+    changepasswordview.style.display ='none'
+}
+
+// button link change password
+
+var linknewpass = homeView.querySelector('#newpassword')
+
+linknewpass.onclick = function (event) {
+    event.preventDefault()
+    
+    changemailview.style.display = 'none'
+    homeView.style.display = 'none'
+    changepasswordview.style.display ='block'
+}
+
+// buttton logout
 
 var logoutButton = homeView.querySelector('#logout')
 
@@ -97,8 +121,8 @@ logoutButton.onclick = function (event) {
     loginView.style.display = 'block'
 }
 
-
 // changemail 
+
 var changemailview = document.getElementById('changemail')
 
 changemailview.style.display = 'none'
@@ -107,22 +131,22 @@ var changemailLoginLink = changemailview.querySelector('a')
 
 changemailLoginLink.onclick = function (event) {
     event.preventDefault()
-
+    
     changemailview.style.display = 'block'
     homeView.style.display = 'none'
 }
 
-var mailForm = registerView.querySelector('form')
+// var mailForm = registerView.querySelector('form')
 
-mailForm.onsubmit = function (event) {
-    event.preventDefault()
+// mailForm.onsubmit = function (event) {
+//     event.preventDefault()
 
-    var emailInput = mailForm.querySelector('#email')
-    var passwordInput = mailForm.querySelector('#password')
+//     var emailInput = mailForm.querySelector('#email')
+//     var passwordInput = mailForm.querySelector('#password')
 
-    var email2 = emailInput.value
-    var password2 = passwordInput.value
-}
+//     var email2 = emailInput.value
+//     var password2 = passwordInput.value
+// }
 
 // changepassword
 
@@ -135,18 +159,18 @@ var changempasswordLink = changepasswordview.querySelector('a')
 changempasswordLink.onclick = function (event) {
     event.preventDefault()
 
-    changemailview.style.display = 'block'
+    changepasswordview.style.display = 'block'
     homeView.style.display = 'none'
 }
 
-var passwordForm = registerView.querySelector('form')
+// var passwordForm = registerView.querySelector('form')
 
-mailForm.onsubmit = function (event) {
-    event.preventDefault()
+// mailForm.onsubmit = function (event) {
+//     event.preventDefault()
 
-    var emailInput = passwordForm.querySelector('#email')
-    var passwordInput = passwordForm.querySelector('#password')
+//     var emailInput = passwordForm.querySelector('#email')
+//     var passwordInput = passwordForm.querySelector('#password')
 
-    var email2 = emailInput.value
-    var password2 = passwordInput.value
-}
+//     var email2 = emailInput.value
+//     var password2 = passwordInput.value
+// }
