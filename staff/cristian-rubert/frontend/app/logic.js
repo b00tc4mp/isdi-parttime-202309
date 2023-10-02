@@ -41,7 +41,8 @@ function checkuser(email) {
         throw new Error('user not found')
 
     return user
+ 
+}
+
 
     // old email === new email2
-    
-}

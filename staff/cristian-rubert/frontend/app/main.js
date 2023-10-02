@@ -127,7 +127,7 @@ var changemailview = document.getElementById('changemail')
 
 changemailview.style.display = 'none'
 
-var changemailLoginLink = changemailview.querySelector('a')
+var changemailLoginLink = changemailview.querySelector('#confirmail')
 
 changemailLoginLink.onclick = function (event) {
     event.preventDefault()
@@ -154,7 +154,7 @@ var changepasswordview = document.getElementById('changepassword')
 
 changepasswordview.style.display = 'none'
 
-var changempasswordLink = changepasswordview.querySelector('a')
+var changempasswordLink = changepasswordview.querySelector('#confirmpass')
 
 changempasswordLink.onclick = function (event) {
     event.preventDefault()
