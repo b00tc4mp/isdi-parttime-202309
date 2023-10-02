@@ -53,16 +53,16 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
-// var email
-// var password
+var email
+var password
 
 loginForm.onsubmit = function (event) {
   event.preventDefault()
   var emailInput = loginForm.querySelector('#email')
   var passwordInput = loginForm.querySelector('#password')
 
-  var email = emailInput.value
-  var password = passwordInput.value
+  email = emailInput.value
+  password = passwordInput.value
 
   try {
     authenticateUser(email, password)
@@ -85,27 +85,64 @@ loginForm.onsubmit = function (event) {
 var homeView = document.getElementById('home')
 homeView.style.display = 'none'
 
-// var logoutBtn = document.getElementById('logout-btn')
-// logoutBtn.onclick = function (event) {
-//   event.preventDefault()
-//   homeView.style.display = 'none'
-//   loginView.style.display = 'block'
-// }
+var logoutBtn = document.getElementById('logout-btn')
+logoutBtn.onclick = function (event) {
+  event.preventDefault()
+  homeView.style.display = 'none'
+  loginView.style.display = 'block'
+}
 
-// var accountSettingsView = document.getElementById('accountSettings')
-// accountSettingsView.style.display = 'none'
+var accountSettingsView = document.getElementById('accountSettings')
+accountSettingsView.style.display = 'none'
 
-// var homeAccountSettingsLink = homeView.querySelector('a')
-// homeAccountSettingsLink.onclick = function (event) {
-//   event.preventDefault()
-//   accountSettingsView.style.display = 'block'
-// }
+var homeAccountSettingsLink = homeView.querySelector('a')
+homeAccountSettingsLink.onclick = function (event) {
+  event.preventDefault()
+  accountSettingsView.style.display = 'block'
+}
 
-// var changeEmailForm = document.getElementById('changeEmail')
-// changeEmailForm.onsubmit = function (event) {
-//   event.preventDefault()
-//   var oldEmailInput = changeEmailForm.querySelector('#old-email')
-//   var oldEmail = oldEmailInput.value
+var changeEmailForm = document.getElementById('changeEmail')
+changeEmailForm.onsubmit = function (event) {
+  event.preventDefault()
+  var oldEmailInput = changeEmailForm.querySelector('#old-email')
+  var newEmailInput = changeEmailForm.querySelector('#new-email')
+  var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm')
+  var oldEmail = oldEmailInput.value
+  var newEmail = newEmailInput.value
+  var newEmailConfirm = newEmailConfirmInput.value
 
-//   if (oldEmail === email) alert('howdy')
-// }
+  if (!checkOldEmail(oldEmail)) {
+    return
+  }
+
+  if (!compareNewEmails(newEmail, newEmailConfirm)) {
+    return
+  }
+  user = retrieveUser(email)
+  user.email = newEmail
+  console.log(user)
+
+  oldEmail = ''
+  newEmail = ''
+  newEmailConfirm = ''
+
+  alert('Email changed correctly')
+  homeView.style.display = 'none'
+  loginView.style.display = 'block'
+}
+
+function checkOldEmail(oldEmail) {
+  var loggedEmail = email
+  if (oldEmail !== loggedEmail) {
+    alert('the current email provided is incorrect')
+    return false
+  }
+  return true
+}
+function compareNewEmails(newEmail, newEmailConfirm) {
+  if (newEmail === newEmailConfirm) {
+    return true
+  }
+  alert('the two new emails do not match')
+  return false
+}
