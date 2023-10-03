@@ -122,3 +122,29 @@ changeEmailForm.onsubmit = function (event) {
         alert(error.message)
     }
 }
+
+var changePassForm = homeView.querySelector('#change-pass-form')
+
+changePassForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var newPassInput = changePassForm.querySelector('#new-pass')
+    var newPassConfirmInput = changePassForm.querySelector('#new-pass-confirm')
+    var emailInput = changePassForm.querySelector('#current-email')
+
+    var newPass = newPassInput.value
+    var newPassConfirm = newPassConfirmInput.value
+    var email = emailInput.value
+
+    try {
+        changeUserPass(PassLoggedIn, newPass, newPassConfirm, password)
+
+        alert('password changed')
+
+        newPassInput.value = ''
+        newPassConfirmInput.value = ''
+        passwordInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
+}
