@@ -58,13 +58,12 @@ function changeUserEmail(email, newEmail, confirmNewEmail, password) {
 
 // FUNCIÓN COMPROBAR NEW PASSWORD
 
-function changeUserPassword(email, password, newPassword, againNewPassword) {
-    validateText(email, 'email')
+function changeUserPassword(password, newPassword, againNewPassword) {
     validateText(password, 'password')
     validateText(newPassword, 'new password')
     validateText(againNewPassword, 'the repeat password')
 
-    var user = findUserByEmail(email)
+    var user = findUserByPassword(password)
 
     if (!user || user.password !== password) {
         throw new Error('wrong credentials')
