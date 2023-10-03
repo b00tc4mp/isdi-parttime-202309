@@ -54,19 +54,15 @@ registerForm.addEventListener('submit', (e) => {
   var email = registerForm.querySelector('#email').value
   var password = registerForm.querySelector('#password').value
 
-  if (checkValidEmail(email))
-    return throwError('Todos los campos son obigatorios.', registerForm)
-
-  if (existUser(email))
-    return throwError('El email ya está en uso', registerForm)
-
-  registerUser(name, email, password)
-
-  clearInputs(registerForm)
-
-  showLogin()
+  try {
+    registerUser(name, email, password)
+    clearInputs(registerForm)
+    showLogin()
+  } catch (error) {
+    throwError(error.message, registerForm)
+  }
 })
-
+  
 var loginForm = loginView.querySelector('form')
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -74,18 +70,13 @@ loginForm.addEventListener('submit', (e) => {
   var email = loginForm.querySelector('#email').value
   var password = loginForm.querySelector('#password').value
 
-  if (checkValidEmail(email))
-    return throwError('Todos los campos son obigatorios.', loginForm)
-
-  if (!existUser(email)) return throwError('El email no existe', loginForm)
-
-  if (!userFound(email, password))
-    return throwError('Contraseña incorrecta', loginForm)
-
-  userSession = userFound(email, password)
-  welcomeUser(userFound(email, password))
-
-  document.querySelector('.main').classList.add('hidden')
+ try {
+    userSession = userFound(email, password)
+    welcomeUser(userSession)
+    document.querySelector('.main').classList.add('hidden')
+ } catch (error) {
+    throwError(error.message, loginForm)
+ }
 })
 
 var changeEmailForm = homeView.querySelector('.form-change-email')
@@ -93,16 +84,15 @@ changeEmailForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
   var email = changeEmailForm.querySelector('#email').value
-  var user = findUserByEmail(email)
 
-  if (!user) {
-    return throwError('Email not found.', homeView)
+  try {
+    var user = findUserByEmail(email)
+    var newEmail = changeEmailForm.querySelector('#newEmail').value
+    updateUserEmail(user, newEmail)
+    sendMessage('Email updated.', homeView)
+  } catch (error) {
+      throwError(error.message, homeView)
   }
-
-  var newEmail = changeEmailForm.querySelector('#newEmail').value
-
-  updateUserEmail(user, newEmail)
-  sendMessage('Email updated.', homeView)
 })
 
 var changePassForm = homeView.querySelector('.form-change-password')
@@ -110,13 +100,13 @@ changePassForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
   var password = homeView.querySelector('#password').value
-
-  if (!checkPassword(userSession.password, password)) {
-    return throwError('Error password.', homeView)
+   var newPassword = homeView.querySelector('#newPassword').value
+  try {
+    updatePassword(userSession, password, newPassword)
+    sendMessage('Password updated.', homeView)
+    homeView.querySelector('#password').value = ''
+    homeView.querySelector('#newPassword').value = ''
+  } catch (error) {
+      throwError(error.message, homeView)
   }
-
-  var newPassword = homeView.querySelector('#newPassword').value
-
-  updatePassword(userSession, newPassword)
-  sendMessage('Password updated.', homeView)
 })

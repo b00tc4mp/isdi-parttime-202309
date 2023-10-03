@@ -11,27 +11,35 @@ function showRegister() {
 function throwError(msg, view) {
   var errorExist = document.querySelector('.error')
 
-  if (errorExist) {
-    errorExist.remove('')
+   if (errorExist) {
+    errorExist.remove();
   }
 
   var errorUserExist = document.createElement('p')
   errorUserExist.classList.add('error')
   errorUserExist.innerText = msg
   view.append(errorUserExist)
+
+  setTimeout(() => {
+     errorUserExist.remove();
+  }, 2000);
 }
 
 function sendMessage(msg, view) {
   var errorExist = document.querySelector('.error')
 
   if (errorExist) {
-    errorExist.remove('')
+    errorExist.remove()
   }
 
   var errorUserExist = document.createElement('p')
   errorUserExist.classList.add('success')
   errorUserExist.innerText = msg
   view.append(errorUserExist)
+
+   setTimeout(() => {
+     errorUserExist.remove();
+  }, 2000);
 }
 
 function clearInputs(view) {
