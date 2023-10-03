@@ -54,6 +54,8 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
+var emailLoggedIn = null
+
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
@@ -75,6 +77,8 @@ loginForm.onsubmit = function (event) {
 
         homeTitle.innerText = 'Hello, ' + user.name + '!'
 
+        emailLoggedIn = email
+
         loginView.style.display = 'none'
         homeView.style.display = 'block'
         homeButton.style.display = 'block'
@@ -93,35 +97,55 @@ homeView.style.display = 'none'
 
 // CREDENTIALS VIEW
 
-var changeEmailView = document.getElementById('select-email')
-
-var sendNewEmail = changeEmailView.querySelector('#change_email')
-
-sendNewEmail.onclick = function(event) {
-    event.preventDefault()
-
-    registerView.style.display = 'none'
-    loginView.style.display = 'none'
-    homeView.style.display = 'block'
-    homeButton.style.display = 'block'
-}
-
-var checkEmailForm = changeEmailView.querySelector('form')
+var checkEmailForm = homeView.querySelector('#select-email')
 
 checkEmailForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var newEmailInput = emailForm.querySelector('#new_email')        
+    var newEmailInput = checkEmailForm.querySelector('#new_email')
+    var confirmNewEmailInput = checkEmailForm.querySelector('#confirm-new-email')
+    var passwordInput = checkEmailForm.querySelector('#password')
+    
     var newEmail = newEmailInput.value
+    var confirmNewEmail = confirmNewEmailInput.value
+    var password = passwordInput.value
 
     try {
-        checkNewEmail(newEmail)
-
-        user.email = newEmail
+        changeUserEmail(emailLoggedIn, newEmail, confirmNewEmail, password)
 
         alert('Email changed succesfully!')
 
         newEmailInput = ''
+        confirmNewEmailInput = ''
+        passwordInput = ''
+    }
+
+    catch (error) {
+        alert(error.message)
+    }
+}
+
+var changePasswordForm = homeView.querySelector('#select-password')
+
+changePasswordForm.onsubmit = function(event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#current_password')
+    var newPasswordInput = changePasswordForm.querySelector('#new_password')
+    var againNewPasswordInput = changePasswordForm.querySelector('#again_new_password')
+
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var againNewPassword = againNewPasswordInput.value
+
+    try {
+        changeUserPassword(password, newPassword, againNewPassword)
+        
+        alert('Password changed succesfully!')
+
+        var password = ''
+        var newPasswordInput = ''
+        var againNewPasswordInput = ''
     }
 
     catch {
@@ -129,52 +153,8 @@ checkEmailForm.onsubmit = function (event) {
     }
 }
 
-var changePasswordView = document.getElementById('select-password')
 
- var sendNewPassword = document.querySelector('#change_password')
-
- sendNewPassword.onclick = function(event) {
-     event.preventDefault()
-
-     registerView.style.display = 'none'
-     loginView.style.display = 'none'
-     homeView.style.display = 'block'
-     homeButton.style.display = 'block'
- }
-
- var changePasswordForm = changePasswordView.querySelector('form')
-
- changePasswordForm.onsubmit = function(event) {
-     event.preventDefault()
-
-     var currentPasswordInput = changePasswordForm.querySelector('#current_password')
-     var newPasswordInput = changePasswordForm.querySelector('#new_password')
-     var againNewPasswordInput = changePasswordForm.querySelector('#again_new_password')
-
-     var currentPassword = currentPasswordInput.value
-     var newPassword = newPasswordInput.value
-     var againNewPassword = againNewPasswordInput.value
-
-     try {
-        checkNewPassword(currentPassword, newPassword, againNewPassword)
-
-        user.password = newPassword
-        
-        alert('Password changed succesfully!')
-
-        var currentPasswordInput = ''
-        var newPasswordInput = ''
-        var againNewPasswordInput = ''
-
-     }
-
-     catch {
-        alert(error.message)
-     }
- }
-
-
- // BUTTON LOGOUT
+// BUTTON LOGOUT
 
 var homeButton = document.getElementById('home_button')
 

@@ -71,22 +71,26 @@
 
         <h2>Changes credentials</h2>
 
-        <div id="select-email">
-
-        <form>
+        <form id ="select-email">
             <p>Change your email: </p>
 
             <label for="new_email">New email</label>
             <input id="new_email" type="text">
 
+            <br>
+
+            <label for="confirm-new-email">Confirm new email</label>
+            <input id="confirm-new-email" type="text">
+
+            <br>
+
+            <label for="password">Password</label>
+            <input id="password" type="password">
+
             <button id="change_email">Change Email</button>
         </form>
 
-        </div>
-
-        <div id="select-password">
-
-        <form>
+        <form id="select-password">
             <p>Change your password: </p>
 
             <label for="current_password">Actual password</label>
@@ -99,13 +103,12 @@
             
             <br>
             
-            <label for="again_new_password">New password again</label>
+            <label for="again_new_password">Repeat new password</label>
             <input id="again_new_password" type="password">
             
             <button id="change_password">Change Password</button>
         </form>
         
-        </div>
     </div>
 </body>
 </html>

@@ -5,10 +5,6 @@ function registerUser(name, email, password) {
     validateText(email, 'email')
     validateText(password, 'password')
 
-    // if (!name.trim().length) throw new Error('name is empty')
-    // if (!email.trim().length) throw new Error('email is empty')
-    // if (!password.trim().length) throw new Error('password is empty')
-
     var user = findUserByEmail(email)
 
     if (user)
@@ -42,38 +38,39 @@ function retrieveUser(email) {
 
 // FUNCION COMPROBAR NEW EMAIL
 
-function checkNewEmail(newEmail) {
-     validateText(newEmail, 'new email');
+function changeUserEmail(email, newEmail, confirmNewEmail, password) {
+    validateText(email, 'email')
+    validateText(newEmail, 'new email')
+    validateText(confirmNewEmail, 'new email confirm')
+    validateText(password, 'new email')
 
-     for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var user = findUserByEmail(email)
 
-        if (user.email === newEmail)
-            throw new Error('This is your current email. Please, choose another one.')
+    if (!user || user.password !== password) {
+        throw new Error('wrong credentials')
+    }
+    if (newEmail !== confirmNewEmail) {
+        throw new Error('New email and your confirm doesnt match each other')
     }
 
-    return user.email
+    user.email = newEmail
 }
 
 // FUNCIÓN COMPROBAR NEW PASSWORD
 
-function checkNewPassword(currentPassword, newPassword, againNewPassword) {
-    validateText(currentPassword, 'current password')
+function changeUserPassword(password, newPassword, againNewPassword) {
+    validateText(password, 'password')
     validateText(newPassword, 'new password')
     validateText(againNewPassword, 'the repeat password')
 
-    for (var i = 0; i < users.length; i++) {
+    var user = findUserByPassword(password)
 
-        var user = users[i]
-
-        if (user.password !== currentPassword) {
-            throw new Error('Your password does not match your current one')
-        }
-
-        if (user.password === newPassword) {
-            throw new Error('Thats the same password... Choose another one')
-        }
-    
-        return user.password
+    if (!user || user.password !== password) {
+        throw new Error('wrong credentials')
     }
+    if (newPassword !== againNewPassword) {
+        throw new Error('New pass and his confirmation are not correct. Try again') 
+    }
+            
+    user.password = newPassword
 }

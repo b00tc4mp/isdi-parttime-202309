@@ -39,3 +39,15 @@ function findUserByEmail(email) {
     return null
 }
 
+function findUserByPassword(password) {
+    validateText(password, 'password')
+
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.password === password)
+            return user
+    }
+
+    return null
+}
