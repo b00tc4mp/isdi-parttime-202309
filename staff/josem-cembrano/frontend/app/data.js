@@ -8,6 +8,11 @@ var users = [
         name: 'Peter Pan',
         email: 'peter@pan.com',
         password: '123123123'
+    },
+    {
+        name: 'qwe',
+        email: 'qwe@qwe.com',
+        password: 'qwe'
     }
 ]
 

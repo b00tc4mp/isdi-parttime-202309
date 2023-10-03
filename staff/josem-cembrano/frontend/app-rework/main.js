@@ -1,5 +1,3 @@
-//Register
-
 var registerView = document.getElementById('register')
 
 registerView.style.display = 'none'
@@ -54,6 +52,8 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
+var emailLoggedIn = null
+
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
@@ -75,6 +75,8 @@ loginForm.onsubmit = function (event) {
 
         homeTitle.innerText = 'Hello, ' + user.name + '!'
 
+        emailLoggedIn = email
+
         loginView.style.display = 'none'
         homeView.style.display = 'block'
     } catch (error) {
@@ -88,91 +90,35 @@ var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
-var viewCredentials = document.getElementById('settings')
+var logoutButton = homeView.querySelector('#logout-button')
 
-viewCredentials.style.display = 'none'
-
-
-///////////////////////////////
-
-user = true
-
-var changeEmailButton = document.getElementById('changeEmail');
-var changePasswordButton = document.getElementById('changePassword');
-var viewNewEmail = document.getElementById("viewChangeEmail")
-var viewNewPassword = document.getElementById("viewChangePassword")
-viewNewPassword.style.display = 'none';
-viewNewEmail.style.display = 'none';
-var viewhomeuser = function () {
-if (user) {
-
-    changeEmailButton.style.display = 'block';
-    changePasswordButton.style.display = 'block';
-} else {
-
-    changeEmailButton.style.display = 'none';
-    changePasswordButton.style.display = 'none';
-  }
+logoutButton.onclick = function () {
+    homeView.style.display = 'none'
+    loginView.style.display = 'block'
 }
 
-var homeElement = document.getElementById('home'); // Selecciona el elemento <div> con el ID "home"
-var privacityLink = homeElement.querySelector('#privacity'); // Selecciona el elemento <a> con el ID "privacity"
-var changeCredentialsButton = privacityLink.querySelector('button');
+var changeEmailForm = homeView.querySelector('#change-email-form')
 
-
-
-
-changeCredentialsButton.onclick = function (event) {
+changeEmailForm.onsubmit = function (event) {
     event.preventDefault()
 
-    changeCredentialsButton.style.display = 'none'
-    viewCredentials.style.display = 'block'
+    var newEmailInput = changeEmailForm.querySelector('#new-email')
+    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm')
+    var passwordInput = changeEmailForm.querySelector('#password')
 
+    var newEmail = newEmailInput.value
+    var newEmailConfirm = newEmailConfirmInput.value
+    var password = passwordInput.value
+
+    try {
+        changeUserEmail(emailLoggedIn, newEmail, newEmailConfirm, password)
+
+        alert('E-mail changed')
+
+        newEmailInput.value = ''
+        newEmailConfirmInput.value = ''
+        passwordInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
 }
-
-
-
-var changeEmailView = document.getElementById('changeEmail')
-
-changeEmailView.addEventListener("click", function (event) {
-    event.preventDefault()
-
-    changeEmailButton.style.display = 'none'
-    changePasswordButton.style.display = 'none' 
-    viewNewEmail.style.display = 'block'
-});
-
-
-
-var viewDivEmail = document.getElementById("viewChangeEmail")
-
-linkChangeEmail.onclick = function (event) {
-    event.preventDefault()
-
-    changeEmailView.style.display = 'block'
-    changePasswordView.style.display = "block"
-    viewDivEmail.style.display = "none"
-
-}
-
-
-var changePasswordView = document.getElementById('changePassword')
-changePasswordView.style.display = "none"
-
-var linkChangePassword = changePasswordView.querySelector('a')
-
-linkChangePassword.onclick = function (event) {
-    event.preventDefault()
-
-    changePasswordView.style.display = 'none'
-    changeEmailView.style.display = "block"
-
-}
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-

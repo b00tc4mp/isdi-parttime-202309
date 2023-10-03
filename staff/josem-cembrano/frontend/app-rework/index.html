@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>App</title>
 </head>
 
@@ -15,75 +14,56 @@
         <form>
             <label for="name">Name</label>
             <input id="name" type="text">
-            <br>
+
             <label for="email">E-mail</label>
             <input id="email" type="email">
-            <br>
+
             <label for="password">Password</label>
             <input type="password" id="password">
-            <br><br>
+
             <button>Register</button>
-            <br>
         </form>
-        <br>
 
         <a href="">Login</a>
     </div>
 
     <div id="login">
         <h1>Login</h1>
+
         <form>
             <label for="email">E-mail</label>
-            <input id="email" type="email"><br>
+            <input id="email" type="email">
+
             <label for="password">Password</label>
             <input type="password" id="password">
-            <br><br>
-            <button>Login</button>
 
-        <br><br>
-        <a href=""><em>Register</em></a>
+            <button>Login</button>
+        </form>
+
+        <a href="">Register</a>
     </div>
 
     <div id="home">
         <h1>Hello, Home!</h1>
-            <h3>Setting Account</h3>
-            <a id="privacity" href=""><button><em>Change Credentials</b></button></a>
-    </div>
 
-    <div id="settings">
-            <a id="changeEmail" href=""><button><em>Change Email</b></button></a><br>
-            <a id="changePassword" href=""><button><em>Change password</b></button></a>
-            <br><br><br>
-            <a href="">Logout</a>
-    </div>
+        <button id="logout-button">Logout</button>
 
-    <div id="viewChangeEmail">
-        <h3>Security Settings</h3>
-        <form>
-            <label for="newEmail">•new email</label>
-            <input id="newEmail" type="newEmail">
-            <br>
-            <label for="repeatNewEmail">•repeat new email</label>
-            <input type="repeatNewEmail" id="repeatNewEmail">
+        <form id="change-email-form">
+            <label for="new-email">New e-mail</label>
+            <input id="new-email" type="email">
+
+            <label for="new-email-confirm">Confirm new e-mail</label>
+            <input id="new-email-confirm" type="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button>Update e-mail</button>
         </form>
-        <br>
-        <a href=""><em>back</em></a>
+
+
+        <!-- TODO implement change password panel (form) -->
     </div>
-
-    <div id="viewChangePassword">
-        <h3>Security Settings</h3>
-        <form>
-            <label for="newPassword">•new password</label>
-            <input id="newPassword" type="newPassword">
-            <br>
-            <label for="repeatNewpassword">•repeat new password</label>
-            <input type="repeatNewpassword" id="repeatNewpassword">
-        </form>
-        <br>
-        <a href=""><em>back</em></a>
-    </div>
-
-
 
     <script src="validators.js"></script>
 
