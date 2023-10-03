@@ -24,29 +24,18 @@ registerForm.onsubmit = function (event) {
     var email = emailInput.value
     var password = passwordInput.value
 
-    try {
+    try{
         registerUser(name, email, password)
-
+        
         nameInput.value = ''
         emailInput.value = ''
         passwordInput.value = ''
-
+    
         registerView.style.display = 'none'
         loginView.style.display = 'block'
-
+        
     } catch (error) {
         alert(error.message)
-    }
-}
-
-var registerTogglePasswordCheckbox = registerForm.querySelector('#toggle-password')
-registerTogglePasswordCheckbox.onchange = function () {
-    var passwordInput = registerForm.querySelector('#password')
-
-    if (registerTogglePasswordCheckbox.checked) {
-        passwordInput.type = "text"
-    } else {
-        passwordInput.type = "password"
     }
 }
 
@@ -71,11 +60,11 @@ loginForm.onsubmit = function (event) {
 
     var passwordInput = loginForm.querySelector('#password')
     var emailInput = loginForm.querySelector('#email')
-
+    
     var email = emailInput.value
     var password = passwordInput.value
-
-    try {
+    
+    try{
         authenticateUser(email, password)
         emailInput.value = ''
         passwordInput.value = ''
@@ -90,22 +79,22 @@ loginForm.onsubmit = function (event) {
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
-    } catch (error) {
+    } catch(error) {
         alert(error.message)
     }
 }
 
-var loginTogglePasswordCheckbox = loginForm.querySelector('#toggle-password')
-loginTogglePasswordCheckbox.onchange = function () {
-    var passwordInput = loginForm.querySelector('#password')
 
-    if (loginTogglePasswordCheckbox.checked) {
-        passwordInput.type = "text"
+//show password
+
+function showPassword() {
+    var getPassword = document.getElementById("password")
+    if (getPassword.type === "password") {
+        getPassword.type = "text"
     } else {
-        passwordInput.type = "password"
+        getPassword.type = "password"
     }
 }
-
 
 // home
 
