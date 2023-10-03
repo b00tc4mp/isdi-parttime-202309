@@ -53,6 +53,8 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
+var emailLoggedIn = null
+
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
@@ -72,6 +74,8 @@ loginForm.onsubmit = function (event) {
         var user = retrieveUser(email)
 
         homeTitle.innerText = 'Hello, ' + user.name + '!'
+
+        emailLoggedIn = email
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
@@ -99,16 +103,35 @@ var homeView = document.getElementById('home')
 
 homeView.style.display = 'none'
 
-// logout
+var logoutButton = homeView.querySelector('#logout-button')
 
-var logoutButton = homeView.querySelector('button')
-logoutButton.onclick = function (event) {
+logoutButton.onclick = function () {
+    homeView.style.display = 'none'
+    loginView.style.display = 'block'
+}
+
+var changeEmailForm = homeView.querySelector('#change-email-form')
+
+changeEmailForm.onsubmit = function (event) {
     event.preventDefault()
 
-    if (confirm('Are you sure you want to leave?')) {
-        alert('See you soon')
+    var newEmailInput = changeEmailForm.querySelector('#new-email')
+    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm')
+    var passwordInput = changeEmailForm.querySelector('#password')
 
-        homeView.style.display = 'none'
-        loginView.style.display = 'block'
+    var newEmail = newEmailInput.value
+    var newEmailConfirm = newEmailConfirmInput.value
+    var password = passwordInput.value
+
+    try {
+        changeUserEmail(emailLoggedIn, newEmail, newEmailConfirm, password)
+
+        alert('E-mail changed')
+
+        newEmailInput.value = ''
+        newEmailConfirmInput.value = ''
+        passwordInput.value = ''
+    } catch (error) {
+        alert(error.message)
     }
 }

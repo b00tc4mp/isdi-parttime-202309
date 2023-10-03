@@ -35,9 +35,7 @@ function authenticateUser(email, password) {
 
 function retrieveUser(email) {
 
-    if (!email.trim().length) {
-        throw new Error('Email is empty')
-    }
+    validateText(email, 'email')
 
     var user = findUserByEmail(email)
 
@@ -46,4 +44,23 @@ function retrieveUser(email) {
     }
 
     return user
+}
+
+function changeUserEmail(email, newEmail, newEmailConfirm, password) {
+    validateText(email, 'email')
+    validateText(newEmail, 'newEmail')
+    validateText(newEmailConfirm, 'new email confirm')
+    validateText(password, 'password')
+
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== password) {
+        throw new Error ('Wrong credentials')
+    }
+
+    if (newEmail !== newEmailConfirm) {
+        throw new Error('new email and its confirmation do not match')
+    }
+
+    user.email = newEmail
 }
