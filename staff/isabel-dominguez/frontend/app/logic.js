@@ -37,21 +37,27 @@ function retrieveUser(email) {
     return user
 }
 
-function updateUserPassword(currentPass, newPass) {
-    validateText(currentPass, 'Current password')
+function updateUserPassword(currentPass, newPass, confirmPass, email) {
+    validateText(email, 'email')
     validateText(newPass, 'new password')
+    validateText(confirmPass, 'confirm password')
+    validateText(currentPass, 'current password')
 
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-        
-        if (currentPass === newPass) {
-            throw new Error('Wrong credentials!');
-        } else {
-            user.password = newPass
-        }
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== currentPass){
+        throw new Error('wrong credentials')
     }
 
-    return newPass
+    if (newPass !== confirmPass){
+        throw new Error('new password and its confirmation do not match')
+    }
+
+    if (currentPass === newPass){
+        throw new Error('the new pass is the same that current pass')
+    }
+    
+    user.password = newPass
 }
 
 function updateUserEmail(email, newEmail, putPassword) {
