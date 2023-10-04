@@ -24,11 +24,9 @@ loginForm.onsubmit = function (event) {
 
         clearFormFields(loginForm);
 
-        var homeTitle = homeView.querySelector('h1')
-
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Welcome!👋 ' + user.name + '!'
+        profileLink.innerText = user.name
 
         emailLoggedIn = email
 

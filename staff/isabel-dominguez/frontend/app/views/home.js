@@ -9,6 +9,7 @@ goBackButton.onclick = function (event) {
 
     homeView.style.display = 'none'
     loginView.style.display = 'block'
+    profileView.style.display = 'none'  //añadir none el profile
 };
 
 //Change password
@@ -97,3 +98,27 @@ emailChangeForm.onsubmit = function (event) {
         alert(error.message);
     }
 }
+
+var homeLink = homeView.querySelector('#home-link')
+
+homeLink.onclick = function (event) {
+    event.preventDefault()
+
+    profileView.style.display = 'none'
+}
+
+//PROFILE
+var profileView = homeView.querySelector('#profile-view')
+
+profileView.style.display = 'none'
+
+var profileLink = homeView.querySelector('#profile-link')
+
+profileLink.onclick = function (event) {
+    event.preventDefault()
+
+    profileView.style.display = 'block'
+    changepassButton.style.display = 'inline-block'
+    changeemailButton.style.display = 'inline-block'
+}
+
