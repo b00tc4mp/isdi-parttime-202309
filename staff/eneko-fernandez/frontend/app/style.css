@@ -68,53 +68,49 @@ button {
 }
 
 .nav {
-     position: absolute;
-    background-color: white;
-    padding: .3rem;
-    box-shadow: 1px 1px 1px gray;
-    border-radius: 1rem;
     transform: translateX(-10rem);
-    width: 12rem;
-    
 }
-
 .nav .ul{
-    width: 100%;
+    width: 10rem;
+    position: absolute;
+    background-color: white;
+    box-shadow: 3px 2px 3px gray;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1.5rem;
     list-style: none;
     text-align: center;
 }
 
-.nav  .ul > span{
-    display: flex;
-    flex-direction: column;
-    gap: 3;
-    padding: .5rem;
 
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.nav > .ul span:last-child{
-    background-color: orange;
-    color: white;
+.ul button {
     font-weight: 600;
     border-radius: 1rem;
+    color: white;
+} 
+
+.nav > .ul button:last-child{
+    background-color: orange;   
 }
 
-.form-change-email , .form-change-password {
+.form-change-email , .form-change-password, .profile {
     width: 50%;
     margin: 0 auto;
+    padding: 1rem;
 }
 
 .error {
     color: red;
     text-align: center;
+    font-weight: 600;
 }
 
 .success {
     color: green;
     text-align: center;
+    font-weight: 600;
 }
 
 

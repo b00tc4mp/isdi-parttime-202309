@@ -20,6 +20,13 @@ homeView.querySelector('.change-pass-btn').onclick = function () {
   homeView.querySelector('.form-change-email').classList.add('hidden')
 }
 
+homeView.querySelector('.show-profile').onclick = function (e) {
+  e.preventDefault()
+  homeView.querySelector('.profile').classList.toggle('hidden')
+  homeView.querySelector('.form-change-password').classList.add('hidden')
+  homeView.querySelector('.form-change-email').classList.add('hidden')
+}
+
 homeView.querySelector('.sign-out').onclick = function () {
   homeView.style.display = 'none'
   loginView.style.display = 'block'
@@ -47,37 +54,6 @@ function welcomeUser(user) {
   loginView.querySelector('#password').value = ''
 }
 
-var registerForm = registerView.querySelector('form')
-registerForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  var name = registerForm.querySelector('#name').value
-  var email = registerForm.querySelector('#email').value
-  var password = registerForm.querySelector('#password').value
-
-  try {
-    registerUser(name, email, password)
-    clearInputs(registerForm)
-    showLogin()
-  } catch (error) {
-    throwError(error.message, registerForm)
-  }
-})
-  
-var loginForm = loginView.querySelector('form')
-loginForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-
-  var email = loginForm.querySelector('#email').value
-  var password = loginForm.querySelector('#password').value
-
- try {
-    userSession = userFound(email, password)
-    welcomeUser(userSession)
-    document.querySelector('.main').classList.add('hidden')
- } catch (error) {
-    throwError(error.message, loginForm)
- }
-})
 
 var changeEmailForm = homeView.querySelector('.form-change-email')
 changeEmailForm.addEventListener('submit', (e) => {

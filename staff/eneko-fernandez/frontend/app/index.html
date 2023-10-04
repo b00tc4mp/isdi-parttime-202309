@@ -43,8 +43,10 @@
         </main>
 
         <div id="home">
+
             <div class="flex">
                 <h1></h1>
+
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,12 +59,16 @@
 
                     <nav class="hidden nav ">
                         <div class="ul">
-                            <span class="change-email-btn">Change email</span>
-                            <span class="change-pass-btn">Change password</span>
-                            <span class="sign-out">Sign out</span>
+                            <button class="show-profile" href>Profile</button>
+                            <button class="sign-out">Sign out</button>
                         </div>
                     </nav>
                 </div>
+            </div>
+            <div class="hidden profile">
+                <h2>Yoru profile</h2>
+                <button class="change-email-btn">Change email</button>
+                <button class="change-pass-btn">Change password</button>
             </div>
 
             <form class="form form-change-email hidden">
@@ -89,5 +95,8 @@
         <script src="data.js"></script>
         <script src="logic.js"></script>
         <script src="main.js"></script>
+        <script src="views/register.js"></script>
+        <script src="views/login.js"></script>
+
     </body>
 </html>
