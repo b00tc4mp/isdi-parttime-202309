@@ -2,6 +2,34 @@ var homeView = document.getElementById('home-view')
 
 homeView.style.display = 'none'
 
+var privacySettings = document.getElementById('home-view')
+var privacySettingsButton = privacySettings.querySelector('a')
+
+privacySettingsButton.onclick = function (event) {
+    event.preventDefault()
+
+    privacySettingsButton.style.display = "none"
+    changeEmailForm = homeView.querySelector('#change-email-form')
+    changeEmailForm.style.display = 'block'
+    var changePasswordForm = homeView.querySelector('#change-password-form')
+    changePasswordForm.style.display = 'block'
+    goHome.style.display = 'block'
+}
+//////////////////////////////////////////////////////////
+var goHome = document.querySelector('div a[href="goHome"]')
+
+goHome.onclick = function (event) {
+    event.preventDefault()
+    goHome.style.display = 'none'
+    privacySettingsButton.style.display = "block"
+    changeEmailForm = homeView.querySelector('#change-email-form')
+    changeEmailForm.style.display = 'none'
+    var changePasswordForm = homeView.querySelector('#change-password-form')
+    changePasswordForm.style.display = 'none'
+
+}
+//////////////////////////////////////////////////////////
+
 var logoutButton = homeView.querySelector('#logout-button')
 
 logoutButton.onclick = function () {

@@ -14,6 +14,9 @@ var loginForm = loginView.querySelector('form')
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
+    var changeEmailForm = homeView.querySelector('#change-email-form')
+    var changePasswordForm = homeView.querySelector('#change-password-form')
+
     var emailInput = loginForm.querySelector('#email-input')
     var passwordInput = loginForm.querySelector('#password-input')
 
@@ -36,6 +39,8 @@ loginForm.onsubmit = function (event) {
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
+        changeEmailForm.style.display = "none"
+        changePasswordForm.style.display = "none"
     } catch (error) {
         alert(error.message)
     }
