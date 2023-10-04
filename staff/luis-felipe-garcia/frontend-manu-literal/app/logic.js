@@ -38,6 +38,8 @@ function validateCurrentPassword(currentPassword) {
 }
 
 var checkCoincidence = function (itemToCheck, checkedItem, textToMessage) {
+    validateText(itemToCheck, textToMessage )
+    validateText(checkedItem, textToMessage )
     if (itemToCheck !== checkedItem) {
         throw new Error(`${textToMessage} do not match`)
     }

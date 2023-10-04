@@ -78,6 +78,10 @@ loginForm.onsubmit = function (event) {
         changeMailForm.style.display = 'none'
         changePasswordForm.style.display = 'none'
 
+
+        changeViewStatus('none', loginView, changeMailForm, changePasswordForm)
+        changeViewStatus('block', homeView)
+
     } catch (error) {
         alert(error.message)
     }
@@ -107,9 +111,11 @@ logoutLink.onclick = function (event) {
 changeEmailLink = homeView.querySelector('#change-email-link')
 changeEmailLink.onclick = function(event){
     event.preventDefault()
-    changeMailForm.style.display = 'block'
-    changePasswordForm.style.display = 'none'
-    homeView.querySelector('nav').style.display = 'none'
+    changeViewStatus('block', changeMailForm)
+    changeViewStatus('none', changePasswordForm, homeView.querySelector('nav'))
+//    changeMailForm.style.display = 'block'
+  //  changePasswordForm.style.display = 'none'
+    //homeView.querySelector('nav').style.display = 'none'
 }
 
 var changeMailForm = homeView.querySelector('#change-email-form')
@@ -120,10 +126,8 @@ changeMailForm.onsubmit = function(event) {
     var checkedNewMail = changeMailForm.querySelector('#checked-new-email').value
 
     try {      
-        validateText(newMail, 'new email')
-        validateText(checkedNewMail, 'new email' )
-        checkCoincidence(newMail, checkedNewMail, 'Mails')
-        checkElementsChanges(user.email, newMail, `New mail is the seame as current`)
+        checkCoincidence(newMail, checkedNewMail, 'Mail')
+        checkElementsChanges(user.email, newMail, `New mail is the same as current`)
         changeMailForm.reset()
         user.email = newMail
 
@@ -157,9 +161,6 @@ changePasswordForm.onsubmit = function (event) {
     var checkedNewPassword = changePasswordForm.querySelector('#checked-new-password').value
 
     try {
-        validateText(currentPassword, 'Current password')
-        validateText(newPassword, 'New password')
-        validateText(checkedNewPassword, 'Checked new password')
         validateCurrentPassword(currentPassword)
         checkCoincidence(newPassword, checkedNewPassword, 'Passwords')
         checkElementsChanges(user.password, newPassword, `New password is the seame as current`)
@@ -188,4 +189,14 @@ var resetToHomeView = function(viewToSwitchOn, viewToSwitchOff){
     viewToSwitchOn.style.display = 'block';
     viewToSwitchOff.style.display = 'none'
     homeView.querySelector('nav').style.display = 'block'
+}
+
+var switchOnOffViews = function(viewToSwitchOn) {
+    viewToSwitchOn.style.display = 'block';
+    }
+
+var changeViewStatus = function (displayStatus,...views) {
+    for (view of views) {
+        view.style.display = displayStatus
+    }
 }

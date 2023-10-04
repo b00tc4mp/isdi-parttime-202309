@@ -1,39 +1,52 @@
 function registerUser(name, email, password) {
-    var userExists = checkAndGetUser(email)
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'password')
+    
+    var user = findUserByEmail(email)
 
-    if (userExists)
-        return false
+    if (user)
+        throw new Error('user already exists')
 
     createUser(name, email, password)
-    return true
 }
 
-function autenticateUser (email, password) {
+function authenticateUser(email, password) {
+    validateText(email, 'email')
+    validateText(password, 'password')
 
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
 }
 
-function retrieveUser (email) {
+function retrieveUser(email) {
+    validateText(email, 'email')
 
+    var user = findUserByEmail(email)
+
+    if (!user)
+        throw new Error('user not found')
+
+    return user
 }
 
+function validateCurrentPassword(currentPassword) {
+    if (currentPassword !== user.password) {
+        throw new Error('Current password wrong')}
+}
 
-/*function checkAndGetUser(email) {
-    var userExists = userExistsByEmail(email)
-    if (userExists) {
-       // userExists = user
-        return userExists
+var checkCoincidence = function (itemToCheck, checkedItem, textToMessage) {
+    validateText(itemToCheck, textToMessage )
+    validateText(checkedItem, textToMessage )
+    if (itemToCheck !== checkedItem) {
+        throw new Error(`${textToMessage} do not match`)
     }
 }
-/*
-function checkAndGetUser(email) {
-    var userToCheck = null
-    for (var i = 0; i < users.length && !userToCheck; i++) {
-        var user = users[i]
 
-        if (user.email === email) {
-            userToCheck = user
-            return userToCheck
-        }
-
+var checkElementsChanges = function (currentElement, newElement, textToMessage) {
+    if (newElement === currentElement) {
+        throw new Error(textToMessage)
     }
-}*/
+}

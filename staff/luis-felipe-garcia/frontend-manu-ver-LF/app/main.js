@@ -1,115 +1,166 @@
-// function wich change active view
-var switchOnOffViews = function(viewToSwitchOn, viewToSwitchOff1, viewToSwitchOff2) {
-    viewToSwitchOn.style.display = 'block';
-    viewToSwitchOff1.style.display = 'none';
-    viewToSwitchOff2.style.display = 'none';
-    }
-
-// defining views to use in code
-var loginView = document.getElementById('login')
-var loginRegisterLink = loginView.querySelector('a')
-var loginForm = loginView.querySelector('form')
-
-var homeView = document.getElementById('home')
-var homeTitle = homeView.querySelector('h1')
-
 var registerView = document.getElementById('register')
+changeViewStatus('none', registerView)
+
 var registerLoginLink = registerView.querySelector('a')
-var registerForm = registerView.querySelector('form')
 
-// switching on landing page view
-switchOnOffViews(loginView, registerView, homeView)
-
-// *** login workflow ***
-loginRegisterLink.onclick = function (event) {
-    event.preventDefault()
-    switchOnOffViews(registerView, loginView, homeView)
-}
-
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
-    var [emailInput, passwordInput] = registerForm.querySelectorAll('#name, #email, #password')
-    var [email, password] = [nameInput, emailInput, passwordInput].map(element => element.value)
-  
-    var userAuthenticated = autenticateUser(email, password)
-
-}
-
-
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
-
-    var emailInput = loginForm.querySelector('#email')
-    var email = emailInput.value
-    var foundUser = checkAndGetUser(email)
-
-    if (!foundUser) {
-        alert('Wrong credentials')
-        return
-    }
-
-    var passwordInput = loginForm.querySelector('#password')
-    var password = passwordInput.value
-
-    if (foundUser.password !== password) {
-        alert('Wrong credentials')
-        return
-    }
-
-    // Reseting form values 
-    emailInput.value = ''
-    passwordInput.value = ''
-
-    // switching on home view
-    homeTitle.innerText = 'Hello, ' + foundUser.name + '!'
-    switchOnOffViews(homeView, loginView, registerView)
-}
-
-
-// ***register workflow***
 registerLoginLink.onclick = function (event) {
     event.preventDefault()
-    switchOnOffViews(loginView, registerView, homeView)
+    changeViewStatus('none', registerView)
+    changeViewStatus('block', loginView)
 }
+
+var registerForm = registerView.querySelector('form')
 
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var [nameInput, emailInput, passwordInput] = registerForm.querySelectorAll('#name, #email, #password')
-    var [name, email, password] = [nameInput, emailInput, passwordInput].map(element => element.value)
-    var userRegistered = registerUser(name, email, password)
-
-    if (!userRegistered) {
-        alert('User already exists')
-        return
-    }
-
-    // Reseting form values and switching on view
-    [nameInput.value, emailInput.value, passwordInput.value] = ['','','']
-    switchOnOffViews(loginView, registerView, homeView)
-}
-
-
-
-
-
-
-
-
-
-
-/*    
     var nameInput = registerForm.querySelector('#name')
     var emailInput = registerForm.querySelector('#email')
     var passwordInput = registerForm.querySelector('#password')
-    
+
     var name = nameInput.value
     var email = emailInput.value
     var password = passwordInput.value
-*/
 
-/*
-    nameInput.value = ''
-    emailInput.value = ''
-    passwordInput.value = ''
-*/
+    try {
+        registerUser(name, email, password)
+
+        nameInput.value = ''
+        emailInput.value = ''
+        passwordInput.value = ''
+
+        changeViewStatus('none', registerView)
+        changeViewStatus('block', loginView)
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+// login
+
+var loginView = document.getElementById('login')
+var loginRegisterLink = loginView.querySelector('a')
+
+loginRegisterLink.onclick = function (event) {
+    event.preventDefault()
+    changeViewStatus('none', loginView)
+    changeViewStatus('block', registerView)
+}
+
+var loginForm = loginView.querySelector('form')
+var user
+loginForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var emailInput = loginForm.querySelector('#email')
+    var passwordInput = loginForm.querySelector('#password')
+
+    var email = emailInput.value
+    var password = passwordInput.value
+
+    try {
+        authenticateUser(email, password)
+
+        emailInput.value = ''
+        passwordInput.value = ''
+
+        var homeTitle = homeView.querySelector('h1')
+
+        user = retrieveUser(email)
+
+        homeTitle.innerText = 'Hello, ' + user.name + '!'
+        changeViewStatus('none', loginView, changeMailForm, changePasswordForm)
+        changeViewStatus('block', homeView)
+
+    } catch (error) {
+        alert(error.message)
+    }
+    
+}
+
+// home
+
+var homeView = document.getElementById('home')
+changeViewStatus('none', homeView)
+    
+
+// Logout 
+
+logoutLink = homeView.querySelector('#logout-link')
+logoutLink.onclick = function (event) {
+    event.preventDefault()
+    changeViewStatus('none', homeView)
+    changeViewStatus('block', loginView)
+    user = ''
+}
+
+
+// Change mail
+
+changeEmailLink = homeView.querySelector('#change-email-link')
+changeEmailLink.onclick = function(event){
+    event.preventDefault()
+    changeViewStatus('block', changeMailForm)
+    changeViewStatus('none', changePasswordForm, homeView.querySelector('nav'))
+}
+
+var changeMailForm = homeView.querySelector('#change-email-form')
+changeMailForm.onsubmit = function(event) {
+    event.preventDefault()
+    
+    var newMail = changeMailForm.querySelector('#new-email').value
+    var checkedNewMail = changeMailForm.querySelector('#checked-new-email').value
+
+    try {      
+        checkCoincidence(newMail, checkedNewMail, 'Mail')
+        checkElementsChanges(user.email, newMail, `New mail is the same as current`)
+        changeMailForm.reset()
+        user.email = newMail
+        changeViewStatus('none', changeMailForm)
+        changeViewStatus('block', loginView, homeView.querySelector('nav'))
+        alert ('Mail updated')
+
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+// Change password
+
+changePasswordLink = homeView.querySelector('#change-password-link')
+changePasswordLink.onclick = function(event){
+    event.preventDefault()
+    changeViewStatus('none', homeView, changeMailForm)
+    changeViewStatus('block', changePasswordForm)
+}
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var currentPassword = changePasswordForm.querySelector('#current-password').value
+    var newPassword = changePasswordForm.querySelector('#new-password').value
+    var checkedNewPassword = changePasswordForm.querySelector('#checked-new-password').value
+
+    try {
+        validateCurrentPassword(currentPassword)
+        checkCoincidence(newPassword, checkedNewPassword, 'Passwords')
+        checkElementsChanges(user.password, newPassword, `New password is the seame as current`)
+        changePasswordForm.reset()
+        user.password = newPassword
+        changeViewStatus('none', changePasswordForm)
+        changeViewStatus('block', homeViewView, homeView.querySelector('nav'))
+        alert ('Password updated')
+       
+    } catch (error) {
+        alert(error.message)
+        
+    }
+}
+
+
+var changeViewStatus = function (displayStatus,...views) {
+    for (view of views) {
+        view.style.display = displayStatus
+    }
+}
