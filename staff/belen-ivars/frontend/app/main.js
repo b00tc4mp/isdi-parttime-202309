@@ -1,6 +1,4 @@
-// register
-
-var registerView = document.getElementById('register')
+var registerView = document.getElementById('register-view')
 
 registerView.style.display = 'none'
 
@@ -18,12 +16,12 @@ var registerForm = registerView.querySelector('form')
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var emailInput = registerForm.querySelector('#email')
-    var nameInput = registerForm.querySelector('#name')
-    var passwordInput = registerForm.querySelector('#password')
+    var nameInput = registerForm.querySelector('#name-input')
+    var emailInput = registerForm.querySelector('#email-input')
+    var passwordInput = registerForm.querySelector('#password-input')
 
-    var email = emailInput.value
     var name = nameInput.value
+    var email = emailInput.value
     var password = passwordInput.value
 
     try {
@@ -35,7 +33,6 @@ registerForm.onsubmit = function (event) {
 
         registerView.style.display = 'none'
         loginView.style.display = 'block'
-
     } catch (error) {
         alert(error.message)
     }
@@ -43,7 +40,7 @@ registerForm.onsubmit = function (event) {
 
 // login
 
-var loginView = document.getElementById('login')
+var loginView = document.getElementById('login-view')
 var loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
@@ -55,11 +52,13 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
+var emailLoggedIn = null
+
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var emailInput = loginForm.querySelector('#email')
-    var passwordInput = loginForm.querySelector('#password')
+    var emailInput = loginForm.querySelector('#email-input')
+    var passwordInput = loginForm.querySelector('#password-input')
 
     var email = emailInput.value
     var password = passwordInput.value
@@ -76,6 +75,8 @@ loginForm.onsubmit = function (event) {
 
         homeTitle.innerText = 'Hello, ' + user.name + '!'
 
+        emailLoggedIn = email
+
         loginView.style.display = 'none'
         homeView.style.display = 'block'
     } catch (error) {
@@ -85,36 +86,67 @@ loginForm.onsubmit = function (event) {
 
 // home
 
-var homeView = document.getElementById('home')
+var homeView = document.getElementById('home-view')
+
 homeView.style.display = 'none'
 
-var logoutButton = homeView.querySelector('button')
+var logoutButton = homeView.querySelector('#logout-button')
 
-logoutButton.onclick = function (event) {
-    event.preventDefault()
-
-    // var user = retrieveUser(email)
-
-    if (confirm('Are you sure you want to leave?')) {
-        alert('See you soon')
-
-        homeView.style.display = 'none'
-        loginView.style.display = 'block'
-    }
-
-}
-
-var homeSettingsLink = homeView.querySelector('a')
-
-homeSettingsLink.onclick = function (event) {
-    event.preventDefault()
-
+logoutButton.onclick = function () {
     homeView.style.display = 'none'
-    settingsView.style.display = 'block'
+    loginView.style.display = 'block'
 }
 
-// settings
+var changeEmailForm = homeView.querySelector('#change-email-form')
 
-var settingsView = document.getElementById('settings')
-settingsView.style.display = 'none'
+changeEmailForm.onsubmit = function (event) {
+    event.preventDefault()
 
+    var newEmailInput = changeEmailForm.querySelector('#new-email-input')
+    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm-input')
+    var passwordInput = changeEmailForm.querySelector('#password-input')
+
+    var newEmail = newEmailInput.value
+    var newEmailConfirm = newEmailConfirmInput.value
+    var password = passwordInput.value
+
+    try {
+        changeUserEmail(emailLoggedIn, newEmail, newEmailConfirm, password)
+
+        emailLoggedIn = newEmail
+
+        alert('E-mail changed')
+
+        newEmailInput.value = ''
+        newEmailConfirmInput.value = ''
+        passwordInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#password-input')
+    var newPasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var newPasswordConfirmInput = changePasswordForm.querySelector('#new-password-confirm-input')
+
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var newPasswordConfirm = newPasswordConfirmInput.value
+
+    try {
+        changeUserPassword(emailLoggedIn, newPassword, newPasswordConfirm, password)
+
+        alert('Password changed')
+
+        passwordInput.value = ''
+        newPasswordInput.value = ''
+        newPasswordConfirmInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
+}

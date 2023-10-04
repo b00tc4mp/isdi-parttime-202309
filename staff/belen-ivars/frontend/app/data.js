@@ -11,8 +11,6 @@ var users = [
     }
 ]
 
-// CR UD - CreactiónRecuperaciónUpdatingDelete
-
 function createUser(name, email, password) {
     var user = {}
 
@@ -31,10 +29,5 @@ function findUserByEmail(email) {
             return user
     }
 
-return null
-}
-
-function updateUsers(email) {
-
-    
+    return null
 }
