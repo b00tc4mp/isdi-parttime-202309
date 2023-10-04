@@ -16,7 +16,7 @@ privacySettingsButton.onclick = function (event) {
     goHome.style.display = 'block'
 }
 //////////////////////////////////////////////////////////
-var goHome = document.querySelector('div a[href="goHome"]')
+var goHome = document.querySelector('.goHome')
 
 goHome.onclick = function (event) {
     event.preventDefault()
