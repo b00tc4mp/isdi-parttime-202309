@@ -1,13 +1,13 @@
-console.log('TEST indexOf')
+console.log('TEST lastIndexOf')
 
-console.log('CASE for string "hello world" indexOf "o" results in 7')
-console.log(indexOf('hello world', 'o'))
+console.log('CASE for string "hello world" lastIndexOf "o" results in 7')
+console.log(lastIndexOf('hello world', 'o'))
 // 7
 
-console.log('CASE for string "hello world" indexOf "l" results in 3')
-console.log(indexOf('hello world', 'l'))
+console.log('CASE for string "hello world" lastIndexOf "l" results in 9')
+console.log(lastIndexOf('hello world', 'l'))
 // 9
 
-console.log('CASE for string "hello world" indexOf "a" results in -1')
-console.log(indexOf('hello world', 'a'))
+console.log('CASE for string "hello world" lastIndexOf "a" results in -1')
+console.log(lastIndexOf('hello world', 'a'))
 // -1

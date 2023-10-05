@@ -1,13 +1,12 @@
 function lastIndexOf(string, searchString) {
-    var lastIndex = -1
-    for (let i = 0; i < string.length; i++) {
+    for (let i = string.length - 1; i >= 0; i--) {
         if (string[i] === searchString) {
-            lastIndex = i
+            return i
         }
     }
-    return lastIndex;
+
+    return -1
 }
 
-console.log(lastIndexOf('hello world', 'l'))
 
-//devuelve en caso de que se repita, el ultimo parametro indicado si no lo encuentra devuelve -1.
+// lastIndexOf(), devuelve en caso de que se repita, el ultimo parametro indicado si no lo encuentra devuelve -1.
