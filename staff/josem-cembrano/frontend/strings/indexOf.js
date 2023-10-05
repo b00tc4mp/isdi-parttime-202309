@@ -9,6 +9,7 @@ function indexOf(string, searchString) {
     }
 }
 
-console.log(indexOf('hola mundo', 'm'));
+console.log(indexOf('hola mundo', 'm'))
+
 /* utilizo el blucle for porq es necesario recorrer el string al mismo tiempo que compara el elemento que quiero buscar con los que hay en el string, 
 ya que el indexOf busca recorriendo el string,*/
