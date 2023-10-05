@@ -1,0 +1,11 @@
+function indexOf(string, searchString) {
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] === searchString) {
+            return i;
+        }
+    }
+    return -1;
+}
+console.log(indexOf('hola mundo', 'h'))
+console.log(indexOf('hola mundo', 'm'))
+console.log(indexOf('hola mundo', 'w'))
