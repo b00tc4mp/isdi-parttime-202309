@@ -6,6 +6,3 @@ function indexOf(string, searchString) {
     }
     return -1;
 }
-console.log(indexOf('hola mundo', 'h'))
-console.log(indexOf('hola mundo', 'm'))
-console.log(indexOf('hola mundo', 'w'))
