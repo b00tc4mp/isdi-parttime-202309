@@ -29,14 +29,13 @@ loginForm.onsubmit = function (event) {
 
         var user = retrieveUser(email)
 
-        profileLink.innerText = user.name 
+        settingsLink.innerText = user.name 
 
         emailLoggedIn = email
 
-        loginView.style.display = 'none'
         homeView.style.display = 'block'
         logoutButton.style.display = 'block'
-        profileLink.style.display = 'block'
+        loginView.style.display = 'none'
 
     } catch (error) {
         alert(error.message)

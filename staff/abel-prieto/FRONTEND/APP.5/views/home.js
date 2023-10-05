@@ -1,43 +1,15 @@
 // HOME VIEW
 
 var homeView = document.getElementById('home')
+
 homeView.style.display = 'none'
-
-
-// HOME LINK
-
-var homeLink = homeView.querySelector('#home-link')
-
-homeLink.onclick = function (event) {
-    event.preventDefault()
-
-    profileView.style.display = 'none'
-}
-
-
-
-
-
-// PROFILE VIEW
-
-var profileView = homeView.querySelector('#profile')
-profileView.style.display = 'none'
-
-
-// PROFILE LINK
-
-var profileLink = homeView.querySelector('#profile-link')
-
-profileLink.onclick = function (event) {
-    event.preventDefault()
-
-    profileView.style.display = 'block'
-}
-
 
 // CREDENTIALS VIEW
 
-var checkEmailForm = homeView.querySelector('#select-email')
+var settingsView = document.getElementById('settings')
+settingsView.style.display = 'none'
+
+var checkEmailForm = settingsView.querySelector('#select-email')
 
 checkEmailForm.onsubmit = function (event) {
     event.preventDefault()
@@ -45,7 +17,7 @@ checkEmailForm.onsubmit = function (event) {
     var newEmailInput = checkEmailForm.querySelector('#new_email')
     var confirmNewEmailInput = checkEmailForm.querySelector('#confirm-new-email')
     var passwordInput = checkEmailForm.querySelector('#password')
-
+    
     var newEmail = newEmailInput.value
     var confirmNewEmail = confirmNewEmailInput.value
     var password = passwordInput.value
@@ -67,7 +39,7 @@ checkEmailForm.onsubmit = function (event) {
     }
 }
 
-var changePasswordForm = homeView.querySelector('#select-password')
+var changePasswordForm = settingsView.querySelector('#select-password')
 
 changePasswordForm.onsubmit = function(event) {
     event.preventDefault()
@@ -82,10 +54,10 @@ changePasswordForm.onsubmit = function(event) {
 
     try {
         changeUserPassword(emailLoggedIn, password, newPassword, againNewPassword)
-
+        
         alert('Password changed succesfully!')
 
-        passwordInput.value = ''
+        password.value = ''
         newPasswordInput.value = ''
         againNewPasswordInput.value = ''
     }
@@ -95,14 +67,45 @@ changePasswordForm.onsubmit = function(event) {
     }
 }
 
-
 // BUTTON LOGOUT
 
-var logoutButton = document.getElementById('logout-button')
+var logoutButton = document.getElementById('home_button')
 
 logoutButton.onclick = function (event) {
     event.preventDefault()
-
+    
+    registerView.style.display = 'none'
     homeView.style.display = 'none'
+    logoutButton.style.display = 'none'
     loginView.style.display = 'block'
+}
+
+// BUTTON HOME
+
+var homeButton = document.getElementById('back-home')
+homeButton.style.display = 'none'
+
+homeButton.addEventListener('click', function(event) { // Salir del apartado LOGIN
+    event.preventDefault() 
+
+    logoutButton.style.display = 'block'
+    homeView.style.display = 'block'
+    settingsLink.style.display = 'block'
+    settingsView.style.display = 'none'
+    homeButton.style.display = 'none'
+})
+
+// BUTTONS SETTINGS WITH <A>
+
+var settingsLink = homeView.querySelector('#settings-link')
+
+settingsLink.onclick = function(event) {
+    event.preventDefault() 
+
+    homeButton.style.display = 'block'
+    homeView.style.display = 'block'
+    logoutButton.style.display = 'block'
+    settingsView.style.display = 'block'
+    registerView.style.display = 'none'
+    loginView.style.display = 'none'
 }
