@@ -6,6 +6,7 @@ var logoutButton = homeView.querySelector('#logout-button')
 
 logoutButton.onclick = function () {
     homeView.style.display = 'none'
+    profileView.style.display = 'none'
     loginView.style.display = 'block'
 }
 
@@ -35,4 +36,52 @@ changeEmailForm.onsubmit = function (event) {
     } catch (error) {
         alert(error.message)
     }
+}
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#password-input')
+    var newPasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var newPasswordConfirmInput = changePasswordForm.querySelector('#new-password-confirm-input')
+
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var newPasswordConfirm = newPasswordConfirmInput.value
+
+    try {
+        changeUserPassword(emailLoggedIn, newPassword, newPasswordConfirm, password)
+
+        alert('Password changed')
+
+        passwordInput.value = ''
+        newPasswordInput.value = ''
+        newPasswordConfirmInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+var homeLink = homeView.querySelector('#home-link')
+
+homeLink.onclick = function (event) {
+    event.preventDefault()
+
+    profileView.style.display = 'none'
+}
+
+// profile
+
+var profileView = homeView.querySelector('#profile-view')
+
+profileView.style.display = 'none'
+
+var profileLink = homeView.querySelector('#profile-link')
+
+profileLink.onclick = function (event) {
+    event.preventDefault()
+
+    profileView.style.display = 'block'
 }
