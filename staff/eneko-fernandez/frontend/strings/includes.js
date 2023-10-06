@@ -1,5 +1,5 @@
 function includes(string, textToFind) {
-   if (string.length != 0 && textToFind.length === 0) {
+   if (string.length !== 0 && textToFind.length === 0) {
       return false
    }
 
