@@ -1,5 +1,7 @@
 var loginView = document.getElementById('login-view')
 
+// loginView.style.display = 'none'
+
 var loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
@@ -26,11 +28,9 @@ loginForm.onsubmit = function (event) {
         emailInput.value = ''
         passwordInput.value = ''
 
-        var homeTitle = homeView.querySelector('h1')
-
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Hello, ' + user.name + '!'
+        profileLink.innerText = user.name
 
         emailLoggedIn = email
 
