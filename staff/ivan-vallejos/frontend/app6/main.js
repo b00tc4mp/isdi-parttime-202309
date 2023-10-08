@@ -1,4 +1,4 @@
-var registerView = document.getElementById('register')
+var registerView = document.getElementById('register-view')
 
 registerView.style.display = 'none'
 
@@ -16,9 +16,9 @@ var registerForm = registerView.querySelector(form)
 registerForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var nameInput = registerForm.querySelector('#name')
-    var emailInput = registerForm.querySelector('#email')
-    var passwordInput = registerForm.querySelector('#password')
+    var nameInput = registerForm.querySelector('#name-input')
+    var emailInput = registerForm.querySelector('#email-input')
+    var passwordInput = registerForm.querySelector('#password-input')
 
     var name = nameInput.value
     var email = emailInput.value
@@ -40,7 +40,7 @@ registerForm.onsubmit = function (event) {
 
 // Login
 
-var loginView = document.getElementById ('login')
+var loginView = document.getElementById ('login-view')
 var loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function(event) {
@@ -57,8 +57,8 @@ var emailLoggedIn = null
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var emailInput = loginForm.querySelector('#email')
-    var passwordInput= loginForm.querySelector('#password')
+    var emailInput = loginForm.querySelector('#email-input')
+    var passwordInput= loginForm.querySelector('#password-input')
 
     var email = emailInput.value
     var password = passwordInput.value
@@ -86,7 +86,7 @@ loginForm.onsubmit = function (event) {
 
 //Home
 
-var homeView = document.getElementById('home')
+var homeView = document.getElementById('home-view')
 
 homeView.style.display = 'none'
 
@@ -102,9 +102,9 @@ var changeEmailForm = homeView.querySelector('#change-email-form')
 changeEmailForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var newEmailInput = changeEmailForm.querySelector('#newEmail')
-    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm')
-    var passwordInput = changeEmailForm.querySelector('#password')
+    var newEmailInput = changeEmailForm.querySelector('#newEmail-input')
+    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm-input')
+    var passwordInput = changeEmailForm.querySelector('#password-input')
 
     var newEmail = newEmailInput.value
     var newEmailConfirm = newEmailConfirmInput.value
@@ -113,11 +113,38 @@ changeEmailForm.onsubmit = function (event) {
     try{
         changeUserEmail(emailLoggedIn, newEmail, newEmailConfirm,password)
 
+        emailLoggedIn = newEmail
+
         alert('Email changed')
 
         newEmailInput.value = ''
         newEmailConfirmInput.value = ''
         passwordInput.value = ""
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#password-input')
+    var NewpasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var NewpassworConfirmdInput = changePasswordForm.querySelector('#new-password-confirm')
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var newPasswordConfirm = newPasswordConfirmInput.value
+
+    try {
+        changeUserPassword(emailLoggedIn, newPassword, newPasswordConfirm, password)
+
+        alert('Password changed')
+
+        passwordInput.value = ''
+        newPasswordInput.value = ''
+        newPasswordConfirmInput.value = ''
     } catch (error) {
         alert(error.message)
     }

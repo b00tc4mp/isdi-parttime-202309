@@ -21,8 +21,8 @@ registerForm.onsubmit = function (event) {
     var passwordInput = registerForm.querySelector('#password')
 
     var name = nameInput.value
-    var email = email.value
-    var password = password.value
+    var email = emailInput.value
+    var password = passwordInput.value
 
     try{
         registerUser(name, email, password)
