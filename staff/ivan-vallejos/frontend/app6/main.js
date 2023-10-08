@@ -131,8 +131,9 @@ changePasswordForm.onsubmit = function (event) {
     event.preventDefault()
 
     var passwordInput = changePasswordForm.querySelector('#password-input')
-    var NewpasswordInput = changePasswordForm.querySelector('#new-password-input')
-    var NewpassworConfirmdInput = changePasswordForm.querySelector('#new-password-confirm')
+    var newPasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var newPasswordConfirmInput = changePasswordForm.querySelector('#new-password-confirm')
+
     var password = passwordInput.value
     var newPassword = newPasswordInput.value
     var newPasswordConfirm = newPasswordConfirmInput.value
