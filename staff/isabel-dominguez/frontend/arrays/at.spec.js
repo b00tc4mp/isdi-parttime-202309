@@ -22,3 +22,6 @@ console.log('CASE for array [5, 12, 8, 130, 44] includes index "-3" results in "
 console.log(at(array1, -3))
 // 8
 
+console.log('CASE for array [5, 12, 8, 130, 44] includes index "5" results in "Undefined"')
+console.log(at(array1, 5))
+// Undefined
