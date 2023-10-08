@@ -43,20 +43,28 @@
 
     <div id="home">
       <h1>Hello, Home!</h1>
-      <form id="change-email-form">
-        <label for="new-email">New e-mail:</label>
-        <input type="email" id="new-email" /><br />
 
-        <label for="new-email-confirm">Confirm new email:</label>
-        <input type="email" id="new-email-confirm" /><br />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" /><br />
-
-        <button id="change-email-btn">Update e-mail</button>
-      </form>
-
-      <!-- <a href="">Account settings</a> -->
+      <div id="accountSettings">
+        <form id="changeEmail">
+          <label for="old-email">Current email:</label>
+          <input type="email" id="old-email" /><br />
+          <label for="new-email">New email:</label>
+          <input type="email" id="new-email" /><br />
+          <label for="new-email-confirm">Confirm new email:</label>
+          <input type="email" id="new-email-confirm" /><br />
+          <button id="change-email-btn">Save</button>
+        </form>
+        <form id="changePassword">
+          <label for="old-password">Current password:</label>
+          <input type="password" id="old-password" /><br />
+          <label for="new-password">New password:</label>
+          <input type="password" id="new-password" /><br />
+          <label for="new-password-confirm">Confirm new password:</label>
+          <input type="password" id="new-password-confirm" /><br />
+          <button id="change-password-btn">Save</button>
+        </form>
+      </div>
+      <a href="">Account settings</a>
       <button id="logout-btn">Log out</button>
 
       <!-- DONE: TODO implement logout <button>Log out</button> onclick-->

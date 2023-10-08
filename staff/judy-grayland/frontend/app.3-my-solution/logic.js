@@ -25,21 +25,5 @@ function retrieveUser(email) {
   var user = findUserByEmail(email)
 
   if (!user) throw new Error('user not found')
-
   return user
-}
-
-function changeUserEmail(email, newEmail, newEmailConfirm, password) {
-  validateText(email, 'email')
-  validateText(newEmail, 'password')
-  validateText(newEmailConfirm, 'new email confirm')
-  validateText(password, 'password')
-
-  var user = findUserByEmail(email)
-
-  if (!user || user.password !== password) throw new Error('wrong credentials')
-
-  if (newEmail !== newEmailConfirm) throw new Error('emails do not match')
-
-  user.email = newEmail
 }
