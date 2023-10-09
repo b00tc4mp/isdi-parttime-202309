@@ -1,6 +1,6 @@
-function at(array, index) {
+function at2(array, index) {
     if (index < 0) {
-        index = index + 5;
+        index = index + array.length;
     }
 
     if (index >= 0 && index < array.length) {
@@ -10,6 +10,10 @@ function at(array, index) {
     }
 }
 
+//VERSIÓN CORTA
+function at(array, index) {
+    return array[index >= 0 ? index : array.length + index]
+}
 
 /*
 - Cojo como parámetro el array y el índice
