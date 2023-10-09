@@ -1,21 +1,20 @@
 var array1 = ['Dog', 'Cat', 'Mouse']
 var array2 = ['Wolf', 'Tiger', 'Lion']
-var newArray = []
 
 function concat(array1, array2) {
-    var firstResult = array1[0]
+    var newArray = []
 
-    for (i = 0; i < array1.length; i++) {
-        firstResult +=  array1[i]
+    var firstArray = array1[0]
+    for (i = 1; i < array1.length; i++) {
+        firstArray +=  array1[i]
     }
     
-    var secondResult = array2[0]
-
-    for (i = 1; i < array2.length; i++) {
-        secondResult += array2[i]
+    var secondArray = array2[0]
+    for (j = 1; j < array2.length; j++) {
+        secondArray += array2[j]
     }
 
-    result = firstResult + secondResult
+    newArray = firstArray + secondArray
     
-    return result
+    return newArray
 }
