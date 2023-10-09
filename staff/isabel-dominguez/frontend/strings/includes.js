@@ -16,6 +16,5 @@ function includes(string, textToFind) {
 
 
 /*
-
-
+La combinación de estos dos bucles permite buscar coincidencias de textToFind en la cadena string de manera eficiente. El primer bucle controla dónde comienza la búsqueda en string, mientras que el segundo bucle compara los caracteres para verificar si hay una coincidencia completa.
 */
