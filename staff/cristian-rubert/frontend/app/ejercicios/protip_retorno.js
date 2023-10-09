@@ -17,15 +17,17 @@
 // var ultima_posicion = array1.length -1
 // console.log(ultima_posicion);
 // console.log(array1[8]);
-function lastIndexOf(string, searchString) {
-    var lastIndex = -1 
-    for (let i = String.length -1 ; i = lenght[0]; i--) {
-        if (string[i] === searchString) {
-            return i
-        }
-        
-    }
-    return -1
 
-}
-console.log(lastIndexOf('hello world', 'l'));
+
+// function lastIndex(string, searchString) {
+//     for (let i = string.lenght -1 ; i >= 0; i--) {
+//         if (string[i] === searchString) {
+//             return i
+//         }
+//     }
+  
+//     return -1
+// }
+
+// console.log(lastIndex('hello world', 'l'));
+

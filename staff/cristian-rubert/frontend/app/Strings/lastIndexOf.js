@@ -1,4 +1,4 @@
-function lastIndexOf(string, searchString) {
+function indexOf(string, searchString) {
     for (let i = string.length -1 ; i >= 0; i--) {
         if (string[i] === searchString) {
             return i
@@ -8,4 +8,4 @@ function lastIndexOf(string, searchString) {
     return -1
 }
 
-console.log(lastIndexOf('hello world', 'l'));
+console.log(indexOf('hello world', 'l'));
