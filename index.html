@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="register">
+        <h1>Register</h1>
+
+        <form>
+            <label for="name">Name</label>
+            <input id="name" type="text">
+
+            <label for="email">E-mail</label>
+            <input id="email" type="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button>Register</button>
+        </form>
+
+        <a href="">Login</a>
+    </div>
+
+    <div id="login">
+        <h1>Login</h1>
+
+        <form>
+            <label for="email">E-mail</label>
+            <input id="email" type="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+
+            <button>Login</button>
+        </form>
+
+        <a href="">Register</a>
+    </div>
+
+    <div id="home">
+        
+        <h1>Hello, Home!</h1>
+
+        <button id="newmail">Change Email</button>
+        <button id="newpassword">Change Password</button>
+        <hr>
+        <button id="logout">Logout</button>
+
+    </div>   
+
+    <div id="changemail">
+        <h1>Change Email</h1>
+
+        <form>
+            <label for="email">Old E-mail</label>
+            <input id="email" type="email">
+
+            <label for="email2">New E-mail</label>
+            <input type="email2" id="email">
+
+            <button id="confirmail">Submit</button>
+        </form>
+
+    </div>
+        
+    <div id="changepassword">
+        <h1>Change Password</h1>
+        <form>
+            <label for="password">Old Password</label>
+            <input id="password" type="email">
+
+            <label for="password2">New Password</label>
+            <input type="password" id="password2">
+
+            <button id="confirmpass">Submit</button>
+        </form>
+
+    </div>
+
+        <!-- <form>
+            <label for="email">New E-mail</label>
+            <input id="email2" type="email">
+
+            <label for="password2">New Password</label>
+            <input type="password" id="password2">
+
+            <button>Login</button>
+            <a href="">Change password</a>
+
+        </form> -->                  
+
+        <!-- TODO implement logout <button>Logout</button> (onclick) -->
+
+        <!-- TODO implement change email panel (form) -->
+
+        <!-- TODO implement change password panel (form) -->
+    <script src="validators.js"></script>
+    <script src="data.js"></script>
+    <script src="logic.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

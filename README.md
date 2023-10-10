@@ -1,2 +1,11 @@
-# isdi-parttime-202309
-isdi-parttime-202309
+# App
+
+## Intro
+
+Social app for ... ?
+
+## Functional Description
+
+User
+- register
+- login
