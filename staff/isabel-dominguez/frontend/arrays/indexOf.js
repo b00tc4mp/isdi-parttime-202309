@@ -1,6 +1,6 @@
-function indexOf(array, searchString) {
+function indexOf(array, searchElement) {
     for (var i = 0; i < array.length; i++) {
-        if (array[i] === searchString) {
+        if (array[i] === searchElement) {
             return i;
         }
     }

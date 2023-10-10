@@ -1,9 +1,13 @@
-function push(array) {
-    for (var i = 1; i < arguments.length; i++) {
-        array[array.length] = arguments[i];
+function push(array, ...elements) {
+    for (var i = 0; i < elements.length; i++) {
+        array[array.length] = elements[i];
     }
     return array.length;
 }
+
+
+
+
 
 /*
 - Cojo como parámetro el array y todos los elementos que voy a añadir.
