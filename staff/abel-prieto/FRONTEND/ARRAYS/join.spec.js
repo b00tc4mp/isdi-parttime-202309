@@ -1,3 +1,4 @@
+var array = ['Dog', 'Cat', 'Mouse', 'Wolf', 'Lion']
 
 console.log('TEST ARRAYS - Method join')
 

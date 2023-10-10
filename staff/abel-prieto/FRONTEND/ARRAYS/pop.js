@@ -1,5 +1,3 @@
-var array = ['Miguel', 'Cristina', 'Pedro', 'Raúl', 'Juan']
-
 function pop(array) {
     var newArray = []
 

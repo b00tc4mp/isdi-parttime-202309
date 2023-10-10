@@ -1,8 +1,6 @@
-var array = ['Dog', 'Cat', 'Mouse']
-
 function push(array, object) {
     var newArray = []
-    for (i = 0; i < array.length; i++) {
+    for (var i = 0; i < array.length; i++) {
         newArray[i] = array[i]
     }
 
