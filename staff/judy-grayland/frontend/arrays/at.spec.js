@@ -1,5 +1,6 @@
 console.log('TEST at')
 
+var countries = ['France', 'Ghana', 'Peru', 'Australia', 'Canada', 'India']
 // at()= The at() method of Array instances takes an integer value and returns the item at that index, allowing for positive and negative integers. Negative integers count back from the last item in the array.
 
 console.log('CASE for countries array at 0 should return "France"')
@@ -21,3 +22,5 @@ console.log(at(countries, -4))
 console.log('CASE for countries array at 9 should return undefined')
 console.log(at(countries, 9))
 // undefined
+
+console.log('------------------------------------------')

@@ -1,34 +1,34 @@
-/*function includes(string, termSearch) {
+/*function includes(string, searchTerm) {
   // Looking for one search term
-  if (termSearch === 1) {
+  if (searchTerm === 1) {
     for (let i = 0; i < string.length; i++) {
-      if (string[i] === termSearch) return true
+      if (string[i] === searchTerm) return true
     }
     return false
-  } else if (termSearch.length === 2) {
+  } else if (searchTerm.length === 2) {
     /*
 STEPS
--if termSearch.length === 2
+-if searchTerm.length === 2
 -store the two search terms as separate variables
 -loop through the array to check if the first variable coincides with the character being checked in the string. If it does, check that the next character(i+1) coincides with the second variable. If it does return true. If not return false.
 
 */
-/*var charOne = termSearch[0]
-    var charTwo = termSearch[1]
+/*var charOne = searchTerm[0]
+    var charTwo = searchTerm[1]
     for (var i = 0; i < string.length; i++) {
       if (string[i] === charOne && string[i + 1] === charTwo) return true
     }
     return false
-  } else if (termSearch.length === 3) {
+  } else if (searchTerm.length === 3) {
     /*
 STEPS
--if termSearch.length === 3
+-if searchTerm.length === 3
 -store the three search terms as separate variables
 -loop through the array to check if the first variable coincides with the character being checked in the string. If it does, check that the next character(i+1) coincides with the second variable. If it does, check that the next character(i+2) coincides with the third variable. If it does return true. If not return false.
 
-    var charOne = termSearch[0]
-    var charTwo = termSearch[1]
-    var charThree = termSearch[2]
+    var charOne = searchTerm[0]
+    var charTwo = searchTerm[1]
+    var charThree = searchTerm[2]
     for (var i = 0; i < string.length; i++) {
       if (
         string[i] === charOne &&
@@ -38,28 +38,35 @@ STEPS
         return true
     }
     return false
-  } else if (termSearch.length === 4) {
+  } else if (searchTerm.length === 4) {
     
     /*
 STEPS
--if termSearch.length === 4
+-if searchTerm.length === 4
 -store the three search terms as separate variables
 -loop through the array to check if the first variable coincides with the character being checked in the string. If it does, check that the next character(i+1) coincides with the second variable. If it does, check that the next character(i+2) coincides with the third variable. If it does, check that the next character(i+3) coincides with the fourth variable. If it does return true. If not return false.
 */
 
 // STEPS:
 
-// - loop through termSearch to return all characters.
+// - loop through searchTerm to return all characters.
 
-// string[i] === termSearch[0]
-// string[i + 1] === termSearch[1]
-// string[i + 2] === termSearch[2]
-// string[i + 3] === termSearch[3]
+// string[i] === searchTerm[0]
+// string[i + 1] === searchTerm[1]
+// string[i + 2] === searchTerm[2]
+// string[i + 3] === searchTerm[3]
 
-function includes(string, termSearch) {
-  for (var i = 0; i < termSearch.length; i++) {
-    for (var j = 0; j < string.length; j++) {
-      if (string[j] === termSearch[i]) return true
+function includes(string, searchTerm) {
+  for (var i = 0; i <= string.length - searchTerm.length; i++) {
+    var found = true
+    for (var j = 0; i < searchTerm.length; j++) {
+      if (string[i + j] !== searchTerm[j]) {
+        found = false
+        break
+      }
+    }
+    if (found) {
+      return true
     }
   }
   return false

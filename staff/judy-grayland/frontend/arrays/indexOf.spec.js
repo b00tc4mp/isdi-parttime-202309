@@ -23,3 +23,5 @@ console.log(indexOf(weekDays, 'Thursday'))
 console.log('CASE for weekDays array indexOf "February" should return -1')
 console.log(indexOf(weekDays, 'February'))
 //-1
+
+console.log('------------------------------------------')

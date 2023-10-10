@@ -18,3 +18,5 @@ console.log(
 )
 console.log(concat(plants, colours))
 // ReferenceError: colours is not defined
+
+console.log('------------------------------------------')

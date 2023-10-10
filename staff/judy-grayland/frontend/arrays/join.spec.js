@@ -25,3 +25,5 @@ console.log(
 )
 console.log(join(cardinalDirections, ''))
 // 'northeastsouthwest'
+
+console.log('------------------------------------------')

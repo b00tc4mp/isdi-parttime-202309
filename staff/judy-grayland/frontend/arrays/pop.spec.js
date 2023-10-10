@@ -9,3 +9,5 @@ console.log(pop(planets))
 console.log('CASE for pop pizzas array should return the string "undefined"')
 console.log(pop(pizzas))
 // undefined
+
+console.log('------------------------------------------')

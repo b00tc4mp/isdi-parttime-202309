@@ -97,6 +97,7 @@ logoutBtn.onclick = function (event) {
   loginView.style.display = 'block'
 }
 
+// change Email
 var changeEmailForm = homeView.querySelector('#change-email-form')
 
 changeEmailForm.onsubmit = function (event) {
@@ -121,6 +122,33 @@ changeEmailForm.onsubmit = function (event) {
   }
 }
 
+//change Password
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+  event.preventDefault()
+  var newPasswordInput = changePasswordForm.querySelector('#new-password')
+  var newPasswordConfirmInput = changePasswordForm.querySelector(
+    '#new-password-confirm'
+  )
+  var passwordInput = changePasswordForm.querySelector('#password')
+
+  var newPassword = newPasswordInput.value
+  var newPasswordConfirm = newPasswordConfirmInput.value
+  var password = passwordInput.value
+
+  try {
+    changeUserPassword(emailLoggedIn, newPassword, newPasswordConfirm, password)
+
+    alert('password changed correctly')
+    newPasswordInput.value = ''
+    newPasswordConfirmInput.value = ''
+    passwordInput.value = ''
+  } catch (error) {
+    alert(error.message)
+  }
+}
 // var accountSettingsView = document.getElementById('accountSettings')
 // accountSettingsView.style.display = 'none'
 
