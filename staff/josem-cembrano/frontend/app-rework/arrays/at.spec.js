@@ -1,3 +1,5 @@
+var array = ['hola', 'mundo']
+
 console.log('TEST at')
 
 console.log('CASE for arrays "hola mundo" at -1 should result in "mundo"')
