@@ -1,9 +1,9 @@
-var array1 = [0, 1, 'Hola', 'mundo'] 
-var array2 = ['this', 'is', 'a', 'test']
-function concat(array1, array2) { 
-    var result = array1
-    for (let i = 0; i < array2.length; i++){
-        result[result.length] = array2[i]
+function concat() {
+    var output = []
+    for (i = 0; i < arguments.length; i++) {
+        for (j = 0; j < arguments[i].length; j++) {
+            output[output.length] = arguments[i][j]
+        }
     }
-    return result
+    return output
 }
