@@ -1,9 +1,9 @@
 function pop(array) {
-    var newArray = []
+    if (array.length === 0) 
+        return 
 
-    for (var i = 0; i < array.length -1; i++) {
-        newArray[i] = array[i]
-    }
+    var lastElement = array[array.length -1]
+    array.length--
 
-    return newArray
+    return lastElement
 }

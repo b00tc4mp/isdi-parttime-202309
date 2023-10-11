@@ -1,10 +1,7 @@
 function push(array, object) {
-    var newArray = []
     for (var i = 0; i < array.length; i++) {
-        newArray[i] = array[i]
+        array[array.length] = object
+
+        return array.length
     }
-
-    newArray[newArray.length] = object
-
-    return newArray
 }
