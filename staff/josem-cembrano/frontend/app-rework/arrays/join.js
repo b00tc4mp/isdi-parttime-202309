@@ -1,10 +1,13 @@
-var array = ['hello', 'world', '=>']
-var element = '-'
-
 var join = function (array, element) {
     var joinElement = ''
+    if (element === undefined)
+        element = "-"
     for (var i = 0; i < array.length; i++) {
-        joinElement += array[i] + element
+        joinElement += array[i]
+        if (i < array.length - 1) {
+            joinElement += element
+
+        }
     }
     return joinElement
 }
