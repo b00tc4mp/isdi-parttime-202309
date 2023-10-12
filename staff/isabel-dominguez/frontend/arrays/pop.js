@@ -10,6 +10,6 @@ function pop(array) {
 
 /*
 - Cojo como parámetro el array.
-- Hago un if, si el array está vacío devuelve undefined. Y si hay elementos dentro guardo el último en la variable lastElement.
+- Hago un if, si el array está vacío devuelve undefined (los return siempre devuelven undefined no cal ponerlo). Y si hay elementos dentro guardo el último en la variable lastElement.
 - Actualizo la longitud del array a 1 menos.
 */

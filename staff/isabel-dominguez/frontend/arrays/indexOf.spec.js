@@ -1,4 +1,5 @@
 console.log('TEST indexOf')
+console.log('***********************************************************************************************')
 
 const array7 = ["blue", "green", "yellow", "pink", "purple"];
 

@@ -5,10 +5,6 @@ function push(array, ...elements) {
     return array.length;
 }
 
-
-
-
-
 /*
 - Cojo como parámetro el array y todos los elementos que voy a añadir.
 - Recorro con un for los elementos y los meto en el array
