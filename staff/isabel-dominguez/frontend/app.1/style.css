@@ -1,6 +1,6 @@
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-image: url('red.jpg');
+    background-image: url('madera.jpg');
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -32,13 +32,13 @@ input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 3px solid #23c4cf;
+    border: 3px solid #e3a90a;
     border-radius: 5px;
 }
 
 button {
     padding: 10px 20px;
-    background-color: #23c4cf;
+    background-color: #e3a90a;
     color: #000000;
     border: none;
     border-radius: 5px;
