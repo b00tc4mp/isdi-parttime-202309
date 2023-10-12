@@ -1,5 +1,7 @@
-function pop(array){
-    array.length = array.length -1
-    
-    return array
+function pop(array) {
+  array.length = array.length - 1;
+
+  returnarray;
 }
+
+//elimina el último elemento dearray

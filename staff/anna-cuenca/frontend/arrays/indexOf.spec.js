@@ -1,6 +1,7 @@
 console.log('TEST indexOf')
 
 var array = [2,9,9]
+var array1 = [2,9,9,4,3]
 
 console.log('CASE for array [2,9,9] indexOf "2" , index 0, results in 0')
 console.log(indexOf(array, 2, 0))
@@ -25,7 +26,3 @@ console.log('CASE for array [2,9,9] indexOf "2" , index -3, results in 0')
 console.log(indexOf(array, 2, -3))
 //0
 
-console.log('caso de indexOf (2,-1)')
-console.log(array.indexOf(2,-1))
-console.log('caso de indexOf (2,-3)')
-console.log(array.indexOf(2,-3))

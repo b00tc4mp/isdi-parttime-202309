@@ -3,3 +3,5 @@ function push(array, element){
     
     return array
 }
+
+//añade el elemento a la última posición del array
