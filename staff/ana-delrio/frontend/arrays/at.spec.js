@@ -1,6 +1,6 @@
 console.log('TEST at arrays')
 
-var numbers = ['1', '2', '3', '4', '5']
+var numbers = [1, 2, 3, 4, 5]
 
 console.log('CASE for numbers array at 0 should return 1')
 console.log(at(numbers, 0))

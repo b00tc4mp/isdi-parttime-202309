@@ -2,11 +2,11 @@
 // y devuelve su INDICE (posición) dentro
 // Si el elemento no se encuentra en el array, devuelve -1 
 
-
-function indexOf(array, searchTerm) {
+function indexOf(array, searchElement) {
     for (let i = 0; i < array.length; i++) {
-        if (array[i] === searchTerm) {
-            // Comprobación: Si el elemento actual del array es igual a 'searchTerm' 
+        if (array[i] === searchElement) {
+            // aquí estamos comparando si el elemento en la posición i del array array es igual (en valor y tipo)
+            // a la cadena que estamos buscando. Si es cierto, significa que hemos encontrado una coincidencia, y la función indexOf devuelve el valor de i
 
             return i
         }

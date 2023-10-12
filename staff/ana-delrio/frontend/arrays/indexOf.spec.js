@@ -27,5 +27,3 @@ console.log('CASE for arrayvegan indexOf "artichoke" should return -1')
 console.log(indexOf(arrayvegan, 'artichoke'))
 //-1
 
-
-console.log('-------------------------------------------')

@@ -1,27 +1,23 @@
 // el método concat se utiliza para combinar dos o más arrays en uno nuevo 
 // no afecta a los arrays existentes, sino que crea un nuevo array 
 
+function concat(array1, array2) {
+    var newArray = []
 
-// Definición de la función sumaTodos sin parámetros explicitos, lo que significa qeu puede aceptar cualquier tipo de argumento
-function sumaTodos() {
-    // Inicializa una variable, esta se utilizara para llevar el registro de todods los argumentos
-    var total = 0
-
-    // Itera a través de los argumentos utilizando el objeto 'arguments'
-    // El objeto arguments es un objeto especial que contiene todos los argumentos pasados a la función, sin importar cuántos haya
-    // arguments.length nos da la cantidad de argumentos que se pasaron
-    // arguments[i] nos da el valor del argumento en la posición i
-    for (var i = 0; i < arguments.length; i++) {
-
-        // En cada iteración del bucle, sumamos el valor del argumento actual (arguments[i]) al valor actual de total. Esto acumula la suma de todos los argumentos
-        total += arguments[i]
-
+    for (var i = 0; i < array1.length; i++) {
+        newArray[newArray.length] = array1[i]
+        //En cada iteración del bucle, se toma el elemento en la posición i del array1
+        //y se agrega al final del nuevo array newArray. La expresión newArray.length se utiliza para determinar la posición en la que se añadirá el nuevo elemento, 
+        // ya que la propiedad length de un array devuelve la cantidad de elementos y, por lo tanto, se usa como el índice para la próxima posición disponible
     }
 
-    // Retorna el valor total después de sumar todos los argumentos
-    return total
+    for (var i = 0; i < array2.length; i++) {
+        newArray[newArray.length] = array2[i]
+    }
+
+    return newArray
 }
 
-// Llamada a la función sumaTodos con varios argumentos
-var resultado4 = sumaTodos(1, 2, 3, 4)
-// Por lo tanto, después de llamar a la función sumaTodos(1, 2, 3, 4), la variable resultado4 contendrá el valor 10, que es la suma de todos los argumentos pasados a la función
+
+
+
