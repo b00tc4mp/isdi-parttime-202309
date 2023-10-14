@@ -6,4 +6,4 @@ function Curry() {
     }
 
     this.length = arguments.length
-}
+} 

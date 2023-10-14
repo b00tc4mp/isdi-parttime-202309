@@ -1,24 +1,61 @@
+console.log('TEST splice')
 
+console.log('CASE replace one element')
 
-console.log('TEST splice()')
-console.log('CASE splice() array [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], with the parameters [1, 3], the new array will be: [20, 40]')
+var months = ['Jan', 'Feb', 'March', 'April', 'June']
 
-var array = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+var removed = splice(months, 4, 1, 'May')
 
-var keepIndex = [1, 3]
-console.log(splice(keepIndex))
-// Expected output: Array [20, 40]
+console.log(months)
+// ['Jan', 'Feb', 'March', 'April', 'May']
 
+console.log(removed)
+// ['June']
 
-console.log('TEST splice()')
-console.log('CASE splice() array [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], with the parameters [-4, -1], the new array will be: [70, 100]')
-var keepIndex = [-4, -1]
-console.log(splice(keepIndex))
-// Expected output: Array [70, 100]
+console.log('CASE insert one element')
 
+var months = ['Jan', 'March', 'April']
 
-console.log('TEST splice()')
-console.log('CASE splice() array [10, 20, 30, 40, 50, 60, 70, 80, 90, 100], with the parameters [-4, -1, 2], the new array will be: [70, 100, 30]')
-var keepIndex = [-4, -1, 2]
-console.log(splice(keepIndex))
-// Expected output: Array [70, 100, 30]
+var removed = splice(months, 1, 0, 'Feb')
+
+console.log(months)
+// ['Jan', 'Feb', 'March', 'April']
+
+console.log(removed)
+// []
+
+console.log('CASE remove 0 (zero) elements before index 2, and insert "drum" and "guitar"')
+
+var fish = ['angel', 'clown', 'mandarin', 'sturgeon']
+
+var removed = splice(fish, 2, 0, 'drum', 'guitar')
+
+console.log(fish)
+// ['angel', 'clown', 'drum', 'guitar', 'mandarin', 'sturgeon']
+
+console.log(removed)
+// []
+
+console.log('CASE remove 1 element at index 3')
+
+var fish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon']
+
+var removed = splice(fish, 3, 1)
+
+console.log(fish)
+// ['angel', 'clown', 'drum', 'sturgeon']
+
+console.log(removed)
+// ['mandarin']
+
+console.log('CASE remove 2 elements from index 3')
+
+var fish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon', 'sword']
+
+var removed = splice(fish, 3, 2)
+
+console.log(fish)
+// ['angel', 'clown', 'drum', 'sturgeon']
+
+console.log(removed)
+// ['mandarin']
