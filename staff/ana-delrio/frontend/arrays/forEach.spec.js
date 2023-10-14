@@ -1,3 +1,7 @@
+// El método forEach es un método incorporado en JavaScript que se utiliza en arrays
+// para iterar sobre cada elemento del array y ejecutar una función de callback en cada uno de ellos
+// A diferencia del método map, forEach no crea un nuevo array con los resultados de la función de callback
+
 console.log('TEST forEach')
 
 console.log('CASE for each element in [10, 20, 30] print it in the console')
