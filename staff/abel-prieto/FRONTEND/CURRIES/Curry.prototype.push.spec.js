@@ -1,5 +1,5 @@
 
-console.log('TEST Curries - Method PUSH')
+console.log('TEST Curries - Method push')
 
 console.log('CASE push 1 element')
 
