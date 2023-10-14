@@ -1,7 +1,7 @@
-Curry.prototype.find = function (value) {
+Curry.prototype.find = function (callback) {
     for (var i = 0; i < this.length; i++) {
-        if (this[i] === value) {
-            return i
+        if (callback(this[i])) {
+            return this[i]
         }
     }
     return -1
