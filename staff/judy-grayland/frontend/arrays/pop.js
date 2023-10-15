@@ -1,17 +1,8 @@
-var planets = [
-  'Mercury',
-  'Venus',
-  'Earth',
-  'Mars',
-  'Jupiter',
-  'Saturn',
-  'Uranus',
-  'Neptune',
-]
-var pizzas = []
-
 function pop(array) {
-  var LastItem = array[array.length - 1]
+  if (array.length === 0) return
 
-  return LastItem
+  var lastItem = array[array.length - 1]
+  array.length--
+
+  return lastItem
 }
