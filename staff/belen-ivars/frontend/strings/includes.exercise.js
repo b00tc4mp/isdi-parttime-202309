@@ -1,12 +1,13 @@
 function includes(string, textToFind) {
 
 	if (textToFind.length === 1) {
-		for (var index in string) {
-			if (string[index] === textToFind)
+		for (var index = 0; index < string.length; index++) {
+			if (string[index] === textToFind) {
 				return true
+			}
 		}
-
 		return false
+
 	} else if (textToFind.length === 2) {
 
 		/*   Steps:
@@ -20,11 +21,14 @@ function includes(string, textToFind) {
 		var charOne = textToFind[0]
 		var charTwo = textToFind[1]
 
-		for (var index in string)
-			if (string[index] === charOne && string[index + 1] === charTwo)
-				return true
+		for (var index = 0; index < string.length; index++) {
 
+			if (string[index] === charOne && string[index + 1] === charTwo) {
+				return true
+			}
+		}
 		return false
+
 	} else if (textToFind.length === 3) {
 		/*
 		 Steps:
@@ -40,11 +44,13 @@ function includes(string, textToFind) {
 		var charTwo = textToFind[1]
 		var charThree = textToFind[2]
 
-		for (var index in string) {
+		for (var index = 0; index < string.length; index++)
+
 			if (string[index] === charOne && string[index + 1] === charTwo && string[index + 2] === charThree)
 				return true
 
-			return false
-		}
+
+		return false
+
 	}
 }
