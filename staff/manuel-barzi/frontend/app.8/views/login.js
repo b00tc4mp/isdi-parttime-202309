@@ -8,7 +8,7 @@ loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
-    registerView.style.display = ''
+    registerView.style.display = 'block'
 }
 
 var loginForm = loginView.querySelector('form')
@@ -35,35 +35,7 @@ loginForm.onsubmit = function (event) {
         emailLoggedIn = email
 
         loginView.style.display = 'none'
-
-        // render posts in home (TODO)
-
-        var postsView = homeView.querySelector('#posts-view')
-
-        postsView.innerHTML = ''
-
-        posts.forEach(function (post) {
-            var article = document.createElement('article')
-            article.setAttribute('class', 'post')
-
-            var h2 = document.createElement('h2')
-            h2.innerText = post.author
-
-            var img = document.createElement('img')
-            img.setAttribute('class', 'post-image')
-            img.src = post.image
-
-            var p = document.createElement('p')
-            p.innerText = post.text
-
-            article.append(h2, img, p)
-
-            postsView.append(article)
-        })
-
-        // show home
-
-        homeView.style.display = ''
+        homeView.style.display = 'block'
     } catch (error) {
         alert(error.message)
     }
