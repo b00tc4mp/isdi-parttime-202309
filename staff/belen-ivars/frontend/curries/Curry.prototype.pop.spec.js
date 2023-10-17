@@ -22,4 +22,4 @@ console.log(removed2)
 // undefined
 
 console.log(c2)
-// {}
+// {length : 0}
