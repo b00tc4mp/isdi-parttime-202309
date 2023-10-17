@@ -14,6 +14,11 @@ console.log(removed)
 
 console.log('CASE insert one element')
 
+// [Jan, March, April]
+// [Jan, March, April, April]
+// [Jan, March, March, April]
+// [Jan, Feb, March, April]
+
 var months = new Curry('Jan', 'March', 'April')
 
 var removed = months.splice(1, 0, 'Feb')
@@ -56,6 +61,18 @@ var removed = fish.splice(3, 2)
 
 console.log(fish)
 // Curry { 0: 'angel', 1: 'clown', 2: 'drum', 3: 'sword', length: 4 }
+
+console.log(removed)
+// Curry { 0: 'mandarin', 1: 'sturgeon', length: 2 }
+
+console.log('FIX CASE replace 2 elements from index 3')
+
+var fish = new Curry('angel', 'clown', 'drum', 'mandarin', 'sturgeon', 'sword')
+
+var removed = fish.splice(3, 2, 'peptito', 'grillo')
+
+console.log(fish)
+// Curry { 0: 'angel', 1: 'clown', 2: 'drum', 3: 'pepito', 4: 'grillo', 5: 'sword', length: 6 }
 
 console.log(removed)
 // Curry { 0: 'mandarin', 1: 'sturgeon', length: 2 }
