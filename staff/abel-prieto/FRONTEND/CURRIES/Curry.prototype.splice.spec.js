@@ -16,7 +16,7 @@ console.log(removedItems)
 console.log('CASE insert one element')
 
 var months2 = new Curry('Jan', 'March', 'Abril')
-var insertItems = splice(months, 1, 0, 'Feb')
+var insertItems = splice(1, 0, 'Feb')
 
 console.log(months2)
 // Curry {0: 'Jan', 1: 'Feb', 2: 'March', 3: 'Abril', length: 4}

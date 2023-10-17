@@ -1,5 +1,5 @@
 - AT (OKEY)
-- CONCAT
+- CONCAT (falta)
 - FILTER (OKEY)
 - FIND (OKEY)
 - FOR EACH (OKEY)
@@ -9,4 +9,4 @@
 - POP (OKEY)
 - PUSH (OKEY)
 - SLICE (OKEY)
-- SPLICE
+- SPLICE (falta)
