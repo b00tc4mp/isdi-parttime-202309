@@ -14,6 +14,7 @@ console.log(result)
 
 console.log('CASE map curry [1, 4, 9, 16] to new curry with elements multiplied by five')
 
+var curry = new Curry(1, 4, 9, 16)
 
 var result2 = curry.map(function(y) {
     return y * 5

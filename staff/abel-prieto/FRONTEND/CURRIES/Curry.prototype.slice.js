@@ -1,5 +1,5 @@
 Curry.prototype.slice = function (start, end) {
-    var newCurry = []
+    var newCurry = new Curry()
 
     if (start > this.length) {
         return newCurry
@@ -14,6 +14,7 @@ Curry.prototype.slice = function (start, end) {
 
     for (var i = start; i < end; i++) {
         newCurry[newCurry.length] = this[i]
+        newCurry.length++
 
     }
 
