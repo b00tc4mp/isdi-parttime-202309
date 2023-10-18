@@ -7,8 +7,6 @@ logoutButton = homeView.querySelector('#logout-button')
 logoutButton.onclick = function () {
     homeView.style.display = 'none'
     profileView.style.display = 'none'
-    newPostView.style.display = 'none'
-    postsView.style.display = ''
     loginView.style.display = ''
 }
 
@@ -68,8 +66,6 @@ homeLink.onclick = function (event) {
     event.preventDefault()
 
     profileView.style.display = 'none'
-    newPostView.style.display = 'none'
-    postsView.style.display = ''
 }
 
 // profile
@@ -83,8 +79,7 @@ profileLink = homeView.querySelector('#profile-link')
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    newPostView.style.display = 'none'
-    postsView.style.display = 'none'
+
     profileView.style.display = ''
 }
 
@@ -96,8 +91,6 @@ newPostView.style.display = 'none'
 newPostButton = homeView.querySelector('#new-post-button')
 
 newPostButton.onclick = function () {
-    profileView.style.display = 'none'
-    postsView.style.display = ''
     newPostView.style.display = ''
 }
 
@@ -121,25 +114,21 @@ newPostForm.onsubmit = function (event) {
     var image = imageInput.value
     var text = textInput.value
 
-    try {
-        publishPost(loggedInEmail, image, text)
+    var post = {}
 
-        newPostForm.reset()
+    post.author = loggedInEmail
+    post.image = image
+    post.text = text
 
-        newPostView.style.display = 'none'
+    posts.push(post)
 
-        // re-render posts
+    newPostForm.reset()
 
-        renderPosts()
-    } catch (error) {
-        alert(error.message)
-    }
-}
+    newPostView.style.display = 'none'
 
-function renderPosts() {
+    // re-render posts
+
     postsView.innerHTML = ''
-
-    var posts = retrievePosts()
 
     posts.forEachReverse(function (post) {
         var article = document.createElement('article')
