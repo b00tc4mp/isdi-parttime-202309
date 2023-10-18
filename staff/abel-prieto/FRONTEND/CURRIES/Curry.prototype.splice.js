@@ -2,9 +2,6 @@ Curry.prototype.splice = function (start, removeCount, item) {
     if (removeCount === 0) {
         var displacement = arguments.length - 2
 
-        if (displacement > 0)
-            this.length = this.length + displacement
-
         for (var i = this.length - 1; i >= start; i--) {
             var element = this[i]
 
@@ -19,20 +16,29 @@ Curry.prototype.splice = function (start, removeCount, item) {
             this[start + i - 2] = element
         }
 
-        return []
+        this.length += displacement
+
+        return new Curry
+
     } else if (removeCount === 1 && arguments.length === 3) {
         var elementToRemove = this[start]
 
         this[start] = item
 
-        return [elementToRemove]
+        var removed = new Curry
+
+        removed[0] = elementToRemove
+        removed.length++
+
+        return removed
     } else if (removeCount >= 1) {
-        var removed = []
+        var removed = new Curry
 
         for (var i = start; i < this.length - 1; i++) {
             var elementToRemove = this[i]
 
             removed[removed.length] = elementToRemove
+            removed.length++
 
             var next = this[i + removeCount]
 
@@ -40,7 +46,7 @@ Curry.prototype.splice = function (start, removeCount, item) {
         }
 
         for (var i = this.lenght - 1; i >= this.length - removeCount; i--) {
-            
+            delete this[i]
         }
 
         this.length -= removeCount

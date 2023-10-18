@@ -3,3 +3,24 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 240px;
+    gap: 5px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 240px;
+    gap: 5px;
+}

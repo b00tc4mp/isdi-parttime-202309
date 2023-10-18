@@ -34,7 +34,7 @@ registerForm.onsubmit = function (event) {
         passwordInput.value = ''
 
         registerView.style.display = 'none'
-        loginView.style.display = 'block'
+        loginView.style.display = ''
     } catch (error) {
         alert(error.message)
     }

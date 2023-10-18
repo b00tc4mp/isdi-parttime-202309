@@ -34,9 +34,14 @@ loginForm.onsubmit = function (event) {
         emailLoggedIn = email
 
         loginView.style.display = 'none'
-        homeView.style.display = 'block'
-        logoutButton.style.display = 'block'
-        profileLink.style.display = 'block'
+
+        // render post
+
+        // show home
+        
+        homeView.style.display = ''
+        logoutButton.style.display = ''
+        profileLink.style.display = ''
 
     } catch (error) {
         alert(error.message)

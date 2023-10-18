@@ -20,53 +20,61 @@
 
 <body>
 
-    <div id="register">
+    <div id="register" class="register">
         <h1>Sign Up</h1>
 
-        <form>
-        <label for="name">Username</label>
-        <input id="name" type="text">
+        <div class="register-form"></div>
 
-        <br>
+            <form>
+            <label for="name">Username</label>
+            <input id="name" type="text">
 
-        <label for="email">Email</label>
-        <input id="email" type="text">
+            <br>
 
-        <br>
+            <label for="email">Email</label>
+            <input id="email" type="text">
 
-        <label for="password">Password</label>
-        <input id="password" type="password">
+            <br>
 
-        <br>
+            <label for="password">Password</label>
+            <input id="password" type="password">
 
-        <a href="">Login</a>
+            <br>
 
-        <br>
+            <button id="register_button">Register</button>
 
-        <button id="register_button">Register</button>
-        </form>
+            <br>
+
+            <a href="">Login</a>
+            </form>
+        </div>
     </div>
 
-    <div id="login">
+    <div id="login" class="login">
         <h1>Log In</h1>
 
-        <form>
-        <label for="email">Email</label>
-        <input id="email" type="text">
+        <div class="login-form">
+            <form>
+            <label for="email">Email</label>
+            <input id="email" type="text">
 
-        <br>
+            <br>
 
-        <label for ="password">Password</label>
-        <input id="password" type="password">
+            <label for ="password">Password</label>
+            <input id="password" type="password">
 
-        <br>
+        
+            <br>
 
-        <a href="">Register</a> 
+            <button id="login_button">Login</button>
+            
+            <br>
 
-        <br>
+            <a href="">Register</a> 
 
-        <button id="login_button">Login</button>
-        </form>
+            </form>
+
+        </div>
     </div>
 
     <div id="home">
@@ -122,6 +130,20 @@
                 <button id="change_password">Change Password</button>
             </form>
 
+        </div>
+
+        <div id="post-view">
+            <article>
+                <h2>Peter@pan.com</h2>
+                <img src="">
+                <p>My granpa!</p>
+            </article>
+
+            <article>
+                <h2>wendy@darling.com</h2>
+                <img src="">
+                <p>my sweety!</p>
+            </article>
         </div>
     </div>
 </body>
