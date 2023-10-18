@@ -10,23 +10,23 @@ var users = [
         password: '123123123'
     },
     {
-        name: 'av',
+        name: 'NanoPucela',
         email: 'av',
         password: 'av',
     }
 ]
 
-var post = [
+var posts = [
     {
         author: 'peter@pan.com',
-        image: 'https://imgs.search.brave.com/vmcxcLdL_6y64v7elABO3LfipjFU6MJf115y3jTxR04/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1Qk16SXdNelV5/WVRVdE1qUTNNeTAw/TkRjM0xXSXlaalF0/T0dVek5ESm1OVEZs/TldVeFhrRXlYa0Zx/Y0dkZVFYVnlNakEw/TURRME1qY0AuanBn',
+        image: 'https://www.semana.com/resizer/U2dYNVlzGiHK5T-EV_jhACYU-Ow=/1920x1080/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/JO53UT7DKVGVBNXQ5F37YJJZ3A.jpg',
         text: 'my granpa!',
     },
     {
         author: 'wendy@darling.com',
-        image: 'https://imgs.search.brave.com/o0n0Kr21IgcR-oygUdDBoUV4sYM5SzIAqPW61gJHR7g/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzQxL2E0/LzNmLzQxYTQzZmRh/ZWYwNjI4OWI4NWVh/MzA4Zjk1ZTBlNDZj/LmpwZw',
+        image: 'https://i.etsystatic.com/27087751/r/il/45a140/3041590242/il_fullxfull.3041590242_o4qq.jpg',
         text: 'my sweety!',
-    }
+    },
 ]
 
 function createUser(name, email, password) {

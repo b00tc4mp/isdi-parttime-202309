@@ -31,7 +31,7 @@ var profileLink = homeView.querySelector('#profile-link')
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    profileView.style.display = 'block'
+    profileView.style.display = ''
 }
 
 
@@ -104,5 +104,5 @@ logoutButton.onclick = function (event) {
     event.preventDefault()
 
     homeView.style.display = 'none'
-    loginView.style.display = 'block'
+    loginView.style.display = ''
 }

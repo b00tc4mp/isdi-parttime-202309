@@ -10,7 +10,7 @@ registerLoginLink.onclick = function (event) {
     event.preventDefault()
 
     registerView.style.display = 'none'
-    loginView.style.display = 'block'
+    loginView.style.display = ''
 }
 
 var registerForm = registerView.querySelector('form')
