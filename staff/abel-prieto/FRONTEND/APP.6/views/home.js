@@ -71,21 +71,49 @@ newPostForm.onsubmit = function(event) {
     var image = imageInput.value
     var text = textInput.value
 
-    try {
-        publishPost(loggedInEmail, image, text)
+    var newPost = {}
 
-        newPostForm.reset()
-    
-        newPostView.style.display = 'none'
-    
-        // RENDERIZADO DE POST
-    
-        renderPosts()
+    newPost.author = loggedInEmail
+    newPost.image = image
+    newPost.text = text
+
+    posts.push(newPost)
+
+    newPostForm.reset()
+
+    newPostView.style.display = 'none'
+
+    // re-render post
+
+    postsView.innerHTML = ''
+
+    posts.toReversed().forEach(function (post) {
+        var article = document.createElement('article')    
+        article.setAttribute('class', 'post')   
+
+        var h2 = document.createElement('h2')
+        h2.innerText = post.author                         
+
+        var img = document.createElement('img')
+        img.setAttribute('class', 'post-img')
+        img.src = post.image                               
+
+        var p = document.createElement('p')
+        p.innerText = post.text
+
+        article.append(h2, img, p)                         
+
+        postsView.append(article)
+        
+        postsView.style.display = ''
+    })
+
+    try {
+
     } catch(error) {
         alert(error.message)
     }
 }
-
 
 // CANCEL NEW POST BUTTON
 
@@ -166,33 +194,4 @@ logoutButton.onclick = function (event) {
 
     homeView.style.display = 'none'
     loginView.style.display = ''
-}
-
-
-
-function renderPosts() {
-    postsView.innerHTML = ''
-
-    var posts = retrievePosts()
-
-    posts.toReversed().forEach(function (post) {
-        var article = document.createElement('article')    
-        article.setAttribute('class', 'post')   
-
-        var h2 = document.createElement('h2')
-        h2.innerText = post.author                         
-
-        var img = document.createElement('img')
-        img.setAttribute('class', 'post-img')
-        img.src = post.image                               
-
-        var p = document.createElement('p')
-        p.innerText = post.text
-
-        article.append(h2, img, p)                         
-
-        postsView.append(article)
-        
-        postsView.style.display = ''
-    })
 }

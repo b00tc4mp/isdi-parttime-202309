@@ -1,8 +1,4 @@
-// DATABASE
-
-var db = {}
-
-db.users = [
+var users = [
     {
         name: 'Wendy Darling',
         email: 'wendy@darling.com',
@@ -20,7 +16,7 @@ db.users = [
     }
 ]
 
-db.posts = [
+var posts = [
     {
         author: 'peter@pan.com',
         image: 'https://www.semana.com/resizer/U2dYNVlzGiHK5T-EV_jhACYU-Ow=/1920x1080/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/JO53UT7DKVGVBNXQ5F37YJJZ3A.jpg',
@@ -33,8 +29,6 @@ db.posts = [
     },
 ]
 
-// CREATE USERS
-
 function createUser(name, email, password) {
     var user = {}
 
@@ -42,25 +36,18 @@ function createUser(name, email, password) {
     user.email = email
     user.password = password
 
-    db.users.push(user)
+    users.push(user)
 }
-
-// AUTENTICATE USER
 
 function findUserByEmail(email) {
     validateText(email, 'email')
-    
-    var user = db.users.find(function(user) {return user.email === email})
 
-    if (user) {
-        var userCopy = {} // Copia de db (base de datos)
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
 
-        userCopy.name = user.name
-        userCopy.email = user.email
-        userCopy.password = user.password
-
-        return userCopy
-    }   
+        if (user.email === email)
+            return user
+    }
 
     return null
 }
@@ -76,43 +63,4 @@ function findUserByPassword(password) {
     }
 
     return null
-}
-
-// SETTINGS
-
-function modifyUserEmail(email, newEmail) {
-    var user = db.users.find(function(user) {return user.email === email})
-    // var user = users.find(user => user.email === email)
-
-    user.email = newEmail
-}
-
-function modifyUserPassword(email, newPassword) {
-    var user = db.users.find(function(user) {return user.email === email})
-
-    user.password = newPassword
-}
-
-// POST
-
-function createPost(email, image, text) {
-    var newPost = {}
-
-    newPost.author = email
-    newPost.image = image
-    newPost.text = text
-
-    db.posts.push(newPost)
-}
-
-function getPosts() {
-    return db.posts.map(function(post) {
-        var postCopy = {}
-
-        postCopy.author = post.author
-        postCopy.image = post.image
-        postCopy.text = post.text
-
-        return postCopy
-    })
 }

@@ -54,7 +54,7 @@ loginRegisterLink.onclick = function (event) {
 
 var loginForm = loginView.querySelector('form')
 
-var emailLoggedIn = null
+var loggedInEmail = null
 
 loginForm.onsubmit = function (event) {
     event.preventDefault()
@@ -77,7 +77,7 @@ loginForm.onsubmit = function (event) {
 
         homeTitle.innerText = 'Hello, ' + user.name + '!'
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         loginView.style.display = 'none'
         homeView.style.display = 'block'
@@ -111,7 +111,7 @@ checkEmailForm.onsubmit = function (event) {
     var password = passwordInput.value
 
     try {
-        changeUserEmail(emailLoggedIn, newEmail, confirmNewEmail, password)
+        changeUserEmail(loggedInEmail, newEmail, confirmNewEmail, password)
 
         alert('Email changed succesfully!')
 

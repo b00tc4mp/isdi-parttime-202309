@@ -1,1 +1,1 @@
-var emailLoggedIn = null
+var loggedInEmail = null

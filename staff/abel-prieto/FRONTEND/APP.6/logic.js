@@ -53,9 +53,7 @@ function changeUserEmail(email, newEmail, confirmNewEmail, password) {
         throw new Error('New email and your confirm doesnt match each other')
     }
 
-    // user.email = newEmail
-
-    modifyUserEmail(email, newEmail)
+    user.email = newEmail
 }
 
 // FUNCIÓN COMPROBAR NEW PASSWORD
@@ -75,19 +73,13 @@ function changeUserPassword(email, password, newPassword, againNewPassword) {
         throw new Error('New pass and his confirmation are not correct. Try again') 
     }
 
-    // user.password = newPassword
-
-    modifyUserPassword(email, newPassword)
+    user.password = newPassword
 }
 
-function retrievePosts() {
-    return getPosts()
-}
+// FUNCIÓN POST MÁS ACTUAL
 
-function publishPost(email, image, text) {
-    validateText(email, 'email')
-    validateText(image, 'image')
-    validateText(text, 'text')
-
-    createPost(email, image, text)
-}
+// function showRecentPost(post) {
+//     for (var i = posts.length - 1; i >= 0; i--) {
+//         return this.posts
+//     }
+// }

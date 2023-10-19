@@ -31,7 +31,7 @@ loginForm.onsubmit = function (event) {
 
         settingsLink.innerText = user.name 
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         homeView.style.display = 'block'
         logoutButton.style.display = 'block'

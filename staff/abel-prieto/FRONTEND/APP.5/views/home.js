@@ -23,9 +23,9 @@ checkEmailForm.onsubmit = function (event) {
     var password = passwordInput.value
 
     try {
-        changeUserEmail(emailLoggedIn, newEmail, confirmNewEmail, password)
+        changeUserEmail(loggedInEmail, newEmail, confirmNewEmail, password)
 
-        emailLoggedIn = newEmail
+        loggedInEmail = newEmail
 
         alert('Email changed succesfully!')
 
@@ -53,7 +53,7 @@ changePasswordForm.onsubmit = function(event) {
     var againNewPassword = againNewPasswordInput.value
 
     try {
-        changeUserPassword(emailLoggedIn, password, newPassword, againNewPassword)
+        changeUserPassword(loggedInEmail, password, newPassword, againNewPassword)
         
         alert('Password changed succesfully!')
 
