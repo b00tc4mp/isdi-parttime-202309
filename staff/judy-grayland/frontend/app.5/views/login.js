@@ -26,6 +26,8 @@ loginForm.onsubmit = function (event) {
     emailInput.value = ''
     passwordInput.value = ''
 
+    // var homeTitle = homeView.querySelector('h1')
+
     var newUser = retrieveUser(email)
 
     profileLink.innerText = 'Hello, ' + newUser.name + '!'
@@ -33,33 +35,6 @@ loginForm.onsubmit = function (event) {
     emailLoggedIn = email
 
     loginView.style.display = 'none'
-
-    // render posts in home
-
-    var postsView = homeView.querySelector('#posts-view')
-
-    postsView.innerHTML = ''
-
-    posts.forEach(function (post) {
-      var article = document.createElement('article')
-      article.setAttribute('class', 'post')
-
-      var h2 = document.createElement('h2')
-      h2.innerText = post.author
-
-      var img = document.createElement('img')
-      img.setAttribute('class', 'post-image')
-      img.src = post.image
-
-      var p = document.createElement('p')
-      p.innerText = post.text
-
-      article.append(h2, img, p)
-
-      postsView.append(article)
-    })
-
-    // show home
     homeView.style.display = ''
   } catch (error) {
     alert(error.message)
