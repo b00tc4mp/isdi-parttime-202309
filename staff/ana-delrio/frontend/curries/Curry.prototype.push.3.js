@@ -2,6 +2,7 @@
 // Define un método 'push' en el prototipo de la función constructora Curry
 Curry.prototype.push = function (item) {
     // Verifica si no se pasaron argumentos
+    // el this hace referencia al objeto que apunta c, al curry
     if (!arguments.length)
         return this.length
 

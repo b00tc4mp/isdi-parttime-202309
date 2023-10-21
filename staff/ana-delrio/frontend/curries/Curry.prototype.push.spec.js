@@ -1,3 +1,6 @@
+console.log('<->-<-><->-<-><->-<-><->-<-><->-<-><->-<-><->-<-')
+
+
 console.log('TEST Curry push')
 console.log('CASE push 1 element')
 
@@ -45,3 +48,6 @@ console.log(length)
 // 3
 console.log(c)
 // Curry { 0: 10, 1: 20, 2: 30, length: 3 }
+
+
+console.log('<->-<-><->-<-><->-<-><->-<-><->-<-><->-<-><->-<-')

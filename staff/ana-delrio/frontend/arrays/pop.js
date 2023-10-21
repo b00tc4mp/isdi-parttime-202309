@@ -1,4 +1,4 @@
-// El método pop elimina el último elemento de un array y lo devuelve. 
+// El método pop elimina el último elemento de un array y lo devuelve
 // Este método cambia la longitud del array
 // el pop devuelve EL elemento 
 

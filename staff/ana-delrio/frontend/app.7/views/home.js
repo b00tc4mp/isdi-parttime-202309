@@ -36,3 +36,29 @@ changeEmailForm.onsubmit = function (event) {
         alert(error.message)
     }
 }
+
+var changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#password-input')
+    var newPasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var newPasswordConfirmInput = changePasswordForm.querySelector('#new-password-confirm-input')
+
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var newPasswordConfirm = newPasswordConfirmInput.value
+
+    try {
+        changeUserPassword(emailLoggedIn, newPassword, newPasswordConfirm, password)
+
+        alert('Password changed')
+
+        passwordInput.value = ''
+        newPasswordInput.value = ''
+        newPasswordConfirmInput.value = ''
+    } catch (error) {
+        alert(error.message)
+    }
+}

@@ -1,0 +1,10 @@
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*  Cuando se utiliza display: flex;, se convierte al elemento en un contenedor flex, lo que significa que sus elementos secundarios (hijos) se colocarán en un diseño flexible que se adapta automáticamente al espacio disponible 
+/*  Controla cómo se alinean verticalmente los elementos secundarios dentro del contenedor flex. 
+/*  Center hace que los elementos secundarios se alineen verticalmente en el centro del contenedor
+/*  Space-between distribuye los elementos secundarios de manera que haya espacio adicional entre ellos y en los extremos del contenedor,

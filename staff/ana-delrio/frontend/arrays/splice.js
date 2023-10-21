@@ -1,29 +1,5 @@
 function splice(array, start, removeCount, item) {
-    if (removeCount === 1) {
-        if (arguments.length === 4) {
-            var elementToRemove = array[start]
-
-            array[start] = item
-
-            return [elementToRemove]
-        } else if (arguments.length === 3) {
-            var removed = []
-
-            for (var i = start; i < array.length - 1; i++) {
-                var elementToRemove = array[i]
-
-                removed[removed.length] = elementToRemove
-
-                var next = array[i + 1]
-
-                array[i] = next
-            }
-
-            array.length--
-
-            return removed
-        }
-    } else if (removeCount === 0) {
+    if (removeCount === 0) {
         var displacement = arguments.length - 3
 
         for (var i = array.length - 1; i >= start; i--) {
@@ -41,7 +17,27 @@ function splice(array, start, removeCount, item) {
         }
 
         return []
+    } else if (removeCount === 1 && arguments.length === 4) {
+        var elementToRemove = array[start]
+
+        array[start] = item
+
+        return [elementToRemove]
+    } else if (removeCount >= 1) {
+        var removed = []
+
+        for (var i = start; i < array.length - 1; i++) {
+            var elementToRemove = array[i]
+
+            removed[removed.length] = elementToRemove
+
+            var next = array[i + removeCount]
+
+            array[i] = next
+        }
+
+        array.length -= removeCount
+
+        return removed
     }
 }
-
-// Esto no lo entiendo, no me da tiempo a revisarlo, revisarlo más adelante!!

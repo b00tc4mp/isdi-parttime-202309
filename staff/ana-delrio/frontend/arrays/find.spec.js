@@ -3,7 +3,7 @@
 
 
 console.log('TEST find')
-console.log('CASE find array [1, 4, 9, 16] to to the first element > 5')
+console.log('CASE find array [1, 4, 9, 16] to the first element > 5')
 
 
 var arrayToSearchIn = [1, 4, 9, 16]

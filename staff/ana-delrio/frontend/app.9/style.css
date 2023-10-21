@@ -32,16 +32,3 @@
 
 /* "em" es una unidad de medida relativa que se utiliza para definir tamaños de fuente y 
 otros valores relativos al tamaño del texto de un elemento padre */
-
-.post {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.post-image {
-    max-width: 320px;
-}
-
-/* esto lo hacemos para el ancho de los post */

@@ -20,6 +20,8 @@ console.log(removed)
 // ['June']
 
 
+console.log('-------------------------------------------------')
+
 
 
 console.log('CASE insert one element')
@@ -40,6 +42,8 @@ console.log(removed)
 // []
 
 
+console.log('-------------------------------------------------')
+
 
 
 console.log('CASE remove 0 (zero) elements before index 2, and insert "drum" and "guitar"')
@@ -54,6 +58,9 @@ console.log(fish)
 console.log(removed)
 // []
 
+
+
+console.log('-------------------------------------------------')
 
 
 
@@ -71,6 +78,9 @@ console.log(removed)
 // ['mandarin']
 
 
+console.log('-------------------------------------------------')
+
+
 
 
 console.log('CASE remove 2 elements from index 3')
@@ -80,7 +90,7 @@ var fish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon', 'sword']
 var removed = splice(fish, 3, 2)
 
 console.log(fish)
-// ['angel', 'clown', 'drum', 'sturgeon']
+// ['angel', 'clown', 'drum', 'sword']
 
 console.log(removed)
-// ['mandarin']
+// ['mandarin', 'sturgeon']

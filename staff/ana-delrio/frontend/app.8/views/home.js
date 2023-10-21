@@ -7,7 +7,7 @@ var logoutButton = homeView.querySelector('#logout-button')
 logoutButton.onclick = function () {
     homeView.style.display = 'none'
     profileView.style.display = 'none'
-    loginView.style.display = ''
+    loginView.style.display = 'block'
 }
 
 var changeEmailForm = homeView.querySelector('#change-email-form')
@@ -83,5 +83,5 @@ var profileLink = homeView.querySelector('#profile-link')
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    profileView.style.display = ''
+    profileView.style.display = 'block'
 }
