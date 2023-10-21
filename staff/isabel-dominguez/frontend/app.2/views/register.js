@@ -6,7 +6,7 @@ registerLoginLink.onclick = function (event) {
     event.preventDefault()
 
     registerView.style.display = 'none'
-    loginView.style.display = ''
+    loginView.style.display = 'block'
 }
 
 var registerForm = registerView.querySelector('form')
@@ -28,7 +28,7 @@ registerForm.onsubmit = function (event) {
         clearFormFields(registerForm);
 
         registerView.style.display = 'none'
-        loginView.style.display = ''
+        loginView.style.display = 'block'
     } catch (error) {
         alert(error.message)
     }

@@ -5,7 +5,7 @@ loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
-    registerView.style.display = ''
+    registerView.style.display = 'block'
 }
 
 var loginForm = loginView.querySelector('form')
@@ -31,7 +31,7 @@ loginForm.onsubmit = function (event) {
         emailLoggedIn = email
 
         loginView.style.display = 'none'
-        homeView.style.display = ''
+        homeView.style.display = 'block'
         passwordChangeForm.style.display = 'none'
         emailChangeForm.style.display = 'none'
     } catch (error) {

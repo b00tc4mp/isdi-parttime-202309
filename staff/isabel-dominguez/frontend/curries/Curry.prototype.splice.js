@@ -1,4 +1,11 @@
 Curry.prototype.splice = function (start, removeCount, item) {
+    if (start < 0) {
+        start = this.length + start;
+        if (start < 0) {
+            start = 0
+        }
+    }
+
     if (removeCount === 0) {
         var displacement = arguments.length - 2
 

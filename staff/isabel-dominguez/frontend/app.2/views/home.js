@@ -8,9 +8,9 @@ goBackButton.onclick = function (event) {
     event.preventDefault()
 
     homeView.style.display = 'none'
-    loginView.style.display = ''
-    profileView.style.display = 'none'
-}
+    loginView.style.display = 'block'
+    profileView.style.display = 'none'  //añadir none el profile
+};
 
 //Change password
 var passwordChangeForm = document.getElementById('changepassform');
@@ -19,11 +19,11 @@ var changepassButton = document.getElementById('changepass');
 changepassButton.onclick = function (event) {
     event.preventDefault();
 
-    passwordChangeForm.style.display = ''
+    passwordChangeForm.style.display = 'block'
     emailChangeForm.style.display = 'none'
     changepassButton.style.display = 'none'
     changeemailButton.style.display = 'none'
-}
+};
 
 passwordChangeForm.onsubmit = function (event) {
     event.preventDefault();
@@ -43,17 +43,17 @@ passwordChangeForm.onsubmit = function (event) {
 
         clearFormFields(passwordChangeForm);
 
-        loginView.style.display = '';
+        loginView.style.display = 'block';
         homeView.style.display = 'none';
         passwordChangeForm.style.display = 'none';
         emailChangeForm.style.display = 'none';
-        changepassButton.style.display = ''
-        changeemailButton.style.display = ''
+        changepassButton.style.display = 'inline-block'
+        changeemailButton.style.display = 'inline-block'
 
     } catch (error) {
         alert(error.message);
     }
-}
+} 
 
 //Change e-mail
 var emailChangeForm = document.getElementById('changeemailform');
@@ -62,7 +62,7 @@ var changeemailButton = document.getElementById('changeemail');
 changeemailButton.onclick = function (event) {
     event.preventDefault();
 
-    emailChangeForm.style.display = ''
+    emailChangeForm.style.display = 'block'
     passwordChangeForm.style.display = 'none'
     changepassButton.style.display = 'none'
     changeemailButton.style.display = 'none'
@@ -83,17 +83,17 @@ emailChangeForm.onsubmit = function (event) {
         updateUserEmail(email, newEmail, putPassword, emailLoggedIn);
 
         emailLoggedIn = newEmail;
-
+        
         alert('E-mail changed')
 
         clearFormFields(emailChangeForm);
 
-        loginView.style.display = '';
+        loginView.style.display = 'block';
         homeView.style.display = 'none';
         passwordChangeForm.style.display = 'none';
         emailChangeForm.style.display = 'none';
-        changepassButton.style.display = ''
-        changeemailButton.style.display = ''
+        changepassButton.style.display = 'inline-block'
+        changeemailButton.style.display = 'inline-block'
     } catch (error) {
         alert(error.message);
     }
@@ -117,8 +117,8 @@ var profileLink = homeView.querySelector('#profile-link')
 profileLink.onclick = function (event) {
     event.preventDefault()
 
-    profileView.style.display = ''
-    changepassButton.style.display = ''
-    changeemailButton.style.display = ''
+    profileView.style.display = 'block'
+    changepassButton.style.display = 'inline-block'
+    changeemailButton.style.display = 'inline-block'
 }
 
