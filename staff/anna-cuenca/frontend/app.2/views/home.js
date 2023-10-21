@@ -123,14 +123,18 @@ cancelNewPostButton.onclick = function (event) {
 newPostForm.onsubmit = function (event) {
   event.preventDefault();
 
+  var posts = retrievePosts();
+
   var imageInput = newPostForm.querySelector("#image-input");
   var textInput = newPostForm.querySelector("#text-input");
+  var deletePostButton = newPostForm.querySelector("#delete");
 
   var image = imageInput.value;
   var text = textInput.value;
+  var likes = 0;
 
   try {
-    publishPost(loggedInEmail, image, text);
+    publishPost(loggedInEmail, image, text, likes);
 
     newPostForm.reset();
 
@@ -163,7 +167,23 @@ function renderPosts() {
     var p = document.createElement("p");
     p.innerText = post.text;
 
-    article.append(h2, img, p);
+    var h3 = document.createElement("h3");
+    h3.innerText = "Likes:  " + post.likes;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", function () {
+      article.remove();
+    });
+
+    var likeButton = document.createElement("button");
+    likeButton.innerText = "Like";
+    likeButton.addEventListener("click", function () {
+      post.likes = post.likes + 1;
+      h3.innerText = "Likes: " + post.likes;
+    });
+
+    article.append(h2, h3, img, p, deleteButton, likeButton);
 
     postsView.append(article);
   });

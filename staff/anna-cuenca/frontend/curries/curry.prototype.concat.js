@@ -1,6 +1,5 @@
 Curry.prototype.concat = function () {
   var newArray = [];
-  var newIndex = 0;
 
   for (var i = 0; i < this.length; i++) {
     // para acceder a los elementos que ya hay en curry

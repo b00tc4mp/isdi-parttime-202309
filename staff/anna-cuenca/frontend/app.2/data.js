@@ -19,17 +19,20 @@ db.posts = [
     image:
       "https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg",
     text: "my granpa!",
+    likes: 0,
   },
   {
     author: "wendy@darling.com",
     image:
       "https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg",
     text: "my sweety!",
+    likes: 0,
   },
   {
     author: "peter@pan.com",
     image: "https://m.media-amazon.com/images/I/71JZegDmwbL.jpg",
     text: "i love ü baby",
+    likes: 0,
   },
 ];
 
@@ -84,17 +87,19 @@ function getPosts() {
     postCopy.author = post.author;
     postCopy.image = post.image;
     postCopy.text = post.text;
+    postCopy.likes = post.likes;
 
     return postCopy;
   });
 }
 
-function createPost(email, image, text) {
+function createPost(email, image, text, likes) {
   var post = {};
 
   post.author = email;
   post.image = image;
   post.text = text;
+  post.likes = likes;
 
   db.posts.push(post);
 }

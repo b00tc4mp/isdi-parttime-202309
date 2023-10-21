@@ -67,10 +67,10 @@ function retrievePosts() {
   return getPosts();
 }
 
-function publishPost(email, image, text) {
+function publishPost(email, image, text, likes) {
   validateText(email, "email");
   validateText(image, "image");
   validateText(text, "text");
 
-  createPost(email, image, text);
+  createPost(email, image, text, likes);
 }
