@@ -1,29 +1,24 @@
 function registerUser(name, email, password) {
-    validateText(name, 'Name');
-    validateText(email, 'E-mail');
-    validateText(password, 'Password');
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'password')
 
-    var user = findUserByEmail(email);
+    var user = findUserByEmail(email)
 
-    if (user) {
-        clearFormFields(registerForm);
-        throw new Error('User already exists!');
-    }
+    if (user)
+        throw new Error('user already exists')
 
-    createUser(name, email, password);
-    
-    clearFormFields(registerForm);
+    createUser(name, email, password)
 }
 
 function authenticateUser(email, password) {
-    validateText(email, 'email');
-    validateText(password, 'password');
+    validateText(email, 'email')
+    validateText(password, 'password')
 
-    var user = findUserByEmail(email);
+    var user = findUserByEmail(email)
 
-    if (!user || user.password !== password) {
-        throw new Error('Wrong credentials!');
-    }
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
 }
 
 function retrieveUser(email) {
@@ -32,50 +27,58 @@ function retrieveUser(email) {
     var user = findUserByEmail(email)
 
     if (!user)
-        throw new Error('User not found!')
+        throw new Error('user not found')
 
     return user
 }
 
-function updateUserPassword(currentPass, newPass, confirmPass, email) {
-    validateText(email, 'email')
-    validateText(newPass, 'new password')
-    validateText(confirmPass, 'confirm password')
-    validateText(currentPass, 'current password')
-
-    var user = findUserByEmail(email)
-
-    if (!user || user.password !== currentPass){
-        throw new Error('wrong credentials')
-    }
-
-    if (newPass !== confirmPass){
-        throw new Error('new password and its confirmation do not match')
-    }
-
-    if (currentPass === newPass){
-        throw new Error('the new pass is the same that current pass')
-    }
-    
-    user.password = newPass
-}
-
-function updateUserEmail(email, newEmail, putPassword) {
+function changeUserEmail(email, newEmail, newEmailConfirm, password) {
     validateText(email, 'email')
     validateText(newEmail, 'new email')
-    validateText(putPassword, 'password')
+    validateText(newEmailConfirm, 'new email confirm')
+    validateText(password, 'password')
 
     var user = findUserByEmail(email)
 
-    if (!user || user.password !== putPassword)
+    if (!user || user.password !== password)
         throw new Error('wrong credentials')
 
-    if (newEmail === email)
-        throw new Error('The new E-mail is same to current E-mail!')
+    if (newEmail !== newEmailConfirm)
+        throw new Error('new email and its confirmation do not match')
 
-    user.email = newEmail
+    //user.email = newEmail
+    modifyUserEmail(email, newEmail)
 }
 
-  
+function changeUserPassword(email, newPassword, newPasswordConfirm, password) {
+    validateText(email, 'email')
+    validateText(newPassword, 'new password')
+    validateText(newPasswordConfirm, 'new password confirm')
+    validateText(password, 'password')
+
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
+
+    if (newPassword !== newPasswordConfirm)
+        throw new Error('new password and its confirmation do not match')
+
+    modifyUserPassword(email, newPassword)
+}
+
+function retrievePosts() {
+    return getPosts()
+}
+
+function publishPost(email, image, text) {
+    validateText(email, 'email')
+    validateText(image, 'image')
+    validateText(text, 'text')
+
+    createPost(email, image, text)
+}
+
+
 
 

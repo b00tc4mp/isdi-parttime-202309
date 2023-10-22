@@ -1,89 +1,29 @@
-body {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    background-image: url('R.jpg');
-    background-size: cover;
-    margin: 0;
-    padding: 0;
+.home-header {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: space-between;
 }
 
-h1,
-h2 {
-    color: #000000;
-    font-size: 24px;
-    margin-bottom: 20px;
+.view {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-form {
-    color: #000000;
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 240px;
+    gap: 5px;
+}
+
+.post {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-label {
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 3px solid #ad6faf;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #ad6faf;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #000000;
-}
-
-div a {
-    color: #000000;
-    line-height: 4;
-}
-
-div p {
-    color: #000000;
-    font-size: large;
-}
-
-#home #goback {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: #000000;
-    color: #fff;
-}
-
-#home #goback:hover {
-    background-color: #ad6faf;
-}
-
-#home-link {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.profile-link {
-    position: absolute;
-    top: 9px;
-    left: 20px;
+.post-image {
+    max-width: 320px;
 }

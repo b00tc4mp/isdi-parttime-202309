@@ -1,20 +1,23 @@
-var loginView = document.getElementById('login');
-var loginRegisterLink = loginView.querySelector('a')
+loginView = document.getElementById('login-view')
+
+loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
+    loginForm.reset()
+
     registerView.style.display = ''
 }
 
-var loginForm = loginView.querySelector('form')
+loginForm = loginView.querySelector('form')
 
 loginForm.onsubmit = function (event) {
     event.preventDefault()
 
-    var emailInput = loginForm.querySelector('#email')
-    var passwordInput = loginForm.querySelector('#password')
+    var emailInput = loginForm.querySelector('#email-input')
+    var passwordInput = loginForm.querySelector('#password-input')
 
     var email = emailInput.value
     var password = passwordInput.value
@@ -22,18 +25,23 @@ loginForm.onsubmit = function (event) {
     try {
         authenticateUser(email, password)
 
-        clearFormFields(loginForm);
+        loginForm.reset()
 
         var user = retrieveUser(email)
 
         profileLink.innerText = user.name
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         loginView.style.display = 'none'
+
+        // render posts in home
+
+        renderPosts()
+
+        // show home
+
         homeView.style.display = ''
-        passwordChangeForm.style.display = 'none'
-        emailChangeForm.style.display = 'none'
     } catch (error) {
         alert(error.message)
     }

@@ -1,124 +1,163 @@
-var homeView = document.getElementById('home');
+homeView = document.getElementById('home-view')
+
 homeView.style.display = 'none'
 
-//Go back
-var goBackButton = homeView.querySelector('#goback');
+logoutButton = homeView.querySelector('#logout-button')
 
-goBackButton.onclick = function (event) {
+logoutButton.onclick = function () {
+    homeView.style.display = 'none'
+    profileView.style.display = 'none'
+    newPostView.style.display = 'none'
+    postsView.style.display = ''
+    loginView.style.display = ''
+}
+
+changeEmailForm = homeView.querySelector('#change-email-form')
+
+changeEmailForm.onsubmit = function (event) {
     event.preventDefault()
 
-    homeView.style.display = 'none'
-    loginView.style.display = ''
-    profileView.style.display = 'none'
-}
+    var newEmailInput = changeEmailForm.querySelector('#new-email-input')
+    var newEmailConfirmInput = changeEmailForm.querySelector('#new-email-confirm-input')
+    var passwordInput = changeEmailForm.querySelector('#password-input')
 
-//Change password
-var passwordChangeForm = document.getElementById('changepassform');
-var changepassButton = document.getElementById('changepass');
-
-changepassButton.onclick = function (event) {
-    event.preventDefault();
-
-    passwordChangeForm.style.display = ''
-    emailChangeForm.style.display = 'none'
-    changepassButton.style.display = 'none'
-    changeemailButton.style.display = 'none'
-}
-
-passwordChangeForm.onsubmit = function (event) {
-    event.preventDefault();
-
-    var currentPassInput = passwordChangeForm.querySelector('#currentPassword');
-    var newPassInput = passwordChangeForm.querySelector('#newPassword');
-    var confirmPassInput = passwordChangeForm.querySelector('#confirmPassword')
-
-    var currentPass = currentPassInput.value;
-    var newPass = newPassInput.value;
-    var confirmPass = confirmPassInput.value;
+    var newEmail = newEmailInput.value
+    var newEmailConfirm = newEmailConfirmInput.value
+    var password = passwordInput.value
 
     try {
-        updateUserPassword(currentPass, newPass, confirmPass, emailLoggedIn);
+        changeUserEmail(loggedInEmail, newEmail, newEmailConfirm, password)
 
-        alert('Password changed')
-
-        clearFormFields(passwordChangeForm);
-
-        loginView.style.display = '';
-        homeView.style.display = 'none';
-        passwordChangeForm.style.display = 'none';
-        emailChangeForm.style.display = 'none';
-        changepassButton.style.display = ''
-        changeemailButton.style.display = ''
-
-    } catch (error) {
-        alert(error.message);
-    }
-}
-
-//Change e-mail
-var emailChangeForm = document.getElementById('changeemailform');
-var changeemailButton = document.getElementById('changeemail');
-
-changeemailButton.onclick = function (event) {
-    event.preventDefault();
-
-    emailChangeForm.style.display = ''
-    passwordChangeForm.style.display = 'none'
-    changepassButton.style.display = 'none'
-    changeemailButton.style.display = 'none'
-}
-
-emailChangeForm.onsubmit = function (event) {
-    event.preventDefault();
-
-    var newEmailInput = emailChangeForm.querySelector('#newEmail');
-    var currentEmailInput = emailChangeForm.querySelector('#currentEmail');
-    var putPasswordInput = emailChangeForm.querySelector('#putpassword');
-
-    var newEmail = newEmailInput.value;
-    var email = currentEmailInput.value;
-    var putPassword = putPasswordInput.value;
-
-    try {
-        updateUserEmail(email, newEmail, putPassword, emailLoggedIn);
-
-        emailLoggedIn = newEmail;
+        loggedInEmail = newEmail
 
         alert('E-mail changed')
 
-        clearFormFields(emailChangeForm);
-
-        loginView.style.display = '';
-        homeView.style.display = 'none';
-        passwordChangeForm.style.display = 'none';
-        emailChangeForm.style.display = 'none';
-        changepassButton.style.display = ''
-        changeemailButton.style.display = ''
+        changeEmailForm.reset()
     } catch (error) {
-        alert(error.message);
+        alert(error.message)
     }
 }
 
-var homeLink = homeView.querySelector('#home-link')
+changePasswordForm = homeView.querySelector('#change-password-form')
+
+changePasswordForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var passwordInput = changePasswordForm.querySelector('#password-input')
+    var newPasswordInput = changePasswordForm.querySelector('#new-password-input')
+    var newPasswordConfirmInput = changePasswordForm.querySelector('#new-password-confirm-input')
+
+    var password = passwordInput.value
+    var newPassword = newPasswordInput.value
+    var newPasswordConfirm = newPasswordConfirmInput.value
+
+    try {
+        changeUserPassword(loggedInEmail, newPassword, newPasswordConfirm, password)
+
+        alert('Password changed')
+
+        changePasswordForm.reset()
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+homeLink = homeView.querySelector('#home-link')
 
 homeLink.onclick = function (event) {
     event.preventDefault()
 
     profileView.style.display = 'none'
+    newPostView.style.display = 'none'
+    postsView.style.display = ''
 }
 
-//PROFILE
-var profileView = homeView.querySelector('#profile-view')
+// PROFILE
+
+profileView = homeView.querySelector('#profile-view')
 
 profileView.style.display = 'none'
 
-var profileLink = homeView.querySelector('#profile-link')
+profileLink = homeView.querySelector('#profile-link')
 
 profileLink.onclick = function (event) {
     event.preventDefault()
 
+    newPostView.style.display = 'none'
+    postsView.style.display = 'none'
     profileView.style.display = ''
-    changepassButton.style.display = ''
-    changeemailButton.style.display = ''
+}
+
+postsView = homeView.querySelector('#posts-view')
+
+newPostView = homeView.querySelector('#new-post-view')
+newPostView.style.display = 'none'
+
+newPostButton = homeView.querySelector('#new-post-button')
+
+newPostButton.onclick = function () {
+    profileView.style.display = 'none'
+    postsView.style.display = ''
+    newPostView.style.display = ''
+}
+
+newPostForm = newPostView.querySelector('#new-post-form')
+
+cancelNewPostButton = newPostForm.querySelector('#cancel-new-post-button')
+
+cancelNewPostButton.onclick = function (event) {
+    event.preventDefault()
+
+    newPostView.style.display = 'none'
+    newPostForm.reset()
+}
+
+newPostForm.onsubmit = function (event) {
+    event.preventDefault()
+
+    var imageInput = newPostForm.querySelector('#image-input')
+    var textInput = newPostForm.querySelector('#text-input')
+
+    var image = imageInput.value
+    var text = textInput.value
+
+    try {
+        publishPost(loggedInEmail, image, text)
+
+        newPostForm.reset()
+
+        newPostView.style.display = 'none'
+
+        // re-render posts
+
+        renderPosts()
+    } catch (error) {
+        alert(error.message)
+    }
+}
+
+function renderPosts() {
+    postsView.innerHTML = ''
+
+    var posts = retrievePosts()
+
+    posts.forEachReverse(function (post) {
+        var article = document.createElement('article')
+        article.setAttribute('class', 'post')
+
+        var h2 = document.createElement('h2')
+        h2.innerText = post.author
+
+        var img = document.createElement('img')
+        img.setAttribute('class', 'post-image')
+        img.src = post.image
+
+        var p = document.createElement('p')
+        p.innerText = post.text
+
+        article.append(h2, img, p)
+
+        postsView.append(article)
+    })
 }
 
