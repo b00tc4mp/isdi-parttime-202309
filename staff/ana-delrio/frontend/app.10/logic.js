@@ -46,9 +46,7 @@ function changeUserEmail(email, newEmail, newEmailConfirm, password) {
     if (newEmail !== newEmailConfirm)
         throw new Error('new email and its confirmation do not match')
 
-    //user.email = newEmail
-    // si queremos modificar el email de ese usuario, lo debemos hacer desde data 
-    modifyUserEmail(email, newEmail)
+    user.email = newEmail
 }
 
 function changeUserPassword(email, newPassword, newPasswordConfirm, password) {
@@ -65,19 +63,5 @@ function changeUserPassword(email, newPassword, newPasswordConfirm, password) {
     if (newPassword !== newPasswordConfirm)
         throw new Error('new password and its confirmation do not match')
 
-    // si queremos modificar la password de ese usuario, lo debemos hacer desde data 
-    modifyUserPassword(email, newPassword)
-}
-
-
-function retrievePosts() {
-    return getPosts()
-}
-
-function publishPost(email, image, text) {
-    validateText(email, 'email')
-    validateText(image, 'image')
-    validateText(text, 'text')
-
-    createPost(email, image, text)
+    user.password = newPassword
 }

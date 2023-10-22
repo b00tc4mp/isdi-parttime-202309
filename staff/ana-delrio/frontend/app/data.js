@@ -1,4 +1,6 @@
-var users = [
+var db = {}
+
+db.users = [
     {
         name: 'Wendy Darling',
         email: 'wendy@darling.com',
@@ -11,7 +13,7 @@ var users = [
     }
 ]
 
-var posts = [
+db.posts = [
     {
         author: 'peter@pan.com',
         image: 'https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg',
@@ -36,16 +38,59 @@ function createUser(name, email, password) {
     user.email = email
     user.password = password
 
-    users.push(user)
+    db.users.push(user)
 }
 
 function findUserByEmail(email) {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var user = db.users.find(function (user) { return user.email === email })
 
-        if (user.email === email)
-            return user
+    // si existe el usuario, hacemos una copia
+    if (user) {
+        var userCopy = {}
+
+        // esto lo hacemos porque sin esto, cualquier podrías modificar el contenido de BD, por eso vamos a trabajar con una copia 
+        userCopy.name = user.name
+        userCopy.email = user.email
+        userCopy.password = user.password
+
+        return userCopy
     }
 
     return null
+}
+
+// si queremos modificar el usuario debemos hacerlo desde la base de datos, por eso desde logic nos redirige aquí, a la BD 
+function modifyUserEmail(email, newEmail) {
+    var user = db.users.find(function (user) { return user.email === email })
+
+    user.email = newEmail
+}
+
+// si queremos modificar la password debemos hacerlo desde la base de datos, por eso desde logic nos redirige aquí, a la BD
+function modifyUserPassword(email, newPassword) {
+    var user = db.users.find(function (user) { return user.email === email })
+
+    user.password = newPassword
+}
+
+function getPosts() {
+    return db.posts.map(function (post) {
+        var postCopy = {}
+
+        postCopy.author = post.author
+        postCopy.image = post.image
+        postCopy.text = post.text
+
+        return postCopy
+    })
+}
+
+function createPost(email, image, text) {
+    var post = {}
+
+    post.author = email
+    post.image = image
+    post.text = text
+
+    db.posts.push(post)
 }

@@ -12,3 +12,5 @@ function forEach(array, callback) {
     }
 }
 
+
+// TODO: hacerlo de nuevo con las particularidades del forEach, explicado en la clase del 18 en el minuto 31.30
