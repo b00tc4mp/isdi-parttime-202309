@@ -1,3 +1,8 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url('R.jpg');
+}
+
 .home-header {
     display: flex;
     align-items: center;
@@ -16,6 +21,21 @@
     flex-direction: column;
     max-width: 240px;
     gap: 5px;
+}
+
+input {
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #ad6faf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .post {

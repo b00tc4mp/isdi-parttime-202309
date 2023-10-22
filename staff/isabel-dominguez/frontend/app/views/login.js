@@ -35,11 +35,7 @@ loginForm.onsubmit = function (event) {
 
         loginView.style.display = 'none'
 
-        // render posts in home
-
         renderPosts()
-
-        // show home
 
         homeView.style.display = ''
     } catch (error) {

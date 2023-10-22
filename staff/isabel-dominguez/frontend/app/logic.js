@@ -46,7 +46,6 @@ function changeUserEmail(email, newEmail, newEmailConfirm, password) {
     if (newEmail !== newEmailConfirm)
         throw new Error('new email and its confirmation do not match')
 
-    //user.email = newEmail
     modifyUserEmail(email, newEmail)
 }
 

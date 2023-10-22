@@ -128,8 +128,6 @@ newPostForm.onsubmit = function (event) {
 
         newPostView.style.display = 'none'
 
-        // re-render posts
-
         renderPosts()
     } catch (error) {
         alert(error.message)
