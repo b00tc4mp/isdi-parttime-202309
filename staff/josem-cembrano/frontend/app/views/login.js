@@ -1,15 +1,19 @@
-var loginView = document.getElementById('login-view')
+loginView = document.getElementById('login-view')
 
-var loginRegisterLink = loginView.querySelector('a')
+// loginView.style.display = 'none'
+
+loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
-    registerView.style.display = 'block'
+    loginForm.reset()
+
+    registerView.style.display = ''
 }
 
-var loginForm = loginView.querySelector('form')
+loginForm = loginView.querySelector('form')
 
 loginForm.onsubmit = function (event) {
     event.preventDefault()
@@ -23,42 +27,23 @@ loginForm.onsubmit = function (event) {
     try {
         authenticateUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
-
-        var homeTitle = homeView.querySelector('h1')
+        loginForm.reset()
 
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Hello, ' + user.name + '!'
+        profileLink.innerText = user.name
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         loginView.style.display = 'none'
 
-        var postsView = homeView.querySelector('#posts-view')
-        postsView.innerHTML = ''//*(innerHTML), para borrar lo que hay dentro del html.
-        post.forEach(function (post) {
-            var article = document.createElement('article')//*(document.createElement), te permite crear un elemento del html.
-            article.setAttribute('class', 'post')//*(setAtribute), como <article class='post'> tiene class='post', lo traemos a js con setAtribute.
+        // render posts in home
 
-            var h2 = document.createElement('h2')
-            h2.innetText = post.author//*(innerText), para acceder al contenido de texto de un elemento HTML.
+        renderPosts()
 
-            var img = document.createElement('img')
-            img.setAttribute('class', 'post-image')
-            img.src = post.image//imagen + search y nos traemos la direccion que hay reflejada en la base de datos (post/image)
+        // show home
 
-            var p = document.createElement('p')
-            p.innerText = post.text
-
-            article.append(h2, img, p)//*(append), para meter lo que hemos traido dentro de article
-            postsView.append(article)
-        })
-
-
-
-        homeView.style.display = 'block'
+        homeView.style.display = ''
     } catch (error) {
         alert(error.message)
     }

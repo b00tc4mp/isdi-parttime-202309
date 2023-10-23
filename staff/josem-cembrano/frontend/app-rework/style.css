@@ -1,32 +1,35 @@
-* {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    text-align: center;
-}
+/* * {
+    background: red;
+    border: 1px solid white;
+} */
 
-
-
-#register, #login, #home, {
-    background-size: 125% auto;
-    color: rgb(120, 126, 126);
-    width: 350px;
-    max-width: 100%;
-    border-radius: 3rem;
-    margin: 300px auto 0; /* Establece márgenes automáticos izquierdo y derecho */
-    box-shadow: 0px 0px 70px rgb(32, 32, 32);
-    border: 3px solid #2b95ec;
-    text-align: center;
-}
-
-#register h1, #login h1 {
-    font-size: 24px;
-}
-
-#registerForm, #loginForm {
-    margin-top: 20px;
-}
-
-#registerLoginLink, #loginRegisterLink {
+.home-header {
     display: block;
-    text-align: center;
-    margin-top: 10px;
+    margin: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 240px;
+    gap: 5px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-image {
+    max-width: 320px;
 }

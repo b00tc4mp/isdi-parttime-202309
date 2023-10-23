@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="register-view">
+    <div id="register-view" class="view">
         <h1>Register</h1>
 
-        <form>
+        <form class="form">
             <label for="name-input">Name</label>
             <input id="name-input" type="text">
 
@@ -21,65 +23,94 @@
             <label for="password-input">Password</label>
             <input type="password" id="password-input">
 
-            <button>Register</button>
+            <button type="submit">Register</button>
         </form>
 
         <a href="">Login</a>
     </div>
 
-    <div id="login-view">
+    <div id="login-view" class="view">
         <h1>Login</h1>
 
-        <form>
+        <form class="form">
             <label for="email-input">E-mail</label>
             <input id="email-input" type="email">
 
             <label for="password-input">Password</label>
             <input type="password" id="password-input">
 
-            <button>Login</button>
+            <button type="submit">Login</button>
         </form>
 
         <a href="">Register</a>
     </div>
 
     <div id="home-view">
-        <h1>Hello, Home!</h1>
-        <br><br><br>
-        <a href="privacy">Privacy Settings</a><br>
-        <br><br>
-        <a class="goHome" href=""><em>Home</em></a>
-        <br><br>
-        <button id="logout-button">Logout</button>
-        <br><br>
+        <header class="home-header">
+            <h1><a href="" id="home-link">Home</a></h1>
 
-        <form id="change-email-form">
-            <label for="new-email-input">New e-mail</label>
-            <input id="new-email-input" type="email">
+            <div>
+                <button class="new-post-button">Create Post</button>
 
-            <label for="new-email-confirm-input">Confirm new e-mail</label>
-            <input id="new-email-confirm-input" type="email">
+                <a href="" class="profile-link" id="profile-link">Profile</a>
 
-            <label for="password-input">Password</label>
-            <input type="password" id="password-input">
+                <button class="logout-button">Logout</button>
+            </div>
+        </header>
 
-            <button>Update e-mail</button>
-        </form>
-        <br><br>
-        <form id="change-password-form">
-            <label for="password-input">Current password</label>
-            <input type="password" id="password-input">
+        <div id="profile-view" class="view">
+            <h2>Update e-mail</h2>
 
-            <label for="new-password-input">New password</label>
-            <input id="new-password-input" type="password">
+            <form id="change-email-form" class="form">
+                <label for="new-email-input">New e-mail</label>
+                <input id="new-email-input" type="email">
 
-            <label for="new-password-confirm-input">Confirm new password</label>
-            <input id="new-password-confirm-input" type="password">
+                <label for="new-email-confirm-input">Confirm new e-mail</label>
+                <input id="new-email-confirm-input" type="email">
 
-            <button>Update password</button>
-        </form>
+                <label for="password-input">Password</label>
+                <input type="password" id="password-input">
+
+                <button type="submit">Update e-mail</button>
+            </form>
+
+            <h2>Update password</h2>
+
+            <form id="change-password-form" class="form">
+                <label for="password-input">Current password</label>
+                <input type="password" id="password-input">
+
+                <label for="new-password-input">New password</label>
+                <input id="new-password-input" type="password">
+
+                <label for="new-password-confirm-input">Confirm new password</label>
+                <input id="new-password-confirm-input" type="password">
+
+                <button type="submit">Update password</button>
+            </form>
+        </div>
+
+        <div id="new-post-view" class="view">
+            <h2>New post</h2>
+
+            <form id="new-post-form" class="form">
+                <label for="image-input">Image</label>
+                <input type="url" id="image-input">
+
+                <label for="text-input">Text</label>
+                <input type="text" id="text-input">
+
+                <button type="submit">Post</button>
+                <button id="cancel-new-post-button">Cancel</button>
+            </form>
+        </div>
+
+        <div id="posts-view">
+            <button id="Delete-post">Delete</button>
+        </div>
     </div>
 
+    <script src="polyfills.js"></script>
 
     <script src="data.js"></script>
 

@@ -1,21 +1,22 @@
-var loginView = document.getElementById('login-view')
+loginView = document.getElementById('login-view')
 
-var loginRegisterLink = loginView.querySelector('a')
+// loginView.style.display = 'none'
+
+loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
-    registerView.style.display = 'block'
+    loginForm.reset()
+
+    registerView.style.display = ''
 }
 
-var loginForm = loginView.querySelector('form')
+loginForm = loginView.querySelector('form')
 
 loginForm.onsubmit = function (event) {
     event.preventDefault()
-
-    var changeEmailForm = homeView.querySelector('#change-email-form')
-    var changePasswordForm = homeView.querySelector('#change-password-form')
 
     var emailInput = loginForm.querySelector('#email-input')
     var passwordInput = loginForm.querySelector('#password-input')
@@ -26,21 +27,23 @@ loginForm.onsubmit = function (event) {
     try {
         authenticateUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
-
-        var homeTitle = homeView.querySelector('h1')
+        loginForm.reset()
 
         var user = retrieveUser(email)
 
-        homeTitle.innerText = 'Hello, ' + user.name + '!'
+        profileLink.innerText = user.name
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         loginView.style.display = 'none'
-        homeView.style.display = 'block'
-        changeEmailForm.style.display = "none"
-        changePasswordForm.style.display = "none"
+
+        // render posts in home
+
+        renderPosts()
+
+        // show home
+
+        homeView.style.display = ''
     } catch (error) {
         alert(error.message)
     }
