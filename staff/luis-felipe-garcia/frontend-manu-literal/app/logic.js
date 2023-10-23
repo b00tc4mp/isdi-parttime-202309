@@ -2,7 +2,7 @@ function registerUser(name, email, password) {
     validateText(name, 'name')
     validateText(email, 'email')
     validateText(password, 'password')
-    
+
     var user = findUserByEmail(email)
 
     if (user)
@@ -32,21 +32,49 @@ function retrieveUser(email) {
     return user
 }
 
-function validateCurrentPassword(currentPassword) {
-    if (currentPassword !== user.password) {
-        throw new Error('Current password wrong')}
+function changeUserEmail(email, newEmail, newEmailConfirm, password) {
+    validateText(email, 'email')
+    validateText(newEmail, 'new email')
+    validateText(newEmailConfirm, 'new email confirm')
+    validateText(password, 'password')
+
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
+
+    if (newEmail !== newEmailConfirm)
+        throw new Error('new email and its confirmation do not match')
+
+    //user.email = newEmail
+    modifyUserEmail(email, newEmail)
 }
 
-var checkCoincidence = function (itemToCheck, checkedItem, textToMessage) {
-    validateText(itemToCheck, textToMessage )
-    validateText(checkedItem, textToMessage )
-    if (itemToCheck !== checkedItem) {
-        throw new Error(`${textToMessage} do not match`)
-    }
+function changeUserPassword(email, newPassword, newPasswordConfirm, password) {
+    validateText(email, 'email')
+    validateText(newPassword, 'new password')
+    validateText(newPasswordConfirm, 'new password confirm')
+    validateText(password, 'password')
+
+    var user = findUserByEmail(email)
+
+    if (!user || user.password !== password)
+        throw new Error('wrong credentials')
+
+    if (newPassword !== newPasswordConfirm)
+        throw new Error('new password and its confirmation do not match')
+
+    modifyUserPassword(email, newPassword)
 }
 
-var checkElementsChanges = function (currentElement, newElement, textToMessage) {
-    if (newElement === currentElement) {
-        throw new Error(textToMessage)
-    }
+function retrievePosts() {
+    return getPosts()
+}
+
+function publishPost(email, image, text) {
+    validateText(email, 'email')
+    validateText(image, 'image')
+    validateText(text, 'text')
+
+    createPost(email, image, text)
 }

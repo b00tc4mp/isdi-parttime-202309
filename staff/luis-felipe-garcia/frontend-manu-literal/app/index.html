@@ -5,84 +5,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="register">
+    <div id="register-view" class="view">
         <h1>Register</h1>
 
-        <form>
-            <label for="name">Name</label>
-            <input id="name" type="text">
+        <form class="form">
+            <label for="name-input">Name</label>
+            <input id="name-input" type="text">
 
-            <label for="email">E-mail</label>
-            <input id="email" type="email">
+            <label for="email-input">E-mail</label>
+            <input id="email-input" type="email">
 
-            <label for="password">Password</label>
-            <input type="password" id="password">
+            <label for="password-input">Password</label>
+            <input type="password" id="password-input">
 
-            <button>Register</button>
+            <button type="submit">Register</button>
         </form>
 
         <a href="">Login</a>
     </div>
 
-    <div id="login">
+    <div id="login-view" class="view">
         <h1>Login</h1>
 
-        <form>
-            <label for="email">E-mail</label>
-            <input id="email" type="email">
+        <form class="form">
+            <label for="email-input">E-mail</label>
+            <input id="email-input" type="email">
 
-            <label for="password">Password</label>
-            <input type="password" id="password">
+            <label for="password-input">Password</label>
+            <input type="password" id="password-input">
 
-            <button>Login</button>
+            <button type="submit">Login</button>
         </form>
 
         <a href="">Register</a>
     </div>
 
-    <div id="home">
-        <h1>Hello, Home!</h1>
-        <nav>
-            <ul>
-                <li id="change-email-link"><a href="">Change mail</a></li>
-                <li id="change-password-link"><a href="">Change password</a></li>
-                <li id="logout-link"><a href="">Logout</a></li>
-            </ul>
-        </nav>
-<!--        <button id="logout-button">Logout</button>-->
-        <form id="change-password-form">
-            <label for="current-password">Current password</label>
-            <input type="password" name="current-password" id="current-password">
+    <div id="home-view">
+        <header class="home-header">
+            <h1><a href="" id="home-link">Home</a></h1>
 
-            <label for="new-password">New password</label>
-            <input type="password" name="new-password" id="new-password">
+            <div>
+                <button id="new-post-button">+</button>
 
-            <label for="checked-new-password">Repeat new password</label>
-            <input type="password" name="checked-new-password" id="checked-new-password">
-            
-            <button>Change password</button>
-            <button type="button" id="cancel-change-password" onclick="resetToHomeView(homeView, changePasswordForm)">Cancel</button>
-        </form>
+                <a href="" class="profile-link" id="profile-link">Profile</a>
 
-        <form id ="change-email-form">
-            <label for="new-email">New email</label>
-            <input type="email" name="new-email" id="new-email">
+                <button id="logout-button">Logout</button>
+            </div>
+        </header>
 
-            <label for="checked-new-email">Repeat new mail</label>
-            <input type="email" name="checked-new-email" id="checked-new-email">
+        <div id="profile-view" class="view">
+            <h2>Update e-mail</h2>
 
-            <button id="send-new-email">Send new email</button>
-            <button type="button" id ="cancel-change-email" onclick="resetToHomeView(homeView, changeMailForm)">Cancel</button>
-        </form>
+            <form id="change-email-form" class="form">
+                <label for="new-email-input">New e-mail</label>
+                <input id="new-email-input" type="email">
 
+                <label for="new-email-confirm-input">Confirm new e-mail</label>
+                <input id="new-email-confirm-input" type="email">
+
+                <label for="password-input">Password</label>
+                <input type="password" id="password-input">
+
+                <button type="submit">Update e-mail</button>
+            </form>
+
+            <h2>Update password</h2>
+
+            <form id="change-password-form" class="form">
+                <label for="password-input">Current password</label>
+                <input type="password" id="password-input">
+
+                <label for="new-password-input">New password</label>
+                <input id="new-password-input" type="password">
+
+                <label for="new-password-confirm-input">Confirm new password</label>
+                <input id="new-password-confirm-input" type="password">
+
+                <button type="submit">Update password</button>
+            </form>
+        </div>
+
+        <div id="new-post-view" class="view">
+            <h2>New post</h2>
+
+            <form id="new-post-form" class="form">
+                <label for="image-input">Image</label>
+                <input type="url" id="image-input">
+
+                <label for="text-input">Text</label>
+                <input type="text" id="text-input">
+
+                <button type="submit">Post</button>
+                <button id="cancel-new-post-button">Cancel</button>
+            </form>
+        </div>
+
+        <div id="posts-view">
+        </div>
     </div>
-    <script src="validators.js"></script>
+
+    <script src="polyfills.js"></script>
+
     <script src="data.js"></script>
+
+    <script src="validators.js"></script>
     <script src="logic.js"></script>
+
     <script src="main.js"></script>
+    <script src="views/login.js"></script>
+    <script src="views/register.js"></script>
+    <script src="views/home.js"></script>
 </body>
 
 </html>
