@@ -102,11 +102,19 @@ newPostView = homeView.querySelector("#new-post-view");
 newPostView.style.display = "none";
 
 newPostButton = homeView.querySelector("#new-post-button");
+var newPostDeleteButton = homeView.querySelector("#delete");
+var newPostLikeButton = homeView.querySelector("#like");
+var newPostLikesCounter = homeView.querySelector("#likesCounter");
 
 newPostButton.onclick = function () {
   profileView.style.display = "none";
+  newPostDeleteButton.style.display = "none";
+  newPostLikeButton.style.display = "none";
+  newPostLikesCounter.style.display = "none";
   postsView.style.display = "";
   newPostView.style.display = "";
+
+  // faltaría ocultar el botón de like y delete (hecho :D)
 };
 
 newPostForm = newPostView.querySelector("#new-post-form");
@@ -149,9 +157,9 @@ newPostForm.onsubmit = function (event) {
 };
 
 function renderPosts() {
-  postsView.innerHTML = "";
+  postsView.innerHTML = ""; //borra contenido anterior
 
-  var posts = retrievePosts();
+  var posts = retrievePosts(); // recupera los posts
 
   posts.forEachReverse(function (post) {
     var article = document.createElement("article");

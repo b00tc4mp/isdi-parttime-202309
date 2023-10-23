@@ -21,8 +21,8 @@ loginForm.onsubmit = function (event) {
     emailInput.value = "";
     passwordInput.value = "";
     loginForm.reset();
-    var user = retrieveUser(email);
-    profileLink.innerText = user.name;
+    var user = retrieveUser(email); // para tener acceso al usuario
+    profileLink.innerText = user.name; // y luego poder saludarlo
     loggedInEmail = email;
 
     loginView.style.display = "none";
