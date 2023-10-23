@@ -1,17 +1,19 @@
-var loginView = document.getElementById('login-view')
+loginView = document.getElementById('login-view')
 
 // loginView.style.display = 'none'
 
-var loginRegisterLink = loginView.querySelector('a')
+loginRegisterLink = loginView.querySelector('a')
 
 loginRegisterLink.onclick = function (event) {
     event.preventDefault()
 
     loginView.style.display = 'none'
-    registerView.style.display = 'block'
+    loginForm.reset()
+
+    registerView.style.display = ''
 }
 
-var loginForm = loginView.querySelector('form')
+loginForm = loginView.querySelector('form')
 
 
 loginForm.onsubmit = function (event) {
@@ -26,17 +28,41 @@ loginForm.onsubmit = function (event) {
     try {
         authenticateUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
+        loginForm.reset()
 
         var user = retrieveUser(email)
 
         profilelink.innerText = user.name
 
-        emailLoggedIn = email
+        loggedInEmail = email
 
         loginView.style.display = 'none'
-        homeView.style.display = 'block'
+        //render posts in home
+
+        postsView.innerHTML = ''
+
+        posts.forEachReverse(function (post) {
+            var article = document.createElement('article')
+            article.setAttribute('class', 'post')
+
+            var h2 = document.createElement('h2')
+            h2.innerText = post.author
+
+            var img = document.createElement('img')
+            img.setAttribute('class', 'post-image')
+            img.src = post.image
+
+            var p = document.createElement('p')
+            p.innerText = post.text
+
+            article.append(h2, img, p)
+
+            postsView.append(article)
+
+        })
+
+        // show home
+        homeView.style.display = ''
     } catch (error) {
         alert(error.message)
     }
