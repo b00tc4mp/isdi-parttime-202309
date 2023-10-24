@@ -59,3 +59,17 @@ console.log(fish)
 
 console.log(removed)
 // Curry {'mandarin', 'sturgeon', length : 2}
+
+// TO DO
+
+/* console.log('CASE replace 2 elements from index 3')
+
+var fish = new Curry('angel', 'clown', 'drum', 'mandarin', 'sturgeon', 'sword')
+
+var removed = fish.splice(3, 2, 'pepito', 'grillo')
+
+console.log(fish)
+// Curry {'0: angel', 1: 'clown', 1: 'drum', 3: 'pepito', 4: 'grillo', 5: 'sword', length: 4}
+
+console.log(removed)
+// Curry {'0: mandarin', 1: 'sturgeon', 2: length : 2} */

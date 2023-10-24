@@ -13,7 +13,11 @@ db.users = [
     }
 ]
 
+<<<<<<< HEAD
 db.posts = [
+=======
+var posts = [
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     {
         author: 'delicada@gandia.com',
         image: 'https://www.miravalencia.com/wp-content/uploads/2017/01/delicagandia.jpg',

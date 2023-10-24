@@ -5,7 +5,14 @@
 
 }
 
+<<<<<<< HEAD
 .view {
+=======
+#login-view,
+#register-view,
+#new-post-view,
+#profile-view {
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -13,7 +20,15 @@
 
 }
 
+<<<<<<< HEAD
 .form {
+=======
+.login-form,
+.register-form,
+.new-post-form,
+#change-email-form,
+#change-password-form {
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
 	display: flex;
 	flex-direction: column;
 	max-width: 240px;

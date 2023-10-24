@@ -39,7 +39,31 @@ loginForm.onsubmit = function (event) {
         loginView.style.display = 'none'
         //render posts in home
 
+<<<<<<< HEAD
         renderPosts()
+=======
+        postsView.innerHTML = ''
+
+        posts.forEachReverse(function (post) {
+            var article = document.createElement('article')
+            article.setAttribute('class', 'post')
+
+            var h2 = document.createElement('h2')
+            h2.innerText = post.author
+
+            var img = document.createElement('img')
+            img.setAttribute('class', 'post-image')
+            img.src = post.image
+
+            var p = document.createElement('p')
+            p.innerText = post.text
+
+            article.append(h2, img, p)
+
+            postsView.append(article)
+
+        })
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
 
         // show home
         homeView.style.display = ''

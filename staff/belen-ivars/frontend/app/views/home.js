@@ -7,8 +7,11 @@ logoutButton = homeView.querySelector('#logout-button')
 logoutButton.onclick = function () {
     homeView.style.display = 'none'
     profileView.style.display = 'none'
+<<<<<<< HEAD
     newPostView.style.display = 'none'
     postsView.style.display = ''
+=======
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     loginView.style.display = ''
 }
 
@@ -83,8 +86,12 @@ profilelink = homeView.querySelector('#profile-link')
 profilelink.onclick = function (event) {
     event.preventDefault()
 
+<<<<<<< HEAD
     newPostView.style.display = 'none'
     postsView.style.display = 'none'
+=======
+
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     profileView.style.display = ''
 
 }
@@ -98,8 +105,11 @@ newPostView.style.display = 'none'
 newPostButton = homeView.querySelector('#new-post-button')
 
 newPostButton.onclick = function () {
+<<<<<<< HEAD
     profileView.style.display = 'none'
     postsView.style.display = ''
+=======
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     newPostView.style.display = ''
 }
 
@@ -110,18 +120,22 @@ cancelNewPostButton = newPostForm.querySelector('#cancel-new-post-button')
 cancelNewPostButton.onclick = function (event) {
     event.preventDefault()
 
+<<<<<<< HEAD
     newPostView.style.display = 'none'
     newPostForm.reset()
 }
 
 newPostForm.onsubmit = function (event) {
     event.preventDefault()
+=======
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     var imageInput = newPostForm.querySelector('#image-input')
     var textInput = newPostForm.querySelector('#text-input')
 
     var image = imageInput.value
     var text = textInput.value
 
+<<<<<<< HEAD
     try {
         publishPost(loggedInEmail, image, text)
 
@@ -144,6 +158,27 @@ function renderPosts() {
     var posts = retrievePosts()
 
     posts.forEachReverse(function (post) {
+=======
+    var post = {}
+
+    post.author = loggedInEmail
+    post.image = image
+    post.text = text
+
+    posts.push(post)
+
+    newPostForm.reset()
+
+    newPostView.style.display = 'none'
+
+    // re-render posts
+
+    postsView.innerHTML = ''
+
+    posts.forEachReverse(function (post) {
+
+
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
         var article = document.createElement('article')
         article.setAttribute('class', 'post')
 
@@ -160,6 +195,9 @@ function renderPosts() {
         article.append(h2, img, p)
 
         postsView.append(article)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
     })
 }
