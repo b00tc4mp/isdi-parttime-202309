@@ -11,7 +11,7 @@ registerLoginLink.onclick = function (event) {
 
     registerForm.reset()
     registerView.style.display = 'none'
-    loginView.container.style.display = ''
+    loginView.style.display = ''
 }
 
 registerForm = registerView.querySelector('form')
@@ -28,12 +28,12 @@ registerForm.onsubmit = function (event) {
     var password = passwordInput.value
 
     try {
-        logic.registerUser(name, email, password)
+        registerUser(name, email, password)
 
         registerForm.reset()
 
         registerView.style.display = 'none'
-        loginView.container.style.display = ''
+        loginView.style.display = ''
     } catch (error) {
         alert(error.message)
     }

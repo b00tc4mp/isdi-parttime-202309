@@ -12,5 +12,3 @@ Curry.prototype.pop = function() {
 
     return lastElement
 }
-
-// CORREGIR EN CLASE (*)

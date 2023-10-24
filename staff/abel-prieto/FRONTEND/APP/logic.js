@@ -1,93 +1,107 @@
 // REGISTER LOGIC
 
-function registerUser(name, email, password) {
-    validateText(name, 'name')
-    validateText(email, 'email')
-    validateText(password, 'password')
 
-    var user = findUserByEmail(email)
-
-    if (user)
-        throw new Error('user already exists')
-
-    createUser(name, email, password)
-}
-
-function authenticateUser(email, password) {
-    validateText(email, 'email')
-    validateText(password, 'password')
-
-    var user = findUserByEmail(email)
-
-    if (!user || user.password !== password)
-        throw new Error('wrong credentials')
-}
-
-// LOGIN LOGIC
-
-function retrieveUser(email) {
-    validateText(email, 'email')
-
-    var user = findUserByEmail(email)
-
-    if (!user)
-        throw new Error('user not found')
-
-    return user
-}
-
-// FUNCION COMPROBAR NEW EMAIL
-
-function changeUserEmail(email, newEmail, confirmNewEmail, password) {
-    validateText(email, 'email')
-    validateText(newEmail, 'new email')
-    validateText(confirmNewEmail, 'new email confirm')
-    validateText(password, 'new email')
-
-    var user = findUserByEmail(email)
-
-    if (!user || user.password !== password) {
-        throw new Error('wrong credentials')
-    }
-    if (newEmail !== confirmNewEmail) {
-        throw new Error('New email and your confirm doesnt match each other')
+class Logic {
+    constructor() {
+        this.loggedInEmail = null
     }
 
-    // user.email = newEmail
-
-    modifyUserEmail(email, newEmail)
-}
-
-// FUNCIÓN COMPROBAR NEW PASSWORD
-
-function changeUserPassword(email, password, newPassword, againNewPassword) {
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateText(newPassword, 'new password')
-    validateText(againNewPassword, 'the repeat password')
-
-    var user = findUserByEmail(email)
-
-    if (!user || user.password !== password) {
-        throw new Error('wrong credentials')
-    }
-    if (newPassword !== againNewPassword) {
-        throw new Error('New pass and his confirmation are not correct. Try again') 
+    // REGISTER USER
+    registerUser(name, email, password) {
+        validateText(name, 'name')
+        validateText(email, 'email')
+        validateText(password, 'password')
+    
+        var user = findUserByEmail(email)
+    
+        if (user)
+            throw new Error('user already exists')
+    
+        createUser(name, email, password)
     }
 
-    // user.password = newPassword
+    // LOGIN & AUTHENTICATE
+    loginUser(email, password) {
+        validateText(email, 'email')
+        validateText(password, 'password')
+    
+        var user = findUserByEmail(email)
+    
+        if (!user || user.password !== password)
+            throw new Error('wrong credentials')
 
-    modifyUserPassword(email, newPassword)
-}
+        this.loggedInEmail = email
+    }
+    
+    // LOGIN LOGIC
+    retrieveUser() {
+        var user = findUserByEmail(this.loggedInEmail)
+    
+        if (!user)
+            throw new Error('user not found')
+    
+        return user
+    }
+    
+    // FUNCION COMPROBAR NEW EMAIL
+    changeUserEmail(newEmail, confirmNewEmail, password) {
+        validateText(newEmail, 'new email')
+        validateText(confirmNewEmail, 'new email confirm')
+        validateText(password, 'new email')
+    
+        var user = findUserByEmail(this.loggedInEmail)
+    
+        if (!user || user.password !== password) {
+            throw new Error('wrong credentials')
+        }
 
-function retrievePosts() {
-    return getPosts()
-}
+        if (newEmail !== confirmNewEmail) {
+            throw new Error('New email and your confirm doesnt match each other')
+        }
+    
+        modifyUserEmail(this.loggedInEmail, newEmail)
 
-function publishPost(email, image, text) {
-    validateText(email, 'email')
-    validateText(image, 'image')
-    validateText(text, 'text')
+        // PREGUNTAR A MANU (?) Ya tenemos modifyUserEmail!
 
-    createPost(email, image, text)
+        this.loggedInEmail = newEmail
+    }
+    
+    // FUNCIÓN COMPROBAR NEW PASSWORD
+    changeUserPassword(password, newPassword, againNewPassword) {
+        validateText(password, 'password')
+        validateText(newPassword, 'new password')
+        validateText(againNewPassword, 'the repeat password')
+    
+        var user = findUserByEmail(this.loggedInEmail)
+    
+        if (!user || user.password !== password) {
+            throw new Error('wrong credentials')
+        }
+        if (newPassword !== againNewPassword) {
+            throw new Error('New pass and his confirmation are not correct. Try again') 
+        }
+    
+        modifyUserPassword(this.loggedInEmail, newPassword)
+    }
+    
+    retrievePosts() {
+        var user = findUserByEmail(this.loggedInEmail)
+    
+        if(!user) {
+            throw new Error('User not found!')
+        }
+    
+        return getPosts()
+    }
+    
+    publishPost(image, text) {
+        validateText(image, 'image')
+        validateText(text, 'text')
+    
+        createPost(this.loggedInEmail, image, text)
+    }
+
+    logoutUser() {
+        this.loggedInEmail = null
+    }
 }

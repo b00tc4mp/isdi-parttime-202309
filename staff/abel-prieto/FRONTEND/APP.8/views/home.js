@@ -72,7 +72,7 @@ newPostForm.onsubmit = function(event) {
     var text = textInput.value
 
     try {
-        logic.publishPost(image, text)
+        publishPost(loggedInEmail, image, text)
 
         newPostForm.reset()
     
@@ -117,13 +117,16 @@ checkEmailForm.onsubmit = function (event) {
     var password = passwordInput.value
 
     try {
-        logic.changeUserEmail(newEmail, confirmNewEmail, password)
+        changeUserEmail(loggedInEmail, newEmail, confirmNewEmail, password)
+
+        loggedInEmail = newEmail
 
         alert('Email changed succesfully!')
 
         checkEmailForm.reset()
+    }
 
-    } catch (error) {
+    catch (error) {
         alert(error.message)
     }
 }
@@ -142,13 +145,14 @@ changePasswordForm.onsubmit = function(event) {
     var againNewPassword = againNewPasswordInput.value
 
     try {
-        logic.changeUserPassword(password, newPassword, againNewPassword)
+        changeUserPassword(loggedInEmail, password, newPassword, againNewPassword)
 
         alert('Password changed succesfully!')
 
         changePasswordForm.reset()
+    }
 
-    } catch (error) {
+    catch (error) {
         alert(error.message)
     }
 }
@@ -161,9 +165,7 @@ logoutButton.onclick = function (event) {
     event.preventDefault()
 
     homeView.style.display = 'none'
-    loginView.container.style.display = ''
-
-    logic.logoutUser()
+    loginView.style.display = ''
 }
 
 
@@ -171,31 +173,28 @@ logoutButton.onclick = function (event) {
 function renderPosts() {
     postsView.innerHTML = ''
 
-    try {
-        var posts = logic.retrievePosts()
+    var posts = retrievePosts()
+    // retrievePosts() -> getPosts()
+    // getPosts()
 
-        posts.toReversed().forEach(function (post) {
-            var article = document.createElement('article')    
-            article.setAttribute('class', 'post')   
-    
-            var h2 = document.createElement('h2')
-            h2.innerText = post.author                         
-    
-            var img = document.createElement('img')
-            img.setAttribute('class', 'post-img')
-            img.src = post.image                               
-    
-            var p = document.createElement('p')
-            p.innerText = post.text
-    
-            article.append(h2, img, p)                         
-    
-            postsView.append(article)
-            
-            postsView.style.display = ''
-        })
+    posts.toReversed().forEach(function (post) {
+        var article = document.createElement('article')    
+        article.setAttribute('class', 'post')   
+
+        var h2 = document.createElement('h2')
+        h2.innerText = post.author                         
+
+        var img = document.createElement('img')
+        img.setAttribute('class', 'post-img')
+        img.src = post.image                               
+
+        var p = document.createElement('p')
+        p.innerText = post.text
+
+        article.append(h2, img, p)                         
+
+        postsView.append(article)
         
-    } catch(error) {
-        alert(error.message)
-    }
+        postsView.style.display = ''
+    })
 }
