@@ -1,5 +1,4 @@
 console.log('TEST Curry at')
-console.log("****************************************************************************************************************************************")
 
 console.log('CASE returns the item at that index "0" results in "10"')
 
