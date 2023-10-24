@@ -1,8 +1,8 @@
 // LOGIN VIEW
 
 class LoginView {
-    constructor(containerId) {
-        this.container = document.getElementById(containerId)
+    constructor() {
+        this.container = document.getElementById('login')
 
         this.loginRegisterLink = this.container.querySelector('a')
 
@@ -12,13 +12,13 @@ class LoginView {
             this.container.style.display = 'none'
             this.loginForm.reset()
 
-            registerView.style.display = ''
+            registerView.container.style.display = ''
         }.bind(this)
 
         this.loginForm = this.container.querySelector('form')
 
         this.loginForm.onsubmit = function (event) {
-        event.preventDefault()
+            event.preventDefault()
     
             const emailInput = this.container.querySelector('#email')
             const passwordInput = this.container.querySelector('#password')
@@ -33,22 +33,22 @@ class LoginView {
     
                 const user = logic.retrieveUser()
     
-                profileLink.innerText = user.name 
+                homeView.profileLink.innerText = user.name 
     
                 this.container.style.display = 'none'
     
                 // render post
     
-                renderPosts()
+                homeView.renderPosts()
     
                 // show home
                 
-                homeView.style.display = ''
-                postsView.style.display = ''
-                logoutButton.style.display = ''
-                profileLink.style.display = ''
-                profileView.style.display = 'none'
-                newPostView.style.display = 'none'
+                homeView.container.style.display = ''
+                // postsView.style.display = ''
+                // logoutButton.style.display = ''
+                // profileLink.style.display = ''
+                // profileView.style.display = 'none'
+                // newPostView.style.display = 'none'
     
             } catch (error) {
                 alert(error.message)
