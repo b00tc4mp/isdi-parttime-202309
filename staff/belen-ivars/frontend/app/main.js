@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 var loggedInEmail = null
-=======
-var emailLoggedIn = null
-
->>>>>>> 946e8c055b046852843d444af216a47eb3fc9f0c
 //login
 
 var loginView = null
