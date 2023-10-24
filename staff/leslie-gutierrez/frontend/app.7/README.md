@@ -2,10 +2,10 @@
 
 ## Intro
 
-Social app for ... ?
+Social App for....?
 
 ## Functional Description
 
 User
-- register
-- login
+-Register
+-Login
