@@ -1,43 +1,50 @@
-var loginView = document.getElementById('login-view')
+class LoginView {
+    constructor() {
+        this.container = document.getElementById('login-view')
 
-// loginView.style.display = 'none'
+        this.loginRegisterLink = this.container.querySelector('a')
 
-var loginRegisterLink = loginView.querySelector('a')
+        this.loginRegisterLink.onclick = function (event) {
+            event.preventDefault()
 
-loginRegisterLink.onclick = function (event) {
-    event.preventDefault()
+            this.container.style.display = 'none'
+            this.loginForm.reset()
 
-    loginView.style.display = 'none'
-    registerView.style.display = 'block'
-}
+            registerView.container.style.display = ''
+        }.bind(this)
 
-var loginForm = loginView.querySelector('form')
+        this.loginForm = this.container.querySelector('form')
 
 
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
+        this.loginForm.onsubmit = function (event) {
+            event.preventDefault()
 
-    var emailInput = loginForm.querySelector('#email-input')
-    var passwordInput = loginForm.querySelector('#password-input')
+            const emailInput = this.oginForm.querySelector('#email-input')
+            const passwordInput = this.loginForm.querySelector('#password-input')
 
-    var email = emailInput.value
-    var password = passwordInput.value
+            const email = emailInput.value
+            const password = passwordInput.value
 
-    try {
-        authenticateUser(email, password)
+            try {
+                logic.loginUser(email, password)
 
-        emailInput.value = ''
-        passwordInput.value = ''
+                this.loginForm.reset()
 
-        var user = retrieveUser(email)
+                const user = logic.retrieveUser()
 
-        profilelink.innerText = user.name
+                homeView.profilelink.innerText = user.name
 
-        emailLoggedIn = email
+                this.container.style.display = 'none'
+                //render posts in home
 
-        loginView.style.display = 'none'
-        homeView.style.display = 'block'
-    } catch (error) {
-        alert(error.message)
+                homeView.renderPosts()
+
+                // show home
+                homeView.container.style.display = ''
+            } catch (error) {
+                alert(error.message)
+            }
+        }.bind(this)
     }
 }
+

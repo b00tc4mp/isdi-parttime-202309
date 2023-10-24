@@ -1,39 +1,44 @@
-var registerView = document.getElementById('register-view')
+class RegisterView {
+    constructor() {
+        this.container = document.getElementById('register-view')
 
-registerView.style.display = 'none'
+        this.container.style.display = 'none'
 
-var registerLoginLink = registerView.querySelector('a')
+        this.registerLoginLink = this.container.querySelector('a')
 
-registerLoginLink.onclick = function (event) {
-    event.preventDefault()
+        this.registerLoginLink.onclick = function (event) {
+            event.preventDefault()
 
-    registerView.style.display = 'none'
-    loginView.style.display = 'block'
-}
+            this.container.style.display = 'none'
+            this.registerForm.reset()
 
-var registerForm = registerView.querySelector('form')
+            loginView.container.style.display = ''
+        }.bind(this)
 
-registerForm.onsubmit = function (event) {
-    event.preventDefault()
+        this.registerForm = this.container.querySelector('form')
 
-    var nameInput = registerForm.querySelector('#name-input')
-    var emailInput = registerForm.querySelector('#email-input')
-    var passwordInput = registerForm.querySelector('#password-input')
+        this.registerForm.onsubmit = function (event) {
+            event.preventDefault()
 
-    var name = nameInput.value
-    var email = emailInput.value
-    var password = passwordInput.value
+            const nameInput = registerForm.querySelector('#name-input')
+            const emailInput = registerForm.querySelector('#email-input')
+            const passwordInput = registerForm.querySelector('#password-input')
 
-    try {
-        registerUser(name, email, password)
+            const name = nameInput.value
+            const email = emailInput.value
+            const password = passwordInput.value
 
-        nameInput.value = ''
-        emailInput.value = ''
-        passwordInput.value = ''
+            try {
+                logic.registerUser(name, email, password)
 
-        registerView.style.display = 'none'
-        loginView.style.display = 'block'
-    } catch (error) {
-        alert(error.message)
+                this.registerForm.reset()
+
+                this.container.style.display = 'none'
+                loginView.container.style.display = ''
+            } catch (error) {
+                alert(error.message)
+            }
+        }.bind(this)
     }
 }
+

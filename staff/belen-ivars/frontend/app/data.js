@@ -1,38 +1,38 @@
-var db = {}
+const db = {}
 
 db.users = [
     {
-        name: 'Delicada Gandia',
-        email: 'delicada@gandia.com',
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
         password: '123123'
     },
     {
-        name: 'Tio Sangonera',
-        email: 'tio@sangonera.com',
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
         password: '123123'
     }
 ]
 
 db.posts = [
     {
-        author: 'delicada@gandia.com',
-        image: 'https://www.miravalencia.com/wp-content/uploads/2017/01/delicagandia.jpg',
-        text: 'In my honor!'
+        author: 'peter@pan.com',
+        image: 'https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg',
+        text: 'my granpa!'
     },
     {
-        author: 'tio@sangonera.com',
-        image: 'https://i.pinimg.com/564x/92/05/d1/9205d173c55d72edebb34d91e9a1be55.jpg',
-        text: 'Nice day'
+        author: 'wendy@darling.com',
+        image: 'https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg',
+        text: 'my sweety!'
     },
     {
-        author: 'delicada@gandia.com',
-        image: 'https://ladelicadegandia.monduv.com/wp-content/uploads/2023/01/Ladelica-01-979x1024.jpg',
-        text: 'Not bad'
+        author: 'peter@pan.com',
+        image: 'https://m.media-amazon.com/images/I/71JZegDmwbL.jpg',
+        text: 'i love ü baby'
     }
 ]
 
 function createUser(name, email, password) {
-    var user = {}
+    const user = {}
 
     user.name = name
     user.email = email
@@ -42,10 +42,10 @@ function createUser(name, email, password) {
 }
 
 function findUserByEmail(email) {
-    var user = db.users.find(function (user) { return user.email === email })
+    const user = db.users.find(function (user) { return user.email === email })
 
     if (user) {
-        var userCopy = {}
+        const userCopy = {}
 
         userCopy.name = user.name
         userCopy.email = user.email
@@ -58,19 +58,19 @@ function findUserByEmail(email) {
 }
 
 function modifyUserEmail(email, newEmail) {
-    var user = db.users.find(function (user) { return user.email === email })
+    const user = db.users.find(function (user) { return user.email === email })
     user.email = newEmail
 }
 
 function modifyUserPassword(email, newPassword) {
-    var user = db.users.find(function (user) { return user.email === email })
+    const user = db.users.find(function (user) { return user.email === email })
 
     user.password = newPassword
 }
 
 function getPosts() {
     return db.posts.map(function (post) {
-        var postCopy = {}
+        const postCopy = {}
 
         postCopy.author = post.author
         postCopy.image = post.image
@@ -81,9 +81,9 @@ function getPosts() {
 }
 
 function createPost(email, image, text) {
-    var post = {}
+    const post = {}
 
-    post.author = loggedInEmail
+    post.author = email
     post.image = image
     post.text = text
 
