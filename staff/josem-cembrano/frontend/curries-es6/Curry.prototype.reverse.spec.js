@@ -1,6 +1,6 @@
-console.log('TEST Curry reverse')
+TEST(' Curry reverse')
 
-console.log('CASE reverse curry ["one", "two", "three"] mutating the original array')
+CASE(' reverse curry ["one", "two", "three"] mutating the original array')
 
 var c = new Curry("one", "two", "three")
 

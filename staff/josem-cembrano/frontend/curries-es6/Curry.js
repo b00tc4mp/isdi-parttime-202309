@@ -59,14 +59,14 @@ class Curry {
         return last
     }
 
-    push(item) {
-        if (arguments.length) {
-            this[this.length] = item
+    push(...args) {
+        if (args.length) {
+            this[this.length] = args
             this.length++
 
-            if (arguments.length > 1)
-                for (let i = 1; i < arguments.length; i++) {
-                    this[this.length] = arguments[i]
+            if (args.length > 1)
+                for (let i = 1; i < args.length; i++) {
+                    this[this.length] = args[i]
                     this.length++
                 }
         }

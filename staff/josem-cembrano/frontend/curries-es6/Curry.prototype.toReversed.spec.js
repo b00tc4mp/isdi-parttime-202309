@@ -1,8 +1,8 @@
 //El toReversed()método de Array instancias, es la contraparte copiadora del reverse()método. Devuelve una nueva array con los elementos en orden inverso.\
 
-console.log('CASE toReversed')
+CASE(' toReversed')
 
-console.log('CASE toReversed, if we have this curry ["10, 20, 30"], it returns the elements of the curry itself in a reverse order ["30, 20, 10"]')
+CASE(' toReversed, if we have this curry ["10, 20, 30"], it returns the elements of the curry itself in a reverse order ["30, 20, 10"]')
 
 var c = new Curry('10', '20', '30')
 

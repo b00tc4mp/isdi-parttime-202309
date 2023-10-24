@@ -1,6 +1,6 @@
-console.log('TEST Curry pop')
+TEST(' Curry pop')
 
-console.log('CASE extract last element from curry { 10, 20, 30 }')
+CASE(' extract last element from curry { 10, 20, 30 }')
 
 var nums = new Curry(10, 20, 30)
 
@@ -12,7 +12,7 @@ console.log(extracted)
 console.log(nums)
 // Curry { 0: 10, 1: 20, length: 2 }
 
-console.log('CASE extract no element (undefined) from curry {}')
+CASE(' extract no element (undefined) from curry {}')
 
 var empty = new Curry
 

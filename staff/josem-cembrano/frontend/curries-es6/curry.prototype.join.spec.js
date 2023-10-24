@@ -1,6 +1,6 @@
-console.log('TEST Curry join')
+TEST(' Curry join')
 
-console.log('CASE array joined by ("*")')
+CASE(' array joined by ("*")')
 
 var c = new Curry(10, 20, 30)
 
@@ -11,7 +11,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by (undefined)')
+CASE(' array joined by (undefined)')
 
 var c = new Curry(10, 20, 30)
 
@@ -22,7 +22,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by empty ()')
+CASE(' array joined by empty ()')
 
 var c = new Curry(10, 20, 30)
 
@@ -33,7 +33,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by number (3)')
+CASE(' array joined by number (3)')
 
 var c = new Curry(10, 20, 30)
 
@@ -44,7 +44,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by string ("and")')
+CASE(' array joined by string ("and")')
 
 var c = new Curry(10, 20, 30)
 
@@ -55,7 +55,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by boolean (true)')
+CASE(' array joined by boolean (true)')
 
 var c = new Curry(10, 20, 30)
 
@@ -66,7 +66,7 @@ console.log(joinedString)
 
 //
 
-console.log('CASE array joined by (null)')
+CASE(' array joined by (null)')
 
 var c = new Curry(10, 20, 30)
 

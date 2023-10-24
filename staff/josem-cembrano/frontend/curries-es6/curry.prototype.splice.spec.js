@@ -1,6 +1,6 @@
-console.log('TEST Curry splice')
+TEST(' Curry splice')
 
-console.log('CASE replace one element')
+CASE(' replace one element')
 
 var months = new Curry('Jan', 'Feb', 'March', 'April', 'June')
 
@@ -12,7 +12,7 @@ console.log(months)
 console.log(removed)
 // Curry { 0: 'June', length: 1 }
 
-console.log('CASE insert one element')
+CASE(' insert one element')
 
 // [Jan, March, April]
 // [Jan, March, April, April]
@@ -29,7 +29,7 @@ console.log(months)
 console.log(removed)
 // Curry { length: 0 }
 
-console.log('CASE remove 0 (zero) elements before index 2, and insert "drum" and "guitar"')
+CASE(' remove 0 (zero) elements before index 2, and insert "drum" and "guitar"')
 
 var fish = new Curry('angel', 'clown', 'mandarin', 'sturgeon')
 
@@ -41,7 +41,7 @@ console.log(fish)
 console.log(removed)
 // Curry { length: 0 }
 
-console.log('CASE remove 1 element at index 3')
+CASE(' remove 1 element at index 3')
 
 var fish = new Curry('angel', 'clown', 'drum', 'mandarin', 'sturgeon')
 
@@ -53,7 +53,7 @@ console.log(fish)
 console.log(removed)
 // Curry { 0: 'mandarin', length: 1 }
 
-console.log('CASE remove 2 elements from index 3')
+CASE(' remove 2 elements from index 3')
 
 var fish = new Curry('angel', 'clown', 'drum', 'mandarin', 'sturgeon', 'sword')
 

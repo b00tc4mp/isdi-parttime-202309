@@ -1,7 +1,7 @@
-console.log('TEST Curry forEach')
+TEST(' Curry forEach')
 console.log("****************************************************************************************************************************************")
 
-console.log('CASE for each element in [10, 20, 30] print it in the console')
+CASE(' for each element in [10, 20, 30] print it in the console')
 
 var cForEach = new Curry(10, 20, 30)
 
@@ -14,7 +14,7 @@ console.log(result)
 // 10, 20, 30
 
 
-console.log('CASE for each element in [10, 20, 30] print it multiplied by 10 in the console, result: 100, 200, 300')
+CASE(' for each element in [10, 20, 30] print it multiplied by 10 in the console, result: 100, 200, 300')
 
 var cForEach = new Curry(10, 20, 30)
 
@@ -27,7 +27,7 @@ console.log(result)
 // 100, 200, 300
 
 
-console.log('CASE for each element in [10, 20, 30] print it divided by 2, result: 5, 10, 15')
+CASE(' for each element in [10, 20, 30] print it divided by 2, result: 5, 10, 15')
 
 var cForEach = new Curry(10, 20, 30)
 

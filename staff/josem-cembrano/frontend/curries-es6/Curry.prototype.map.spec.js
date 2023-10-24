@@ -1,6 +1,6 @@
-console.log('TEST Curry map')
+TEST(' Curry map')
 
-console.log('CASE map array elements multiplied by 2')
+CASE(' map array elements multiplied by 2')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -15,9 +15,9 @@ console.log(mappedArray)
 
 //
 
-console.log('TEST Curry map ERRORS')
+TEST(' Curry map ERRORS')
 
-console.log('CASE map no arguments given')
+CASE(' map no arguments given')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -30,7 +30,7 @@ try {
 
 //
 
-console.log('CASE map argument is a string')
+CASE(' map argument is a string')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -44,7 +44,7 @@ try {
 
 //
 
-console.log('CASE map argument is a number')
+CASE(' map argument is a number')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -58,7 +58,7 @@ try {
 
 //
 
-console.log('CASE map argument is null')
+CASE(' map argument is null')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -72,7 +72,7 @@ try {
 
 //
 
-console.log('CASE map argument is undefined')
+CASE(' map argument is undefined')
 
 var c = new Curry(1, 2, 3, 4, 5)
 
@@ -86,7 +86,7 @@ try {
 
 //
 
-console.log('CASE map argument is boolean')
+CASE(' map argument is boolean')
 
 var c = new Curry(1, 2, 3, 4, 5)
 

@@ -1,6 +1,6 @@
-console.log('TEST Curry indexOf')
+TEST(' Curry indexOf')
 
-console.log('CASE indexOf string in array')
+CASE(' indexOf string in array')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
@@ -11,7 +11,7 @@ console.log(firstIndex)
 
 //
 
-console.log('CASE indexOf string not in array')
+CASE(' indexOf string not in array')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
@@ -22,7 +22,7 @@ console.log(firstIndex)
 
 //
 
-console.log('CASE indexOf number (3)')
+CASE(' indexOf number (3)')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
@@ -33,7 +33,7 @@ console.log(firstIndex)
 
 //
 
-console.log('CASE indexOf (null)')
+CASE(' indexOf (null)')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
@@ -44,7 +44,7 @@ console.log(firstIndex)
 
 //
 
-console.log('CASE indexOf empty ()')
+CASE(' indexOf empty ()')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
@@ -55,7 +55,7 @@ console.log(firstIndex)
 
 //
 
-console.log('CASE indexOf boolean (true)')
+CASE(' indexOf boolean (true)')
 
 var c = new Curry('ant', 'bison', 'camel', 'duck', 'bison')
 
