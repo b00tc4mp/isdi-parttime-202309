@@ -1,6 +1,6 @@
 body {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    background-image: url("R.jpg");
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url('R.jpg');
 }
 
 .home-header {
