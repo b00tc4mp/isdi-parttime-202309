@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <main class="main">
+
+            <div id="register">
+                <h1>Register</h1>
+                <form class="form">
+                    <label for="name">Name</label>
+                    <input id="name" type="text">
+
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email">
+
+                    <label for="password">Password</label>
+                    <input id="password" type="password">
+
+                    <button>Register</button>
+                </form>
+                <a href>Login</a>
+            </div>
+
+            <div id="login">
+                <h1>Login</h1>
+                <form class="form">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email">
+
+                    <label for="password">Password</label>
+                    <input id="password" type="password">
+
+                    <button>Login</button>
+                </form>
+
+                <a href>Register</a>
+            </div>
+        </main>
+
+        <div id="home">
+
+            <div class="flex">
+                <h1></h1>
+
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor"
+                        class="svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+
+                    </svg>
+
+                    <nav class="hidden nav ">
+                        <div class="ul">
+                            <button class="show-profile" href>Profile</button>
+                            <button class="sign-out">Sign out</button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="hidden profile">
+                <h2>Yoru profile</h2>
+                <button class="change-email-btn">Change email</button>
+                <button class="change-pass-btn">Change password</button>
+            </div>
+
+            <form class="form form-change-email hidden">
+                <label for="email">E-mail</label>
+                <input id="email" type="email">
+
+                <label for="email">New e-mail</label>
+                <input id="newEmail" type="email">
+                <button>Save</button>
+            </form>
+
+            <form class="form form-change-password hidden">
+                <label for="password">Password</label>
+                <input id="password" type="password">
+
+                <label for="password">New password</label>
+                <input id="newPassword" type="password">
+                <button>Save</button>
+            </form>
+
+        </div>
+
+        <script src="utils.js"></script>
+        <script src="data.js"></script>
+        <script src="logic.js"></script>
+        <script src="main.js"></script>
+        <script src="views/register.js"></script>
+        <script src="views/login.js"></script>
+
+    </body>
+</html>

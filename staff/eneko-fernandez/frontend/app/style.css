@@ -1,0 +1,117 @@
+body {
+    background-color: #ccc;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+* > label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+* > h1 {
+    font-size: 3rem;
+}
+
+* > input,
+button {
+    padding: .6rem;
+    margin-bottom: .5rem;
+    background-color: #e4e2e2ed;
+    outline: orange;
+    border:1px solid  #868585;
+    box-shadow: 1px 0.5px 1px black;
+}
+
+* > button {
+    background-color: #b2eca8cc;
+}
+
+.main {
+    display: flex;
+    height: 100vh;
+    
+    align-items: center;
+    margin: 0 auto;
+}
+
+#register, #login {
+    width: 50%;
+    
+    margin: 0 auto;
+    border-radius: 1rem;
+    background-color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.svg {
+    width: 3.5rem;
+    position: relative;
+}
+.hidden {
+    display: none;
+    
+}
+
+.nav {
+    transform: translateX(-10rem);
+}
+.nav .ul{
+    width: 10rem;
+    position: absolute;
+    background-color: white;
+    box-shadow: 3px 2px 3px gray;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1.5rem;
+    list-style: none;
+    text-align: center;
+}
+
+
+.ul button {
+    font-weight: 600;
+    border-radius: 1rem;
+    color: white;
+} 
+
+.nav > .ul button:last-child{
+    background-color: orange;   
+}
+
+.form-change-email , .form-change-password, .profile {
+    width: 50%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-weight: 600;
+}
+
+.success {
+    color: green;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
