@@ -1,6 +1,6 @@
 class LoginView {
-  constructor() {
-    this.container = document.getElementById("login-view");
+  constructor(containerId) {
+    this.container = document.getElementById(containerId);
     this.loginRegisterLink = this.container.querySelector("a");
 
     this.loginRegisterLink.onclick = function (event) {
@@ -8,7 +8,7 @@ class LoginView {
 
       this.container.style.display = "none";
       this.loginForm.reset();
-      registerView.container.style.display = "";
+      registerView.style.display = "";
     }.bind(this);
 
     this.loginForm = this.container.querySelector("form");
@@ -23,13 +23,13 @@ class LoginView {
 
         this.loginForm.reset();
         const user = logic.retrieveUser();
-        homeView.profileLink.innerText = user.name;
+        profileLink.innerText = user.name;
 
         this.container.style.display = "none";
 
-        homeView.renderPosts();
+        renderPosts();
 
-        homeView.container.style.display = "";
+        homeView.style.display = "";
       } catch (error) {
         alert(error.message);
       }

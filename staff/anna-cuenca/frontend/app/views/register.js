@@ -1,38 +1,41 @@
-registerView = document.getElementById("register-view");
+class RegisterView {
+  constructor() {
+    this.container = document.getElementById("register-view");
+    this.container.style.display = "none";
 
-registerView.style.display = "none";
+    this.registerLoginLink = this.container.querySelector("a");
 
-registerLoginLink = registerView.querySelector("a");
+    this.registerLoginLink.onclick = function (event) {
+      event.preventDefault();
 
-registerLoginLink.onclick = function (event) {
-  event.preventDefault();
+      this.container.style.display = "none";
+      this.registerForm.reset();
+      loginView.container.style.display = "";
+    }.bind(this);
 
-  registerView.style.display = "none";
-  registerForm.reset();
-  loginView.container.style.display = "";
-};
+    this.registerForm = this.container.querySelector("form");
 
-registerForm = registerView.querySelector("form");
+    this.registerForm.onsubmit = function (event) {
+      event.preventDefault();
 
-registerForm.onsubmit = function (event) {
-  event.preventDefault();
+      const nameInput = this.registerForm.querySelector("#name-input");
+      const emailInput = this.registerForm.querySelector("#email-input");
+      const passwordInput = this.registerForm.querySelector("#password-input");
 
-  var nameInput = registerForm.querySelector("#name-input");
-  var emailInput = registerForm.querySelector("#email-input");
-  var passwordInput = registerForm.querySelector("#password-input");
+      const name = nameInput.value;
+      const email = emailInput.value;
+      const password = passwordInput.value;
 
-  var name = nameInput.value;
-  var email = emailInput.value;
-  var password = passwordInput.value;
+      try {
+        logic.registerUser(name, email, password);
 
-  try {
-    logic.registerUser(name, email, password);
+        this.registerForm.reset();
 
-    registerForm.reset();
-
-    registerView.style.display = "none";
-    loginView.container.style.display = "";
-  } catch (error) {
-    alert(error.message);
+        this.container.style.display = "none";
+        loginView.container.style.display = "";
+      } catch (error) {
+        alert(error.message);
+      }
+    }.bind(this);
   }
-};
+}
