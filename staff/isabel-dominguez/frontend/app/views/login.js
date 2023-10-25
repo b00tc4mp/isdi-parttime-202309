@@ -1,44 +1,46 @@
-loginView = document.getElementById('login-view')
+class loginView {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId)
 
-loginRegisterLink = loginView.querySelector('a')
+        this.loginRegisterLink = this.container.querySelector("a")
 
-loginRegisterLink.onclick = function (event) {
-    event.preventDefault()
+        this.loginRegisterLink.onclick = function (event) {
+            event.preventDefault()
 
-    loginView.style.display = 'none'
-    loginForm.reset()
+            this.container.style.display = "none"
+            this.loginForm.reset()
 
-    registerView.style.display = ''
-}
+            registerView.container.style.display = ""
+        }.bind(this)
 
-loginForm = loginView.querySelector('form')
+        this.loginForm = this.container.querySelector("form")
 
-loginForm.onsubmit = function (event) {
-    event.preventDefault()
+        this.loginForm.onsubmit = function (event) {
+            event.preventDefault()
 
-    var emailInput = loginForm.querySelector('#email-input')
-    var passwordInput = loginForm.querySelector('#password-input')
+            const emailInput = this.loginForm.querySelector("#email-input")
+            const passwordInput = this.loginForm.querySelector("#password-input")
 
-    var email = emailInput.value
-    var password = passwordInput.value
+            const email = emailInput.value
+            const password = passwordInput.value
 
-    try {
-        authenticateUser(email, password)
+            try {
+                logic.loginUser(email, password)
 
-        loginForm.reset()
+                this.loginForm.reset()
 
-        var user = retrieveUser(email)
+                const user = logic.retrieveUser()
 
-        profileLink.innerText = user.name
+                homeView.profilLink.innerText = user.name
 
-        loggedInEmail = email
+                this.container.style.display = "none"
 
-        loginView.style.display = 'none'
+                homeView.renderPosts()
 
-        renderPosts()
-
-        homeView.style.display = ''
-    } catch (error) {
-        alert(error.message)
+                homeView.container.style.display = ""
+            } catch (error) {
+                alert(error.message)
+            }
+        }.bind(this)
     }
 }
