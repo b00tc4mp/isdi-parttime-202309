@@ -8,14 +8,14 @@ curryItem.forEach(function (element) { console.log(element) });
 // Expected output: "b"
 // Expected output: "c"
 
-var array2 = new Curry(2, 4, 6);
-console.log('CASE newArray = [] y array2.forEach( function (x) = newArray.push(x*2); console.log(newArray) return [4, 8, 12]')
+var curry2 = new Curry(2, 4, 6);
+console.log('CASE newCurry = [], curry2 = [2,4,6] y curry2.forEach( function (x) = newCurry.push(x*2); console.log(newCurry) return [4, 8, 12]')
 
-var newArray = new Curry()
-array2.forEach(function (element) {
-    newArray.length++
-    newArray[i] = (element * 2)
+var newCurry = new Curry()
+curry2.forEach(function (element) {
+    newCurry.length++
+    newCurry[i] = (element * 2)
 })
-console.log(newArray)
+console.log(newCurry)
 
 // Expected output: [4, 8, 12]
