@@ -1,7 +1,7 @@
 
-TEST('TEST Curries - Method Find')
+TEST('Curries - Method Find')
 
-CASE('CASE find element in curry [1, 4, 9, 16] to new curry with the first elements wich are higher than 10')
+CASE('Find element in curry [1, 4, 9, 16] to new curry with the first elements wich are higher than 10')
 
 var curry = new Curry(1, 4, 9, 16)
 

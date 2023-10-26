@@ -152,7 +152,7 @@ class Curry {
     // Method SPLICE (PEND. REVISAR AÚN)
     splice(start, removeCount, ...items) {
         if (removeCount === 0) {
-            let displacement = items.length - 2
+            let displacement = items.length // Antes items.length - 2
     
             for (let i = this.length - 1; i >= start; i--) {
                 const element = this[i]
@@ -172,7 +172,7 @@ class Curry {
     
             return new Curry
     
-        } else if (removeCount === 1 && items.length === 3) {
+        } else if (removeCount === 1 && items.length >= 1) { // Antes items.length === 3
             let elementToRemove = this[start]
     
             this[start] = items[0]
@@ -197,7 +197,7 @@ class Curry {
                 this[i] = next
             }
     
-            for (let i = this.lenght - 1; i >= this.length - removeCount; i--) {
+            for (let i = this.length - removeCount; i < this.length; i++) {
                 delete this[i]
             }
     

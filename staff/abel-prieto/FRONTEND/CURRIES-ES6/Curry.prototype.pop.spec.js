@@ -1,7 +1,7 @@
 
-TEST('TEST Curry - Method pop')
+TEST('Curry - Method pop')
 
-CASE('CASE remove one element from curry')
+CASE('Remove one element from curry')
 
 var curry = new Curry('lion', 'tiger', 'dog', 'cat')
 

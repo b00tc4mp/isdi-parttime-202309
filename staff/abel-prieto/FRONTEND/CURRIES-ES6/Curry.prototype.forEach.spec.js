@@ -1,7 +1,7 @@
 
-TEST('TEST Curry - Method forEach')
+TEST('Curry - Method forEach')
 
-CASE('CASE for each element, print one by one on console')
+CASE('For each element, print one by one on console')
 
 var curry = new Curry()
 

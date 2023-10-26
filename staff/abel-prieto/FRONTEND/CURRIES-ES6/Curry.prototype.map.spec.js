@@ -1,7 +1,7 @@
 
-TEST('TEST Curries - Method Map')
+TEST('Curries - Method Map')
 
-CASE('CASE map curry [1, 4, 9, 16] to new curry with elements multiplied by two')
+CASE('Map curry [1, 4, 9, 16] to new curry with elements multiplied by two')
 
 var curry = new Curry(1, 4, 9, 16)
 
@@ -12,7 +12,7 @@ var result = curry.map(function(x) {
 console.log(result)
 // Expected output: curry [2, 8, 18, 32]
 
-CASE('CASE map curry [1, 4, 9, 16] to new curry with elements multiplied by five')
+CASE('Map curry [1, 4, 9, 16] to new curry with elements multiplied by five')
 
 var curry = new Curry(1, 4, 9, 16)
 

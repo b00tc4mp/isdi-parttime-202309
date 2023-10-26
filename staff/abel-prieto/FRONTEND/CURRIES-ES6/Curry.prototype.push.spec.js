@@ -1,7 +1,7 @@
 
-TEST('TEST Curries - Method push')
+TEST('Curries - Method push')
 
-CASE('CASE push 1 element')
+CASE('Push 1 element')
 
 var c = new Curry(10, 20, 30)
 var length = c.push(40)
@@ -11,7 +11,7 @@ console.log(length)
 console.log(c)
 // Curry {0: 10, 1: 20, 2: 30, 3: 40, length: 4}
 
-CASE('CASE push 3 element')
+CASE('Push 3 element')
 
 var c = new Curry(10, 20, 30)
 var length = c.push(40, 50, 60)
@@ -22,7 +22,7 @@ console.log(length)
 console.log(c)
 // Curry {0: 10, 1: 20, 2: 30, 3: 40, 4: 50, 5: 60, length: 6}
 
-CASE('CASE push NO element')
+CASE('Push NO element')
 
 var c = new Curry(10, 20, 30)
 var length = c.push()
