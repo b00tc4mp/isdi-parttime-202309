@@ -10,4 +10,3 @@ User
 
 - register
 - login
-- home
