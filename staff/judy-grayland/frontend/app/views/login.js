@@ -1,46 +1,49 @@
-loginView = document.getElementById('login-view')
+class LoginView {
+  constructor() {
+    this.container = document.getElementById('login-view')
 
-loginRegisterLink = loginView.querySelector('a')
+    this.loginRegisterLink = this.container.querySelector('a')
 
-loginRegisterLink.onclick = function (event) {
-  event.preventDefault()
+    this.loginRegisterLink.onclick = function (event) {
+      event.preventDefault()
 
-  loginView.style.display = 'none'
-  loginForm.reset()
-  registerView.style.display = ''
-}
+      this.container.style.display = 'none'
+      this.loginForm.reset()
 
-loginForm = loginView.querySelector('form')
+      registerView.container.style.display = ''
+    }.bind(this)
 
-loginForm.onsubmit = function (event) {
-  event.preventDefault()
+    this.loginForm = this.container.querySelector('form')
 
-  var emailInput = loginForm.querySelector('#email-input')
-  var passwordInput = loginForm.querySelector('#password-input')
+    this.loginForm.onsubmit = function (event) {
+      event.preventDefault()
 
-  var email = emailInput.value
-  var password = passwordInput.value
+      const emailInput = this.loginForm.querySelector('#email-input')
+      const passwordInput = this.loginForm.querySelector('#password-input')
 
-  try {
-    authenticateUser(email, password)
+      const email = emailInput.value
+      const password = passwordInput.value
 
-    loginForm.reset()
+      try {
+        logic.loginUser(email, password)
 
-    var user = retrieveUser(email)
+        this.loginForm.reset()
 
-    profileLink.innerText = 'Hello, ' + user.name + '!'
+        const user = logic.retrieveUser()
 
-    loggedInEmail = email
+        homeView.profileLink.innerText = user.name
 
-    loginView.style.display = 'none'
+        this.container.style.display = 'none'
 
-    // render posts in home
+        // render posts in home
 
-    renderPosts()
+        homeView.renderPosts()
 
-    // show home
-    homeView.style.display = ''
-  } catch (error) {
-    alert(error.message)
+        // show home
+        homeView.container.style.display = ''
+      } catch (error) {
+        alert(error.message)
+      }
+    }.bind(this)
   }
 }

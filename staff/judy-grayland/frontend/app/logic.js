@@ -1,74 +1,88 @@
-function registerUser(name, email, password) {
-  validateText(name, 'name')
-  validateText(email, 'email')
-  validateText(password, 'passwor')
+class Logic {
+  constructor() {
+    this.loggedInEmail = null
+  }
+  registerUser(name, email, password) {
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'passwor')
 
-  var user = findUserByEmail(email)
+    const user = findUserByEmail(email)
 
-  if (user) throw new Error('user already exists')
+    if (user) throw new Error('user already exists')
 
-  createUser(name, email, password)
-}
+    createUser(name, email, password)
+  }
 
-function authenticateUser(email, password) {
-  validateText(email, 'email')
-  validateText(password, 'password')
+  loginUser(email, password) {
+    validateText(email, 'email')
+    validateText(password, 'password')
 
-  var user = findUserByEmail(email)
+    const user = findUserByEmail(email)
 
-  if (!user || user.password !== password) throw new Error('wrong credentials')
-}
+    if (!user || user.password !== password)
+      throw new Error('wrong credentials')
 
-function retrieveUser(email) {
-  validateText(email, 'email')
+    this.loggedInEmail = email
+  }
 
-  var user = findUserByEmail(email)
+  logoutUser() {
+    this.loggedInEmail = null
+  }
 
-  if (!user) throw new Error('user not found')
+  retrieveUser() {
+    const user = findUserByEmail(this.loggedInEmail)
 
-  return user
-}
+    if (!user) throw new Error('user not found')
 
-function changeUserEmail(email, newEmail, newEmailConfirm, password) {
-  validateText(email, 'email')
-  validateText(newEmail, 'password')
-  validateText(newEmailConfirm, 'new email confirm')
-  validateText(password, 'password')
+    return user
+  }
 
-  var user = findUserByEmail(email)
+  changeUserEmail(newEmail, newEmailConfirm, password) {
+    validateText(newEmail, 'email')
+    validateText(newEmailConfirm, 'new email confirm')
+    validateText(password, 'password')
 
-  if (!user || user.password !== password) throw new Error('wrong credentials')
+    const user = findUserByEmail(this.loggedInEmail)
 
-  if (newEmail !== newEmailConfirm) throw new Error('emails do not match')
+    if (!user || user.password !== password)
+      throw new Error('wrong credentials')
 
-  // user.email = newEmail
-  modifyUserEmail(email, newEmail)
-}
+    if (newEmail !== newEmailConfirm) throw new Error('emails do not match')
 
-function changeUserPassword(email, newPassword, newPasswordConfirm, password) {
-  validateText(email, 'email')
-  validateText(newPassword, 'password')
-  validateText(newPasswordConfirm, 'new email confirm')
-  validateText(password, 'password')
+    // user.email = newEmail
+    modifyUserEmail(this.loggedInEmail, newEmail)
 
-  var user = findUserByEmail(email)
+    this.loggedInEmail = newEmail
+  }
 
-  if (!user || user.password !== password) throw new Error('wrong credentials')
+  changeUserPassword(newPassword, newPasswordConfirm, password) {
+    validateText(newPassword, 'password')
+    validateText(newPasswordConfirm, 'new email confirm')
+    validateText(password, 'password')
 
-  if (newPassword !== newPasswordConfirm)
-    throw new Error('new password and its confirmation do not match')
+    const user = findUserByEmail(this.loggedInEmail)
 
-  modifyUserPassword(email, newPassword)
-}
+    if (!user || user.password !== password)
+      throw new Error('wrong credentials')
 
-function retrievePosts() {
-  return getPosts()
-}
+    if (newPassword !== newPasswordConfirm)
+      throw new Error('new password and its confirmation do not match')
 
-function publishPost(email, image, text) {
-  validateText(email, 'email')
-  validateText(image, 'image')
-  validateText(text, 'text')
+    modifyUserPassword(this.loggedInEmail, newPassword)
+  }
 
-  createPost(email, image, text)
+  retrievePosts() {
+    const user = findUserByEmail(this.loggedInEmail)
+
+    if (!user) throw new Error('user not found')
+    return getPosts()
+  }
+
+  publishPost(image, text) {
+    validateText(image, 'image')
+    validateText(text, 'text')
+
+    createPost(this.loggedInEmail, image, text)
+  }
 }

@@ -71,7 +71,7 @@ function modifyUserEmail(email, newEmail) {
     return user.email === email
   })
 
-  user.email === newEmail
+  user.email = newEmail
 }
 
 function modifyUserPassword(email, newPassword) {
@@ -79,7 +79,7 @@ function modifyUserPassword(email, newPassword) {
     return user.email === email
   })
 
-  user.password === newPassword
+  user.password = newPassword
 }
 
 function getPosts() {
