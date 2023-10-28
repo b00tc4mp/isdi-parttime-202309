@@ -1,29 +1,41 @@
 class PostsView extends Component {
     constructor() {
-        super(document.getElementById('posts-view'))
+        super(document.getElementById("posts-view"))
     }
 
     renderPosts() {
-        this.container.innerHTML = ''
+        this.container.innerHTML = ""
 
         try {
             const posts = logic.retrievePosts()
 
-            posts.forEachReverse(function (post) {
-                const article = document.createElement('article')
-                article.setAttribute('class', 'post')
+            posts.forEachReverse(function (post, index) {
+                const article = document.createElement("article")
+                article.setAttribute("class", "post")
 
-                const h2 = document.createElement('h2')
-                h2.innerText = post.author
+                const title = document.createElement("h2")
+                title.innerText = post.author
 
-                const img = document.createElement('img')
-                img.setAttribute('class', 'post-image')
-                img.src = post.image
+                const image = document.createElement("img")
+                image.setAttribute("class", "post-image")
+                image.src = post.image
 
-                const p = document.createElement('p')
-                p.innerText = post.text
+                const text = document.createElement("p")
+                text.innerText = post.text
 
-                article.append(h2, img, p)
+                const likeButton = document.createElement("button")
+                likeButton.innerText = `${post.likes.includes(logic.loggedInEmail) ? "Like❤️" : "Like❤️"} ${post.likes.length ? `(${post.likes.length})` : ""}`
+                likeButton.onclick = function () {
+                    try {
+                        logic.toggleLikePost(index)
+
+                        this.renderPosts()
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                }.bind(this)
+
+                article.append(title, image, text, likeButton)
 
                 this.container.append(article)
             }.bind(this))

@@ -1,10 +1,10 @@
 class HomeView extends Component {
     constructor() {
-        super(document.getElementById('home-view'))
+        super(document.getElementById("home-view"))
 
         this.hide()
 
-        this.logoutButton = this.container.querySelector('#logout-button')
+        this.logoutButton = this.container.querySelector("#logout-button")
 
         this.logoutButton.onclick = function () {
             this.hide()
@@ -18,7 +18,7 @@ class HomeView extends Component {
 
         this.profileView = new ProfileView
 
-        this.homeLink = this.container.querySelector('#home-link')
+        this.homeLink = this.container.querySelector("#home-link")
 
         this.homeLink.onclick = function (event) {
             event.preventDefault()
@@ -28,10 +28,7 @@ class HomeView extends Component {
             this.postsView.show()
         }.bind(this)
 
-        // profile
-
-
-        this.profileLink = this.container.querySelector('#profile-link')
+        this.profileLink = this.container.querySelector("#profile-link")
 
         this.profileLink.onclick = function (event) {
             event.preventDefault()
@@ -45,7 +42,7 @@ class HomeView extends Component {
 
         this.newPostView = new NewPostView
 
-        this.newPostButton = this.container.querySelector('#new-post-button')
+        this.newPostButton = this.container.querySelector("#new-post-button")
 
         this.newPostButton.onclick = function () {
             this.profileView.hide()

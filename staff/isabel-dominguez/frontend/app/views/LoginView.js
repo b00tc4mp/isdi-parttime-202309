@@ -1,8 +1,8 @@
 class LoginView extends Component {
     constructor() {
-        super(document.getElementById('login-view'))
+        super(document.getElementById("login-view"))
 
-        this.loginRegisterLink = this.container.querySelector('a')
+        this.loginRegisterLink = this.container.querySelector("a")
 
         this.loginRegisterLink.onclick = function (event) {
             event.preventDefault()
@@ -13,13 +13,13 @@ class LoginView extends Component {
             registerView.show()
         }.bind(this)
 
-        this.loginForm = this.container.querySelector('form')
+        this.loginForm = this.container.querySelector("form")
 
         this.loginForm.onsubmit = function (event) {
             event.preventDefault()
 
-            const emailInput = this.loginForm.querySelector('#email-input')
-            const passwordInput = this.loginForm.querySelector('#password-input')
+            const emailInput = this.loginForm.querySelector("#email-input")
+            const passwordInput = this.loginForm.querySelector("#password-input")
 
             const email = emailInput.value
             const password = passwordInput.value

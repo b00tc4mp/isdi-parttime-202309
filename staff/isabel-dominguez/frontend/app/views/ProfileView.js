@@ -1,17 +1,17 @@
 class ProfileView extends Component {
     constructor() {
-        super(document.getElementById('profile-view'))
+        super(document.getElementById("profile-view"))
 
         this.hide()
 
-        this.changeEmailForm = this.container.querySelector('#change-email-form')
+        this.changeEmailForm = this.container.querySelector("#change-email-form")
 
         this.changeEmailForm.onsubmit = function (event) {
             event.preventDefault()
 
-            const newEmailInput = this.changeEmailForm.querySelector('#new-email-input')
-            const newEmailConfirmInput = this.changeEmailForm.querySelector('#new-email-confirm-input')
-            const passwordInput = this.changeEmailForm.querySelector('#password-input')
+            const newEmailInput = this.changeEmailForm.querySelector("#new-email-input")
+            const newEmailConfirmInput = this.changeEmailForm.querySelector("#new-email-confirm-input")
+            const passwordInput = this.changeEmailForm.querySelector("#password-input")
 
             const newEmail = newEmailInput.value
             const newEmailConfirm = newEmailConfirmInput.value
@@ -20,7 +20,7 @@ class ProfileView extends Component {
             try {
                 logic.changeUserEmail(newEmail, newEmailConfirm, password)
 
-                alert('E-mail changed')
+                alert("E-mail changed")
 
                 this.changeEmailForm.reset()
             } catch (error) {
@@ -28,14 +28,14 @@ class ProfileView extends Component {
             }
         }.bind(this)
 
-        this.changePasswordForm = this.container.querySelector('#change-password-form')
+        this.changePasswordForm = this.container.querySelector("#change-password-form")
 
         this.changePasswordForm.onsubmit = function (event) {
             event.preventDefault()
 
-            const passwordInput = this.changePasswordForm.querySelector('#password-input')
-            const newPasswordInput = this.changePasswordForm.querySelector('#new-password-input')
-            const newPasswordConfirmInput = this.changePasswordForm.querySelector('#new-password-confirm-input')
+            const passwordInput = this.changePasswordForm.querySelector("#password-input")
+            const newPasswordInput = this.changePasswordForm.querySelector("#new-password-input")
+            const newPasswordConfirmInput = this.changePasswordForm.querySelector("#new-password-confirm-input")
 
             const password = passwordInput.value
             const newPassword = newPasswordInput.value
@@ -44,7 +44,7 @@ class ProfileView extends Component {
             try {
                 logic.changeUserPassword(newPassword, newPasswordConfirm, password)
 
-                alert('Password changed')
+                alert("Password changed")
 
                 this.changePasswordForm.reset()
             } catch (error) {

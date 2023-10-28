@@ -4,10 +4,10 @@ class Component {
     }
 
     show() {
-        this.container.style.display = ''
+        this.container.style.display = ""
     }
 
     hide() {
-        this.container.style.display = 'none'
+        this.container.style.display = "none"
     }
 }
