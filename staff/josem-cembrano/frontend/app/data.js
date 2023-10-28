@@ -1,4 +1,6 @@
-var users = [
+var db = {}
+
+db.users = [
     {
         name: 'Wendy Darling',
         email: 'wendy@darling.com',
@@ -8,36 +10,24 @@ var users = [
         name: 'Peter Pan',
         email: 'peter@pan.com',
         password: '123123123'
-    },
-    {
-        name: 'qwe',
-        email: 'qwe@qwe.com',
-        password: 'qwe'
-    },
-    {
-        name: 'Chema',
-        email: 'chemaisdi@gmail.com',
-        password: '123123123'
-    },
-    {
-
-        name: 'Rocio',
-        email: 'rocio@gmail.com',
-        password: '123123123'
-    },
-
+    }
 ]
 
-var post = [
+db.posts = [
     {
-        author: 'chemaisdi@gmail.com',
-        image: 'https://mir-s3-cdn-cf.behance.net/projects/404/c9f192101704379.Y3JvcCwyMDgwLDE2MjYsMCw0ODM.png',
-        text: 'dont touch me'
+        author: 'peter@pan.com',
+        image: 'https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg',
+        text: 'my granpa!'
     },
     {
-        author: 'rocio@gmail.com',
-        image: 'https://www.peacefuldumpling.com/wp-content/uploads/2017/04/5_Pre_Workout_Breakfasts_That_Will_Give_You_Energy_and-_Improve_Your_Performance-Cashew_Yogurt_Parfait-e1492605524788.jpg',
-        text: 'fitness breakfast'
+        author: 'wendy@darling.com',
+        image: 'https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg',
+        text: 'my sweety!'
+    },
+    {
+        author: 'peter@pan.com',
+        image: 'https://m.media-amazon.com/images/I/71JZegDmwbL.jpg',
+        text: 'i love ü baby'
     }
 ]
 
@@ -48,16 +38,55 @@ function createUser(name, email, password) {
     user.email = email
     user.password = password
 
-    users.push(user)
+    db.users.push(user)
 }
 
 function findUserByEmail(email) {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
+    var user = db.users.find(function (user) { return user.email === email })
 
-        if (user.email === email)
-            return user
+    if (user) {
+        var userCopy = {}
+
+        userCopy.name = user.name
+        userCopy.email = user.email
+        userCopy.password = user.password
+
+        return userCopy
     }
 
     return null
+}
+
+function modifyUserEmail(email, newEmail) {
+    var user = db.users.find(function (user) { return user.email === email })
+
+    user.email = newEmail
+}
+
+function modifyUserPassword(email, newPassword) {
+    var user = db.users.find(function (user) { return user.email === email })
+
+    user.password = newPassword
+}
+
+function getPosts() {
+    return db.posts.map(function (post) {
+        var postCopy = {}
+
+        postCopy.author = post.author
+        postCopy.image = post.image
+        postCopy.text = post.text
+
+        return postCopy
+    })
+}
+
+function createPost(email, image, text) {
+    var post = {}
+
+    post.author = email
+    post.image = image
+    post.text = text
+
+    db.posts.push(post)
 }
