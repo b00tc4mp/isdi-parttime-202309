@@ -1,15 +1,3 @@
-var loginView = document.getElementById('login-view')
-
-// loginView.style.display = 'none'
-
-var loginRegisterLink = loginView.querySelector('a')
-
-loginRegisterLink.onclick = function (event) {
-    event.preventDefault()
-
-    loginView.style.display = 'none'
-    registerView.style.display = ''
-}
 
 loginView = document.getElementById('login-view')
 

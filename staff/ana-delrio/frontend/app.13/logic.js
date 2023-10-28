@@ -1,7 +1,10 @@
 class Logic {
     constructor() {
+        // ponemos null porque al principio no hay ningún usuario conectado 
         this.loggedInEmail = null
     }
+    // como ya estamos vinculando loggedInEmail en el constructor, ya no dbeeíamos de pedir cada vez el email
+    // lo estamos guardando en la instancia de lógica
 
     registerUser(name, email, password) {
         validateText(name, 'name')
@@ -28,6 +31,8 @@ class Logic {
         this.loggedInEmail = email
     }
 
+    // esto lo ponemos porque queremos que loggedInEmail sea null de nuevo, lo limpiemos
+    // de forma que no haya nadie conectado
     logoutUser() {
         this.loggedInEmail = null
     }
@@ -56,6 +61,7 @@ class Logic {
 
         modifyUserEmail(this.loggedInEmail, newEmail)
 
+        // actualizamos el email en la misma instancia de logic
         this.loggedInEmail = newEmail
     }
 
@@ -89,20 +95,5 @@ class Logic {
         validateText(text, 'text')
 
         createPost(this.loggedInEmail, image, text)
-    }
-
-    toggleLikePost(postIndex) {
-        validateNumber(postIndex)
-
-        const post = findPostByIndex(postIndex)
-
-        const likeIndex = post.likes.indexOf(this.loggedInEmail)
-
-        if (likeIndex < 0)
-            post.likes.push(this.loggedInEmail)
-        else
-            post.likes.splice(likeIndex, 1)
-
-        updatePost(postIndex, post)
     }
 }

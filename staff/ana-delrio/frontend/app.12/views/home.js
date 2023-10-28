@@ -139,7 +139,6 @@ newPostForm.onsubmit = function (event) {
 function renderPosts() {
     postsView.innerHTML = ''
 
-    // nos traemos una copia de los post que hay en la BD
     var posts = retrievePosts()
 
     posts.forEachReverse(function (post) {

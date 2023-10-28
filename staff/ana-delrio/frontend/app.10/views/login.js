@@ -40,8 +40,9 @@ loginForm.onsubmit = function (event) {
 
         var postsView = homeView.querySelector('#posts-view')
 
-        postsView.innerHTML = ''
         // postsView.innerHTML se utiliza para eliminar todo el contenido dentro del elemento HTML 
+        postsView.innerHTML = ''
+
 
         // Iterar a través de un array de objetos 'posts'
         posts.forEach(function (post) {
