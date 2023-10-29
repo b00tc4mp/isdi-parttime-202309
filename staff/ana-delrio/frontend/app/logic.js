@@ -91,18 +91,26 @@ class Logic {
         createPost(this.loggedInEmail, image, text)
     }
 
+    // creamos el toggleLike para los likes, para poner o quitar corazones
     toggleLikePost(postIndex) {
+        // lo primero de todo validamos que el postIndex es un número en validator
         validateNumber(postIndex)
 
+        // nos vamos a data para la buscar el post usando el index
+        // creamos una copia de seguridad
         const post = findPostByIndex(postIndex)
 
+        // si yo estoy dentro del array de likes
         const likeIndex = post.likes.indexOf(this.loggedInEmail)
 
         if (likeIndex < 0)
+            // ¿?
             post.likes.push(this.loggedInEmail)
         else
+            // aprovecha el splice, para quitar un elemento de ese array
             post.likes.splice(likeIndex, 1)
 
+        // nos vamos a la BD para actualizar el post, que lo busque y lo actualice 
         updatePost(postIndex, post)
     }
-}
+} 
