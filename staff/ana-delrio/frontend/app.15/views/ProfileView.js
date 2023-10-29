@@ -1,3 +1,4 @@
+
 class ProfileView extends Component {
     constructor() {
         super(document.getElementById('profile-view'))
@@ -50,4 +51,4 @@ class ProfileView extends Component {
             }
         }.bind(this)
     }
-}
+} 

@@ -1,3 +1,5 @@
+
+
 class LoginView extends Component {
     constructor() {
         super(document.getElementById('login-view'))
@@ -47,4 +49,4 @@ class LoginView extends Component {
             }
         }.bind(this)
     }
-}
+} 

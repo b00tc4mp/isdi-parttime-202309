@@ -1,9 +1,13 @@
 class PostsView extends Component {
     constructor() {
+        // aqui usamos el container de PostView
         super(document.getElementById('posts-view'))
     }
 
+    // añadimos a esta clase un comportamiento que solo tiene PostView
+
     renderPosts() {
+        // aquí añadimos el container
         this.container.innerHTML = ''
 
         try {

@@ -1,4 +1,4 @@
-// creamos un contructor padre que me crea el componente
+// creamos un contructor padre que me construya el componente
 
 class Component {
     constructor(container) {

@@ -91,3 +91,4 @@ class Logic {
         createPost(this.loggedInEmail, image, text)
     }
 }
+

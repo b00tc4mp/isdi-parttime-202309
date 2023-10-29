@@ -1,3 +1,5 @@
+
+
 class HomeView extends Component {
     constructor() {
         super(document.getElementById('home-view'))
@@ -125,4 +127,4 @@ class HomeView extends Component {
             alert(error.message)
         }
     }
-}
+} 

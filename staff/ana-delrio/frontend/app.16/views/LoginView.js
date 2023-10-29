@@ -7,11 +7,9 @@ class LoginView extends Component {
         this.loginRegisterLink.onclick = function (event) {
             event.preventDefault()
 
-            // añadimos el método que pusimos en component
             this.hide()
             this.loginForm.reset()
 
-            // añadimos el método que pusimos en component
             registerView.show()
         }.bind(this)
 
@@ -35,7 +33,6 @@ class LoginView extends Component {
 
                 homeView.profileLink.innerText = user.name
 
-                // añadimos el método que pusimos en component
                 this.hide()
 
                 // render posts in home
@@ -44,7 +41,6 @@ class LoginView extends Component {
 
                 // show home
 
-                // añadimos el método que pusimos en component
                 homeView.show()
             } catch (error) {
                 alert(error.message)
