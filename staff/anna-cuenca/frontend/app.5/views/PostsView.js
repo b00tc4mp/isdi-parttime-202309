@@ -10,19 +10,22 @@ class PostsView extends Component {
       const posts = logic.retrievePosts();
 
       posts.forEachReverse(
-        function (post, index) {
+        function (post) {
           const article = document.createElement("article");
           article.setAttribute("class", "post");
 
-          const title = document.createElement("h2");
-          title.innerText = post.author;
+          const h2 = document.createElement("h2");
+          h2.innerText = post.author;
 
-          const image = document.createElement("img");
-          image.setAttribute("class", "post-image");
-          image.src = post.image;
+          const img = document.createElement("img");
+          img.setAttribute("class", "post-image");
+          img.src = post.image;
 
-          const text = document.createElement("p");
-          text.innerText = post.text;
+          const p = document.createElement("p");
+          p.innerText = post.text;
+
+          const h3 = document.createElement("h3");
+          h3.innerText = "Likes:  " + post.likes;
 
           const checkLoggedUser = logic.retrieveUser();
 
@@ -38,20 +41,13 @@ class PostsView extends Component {
           }
 
           const likeButton = document.createElement("button");
-          likeButton.innerText = `${
-            post.likes.includes(logic.loggedInEmail) ? "❤️" : "🤍"
-          } ${post.likes.length ? `(${post.likes.length})` : ""}`;
+          likeButton.innerText = "Like";
+          likeButton.addEventListener("click", function () {
+            post.likes = post.likes + 1;
+            h3.innerText = "Likes: " + post.likes;
+          });
 
-          likeButton.onclick = function () {
-            try {
-              logic.toggleLikePost(index);
-              this.renderPosts();
-            } catch (error) {
-              alert(error.message);
-            }
-          }.bind(this);
-
-          article.append(title, image, text, deleteButton, likeButton);
+          article.append(h2, h3, img, p, deleteButton, likeButton);
 
           this.container.append(article);
         }.bind(this)
