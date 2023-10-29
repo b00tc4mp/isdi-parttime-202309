@@ -2,17 +2,21 @@ class RegisterView extends Component {
     constructor() {
         super(document.getElementById('register-view'))
 
-        this.container.style.display = 'none'
+        // añadimos el método que pusimos en component
+        // cuando arranca que se muestra apagado
+        this.hide()
 
         this.registerLoginLink = this.container.querySelector('a')
 
         this.registerLoginLink.onclick = function (event) {
             event.preventDefault()
 
-            this.container.style.display = 'none'
+            // añadimos el método que pusimos en component
+            this.hide()
             this.registerForm.reset()
 
-            loginView.container.style.display = ''
+            // añadimos el método que pusimos en component
+            loginView.show()
         }.bind(this)
 
         this.registerForm = this.container.querySelector('form')
@@ -33,8 +37,10 @@ class RegisterView extends Component {
 
                 this.registerForm.reset()
 
-                this.container.style.display = 'none'
-                loginView.container.style.display = ''
+                // añadimos el método que pusimos en component
+                this.hide()
+                // añadimos el método que pusimos en component
+                loginView.show()
             } catch (error) {
                 alert(error.message)
             }

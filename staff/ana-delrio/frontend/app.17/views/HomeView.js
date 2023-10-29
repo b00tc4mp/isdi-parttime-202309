@@ -10,6 +10,7 @@ class HomeView extends Component {
             this.hide()
             this.profileView.hide()
             this.newPostView.hide()
+            // añadimos la referencia a los métodos: show
             this.postsView.show()
             loginView.show()
 
@@ -23,7 +24,9 @@ class HomeView extends Component {
         this.homeLink.onclick = function (event) {
             event.preventDefault()
 
+            // añadimos la referencia a los métodos  
             this.profileView.hide()
+            // añadimos la referencia a los métodos 
             this.newPostView.hide()
             this.postsView.show()
         }.bind(this)
@@ -41,8 +44,10 @@ class HomeView extends Component {
             this.profileView.show()
         }.bind(this)
 
+        // esto ya es un component
         this.postsView = new PostsView
 
+        // esto ya es un component
         this.newPostView = new NewPostView
 
         this.newPostButton = this.container.querySelector('#new-post-button')

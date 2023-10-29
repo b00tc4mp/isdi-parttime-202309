@@ -37,6 +37,7 @@ class LoginView extends Component {
 
                 // render posts in home
 
+                // añadimos postView
                 homeView.postsView.renderPosts()
 
                 // show home

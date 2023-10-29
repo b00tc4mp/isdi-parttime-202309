@@ -2,15 +2,19 @@ class HomeView extends Component {
     constructor() {
         super(document.getElementById('home-view'))
 
+        // añadimos el método que pusimos en component
         this.hide()
 
         this.logoutButton = this.container.querySelector('#logout-button')
 
         this.logoutButton.onclick = function () {
+            // añadimos el método que pusimos en component
             this.hide()
+            // añadimos el método que pusimos en component
             this.profileView.hide()
             this.newPostView.style.display = 'none'
             this.postsView.style.display = ''
+            // añadimos el método que pusimos en component
             loginView.show()
 
             logic.logoutUser()
@@ -23,6 +27,7 @@ class HomeView extends Component {
         this.homeLink.onclick = function (event) {
             event.preventDefault()
 
+            // añadimos el método que pusimos en component
             this.profileView.hide()
             this.newPostView.style.display = 'none'
             this.postsView.style.display = ''
@@ -38,6 +43,7 @@ class HomeView extends Component {
 
             this.newPostView.style.display = 'none'
             this.postsView.style.display = 'none'
+            // añadimos el método que pusimos en component
             this.profileView.show()
         }.bind(this)
 
@@ -49,6 +55,7 @@ class HomeView extends Component {
         this.newPostButton = this.container.querySelector('#new-post-button')
 
         this.newPostButton.onclick = function () {
+            // añadimos el método que pusimos en component
             this.profileView.hide()
             this.postsView.style.display = ''
             this.newPostView.style.display = ''

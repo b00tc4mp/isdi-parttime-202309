@@ -2,8 +2,10 @@ class NewPostView extends Component {
     constructor() {
         super(document.getElementById('new-post-view'))
 
+        // que inicialmente aparezca apagado 
         this.hide()
 
+        // dentro del contenedor del NewPostView, buscamos el formulario
         this.newPostForm = this.container.querySelector('#new-post-form')
 
         this.cancelNewPostButton = this.newPostForm.querySelector('#cancel-new-post-button')
@@ -29,10 +31,12 @@ class NewPostView extends Component {
 
                 this.newPostForm.reset()
 
+                // apagamos el panel de NewPost
                 this.hide()
 
                 // re-render posts
 
+                // Aquí hacemos que se refresque la home una vez que publiquemos post
                 homeView.postsView.renderPosts()
             } catch (error) {
                 alert(error.message)

@@ -8,6 +8,7 @@ class HomeView extends Component {
 
         this.logoutButton.onclick = function () {
             this.container.style.display = 'none'
+            // añadimos container
             this.profileView.container.style.display = 'none'
             this.newPostView.style.display = 'none'
             this.postsView.style.display = ''
@@ -16,6 +17,7 @@ class HomeView extends Component {
             logic.logoutUser()
         }.bind(this)
 
+        // ponemos ProfileView como propiedad de home, es un componente de home
         this.profileView = new ProfileView
 
         this.homeLink = this.container.querySelector('#home-link')
@@ -23,6 +25,7 @@ class HomeView extends Component {
         this.homeLink.onclick = function (event) {
             event.preventDefault()
 
+            // añadimos container
             this.profileView.container.style.display = 'none'
             this.newPostView.style.display = 'none'
             this.postsView.style.display = ''
@@ -30,6 +33,7 @@ class HomeView extends Component {
 
         // profile
 
+        // añadimos container
         this.profileView.container.style.display = 'none'
 
         this.profileLink = this.container.querySelector('#profile-link')
@@ -39,6 +43,7 @@ class HomeView extends Component {
 
             this.newPostView.style.display = 'none'
             this.postsView.style.display = 'none'
+            // añadimos container
             this.profileView.container.style.display = ''
         }.bind(this)
 
@@ -50,6 +55,7 @@ class HomeView extends Component {
         this.newPostButton = this.container.querySelector('#new-post-button')
 
         this.newPostButton.onclick = function () {
+            // añadimos container
             this.profileView.container.style.display = 'none'
             this.postsView.style.display = ''
             this.newPostView.style.display = ''
