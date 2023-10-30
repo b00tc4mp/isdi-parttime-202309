@@ -1,6 +1,6 @@
-class RegisterView {
+class RegisterView extends Component {
     constructor() {
-        this.container = document.getElementById('register-view')
+        super(document.getElementById('register-view'))
 
         this.container.style.display = 'none'
 

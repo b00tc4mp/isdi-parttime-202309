@@ -1,6 +1,6 @@
-class LoginView {
+class LoginView extends Component {
     constructor() {
-        this.container = document.getElementById('login-view')
+        super(document.getElementById('login-view'))
 
         this.loginRegisterLink = this.container.querySelector('a')
 
