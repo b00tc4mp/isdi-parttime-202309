@@ -18,16 +18,20 @@ db.posts = [
         author: 'peter@pan.com',
         image: 'https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg',
         text: 'my granpa!'
+        likes: []
     },
     {
         author: 'wendy@darling.com',
         image: 'https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg',
         text: 'my sweety!'
+        likes: { 'peter@pan.com'}
     },
     {
         author: 'peter@pan.com',
         image: 'https://m.media-amazon.com/images/I/71JZegDmwbL.jpg',
         text: 'i love ü baby'
+        likes: { 'wendy@darling.com'}
+
     }
 ]
 
@@ -68,16 +72,22 @@ function modifyUserPassword(email, newPassword) {
     user.password = newPassword
 }
 
+function clonePost(post) {
+    var postCopy = {}
+
+    postCopy.author = post.author
+    postCopy.image = post.image
+    postCopy.text = post.text
+
+    const likes = post.likes.map(email => email)
+
+    postCopy.likes = likes
+
+    return postCopy
+}
+
 function getPosts() {
-    return db.posts.map(function (post) {
-        const postCopy = {}
-
-        postCopy.author = post.author
-        postCopy.image = post.image
-        postCopy.text = post.text
-
-        return postCopy
-    })
+    return db.posts.map(clonePost)
 }
 
 function createPost(email, image, text) {
@@ -86,7 +96,20 @@ function createPost(email, image, text) {
     post.author = email
     post.image = image
     post.text = text
+    post.likes = []
 
     db.posts.push(post)
+}
 
+function findPpostByIndex(index) {
+    var post = db.posts[index]
+
+    if (post)
+        return clonePost(post)
+
+    return null
+}
+
+function updatePost(index, post) {
+    db.posts[index] = clonePost(post)
 }

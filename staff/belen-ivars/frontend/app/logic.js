@@ -89,4 +89,19 @@ class Logic {
 
         createPost(this.loggedInEmail, image, text)
     }
+
+    toggleLikePost(postIndex) {
+        validateNumber(postIndex)
+
+        const post = findPostByIndex(postIndex)
+
+        const likeIndex = post.likes.indexOf(this.loggedInEmail)
+
+        if (likeIndex < 0)
+            post.likes.push(this.loggedInEmail)
+        else
+            post.likes.splice(likeIndex, 1)
+
+        updatePost(postIndex, post)
+    }
 }

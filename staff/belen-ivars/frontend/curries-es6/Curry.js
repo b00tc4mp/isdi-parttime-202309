@@ -30,8 +30,11 @@ class Curry {
 		}
 		return this.length
 	}
+	pop() {
+		if (!this.length) return
 
-
-
-
+		const last = this[this.length - 1]
+		delete this[--this.length]
+		return last
+	}
 }

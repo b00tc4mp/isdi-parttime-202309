@@ -37,8 +37,6 @@ class NewPostView extends Component {
 			} catch (error) {
 				alert(error.message)
 			}
-
 		}.bind(this)
-
 	}
 }
