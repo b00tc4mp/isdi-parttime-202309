@@ -10,21 +10,36 @@ class PostsView extends Component{
         try {
             const posts = logic.retrievePosts()
     
-            posts.toReversed().forEach(function (post) {
+            posts.forEachReverse(function (post, index) {
                 const article = document.createElement('article')    
                 article.setAttribute('class', 'post')   
         
-                const h2 = document.createElement('h2')
-                h2.innerText = post.author                         
+                const tittle = document.createElement('h2')
+                tittle.innerText = post.author                         
         
-                const img = document.createElement('img')
-                img.setAttribute('class', 'post-img')
-                img.src = post.image                               
+                const imgage = document.createElement('img')
+                imgage.setAttribute('class', 'post-img')
+                imgage.src = post.image                               
         
-                const p = document.createElement('p')
-                p.innerText = post.text
+                const text = document.createElement('p')
+                text.innerText = post.text
+
+                const likeButton = document.createElement('button')
+                likeButton.innerText = `${post.likes.includes(logic.loggedInEmail) ? '❤️' : '🤍'} ${post.likes.length ? `(${post.likes.length})` : ''}`
         
-                article.append(h2, img, p)                         
+                likeButton.onclick = function(event) {
+                    event.preventDefault()
+
+                    try {
+                        logic.toggleLikePost(index)
+
+                        this.renderPosts()
+                    } catch(error) {
+                        alert(error.message)
+                    }
+                }.bind(this)
+
+                article.append(tittle, imgage, text, likeButton)                         
         
                 this.container.append(article)
                 
