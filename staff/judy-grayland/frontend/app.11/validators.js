@@ -3,7 +3,3 @@ function validateText(text, explain) {
     throw new TypeError(explain + ' is not a string')
   if (!text.trim().length) throw new Error(explain + ' is empty')
 }
-
-function validateNumber(number, explain) {
-  if(typeof number !== 'number') throw new TypeError(`${explain} is not a number`)
-}
