@@ -1,6 +1,6 @@
 // HOME VIEW
 
-class HomeView extends Component{
+class HomeView extends Component {
     constructor() {
         super(document.getElementById('home')) // Contructor "Component" => this.container
 
@@ -11,6 +11,8 @@ class HomeView extends Component{
         
         this.homeLink.onclick = function (event) {
             event.preventDefault()
+
+            this.postsView.renderPosts()
         
             this.postsView.show()
             this.profileView.hide()

@@ -1,5 +1,4 @@
-// REGISTER LOGIC
-
+// CLASS - LOGIC
 
 class Logic {
     constructor() {
@@ -12,20 +11,25 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
     
-        var user = findUserByEmail(email)
+        const index = findUserIndexByEmail(email)
     
-        if (user)
+        if (index > -1) 
             throw new Error('user already exists')
     
         createUser(name, email, password)
     }
 
-    // LOGIN & AUTHENTICATE
+    // LOGIN & AUTHENTICATE USER
     loginUser(email, password) {
         validateText(email, 'email')
         validateText(password, 'password')
+
+        const index = findUserIndexByEmail(email)
+
+        if (index < 0) 
+            throw new Error('wrong credentials')
     
-        var user = findUserByEmail(email)
+        const user = findUserByIndex(index)
     
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -35,21 +39,25 @@ class Logic {
     
     // LOGIN LOGIC
     retrieveUser() {
-        var user = findUserByEmail(this.loggedInEmail)
-    
-        if (!user)
+        const index = findUserIndexByEmail(this.loggedInEmail)
+
+        if (index < 0) 
             throw new Error('user not found')
+    
+        const user = findUserByIndex(index)
     
         return user
     }
     
-    // FUNCION COMPROBAR NEW EMAIL
+    // CHECK CHANGE EMAIL
     changeUserEmail(newEmail, confirmNewEmail, password) {
         validateText(newEmail, 'new email')
         validateText(confirmNewEmail, 'new email confirm')
         validateText(password, 'new email')
+
+        const index = findUserIndexByEmail(this.loggedInEmail)
     
-        var user = findUserByEmail(this.loggedInEmail)
+        const user = findUserByIndex(index)
     
         if (!user || user.password !== password) {
             throw new Error('wrong credentials')
@@ -59,20 +67,33 @@ class Logic {
             throw new Error('New email and your confirm doesnt match each other')
         }
     
-        modifyUserEmail(this.loggedInEmail, newEmail)
+        // modifyUserEmail(this.loggedInEmail, newEmail)
+        user.email = newEmail
 
-        // PREGUNTAR A MANU (?) Ya tenemos modifyUserEmail!
+        updateUser(index, user)
+
+        const posts = getPosts()
+
+        posts.forEach(post => {
+            if (post.author === this.loggedInEmail) {
+                post.author = newEmail
+
+                updatePost(index, post)
+            }
+        })
 
         this.loggedInEmail = newEmail
     }
     
-    // FUNCIÓN COMPROBAR NEW PASSWORD
+    // CHECK CHANGE PASSWORD
     changeUserPassword(password, newPassword, againNewPassword) {
         validateText(password, 'password')
         validateText(newPassword, 'new password')
         validateText(againNewPassword, 'the repeat password')
+
+        const index = findUserIndexByEmail(this.loggedInEmail)
     
-        var user = findUserByEmail(this.loggedInEmail)
+        const user = findUserByIndex(index)
     
         if (!user || user.password !== password) {
             throw new Error('wrong credentials')
@@ -81,19 +102,25 @@ class Logic {
             throw new Error('New pass and his confirmation are not correct. Try again') 
         }
     
-        modifyUserPassword(this.loggedInEmail, newPassword)
+        // modifyUserPassword(this.loggedInEmail, newPassword)
+        user.password = newPassword
+        
+        updateUser(index, user)
     }
     
+    // RETRIEVE POSTS
     retrievePosts() {
-        var user = findUserByEmail(this.loggedInEmail)
+        const index = findUserIndexByEmail(this.loggedInEmail)
+
+        if (index < 0) 
+            throw new Error('user not found')
     
-        if(!user) {
-            throw new Error('User not found!')
-        }
+        const user = findUserByIndex(index)
     
         return getPosts()
     }
     
+    // PUBLISH ALL POSTS
     publishPost(image, text) {
         validateText(image, 'image')
         validateText(text, 'text')
@@ -101,6 +128,7 @@ class Logic {
         createPost(this.loggedInEmail, image, text)
     }
 
+    // UPDATE ALL POSTS
     toggleLikePost(postIndex) {
         validateNumber(postIndex)
 
@@ -117,6 +145,7 @@ class Logic {
         updatePost(postIndex, post)
     }
 
+    // LOGOUT USER
     logoutUser() {
         this.loggedInEmail = null
     }
