@@ -38,9 +38,9 @@ class PostsView extends Component {
           }
 
           const likeButton = document.createElement("button");
-          likeButton.innerText = `${post.isFav ? "❤️" : "🤍"} ${
-            post.likes.length
-          } likes`;
+          likeButton.innerText = `${
+            post.likes.includes(logic.loggedInEmail) ? "❤️" : "🤍"
+          } ${post.likes.length ? `(${post.likes.length})` : ""}`;
 
           likeButton.onclick = function () {
             try {

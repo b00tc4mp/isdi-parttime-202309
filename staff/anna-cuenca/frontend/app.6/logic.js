@@ -7,9 +7,9 @@ class Logic {
     validateText(email, "email");
     validateText(password, "password");
 
-    const user = findUserIndexByEmail(email);
+    const user = findUserByEmail(email);
 
-    if (user > -1) throw new Error("user already exists"); //mirar por qué
+    if (user) throw new Error("user already exists");
 
     createUser(name, email, password);
   }
@@ -18,11 +18,7 @@ class Logic {
     validateText(email, "email");
     validateText(password, "password");
 
-    const index = findUserIndexByEmail(email);
-
-    if (index < 0) throw new Error("wrong credentials");
-
-    const user = findUserByIndex(index);
+    const user = findUserByEmail(email);
 
     if (!user || user.password !== password)
       throw new Error("wrong credentials");
@@ -35,9 +31,8 @@ class Logic {
   }
 
   retrieveUser() {
-    const index = findUserIndexByEmail(this.loggedInEmail);
-    if (index < 0) throw new Error("user not found");
-    const user = findUserByIndex(index);
+    const user = findUserByEmail(this.loggedInEmail);
+    if (!user) throw new Error("user not found");
     return user;
   }
 
@@ -46,8 +41,7 @@ class Logic {
     validateText(newEmailConfirm, "new email confirm");
     validateText(password, "password");
 
-    const index = findUserIndexByEmail(this.loggedInEmail);
-    const user = findUserByIndex(index);
+    const user = findUserByEmail(this.loggedInEmail);
 
     if (!user || user.password !== password)
       throw new Error("wrong credentials");
@@ -55,20 +49,7 @@ class Logic {
     if (newEmail != newEmailConfirm)
       throw new Error("new email and its confirmation do not match");
 
-    user.email = newEmail;
-
-    updateUser(index, user);
-
-    const posts = getPosts();
-
-    posts.forEach((post, index) => {
-      if (post.author === this.loggedInEmail) {
-        post.author = newEmail;
-
-        upddatePost(index, post);
-      }
-    });
-    this.loggedInEmail = newEmail;
+    modifyUserEmail(this.loggedInEmail, newEmail);
   }
 
   changeUserPassword(newPassword, newPasswordConfirm, password) {
@@ -76,9 +57,7 @@ class Logic {
     validateText(newPasswordConfirm, "new password confirm");
     validateText(password, "password");
 
-    const index = findUserByIndex(this.loggedInEmail);
-
-    const user = findUserByIndex(index);
+    const user = findUserByEmail(this.loggedInEmail);
 
     if (!user || user.password !== password)
       throw new Error("wrong credentials");
@@ -86,24 +65,14 @@ class Logic {
     if (newPassword !== newPasswordConfirm)
       throw new Error("new password and its confirmation do not match");
 
-    user.password = newPassword;
-    updateUser(index, user);
+    moddifyUserPassword(this.loggedInEmail, newPassword);
   }
 
   retrievePosts() {
-    const index = findUserIndexByEmail(this.loggedInEmail);
+    const user = findUserByEmail(this.loggedInEmail);
 
-    if (index < 0) throw new Error("wrong credentials");
-
-    const user = findUserByIndex(index);
-
-    const posts = getPosts();
-
-    posts.forEach(
-      (post) => (post.isFav = post.likes.includes(this.loggedInEmail))
-    );
-
-    return posts;
+    if (!user) throw new Error("user not found");
+    return getPosts();
   }
 
   //publishPost(image, text, likes) {

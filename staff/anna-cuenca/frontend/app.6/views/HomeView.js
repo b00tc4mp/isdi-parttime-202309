@@ -22,7 +22,6 @@ class HomeView extends Component {
 
       this.profileView.hide();
       this.newPostsView.hide();
-      this.postsView.renderPosts();
       this.postsView.show();
     }.bind(this);
 
