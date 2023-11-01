@@ -8,9 +8,9 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const index = findUserIndexByEmail(email)
+        const user = findUserByEmail(email)
 
-        if (index > -1)
+        if (user)
             throw new Error('user already exists')
 
         createUser(name, email, password)
@@ -20,13 +20,7 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        // Encontramos el índice del usuario en la base de datos que coincide con el 'email' proporcionado
-        const index = findUserIndexByEmail(email)
-
-        if (index < 0)
-            throw new Error('wrong credentials')
-
-        const user = findUserByIndex(index)
+        const user = findUserByEmail(email)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -39,12 +33,10 @@ class Logic {
     }
 
     retrieveUser() {
-        const index = findUserIndexByEmail(this.loggedInEmail)
+        const user = findUserByEmail(this.loggedInEmail)
 
-        if (index < 0)
+        if (!user)
             throw new Error('user not found')
-
-        const user = findUserByIndex(index)
 
         return user
     }
@@ -54,9 +46,7 @@ class Logic {
         validateText(newEmailConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const index = findUserIndexByEmail(this.loggedInEmail)
-
-        const user = findUserByIndex(index)
+        const user = findUserByEmail(this.loggedInEmail)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -64,19 +54,7 @@ class Logic {
         if (newEmail !== newEmailConfirm)
             throw new Error('new email and its confirmation do not match')
 
-        user.email = newEmail
-
-        updateUser(index, user)
-
-        const posts = getPosts()
-
-        posts.forEach((post, index) => {
-            if (post.author === this.loggedInEmail) {
-                post.author = newEmail
-
-                updatePost(index, post)
-            }
-        })
+        modifyUserEmail(this.loggedInEmail, newEmail)
 
         this.loggedInEmail = newEmail
     }
@@ -86,9 +64,7 @@ class Logic {
         validateText(newPasswordConfirm, 'new password confirm')
         validateText(password, 'password')
 
-        const index = findUserIndexByEmail(this.loggedInEmail)
-
-        const user = findUserByIndex(index)
+        const user = findUserByEmail(this.loggedInEmail)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -96,34 +72,16 @@ class Logic {
         if (newPassword !== newPasswordConfirm)
             throw new Error('new password and its confirmation do not match')
 
-        user.password = newPassword
-
-        updateUser(index, user)
+        modifyUserPassword(this.loggedInEmail, newPassword)
     }
 
     retrievePosts() {
-        // Encontramos el índice del usuario actual por su dirección de correo electrónico
-        const index = findUserIndexByEmail(this.loggedInEmail)
+        const user = findUserByEmail(this.loggedInEmail)
 
-        // Si no se encuentra el usuario, lanzamos un error
-        if (index < 0)
-            throw new Error('wrong credentials')
+        if (!user)
+            throw new Error('user not found')
 
-        // Obtenemos el usuario correspondiente al índice encontrado
-        const user = findUserByIndex(index)
-
-        // Obtenemos una copia de todos los posts disponibles 
-        const posts = getPosts()
-
-        // para cada post, hacer un forEach
-        posts.forEach(post =>
-            // Asignamos a la propiedad 'isFav' de cada post si el usuario actual (this.loggedInEmail) ha dado 'me gusta' al post
-            post.isFav = post.likes.includes(this.loggedInEmail))
-        // Dentro del cuerpo de la función flecha, se está llevando a cabo una operación en cada elemento de la matriz post
-        // La propiedad isFav del objeto post se está actualizando con un valor booleano
-        // que indica si this.loggedInEmail (la dirección de correo electrónico del usuario actual) está incluida en la matriz likes del objeto post
-
-        return posts
+        return getPosts()
     }
 
     publishPost(image, text) {
@@ -133,18 +91,27 @@ class Logic {
         createPost(this.loggedInEmail, image, text)
     }
 
+    // creamos el toggleLike para los likes, para poner o quitar corazones
     toggleLikePost(postIndex) {
+        // lo primero de todo validamos que el postIndex es un número en validator
         validateNumber(postIndex)
 
+        // nos vamos a data para la buscar el post usando el index
+        // creamos una copia de seguridad
         const post = findPostByIndex(postIndex)
 
+        // si yo estoy dentro del array de likes
         const likeIndex = post.likes.indexOf(this.loggedInEmail)
 
+        // sino le ha dado like, si su email no estaba en la BD, (...) 
         if (likeIndex < 0)
+            // ¿?
             post.likes.push(this.loggedInEmail)
         else
+            // aprovecha el splice, para quitar un elemento de ese array
             post.likes.splice(likeIndex, 1)
 
+        // nos vamos a la BD para actualizar el post, que lo busque y lo actualice 
         updatePost(postIndex, post)
     }
-}
+} 
