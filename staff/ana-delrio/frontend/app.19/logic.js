@@ -20,6 +20,7 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
+        // Encontramos el índice del usuario en la base de datos que coincide con el 'email' proporcionado
         const index = findUserIndexByEmail(email)
 
         if (index < 0)
@@ -101,16 +102,26 @@ class Logic {
     }
 
     retrievePosts() {
+        // Encontramos el índice del usuario actual por su dirección de correo electrónico
         const index = findUserIndexByEmail(this.loggedInEmail)
 
+        // Si no se encuentra el usuario, lanzamos un error
         if (index < 0)
             throw new Error('wrong credentials')
 
+        // Obtenemos el usuario correspondiente al índice encontrado
         const user = findUserByIndex(index)
 
+        // Obtenemos una copia de todos los posts disponibles 
         const posts = getPosts()
 
-        posts.forEach(post => post.isFav = post.likes.includes(this.loggedInEmail))
+        // para cada post, hacer un forEach
+        posts.forEach(post =>
+            // Asignamos a la propiedad 'isFav' de cada post si el usuario actual (this.loggedInEmail) ha dado 'me gusta' al post
+            post.isFav = post.likes.includes(this.loggedInEmail))
+        // Dentro del cuerpo de la función flecha, se está llevando a cabo una operación en cada elemento de la matriz post
+        // La propiedad isFav del objeto post se está actualizando con un valor booleano
+        // que indica si this.loggedInEmail (la dirección de correo electrónico del usuario actual) está incluida en la matriz likes del objeto post
 
         return posts
     }
