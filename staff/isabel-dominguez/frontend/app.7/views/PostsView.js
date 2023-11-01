@@ -24,8 +24,7 @@ class PostsView extends Component {
                 text.innerText = post.text
 
                 const likeButton = document.createElement("button")
-                likeButton.innerText = `${post.isFav ? "❤️" : "🖤"} ${post.likes.length} likes`
-
+                likeButton.innerText = `${post.likes.includes(logic.loggedInEmail) ? "Like❤️" : "Like🖤"} ${post.likes.length ? `(${post.likes.length})` : ""}`
                 likeButton.onclick = function () {
                     try {
                         logic.toggleLikePost(index)

@@ -79,9 +79,9 @@ function clonePost(post) {
     postCopy.image = post.image
     postCopy.text = post.text
 
-    const likes = post.likes.map(email => email)
+    const likesCopy = post.likes.map(email => email)
 
-    postCopy.likes = likes
+    postCopy.likes = likesCopy
 
     return postCopy
 }
