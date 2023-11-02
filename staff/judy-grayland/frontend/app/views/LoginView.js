@@ -10,7 +10,7 @@ class LoginView extends Component {
       this.hide()
       this.loginForm.reset()
 
-      registerView.container.show()
+      registerView.show()
     }.bind(this)
 
     this.loginForm = this.container.querySelector('form')

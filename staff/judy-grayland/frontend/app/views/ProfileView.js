@@ -9,13 +9,9 @@ class ProfileView extends Component {
       this.changeEmailForm.onsubmit = function (event) {
         event.preventDefault()
 
-        const newEmailInput =
-            this.changeEmailForm.querySelector('#new-email-input')
-        const newEmailConfirmInput = this.changeEmailForm.querySelector(
-            '#new-email-confirm-input'
-        )
-        const passwordInput =
-            this.changeEmailForm.querySelector('#password-input')
+        const newEmailInput = this.changeEmailForm.querySelector('#new-email-input')
+        const newEmailConfirmInput = this.changeEmailForm.querySelector('#new-email-confirm-input')
+        const passwordInput = this.changeEmailForm.querySelector('#password-input')
 
         const newEmail = newEmailInput.value
         const newEmailConfirm = newEmailConfirmInput.value
@@ -30,37 +26,32 @@ class ProfileView extends Component {
         } catch (error) {
             alert(error.message)
         }
-      }.bind(this)
+    }.bind(this)
 
-      this.changePasswordForm = this.container.querySelector('#change-password-form')
+    this.changePasswordForm = this.container.querySelector('#change-password-form')
 
-      this.changePasswordForm.onsubmit = function (event) {
+    this.changePasswordForm.onsubmit = function (event) {
         event.preventDefault()
 
-        const passwordInput =
-          this.changePasswordForm.querySelector('#password-input')
-        const newPasswordInput = this.changePasswordForm.querySelector(
-          '#new-password-input'
-        )
-        const newPasswordConfirmInput = this.changePasswordForm.querySelector(
-          '#new-password-confirm-input'
-        )
+        const passwordInput = this.changePasswordForm.querySelector('#password-input')
+        const newPasswordInput = this.changePasswordForm.querySelector('#new-password-input')
+        const newPasswordConfirmInput = this.changePasswordForm.querySelector('#new-password-confirm-input')
 
         const password = passwordInput.value
         const newPassword = newPasswordInput.value
         const newPasswordConfirm = newPasswordConfirmInput.value
 
         try {
-          logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
 
-          alert('Password changed correctly')
+            alert('Password changed correctly')
 
-          this.changePasswordForm.reset()
+            this.changePasswordForm.reset()
         } catch (error) {
-          alert(error.message)
+            alert(error.message)
         }
-      }.bind(this)
-  }
+        }.bind(this)
+    }
 }
 
 

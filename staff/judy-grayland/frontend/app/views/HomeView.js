@@ -16,7 +16,6 @@ class HomeView extends Component {
       logic.logoutUser()
     }.bind(this)
 
-    
     this.profileView = new ProfileView
     
     this.homeLink = this.container.querySelector('#home-link')
@@ -31,6 +30,7 @@ class HomeView extends Component {
 
     // profile
 
+    
     this.profileLink = this.container.querySelector('#profile-link')
 
     this.profileLink.onclick = function (event) {

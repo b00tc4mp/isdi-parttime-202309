@@ -2,14 +2,11 @@ class NewPostView extends Component {
  constructor() {
     super(document.getElementById('new-post-view'))
 
-
     this.hide()
 
     this.newPostForm = this.container.querySelector('#new-post-form')
 
-    this.cancelNewPostButton = this.container.querySelector(
-      '#cancel-new-post-button'
-    )
+    this.cancelNewPostButton = this.container.querySelector('#cancel-new-post-button')
 
     this.cancelNewPostButton.onclick = function (event) {
       event.preventDefault()
@@ -41,6 +38,4 @@ class NewPostView extends Component {
       }
     }.bind(this)
  }
-
-
 }
