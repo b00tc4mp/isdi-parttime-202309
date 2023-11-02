@@ -1,6 +1,4 @@
 function App() {
-    console.log('App')
-
     const viewState = React.useState('login')
     // [<current-state>, <setter-for-next-state>]
 
@@ -24,6 +22,6 @@ function App() {
     return <>
         {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
         {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-        {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
+        {view === 'home' && <Home />}
     </>
 }
