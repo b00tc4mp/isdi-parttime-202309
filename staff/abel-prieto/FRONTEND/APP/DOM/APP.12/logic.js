@@ -115,7 +115,7 @@ class Logic {
         if (index < 0) 
             throw new Error('user not found')
     
-        const user = findUserByIndex(index)
+        // const user = findUserByIndex(index)
     
         return getPosts()
     }
