@@ -4,7 +4,7 @@ const logic = new Logic
 // REACT 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-root.render(<App tittle="APP React v0.4"/>) 
+root.render(<App tittle="APP React v0.5"/>) 
 
 
 // - - - - - - - - - - - - NOTAS - - - - - - - - - - - - 
