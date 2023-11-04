@@ -1,3 +1,4 @@
+// la clase que modeliza lo que es un usuario
 class User {
     constructor(name, email, password) {
         this.name = name

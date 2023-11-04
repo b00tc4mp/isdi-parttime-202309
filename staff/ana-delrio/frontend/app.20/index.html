@@ -10,11 +10,15 @@
 </head>
 
 <body>
+    <!-- Aquí dentro react nos va a montar todos los elementos HTML-->
+    <!-- es un SPA -->
     <div id="root"></div>
 
+    <!-- Todas las librerias están en link públicos -->
+    <!-- Este sería como el virtual DOM de react-->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- El que me conecta el el virtual de react con el Dom de la página real -->
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script src="polyfills.js"></script>
 
@@ -23,13 +27,10 @@
     <script src="data/managers.js"></script>
 
     <script src="validators.js"></script>
+    <!-- Esto si que hay que dejarlo -->
     <script src="logic.js"></script>
 
-    <script src="views/Login.jsx" type="text/babel"></script>
-    <script src="views/Register.jsx" type="text/babel"></script>
-    <script src="views/Home.jsx" type="text/babel"></script>
-    <script src="App.jsx" type="text/babel"></script>
-    <script src="main.jsx" type="text/babel"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
