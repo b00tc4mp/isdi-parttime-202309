@@ -38,6 +38,7 @@ class Logic {
     const index = findUserIndexByEmail(this.loggedInEmail);
     if (index < 0) throw new Error("user not found");
     const user = findUserByIndex(index);
+    delete user.password; //esto lo hacemos por seguridad
     return user;
   }
 

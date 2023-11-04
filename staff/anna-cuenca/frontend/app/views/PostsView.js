@@ -26,7 +26,7 @@ class PostsView extends Component {
 
           const checkLoggedUser = logic.retrieveUser();
 
-          let deleteButton = ""; //para que no me salga Undefined
+          //let deleteButton = ""; //para que no me salga Undefined
 
           if (checkLoggedUser.email === post.author) {
             //tengo que poner this?

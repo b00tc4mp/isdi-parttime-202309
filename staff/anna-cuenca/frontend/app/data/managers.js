@@ -73,6 +73,10 @@ function updatePost(index, post) {
   db.posts[index] = clonePost(post);
 }
 
+window.updatePost = updatePost;
+//window.findPostByIndex = findPostByIndex;
+//window.findUserIndexByEmail = findUserIndexByEmail;
+
 /////
 /*
 function modifyUserEmail(email, newEmail) {
