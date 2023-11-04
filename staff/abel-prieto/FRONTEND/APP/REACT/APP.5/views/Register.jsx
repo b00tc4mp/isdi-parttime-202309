@@ -47,7 +47,7 @@ function Register(props) {
         <label htmlFor="password">Password</label>
         <input id="password" type="password" />
 
-        <button id="register_button">Register</button>
+        <button className="button-submit">Register</button>
     </form>
 
     <a href="" onClick={handleLoginClick}>Login</a>

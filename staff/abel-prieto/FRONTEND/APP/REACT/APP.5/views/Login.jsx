@@ -42,9 +42,10 @@ function Login(props) {
         <label htmlFor ="password">Password</label>
         <input id="password" type="password" />
 
-        <button id="login_button">Login</button>
+        <button className="button-submit">Login</button>
     </form>
 
-    <a href="" onClick={(handleRegisterClick)}>Register</a>
+    <p>Don't have an account yet?</p>
+    <a href="" onClick={(handleRegisterClick)}>Create one here!</a>
 </div>
 }

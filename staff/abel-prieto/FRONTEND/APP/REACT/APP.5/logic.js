@@ -45,6 +45,8 @@ class Logic {
             throw new Error('user not found')
     
         const user = findUserByIndex(index)
+
+        delete user.password
     
         return user
     }
