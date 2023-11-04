@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
-/* como lo quiero usar en todos mis compos, pongo lo siguiente */
-* {
-    font-family: Inter;
-}
+/* * {
+    background: red;
+    border: 1px solid white;
+} */
 
 .home-header {
     display: flex;

@@ -45,9 +45,6 @@ class Logic {
 
         const user = findUserByIndex(index)
 
-        // añadimos esto porque no nos interesa que nos devuelva la contraseña 
-        delete user.password
-
         return user
     }
 
