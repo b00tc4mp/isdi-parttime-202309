@@ -106,7 +106,7 @@ class Logic {
         const index = findUserIndexByEmail(this.loggedInEmail)
 
         if (index < 0)
-            throw new Error('wrong credentials')
+            throw new Error("wrong credentials")
 
         const user = findUserByIndex(index)
 
