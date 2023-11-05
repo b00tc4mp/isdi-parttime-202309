@@ -32,6 +32,7 @@ body {
     background-image: none;
     color: white;
     border-radius: 0.25rem;
+    cursor: pointer; 
 }
 
 .home-header {

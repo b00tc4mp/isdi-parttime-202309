@@ -131,10 +131,10 @@ class Logic {
     }
 
     // UPDATE ALL POSTS
-    toggleLikePost(postIndex) {
-        validateNumber(postIndex)
+    toggleLikePost(index) {
+        validateNumber(index)
 
-        const post = findPostByIndex(postIndex)
+        const post = findPostByIndex(index)
 
         const likeIndex = post.likes.indexOf(this.loggedInEmail)
 
@@ -144,7 +144,7 @@ class Logic {
             post.likes.splice(likeIndex, 1)
         }
 
-        updatePost(postIndex, post)
+        updatePost(index, post)
     }
 
     // LOGOUT USER

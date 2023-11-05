@@ -21,6 +21,7 @@ function Home(props) {
         alert(error.message)
     }
 
+    // LOGOUT
     function handleLogoutClick() {
         logic.loggedInEmail = null
 
@@ -28,6 +29,15 @@ function Home(props) {
         // Mediante 'props' nos traemos de APP la función de cambiar la vista a 'LOGIN'
     }
 
+    // SETTINGS BUTTON
+    function handleProfileClick(event) {
+        event.preventDefault()
+    
+        setView('profile')
+        // Cambiamos la vista a 'profile'
+    }
+
+    // SETTINGS - CHANGE EMAIL
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
 
@@ -48,6 +58,7 @@ function Home(props) {
         }
     }
 
+    // SETTINGS - CHANGE PASSWORD
     function handleChangePasswordSubmit(event) {
         event.preventDefault()
 
@@ -68,13 +79,7 @@ function Home(props) {
         }
     }
 
-    function handleProfileClick(event) {
-        event.preventDefault()
-
-        setView('profile')
-        // Cambiamos la vista a 'profile'
-    }
-
+    // HOME BUTTON
     function handleHomeClick(event) {
         event.preventDefault()
 
@@ -82,11 +87,13 @@ function Home(props) {
         // Cambiamos la vista a 'null' - home
     }
 
+    // NEW POST BUTTON
     function handleNewPostClick() {
         setView('new-post')
         // Cambiamos la vista a 'new-post'
     }
 
+    // CANCEL NEW POST
     function handleCancelNewPostClick(event) {
         event.preventDefault()
 
@@ -94,6 +101,7 @@ function Home(props) {
         // Cambiamos la vista a 'null' - home
     }
 
+    // CREATE NEW POST
     function handleNewPostSubmit(event) {
         event.preventDefault()
 
@@ -112,16 +120,19 @@ function Home(props) {
         }
     }
 
+    // LIKE BUTTON
     function handleLikeClick(index) {
+        const reverseIndex = db.posts.length - 1 - index
+
         try {
-            const postIndex = findPostByIndex(index)
+            logic.toggleLikePost(reverseIndex)
 
-            logic.toggleLikePost(postIndex)
-
-            renderPosts()
         } catch(error) {
             alert(error.message)
         }
+
+        // setView('null') Solo actualiza una vez
+        root.render(<App />)
     }
 
     // TEMPLATE
@@ -190,7 +201,7 @@ function Home(props) {
             <h2>{post.author}</h2>
             <img className='post-img' src={post.image}/>
             <p>{post.text}</p> 
-            <button className='button-submit' onClick={(post) => handleLikeClick(index)}>{post.likes.length ? '❤️' : '🤍'} {post.likes.length} likes</button>
+            <button className='button-submit' onClick={() => {handleLikeClick(index)}}>{post.likes.length ? '❤️' : '🤍'} {post.likes.length} likes</button>
         </article>)}
     </div>}
 </div>}

@@ -15,7 +15,7 @@ db.posts = [
         'peter@pan.com',
         'https://www.semana.com/resizer/U2dYNVlzGiHK5T-EV_jhACYU-Ow=/1920x1080/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/JO53UT7DKVGVBNXQ5F37YJJZ3A.jpg',
         'my granpa!',
-        [],
+        ['abelpriem94@hotmail.com'],
     ),
     new Post (
         'wendy@darling.com',
