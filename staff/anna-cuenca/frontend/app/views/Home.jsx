@@ -115,6 +115,57 @@ function handleLikeClick(event, index){
   }
 }
 
+
+function handleChangeEmailSubmit (event) {
+
+  event.preventDefault()
+
+      const newEmailInput = event.target.querySelector('#new-email-input')
+      const confirmNewEmailInput = event.target.querySelector('#new-email-confirm-input')
+      const passwordInput = event.target.querySelector('#password-input')
+
+      const newEmail = newEmailInput.value
+      const confirmNewEmail = confirmNewEmailInput.value
+      const password = passwordInput.value
+
+      try {
+
+        logic.changeUserEmail(newEmail, confirmNewEmail, password)
+        //props.onSuccess()
+
+        //lo mismo tengo que rendear
+        setView(null)
+        
+    } catch (error) {
+        alert(error.message)
+    }
+
+}
+
+
+function handleChangePasswordSubmit (event){
+  const passwordInput = event.target.querySelector('#password-input')
+  const newPasswordInput = event.target.querySelector('#new-password-input')
+  const newPasswordConfirmInput = event.target.querySelector('#new-password-confirm-input')
+
+  const password = passwordInput.value
+  const newPassword = newPasswordInput.value
+  const newPasswordConfirm = newPasswordConfirmInput.value
+
+  try {
+
+    logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+    //props.onSuccess()
+
+    //lo mismo tengo que rendear
+    setView(null)
+    
+} catch (error) {
+    alert(error.message)
+}
+
+}
+
 return   <div>
   
 <header className="home-header">
@@ -131,7 +182,7 @@ return   <div>
 
     <h2>Update e-mail</h2>
 
-    <form class="form">
+    <form className="form"  onSubmit={handleChangeEmailSubmit}>
         <label htmlFor="new-email-input">New e-mail</label>
         <input id="new-email-input" type="email"/>
 
@@ -144,9 +195,11 @@ return   <div>
         <button type="submit">Update e-mail</button>
     </form>
 
+   
+
     <h2>Update password</h2>
 
-    <form className="form">
+    <form className="form" onSubmit={handleChangePasswordSubmit}>
 
         <label htmlFor="password-input">Current password</label>
         <input type="password" id="password-input"/>

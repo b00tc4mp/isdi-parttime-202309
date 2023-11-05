@@ -74,6 +74,7 @@ function updatePost(index, post) {
 }
 
 window.updatePost = updatePost;
+window.updateUser = updateUser;
 //window.findPostByIndex = findPostByIndex;
 //window.findUserIndexByEmail = findUserIndexByEmail;
 

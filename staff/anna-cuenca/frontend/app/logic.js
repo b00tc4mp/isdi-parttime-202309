@@ -66,7 +66,7 @@ class Logic {
       if (post.author === this.loggedInEmail) {
         post.author = newEmail;
 
-        upddatePost(index, post);
+        updatePost(index, post);
       }
     });
     this.loggedInEmail = newEmail;
@@ -77,7 +77,7 @@ class Logic {
     validateText(newPasswordConfirm, "new password confirm");
     validateText(password, "password");
 
-    const index = findUserByIndex(this.loggedInEmail);
+    const index = findUserIndexByEmail(this.loggedInEmail);
 
     const user = findUserByIndex(index);
 
