@@ -101,8 +101,7 @@ class Logic {
     const posts = getPosts();
 
     posts.forEach(
-      (post) => (post.isFav = post.likes.includes(this.loggedInEmail)),
-      (post) => (post.isAuthor = post.author.includes(this.loggedInEmail))
+      (post) => (post.isFav = post.likes.includes(this.loggedInEmail))
     );
 
     return posts;

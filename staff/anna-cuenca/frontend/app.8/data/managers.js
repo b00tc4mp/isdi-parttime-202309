@@ -40,8 +40,7 @@ function clonePost(post) {
     post.author,
     post.image,
     post.text,
-    post.likes.map((email) => email),
-    post.delete
+    post.likes.map((email) => email)
   );
 }
 
@@ -49,8 +48,8 @@ function getPosts() {
   return db.posts.map(clonePost);
 }
 
-function createPost(email, image, text, deleteButton) {
-  const post = new Post(email, image, text, [], deleteButton);
+function createPost(email, image, text) {
+  const post = new Post(email, image, text, []);
 
   db.posts.push(post);
 }

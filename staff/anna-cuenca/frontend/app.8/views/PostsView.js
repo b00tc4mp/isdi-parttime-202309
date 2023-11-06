@@ -26,15 +26,15 @@ class PostsView extends Component {
 
           const checkLoggedUser = logic.retrieveUser();
 
-          let deleteButton = "";
+          let deleteButton = document.createElement("button");
 
           if (checkLoggedUser.email === post.author) {
             //tengo que poner this?
             deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete";
-            //deleteButton.addEventListener("click", function () {
-            //article.remove();
-            //});
+            deleteButton.addEventListener("click", function () {
+              article.remove();
+            });
           }
 
           const likeButton = document.createElement("button");
@@ -50,10 +50,6 @@ class PostsView extends Component {
               alert(error.message);
             }
           }.bind(this);
-
-          deleteButton.onclick = function () {
-            article.remove();
-          };
 
           article.append(title, image, text, deleteButton, likeButton);
 

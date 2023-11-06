@@ -169,7 +169,7 @@ function handleChangePasswordSubmit (event){
 
 }
 
-function handleDeletePostClick (event, index){
+function handleDeletePostClick (event){
   event.preventDefault()
 
 
@@ -256,7 +256,7 @@ return   <div>
     <p>{post.text}</p>
 
     <button onClick={(event) => handleLikeClick(event, index)}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-    <button onClick={(event) => handleDeletePostClick(event, index)}>{post.isAuthor ? 'Delete' : ''} </button>
+    
     </article>)}
     </div>}
     </div>
