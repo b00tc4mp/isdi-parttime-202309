@@ -5,10 +5,6 @@ function Home(props) {
     const view = viewState[0]
     const setView = viewState[1]
 
-    const timestampState = React.useState(null)
-    //const timestamp = timestampState[0]
-    const setTimestamp = timestampState[1]
-
     function handleLogoutClick() {
         logic.logoutUser()
 
@@ -119,16 +115,6 @@ function Home(props) {
         }
     }
 
-    function handleToggleLikePostClick(postId) {
-        try {
-            logic.toggleLikePost(postId)
-
-            setTimestamp(Date.now())
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
@@ -184,20 +170,14 @@ function Home(props) {
                 <button onClick={handleCancelNewPostClick}>Cancel</button>
             </form>
         </div>}
-        {view !== 'profile' && posts !== null && <div>
-            {posts.map((post) => {
-                function handleToggleLikeButtonClick() {
-                    handleToggleLikePostClick(post.id)
-                }
 
-                return <article key={post.id} className="post">
-                    <h2>{post.author}</h2>
-                    <img className="post-image" src={post.image} />
-                    <p>{post.text}</p>
-                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                </article>
-            })}
-
+        {view !== "profile" && posts !== null && <div>
+            {posts.map((post, index) => <article key={index} className="post">
+                <h2>{post.author}</h2>
+                <img className="post-image" src={post.image} />
+                <p>{post.text}</p>
+                <button>{post.isFav ? "❤️" : "🤍"} {post.likes.length} likes</button>
+            </article>)}
         </div>}
     </div>
 }
