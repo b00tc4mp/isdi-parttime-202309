@@ -88,6 +88,11 @@ function updatePost(post) {
     db.posts[index] = clonePost(post)
 }
 
+function deletePostById(id) {
+    const index = findPostIndexById(id)
+    db.posts.splice(index, 1)
+}
+
 /*
 TODO collection abstraction
 class Collection {

@@ -92,7 +92,10 @@ class Logic {
 
             const user = findUserById(post.author)
 
-            post.author = user.name
+            post.author = {
+                name: user.name,
+                id: user.id
+            }
         })
 
         return posts
@@ -122,4 +125,16 @@ class Logic {
 
         updatePost(post)
     }
+
+    deletePost(postId) {
+        validateText(postId, 'post id')
+
+        const post = findPostById(postId)
+
+        if (!post)
+            throw new Error('post not found')
+
+        deletePostById(post.id)
+    }
 }
+
