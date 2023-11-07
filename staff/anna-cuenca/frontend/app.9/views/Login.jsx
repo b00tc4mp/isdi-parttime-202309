@@ -1,6 +1,5 @@
 function Login(props) {
   console.log('Login')
-
   function handleSubmit(event) {
       event.preventDefault()
 
@@ -13,8 +12,14 @@ function Login(props) {
       // console.log(email, password)
       try {
           logic.loginUser(email, password)
+          //pruebo la lógica de logear al usuario y si funciona, no me saltará error e irá a la
+          // siguiente línea
 
-          props.onSuccess()
+          props.onSuccess() // creo que aquí se inicia lo que se pasa con onSuccess "onSuccess={handleHomeShow} "
+          // onSuccess es una propiedad personalizada que se pasa al componenete Login edsde su componente padre (App)
+          // las propiedades props son valores que se pasan de un componente paddre a un componente hijo
+
+          // de manera que cuando pase la lógica se ehjecutará {handleHomeShow} y se mostrará la página de inicio
       } catch (error) {
           alert(error.message)
       }
@@ -43,6 +48,8 @@ function Login(props) {
       <a href="" onClick={handleRegisterClick}>Register</a>
   </div>
 }
+
+
 
 
 

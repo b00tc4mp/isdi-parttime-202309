@@ -7,11 +7,15 @@ class User {
 }
 
 class Post {
-  constructor(id, author, image, text, likes) {
-    this.id = id;
+  constructor(author, image, text, likes, deleteBut) {
     this.author = author;
     this.image = image;
     this.text = text;
     this.likes = likes;
+    this.deleteBut = deleteBut;
+  }
+
+  deleteButton() {
+    this.container.style.display = "";
   }
 }

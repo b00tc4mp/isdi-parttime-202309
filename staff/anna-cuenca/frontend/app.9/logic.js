@@ -2,15 +2,14 @@ class Logic {
   constructor() {
     this.loggedInEmail = null;
   }
-
   registerUser(name, email, password) {
     validateText(name, "name");
     validateText(email, "email");
     validateText(password, "password");
 
-    const index = findUserIndexByEmail(email);
+    const user = findUserIndexByEmail(email);
 
-    if (index > -1) throw new Error("user already exists");
+    if (user > -1) throw new Error("user already exists"); //mirar por qué
 
     createUser(name, email, password);
   }
@@ -37,13 +36,9 @@ class Logic {
 
   retrieveUser() {
     const index = findUserIndexByEmail(this.loggedInEmail);
-
     if (index < 0) throw new Error("user not found");
-
     const user = findUserByIndex(index);
-
-    delete user.password;
-
+    delete user.password; //esto lo hacemos por seguridad
     return user;
   }
 
@@ -53,13 +48,12 @@ class Logic {
     validateText(password, "password");
 
     const index = findUserIndexByEmail(this.loggedInEmail);
-
     const user = findUserByIndex(index);
 
     if (!user || user.password !== password)
       throw new Error("wrong credentials");
 
-    if (newEmail !== newEmailConfirm)
+    if (newEmail != newEmailConfirm)
       throw new Error("new email and its confirmation do not match");
 
     user.email = newEmail;
@@ -75,7 +69,6 @@ class Logic {
         updatePost(index, post);
       }
     });
-
     this.loggedInEmail = newEmail;
   }
 
@@ -95,7 +88,6 @@ class Logic {
       throw new Error("new password and its confirmation do not match");
 
     user.password = newPassword;
-
     updateUser(index, user);
   }
 
@@ -109,11 +101,19 @@ class Logic {
     const posts = getPosts();
 
     posts.forEach(
-      (post) => (post.isFav = post.likes.includes(this.loggedInEmail))
+      (post) => (post.isFav = post.likes.includes(this.loggedInEmail)),
+      (post) => (post.isAuthor = post.author.includes(this.loggedInEmail))
     );
 
     return posts;
   }
+
+  //publishPost(image, text, likes) {
+  //validateText(image, "image");
+  // validateText(text, "text");
+
+  //  createPost(this.loggedInEmail, image, text, likes);
+  // }
 
   publishPost(image, text) {
     validateText(image, "image");
@@ -122,18 +122,32 @@ class Logic {
     createPost(this.loggedInEmail, image, text);
   }
 
-  toggleLikePost(postId) {
-    validateText(postId, "post id");
+  toggleLikePost(postIndex) {
+    validateNumber(postIndex);
 
-    const post = findPostById(postId);
-
-    if (!post) throw new Error("post not found");
+    const post = findPostByIndex(postIndex);
 
     const likeIndex = post.likes.indexOf(this.loggedInEmail);
 
     if (likeIndex < 0) post.likes.push(this.loggedInEmail);
     else post.likes.splice(likeIndex, 1);
 
-    updatePost(post);
+    updatePost(postIndex, post);
+  }
+
+  deletePost() {
+    let deleteButton = ""; //para que no me salga Undefined
+
+    const index = findUserIndexByEmail(this.loggedInEmail);
+
+    const user = findUserByIndex(index);
+
+    if (user.email === post.author) {
+      deleteButton = document.createElement("button");
+      deleteButton.innerText = "Delete";
+      deleteButton.addEventListener("click", function () {
+        article.remove();
+      });
+    }
   }
 }
