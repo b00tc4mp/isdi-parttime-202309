@@ -1,6 +1,6 @@
-
 function Home(props) {
     console.log('Home')
+
     // ahora dentro de home, me voy a encargar de ver lo que quiero pintar
     // cuando arranca la app queremos que solo se muestre los posts, de ahi en null
     const viewState = React.useState(null)
@@ -9,14 +9,9 @@ function Home(props) {
     const view = viewState[0]
     const setView = viewState[1]
 
-
-    const timestampState = React.useState(null)
-    // const timestamp = timestampState[0]
-    // el setTimestamp me permite cambiar el es estado de timestamp
-    const setTimestamp = timestampState[1]
-
     // no le pongo event porque no está dentro de un formulario, no es un link, y es un botón
     function handleLogoutClick() {
+        // debemos de cerciorarnos de cerrar la sesión
         logic.logoutUser()
 
         props.onLogoutClick()
@@ -24,6 +19,7 @@ function Home(props) {
 
     // hacemos esto para que se actulice el nombre de usuario en la vista home
     // llamamos a la lógica para que nos devuelva el usuario, nos interesa en este caso solo el name
+
     let name = null
 
     try {
@@ -37,10 +33,9 @@ function Home(props) {
     // función para cambiar datos de usuario (view profile)
     function handleProfileClick(event) {
         event.preventDefault()
-
+        // que aparezca profile
         setView('profile')
     }
-
     // función para el link del botón de home
     // necesitamos el evento porque es un link
     function handleHomeClick(event) {
@@ -80,22 +75,12 @@ function Home(props) {
         const image = imageInput.value
         const text = textInput.value
 
+        // llamamos a la lógica cuando publicamos un post
         try {
             logic.publishPost(image, text)
             // cambia el estado del componente
-            // cerrar el formulario una vez que hayamos posteado
+            // cerrar el formulario una vez que hayamos posteado 
             setView(null)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
-    function handleToggleLikePostClick(postId) {
-        try {
-            logic.toggleLikePost(postId)
-
-            // cada vez que haga un like, se repintara la home, porque le estaré pasando un valor diferente
-            setTimestamp(Date.now())
         } catch (error) {
             alert(error.message)
         }
@@ -104,7 +89,7 @@ function Home(props) {
     return <div>
         {/* hay que cerrar todos los elementos */}
         {/* hay que cerrar todos las imégenes también */}
-        {/* fijarse en el nombre de las clases,  ids, labels... (className,htmlFor...) */}
+        {/* fijarse en el nombre de las clases, ids, labels... (className,htmlFor...) */}
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
@@ -113,6 +98,8 @@ function Home(props) {
             </div>
         </header>
 
+        {/* si la view es profile, se vea lo siguiente */}
+        {/* si la view es profile, entra react y lo pinta */}
         {view === 'profile' && <div className="view">
             <h2>Update e-mail</h2>
 
@@ -160,26 +147,41 @@ function Home(props) {
                 <button onClick={handleCancelNewPostClick}>Cancel</button>
             </form>
         </div>}
+
         {/* la siguiente condición la ponemos porque los posts solo se ven en determinadas vistas, solo se pintarán SI LA VISTA ES DIFERENTE A LA DE PROFILE */}
         {view !== 'profile' && posts !== null && <div>
+            {/* <article className="post">
+                <h2>peter@pan.com</h2>
+                <img className="post-image" src="https://m.media-amazon.com/images/I/71JZegDmwbL.jpg" />
+                <p>i love ü baby</p>
+                <button>🤍 1 likes</button>
+            </article>
+
+            <article className="post">
+                <h2>wendy@darling.com</h2>
+                <img className="post-image" src="https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg" />
+                <p>my sweety!</p>
+                <button>❤️ 1 likes</button>
+            </article>
+
+            <article className="post">
+                <h2>peter@pan.com</h2>
+                <img className="post-image" src="https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg" />
+                <p>my granpa!</p>
+                <button>🤍 0 likes</button>
+            </article> */}
+
             {/* tenemos que conseguir cada post (objeto con datos) en un artículo, es decir, es un DOM virtual */}
             {/* vamos a mapear cada objeto para devolver un array de componentes de react */}
             {/* En React, el atributo key se utiliza para asignar un identificador único a los elementos en una lista renderizada */}
-            {posts.map((post) => {
-                function handleToggleLikeButtonClick() {
-
-                    handleToggleLikePostClick(post.id)
-                }
-
-                return <article key={post.id} className="post">
-                    <h2>{post.author}</h2>
-                    <img className="post-image" src={post.image} />
-                    <p>{post.text}</p>
-                    {/* el nº de likes que tengo {post.likes.length} */}
-                    {/* Esta expresión se utiliza  para mostrar un emoji de corazón rojo cuando post.isFav es verdadero y un emoji de corazón blanco cuando post.isFav es falso */}
-                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                </article>
-            })}
+            {posts.map((post, index) => <article key={index} className="post">
+                <h2>{post.author}</h2>
+                <img className="post-image" src={post.image} />
+                <p>{post.text}</p>
+                {/* el nº de likes que tengo {post.likes.length} */}
+                {/* Esta expresión se utiliza  para mostrar un emoji de corazón rojo cuando post.isFav es verdadero y un emoji de corazón blanco cuando post.isFav es falso */}
+                <button>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
+            </article>)}
         </div>}
     </div>
 }

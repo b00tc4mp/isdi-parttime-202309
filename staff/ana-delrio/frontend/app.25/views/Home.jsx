@@ -90,9 +90,9 @@ function Home(props) {
         }
     }
 
-    function handleToggleLikePostClick(postId) {
+    function handleToggleLikePostClick(postIndex) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postIndex)
 
             // cada vez que haga un like, se repintara la home, porque le estaré pasando un valor diferente
             setTimestamp(Date.now())
@@ -104,7 +104,7 @@ function Home(props) {
     return <div>
         {/* hay que cerrar todos los elementos */}
         {/* hay que cerrar todos las imégenes también */}
-        {/* fijarse en el nombre de las clases,  ids, labels... (className,htmlFor...) */}
+        {/* fijarse en el nombre de las clases, ids, labels... (className,htmlFor...) */}
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
@@ -165,13 +165,14 @@ function Home(props) {
             {/* tenemos que conseguir cada post (objeto con datos) en un artículo, es decir, es un DOM virtual */}
             {/* vamos a mapear cada objeto para devolver un array de componentes de react */}
             {/* En React, el atributo key se utiliza para asignar un identificador único a los elementos en una lista renderizada */}
-            {posts.map((post) => {
+            {posts.map((post, index, posts) => {
                 function handleToggleLikeButtonClick() {
+                    const postIndex = posts.length - 1 - index
 
-                    handleToggleLikePostClick(post.id)
+                    handleToggleLikePostClick(postIndex)
                 }
 
-                return <article key={post.id} className="post">
+                return <article key={index} className="post">
                     <h2>{post.author}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
