@@ -11,6 +11,9 @@ const viewState = React.useState(null) //inicializo la variable viewState
 const view = viewState[0]
 const setView = viewState[1]
 
+const timestampState = React.useState(null)
+const setTimestamp = timestampState[1]
+
 function handleLogoutClick() {
   logic.logoutUser()
 
@@ -93,22 +96,18 @@ function handleLikeClick(event, index){
 
 
   try {
-  const user = logic.retrieveUser() //me devuelve el user que ha hecho login
-  const userEmail = user.email //de user cojo la información que me interesa, el email
+  
+
 
 // tengo que revertir los índices porque se muestran al revés
   const reversedIndex = db.posts.length - 1 - index;
 
 //miro si el usuario ya le había dado like o no
   logic.toggleLikePost(reversedIndex)
-  // pongo los posts en la variable posts
+
+   // Renderiza los posts actualizados porque fuerzo a que haga un repintado de home
+  setTimestamp(Date.now())
  
-
-
-    // Renderiza los posts actualizados
-    root.render(<App />)
-    setView('home')
-
     
 
   } catch (error){
