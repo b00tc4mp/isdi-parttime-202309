@@ -7,6 +7,12 @@ function Home(props) {
     const view = viewState[0]
     const setView = viewState[1]
 
+    // Estado de LIKES
+    const timestampState = React.useState(null)
+
+    // const viewTimestampState= timestampState[0]
+    const setTimestampState = timestampState[1]
+
     const user = logic.retrieveUser()
     const name = user.name
 
@@ -121,17 +127,15 @@ function Home(props) {
     }
 
     // LIKE BUTTON
-    function handleLikeClick(index) {
-        const reverseIndex = db.posts.length - 1 - index
-
+    function handleLikeClick(postId) {
         try {
-            logic.toggleLikePost(reverseIndex)
+            logic.toggleLikePost(postId)
 
+            setTimestampState(Date.now())
+            // Actualiza el estado en base a milisegundos
         } catch(error) {
             alert(error.message)
         }
-
-        root.render(<App />)
     }
 
     // TEMPLATE
@@ -196,11 +200,11 @@ function Home(props) {
     </div>}
 
     { view !== 'profile' && posts !== null && <div className='view'>
-        {posts.map((post, index) => <article key={index} className="post">
+        {posts.map((post) => <article key={post.id} className="post">
             <h2>{post.author}</h2>
             <img className='post-img' src={post.image}/>
             <p>{post.text}</p> 
-            <button className='button-submit' onClick={() => {handleLikeClick(index)}}>{post.likes.length ? '❤️' : '🤍'} {post.likes.length} likes</button>
+            <button className='button-submit' onClick={() => {handleLikeClick(post.id)}}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
         </article>)}
     </div>}
 </div>}
