@@ -1,5 +1,6 @@
 class User {
-	constructor(name, email, password) {
+	constructor(id, name, email, password) {
+		this.id = id
 		this.name = name
 		this.email = email
 		this.password = password
@@ -7,11 +8,11 @@ class User {
 }
 
 class Post {
-	constructor(author, image, text, likes) {
+	constructor(id, author, image, text, likes) {
+		this.id = id
 		this.author = author
 		this.image = image
 		this.text = text
 		this.likes = likes
 	}
-
 }
