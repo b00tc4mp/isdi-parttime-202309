@@ -96,11 +96,6 @@ function updatePost(post) {
   db.posts[index] = clonePost(post);
 }
 
-function deletePostById(id) {
-  const index = findPostIndexById(id);
-  db.posts.splice(index, 1);
-}
-
 /////
 /*
 function modifyUserEmail(email, newEmail) {
