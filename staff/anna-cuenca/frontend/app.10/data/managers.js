@@ -1,5 +1,5 @@
 function createUser(name, email, password) {
-  const user = new User(generateId(), name, email, password);
+  const user = new User(name, email, password);
 
   db.users.push(user);
 }
@@ -7,43 +7,32 @@ function createUser(name, email, password) {
 function cloneUser(user) {
   if (!(user instanceof User)) throw new TypeError("user is not a User");
 
-  return new User(user.id, user.name, user.email, user.password);
+  return new User(user.name, user.email, user.password);
 }
 
-function findUserIndexById(id) {
-  validateText(id, "user id");
-
-  const index = db.users.findIndex(function (user) {
-    return user.id === id;
+function findUserIndexByEmail(email) {
+  var index = db.users.findIndex(function (user) {
+    return user.email === email;
   });
 
   return index;
 }
 
-function findUserByEmail(email) {
-  validateText(email, "user email");
+function findUserByIndex(index) {
+  if (typeof index !== "number") throw new TypeError("index is not a number");
+  if (index < 0) throw new RangeError("index lower than 0");
 
-  const user = db.users.find(function (user) {
-    return user.email === email;
-  });
-
-  return user;
-}
-
-function findUserById(id) {
-  validateText(id, "user id");
-
-  const user = db.users.find((user) => user.id === id);
+  const user = db.users[index];
 
   if (user) return cloneUser(user);
 
   return null;
 }
 
-function updateUser(user) {
+function updateUser(index, user) {
+  if (typeof index !== "number") throw new TypeError("index is not a number");
+  if (index < 0) throw new RangeError("index lower than 0");
   if (!(user instanceof User)) throw new TypeError("user is not a User");
-
-  const index = findUserIndexById(user.id);
 
   db.users[index] = cloneUser(user);
 }
@@ -64,26 +53,28 @@ function getPosts() {
   return db.posts.map(clonePost);
 }
 
-function createPost(userId, image, text) {
-  const post = new Post(generateId(), userId, image, text, []);
+function createPost(email, image, text) {
+  const post = new Post(generateId(), email, image, text, []);
 
   db.posts.push(post);
 }
 
-function findPostById(id) {
-  validateText(id, "post id");
+function findPostById(postId) {
+  if (typeof postId !== "string")
+    throw new TypeError("post id is not a string");
 
-  const post = db.posts.find((post) => post.id === id);
+  const post = db.posts.find((post) => post.id === postId);
 
   if (post) return clonePost(post);
 
   return null;
 }
 
-function findPostIndexById(id) {
-  validateText(id, "post id");
+function findPostIndexById(postId) {
+  if (typeof postId !== "string")
+    throw new TypeError("post id is not a string");
 
-  const index = db.posts.findIndex((post) => post.id === id);
+  const index = db.posts.findIndex((post) => post.id === postId);
 
   return index;
 }
