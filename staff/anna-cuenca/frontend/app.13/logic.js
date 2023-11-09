@@ -123,10 +123,10 @@ class Logic {
   deletePost(postId) {
     validateText(postId, "post id");
 
-    const post = db.posts.findById(postId);
+    const post = findPostById(postId);
 
     if (!post) throw new Error("post not found");
 
-    db.posts.deleteById(post.id); //deletePostById(postId);
+    deletePostById(post.id); //deletePostById(postId);
   }
 }

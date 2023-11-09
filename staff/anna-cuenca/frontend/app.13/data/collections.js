@@ -53,11 +53,6 @@ class Collection {
 
     this.collection[index] = this.clone(document);
   }
-
-  deleteById(document) {
-    const index = this.findIndexById(document); //tenemos el id de lo que queremos eliminar
-    this.collection.splice(index, 1);
-  }
 }
 
 class Users extends Collection {

@@ -1,3 +1,5 @@
+// DONE
+
 class Collection {
   constructor(clazz, collection) {
     this.clazz = clazz;
@@ -11,7 +13,6 @@ class Collection {
       var value = document[key];
 
       if (value instanceof Array) copy[key] = [...value];
-      else if (value instanceof Date) copy[key] = new Date(document[key]);
       else if (value instanceof Object) copy[key] = { ...value };
       else copy[key] = document[key];
     }
@@ -19,14 +20,10 @@ class Collection {
     return copy;
   }
 
-  generateId() {
-    return Math.floor(Math.random() * 1000000000000000000).toString(36);
-  }
-
   insert(document) {
     const documentCopy = this.clone(document);
 
-    documentCopy.id = this.generateId();
+    documentCopy.id = generateId();
 
     this.collection.push(documentCopy);
   }
@@ -53,37 +50,24 @@ class Collection {
 
     this.collection[index] = this.clone(document);
   }
-
-  deleteById(document) {
-    const index = this.findIndexById(document); //tenemos el id de lo que queremos eliminar
-    this.collection.splice(index, 1);
-  }
 }
 
-class Users extends Collection {
-  constructor() {
-    super(User, []);
-  }
+// TEST
 
-  findByEmail(email) {
-    validateText(email, `${this.clazz.name} email`);
+var db2 = {};
 
-    return this.collection.find((document) => document.email === email) || null;
-  }
-}
+db2.users = new Collection(User, db.users);
 
-class Posts extends Collection {
-  constructor() {
-    super(Post, []);
-  }
+var user = new User(null, "Ada Love", "ada@love.com", "123123123");
+db2.users.insert(user);
 
-  getAll() {
-    return this.collection.map(this.clone.bind(this));
-  }
-}
+db2.posts = new Collection(Post, db.posts);
 
-class CreditCards extends Collection {
-  constructor() {
-    super(CreditCard, []);
-  }
-}
+var post = new Post(
+  null,
+  db2.users.collection[db2.users.collection.length - 1].id,
+  "http://image.com",
+  "hola mundo",
+  []
+);
+db2.posts.insert(post);

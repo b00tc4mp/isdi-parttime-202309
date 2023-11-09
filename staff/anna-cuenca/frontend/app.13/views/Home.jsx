@@ -171,7 +171,7 @@ function Home(props) {
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
                     <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    { post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                    { post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
                     
                 </article>
             })}
