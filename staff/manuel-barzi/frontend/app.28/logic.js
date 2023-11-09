@@ -13,7 +13,7 @@ class Logic {
         if (user)
             throw new Error('user already exists')
 
-        db.users.insert(new User(null, name, email, password, []))
+        db.users.insert(new User(null, name, email, password))
     }
 
     loginUser(email, password) {
@@ -90,11 +90,9 @@ class Logic {
         posts.forEach(post => {
             post.liked = post.likes.includes(this.sessionUserId)
 
-            const author = db.users.findById(post.author)
+            const user = db.users.findById(post.author)
 
-            post.author = author.name
-
-            post.fav = user.favs.includes(post.id)
+            post.author = user.name
         })
 
         return posts
@@ -123,28 +121,5 @@ class Logic {
             post.likes.splice(index, 1)
 
         db.posts.update(post)
-    }
-
-    toggleFavPost(postId) {
-        validateText(postId, 'post id')
-
-        const post = db.posts.findById(postId)
-
-        if (!post)
-            throw new Error('post not found')
-
-        const user = db.users.findById(this.sessionUserId)
-
-        if (!user)
-            throw new Error('user not found')
-
-        const index = user.favs.indexOf(post.id)
-
-        if (index < 0)
-            user.favs.push(post.id)
-        else
-            user.favs.splice(index, 1)
-
-        db.users.update(user)
     }
 }

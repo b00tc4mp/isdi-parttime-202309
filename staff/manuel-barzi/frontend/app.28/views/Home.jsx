@@ -86,16 +86,6 @@ function Home(props) {
         }
     }
 
-    function handleToggleFavPostClick(postId) {
-        try {
-            logic.toggleFavPost(postId)
-
-            setTimestamp(Date.now())
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
@@ -158,16 +148,11 @@ function Home(props) {
                     handleToggleLikePostClick(post.id)
                 }
 
-                function handleToggleFavButtonClick() {
-                    handleToggleFavPostClick(post.id)
-                }
-
                 return <article key={post.id} className="post">
                     <h2>{post.author}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
                     <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
                 </article>
             })}
         </div>}
