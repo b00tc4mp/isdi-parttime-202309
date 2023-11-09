@@ -2,7 +2,7 @@
 
 class Logic {
     constructor() {
-        this.userId = null
+        this.sessionUserId = null
     }
 
     // REGISTER USER
@@ -11,12 +11,12 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
     
-        const user = findUserByEmail(email)
+        const user = db.users.findByEmail(email)
     
         if (user) 
             throw new Error('user already exists')
     
-        createUser(name, email, password)
+        db.users.insert(new User(null, name, email, password))
     }
 
     // LOGIN & AUTHENTICATE USER
@@ -24,7 +24,7 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const user = db.users.findByEmail(email)
 
         if (!user) 
             throw new Error('user not found')
@@ -32,12 +32,12 @@ class Logic {
         if (user.password !== password)
             throw new Error('wrong credentials')
 
-        this.userId = user.id
+        this.sessionUserId = user.id
     }
     
     // LOGIN LOGIC
     retrieveUser() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user) 
             throw new Error('user not found')
@@ -46,6 +46,11 @@ class Logic {
     
         return user
     }
+
+    // LOGOUT USER
+    logoutUser() {
+        this.sessionUserId = null
+    }
     
     // CHECK CHANGE EMAIL
     changeUserEmail(newEmail, confirmNewEmail, password) {
@@ -53,7 +58,7 @@ class Logic {
         validateText(confirmNewEmail, 'new email confirm')
         validateText(password, 'new email')
     
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
     
         if (!user || user.password !== password) {
             throw new Error('wrong credentials')
@@ -65,7 +70,7 @@ class Logic {
     
         user.email = newEmail
 
-        updateUser(user)
+        db.users.update(user)
     }
     
     // CHECK CHANGE PASSWORD
@@ -74,7 +79,7 @@ class Logic {
         validateText(newPassword, 'new password')
         validateText(againNewPassword, 'the repeat password')
 
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
     
         if (!user || user.password !== password) {
             throw new Error('wrong credentials')
@@ -85,27 +90,22 @@ class Logic {
     
         user.password = newPassword
         
-        updateUser(user)
-    }
-
-    // LOGOUT USER
-    logoutUser() {
-        this.userId = null
+        db.users.update(user)
     }
     
     // RETRIEVE POSTS
     retrievePosts() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user) 
             throw new Error('user not found')
     
-        const posts =  getPosts()
+        const posts =  db.posts.getAll()
 
         posts.forEach(post => {
-            post.isFav = post.likes.includes(this.userId)
+            post.isFav = post.likes.includes(this.sessionUserId)
 
-            const user = findUserById(post.author)
+            const user = db.users.findById(post.author)
 
             post.author = {
                 email : user.email,
@@ -121,40 +121,40 @@ class Logic {
         validateText(image, 'image')
         validateText(text, 'text')
     
-        createPost(this.userId, image, text)
+        db.posts.insert(new Post(null, this.sessionUserId, image, text))
     }
 
     // UPDATE ALL POSTS
     toggleLikePost(postId) {
         validateText(postId, 'post id')
 
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
         if (!post) {
             throw new Error('post not found')
         }
 
-        const likeIndex = post.likes.indexOf(this.userId)
+        const likeIndex = post.likes.indexOf(this.sessionUserId)
 
         if (likeIndex < 0) {
-            post.likes.push(this.userId)
+            post.likes.push(this.sessionUserId)
         } else {
             post.likes.splice(likeIndex, 1)
         }
 
-        updatePost(post)
+        db.posts.update(post)
     }
 
     // DELETE POST
     deletePost(postId) {
         validateText(postId, 'post id')
 
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
         if (!post) {
             throw new Error('post not found')
         }
 
-        deletePostById(post.id)
+        db.posts.deleteById(post.id)
     }
 }

@@ -29,7 +29,7 @@ function Home(props) {
 
     // LOGOUT
     function handleLogoutClick() {
-        logic.loggedInEmail = null
+        logic.logoutUser()
 
         props.onLogoutClick()
         // Mediante 'props' nos traemos de APP la función de cambiar la vista a 'LOGIN'
@@ -220,8 +220,8 @@ function Home(props) {
             <img className='post-img' src={post.image}/>
             <p>{post.text}</p> 
             <div className="buttons-post">
-            <button className='button-submit' onClick={() => {handleLikeClick(post.id)}}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-            { post.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)}
+                <button className='button-submit' onClick={() => {handleLikeClick(post.id)}}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                { post.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)}
             </div>
         </article>)}
     </div>}

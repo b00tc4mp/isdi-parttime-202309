@@ -17,40 +17,12 @@ class Post {
     }
 }
 
-class Collection {
-    constructor() {
-
-    }
-
-    clone() {
-
-    }
-
-    create() {
-       
-    }
-
-    findById() { 
-       
-    }
-
-    findIndexById() {
-        
-    }
-
-    update() {
-
-    }
-}
-
-class UserCollection extends Collection {
-    findUserByEmail () {
-       
-    }
-}
-
-class PostCollection extends Collection {
-    getPost() {
-
+class CreditCard {
+    constructor(id, user, fullName, number, expirationDate) {
+        this.id = id
+        this.user = user
+        this.fullName = fullName
+        this.number = number
+        this.expirationDate = expirationDate
     }
 }
