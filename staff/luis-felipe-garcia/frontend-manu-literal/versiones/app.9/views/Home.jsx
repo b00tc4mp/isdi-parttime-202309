@@ -127,21 +127,6 @@ function Home(props) {
         }
     }
 
-    function handleDeletePostClick(postId) {
-        if (confirm('Delete post?')) {
-            try {
-                logic.deletePost(postId)
-                setTimestamp(Date.now())
-
-            } catch (error) {
-                alert(error.message)
-
-            }
-        }
-    }
-
-
-
 
 
 
@@ -213,20 +198,14 @@ function Home(props) {
                     handleToggleLikePostClick(post.id)
                 }
 
-                function handleDeletePostButtonClick() {
-                    handleDeletePostClick(post.id)
-                }
-
                 return <article key={post.id} className="post">
                     <h2>{post.author}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
 
-                    <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
                 </article>
             })}
-        </div>
-        }
-    </div >
+        </div>}
+    </div>
 } 
