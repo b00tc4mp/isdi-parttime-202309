@@ -74,9 +74,9 @@ function Home(props) {
         }
     }
 
-    function handleToggleLikePostClick(postId) {
+    function handleToggleLikePostClick(postIndex) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postIndex)
 
             setTimestamp(Date.now())
         } catch (error) {
@@ -140,12 +140,14 @@ function Home(props) {
         </div>}
 
         {view !== 'profile' && posts !== null && <div>
-            {posts.map((post) => {
+            {posts.map((post, index, posts) => {
                 function handleToggleLikeButtonClick() {
-                    handleToggleLikePostClick(post.id)
+                    const postIndex = posts.length - 1 - index
+
+                    handleToggleLikePostClick(postIndex)
                 }
             
-            return <article key={post.id} className="post">
+            return <article key={index} className="post">
                 <h2>{post.author}</h2>
                 <img className="post-image" src={post.image}/>
                 <p>{post.text}</p>

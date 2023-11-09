@@ -1,6 +1,6 @@
 class Logic {
     constructor() {
-        this.userId = null
+        this.loggedInEmail = null
     }
 
     registerUser(name, email, password) {
@@ -8,9 +8,9 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'passwor')
 
-        const user = findUserByEmail(email)
+        const index = findUserIndexByEmail(email)
 
-        if (user) 
+        if (index > -1) 
             throw new Error('user already exists')
 
         createUser(name, email, password)
@@ -20,23 +20,30 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const index = findUserIndexByEmail(email)
+
+        if (index < 0) 
+            throw new Error('wrong credentials')
+
+        const user = findUserByIndex(index)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
 
-        this.userId = user.id
+        this.loggedInEmail = email
     }
 
     logoutUser() {
-        this.userId = null  
+        this.loggedInEmail = null
     }
 
     retrieveUser() {
-        const index = findUserById(this.userId)
+        const index = findUserIndexByEmail(this.loggedInEmail)
 
-        if (!user) 
-            throw new Error('user not found')
+        if (index < 0) 
+            throw new Error('wrong credentials')
+
+        const user = findUserByIndex(index)
 
         delete user.password
          
@@ -48,7 +55,9 @@ class Logic {
         validateText(newEmailConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const index = findUserIndexByEmail(this.loggedInEmail)
+
+        const user = findUserByIndex(index)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -59,6 +68,18 @@ class Logic {
         user.email = newEmail
         
         updateUser(index, user)
+
+        const posts = getPosts()
+
+        posts.forEach((post, index) => {
+            if (post.author === this.loggedInEmail) {
+                post.author = newEmail
+
+                updatePost(index, post)
+            }
+        })
+
+        this.loggedInEmail = newEmail
     }
 
     changeUserPassword(newPassword, newPasswordConfirm, password) {
@@ -66,8 +87,9 @@ class Logic {
         validateText(newPasswordConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const index = findUserIndexByEmail(this.loggedInEmail)
 
+        const user = findUserByIndex(index)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -77,24 +99,20 @@ class Logic {
 
         user.password = newPassword
 
-        updateUser(user)
+        updateUser(index, user)
     }
 
     retrievePosts() {
-        const user = findUserById(this.userId)
+        const index = findUserIndexByEmail(this.loggedInEmail)
 
-        if (!user) 
-            throw new Error('user not found')
-    
+        if (index < 0) 
+            throw new Error('wrong credentials')
+
+        const user = findUserByIndex(index)
+        
         const posts = getPosts()
 
-        posts.forEach(post => {
-            post.isFav = post.likes.includes(this.userId)
-            console.log(post.author)
-            const user = findUserById(post.author)
-
-            post.author = user.name
-        })
+        posts.forEach(post => post.isFav = post.likes.includes(this.loggedInEmail))
 
         return posts
     }
@@ -103,7 +121,7 @@ class Logic {
         validateText(image, 'image')
         validateText(text, 'text')
 
-        createPost(this.userId, image, text)
+        createPost(this.loggedInEmail, image, text)
     }
 
     toggleLikePost(postId) {
@@ -113,10 +131,10 @@ class Logic {
 
         if(!post) throw new Error('post not found')
 
-        const likeIndex = post.likes.indexOf(this.userId)
+        const likeIndex = post.likes.indexOf(this.loggedInEmail)
         
         if(likeIndex < 0)
-            post.likes.push(this.userId)
+            post.likes.push(this.loggedInEmail)
         else
             post.likes.splice(likeIndex,1)
 
