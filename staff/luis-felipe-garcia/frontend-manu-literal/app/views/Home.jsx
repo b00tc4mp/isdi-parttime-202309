@@ -140,6 +140,16 @@ function Home(props) {
         }
     }
 
+    function handleFavPostClick(postId) {
+        try {
+            logic.toggleFavPost(postId)
+            setTimestamp(Date.now())
+        } catch (error) {
+            alert(error.message)
+        }
+
+    }
+
 
 
 
@@ -223,6 +233,8 @@ function Home(props) {
                     <p>{post.text}</p>
                     <div className='buttons-posts'>
                         <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                        <button className='button-submit' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '⭐️' : 'Fav'}</button>
+
                         {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
                     </div>
                 </article>

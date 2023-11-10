@@ -1,7 +1,7 @@
 class Collection {
-    constructor(clazz, collection) {
+    constructor(clazz, documents) {
         this.clazz = clazz
-        this.collection = collection
+        this.documents = documents
     }
 
     clone(document) {
@@ -32,19 +32,21 @@ class Collection {
 
         documentCopy.id = this.generateId()
 
-        this.collection.push(documentCopy)
+        this.documents.push(documentCopy)
     }
 
     findIndexById(id) {
         validateText(id, `${this.clazz.name} id`)
 
-        return this.collection.findIndex(document => document.id === id) || null
+        return this.documents.findIndex(document => document.id === id)
     }
 
     findById(id) {
         validateText(id, `${this.clazz.name} id`)
 
-        return this.collection.find(document => document.id === id) || null
+        const document = this.documents.find(document => document.id === id)
+
+        return this.clone(document) || null
 
     }
 
@@ -53,7 +55,7 @@ class Collection {
 
         const index = this.findIndexById(document.id)
 
-        this.collection[index] = this.clone(document)
+        this.documents[index] = this.clone(document)
     }
 }
 
@@ -66,7 +68,11 @@ class Users extends Collection {
     findByEmail(email) {
         validateText(email, `${this.clazz.name} email`)
 
-        return this.collection.find(document => document.email === email) || null
+        const document = this.documents.find(document => document.email === email)
+
+        return this.clone(document) || null
+
+        /*  return this.documents.find(document => document.email === email) || null*/
     }
 }
 
@@ -76,7 +82,7 @@ class Posts extends Collection {
     }
 
     getAll() {
-        return this.collection.map(this.clone.bind(this))
+        return this.documents.map(this.clone.bind(this))
     }
 
     deleteById(id) {
@@ -87,7 +93,7 @@ class Posts extends Collection {
             throw new Error(`${this.clazz.name} not found`)
         }
 
-        this.collection.splice(index, 1)
+        this.documents.splice(index, 1)
     }
 }
 
