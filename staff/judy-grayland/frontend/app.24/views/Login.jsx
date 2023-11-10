@@ -12,7 +12,6 @@
 
 function Login(props) {
     console.log('Login')
-    console.log(props)
     
     function handleSubmit(event) {
         event.preventDefault()
@@ -38,7 +37,7 @@ function Login(props) {
         event.preventDefault()
 
         // console.log('register click')
-        props.onRegisterClick() // Here we ACCESS the onRegisterClick attribute of props object. It is a function that it receives from the parent component and we call that function by adding ()
+        props.onRegisterClick() // onRegisterClick is a property. it calls a function that it receives from the parent component
     }
 
     return <div className="view">

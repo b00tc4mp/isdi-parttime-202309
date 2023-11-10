@@ -21,7 +21,7 @@ function Home(props) {
         const user = logic.retrieveUser()
         name = user.name
     } catch(error){
-        alert(error.message)
+
     }
 
     function handleProfileClick(event) {

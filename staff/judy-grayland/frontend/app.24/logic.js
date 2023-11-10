@@ -6,7 +6,7 @@ class Logic {
     registerUser(name, email, password) {
         validateText(name, 'name')
         validateText(email, 'email')
-        validateText(password, 'password')
+        validateText(password, 'passwor')
 
         const user = findUserByEmail(email)
 
@@ -33,7 +33,7 @@ class Logic {
     }
 
     retrieveUser() {
-        const user = findUserById(this.userId)
+        const index = findUserById(this.userId)
 
         if (!user) 
             throw new Error('user not found')
@@ -49,7 +49,7 @@ class Logic {
         validateText(password, 'password')
 
         const user = findUserById(this.userId)
-                
+
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
 
@@ -90,7 +90,7 @@ class Logic {
 
         posts.forEach(post => {
             post.isFav = post.likes.includes(this.userId)
-            
+            console.log(post.author)
             const user = findUserById(post.author)
 
             post.author = user.name

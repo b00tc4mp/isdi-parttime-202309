@@ -87,36 +87,3 @@ function updatePost(post){
     
     db.posts[index] = clonePost(post)
 }
-
-
-/*
-
-TODO Collection abstraction
-
-class Collection {
-
-    constructor() {
-
-        create() {}
-
-        clone() {}
-
-        findIndexById() {}
-
-        findById() {}
-
-        update() {}
-
-    }
-
-    class UserCollection extends Collection{
-        findByEmail() {}
-    
-    }
-
-    class PostCollection extends Collection{
-        getAll() {}
-    }
-}
-
-*/

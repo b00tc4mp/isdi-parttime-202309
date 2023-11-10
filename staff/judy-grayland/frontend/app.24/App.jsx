@@ -13,23 +13,14 @@ function App() {
 
     function handleLoginShow() {
         setView('login')
-    }
+    } // CLOSURE?
 
     function handleHomeShow() {
         setView('home')
     }
-    // const loginProps ={
-    //     onRegisterClick: handleRegisterShow, 
-    //     onSuccess: handleHomeShow
-    // }
     return <>
-        {/* {view === 'login' && 
-        Login(loginProps)} */}
-
         {view === 'login' && 
         <Login  
-        //{...loginProps}
-        // here we're assigning properties (onRegisterClick and onSuccess) to the props object that the Login component receives as its argument:
             onRegisterClick = {handleRegisterShow} 
             onSuccess={handleHomeShow} 
         />}
@@ -37,7 +28,7 @@ function App() {
         {view === 'register' && 
         <Register 
             onLoginClick = {handleLoginShow} 
-            onSuccess = {handleLoginShow}
+            onSuccess= {handleLoginShow}
         />}
 
         {view === 'home' && 
