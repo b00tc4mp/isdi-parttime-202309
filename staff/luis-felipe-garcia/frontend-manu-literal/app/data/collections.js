@@ -80,7 +80,13 @@ class Posts extends Collection {
     }
 
     deleteById(id) {
+        validateText(id, `${this.clazz.name} id`)
         const index = this.findIndexById(id)
+
+        if (index < 0) {
+            throw new Error(`${this.clazz.name} not found`)
+        }
+
         this.collection.splice(index, 1)
     }
 }
