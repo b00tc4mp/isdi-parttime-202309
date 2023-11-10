@@ -78,3 +78,4 @@ function updatePost(post){
     
     db.posts[index] = clonePost(post)
 }
+
