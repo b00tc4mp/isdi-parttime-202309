@@ -1,7 +1,6 @@
 function Home(props) {
     const viewState = React.useState('null')
 
-
     const view = viewState[0]
     const setView = viewState[1]
 
@@ -15,7 +14,6 @@ function Home(props) {
     }
 
     let name = null
-    //let favPosts = null
 
     try {
         const user = logic.retrieveUser()
@@ -29,11 +27,6 @@ function Home(props) {
     function handleProfileClick(event) {
         event.preventDefault()
         setView('profile')
-    }
-
-    function handleFavPostsList(event) {
-        event.preventDefault()
-        setView('fav-posts')
     }
 
     function handleHomeClick(event) {
@@ -52,24 +45,13 @@ function Home(props) {
 
     let posts = null
 
-    if (view !== 'fav-posts') {
-        try {
-            posts = logic.retrievePosts()
-            posts.reverse()
+    try {
+        posts = logic.retrievePosts()
+        posts.reverse()
 
-        } catch (error) {
-            alert(error.message)
+    } catch (error) {
+        alert(error.message)
 
-        }
-    } else {
-        try {
-            posts = logic.retrieveFavPosts()
-            posts.reverse()
-
-        } catch (error) {
-            alert(error.message)
-
-        }
     }
 
     function handleNewPostSubmit(event) {
@@ -96,6 +78,8 @@ function Home(props) {
             alert(error.message)
         }
     }
+
+
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
@@ -167,6 +151,11 @@ function Home(props) {
     }
 
 
+
+
+
+
+
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
@@ -177,7 +166,6 @@ function Home(props) {
 
                 <a href="" onClick={handleProfileClick}>{name}</a>
                 &nbsp;
-                <a href="#" onClick={handleFavPostsList}>Fav posts</a>
 
                 <button onClick={handleLogoutClick}>Logout</button>
             </div>
@@ -229,9 +217,15 @@ function Home(props) {
             </form>
         </div>}
 
-
         {view !== 'profile' && posts !== null && <div>
             {posts.map((post) => {
+                /*  function handleToggleLikeButtonClick() {
+                      handleToggleLikePostClick(post.id)
+                  }
+  
+                  function handleDeletePostButtonClick() {
+                      handleDeletePostClick(post.id)
+                  }*/
 
                 return <article key={post.id} className="post">
                     <h2>{post.author.name}</h2>
@@ -247,7 +241,5 @@ function Home(props) {
             })}
         </div>
         }
-
     </div >
-
 } 

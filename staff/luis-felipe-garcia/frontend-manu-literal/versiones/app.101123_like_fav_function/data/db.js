@@ -4,8 +4,8 @@ const db = {
     cards: new CreditCards
 }
 
-db.users.insert(new User(null, 'Wendy Darling', 'wendy@darling.com', '1', []))
-db.users.insert(new User(null, 'Peter Pan', 'peter@pan.com', '1', []))
+db.users.insert(new User(null, 'Wendy Darling', 'wendy@darling.com', '123123123', []))
+db.users.insert(new User(null, 'Peter Pan', 'peter@pan.com', '123123123', []))
 
 db.posts.insert(new Post(
     null,

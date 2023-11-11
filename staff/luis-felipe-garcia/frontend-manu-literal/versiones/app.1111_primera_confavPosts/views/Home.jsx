@@ -15,7 +15,7 @@ function Home(props) {
     }
 
     let name = null
-    //let favPosts = null
+    let favPosts = null
 
     try {
         const user = logic.retrieveUser()
@@ -34,6 +34,8 @@ function Home(props) {
     function handleFavPostsList(event) {
         event.preventDefault()
         setView('fav-posts')
+
+
     }
 
     function handleHomeClick(event) {
@@ -52,8 +54,18 @@ function Home(props) {
 
     let posts = null
 
+    /* try {
+         // console.log(view)
+         posts = logic.retrievePosts()
+         posts.reverse()
+ 
+     } catch (error) {
+         alert(error.message)
+ 
+     }*/
     if (view !== 'fav-posts') {
         try {
+            // console.log(view)
             posts = logic.retrievePosts()
             posts.reverse()
 
@@ -63,14 +75,32 @@ function Home(props) {
         }
     } else {
         try {
-            posts = logic.retrieveFavPosts()
-            posts.reverse()
+            favPosts = logic.retrieveFavPosts()
+            favPosts.reverse()
+            console.log(favPosts)
+            postsToShow = favPosts
+
+            // return postsToShow
 
         } catch (error) {
             alert(error.message)
 
         }
     }
+
+    let postsToShow = posts
+    //
+    /* if (view === 'fav-posts') {
+         //     console.log(view)
+         postsToShow = favPosts
+         console.log(`if ${view}`)
+         //  console.log(postsToShow)
+ 
+     }*/
+
+    // console.log(favPosts)
+
+
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -96,6 +126,8 @@ function Home(props) {
             alert(error.message)
         }
     }
+
+
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
@@ -231,6 +263,9 @@ function Home(props) {
 
 
         {view !== 'profile' && posts !== null && <div>
+            {console.log(view)}
+
+
             {posts.map((post) => {
 
                 return <article key={post.id} className="post">
@@ -247,6 +282,31 @@ function Home(props) {
             })}
         </div>
         }
+        {view === 'fav-posts' && favPosts !== null && <div>
+            {console.log(`posts to show: ${postsToShow}`)}
+            {console.log(postsToShow)}
+            {console.log(`favPosts:`)}
+            {console.log(favPosts)}
+
+            {favPosts.map((post) => {
+
+                return <article key={post.id} className="post">
+                    <h2>{post.author.name}</h2>
+                    <img className="post-image" src={post.image} />
+                    <p>{post.text}</p>
+                    <div className='buttons-posts'>
+                        <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                        <button className='button-submit' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '⭐️' : 'Fav'}</button>
+
+                        {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
+                    </div>
+                </article>
+            })}
+        </div>
+        }
+
+
+
 
     </div >
 

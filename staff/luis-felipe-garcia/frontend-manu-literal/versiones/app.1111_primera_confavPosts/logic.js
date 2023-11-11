@@ -114,17 +114,6 @@ class Logic {
         const posts = db.posts.getAll()
         const favPosts = posts.filter(post => userFavPostsIds.includes(post.id))
 
-        favPosts.forEach(post => {
-            post.liked = post.likes.includes(this.sessionUserId)
-            const author = db.users.findById(post.author)
-            post.fav = user.favs.includes(post.id)
-
-            post.author = {
-                name: author.name,
-                id: author.id
-            }
-        })
-
 
         return favPosts
     }

@@ -72,6 +72,7 @@ class Users extends Collection {
 
         return this.clone(document) || null
 
+        /*  return this.documents.find(document => document.email === email) || null*/
     }
 }
 

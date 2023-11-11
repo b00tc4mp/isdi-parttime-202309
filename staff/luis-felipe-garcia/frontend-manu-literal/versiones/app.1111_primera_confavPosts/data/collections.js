@@ -72,6 +72,7 @@ class Users extends Collection {
 
         return this.clone(document) || null
 
+        /*  return this.documents.find(document => document.email === email) || null*/
     }
 }
 
@@ -83,6 +84,14 @@ class Posts extends Collection {
     getAll() {
         return this.documents.map(this.clone.bind(this))
     }
+
+    /*  getFavPostsByUserId(userId) {
+          //        db.posts.documents.filter(post => post.author==="3gwk91d9s4w0")
+          //this.clone.bind(this))
+          const favDocument = this.documents.filter(document => document.author === userId)
+  
+          return this.clone(favDocument) || null
+      }*/
 
     deleteById(id) {
         validateText(id, `${this.clazz.name} id`)
