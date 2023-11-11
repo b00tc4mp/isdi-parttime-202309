@@ -5,23 +5,30 @@ function createUser(name, email, password) {
 }
 
 function cloneUser(user) {
+    // La expresión user instanceof User evalúa si user pertenece a la clase User
     if (!(user instanceof User)) throw new TypeError('user is not a User')
 
     return new User(user.name, user.email, user.password)
 }
 
+// con el email, obtenemos el index
 function findUserIndexByEmail(email) {
-    var index = db.users.findIndex(function (user) { return user.email === email })
+    // toma un parámetro user y compara el valor de la propiedad email del objeto user con el valor de la variable email
+    // Devolverá true si hay una coincidencia y false si no hay coincidencia.
+    const index = db.users.findIndex(function (user) { return user.email === email })
 
     return index
 }
 
+// con el index, buscamos el mail
 function findUserByIndex(index) {
     if (typeof index !== 'number') throw new TypeError('index is not a number')
     if (index < 0) throw new RangeError('index lower than 0')
 
+    // Accedemos al usuario en la posición index dentro del array db.users
     const user = db.users[index]
 
+    // Si se encuentra un usuario en la posición index, retorna una copia del usuario usando la función cloneUser
     if (user)
         return cloneUser(user)
 

@@ -1,3 +1,6 @@
+// el término "props" es utilizado para referirse a las propiedades que un componente puede recibir
+// Cuando se utiliza en un componente de React, las propiedades ("props") son un mecanismo mediante el cual se pueden pasar datos desde un componente padre a un componente hijo
+
 function Login(props) {
     function handleSubmit(event) {
         event.preventDefault()
@@ -16,6 +19,8 @@ function Login(props) {
         try {
             // nos vamos a la lógica a verificar
             logic.loginUser(email, password)
+            // Llamar a la función onSuccess que se pasa como una propiedad (prop)
+            // a este componente Login. Esta función proviene del componente padre
             // si todo va bien nos vamos a la home
             props.onSuccess()
 

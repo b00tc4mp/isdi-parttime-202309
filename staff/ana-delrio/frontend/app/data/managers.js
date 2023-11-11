@@ -18,7 +18,6 @@ function findUserIndexById(id) {
     return index
 }
 
-
 function findUserByEmail(email) {
     validateText(email, 'user email')
 
@@ -49,7 +48,6 @@ function updateUser(user) {
 function clonePost(post) {
     if (!(post instanceof Post)) throw new TypeError('post is not a Post')
 
-    // añadimos el id en primer lugar 
     return new Post(post.id, post.author, post.image, post.text, post.likes.map(email => email))
 }
 
@@ -65,10 +63,7 @@ function createPost(userId, image, text) {
 
 function findPostById(id) {
     validateText(id, 'post id')
-    // lo eliminamos porque no e sun numérico
-    // if (index < 0) throw new RangeError('index lower than 0')
 
-    // buscamos el post en el array con un find
     const post = db.posts.find(post => post.id === id)
 
     if (post)
@@ -77,22 +72,18 @@ function findPostById(id) {
     return null
 }
 
-// buscamos el índice del post con el id
 function findPostIndexById(id) {
     validateText(id, 'post id')
 
-    // esto nos trae en índice del post
     const index = db.posts.findIndex(post => post.id === id)
 
     return index
 }
-
 
 function updatePost(post) {
     if (!(post instanceof Post)) throw new TypeError('post is not a Post')
 
     const index = findPostIndexById(post.id)
 
-    // actualizamos el post completamente
     db.posts[index] = clonePost(post)
 }

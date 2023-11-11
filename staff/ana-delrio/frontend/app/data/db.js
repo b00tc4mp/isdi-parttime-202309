@@ -1,6 +1,6 @@
 var db = {}
 
-// populate db (poblar la bd)
+// populate db
 
 db.users = [
     new User(generateId(), 'Wendy Darling', 'wendy@darling.com', '123123123'),

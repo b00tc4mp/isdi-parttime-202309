@@ -1,3 +1,5 @@
+// app se encarga de pintar home
+
 function App() {
     console.log('App')
 
@@ -32,4 +34,3 @@ function App() {
     </>
 }
 
-// app se encarga de pintar home

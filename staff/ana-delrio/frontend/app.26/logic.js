@@ -128,15 +128,20 @@ class Logic {
     toggleLikePost(postId) {
         validateText(postId, 'post id')
 
-        // si esto no lo encunetra, devolverá un null (post = null)
+        // si esto no lo encuentra, devolverá un null (post = null)
         const post = findPostById(postId)
 
         // si el post se borra, tenemos que controlar ese error
         if (!post)
             throw new Error('post not found')
 
+        // Buscar el índice del email del usuario actual en el array de "likes"
+        // Si this.loggedInEmail está en post.likes, likeIndex contendrá el índice de la posición 
+        // Si this.loggedInEmail no está en post.likes, likeIndex contendrá -1
         const likeIndex = post.likes.indexOf(this.loggedInEmail)
 
+        // Si el email del usuario no está en el array de "likes" (likeIndex < 0),
+        // agregar el email a la lista de "likes". De lo contrario quitar el "like"
         if (likeIndex < 0)
             post.likes.push(this.loggedInEmail)
         else

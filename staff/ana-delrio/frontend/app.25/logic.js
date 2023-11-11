@@ -30,6 +30,7 @@ class Logic {
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
 
+        // este this apunta a la lógica
         this.loggedInEmail = email
     }
 

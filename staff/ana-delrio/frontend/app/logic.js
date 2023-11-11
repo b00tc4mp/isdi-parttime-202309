@@ -60,7 +60,6 @@ class Logic {
         user.email = newEmail
 
         updateUser(user)
-
     }
 
     changeUserPassword(newPassword, newPasswordConfirm, password) {
@@ -68,7 +67,9 @@ class Logic {
         validateText(newPasswordConfirm, 'new password confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const index = findUserByIdById(this.userId)
+
+        const user = findUserByIndex(index)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -78,7 +79,7 @@ class Logic {
 
         user.password = newPassword
 
-        updateUser(user)
+        updateUser(index, user)
     }
 
     retrievePosts() {
@@ -110,15 +111,20 @@ class Logic {
     toggleLikePost(postId) {
         validateText(postId, 'post id')
 
-        // si esto no lo encunetra, devolverá un null (post = null)
+        // si esto no lo encuentra, devolverá un null (post = null)
         const post = findPostById(postId)
 
         // si el post se borra, tenemos que controlar ese error
         if (!post)
             throw new Error('post not found')
 
+        // Buscar el índice del email del usuario actual en el array de "likes"
+        // Si this.userId está en post.likes, likeIndex contendrá el índice de la posición 
+        // Si this.userId no está en post.likes, likeIndex contendrá -1
         const likeIndex = post.likes.indexOf(this.userId)
 
+        // Si el email del usuario no está en el array de "likes" (likeIndex < 0),
+        // agregar el email a la lista de "likes". De lo contrario quitar el "like"
         if (likeIndex < 0)
             post.likes.push(this.userId)
         else

@@ -19,6 +19,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser()
 
+        // es una función que se espera que se pase como propiedad al componente Home.
         props.onLogoutClick()
     }
 
@@ -169,6 +170,7 @@ function Home(props) {
                 function handleToggleLikeButtonClick() {
                     const postIndex = posts.length - 1 - index
 
+                    // cálculo del índice invertido
                     handleToggleLikePostClick(postIndex)
                 }
 

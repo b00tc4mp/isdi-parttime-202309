@@ -29,6 +29,7 @@ db.posts = [
     )
 ]
 
+// para cada post, añadimos la generación de un id
 function generateId() {
     return Math.floor(Math.random() * 1000000000000000000).toString(36)
 }

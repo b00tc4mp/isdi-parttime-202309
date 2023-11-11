@@ -55,7 +55,7 @@ function createPost(email, image, text) {
 
 function findPostById(postId) {
     if (typeof postId !== 'string') throw new TypeError('post id is not a string')
-    // lo eliminamos porque no e sun numérico
+    // lo eliminamos porque no es un numérico
     // if (index < 0) throw new RangeError('index lower than 0')
 
     // buscamos el post en el array con un find
