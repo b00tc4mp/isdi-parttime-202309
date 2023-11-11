@@ -107,25 +107,6 @@ class Logic {
         return posts
     }
 
-    retrieveFavPosts() {
-
-        const posts = this.retrievePosts()
-
-        const user = db.users.findById(this.sessionUserId)
-
-        if (!user)
-            throw new Error('user not found')
-
-        const favsPosts = user.favs
-
-        const listFavs = favsPosts.map(post => post)
-
-        if (listFavs === true) {
-            return listFavs
-        }
-    }
-
-
     publishPost(image, text) {
         validateText(image, 'image')
         validateText(text, 'text')

@@ -155,26 +155,12 @@ function Home(props) {
         }
     }
 
-    function handleListFavPostsClick() {
-        let posts = null
-
-        try {
-            posts = logic.retrieveFavPosts()
-
-            setView('list-fav-post')
-            // Cambiamos la vista a 'list-fav-post'
-
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button className="button-post" onClick={handleListFavPostsClick}>favs</button> <button onClick={handleLogoutClick}>Logout</button>
+                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleLogoutClick}>Logout</button>
             </div>
         </header>
 
@@ -225,32 +211,15 @@ function Home(props) {
             </form>
         </div>}
 
-        {view !== 'profile' && view !== "list-fav-post" && posts !== null && (<div className="view">
+        {view !== 'profile' && posts !== null && (<div>
             {posts.map((post) => (
                 <article key={post.id} className="post">
                     <h2>{post.author.name}</h2>
                     <img className="post-image" src={post.image} alt="Post" />
                     <p>{post.text}</p>
-                    <div className="buttons-post">
-                        <button className='button-post' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        <button className='button-post' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '✅' : '☑️'} Fav</button>
-                        {post.author.id === logic.sessionUserId && (<button className='button-post' onClick={() => handleDeletePostClick(post.id)}>Delete Post</button>)}
-                    </div>
-                </article>))}
-        </div>)}
-
-        {view === 'list-fav-post' && (<div className="view">
-            <h1>⭐ All your favorite posts ⭐</h1>
-            {posts.map((post) => (
-                <article key={post.id} className="post">
-                    <h2>{post.author.name}</h2>
-                    <img className="post-image" src={post.image} />
-                    <p>{post.text}</p>
-                    <div className="buttons-post">
-                        <button className='button-post' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        <button className='button-post' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '✅' : '☑️'}Fav</button>
-                        {post.author.id === logic.sessionUserId && (<button className='button-post' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)}
-                    </div>
+                    <button className='button-post' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                    <button className='button-post' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '✅' : '☑️'} Fav</button>
+                    {post.author.id === logic.sessionUserId && (<button className='button-post' onClick={() => handleDeletePostClick(post.id)}>Delete Post</button>)}
                 </article>))}
         </div>)}
     </div>

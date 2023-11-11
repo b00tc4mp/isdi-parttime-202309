@@ -53,10 +53,6 @@ button {
     max-width: 320px;
 }
 
-.buttons-post {
-    justify-content: space-between;
-}
-
 /* .post .button-post {
     margin-right: 10px;
     /* Esto agrega espacio entre los botones */
