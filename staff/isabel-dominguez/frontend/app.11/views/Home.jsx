@@ -13,7 +13,7 @@ function Home(props) {
         logic.logoutUser()
 
         props.onLogoutClick()
-    }// Mediante 'props' nos traemos de APP la función de cambiar la vista a 'LOGIN'
+    }
 
     let name = null
 
@@ -119,7 +119,7 @@ function Home(props) {
         }
     }
 
-    function handleLikeClick(postId) {
+    function handleToggleLikePostClick(postId) {
         try {
             logic.toggleLikePost(postId)
 
@@ -141,17 +141,6 @@ function Home(props) {
             } catch (error) {
                 alert(error.message)
             }
-        }
-    }
-
-    function handleFavPostClick(postId) {
-        try {
-            logic.toggleFavPost(postId)
-
-            setTimestamp(Date.now())
-
-        } catch (error) {
-            alert(error.message)
         }
     }
 
@@ -210,17 +199,26 @@ function Home(props) {
                 <button onClick={handleCancelNewPostClick}>Cancel</button>
             </form>
         </div>}
+        {view !== 'profile' && posts !== null && <div>
+            {posts.map((post) => {
+                function handleToggleLikeButtonClick() {
+                    handleToggleLikePostClick(post.id)
+                }
 
-        {view !== 'profile' && posts !== null && (<div>
-            {posts.map((post) => (
-                <article key={post.id} className="post">
+                function handleDeletePostButtonClick() {
+                    handleDeletePostClick(post.id)
+                }
+
+                return <article key={post.id} className="post">
                     <h2>{post.author.name}</h2>
-                    <img className="post-image" src={post.image} alt="Post" />
+                    <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
-                    <button className='button-post' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button className='button-post' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '✅' : '☑️'} Fav</button>
-                    {post.author.id === logic.sessionUserId && (<button className='button-post' onClick={() => handleDeletePostClick(post.id)}>Delete Post</button>)}
-                </article>))}
-        </div>)}
+                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                    &nbsp;
+                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                </article>
+            })}
+
+        </div>}
     </div>
 }
