@@ -101,23 +101,58 @@ function Home(props) {
         }
     }
 
-    function handleDeletePostClick(postId) {
-        if (confirm('Are you sure you want to delete this post?')) {
+    function handleChangeEmailSubmit(event) {
+        event.preventDefault()
+        const newEmailInput = event.target.querySelector('#new-email-input')
+        const newEmailConfirmInput = event.target.querySelector('#new-email-confirm-input')
+        const passwordInput = event.target.querySelector('#password-input')
 
-            try {
+        const newEmail = newEmailInput.value
+        const newEmailConfirm = newEmailConfirmInput.value
+        const password = passwordInput.value
 
-                logic.deletePost(postId)
+        try {
+            logic.changeUserEmail(newEmail, newEmailConfirm, password)
 
-                setTimestamp(Date.now())
+            alert('Email changed')
 
-            } catch (error) {
-                alert(error.message)
-            }
+            event.target.reset()
+            setView(null)
+
+        } catch (error) {
+            alert(error.message)
+
+        }
+
+    }
+
+    function handleChangePasswordSubmit(event) {
+        event.preventDefault()
+        const passwordInput = event.target.querySelector('#password-input')
+        const newPasswordInput = event.target.querySelector('#new-password-input')
+        const newPasswordConfirmInput = event.target.querySelector('#new-password-confirm-input')
+
+        const password = passwordInput.value
+        const newPassword = newPasswordInput.value
+        const newPasswordConfirm = newPasswordConfirmInput.value
+
+        try {
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+
+            alert('Password changed')
+
+            event.target.reset()
+            setView(null)
+
+        } catch (error) {
+            alert(error.message)
         }
     }
 
-
     return <div>
+        {/* hay que cerrar todos los elementos */}
+        {/* hay que cerrar todos las imégenes también */}
+        {/* fijarse en el nombre de las clases,  ids, labels... (className,htmlFor...) */}
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
@@ -129,7 +164,7 @@ function Home(props) {
         {view === 'profile' && <div className="view">
             <h2>Update e-mail</h2>
 
-            <form className="form">
+            <form className="form" onSubmit={handleChangeEmailSubmit}>
                 <label htmlFor="new-email-input">New e-mail</label>
                 <input id="new-email-input" type="email" />
 
@@ -137,16 +172,16 @@ function Home(props) {
                 <input id="new-email-confirm-input" type="email" />
 
                 <label htmlFor="password-input">Password</label>
-                <input id="password-input" type="password" />
+                <input type="password" id="password-input" />
 
                 <button type="submit">Update e-mail</button>
             </form>
 
             <h2>Update password</h2>
 
-            <form className="form">
+            <form className="form" onSubmit={handleChangePasswordSubmit}>
                 <label htmlFor="password-input">Current password</label>
-                <input id="password-input" type="password" />
+                <input type="password" id="password-input" />
 
                 <label htmlFor="new-password-input">New password</label>
                 <input id="new-password-input" type="password" />
@@ -158,6 +193,7 @@ function Home(props) {
             </form>
         </div>}
 
+        {/* si la view es new-post, se vea lo siguiente */}
         {view === 'new-post' && <div className="view">
             <h2>New post</h2>
 
@@ -172,27 +208,26 @@ function Home(props) {
                 <button onClick={handleCancelNewPostClick}>Cancel</button>
             </form>
         </div>}
-
+        {/* la siguiente condición la ponemos porque los posts solo se ven en determinadas vistas, solo se pintarán SI LA VISTA ES DIFERENTE A LA DE PROFILE */}
         {view !== 'profile' && posts !== null && <div>
-
+            {/* tenemos que conseguir cada post (objeto con datos) en un artículo, es decir, es un DOM virtual */}
+            {/* vamos a mapear cada objeto para devolver un array de componentes de react */}
+            {/* En React, el atributo key se utiliza para asignar un identificador único a los elementos en una lista renderizada */}
             {posts.map((post) => {
                 function handleToggleLikeButtonClick() {
+
                     handleToggleLikePostClick(post.id)
                 }
 
-                function handleDeletePostButtonClick() {
-                    handleDeletePostClick(post.id)
-                }
-
-
                 return <article key={post.id} className="post">
-                    <h2>{post.author.name}</h2>
+                    <h2>{post.author}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
+                    {/* el nº de likes que tengo {post.likes.length} */}
+                    {/* Esta expresión se utiliza  para mostrar un emoji de corazón rojo cuando post.isFav es verdadero y un emoji de corazón blanco cuando post.isFav es falso */}
                     <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
                 </article>
             })}
         </div>}
     </div>
-} 
+}

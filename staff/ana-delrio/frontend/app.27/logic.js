@@ -67,7 +67,9 @@ class Logic {
         validateText(newPasswordConfirm, 'new password confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const index = findUserById(this.userId)
+
+        const user = findUserByIndex(index)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -93,12 +95,7 @@ class Logic {
 
             const user = findUserById(post.author)
 
-            // ahora el autor va a manjear dos datos 
-            post.author = {
-                name: user.name,
-                id: user.id
-            }
-
+            post.author = user.name
         })
 
         return posts
@@ -135,17 +132,4 @@ class Logic {
 
         updatePost(post)
     }
-
-    deletePost(postId) {
-        validateText(postId, 'post id')
-
-        const post = findPostById(postId)
-
-        if (!post)
-            throw new Error('post not found')
-
-        deletePostById(post.id)
-    }
-
-}
-
+} 
