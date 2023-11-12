@@ -13,7 +13,7 @@ class Post {
         this.author = author
         this.image = image
         this.text = text
-        this.likes = likes ?? []
+        this.likes = likes
     }
 }
 

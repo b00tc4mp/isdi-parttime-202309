@@ -95,6 +95,7 @@ function deletePostById(id) {
 }
 
 
+
 /*
 
 TODO Collection abstraction
@@ -126,3 +127,4 @@ class Collection {
 }
 
 */
+

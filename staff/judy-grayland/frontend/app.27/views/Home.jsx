@@ -6,13 +6,10 @@ function Home(props) {
     const view = viewState[0]
     const setView = viewState[1]
 
-    // Estado de LIKES
     const timestampState = React.useState(null)
-
     // const timestamp = timestampState[0]
     const setTimestamp = timestampState[1]
 
-    //LOG OUT
     function handleLogoutClick() {
         logic.logoutUser()
         props.onLogoutClick()
@@ -27,7 +24,6 @@ function Home(props) {
         alert(error.message)
     }
 
-    // USER SETTINGS BUTTON
     function handleProfileClick(event) {
         event.preventDefault()
 
@@ -88,7 +84,7 @@ function Home(props) {
         }
     }
 
-    function handleDeletePostClick(postId) {
+    /*function handleDeletePostClick(postId) {
         if(confirm('Are you sure you want to delete this post?')) {
 
             try {
@@ -101,7 +97,7 @@ function Home(props) {
             }
         }
     }
-
+    */
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
@@ -213,7 +209,7 @@ function Home(props) {
                 <img className="post-image" src={post.image}/>
                 <p>{post.text}</p>
                 <button onClick={handleToggleLikeButtonClick}>{post.liked ? '♥️' : '🤍'} {post.likes.length} likes</button>
-                {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
+                {/* {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>} */}
             </article>
             })}
         </div>}
