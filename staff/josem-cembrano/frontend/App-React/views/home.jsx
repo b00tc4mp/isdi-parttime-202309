@@ -6,6 +6,10 @@ function Home(props) {
     const view = viewState[0]
     const setView = viewState[1]
 
+    const timestampState = React.useState(null)
+    // const timestamp = timestampState[0]
+    const setTimestamp = timestampState[1]
+
     function handleLogoutClick() {
         logic.logoutUser()
 
@@ -72,6 +76,31 @@ function Home(props) {
         }
     }
 
+    function handleToggleLikePostClick(postId) {
+        try {
+            logic.toggleLikePost(postId)
+
+            setTimestamp(Date.now())
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    function handleDeletePostClick(postId) {
+        if (confirm('Are you sure you want to delete this post?')) {
+
+            try {
+
+                logic.deletePost(postId)
+
+                setTimestamp(Date.now())
+
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+    }
+
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
@@ -92,7 +121,7 @@ function Home(props) {
                 <input id="new-email-confirm-input" type="email" />
 
                 <label htmlFor="password-input">Password</label>
-                <input type="password" id="password-input" />
+                <input id="password-input" type="password" />
 
                 <button type="submit">Update e-mail</button>
             </form>
@@ -101,7 +130,7 @@ function Home(props) {
 
             <form className="form">
                 <label htmlFor="password-input">Current password</label>
-                <input type="password" id="password-input" />
+                <input id="password-input" type="password" />
 
                 <label htmlFor="new-password-input">New password</label>
                 <input id="new-password-input" type="password" />
@@ -129,33 +158,25 @@ function Home(props) {
         </div>}
 
         {view !== 'profile' && posts !== null && <div>
-            {/* <article className="post">
-                <h2>peter@pan.com</h2>
-                <img className="post-image" src="https://m.media-amazon.com/images/I/71JZegDmwbL.jpg" />
-                <p>i love ü baby</p>
-                <button>🤍 1 likes</button>
-            </article>
 
-            <article className="post">
-                <h2>wendy@darling.com</h2>
-                <img className="post-image" src="https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg" />
-                <p>my sweety!</p>
-                <button>❤️ 1 likes</button>
-            </article>
+            {posts.map((post) => {
+                function handleToggleLikeButtonClick() {
+                    handleToggleLikePostClick(post.id)
+                }
 
-            <article className="post">
-                <h2>peter@pan.com</h2>
-                <img className="post-image" src="https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg" />
-                <p>my granpa!</p>
-                <button>🤍 0 likes</button>
-            </article> */}
+                function handleDeletePostButtonClick() {
+                    handleDeletePostClick(post.id)
+                }
 
-            {posts.map((post, index) => <article key={index} className="post">
-                <h2>{post.author}</h2>
-                <img className="post-image" src={post.image} />
-                <p>{post.text}</p>
-                <button>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-            </article>)}
+
+                return <article key={post.id} className="post">
+                    <h2>{post.author.name}</h2>
+                    <img className="post-image" src={post.image} />
+                    <p>{post.text}</p>
+                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                </article>
+            })}
         </div>}
     </div>
-}
+} 

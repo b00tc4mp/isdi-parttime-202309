@@ -12,7 +12,7 @@ function Register(props) {
         const email = emailInput.value
         const password = passwordInput.value
 
-        // console.log(name, email, password)
+        //console.log(name, email, password)
 
         try {
             logic.registerUser(name, email, password)
@@ -26,7 +26,7 @@ function Register(props) {
     function handleLoginClick(event) {
         event.preventDefault()
 
-        // console.log('login click')
+        //console.log('login click')
         props.onLoginClick()
     }
 
@@ -41,7 +41,7 @@ function Register(props) {
             <input id="email-input" type="email" />
 
             <label htmlFor="password-input">Password</label>
-            <input type="password" id="password-input" />
+            <input id="password-input" type="password" />
 
             <button type="submit">Register</button>
         </form>

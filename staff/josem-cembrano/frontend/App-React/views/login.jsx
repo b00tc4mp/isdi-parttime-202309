@@ -10,7 +10,7 @@ function Login(props) {
         const email = emailInput.value
         const password = passwordInput.value
 
-        // console.log(email, password)
+        //console.log(email, password)
         try {
             logic.loginUser(email, password)
 
