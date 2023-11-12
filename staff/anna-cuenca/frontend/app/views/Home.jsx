@@ -135,19 +135,17 @@ function Home(props) {
         }
     }
 
-    // function handleDeletePostClick(postId) {
-    //     if (confirm('Are you sure that you want to delete this post?')) {
-
-    //         try {
-    //             logic.deletePost(postId)
-
-    //             setTimestampState(Date.now())
-
-    //         } catch (error) {
-    //             alert(error.message)
-    //         }
-    //     }
-    // }
+    function handleDeletePostClick(postId) {
+        if (confirm('Are you sure you want to delete this post?')) {
+            try {
+                logic.deletePost(postId)
+                setTimestamp(Date.now())
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+        return
+    }
 
     function handleToggleFavPostClick(postId) {
         try {
@@ -246,41 +244,6 @@ function Home(props) {
 
 
 
-
-
-
-
-        {/* {view === 'favorites' && (
-            <div className="view">
-                <h2>Your Favorites</h2>
-                {favoritePosts.map((postFav) => {
-                    function handleToggleLikeButtonClick() {
-                        handleToggleLikePostClick(postFav.id);
-                    }
-
-                    function handleToggleFavButtonClick() {
-                        handleToggleFavPostClick(postFav.id);
-                    }
-
-                    return (
-                        <article key={postFav.id} className="post">
-                            <h2>{postFav.author.name}</h2>
-                            <img className="post-image" src={postFav.image} />
-                            <p>{postFav.text}</p>
-                            <button onClick={handleToggleLikeButtonClick}>
-                                {postFav.liked ? '❤️' : '🤍'} {postFav.likes.length} likes
-                            </button>
-                            <button onClick={handleToggleFavButtonClick}>
-                                {postFav.fav ? '⭐️' : '✩'}
-                            </button>
-                        </article>
-                    );
-                })}
-            </div>
-        )} */}
-
-
-
         {
             view !== 'profile' && view !== 'favorites' && posts !== null && <div>
                 {posts.map((post) => {
@@ -301,7 +264,7 @@ function Home(props) {
                         <img className="post-image" src={post.image} />
                         <p>{post.text}</p>
                         <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        {/* {post.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)} */}
+                        {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
                         <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
 
                     </article>

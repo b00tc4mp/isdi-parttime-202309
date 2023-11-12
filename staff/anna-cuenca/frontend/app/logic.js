@@ -89,9 +89,15 @@ class Logic {
 
       const author = db.users.findById(post.author);
 
+      post.fav = user.favs.includes(post.id)
+
       post.author = author.name
 
-      post.fav = user.favs.includes(post.id)
+      post.author = {
+        email: author.email,
+        id: author.id,
+        name: author.name
+      }
     });
 
     return posts;
@@ -149,18 +155,19 @@ class Logic {
     db.posts.update(post);
   }
 
-  // deletePost(postId) {
-  //   validateText(postId, 'post id')
+  deletePost(postId) {
+    validateText(postId, 'post id')
 
-  //   const post = findPostById(postId)
+    const post = db.posts.findById(postId)
 
-  //   if (!post) {
-  //       throw new Error('post not found')
-  //   }
+    if (!post) {
+        throw new Error('post not found')
+    }
 
-  //   deletePostById(post.id)
+    db.posts.deleteById(post.id)
+}
 
-  // }
+
 
   toggleFavPost(postId) {
     validateText(postId, 'post id')
