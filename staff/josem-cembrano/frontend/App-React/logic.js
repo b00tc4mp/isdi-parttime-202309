@@ -1,42 +1,42 @@
 class Logic {
     constructor() {
-        this.userId = null
+        this.sessionUserId = null
     }
 
     registerUser(name, email, password) {
-        validateText(name, 'Name')
-        validateText(email, 'Email')
-        validateText(password, 'Password')
+        validateText(name, 'name')
+        validateText(email, 'email')
+        validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const user = findByEmail(email)
 
         if (user)
             throw new Error('user already exists')
 
-        createUser(name, email, password)
+        db.users.insert(new User(name, email, password, []))
     }
 
     loginUser(email, password) {
-        validateText(email, 'Email')
-        validateText(password, 'Password')
+        validateText(email, 'email')
+        validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const user = db.users.findByEmail(email)
 
         if (!user || user.password !== password)
-            throw new Error('Wrong credentials')
+            throw new Error('wrong credentials')
 
-        this.userId = user.id
+        this.sessionUserId = user.id
     }
 
     logoutUser() {
-        this.userId = null
+        this.sessionUserId = null
     }
 
     retrieveUser() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user)
-            throw new Error('User not found')
+            throw new Error('user not found')
 
         delete user.password
 
@@ -48,92 +48,145 @@ class Logic {
         validateText(newEmailConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user || user.password !== password)
-            throw new Error('Wrong credentials')
+            throw new Error('wrong credentials')
 
         if (newEmail !== newEmailConfirm)
             throw new Error('new email and its confirmation do not match')
 
         user.email = newEmail
 
-        updateUser(index, user)
+        db.users.update(user)
     }
 
-    changeUserPassword(newPassword, newPasswordConfirm, password) {
+    changeUserPassword(password, newPassword, newPasswordConfirm) {
+        validateText(password, 'password')
         validateText(newPassword, 'new password')
         validateText(newPasswordConfirm, 'new password confirm')
-        validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user || user.password !== password)
-            throw new Error('Wrong credentials')
+            throw new Error('wrong credentials')
 
         if (newPassword !== newPasswordConfirm)
             throw new Error('new password and its confirmation do not match')
 
         user.password = newPassword
 
-        updateuser(user)
+        db.users.update(user)
     }
 
     retrievePosts() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user)
             throw new Error('user not found')
 
-        const posts = getPosts()
+        const posts = db.posts.getAll()
 
         posts.forEach(post => {
-            post.isFav = post.likes.includes(this.userId)
+            post.liked = post.likes.includes(this.sessionUserId)
 
-            const user = findUserById(post.author)
+            const author = db.users.findById(post.author)
+
+            post.fav = user.favs.includes(post.id)
 
             post.author = {
-                name: user.name,
-                id: user.id
+                name: author.name,
+                id: author.id
             }
         })
 
         return posts
     }
 
+    retrieveFavPosts() {
+        const user = db.users.findById(this.sessionUserId)
+
+        if (!user)
+            throw new Error('user not found')
+
+        const favPostArray = db.users.getFavPostsById(user.id)
+
+        const userFavPosts = []
+
+        for (let i = 0; i < favPostArray.length; i++) {
+            userFavPosts[i] = db.posts.findById(favPostArray[i])
+        }
+
+        userFavPosts.forEach(post => {
+            post.liked = post.likes.includes(this.sessionUserId)
+
+            const author = db.users.findById(post.author)
+
+            post.fav = user.favs.includes(post.id)
+
+            post.author = {
+                name: author.name,
+                id: author.id
+            }
+        })
+
+        return userFavPosts
+    }
+
     publishPost(image, text) {
         validateText(image, 'image')
         validateText(text, 'text')
 
-        createPost(this.userId, image, text)
+        db.posts.insert(new Post(null, this.sessionUserId, image, text, []))
     }
 
     toggleLikePost(postId) {
         validateText(postId, 'post id')
 
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
-        if (!post)
-            throw new Error('post not found')
+        if (!post) throw new Error('post not found')
 
-        const likeIndex = post.likes.indexOf(this.userId)
+        const likeIndex = post.likes.indexOf(this.sessionUserId)
 
         if (likeIndex < 0)
-            post.likes.push(this.userId)
+            post.likes.push(this.sessionUserId)
         else
             post.likes.splice(likeIndex, 1)
 
-        updatePost(post)
+        db.posts.update(post)
     }
 
     deletePost(postId) {
         validateText(postId, 'post id')
 
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
-        if (!post)
+        if (!post) {
             throw new Error('post not found')
+        }
 
-        deletePostById(post.id)
+        db.posts.deleteById(post.id)
+    }
+
+    toggleFavPost(postId) {
+        validateText(postId, 'post id')
+
+        const post = db.posts.findById(postId)
+
+        if (!post) throw new Error('post not found')
+
+        const user = db.users.findById(this.sessionUserId)
+
+        if (!user) throw new Error('user not found')
+
+        const index = user.favs.indexOf(postId)
+
+        if (index < 0)
+            user.favs.push(postId)
+        else
+            user.favs.splice(index, 1)
+
+        db.users.update(user)
     }
 }

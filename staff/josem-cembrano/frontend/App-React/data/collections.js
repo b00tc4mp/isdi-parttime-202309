@@ -1,7 +1,7 @@
 class Collection {
-    constructor(clazz, collection) {
+    constructor(clazz, documents) {
         this.clazz = clazz
-        this.documents = collection
+        this.documents = documents
     }
 
     clone(document) {
@@ -12,13 +12,12 @@ class Collection {
 
             if (value instanceof Array)
                 copy[key] = [...value]
-            else if (value instanceof Date)
-                copy[key] = new Date(document[key])
             else if (value instanceof Object)
                 copy[key] = { ...value }
+            else if (value instanceof Date)
+                copy[key] = new Date(document[key])
             else
-                copy[key] = document[key]
-
+                copy[key] = value
         }
 
         return copy
@@ -47,7 +46,8 @@ class Collection {
 
         const document = this.documents.find(document => document.id === id)
 
-        if (!document) return null
+        if (!document)
+            return null
 
         return this.clone(document)
     }
@@ -62,6 +62,16 @@ class Collection {
 
         this.documents[index] = this.clone(document)
     }
+
+    deleteById(id) {
+        validateText(id, `${this.clazz.name} id`)
+
+        const index = this.findIndexById(id)
+
+        if (index < 0) throw new Error(`${this.clazz.name} not found`)
+
+        this.documents.splice(index, 1)
+    }
 }
 
 class Users extends Collection {
@@ -72,11 +82,18 @@ class Users extends Collection {
     findByEmail(email) {
         validateText(email, `${this.clazz.name} email`)
 
-        const user = this.documents.find(document => document.email === email)
+        const document = this.documents.find(document => document.email === email)
 
-        if (!user) return null
+        if (!document)
+            return null
 
-        return this.clone(user)
+        return this.clone(document)
+    }
+
+    getFavPostsById(userId) {
+        //validateText(id, `${this.clazz.name} id`)
+
+        return this.documents.find(document => document.id === userId).favs
     }
 }
 
