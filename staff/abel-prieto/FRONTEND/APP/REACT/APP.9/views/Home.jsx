@@ -17,9 +17,12 @@ function Home(props) {
     const name = user.name
 
     let posts = null
+    let favs = null
 
     try {
+
         posts = logic.retrievePosts()
+        favs = logic.retrieveFavUserPosts()
 
         posts.reverse()
 
@@ -95,11 +98,7 @@ function Home(props) {
 
     // LIST FAVS POSTS
     function handleListFavPostsClick() {
-        let posts = null
-
         try {
-            posts = logic.retrieveFavUserPosts()
-
             setView('list-fav-post')
             // Cambiamos la vista a 'list-fav-post'
 
@@ -255,14 +254,14 @@ function Home(props) {
 
         {view === 'list-fav-post' && <div className="view">
             <h1>⭐ All your favorite posts ⭐</h1>
-            {posts.map((post) => <article key={post.id} className="post">
-                <h2>{post.author.email}</h2>
-                <img className="post-img" src={post.image} />
-                <p>{post.text}</p>
+            {favs.map((postFav) => <article key={postFav.id} className="post">
+                <h2>{postFav.author.email}</h2>
+                <img className="post-img" src={postFav.image} />
+                <p>{postFav.text}</p>
                 <div className="buttons-post">
-                    <button className='button-submit' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button className='button-submit' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '⭐' : '☆'}Fav</button>
-                    {post.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)}
+                    <button className='button-submit' onClick={() => handleLikeClick(postFav.id)}>{postFav.liked ? '❤️' : '🤍'} {postFav.likes.length} likes</button>
+                    <button className='button-submit' onClick={() => handleFavPostClick(postFav.id)}>{postFav.fav ? '⭐' : '☆'}Fav</button>
+                    {postFav.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(postFav.id)}>Delete post</button>)}
                 </div>
             </article>)}
         </div>}

@@ -118,31 +118,36 @@ class Logic {
         return posts
     }
 
-    // RETRIEVE FAV USER POSTS
+    // RETRIEVE FAV SESSION POSTS
     retrieveFavUserPosts() {
         const user = db.users.findById(this.sessionUserId);
 
         if (!user) {
             throw new Error('user not found');
         }
-    
-        const userFavPostsIds = user.favs; // IDs de los posts marcados como favoritos por el usuario
-    
-        const favUserPosts = userFavPostsIds.map(postId => {
-            const post = db.posts.findById(postId);
 
-            if (post) {
-                post.fav = true; // Marcar el post como favorito, ya que está en la lista de favoritos del usuario
-                const author = db.users.findById(post.author);
+        const userFavPostsIds = user.favs // IDs de los posts favoritos por el user logeado [id, id, id]
+    
+        const favUserPosts = userFavPostsIds.map(postFav => {
+            const post = db.posts.findById(postFav)
+
+            if (post) { // Si el post-fav existe
+                post.liked = post.likes.includes(this.sessionUserId)
+
+                post.fav = userFavPostsIds.includes(post.id)
+
+                const author = db.users.findById(post.author)
+
                 post.author = {
                     email: author.email,
                     id: author.id
-                };
-                return post;
+                }
+
+                return post
             }
             
-            return null; // Manejar el caso donde un post marcado como favorito ya no existe
-        }).filter(post => post !== null); // Filtrar los posts nulos (que ya no existen)
+            return null // Si un post-fav ya no existe
+        })
     
         return favUserPosts
     }
@@ -152,7 +157,7 @@ class Logic {
         validateText(image, 'image')
         validateText(text, 'text')
     
-        db.posts.insert(new Post(null, this.sessionUserId, image, text))
+        db.posts.insert(new Post(null, this.sessionUserId, image, text, []))
     }
 
     // UPDATE ALL POSTS
@@ -181,15 +186,24 @@ class Logic {
         validateText(postId, 'post id')
 
         const post = db.posts.findById(postId)
+        const user = db.users.findById(this.sessionUserId)
+        const index = user.favs.indexOf(postId)
 
         if (!post) {
             throw new Error('post not found')
         }
 
+        if (!user) {
+            throw new Error('user not found')
+        }
+
         db.posts.deleteById(post.id)
+        user.favs.splice(index, 1)
+
+        db.users.update(user)    
     }
 
-    // BUTTON FAV
+    // FAV BUTTON
     toggleFavPost(postId) {
         validateText(postId, 'post id')
 
