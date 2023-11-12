@@ -10,7 +10,7 @@ function Home(props) {
     //const timestamp = timestampState[0]
     const setTimestamp = timestampState[1]
 
-
+    let favoritePosts = [];
 
 
 
@@ -36,50 +36,23 @@ function Home(props) {
         setView('profile')
     }
 
-
-
-    function handleFavsViewClick(event) {
-        event.preventDefault()
-        setView('favorites');
-
-
-
-        try {
-
-            favoritePosts = logic.retrieveFavoritePosts()
-
-            setTimestamp(Date.now())
-
-
-
-
-        } catch (error) {
-            alert(error.message)
-
-        }
-
-
-    }
-
-
     function handleFavsViewClick(event) {
         event.preventDefault()
 
+        const user = logic.retrieveUser()
+
+        const favsPostsByUser = user.favs
+
+        const favoritePosts = posts.filter((postFav) => favsPostsByUser.includes(postFav.id));
+
+        console.log(favoritePosts);
+
+        //tengo que hacer la lógica :)
+
+
+
         setView('favorites');
     }
-
-    let favoritePosts = null
-
-    try {
-        favoritePosts = logic.retrieveFavoritePosts()
-        //necesito que me devuelva un array con los posts favoritos del usuario conectado
-    } catch (error) {
-        alert(error.message)
-    }
-
-
-
-
 
     function handleHomeClick(event) {
         event.preventDefault()
@@ -215,42 +188,7 @@ function Home(props) {
             </form>
         </div>}
 
-        {
-            view === 'favorites' && <div>
-                <h2>Your Favorites</h2>
-                {favoritePosts.map((post) => {
-                    function handleToggleLikeButtonClick() {
-                        handleToggleLikePostClick(post.id)
-                    }
-
-                    function handleDeletePostButtonClick() {
-                        handleDeletePostClick(post.id)
-                    }
-
-                    function handleToggleFavPostButtonClick() {
-                        handleToggleFavPostClick(post.id)
-                    }
-
-                    return <article key={post.id} className="post">
-                        <h2>{post.author.name}</h2>
-                        <img className="post-image" src={post.image} />
-                        <p>{post.text}</p>
-                        <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
-                        <button onClick={handleToggleFavPostButtonClick}>{post.fav ? '🌟' : '⭐'} fav</button>
-
-                    </article>
-                })}
-            </div>
-        }
-
-
-
-
-
-
-
-        {/* {view === 'favorites' && (
+        {view === 'favorites' && (
             <div className="view">
                 <h2>Your Favorites</h2>
                 {favoritePosts.map((postFav) => {
@@ -277,9 +215,7 @@ function Home(props) {
                     );
                 })}
             </div>
-        )} */}
-
-
+        )}
 
         {
             view !== 'profile' && view !== 'favorites' && posts !== null && <div>

@@ -97,36 +97,6 @@ class Logic {
     return posts;
   }
 
-
-  retrieveFavoritePosts() {
-
-    const user = db.users.findById(this.sessionUserId);
-    if (!user) throw new Error("post not found");
-
-    const favsPostsByUser = user.favs
-    const posts = db.posts.getAll();
-
-    // tengo los ids de los posts
-
-    const favoritePosts = posts.filter((post) => favsPostsByUser.includes(post.id));
-
-    // ahora tengo un array con los posts
-
-    favoritePosts.forEach((post) => {
-      post.liked = post.likes.includes(this.sessionUserId);
-
-      const author = db.users.findById(post.author);
-
-      post.author = author.name
-
-      post.fav = user.favs.includes(post.id)
-    });
-
-    return favoritePosts;
-    
-}
-
-
   publishPost(image, text) {
     validateText(image, "image");
     validateText(text, "text");

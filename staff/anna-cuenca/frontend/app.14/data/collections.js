@@ -1,7 +1,7 @@
 class Collection {
   constructor(clazz, collection) {
     this.clazz = clazz;
-    this.documents = collection;
+    this.collection = collection;
   }
 
   clone(document) {
@@ -28,23 +28,19 @@ class Collection {
 
     documentCopy.id = this.generateId();
 
-    this.documents.push(documentCopy);
+    this.collection.push(documentCopy);
   }
 
   findIndexById(id) {
     validateText(id, `${this.clazz.name} id`);
 
-    return this.documents.findIndex((document) => document.id === id);
+    return this.collection.findIndex((document) => document.id === id);
   }
 
   findById(id) {
     validateText(id, `${this.clazz.name} id`);
 
-    const document = this.documents.find(document => document.id === id)
-
-        if (!document) return null
-
-        return this.clone(document)
+    return this.collection.find((document) => document.id === id) || null;
   }
 
   update(document) {
@@ -55,12 +51,12 @@ class Collection {
 
     if (index < 0) throw new Error(`${this.clazz.name} not found`);
 
-    this.documents[index] = this.clone(document);
+    this.collection[index] = this.clone(document);
   }
 
   deleteById(document) {
     const index = this.findIndexById(document); //tenemos el id de lo que queremos eliminar
-    this.documents.splice(index, 1);
+    this.collection.splice(index, 1);
   }
 }
 
@@ -72,11 +68,7 @@ class Users extends Collection {
   findByEmail(email) {
     validateText(email, `${this.clazz.name} email`);
 
-    const user = this.documents.find(document => document.email === email)
-
-    if (!user) return null
-
-    return this.clone(user)
+    return this.collection.find((document) => document.email === email) || null;
   }
 }
 
@@ -86,7 +78,7 @@ class Posts extends Collection {
   }
 
   getAll() {
-    return this.documents.map(this.clone.bind(this));
+    return this.collection.map(this.clone.bind(this));
   }
 }
 
