@@ -1,93 +1,225 @@
+
+
 class Logic {
   constructor() {
-    this.loggedInEmail = null
+    this.sessionUserId = null
   }
+
 
   registerUser(name, email, password) {
     validateText(name, 'name')
     validateText(email, 'email')
     validateText(password, 'password')
 
-    const user = findUserByEmail(email)
+    const user = db.users.findByEmail(email)
 
     if (user)
       throw new Error('user already exists')
 
-    createUser(name, email, password)
+    db.users.insert(new User(null, name, email, password, []))
   }
+
 
   loginUser(email, password) {
     validateText(email, 'email')
     validateText(password, 'password')
 
-    const user = findUserByEmail(email)
-
-    if (!user || user.password !== password)
-      throw new Error('wrong credentials')
-
-    this.loggedInEmail = email
-  }
-
-  logoutUser() {
-    this.loggedInEmail = null
-  }
-
-  retrieveUser() {
-    const user = findUserByEmail(this.loggedInEmail)
+    const user = db.users.findByEmail(email)
 
     if (!user)
       throw new Error('user not found')
+
+    if (user.password !== password)
+      throw new Error('wrong credentials')
+
+    this.sessionUserId = user.id
+  }
+
+
+  retrieveUser() {
+    const user = db.users.findById(this.sessionUserId)
+
+    if (!user)
+      throw new Error('user not found')
+
+    delete user.password
 
     return user
   }
 
-  changeUserEmail(newEmail, newEmailConfirm, password) {
+
+  logoutUser() {
+    this.sessionUserId = null
+  }
+
+
+  changeUserEmail(newEmail, confirmNewEmail, password) {
     validateText(newEmail, 'new email')
-    validateText(newEmailConfirm, 'new email confirm')
-    validateText(password, 'password')
+    validateText(confirmNewEmail, 'new email confirm')
+    validateText(password, 'new email')
 
-    const user = findUserByEmail(this.loggedInEmail)
+    const user = db.users.findById(this.sessionUserId)
 
-    if (!user || user.password !== password)
+    if (!user || user.password !== password) {
       throw new Error('wrong credentials')
+    }
 
-    if (newEmail !== newEmailConfirm)
-      throw new Error('new email and its confirmation do not match')
+    if (newEmail !== confirmNewEmail) {
+      throw new Error('New email and your confirm doesnt match each other')
+    }
 
-    modifyUserEmail(this.loggedInEmail, newEmail)
+    user.email = newEmail
 
-    this.loggedInEmail = newEmail
+    db.users.update(user)
   }
 
-  changeUserPassword(newPassword, newPasswordConfirm, password) {
+
+  changeUserPassword(password, newPassword, againNewPassword) {
+    validateText(password, 'password')
     validateText(newPassword, 'new password')
-    validateText(newPasswordConfirm, 'new password confirm')
-    validateText(password, 'password')
+    validateText(againNewPassword, 'the repeat password')
 
-    const user = findUserByEmail(this.loggedInEmail)
+    const user = db.users.findById(this.sessionUserId)
 
-    if (!user || user.password !== password)
+    if (!user || user.password !== password) {
       throw new Error('wrong credentials')
+    }
+    if (newPassword !== againNewPassword) {
+      throw new Error('New pass and his confirmation are not correct. Try again')
+    }
 
-    if (newPassword !== newPasswordConfirm)
-      throw new Error('new password and its confirmation do not match')
+    user.password = newPassword
 
-    modifyUserPassword(this.loggedInEmail, newPassword)
+    db.users.update(user)
   }
+
 
   retrievePosts() {
-    const user = findUserByEmail(this.loggedInEmail)
+    const user = db.users.findById(this.sessionUserId)
 
     if (!user)
       throw new Error('user not found')
 
-    return getPosts()
+    const posts = db.posts.getAll()
+
+    posts.forEach(post => {
+      post.liked = post.likes.includes(this.sessionUserId)
+
+      const author = db.users.findById(post.author)
+
+      post.fav = user.favs.includes(post.id)
+
+      post.author = {
+        email: author.email,
+        id: author.id
+      }
+    })
+
+    return posts
   }
+
+
+  retrieveFavPosts() {
+
+    const user = db.users.findById(this.sessionUserId)
+
+    if (!user)
+      throw new Error('user not found')
+
+    const posts = db.posts.getAll()
+
+    const favPosts = posts.filter(post => user.favs.includes(post.id))
+
+    favPosts.forEach(post => {
+      post.liked = post.likes.includes(this.sessionUserId)
+
+      const author = db.users.findById(post.author)
+
+      post.fav = user.favs.includes(post.id)
+
+      post.author = {
+        email: author.email,
+        id: author.id
+      }
+    })
+
+    return favPosts
+  }
+
 
   publishPost(image, text) {
     validateText(image, 'image')
     validateText(text, 'text')
 
-    createPost(this.loggedInEmail, image, text)
+    db.posts.insert(new Post(null, this.sessionUserId, image, text, []))
+  }
+
+  toggleLikePost(postId) {
+    validateText(postId, 'post id')
+
+    const post = db.posts.findById(postId)
+
+    if (!post) {
+      throw new Error('post not found')
+    }
+
+    const likeIndex = post.likes.indexOf(this.sessionUserId)
+
+    if (likeIndex < 0) {
+      post.likes.push(this.sessionUserId)
+    } else {
+      post.likes.splice(likeIndex, 1)
+    }
+
+    db.posts.update(post)
+  }
+
+
+  deletePost(postId) {
+    validateText(postId, 'post id')
+
+    const post = db.posts.findById(postId)
+    const user = db.users.findById(this.sessionUserId)
+    const index = user.favs.indexOf(postId)
+
+    if (!post) {
+      throw new Error('post not found')
+    }
+
+    if (!user) {
+      throw new Error('user not found')
+    }
+
+    db.posts.deleteById(post.id)
+    user.favs.splice(index, 1)
+
+    db.users.update(user)
+  }
+
+
+  toggleFavPost(postId) {
+    validateText(postId, 'post id')
+
+    const post = db.posts.findById(postId)
+
+    if (!post) {
+      throw new Error('post not found')
+    }
+
+    const user = db.users.findById(this.sessionUserId)
+
+    if (!user) {
+      throw new Error('user not found')
+    }
+
+    const index = user.favs.indexOf(postId)
+
+    if (index < 0) {
+      user.favs.push(post.id)
+    } else {
+      user.favs.splice(index, 1)
+    }
+
+    db.users.update(user)
   }
 }
