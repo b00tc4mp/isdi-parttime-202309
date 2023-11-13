@@ -133,12 +133,11 @@ class Logic {
 }
 
 
-  publishPost(image, text) {
-    validateText(image, "image");
-    validateText(text, "text");
-
-    db.posts.insert(new Posts(null, this.sessionUserId, image, text));
-  }
+publishPost(image, text) {
+  validateText(image, 'image')
+  validateText(text, 'text')
+  db.posts.insert(new Post(null, this.sessionUserId, image, text, []))
+}
 
   toggleLikePost(postId) {
     validateText(postId, "post id");

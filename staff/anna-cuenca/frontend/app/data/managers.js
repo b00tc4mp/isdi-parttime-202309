@@ -64,10 +64,10 @@ function getPosts() {
   return db.posts.map(clonePost);
 }
 
-function createPost(userId, image, text) {
-  const post = new Post(generateId(), userId, image, text, []);
+function createPost(email, image, text) {
+  const post = new Post(email, image, text, [])
 
-  db.posts.push(post);
+  db.posts.push(post)
 }
 
 function findPostById(id) {
