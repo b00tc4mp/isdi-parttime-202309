@@ -8,7 +8,7 @@ function Home(props) {
 
     const timestampState = React.useState(null)
     // const timestamp = timestampState[0]
-    const setTimestamp = timestampState[1]
+    const setTimestampState = timestampState[1]
 
     function handleLogoutClick() {
         logic.logoutUser()
@@ -50,10 +50,17 @@ function Home(props) {
 
     let posts = null
 
+    /////
+
+    /* const user = logic.retrieveUser()
+    const name = user.name */
+
+
     try {
         posts = logic.retrievePosts()
 
         posts.reverse()
+
     } catch (error) {
         alert(error.message)
     }
@@ -80,20 +87,19 @@ function Home(props) {
         try {
             logic.toggleLikePost(postId)
 
-            setTimestamp(Date.now())
+            setTimestampState(Date.now())
         } catch (error) {
             alert(error.message)
         }
     }
 
-    function handleDeletePostClick(postId) {
+    function handleDeletePostButtonClick(postId) {
         if (confirm('Are you sure you want to delete this post?')) {
 
             try {
-
                 logic.deletePost(postId)
 
-                setTimestamp(Date.now())
+                setTimestampState(Date.now())
 
             } catch (error) {
                 alert(error.message)
@@ -101,19 +107,74 @@ function Home(props) {
         }
     }
 
+    function handleToggleFavPostClick(postId) {
+        try {
+            logic.toggleFavPost(postId)
+
+            setTimestampState(Date.now())
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    /////////
+    function handleChangeEmailSubmit(event) {
+        event.preventDefault()
+
+        const newEmailInput = event.target.querySelector('#new-email-input')
+        const newEmailConfirmInput = event.target.querySelector('#new-email-confirm-input')
+        const passwordInput = event.target.querySelector('#password-input')
+
+        const newEmail = newEmailInput.value
+        const newEmailConfirm = newEmailConfirmInput.value
+        const password = passwordInput.value
+
+        try {
+            logic.changeUserEmail(newEmail, newEmailConfirm, password)
+
+            alert('Email changed!')
+            event.target.reset()
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    function handleChangePasswordSubmit(event) {
+        event.preventDefault()
+
+        const newPasswordInput = event.target.querySelector('#new-password-input')
+        const newPasswordConfirmInput = event.target.querySelector('#new-password-confirm-input')
+        const passwordInput = event.target.querySelector('#password-input')
+
+        const newPassword = newPasswordInput.value
+        const newPasswordConfirm = newPasswordConfirmInput.value
+        const password = passwordInput.value
+
+        try {
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+
+            alert('Password changed successfully!')
+            event.target.reset()
+
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+    ///////
+
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleLogoutClick}>Logout</button>
+                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleLogoutClick}>Logout 🔚</button>
             </div>
         </header>
 
         {view === 'profile' && <div className="view">
             <h2>Update e-mail</h2>
 
-            <form className="form">
+            <form className="form" onSubmit={handleChangeEmailSubmit}>
                 <label htmlFor="new-email-input">New e-mail</label>
                 <input id="new-email-input" type="email" />
 
@@ -128,7 +189,7 @@ function Home(props) {
 
             <h2>Update password</h2>
 
-            <form className="form">
+            <form className="form" onSubmit={handleChangePasswordSubmit}>
                 <label htmlFor="password-input">Current password</label>
                 <input id="password-input" type="password" />
 
@@ -157,24 +218,25 @@ function Home(props) {
             </form>
         </div>}
 
-        {view !== 'profile' && posts !== null && <div>
-
+        {view !== 'profile' && posts !== null && <div className="view">
             {posts.map((post) => {
                 function handleToggleLikeButtonClick() {
                     handleToggleLikePostClick(post.id)
                 }
 
-                function handleDeletePostButtonClick() {
-                    handleDeletePostClick(post.id)
+                function handleToggleFavButtonClick() {
+                    handleToggleFavPostClick(post.id)
                 }
-
 
                 return <article key={post.id} className="post">
                     <h2>{post.author.name}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
-                    <button onClick={handleToggleLikeButtonClick}>{post.isFav ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                    <div className="buttons-post">
+                        <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                        <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
+                        {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
+                    </div>
                 </article>
             })}
         </div>}
