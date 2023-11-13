@@ -33,3 +33,8 @@
 .post-image {
     max-width: 320px;
 }
+
+.color-tittle {
+    color: rgb(230, 230, 240);
+    background-color:darkgreen
+  }
