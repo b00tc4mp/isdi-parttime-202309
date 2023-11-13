@@ -147,27 +147,4 @@ class Logic {
 
         db.users.update(user)
     }
-
-    retrieveFavPosts() {
-        const user = db.users.findById(this.sessionUserId)
-
-        if (!user)
-            throw new Error('user not found')
-
-        //const favs = db.posts.getAll().filter(post => user.favs.includes(post.id))
-
-        const favs = user.favs.map(postId => db.posts.findById(postId))
-
-        favs.forEach(post => {
-            post.liked = post.likes.includes(this.sessionUserId)
-
-            const author = db.users.findById(post.author)
-
-            post.author = author.name
-
-            post.fav = user.favs.includes(post.id)
-        })
-
-        return favs
-    }
 }
