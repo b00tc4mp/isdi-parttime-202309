@@ -160,13 +160,13 @@ function Home(props) {
 
     return <div>
         <header className="home-header">
-            <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
+            <button href="button-home" onClick={handleHomeClick}style={{ boxShadow:'0 2px 4px rgba(0, 0, 0, 0.6)'}}>Home</button>
 
             <div>
                 <a href="" onClick={handleProfileClick}>{name}</a>
-                <button onClick={handleNewPostClick}>+</button>
-                <button onClick={handleFavListClick}>Fav list</button>
-                <button onClick={handleLogoutClick}>Logout</button>
+                <button onClick={handleNewPostClick} style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.6'}}>+</button>
+                <button onClick={handleFavListClick} style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.6'}}>Fav list</button>
+                <button onClick={handleLogoutClick} style={{ boxShadow: '0 2px 4px rgba(255, 0, 0, 0.6'}}>Logout</button>
             </div>
         </header>
 
@@ -238,9 +238,11 @@ function Home(props) {
                     <h2>{post.author.name}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
-                    <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                    <button onClick={handleToggleLikeButtonClick} style={{ color: post.liked ? 'green' : 'red'
+                    }}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
                     {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
-                    <button onClick={handleToggleFavPostButtonClick}>{post.fav ? '🥰' : '😶'} fav</button>
+                    <button onClick={handleToggleFavPostButtonClick} style={{ boxShadow: post.fav ? '0 4px 4px rgba(0, 255, 0, 0.8)' : '0 4px 4px rgba(255, 0, 0, 0.8)'
+                    }}>{post.fav ? '🥰' : '😶'} fav</button>
                 </article>
             })}
         </div>}
