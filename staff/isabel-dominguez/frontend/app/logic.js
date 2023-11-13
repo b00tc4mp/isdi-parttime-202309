@@ -121,6 +121,18 @@ class Logic {
         favsPosts.forEach(postId => {
             const post = db.posts.findById(postId)
 
+            post.liked = post.likes.includes(this.sessionUserId)
+
+            const author = db.users.findById(post.author)
+
+            post.fav = user.favs.includes(post.id)
+
+            post.author = {
+                email: author.email,
+                id: author.id,
+                name: author.name
+            }
+
             if (post) {
                 foundPosts.push(post)
             }
@@ -160,12 +172,21 @@ class Logic {
         validateText(postId, "post id")
 
         const post = db.posts.findById(postId)
+        const user = db.users.findById(this.sessionUserId)
+        const index = user.favs.indexOf(postId)
 
         if (!post) {
-            throw new Error("post not found")
+            throw new Error('post not found')
+        }
+
+        if (!user) {
+            throw new Error('user not found')
         }
 
         db.posts.deleteById(post.id)
+        user.favs.splice(index, 1)
+
+        db.users.update(user)
     }
 
     toggleFavPost(postId) {

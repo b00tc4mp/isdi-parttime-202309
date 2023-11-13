@@ -31,6 +31,13 @@ db.posts.insert(new Post(
     "i love ü baby",
     [db.users.documents[0].id]
 ))
+db.posts.insert(new Post(
+    null,
+    db.users.documents[0].id,
+    "https://imgs.search.brave.com/lht2lHdWqFh4SRLHFuX7xHL1EVbzzb79pnDqYuui8dM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzVkL2Y3/LzY1LzVkZjc2NTUz/N2IzMTQ1MGZhOTY5/YWUzYjk1ZTFhYmY4/LmpwZw",
+    "😊💕",
+    [db.users.documents[1].id]
+))
 
 
 db.cards.insert(
