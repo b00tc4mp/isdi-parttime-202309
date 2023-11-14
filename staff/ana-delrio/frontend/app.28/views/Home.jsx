@@ -1,20 +1,29 @@
+
 function Home(props) {
     console.log('Home')
-
+    // ahora dentro de home, me voy a encargar de ver lo que quiero pintar
+    // cuando arranca la app queremos que solo se muestre los posts, de ahi en null
     const viewState = React.useState(null)
+
+    // me traigo de viewState, el primer dato que hay en el array
     const view = viewState[0]
     const setView = viewState[1]
 
+
     const timestampState = React.useState(null)
-    //const timestamp = timestampState[0]
+    // const timestamp = timestampState[0]
+    // el setTimestamp me permite cambiar el es estado de timestamp
     const setTimestamp = timestampState[1]
 
+    // no le pongo event porque no está dentro de un formulario, no es un link, y es un botón
     function handleLogoutClick() {
         logic.logoutUser()
 
         props.onLogoutClick()
     }
 
+    // hacemos esto para que se actulice el nombre de usuario en la vista home
+    // llamamos a la lógica para que nos devuelva el usuario, nos interesa en este caso solo el name
     let name = null
 
     try {
@@ -25,18 +34,22 @@ function Home(props) {
         alert(error.message)
     }
 
+    // función para cambiar datos de usuario (view profile)
     function handleProfileClick(event) {
         event.preventDefault()
 
         setView('profile')
     }
 
+    // función para el link del botón de home
+    // necesitamos el evento porque es un link
     function handleHomeClick(event) {
         event.preventDefault()
 
         setView(null)
     }
 
+    // función para el botón de + de los post
     function handleNewPostClick() {
         setView('new-post')
     }
@@ -47,25 +60,16 @@ function Home(props) {
         setView(null)
     }
 
+    // ponemos la variable fuera porque la vamos a querer usar abajo
     let posts = null
-    let favs = null
+    // recuperamos los post, llamando a la lógica
+    try {
+        posts = logic.retrievePosts()
 
-    if (view === null || view === 'new-post')
-        try {
-            posts = logic.retrievePosts()
-
-            posts.reverse()
-        } catch (error) {
-            alert(error.message)
-        }
-    else if (view === 'favs')
-        try {
-            favs = logic.retrieveFavPosts()
-
-            favs.reverse()
-        } catch (error) {
-            alert(error.message)
-        }
+        posts.reverse()
+    } catch (error) {
+        alert(error.message)
+    }
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -77,17 +81,10 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            // syncDelay(() => {
-            //     logic.publishPost(image, text)
-
-            //     setView(null)
-            // }, 5)
-
-            asyncDelay(() => {
-                logic.publishPost(image, text)
-
-                setView(null)
-            }, 5)
+            logic.publishPost(image, text)
+            // cambia el estado del componente
+            // cerrar el formulario una vez que hayamos posteado
+            setView(null)
         } catch (error) {
             alert(error.message)
         }
@@ -97,34 +94,35 @@ function Home(props) {
         try {
             logic.toggleLikePost(postId)
 
+            // cada vez que haga un like, se repintara la home, porque le estaré pasando un valor diferente
             setTimestamp(Date.now())
         } catch (error) {
             alert(error.message)
         }
     }
 
-    function handleToggleFavPostClick(postId) {
-        try {
-            logic.toggleFavPost(postId)
+    function handleDeletePostClick(postId) {
+        if (confirm('Are you sure you want to delete this post?')) {
 
-            setTimestamp(Date.now())
-        } catch (error) {
-            alert(error.message)
+            try {
+
+                logic.deletePost(postId)
+
+                setTimestamp(Date.now())
+
+            } catch (error) {
+                alert(error.message)
+            }
         }
     }
 
-    function handleFavPostsClick(event) {
-        event.preventDefault()
-
-        setView('favs')
-    }
 
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <a href="" onClick={handleFavPostsClick}>Favs</a> <button onClick={handleLogoutClick}>Logout</button>
+                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleLogoutClick}>Logout</button>
             </div>
         </header>
 
@@ -139,7 +137,7 @@ function Home(props) {
                 <input id="new-email-confirm-input" type="email" />
 
                 <label htmlFor="password-input">Password</label>
-                <input type="password" id="password-input" />
+                <input id="password-input" type="password" />
 
                 <button type="submit">Update e-mail</button>
             </form>
@@ -148,7 +146,7 @@ function Home(props) {
 
             <form className="form">
                 <label htmlFor="password-input">Current password</label>
-                <input type="password" id="password-input" />
+                <input id="password-input" type="password" />
 
                 <label htmlFor="new-password-input">New password</label>
                 <input id="new-password-input" type="password" />
@@ -175,44 +173,26 @@ function Home(props) {
             </form>
         </div>}
 
-        {(view === null || view === 'new-post') && posts !== null && <div>
+        {view !== 'profile' && posts !== null && <div>
+
             {posts.map((post) => {
                 function handleToggleLikeButtonClick() {
                     handleToggleLikePostClick(post.id)
                 }
 
-                function handleToggleFavButtonClick() {
-                    handleToggleFavPostClick(post.id)
+                function handleDeletePostButtonClick() {
+                    handleDeletePostClick(post.id)
                 }
 
+
                 return <article key={post.id} className="post">
-                    <h2>{post.author}</h2>
+                    <h2>{post.author.name}</h2>
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
                     <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
-                </article>
-            })}
-        </div>}
-
-        {view === 'favs' && favs !== null && <div>
-            {favs.map((post) => {
-                function handleToggleLikeButtonClick() {
-                    handleToggleLikePostClick(post.id)
-                }
-
-                function handleToggleFavButtonClick() {
-                    handleToggleFavPostClick(post.id)
-                }
-
-                return <article key={post.id} className="post">
-                    <h2>{post.author}</h2>
-                    <img className="post-image" src={post.image} />
-                    <p>{post.text}</p>
-                    <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
+                    {post.author.id === logic.userId && <button onClick={handleDeletePostButtonClick}>Delete post</button>}
                 </article>
             })}
         </div>}
     </div>
-}
+} 

@@ -1,6 +1,6 @@
 class Logic {
     constructor() {
-        this.userId = null
+        this.sessionUserId = null
     }
 
     registerUser(name, email, password) {
@@ -8,37 +8,36 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const user = db.users.findByEmail(email)
 
         if (user)
             throw new Error('user already exists')
 
-        createUser(name, email, password)
+        db.users.insert(new User(null, name, email, password, []))
     }
 
     loginUser(email, password) {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = findUserByEmail(email)
+        const user = db.users.findByEmail(email)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
 
-        this.userId = user.id
+        this.sessionUserId = user.id
     }
 
     logoutUser() {
-        this.userId = null
+        this.sessionUserId = null
     }
 
     retrieveUser() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user)
             throw new Error('user not found')
 
-        // añadimos esto porque no nos interesa que nos devuelva la contraseña 
         delete user.password
 
         return user
@@ -49,7 +48,7 @@ class Logic {
         validateText(newEmailConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -59,7 +58,7 @@ class Logic {
 
         user.email = newEmail
 
-        updateUser(user)
+        db.users.update(user)
     }
 
     changeUserPassword(newPassword, newPasswordConfirm, password) {
@@ -67,7 +66,7 @@ class Logic {
         validateText(newPasswordConfirm, 'new password confirm')
         validateText(password, 'password')
 
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
@@ -77,28 +76,25 @@ class Logic {
 
         user.password = newPassword
 
-        updateUser(index, user)
+        db.users.update(user)
     }
 
     retrievePosts() {
-        const user = findUserById(this.userId)
+        const user = db.users.findById(this.sessionUserId)
 
         if (!user)
             throw new Error('user not found')
 
-        const posts = getPosts()
+        const posts = db.posts.getAll()
 
         posts.forEach(post => {
-            post.isFav = post.likes.includes(this.userId)
+            post.liked = post.likes.includes(this.sessionUserId)
 
-            const user = findUserById(post.author)
+            const author = db.users.findById(post.author)
 
-            // ahora el autor va a manjear dos datos 
-            post.author = {
-                name: user.name,
-                id: user.id
-            }
+            post.author = author.name
 
+            post.fav = user.favs.includes(post.id)
         })
 
         return posts
@@ -108,44 +104,70 @@ class Logic {
         validateText(image, 'image')
         validateText(text, 'text')
 
-        createPost(this.userId, image, text)
+        db.posts.insert(new Post(null, this.sessionUserId, image, text, []))
     }
 
     toggleLikePost(postId) {
         validateText(postId, 'post id')
 
-        // si esto no lo encuentra, devolverá un null (post = null)
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
-        // si el post se borra, tenemos que controlar ese error
         if (!post)
             throw new Error('post not found')
 
-        // Buscar el índice del email del usuario actual en el array de "likes"
-        // Si this.userId está en post.likes, likeIndex contendrá el índice de la posición 
-        // Si this.userId no está en post.likes, likeIndex contendrá -1
-        const likeIndex = post.likes.indexOf(this.userId)
+        const index = post.likes.indexOf(this.sessionUserId)
 
-        // Si el email del usuario no está en el array de "likes" (likeIndex < 0),
-        // agregar el email a la lista de "likes". De lo contrario quitar el "like"
-        if (likeIndex < 0)
-            post.likes.push(this.userId)
+        if (index < 0)
+            post.likes.push(this.sessionUserId)
         else
-            post.likes.splice(likeIndex, 1)
+            post.likes.splice(index, 1)
 
-        updatePost(post)
+        db.posts.update(post)
     }
 
-    deletePost(postId) {
+    toggleFavPost(postId) {
         validateText(postId, 'post id')
 
-        const post = findPostById(postId)
+        const post = db.posts.findById(postId)
 
         if (!post)
             throw new Error('post not found')
 
-        deletePostById(post.id)
+        const user = db.users.findById(this.sessionUserId)
+
+        if (!user)
+            throw new Error('user not found')
+
+        const index = user.favs.indexOf(post.id)
+
+        if (index < 0)
+            user.favs.push(post.id)
+        else
+            user.favs.splice(index, 1)
+
+        db.users.update(user)
     }
 
-}
+    retrieveFavPosts() {
+        const user = db.users.findById(this.sessionUserId)
 
+        if (!user)
+            throw new Error('user not found')
+
+        //const favs = db.posts.getAll().filter(post => user.favs.includes(post.id))
+
+        const favs = user.favs.map(postId => db.posts.findById(postId))
+
+        favs.forEach(post => {
+            post.liked = post.likes.includes(this.sessionUserId)
+
+            const author = db.users.findById(post.author)
+
+            post.author = author.name
+
+            post.fav = user.favs.includes(post.id)
+        })
+
+        return favs
+    }
+}

@@ -1,4 +1,4 @@
-function createUser(name, email, password) {
+/* function createUser(name, email, password) {
     const user = new User(generateId(), name, email, password)
 
     db.users.push(user)
@@ -133,6 +133,7 @@ db.users.findByEmail(...)
 
 
 // WIP first steps (work in progress)
+
 /* class Collection {
     constructor(clazz, collection) {
         this.clazz = clazz
@@ -140,6 +141,7 @@ db.users.findByEmail(...)
     }
     // función genérica para clonar
     clone(document) {
+        // una copia vacía de la clase user, post
         var copy = new this.clazz
 
         for (var key in document) {

@@ -1,8 +1,10 @@
 function Login(props) {
-    console.log('Login')
-
     function handleSubmit(event) {
         event.preventDefault()
+
+        // todo event tiene una propiedad llamada target
+        // el target es el elemento sobre el cual se ha producido el evento de submit, osea el formulario
+        // es un atajo para llegar al formulario
 
         const emailInput = event.target.querySelector('#email-input')
         const passwordInput = event.target.querySelector('#password-input')
@@ -10,12 +12,13 @@ function Login(props) {
         const email = emailInput.value
         const password = passwordInput.value
 
-        // console.log(email, password)
-        try {
-            logic.loginUser(email, password)
 
-            // Si el inicio de sesión tiene éxito, ejecutar la función onSuccess proporcionada como una propiedad
+        try {
+            // nos vamos a la lógica a verificar
+            logic.loginUser(email, password)
+            // si todo va bien nos vamos a la home
             props.onSuccess()
+
         } catch (error) {
             alert(error.message)
         }
@@ -24,7 +27,6 @@ function Login(props) {
     function handleRegisterClick(event) {
         event.preventDefault()
 
-        // console.log('register click')
         props.onRegisterClick()
     }
 
