@@ -10,7 +10,6 @@
 //     return <button type="submit" onClick={handleClick}>{props.label}</button>
 // }
 
-// props es un objeto que tiene como propiedades todo lo que le asignes en la app: en este caso serían onRegisterClick y onSuccess
 function Login(props) {
     console.log('Login')
     

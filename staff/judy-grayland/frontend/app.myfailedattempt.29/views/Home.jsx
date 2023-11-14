@@ -2,11 +2,13 @@ function Home(props) {
     console.log('Home')
 
     const viewState = React.useState(null)
+
     const view = viewState[0]
     const setView = viewState[1]
 
     // Estado de LIKES
     const timestampState = React.useState(null)
+
     // const timestamp = timestampState[0]
     const setTimestamp = timestampState[1]
 
@@ -32,14 +34,22 @@ function Home(props) {
         setView('profile')
     }
 
+    // HOME LINK
     function handleHomeClick(event) {
         event.preventDefault()
 
         setView(null)
     }
 
+    // NEW POST BUTTON
     function handleNewPostClick() {
         setView('new-post')
+    }
+
+    // VIEW FAV POSTS
+    function handleViewFavPostsClick() {
+        setView('fav-posts')
+
     }
 
     function handleCancelNewPostClick (event){
@@ -49,29 +59,15 @@ function Home(props) {
     }
 
     let posts = null // se declara fuera del try catch para poder usarlo luego en view !== profile
-    let favs = null
 
-    if(view === null || view === 'new-post') {
-        try {
-            posts = logic.retrievePosts()
+    try {
+        posts = logic.retrievePosts()
 
-            posts.reverse()
-        } catch(error) {
-            alert(error.message)
-        }
+        posts.reverse()
+    } catch(error) {
+        alert(error.message)
     }
-    else if(view === 'favs') {
-        try {
-            favs = logic.retrieveFavPosts()
-
-            favs.reverse()
-
-        } catch (error) {
-            alert(error.message)            
-        }
-
-    }
-
+   
     function handleNewPostSubmit(event) {
         event.preventDefault()
 
@@ -170,17 +166,13 @@ function Home(props) {
         }
     }
 
-    function handleFavPostsClick() {
-        setView('favs')
-    }
-
     // TEMPLATE
     return <div>
         <header className="home-header">
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
     
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleFavPostsClick}>🌟 My Favs</button> <button onClick={handleLogoutClick}>Log out</button>
+                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleViewFavPostsClick}>🌟 My Favs</button> <button onClick={handleLogoutClick}>Log out</button>
             </div>
         </header>
 
@@ -231,30 +223,30 @@ function Home(props) {
             </form>
         </div>}
 
-        {(view === null || view === 'new-post') && posts !== null && <div>
+        {view === 'fav-posts' && <div>
+
             {posts.map((post) => {
-                function handleToggleLikeButtonClick() {
-                    handleToggleLikePostClick(post.id)
-                }
-                function handleDeletePostButtonClick() {
-                    handleDeletePostClick(post.id)
-                }
-            
-            return <article key={post.id} className="post">
-                <h2>{post.author.name}</h2>
-                <img className="post-image" src={post.image}/>
-                <p>{post.text}</p>
-                <button onClick={handleToggleLikeButtonClick}>{post.liked ? '♥️' : '🤍'} {post.likes.length} likes</button>
-                <button onClick={() => handleFavPostClick(post.id)}>{post.fav ? '🌟' : '☆'} Fav</button>
-                {//we do the onClick fav post button with an arrow function, therefore skipping the functions usually declared in posts.mpa() a few lines up. Because we skip that step, the naming is slightly different, ie. we skip handleToggleFavButtonClick()
-                }
-                {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
-            </article>
+                    function handleToggleLikeButtonClick() {
+                        handleToggleLikePostClick(post.id)
+                    }
+                    function handleDeletePostButtonClick() {
+                        handleDeletePostClick(post.id)
+                    }
+                
+                return <article key={post.id} className="post">
+                    <h2>{post.author.name}</h2>
+                    <img className="post-image" src={post.image}/>
+                    <p>{post.text}</p>
+                    <button onClick={handleToggleLikeButtonClick}>{post.liked ? '♥️' : '🤍'} {post.likes.length} likes</button>
+                    <button onClick={() => handleFavPostClick(post.id)}>{post.fav ? '🌟' : '☆'} Fav</button>
+                    {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
+                </article>
             })}
-        </div>}
-        
-        {view === 'favs' && <div>
-            {favs.map((post) => {
+             </div>
+        }
+
+        {view !== 'profile' && posts !== null && <div>
+            {posts.map((post) => {
                 function handleToggleLikeButtonClick() {
                     handleToggleLikePostClick(post.id)
                 }
