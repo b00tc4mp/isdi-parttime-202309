@@ -78,50 +78,7 @@ function Home(props) {
     }
 
 
-    function handleChangeEmailSubmit(event) {
-        event.preventDefault()
 
-        const newEmailInput = event.target.querySelector("#new-email-input")
-        const newEmailConfirmInput = event.target.querySelector("#new-email-confirm-input")
-        const passwordInput = event.target.querySelector("#password-input")
-
-        const newEmail = newEmailInput.value
-        const newEmailConfirm = newEmailConfirmInput.value
-        const password = passwordInput.value
-
-        try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password)
-
-            alert("E-mail changed")
-
-            setView(null)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
-
-    function handleChangePasswordSubmit(event) {
-        event.preventDefault()
-
-        const passwordInput = event.target.querySelector("#password-input")
-        const newPasswordInput = event.target.querySelector("#new-password-input")
-        const newPasswordConfirmInput = event.target.querySelector("#new-password-confirm-input")
-
-        const password = passwordInput.value
-        const newPassword = newPasswordInput.value
-        const newPasswordConfirm = newPasswordConfirmInput.value
-
-        try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
-
-            alert("Password changed")
-
-            setView(null)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
 
 
     function handleHomeClick(event) {
@@ -212,7 +169,7 @@ function Home(props) {
         {view === 'profile' && <div className="view">
             <h2>Update e-mail</h2>
 
-            <form className="form" onSubmit={handleChangeEmailSubmit}>
+            <form className="form">
                 <label htmlFor="new-email-input">New e-mail</label>
                 <input id="new-email-input" type="email" />
 
@@ -227,7 +184,7 @@ function Home(props) {
 
             <h2>Update password</h2>
 
-            <form className="form" onSubmit={handleChangePasswordSubmit}>
+            <form className="form">
                 <label htmlFor="password-input">Current password</label>
                 <input type="password" id="password-input" />
 

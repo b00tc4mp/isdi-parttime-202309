@@ -42,40 +42,40 @@ class Logic {
   }
 
   changeUserEmail(newEmail, newEmailConfirm, password) {
-    validateText(newEmail, "new email")
-    validateText(newEmailConfirm, "new email confirm")
-    validateText(password, "password")
+    validateText(newEmail, "new email");
+    validateText(newEmailConfirm, "new email confirm");
+    validateText(password, "password");
 
-    const user = db.users.findById(this.sessionUserId)
+    const user = db.users.findById(this.sessionUserId);
 
     if (!user || user.password !== password)
-        throw new Error("wrong credentials")
+      throw new Error("wrong credentials");
 
     if (newEmail !== newEmailConfirm)
-        throw new Error("new email and its confirmation do not match")
+      throw new Error("new email and its confirmation do not match");
 
-    user.email = newEmail
+    user.email = newEmail;
 
-    db.users.update(user)
-}
+    db.users.update(user);
+  }
 
-changeUserPassword(newPassword, newPasswordConfirm, password) {
-  validateText(newPassword, "new password")
-  validateText(newPasswordConfirm, "new password confirm")
-  validateText(password, "password")
+  changeUserPassword(newPassword, newPasswordConfirm, password) {
+    validateText(newPassword, "new password");
+    validateText(newPasswordConfirm, "new password confirm");
+    validateText(password, "password");
 
-  const user = db.users.findById(this.sessionUserId)
+    const user = db.users.findById(this.sessionUserId);
 
-  if (!user || user.password !== password)
-      throw new Error("Wrong credentials")
+    if (!user || user.password !== password)
+      throw new Error("wrong credentials");
 
-  if (newPassword !== newPasswordConfirm)
-      throw new Error("New password and its confirmation do not match")
+    if (newPassword !== newPasswordConfirm)
+      throw new Error("new password and its confirmation do not match");
 
-  user.password = newPassword
+    user.password = newPassword;
 
-  db.users.update(user)
-}
+    db.users.update(user);
+  }
 
   retrievePosts() {
     const user = db.users.findById(this.sessionUserId);
