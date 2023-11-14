@@ -1,11 +1,11 @@
 class Collection {
-    constructor(clazz, collection) {
-        this.clazz = clazz
-        this.documents = collection
+    constructor(clazz, documents) {
+        this.__clazz__ = clazz
+        this.__documents__ = documents
     }
 
-    clone(document) {
-        var copy = new this.clazz
+    __clone__(document) {
+        var copy = new this.__clazz__
 
         for (var key in document) {
             var value = document[key]
@@ -24,43 +24,61 @@ class Collection {
         return copy
     }
 
-    generateId() {
+    __generateId__() {
         return Math.floor(Math.random() * 1000000000000000000).toString(36)
     }
 
-    insert(document) {
-        const documentCopy = this.clone(document)
+    insert(document, callback) {
+        asyncDelay(() => {
+            const documentCopy = this.__clone__(document)
 
-        documentCopy.id = this.generateId()
+            documentCopy.id = this.__generateId__()
 
-        this.documents.push(documentCopy)
+            this.__documents__.push(documentCopy)
+
+            callback()
+        }, 0.3)
     }
 
-    findIndexById(id) {
-        validateText(id, `${this.clazz.name} id`)
+    __findIndexById__(id, callback) {
+        asyncDelay(() => {
+            validateText(id, `${this.__clazz__.name} id`)
 
-        return this.documents.findIndex(document => document.id === id)
+            const index = this.__documents__.findIndex(document => document.id === id)
+
+            callback(index)
+        }, 0.4)
     }
 
-    findById(id) {
-        validateText(id, `${this.clazz.name} id`)
+    findById(id, callback) {
+        asyncDelay(() => {
+            validateText(id, `${this.__clazz__.name} id`)
 
-        const document = this.documents.find(document => document.id === id)
+            const document = this.__documents__.find(document => document.id === id)
 
-        if (!document) return null
+            if (!document) {
+                callback(null)
 
-        return this.clone(document)
+                return
+            }
+
+            callback(this.__clone__(document))
+        }, 0.6)
     }
 
-    update(document) {
-        if (!(document instanceof this.clazz)) throw new TypeError(`document is not a ${this.clazz.name}`)
+    update(document, callback) {
+        asyncDelay(() => {
+            if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
 
-        const index = this.findIndexById(document.id)
+            this.__findIndexById__(document.id, index => {
+                if (index < 0)
+                    throw new Error(`${this.__clazz__.name} not found`)
 
-        if (index < 0)
-            throw new Error(`${this.clazz.name} not found`)
+                this.__documents__[index] = this.__clone__(document)
 
-        this.documents[index] = this.clone(document)
+                callback()
+            })
+        }, 0.5)
     }
 }
 
@@ -69,14 +87,20 @@ class Users extends Collection {
         super(User, [])
     }
 
-    findByEmail(email) {
-        validateText(email, `${this.clazz.name} email`)
+    findByEmail(email, callback) {
+        asyncDelay(() => {
+            validateText(email, `${this.__clazz__.name} email`)
 
-        const user = this.documents.find(document => document.email === email)
+            const user = this.__documents__.find(document => document.email === email)
 
-        if (!user) return null
+            if (!user) {
+                callback(null)
 
-        return this.clone(user)
+                return
+            }
+
+            callback(this.__clone__(user))
+        }, 0.7)
     }
 }
 
@@ -85,8 +109,10 @@ class Posts extends Collection {
         super(Post, [])
     }
 
-    getAll() {
-        return this.documents.map(this.clone.bind(this))
+    getAll(callback) {
+        asyncDelay(() => {
+            callback(this.__documents__.map(this.__clone__.bind(this)))
+        }, 0.8)
     }
 }
 
