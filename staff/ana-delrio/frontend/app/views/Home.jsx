@@ -83,11 +83,11 @@ function Home(props) {
             //     setView(null)
             // }, 5)
 
-            asyncDelay(() => {
-                logic.publishPost(image, text)
+            //asyncDelay(() => {
+            logic.publishPost(image, text)
 
-                setView(null)
-            }, 5)
+            setView(null)
+            //}, 5)
         } catch (error) {
             alert(error.message)
         }

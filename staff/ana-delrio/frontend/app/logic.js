@@ -80,23 +80,28 @@ class Logic {
     }
 
     retrievePosts() {
+        // Buscamos al usuario por su ID de sesión
         const user = db.users.findById(this.sessionUserId)
 
         if (!user)
             throw new Error('user not found')
 
+        // Obtenemos todas las publicaciones de la base de datos
         const posts = db.posts.getAll()
 
+        // Iterar sobre cada publicación en la lista
         posts.forEach(post => {
+            // Marcamos si el usuario actual ha dado "like" a esta publicación
             post.liked = post.likes.includes(this.sessionUserId)
 
+            // Buscamos al autor de la publicación y reemplazar el ID del autor con su nombre
             const author = db.users.findById(post.author)
-
             post.author = author.name
 
+            // Marcamos si la publicación está en la lista de favoritos del usuario actual
             post.fav = user.favs.includes(post.id)
         })
-
+        // Devolvemos la lista de publicaciones actualizada
         return posts
     }
 
@@ -149,22 +154,27 @@ class Logic {
     }
 
     retrieveFavPosts() {
+        // Buscamos al usuario por su ID de sesión
         const user = db.users.findById(this.sessionUserId)
 
         if (!user)
             throw new Error('user not found')
 
-        //const favs = db.posts.getAll().filter(post => user.favs.includes(post.id))
+        // Obtenemos la lista de IDs de publicaciones marcadas co`mo favoritas por el usuario
+        // y la convertimos en una lista de objetos de publicaciones
 
         const favs = user.favs.map(postId => db.posts.findById(postId))
 
+        // Iteraramos sobre cada publicación en la lista
         favs.forEach(post => {
+            // Marcamod si el usuario actual ha dado "like" a esta publicación
             post.liked = post.likes.includes(this.sessionUserId)
 
+            // Buscamos al autor de la publicación y reemplazar el ID del autor con su nombre
             const author = db.users.findById(post.author)
-
             post.author = author.name
 
+            // Marcamos si la publicación está en la lista de favoritos del usuario actual
             post.fav = user.favs.includes(post.id)
         })
 
