@@ -1,11 +1,11 @@
 class Collection {
 	constructor(clazz, documents) {
-		this.clazz = clazz
-		this.documents = documents
+		this.__clazz__ = clazz
+		this.__documents__ = documents
 	}
 
-	clone(document) {
-		var copy = new this.clazz
+	__clone__(document) {
+		var copy = new this.__clazz__
 
 		for (var key in document) {
 			var value = document[key]
@@ -28,52 +28,52 @@ class Collection {
 	}
 
 	insert(document) {
-		const documentCopy = this.clone(document)
+		const documentCopy = this.__clone__(document)
 
 		documentCopy.id = this.generateId()
 
-		this.documents.push(documentCopy)
+		this.__documents__.push(documentCopy)
 	}
 
 	findIndexById(id) {
-		validateText(id, `${this.clazz.name} id`)
+		validateText(id, `${this.__clazz__.name} id`)
 
-		return this.documents.findIndex(document => document.id === id)
+		return this.__documents__.findIndex(document => document.id === id)
 	}
 
 	findById(id) {
-		validateText(id, `${this.clazz.name} id`)
+		validateText(id, `${this.__clazz__.name} id`)
 
-		const document = this.documents.find(document => document.id === id)
+		const document = this.__documents__.find(document => document.id === id)
 
 		if (!document) return null
 
-		return this.clone(document)
+		return this.__clone__(document)
 	}
 
 	update(document) {
-		if (!(document instanceof this.clazz)) {
-			throw new Error(`document is not a ${this.clazz.name}`)
+		if (!(document instanceof this.__clazz__)) {
+			throw new Error(`document is not a ${this.__clazz__.name}`)
 		}
 
 		const index = this.findIndexById(document.id)
 
 		if (index < 0) {
-			throw new Error(`${this.clazz.name} not found`)
+			throw new Error(`${this.__clazz__.name} not found`)
 		}
 
-		this.documents[index] = this.clone(document)
+		this.__documents__[index] = this.__clone__(document)
 	}
 
 	deleteById(id) {
-		validateText(`${this.clazz.name} id`)
+		validateText(`${this.__clazz__.name} id`)
 
 		const index = this.findIndexById(id)
 
 		if (index < 0) {
-			throw new Error(`${this.clazz.name} not found`)
+			throw new Error(`${this.__clazz__.name} not found`)
 		}
-		this.documents.splice(index, 1)
+		this.__documents__.splice(index, 1)
 	}
 }
 
@@ -83,14 +83,14 @@ class Users extends Collection {
 	}
 
 	findByEmail(email) {
-		validateText(email, `${this.clazz.name} email`)
+		validateText(email, `${this.__clazz__.name} email`)
 
-		const user = this.documents.find(document => document.email === email)
+		const user = this.__documents__.find(document => document.email === email)
 
 		if (!user)
 			return null
 
-		return this.clone(user)
+		return this.__clone__(user)
 	}
 }
 
@@ -100,7 +100,7 @@ class Posts extends Collection {
 	}
 
 	getAll() {
-		return this.documents.map(this.clone.bind(this))
+		return this.__documents__.map(this.__clone__.bind(this))
 	}
 }
 

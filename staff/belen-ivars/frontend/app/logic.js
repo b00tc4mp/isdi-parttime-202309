@@ -156,12 +156,37 @@ class Logic {
     deletePost(postId) {
         validateText(postId, 'post id')
 
-        const post = findById(postId)
+        const post = db.posts.findById(postId)
 
         if (!post)
             throw new Error('post not found')
 
-        deleteById(post.id)
+        db.posts.deleteById(post.id)
+    }
+
+    retrieveFavPosts() {
+        const user = db.users.findById(this.sessionUserId)
+
+        if (!user)
+            throw new Error('user not found')
+
+        const favs = user.favs.map(postId => db.posts.findById(postId))
+
+        favs.forEach(post => {
+            post.liked = post.likes.includes(this.sessionUserId)
+
+            const author = db.users.findById(post.author)
+
+            post.author = {
+                email: author.email,
+                id: author.id,
+                name: author.name
+
+            }
+
+            post.fav = user.favs.includes(post.id)
+        })
+        return favs
     }
 }
 
