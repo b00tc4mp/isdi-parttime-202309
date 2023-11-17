@@ -12,9 +12,10 @@ function Login(props) {
 
         // console.log(email, password)
         try {
-            logic.loginUser(email, password, () => {
-                props.onSuccess()
-            })
+            logic.loginUser(email, password)
+
+            // Si el inicio de sesión tiene éxito, ejecutar la función onSuccess proporcionada como una propiedad
+            props.onSuccess()
         } catch (error) {
             alert(error.message)
         }
