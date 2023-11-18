@@ -32,19 +32,40 @@ class Collection {
         this.Collection.push (documentCopy)
     }
 
-    findById (id) {
+    findIndexById (id) {
         validateText (id, `${this.clazz.name}`)
+
+        return this.collection.findIndex(document => document.id === id)
+    }
+
+    findById (id) {
+        validateText(id,`${this.clazz.name} id`)
+
+        return this.collection.find(document => document.id === id) || null
+    }
+
+    update (document) {
+        if (!(document instanceof this.clazz)) throw new TypeError (`Document is not a ${this.clazz.name}`)
+
+        const index = this.findIndexById (document.id)
+
+        if (index < 0)
+            throw new Error (`${this.clazz.name} not found`)
+
+        this.collection [index] = this.clone (document)
     }
 }
 
 // TEST
 
-var users = new Collection (user, db.users)
+var db2 = {}
+
+db2.users = new Collection (user, db.users)
 
 var user = new User (null, 'Ada Love', 'ada@love.com',123123123)
-users.create(user)
+db2.users.create(user)
 
-var posts = new Collection (Post, db.posts)
+db2.posts = new Collection (Post, db.posts)
 
 var post = new Post (null, user.Collection[users.Collection.length -1].id, 'http://image.com', 'Hola mundo', [])
-posts.create(post)
+db2.posts.insert(post)
