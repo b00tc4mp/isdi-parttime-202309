@@ -15,7 +15,14 @@ function Register(props) {
         // console.log(name, email, password)
 
         try {
-            logic.registerUser(name, email, password, () => {
+            // posible error asíncrono que se produzca  
+            logic.registerUser(name, email, password, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
                 props.onSuccess()
             })
         } catch (error) {

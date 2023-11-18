@@ -8,11 +8,29 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        db.users.findByEmail(email, user => {
-            if (user)
-                throw new Error('user already exists')
+        db.users.findByEmail(email, (error, user) => {
+            // este if maneja errores durante la búsqueda del usuario en la base de datos, 
+            if (error) {
+                callback(error)
 
-            db.users.insert(new User(null, name, email, password, []), callback)
+                return
+            }
+            // este if maneja el caso en el que se encuentra un usuario con el mismo correo electrónico que el que se está utilizando 
+            if (user) {
+                callback(new Error('user already exists'))
+
+                return
+            }
+            // este insert me podría lanzar un error
+            db.users.insert(new User(null, name, email, password, []), error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+                // aquí llegaríamos si todo ha ido bien
+                callback(null)
+            })
         })
     }
 
@@ -20,13 +38,23 @@ class Logic {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        db.users.findByEmail(email, user => {
-            if (!user || user.password !== password)
-                throw new Error('wrong credentials')
+        db.users.findByEmail(email, (error, user) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+            // esto es un error lógico
+            if (!user || user.password !== password) {
+                callback(new Error('wrong credentials'))
+
+                return
+            }
 
             this.sessionUserId = user.id
 
-            callback()
+            // no hubo errores, por eso ponemos null
+            callback(null)
         })
 
     }
@@ -35,22 +63,32 @@ class Logic {
         asyncDelay(() => {
             this.sessionUserId = null
 
-            callback()
+            // no ha hanido error
+            callback(null)
         }, 0.9)
     }
 
     retrieveUser(callback) {
-        db.users.findById(this.sessionUserId, user => {
-            if (!user)
-                throw new Error('user not found')
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                // llamamos al callback de arriba
+                callback(error)
+
+                return
+            }
+
+            if (!user) {
+                callback(new Error('user not found'))
+            }
 
             delete user.password
 
-            callback(user)
+            // no hubo error, y después, te envío el uduario
+            callback(null, user)
         })
     }
 
-
+    // TODO
     changeUserEmail(newEmail, newEmailConfirm, password) {
         validateText(newEmail, 'new email')
         validateText(newEmailConfirm, 'new email confirm')
@@ -69,7 +107,7 @@ class Logic {
         db.users.update(user)
     }
 
-
+    // TODO
     changeUserPassword(newPassword, newPasswordConfirm, password) {
         validateText(newPassword, 'new password')
         validateText(newPasswordConfirm, 'new password confirm')
@@ -89,39 +127,84 @@ class Logic {
     }
 
     retrievePosts(callback) {
-        const user = db.users.findById(this.sessionUserId)
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                callback(error)
 
-        if (!user)
-            throw new Error('user not found')
+                return
+            }
 
-        const posts = db.posts.getAll(posts => {
-            posts.forEach(post => {
-                post.liked = post.likes.includes(this.sessionUserId)
+            if (!user) {
+                callback(new Error('user not found'))
 
-                const author = db.users.findById(post.author)
+                return
+            }
 
-                post.author = author.name
+            const posts = db.posts.getAll((error, posts) => {
+                if (error) {
+                    callback(error)
 
-                post.fav = user.favs.includes(post.id)
+                    return
+                }
+
+                let count = 0
+
+                posts.forEach(post => {
+                    post.liked = post.likes.includes(this.sessionUserId)
+
+                    db.users.findById(post.author, (error, author) => {
+                        if (error) {
+
+                            callback(error)
+
+                            return
+                        }
+
+                        post.author = author.name
+
+                        post.fav = user.favs.includes(post.id)
+
+                        count++
+
+                        if (count === posts.length)
+                            callback(null, posts)
+                    })
+                })
             })
-
-            callback(posts)
         })
+
     }
 
     publishPost(image, text, callback) {
         validateText(image, 'image')
         validateText(text, 'text')
 
-        db.posts.insert(new Post(null, this.sessionUserId, image, text, []), callback)
+        db.posts.insert(new Post(null, this.sessionUserId, image, text, []), error => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            callback(null)
+        })
     }
 
     toggleLikePost(postId, callback) {
         validateText(postId, 'post id')
 
-        db.posts.findById(postId, post => {
-            if (!post)
-                throw new Error('post not found')
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
 
             const index = post.likes.indexOf(this.sessionUserId)
 
@@ -130,7 +213,15 @@ class Logic {
             else
                 post.likes.splice(index, 1)
 
-            db.posts.update(post, callback)
+            db.posts.update(post, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
 
     }
@@ -138,55 +229,119 @@ class Logic {
     toggleFavPost(postId, callback) {
         validateText(postId, 'post id')
 
-        const post = db.posts.findById(postId)
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
 
-        if (!post)
-            throw new Error('post not found')
+                return
+            }
 
-        db.users.findById(this.sessionUserId, user => {
-            if (!user)
-                throw new Error('user not found')
+            if (!post) {
+                callback(new Error('post not found'))
 
-            const index = user.favs.indexOf(post.id)
+                return
+            }
 
-            if (index < 0)
-                user.favs.push(post.id)
-            else
-                user.favs.splice(index, 1)
+            db.users.findById(this.sessionUserId, (error, user) => {
+                if (error) {
+                    callback(error)
 
-            db.users.update(user, callback)
-        })
-    }
+                    return
+                }
 
-    retrieveFavPosts(callback) {
-        db.users.findById(this.sessionUserId, user => {
-            if (!user)
-                throw new Error('user not found')
+                if (!user) {
+                    callback(new Error('user not found'))
 
-            //const favs = db.posts.getAll().filter(post => user.favs.includes(post.id))
+                    return
+                }
 
-            const favs = user.favs.map(postId => db.posts.findById(postId))
+                const index = user.favs.indexOf(post.id)
 
-            let count = 0
+                if (index < 0)
+                    user.favs.push(post.id)
+                else
+                    user.favs.splice(index, 1)
 
-            favs.forEach(post => {
-                post.liked = post.likes.includes(this.sessionUserId)
+                db.users.update(user, error => {
+                    if (error) {
+                        callback(error)
 
-                db.users.findById(post.author, author => {
-                    post.author = author.name
+                        return
+                    }
 
-                    post.fav = user.favs.includes(post.id)
-
-                    count++
-
-                    if (count === favs.length) callback()
+                    callback(null)
                 })
             })
         })
 
     }
-}
 
+    retrieveFavPosts(callback) {
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!user) {
+                callback(new Error('user not found'))
+
+                return
+            }
+
+            const favs = []
+
+            let count = 0
+
+            // opción de si no hay favoritos
+            if (!user.favs.length) {
+                callback(null, favs)
+
+                return
+            }
+
+            user.favs.forEach(postId => {
+                db.posts.findById(postId, (error, post) => {
+                    if (error) {
+                        callback(error)
+
+                        return
+                    }
+
+                    favs.push(post)
+
+                    count++
+
+                    if (count === user.favs.length) {
+                        let count2 = 0
+
+                        favs.forEach(post => {
+                            post.liked = post.likes.includes(this.sessionUserId)
+
+                            db.users.findById(post.author, (error, author) => {
+                                if (error) {
+                                    callback(error)
+
+                                    return
+                                }
+
+                                post.author = author.name
+
+                                post.fav = user.favs.includes(post.id)
+
+                                count2++
+
+                                if (count2 === favs.length) callback(null, favs)
+                            })
+                        })
+                    }
+                })
+            })
+
+        })
+    }
+}
 
 
 

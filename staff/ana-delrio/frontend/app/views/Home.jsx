@@ -9,21 +9,50 @@ function Home(props) {
     //const timestamp = timestampState[0]
     const setTimestamp = timestampState[1]
 
+    const nameState = React.useState(null)
+    const name = nameState[0]
+    const setName = nameState[1]
+
+    const postsState = React.useState(null)
+    const posts = postsState[0]
+    const setPosts = postsState[1]
+
+    const favsState = React.useState(null)
+    const favs = favsState[0]
+    const setFavs = favsState[1]
+
     function handleLogoutClick() {
-        logic.logoutUser()
+        logic.logoutUser(error => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+        })
 
         props.onLogoutClick()
     }
 
-    let name = null
+    // el useEffect me permite ejecutrar un código a destiempo, cuando carga el componente
+    React.useEffect(() => {
+        console.log('Home -> effect (name)')
 
-    try {
-        const user = logic.retrieveUser()
+        try {
+            logic.retrieveUser((error, user) => {
+                if (error) {
+                    alert(error.message)
 
-        name = user.name
-    } catch (error) {
-        alert(error.message)
-    }
+                    return
+                }
+                // esto provoca un refresco de pantalla
+                setName(user.name)
+            })
+
+        } catch (error) {
+            alert(error.message)
+        }
+        // ponemos un array vacío porque solo nos interesa que se ejecute solo la primera vez, después del primer render
+    }, [])
 
     function handleProfileClick(event) {
         event.preventDefault()
@@ -47,25 +76,41 @@ function Home(props) {
         setView(null)
     }
 
-    let posts = null
-    let favs = null
+    React.useEffect(() => {
+        console.log('Home -> effect (posts)')
 
-    if (view === null || view === 'new-post')
-        try {
-            posts = logic.retrievePosts()
+        if (view === null || view === 'new-post')
+            try {
+                logic.retrievePosts((error, posts) => {
+                    if (error) {
+                        alert(error.message)
 
-            posts.reverse()
-        } catch (error) {
-            alert(error.message)
-        }
-    else if (view === 'favs')
-        try {
-            favs = logic.retrieveFavPosts()
+                        return
+                    }
 
-            favs.reverse()
-        } catch (error) {
-            alert(error.message)
-        }
+                    posts.reverse()
+                    // repintamos la pantalla, cambiamos el state de react
+                    setPosts(posts)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+        else if (view === 'favs')
+            try {
+                logic.retrieveFavPosts((error, favs) => {
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+
+                    favs.reverse()
+                    setFavs(favs)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+    }, [])
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -77,21 +122,30 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            logic.publishPost(image, text)
+            logic.publishPost(image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            setView(null)
+                    return
+                }
 
-            // syncDelay(() => {
-            //     logic.publishPost(image, text)
+                try {
+                    logic.retrievePosts((error, posts) => {
+                        if (error) {
+                            alert(error.message)
 
-            //     setView(null)
-            // }, 5)
+                            return
+                        }
 
-            // asyncDelay(() => {
-            //     logic.publishPost(image, text)
+                        posts.reverse()
 
-            //     setView(null)
-            // }, 5)
+                        setPosts(posts)
+                        setView(null)
+                    })
+                } catch (error) {
+                    alert(error.message)
+                }
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -99,9 +153,48 @@ function Home(props) {
 
     function handleToggleLikePostClick(postId) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestamp(Date.now())
+                    return
+                }
+
+                if (view === null || view === 'new-post')
+                    try {
+                        logic.retrievePosts((error, posts) => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+
+                            posts.reverse()
+
+                            setPosts(posts)
+                            setTimestamp(Date.now())
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                else if (view === 'favs')
+                    try {
+                        logic.retrieveFavPosts((error, favs) => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+
+                            favs.reverse()
+
+                            setFavs(favs)
+                            setTimestamp(Date.now())
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -109,9 +202,48 @@ function Home(props) {
 
     function handleToggleFavPostClick(postId) {
         try {
-            logic.toggleFavPost(postId)
+            logic.toggleFavPost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestamp(Date.now())
+                    return
+                }
+
+                if (view === null || view === 'new-post')
+                    try {
+                        logic.retrievePosts((error, posts) => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+
+                            posts.reverse()
+
+                            setPosts(posts)
+                            setTimestamp(Date.now())
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+                else if (view === 'favs')
+                    try {
+                        logic.retrieveFavPosts((error, favs) => {
+                            if (error) {
+                                alert(error.message)
+
+                                return
+                            }
+
+                            favs.reverse()
+
+                            setFavs(favs)
+                            setTimestamp(Date.now())
+                        })
+                    } catch (error) {
+                        alert(error.message)
+                    }
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -120,7 +252,22 @@ function Home(props) {
     function handleFavPostsClick(event) {
         event.preventDefault()
 
-        setView('favs')
+        try {
+            logic.retrieveFavPosts((error, favs) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                favs.reverse()
+
+                setFavs(favs)
+                setView('favs')
+            })
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     return <div>
