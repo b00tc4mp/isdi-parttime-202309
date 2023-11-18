@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="icons8-blow-32.png" type="image/x-icon">
+    <title>APP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="Captura_de_pantalla_2023-11-18_220157-removebg-preview.png" alt="">
+        </div>
+    </header>
+
+    <div id="root"></div> <!-- Es una SPA  -->
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- Virtual DOM de React, el núcleo  -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Lo conecta con el DOM real  -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="polyfills.js"></script>
+
+    <script src="data/models.js"></script>
+    <script src="data/Collections.js"></script>
+    <script src="data/db.js"></script>
+
+    <script src="validators.js"></script>
+    <script src="logic.js"></script>
+
+    <script src="views/Login.jsx" type="text/babel"></script>
+    <script src="views/Register.jsx" type="text/babel"></script>
+    <script src="views/Home.jsx" type="text/babel"></script>
+    <script src="App.jsx" type="text/babel"></script>
+    <script src="main.jsx" type="text/babel"></script>
+</body>
+
+</html>

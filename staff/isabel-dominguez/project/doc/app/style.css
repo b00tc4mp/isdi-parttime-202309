@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+
+* {
+    font-family: Inter;
+}
+
+body {
+    background-image: url("estaSI.jpg");
+}
+
+.logo {
+    position: fixed;
+    bottom: 190px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo img {
+    width: 300px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-link {
+    text-decoration: none;
+    color: #ad6faf;
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid #ad6faf;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #d8bad8;
+    color: #fff;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 240px;
+    gap: 5px;
+}
+
+input {
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #ad6faf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-image {
+    max-width: 320px;
+}
+
+.button-post {
+    margin-right: 10px;
+}
