@@ -10,15 +10,9 @@ function Login(props) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(email, password, error => {
-                if (error) {
-                    alert(error.message)
+            logic.loginUser(email, password)
 
-                    return
-                }
-
-                props.onSuccess()
-            })
+            props.onSuccess()
         } catch (error) {
             alert(error.message)
         }

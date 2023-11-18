@@ -1,128 +1,79 @@
 function Home(props) {
-    // Declaración de estados usando React.useState
-    const [view, setView] = React.useState(null)
-    const [name, setName] = React.useState(null)
-    const [posts, setPosts] = React.useState(null)
-    const [favPosts, setFavs] = React.useState(null)
 
-    // Función para manejar el clic en el botón de Logout
+    const viewState = React.useState(null)
+
+    const view = viewState[0]
+    const setView = viewState[1]
+
+    const timestampState = React.useState(null)
+    //const timestamp = timestampState[0]
+    const setTimestamp = timestampState[1]
+
     function handleLogoutClick() {
-        logic.logoutUser(error => {
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-        })
+        logic.logoutUser()
 
         props.onLogoutClick()
     }// Mediante "props" nos traemos de APP la función de cambiar la vista a "LOGIN"
 
-    // Efecto de React que se ejecuta al montar el componente
-    React.useEffect(() => {
-        try {
-            logic.retrieveUser((error, user) => { // Llama a la función para recuperar los datos del usuario
-                if (error) {
-                    alert(error.message)
+    let name = null
 
-                    return
-                }
+    try {
+        const user = logic.retrieveUser()
 
-                setName(user.name) // Establece el nombre del usuario en el estado
-            })
+        name = user.name
+    } catch (error) {
+        alert(error.message)
+    }
 
-        } catch (error) {
-            alert(error.message)
-        }
-    }, []) //Este array se conoce como el array de dependencias. Significa que el efecto se ejecutará solo una vez, después de que el componente se monte por primera vez. No hay ninguna dependencia que cause que el efecto se vuelva a ejecutar, por lo que se ejecuta solo durante el montaje inicial del componente. En este caso [userId] el efecto se ejecutará cada vez que userId cambie, no solo en el montaje inicial.
-
-    // Función para cambiar la vista a "profile"
     function handleProfileClick(event) {
         event.preventDefault()
 
         setView("profile")
     }
 
-    // Función para cambiar la vista a "home"
     function handleHomeClick(event) {
         event.preventDefault()
 
         setView(null)
     }
 
-    // Función para cambiar la vista a "new-post"
     function handleNewPostClick() {
         setView("new-post")
     }
 
-    // Función para cancelar la creación de un nuevo post y volver a la vista principal
     function handleCancelNewPostClick(event) {
         event.preventDefault()
 
         setView(null)
     }
 
-    // Función para refrescar los posts según la vista actual
-    function refreshPosts() {
-        if (view === null || view === 'new-post') // Si la vista es nula o "new-post", recupera todos los posts
-            try {
-                logic.retrievePosts((error, posts) => {
-                    if (error) {
-                        alert(error.message)
+    let posts = null
 
-                        return
-                    }
-                    // Invierte el orden de los posts y los establece en el estado
-                    posts.reverse()
-                    setPosts(posts)
-                })
-            } catch (error) {
-                alert(error.message)
-            }
-        else if (view === "list-fav-post") // Si la vista es "list-fav-post", recupera los posts favoritos
-            try {
-                logic.retrieveFavPosts((error, favs) => {
-                    if (error) {
-                        alert(error.message)
+    try {
+        posts = logic.retrievePosts()
 
-                        return
-                    }
-
-                    setFavs(favs) // Establece los posts favoritos en el estado
-                })
-            } catch (error) {
-                alert(error.message)
-            }
+        posts.reverse()
+    } catch (error) {
+        alert(error.message)
     }
-
-    // Efecto de React que se ejecuta al montar el componente
-    React.useEffect(() => {
-        refreshPosts()
-    }, []) //Cada vez que se abre la página Home, se activa este efecto, y en consecuencia, se llama a refreshPosts, que a su vez carga y actualiza los posts o los posts favoritos según la vista actual.
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
-        // Obtiene los elementos de entrada del formulario
+
         const newEmailInput = event.target.querySelector("#new-email-input")
         const newEmailConfirmInput = event.target.querySelector("#new-email-confirm-input")
         const passwordInput = event.target.querySelector("#password-input")
 
-        // Obtiene los valores de los elementos de entrada
         const newEmail = newEmailInput.value
         const newEmailConfirm = newEmailConfirmInput.value
         const password = passwordInput.value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
+            logic.changeUserEmail(newEmail, newEmailConfirm, password)
 
-                alert("E-mail changed")
+            alert("E-mail changed")
 
-                setView(null)
-            })
+            setView(null)
         } catch (error) {
             alert(error.message)
         }
@@ -140,16 +91,11 @@ function Home(props) {
         const newPasswordConfirm = newPasswordConfirmInput.value
 
         try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password, (error) => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
 
-                alert("Password changed")
+            alert("Password changed")
 
-                setView(null)
-            })
+            setView(null)
         } catch (error) {
             alert(error.message)
         }
@@ -165,30 +111,9 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            logic.publishPost(image, text, error => {
-                if (error) {
-                    alert(error.message)
+            logic.publishPost(image, text)
 
-                    return
-                }
-
-                try {
-                    logic.retrievePosts((error, posts) => { // Llama a la función de la lógica para recuperar los posts después de la publicación
-                        if (error) {
-                            alert(error.message)
-
-                            return
-                        }
-
-                        posts.reverse()
-
-                        setPosts(posts)
-                        setView(null) //null en este caso devuelve la vista a home, que es el componente donde estamos
-                    })
-                } catch (error) {
-                    alert(error.message)
-                }
-            })
+            setView(null)
         } catch (error) {
             alert(error.message)
         }
@@ -196,15 +121,9 @@ function Home(props) {
 
     function handleLikeClick(postId) {
         try {
-            logic.toggleLikePost(postId, error => {
-                if (error) {
-                    alert(error.message)
+            logic.toggleLikePost(postId)
 
-                    return
-                }
-
-                refreshPosts() // Refresca los posts después de dar/quitar like
-            })
+            setTimestamp(Date.now())
         } catch (error) {
             alert(error.message)
         }
@@ -214,15 +133,11 @@ function Home(props) {
         if (confirm("Are you sure you want to delete this post?")) {
 
             try {
-                logic.deletePost(postId, (error) => {
-                    if (error) {
-                        alert(error.message)
 
-                        return
-                    }
+                logic.deletePost(postId)
 
-                    refreshPosts() // Si la eliminación tiene éxito, llama a refreshPosts para actualizar la lista de posts
-                })
+                setTimestamp(Date.now())
+
             } catch (error) {
                 alert(error.message)
             }
@@ -231,37 +146,28 @@ function Home(props) {
 
     function handleFavPostClick(postId) {
         try {
-            logic.toggleFavPost(postId, error => { // Utiliza logic.toggleFavPost para agregar/quitar el post de los favoritos
-                if (error) {
-                    alert(error.message)
+            logic.toggleFavPost(postId)
 
-                    return
-                }
+            setTimestamp(Date.now())
 
-                refreshPosts() // Si la operación es exitosa, llama a refreshPosts para actualizar la lista de posts
-            })
         } catch (error) {
             alert(error.message)
         }
     }
 
     function handleListFavPostsClick(event) {
-        event.preventDefault() // Previene el comportamiento predeterminado del evento (evita que se recargue la página)
+        event.preventDefault()
 
-        try {
-            logic.retrieveFavPosts((error, favs) => {
-                if (error) {
-                    alert(error.message)
+        setView("list-fav-post")
+    }
 
-                    return
-                }
+    let favPosts = null //para almacenar los posts favoritos, configurada inicialmente como nula.
 
-                setFavs(favs) // La lista de posts favoritos obtenida se establece en el estado
-                setView("list-fav-post") // Después de establecer los posts favoritos en el estado, se cambia la vista actual
-            })
-        } catch (error) {
-            alert(error.message)
-        }
+    try {
+        favPosts = logic.retrieveFavPosts()
+
+    } catch (error) {
+        alert(error.message)
     }
 
     return <div>
