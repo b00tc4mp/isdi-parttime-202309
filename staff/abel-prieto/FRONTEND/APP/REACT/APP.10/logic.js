@@ -102,7 +102,7 @@ class Logic {
     changeUserEmail(newEmail, confirmNewEmail, password, callback) {
         validateText(newEmail, 'new email')
         validateText(confirmNewEmail, 'new email confirm')
-        validateText(password, 'new email')
+        validateText(password, 'password')
     
         db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {
@@ -131,7 +131,7 @@ class Logic {
     changeUserPassword(password, newPassword, againNewPassword, callback) {
         validateText(password, 'password')
         validateText(newPassword, 'new password')
-        validateText(againNewPassword, 'the repeat password')
+        validateText(againNewPassword, 'repeat password')
 
         db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {

@@ -2,11 +2,20 @@
 
 function Home(props) {
 
+    // logic.retrieveUser(userLog, error => {
+    //     if (error) {
+    //         alert(error.message)
+
+    //         return
+    //     }
+    // })
+
     // STATE VIEWS's
     const [view, setView] = React.useState(null)
 
-    // STATE NAME (Profile)
+    // STATE NAME (Profile) & ID (Posts-Favs)
     const [name, setName] = React.useState(null)
+    const [id, setId] = React.useState(null)
 
     // STATE POSTS - FAVS
     const [posts, setPosts] = React.useState(null)
@@ -14,7 +23,7 @@ function Home(props) {
 
     // STATE & EFFECT - NAME
     React.useEffect(() => {
-        console.log('Home -> Effect (name)')
+        console.log('Home -> Effect (name-id)')
 
         try {
             logic.retrieveUser((error, user) => {
@@ -26,6 +35,9 @@ function Home(props) {
 
                 setName(user.name)
                 // Nos traemos el usuario mediante retrieveUser para usar el "NAME"
+                setId(user.id)
+                // Nos traemos el usuario mediante retrieveUser para usar el "ID"
+
             })
         } catch (error) {
             alert(error.message)
@@ -37,7 +49,7 @@ function Home(props) {
         console.log('Home -> Effect (posts)')
 
         refreshPosts()
-    })
+    }, [])
 
     // RENDER POSTS & FAVS POSTS
     function refreshPosts() {
@@ -165,12 +177,24 @@ function Home(props) {
         // Cambiamos la vista a 'null' - home
     }
 
-    // LIST FAVS POSTS (AQUI)
-    function handleListFavPostsClick() {
+    // LIST FAVS POSTS 
+    function handleFavsPostsClick() {
         try {
-            setView('favs')
-            // Cambiamos la vista a 'FAVS'
+            logic.retrieveFavUserPosts((error, favs) => {
+                if (error) {
+                    alert(error.message)
 
+                    return
+                }
+
+                favs.reverse()
+
+                setFavs(favs)
+                // Estado de los favoritos
+                setView('favs')
+                // Cambiamos la vista a 'FAVS'
+
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -201,35 +225,73 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            logic.publishPost(image, text)
+            logic.publishPost(image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            setView('null')
+                    return
+                }
+
+                try {
+                    logic.retrievePosts((error, posts) => {
+                        if (error) {
+                            alert(error.message)
+
+                            return
+                        }
+
+                        posts.reverse()
+
+                        setPosts(posts)
+                        // Estado de los posts
+                        setView(null)
+                        // Cambiamos la vista a "NULL" (los posts)
+                    })
+                } catch (error) {
+                    alert(error.message)
+                }
+            })
+
         } catch (error) {
             alert(error.message)
         }
     }
 
     // LIKE BUTTON
-    function handleLikeClick(postId) {
+    function handleToggleLikeClick(postId) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestampState(Date.now())
-            // Actualiza el estado en base a milisegundos
+                    return
+                }
+
+                refreshPosts()
+                // Hacemos un repintado de los posts-favs
+            })
+
         } catch (error) {
             alert(error.message)
         }
     }
 
     // DELETE BUTTON
-    function handleDeletePostClick(postId) {
+    function handleToggleDeletePostClick(postId) {
         if (confirm('Are you sure that you want to delete this post?')) {
 
             try {
-                logic.deletePost(postId)
+                logic.deletePost(postId, error => {
+                    if (error) {
+                        alert(error.message)
 
-                setTimestampState(Date.now())
+                        return
+                    }
 
+                    refreshPosts()
+                    // Hacemos un repintado de los posts-favs
+                })
+                
             } catch (error) {
                 alert(error.message)
             }
@@ -237,11 +299,19 @@ function Home(props) {
     }
 
     // FAVS POST BUTTON
-    function handleFavPostClick(postId) {
+    function handleToggleFavPostClick(postId) {
         try {
-            logic.toggleFavPost(postId)
+            logic.toggleFavPost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestampState(Date.now())
+                    return
+                }
+
+                refreshPosts()
+                // Hacemos un repintado de los posts-favs
+            })
+
         } catch (error) {
             alert(error.message)
         }
@@ -254,7 +324,7 @@ function Home(props) {
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
             <div>
-                <button className="button-submit" onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button className="button-submit" onClick={handleListFavPostsClick}>Favs</button> <button className="button-submit" onClick={handleLogoutClick}>Logout ❌</button>
+                <button className="button-submit" onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button className="button-submit" onClick={handleFavsPostsClick}>Favs</button> <button className="button-submit" onClick={handleLogoutClick}>Logout ❌</button>
             </div>
         </header>
 
@@ -314,23 +384,23 @@ function Home(props) {
                 <img className='post-img' src={post.image} />
                 <p>{post.text}</p>
                 <div className="buttons-post">
-                    <button className='button-submit' onClick={() => handleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                    <button className='button-submit' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '⭐' : '☆'}Fav</button>
-                    {post.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>)}
+                    <button className='button-submit' onClick={() => handleToggleLikeClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                    <button className='button-submit' onClick={() => handleToggleFavPostClick(post.id)}>{post.fav ? '⭐' : '☆'}Fav</button>
+                    {post.author.id === id && (<button className='button-submit' onClick={() => handleToggleDeletePostClick(post.id)}>Delete post</button>)}
                 </div>
             </article>)}
         </div>}
 
         {view === 'favs' && <div className="view">
             <h1>⭐ All your favorite posts ⭐</h1>
-            {favs.map((postFav) => <article key={postFav.id} className="post">
-                <h2>{postFav.author.email}</h2>
-                <img className="post-img" src={postFav.image} />
-                <p>{postFav.text}</p>
+            {favs.map((fav) => <article key={fav.id} className="post">
+                <h2>{fav.author.email}</h2>
+                <img className="post-img" src={fav.image} />
+                <p>{fav.text}</p>
                 <div className="buttons-post">
-                    <button className='button-submit' onClick={() => handleLikeClick(postFav.id)}>{postFav.liked ? '❤️' : '🤍'} {postFav.likes.length} likes</button>
-                    <button className='button-submit' onClick={() => handleFavPostClick(postFav.id)}>{postFav.fav ? '⭐' : '☆'}Fav</button>
-                    {postFav.author.id === user.id && (<button className='button-submit' onClick={() => handleDeletePostClick(postFav.id)}>Delete post</button>)}
+                    <button className='button-submit' onClick={() => handleToggleLikeClick(fav.id)}>{fav.liked ? '❤️' : '🤍'} {fav.likes.length} likes</button>
+                    <button className='button-submit' onClick={() => handleToggleFavPostClick(fav.id)}>{fav.fav ? '⭐' : '☆'}Fav</button>
+                    {fav.author.id === id && (<button className='button-submit' onClick={() => handleToggleDeletePostClick(fav.id)}>Delete post</button>)}
                 </div>
             </article>)}
         </div>}
