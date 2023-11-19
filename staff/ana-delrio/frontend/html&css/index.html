@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html>
+
+<!-- nada de lo del head se redneriza, nos sirve para darle información, metadatos -->
+
+<head>
+    <meta charset="utf-8"> <!-- codificación que queremos usar (acentos, emojis) -->
+    <meta name="viewport" content="width=device=width"> <!-- el ancho del contenido, sea el ancho de la pantalla -->
+    <title>Portfolio de Ana, junior front-end developer></title> <!-- SEO -->
+
+    <meta name="description" content="Portfolio de Ana, Front-end developer"> <!-- Esta es la descripción de google-->
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:tittle" content="Portofolio Ana del Río">
+    <!-- Si no lo pusiéramos esto, a nivel de SEO nos haría un fallback al tittle, es el Headline -->
+    <meta property="og:image" content="Portofolio Ana del Río, junior software developer">
+    <meta property="og:image" content="/image/foto.jpg">
+
+    <link rel="alternate" href="https://midu.dev/en" hreflang="es-GB">
+    <!-- Hay alternativas de la página por ejemplo, si la hubiera en inglés -->
+    <link rel="canonical" href="https://midu.dev">
+    <!-- Esto quiere decir que ambas (www.midu.dev o midu.dev) las va a tratar como un mismo sitio, a veces nos interesa que no las detecte como contenido duplicado -->
+
+    <meta name="robots" content="index, follow"> <!-- indicamos si tiene que indexar la página, y seguir los enlaces -->
+    <meta name="theme-color" content="#09f"> <!-- esto es para el color de la parte superior de la página -->
+
+    <link rel="icon" type="image/jpg" href="/images/yo.jpg"> <!-- se pone link porque enlazamos una imagen -->
+    <!-- es la imagen que aparece en la parte superior de la página  -->
+
+    <style>
+        h1 {
+            /* color: rgba(0,0,0,50%); LEGACY */
+            /* color: oklch(348 83% 44%/ 50%) */
+            /* color: transparent */
+            /* color: hsl(348, 83%, 44%) */
+            /* color: rgb(0, 0, 0 /50% */
+            /* forma moderna */
+            color: #0099ffff;
+            border-width: 3px;
+            border-style: solid;
+            border-color: currentColor;
+            font-family: monospace;
+        }
+
+        body {
+            background: #dbfbff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            /* fallback: en el caso de que no pueda cargar una, tira de la lista*/
+        }
+
+
+        .link {
+            color: red
+        }
+
+        /* seudoclase: situaciones especiales, en las que se encuentran los elementos HTML */
+        /* la diferencia entre el border y el contorno,el borde afecta al contenido y el contorno (outline) se dibuja encima del contenido*/
+
+        .link:hover {
+            outline: 3px solid orange;
+        }
+
+
+        .link:active {
+            outline: 3px solid blue;
+        }
+
+        .link:focus {
+            border: 3px solid pink
+        }
+
+        li:first-child {
+            color: pink;
+        }
+
+        li:last-child {
+            color: purple;
+        }
+
+        #show {
+            background: #09f;
+            color: white;
+            border: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- la pgina está divida en el HEADER, el MAIN y el FOOTER -->
+    <header>
+        <h1>Portfolio de Ana 👩‍💻</h1>
+
+        <iframe style="width: 100%; aspect-ratio: 16/9" ;
+            src="https://www.youtube.com/embed/8aryHZ8Z9WY?si=bDpCqbJYRF5_ce_B" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+
+        <!-- ancho y largo como siempre -->
+        <!-- title, que si te pones encima de la imagen, te aparece el nombre -->
+        <!-- el frameborder, es el border-->
+        <!-- el allow son los permisos a los que accedes el contenido interno, autoplay, acelerometer...-->
+
+        <nav>
+            <a class="link" href="#experiencia">Experiencia</a> <!-- enlace internos -->
+            <a class="link" href="https://twitch.tv/miduve" target="_blanck" rel="noreferrer">twitch</a>
+            <!-- enlace externos -->
+            <!-- el noreferrer lo ponemos para no transmitir información ala la nueva página-->
+        </nav>
+    </header>
+
+
+    <audio controls src="https://filesamples.com/sample/video/mp4/sample_960x400_ocean_with_audio.mp4"></audio>
+
+    <video autoplay muted src="https://filesamples.com/sample/video/mp4/sample_960x400_ocean_with_audio.mp4"></video>
+
+    <dialog id="dialog">
+        <h1>¿Sabías que podías abrir un modal aquí?</h1>
+        <p>¡Y totalmente nativo!</p>
+        <button id="hide">Cerrar modal</button>
+    </dialog>
+
+    <button id="show">Ver más información</button>
+
+    <script>
+        window.show.addEventListener('clik', () => {
+            window.dialog.showModal()
+        })
+        window.hide.addEventListener('clik', () => {
+            window.dialog.close()
+        })
+
+    </script>
+
+    <main> <!-- Solo puede haber una, y debería abarcar aquel contenido principal de la página  -->
+
+        <p class="description"><strong>Front-end</strong> developer junior</p>
+
+        <h2 id="experiencia">Experiencia</h2>
+
+        <ul>
+            <li class="list-item">Capitole Consulting 2022-actualidad</li>
+            <li class="list-item">Lartesana 2021-2022</li>
+            <li class="list-item">Domino's Pizza 2015-2021</li>
+        </ul>
+
+        <a href="/image/foto.jpg">
+            <img id="photo-image" width="200" height="200" tittle="Foto" alt="Fotografía" src="/image/foto.jpg">
+        </a>
+
+        <h2>Proyectos realizados</h2>
+
+        <aside>
+            <header>
+                <h3><span>Mis tecnologías favoritas</span></h3>
+            </header>
+            <ol type="a">
+                <li>HTML5</li>
+                <li>CSS</li>
+                <li>JavaScrip</li>
+                <li>Node.js</li>
+                <li>Git</li>
+                <li>React</li>
+            </ol>
+        </aside> <!-- contenido que se relaciona indirectamente con el contenido ppal del documento -->
+
+        <button>
+            Haz click aquí
+        </button>
+
+        <section> <!-- serviría para abarcar secciones independientes genéricas de un documento -->
+            <article>
+                <!-- un contenido que podría ser como un bloque independiente de información, se podría copiar y pegar el cualquier lugar sin problema -->
+                <h4>La página web de tesla</h4>
+                <img style="width:100%; aspect-ratio: 638/317;" loading="lazy" src="/images/tesla.png"
+                    alt="Screenshot de ejemplo">
+                <!-- lo de lazy hace que se carga la imagen cuando sea necesario, a nivel de optimización-->
+                <p>Elon Musk me encargó la siguiente web</p>
+                <footer>
+                    <small>
+                        <ul>
+                            <li class="list-item">Comprensión y análisis de las necesidades del negocio</li>
+                            <li class="list-item">Creación de nuevas oportunidades de negocio: identificación de nuevos
+                                clientes, análisis de
+                                necesidades y requisitos, promoción de relaciones con partners</li>
+                            <li class="list-item">Gestionar proyectos de IT con definición de objetivos, plazos y
+                                presupuestos, así como identificar
+                                los recursos necesarios y supervisar el progreso de los proyectos</li>
+                            <li class="list-item">Gestión del equipo de consultores: coaching, orientación profesional,
+                                gestión de habilidades,
+                                apoyo cruzado</li>
+                            <li class="list-item">Gestión completa de P&L de la Business Unit</li>
+                        </ul>
+                    </small>
+                </footer>
+            </article>
+
+            <article>
+                <header>Lartesana</header>
+                <p>(marzo 2021-junio 2022)</p>
+                <footer>
+                    <small>
+                        <ul>
+                            <li class="list-item">Conocimiento y control de materias primas, técnicas de elaboración,
+                                manipulación y horneado </li>
+                            <li class="list-item">CMeticulosidad para trabajar con máxima higiene y cumpliendo las
+                                normas de
+                                sanidad</li>
+                        </ul>
+                    </small>
+                </footer>
+            </article>
+
+            <header>Domino's Pizza: auxiliar de sala</header>
+            <p>(junio 2022-actualidad)</p>
+            <footer>
+                <small>
+                    <ul>
+                        <li class="list-item">Gestión y manipulación de equipos del restaurante</li>
+                        <li class="list-item">CTratamiento con clientes</li>
+                    </ul>
+                </small>
+            </footer>
+            </article>
+        </section>
+
+        <section>
+            <h2>Preguntas frecuentes</h2>
+
+            <details OPEN>
+                <summary>¿Qué estudios tienes?</summary>
+                <p>Estudié en la universidad de Vilaniova una ingeniería de Informática durante 5 años</p>
+            </details>
+
+            <details>
+                <summary>¿Cuáles son tus hobbies?</summary>
+                <p>Me gusta el deporte</p>
+            </details>
+        </section>
+
+        <section>
+            <h2>Formulario de contacto</h2>
+
+            <form method="post" action="/">
+                <fieldset>
+                    <legend>Información personal</legend>
+
+                    <div>
+                        <label> Nombre:
+                            <input type="text" name="name" placeholder="Ana del Río Collar" required>
+                        </label>
+                    </div>
+
+                    <label> Email:
+                        <input type="email" name="email" placeholder="anariocollar@gmail.com">
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Información adicional</legend>
+                    <div>
+                        <label> Teléfono:
+                            <input type="tel" name="name" placeholder="676 235 622" required-pattern="[0-9]{9∫}">
+                        </label>
+
+                        <label> Fecha de nacimiento:
+                            <input type="datetime-local" name="name" placeholder="">
+                        </label>
+                    </div>
+                </fieldset>
+                <input type="submit" value="Enviar contacto">
+
+                <fieldset>
+                    <legend>Otros</legend>
+
+                    <div>
+                        <label for="why"> ¿Por qué quieres contactar?</label>
+                        <select name="why" id="why">
+                            <option value="1">Trabajo</option>
+                            <option value="2">Duda</option>
+                            <option value="3">Más información</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="terms"> ¿Aceptas los términos?</label>
+                        <input type="checkbox" id="terms" name="termns" required>
+                    </div>
+
+                    <div>
+                        <datalist id="languages">
+                            <option value="Javascript"></option>
+                            <option value="Python"></option>
+                            <option value="Java"></option>
+                            <option value="C#"></option>
+                        </datalist>
+                        <label>
+                            ¿Con qué lenguaje quieres que te ayude?
+                            <input list="languages" name="languages">
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button>Enviar contacto</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        Copyright © 2023 - Portoflio de Ana del Río Collar
+
+        <a href="tel:+34981666666">Llamar por teléfono</a>
+        <a href="whastapp:// send?text=981 666 666 ">Llamar por whastapp</a>
+
+    </footer>
+
+</body>
+
+
+
+</html>
+
+
+
+<!-- Esto si que hay que dejarlo -->
