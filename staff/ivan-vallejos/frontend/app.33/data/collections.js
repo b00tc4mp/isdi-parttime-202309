@@ -1,23 +1,23 @@
 class Collection {
-    constructor (clazz, documents){
+    constructor(clazz, documents) {
         this.__clazz__ = clazz
         this.__documents__ = documents
     }
 
-    __clone__ (document) {
+    __clone__(document) {
         var copy = new this.__clazz__
 
         for (var key in document) {
-            var value = document [key]
+            var value = document[key]
 
             if (value instanceof Array)
                 copy[key] = [...value]
             else if (value instanceof Date)
-                copy [key] = new Date (document[key])
+                copy[key] = new Date(document[key])
             else if (value instanceof Object)
-                copy [key] = {...value}
+                copy[key] = { ...value }
             else
-                copy [key] = document[key]
+                copy[key] = document[key]
 
         }
 
@@ -25,62 +25,62 @@ class Collection {
     }
 
     __generateId__() {
-        return Math.floor(Math.random () *1000000000000000000).toString(36)
+        return Math.floor(Math.random() * 1000000000000000000).toString(36)
     }
 
     insert(document, callback) {
-        asyncDelay(() =>{
+        asyncDelay(() => {
             const documentCopy = this.__clone__(document)
 
             documentCopy.id = this.__generateId__()
 
-            this.__documents__.push (documentCopy)
+            this.__documents__.push(documentCopy)
 
             callback(null)
-        }, 0.3)       
+        }, 0.3)
     }
-        
-    __findIndexById__(id, callback) {
-        try{
-            validateText (id, `${this.__clazz__.name} id`)
 
-            asyncDelay(() =>{
+    __findIndexById__(id, callback) {
+        try {
+            validateText(id, `${this.__clazz__.name} id`)
+
+            asyncDelay(() => {
                 const index = this.__documents__.findIndex(document => document.id === id)
-    
-                callback(index)
+
+                callback(null, index)
             }, 0.4)
         } catch (error) {
             callback(error)
         }
     }
 
-    findById (id, callback) {
+    findById(id, callback) {
         try {
-            validateText (id, `${this.__clazz__.name} id`)
+            validateText(id, `${this.__clazz__.name} id`)
 
-            asyncDelay (() => {
+            asyncDelay(() => {
                 const document = this.__documents__.find(document => document.id === id)
-    
+
                 if (!document) {
                     callback(null, null)
-    
+
                     return
                 }
-                
-                callback (this.__clone__(document))
-            },0.6)
-        }catch (error) {
+
+                callback(null, this.__clone__(document))
+            }, 0.6)
+        } catch (error) {
             callback(error)
         }
     }
 
-    update (document, callback) {
+    update(document, callback) {
         try {
             if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
 
-            asyncDelay(() => {    
+            asyncDelay(() => {
                 this.__findIndexById__(document.id, (error, index) => {
-                    if (error){
+                    if (error) {
                         callback(error)
 
                         return
@@ -93,56 +93,56 @@ class Collection {
                     }
 
                     this.__documents__[index] = this.__clone__(document)
-    
+
                     callback(null)
                 })
             }, 0.5)
         } catch (error) {
-            callback (error)
+            callback(error)
         }
     }
 }
 
 class Users extends Collection {
-    constructor () {
-        super (User, [])
+    constructor() {
+        super(User, [])
     }
 
     findByEmail(email, callback) {
-        try{
+        try {
             validateText(email, 'email')
 
-            asyncDelay (() => {
-                const user = this.__documents__.find (document => document.email === email)
-    
+            asyncDelay(() => {
+                const user = this.__documents__.find(document => document.email === email)
+
                 if (!user) {
                     callback(null, null)
-    
+
                     return
                 }
-    
+
                 callback(null, this.__clone__(user))
             }, 0.7)
         } catch (error) {
-            callback (error)
+            callback(error)
         }
     }
 }
 
 class Posts extends Collection {
-    constructor () {
-        super (Post, [])
+    constructor() {
+        super(Post, [])
     }
 
     getAll(callback) {
         asyncDelay(() => {
-            callback(this.__documents__.map(this.__clone__.bind(this)))
+            callback(null, this.__documents__.map(this.__clone__.bind(this)))
         }, 0.8)
     }
 }
 
 class CreditCards extends Collection {
-    constructor () {
-        super (CreditCard, [])
+    constructor() {
+        super(CreditCard, [])
     }
 }

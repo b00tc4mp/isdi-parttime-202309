@@ -38,4 +38,4 @@ db.users.insert(new User(null, 'Wendy Darling', 'wendy@darling.com', '123123123'
             })
         })
     })
-})   
+})

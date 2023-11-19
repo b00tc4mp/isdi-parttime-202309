@@ -1,8 +1,8 @@
-// Logic
+// logic
 
 const logic = new Logic
 
-// React 
+// react
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<App />)
