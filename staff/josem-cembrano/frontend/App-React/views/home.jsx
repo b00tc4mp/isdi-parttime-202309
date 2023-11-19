@@ -1,14 +1,9 @@
 function Home(props) {
     console.log('Home')
 
-    const viewState = React.useState(null)
+    const [view, setView] = React.useState(null)
 
-    const view = viewState[0]
-    const setView = viewState[1]
-
-    const timestampState = React.useState(null)
-    //const timestamp = timestampState[0]
-    const setTimestamp = timestampState[1]
+    const ['', timestampState] = React.useState(null)
 
     function handleLogoutClick() {
         logic.logoutUser()
