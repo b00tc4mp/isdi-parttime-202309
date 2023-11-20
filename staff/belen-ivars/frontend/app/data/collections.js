@@ -23,57 +23,112 @@ class Collection {
 		return copy
 	}
 
-	generateId() {
+	__generateId__() {
 		return Math.floor(Math.random() * 1000000000000000000).toString(36)
 	}
 
-	insert(document) {
-		const documentCopy = this.__clone__(document)
+	insert(document, callback) {
+		asyncDelay(() => {
+			const documentCopy = this.__clone__(document)
 
-		documentCopy.id = this.generateId()
+			documentCopy.id = this.__generateId__()
 
-		this.__documents__.push(documentCopy)
+			this.__documents__.push(documentCopy)
+
+			callback(null)
+		}, 0.3)
 	}
 
-	findIndexById(id) {
-		validateText(id, `${this.__clazz__.name} id`)
+	__findIndexById__(id, callback) {
+		try {
+			validateText(id, `${this.__clazz__.name} id`)
 
-		return this.__documents__.findIndex(document => document.id === id)
-	}
+			asyncDelay(() => {
+				const index = this.__documents__.findIndex(document => document.id === id)
 
-	findById(id) {
-		validateText(id, `${this.__clazz__.name} id`)
-
-		const document = this.__documents__.find(document => document.id === id)
-
-		if (!document) return null
-
-		return this.__clone__(document)
-	}
-
-	update(document) {
-		if (!(document instanceof this.__clazz__)) {
-			throw new Error(`document is not a ${this.__clazz__.name}`)
+				callback(null, index)
+			}, 0.4)
+		} catch (error) {
+			callback(error)
 		}
-
-		const index = this.findIndexById(document.id)
-
-		if (index < 0) {
-			throw new Error(`${this.__clazz__.name} not found`)
-		}
-
-		this.__documents__[index] = this.__clone__(document)
 	}
 
-	deleteById(id) {
-		validateText(`${this.__clazz__.name} id`)
+	findById(id, callback) {
+		try {
+			validateText(id, `${this.__clazz__.name} id`)
 
-		const index = this.findIndexById(id)
+			asyncDelay(() => {
+				const document = this.__documents__.find(document => document.id === id)
 
-		if (index < 0) {
-			throw new Error(`${this.__clazz__.name} not found`)
+				if (!document) {
+					callback(null, null)
+
+					return
+				}
+
+				callback(null, this.__clone__(document))
+
+			}, 0.6)
+		} catch (error) {
+			callback(error)
 		}
-		this.__documents__.splice(index, 1)
+	}
+
+	update(document, callback) {
+		try {
+			if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
+
+			asyncDelay(() => {
+				this.__findIndexById__(document.id, (error, index) => {
+					if (error) {
+						callback(error)
+
+						return
+
+					}
+					if (index < 0) {
+						callback(new Error(`${this.__clazz__.name} not found`))
+
+						return
+					}
+
+					this.__documents__[index] = this.__clone__(document)
+
+					callback(null)
+				})
+			}, 0.5)
+
+		} catch (error) {
+			callback(error)
+		}
+	}
+
+
+	deleteById(id, callback) {
+		try {
+
+			validateText(id, `${this.__clazz__.name} id`)
+
+			asyncDelay(() => {
+				this.__findIndexById__(id, (error, index) => {
+					if (error) {
+						callback(error)
+
+						return
+					}
+
+					if (index < 0) {
+						callback(new Error(`${this.__clazz__.name} not found`))
+
+						return
+
+					}
+					callback(null, this.__documents__.splice(index, 1))
+				})
+			}, 0.4)
+		} catch (error) {
+			callback(error)
+		}
 	}
 }
 
@@ -82,15 +137,26 @@ class Users extends Collection {
 		super(User, [])
 	}
 
-	findByEmail(email) {
-		validateText(email, `${this.__clazz__.name} email`)
+	findByEmail(email, callback) {
+		try {
+			validateText(email, `${this.__clazz__.name} email`)
 
-		const user = this.__documents__.find(document => document.email === email)
+			asyncDelay(() => {
 
-		if (!user)
-			return null
+				const user = this.__documents__.find(document => document.email === email)
 
-		return this.__clone__(user)
+				if (!user) {
+					callback(null, null)
+
+					return
+				}
+
+				callback(null, this.__clone__(user))
+			}, 0.7)
+
+		} catch (error) {
+			callback(error)
+		}
 	}
 }
 
@@ -99,8 +165,10 @@ class Posts extends Collection {
 		super(Post, [])
 	}
 
-	getAll() {
-		return this.__documents__.map(this.__clone__.bind(this))
+	getAll(callback) {
+		asyncDelay(() => {
+			callback(null, this.__documents__.map(this.__clone__.bind(this)))
+		}, 0.8)
 	}
 }
 

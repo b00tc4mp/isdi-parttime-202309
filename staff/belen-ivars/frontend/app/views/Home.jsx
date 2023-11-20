@@ -1,29 +1,42 @@
 function Home(props) {
     console.log('Home')
 
-    const viewState = React.useState(null)
-    const view = viewState[0]
-    const setView = viewState[1]
+    const [view, setView] = React.useState(null)
+    const [name, setName] = React.useState(null)
+    const [posts, setPosts] = React.useState(null)
+    const [favs, setFavs] = React.useState(null)
 
-    const timestampState = React.useState(null)
-    // const timestamp = timestampState[0]
-    const setTimestampState = timestampState[1]
 
     function handleLogoutClick() {
-        logic.logoutUser()
+        logic.logoutUser(error => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+        })
 
         props.onLogoutClick()
     }
 
-    let name = null
+    React.useEffect(() => {
+        console.log('Home -> effect (name)')
 
-    try {
-        const user = logic.retrieveUser()
+        try {
+            logic.retrieveUser((error, user) => {
+                if (error) {
+                    alert(error.message)
 
-        name = user.name
-    } catch (error) {
-        alert(error.message)
-    }
+                    return
+                }
+
+                setName(user.name)
+            })
+
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
     function handleProfileClick(event) {
         event.preventDefault()
@@ -47,26 +60,47 @@ function Home(props) {
         setView(null)
     }
 
-    let posts = null
-    let favs = null
+    function refreshPosts() {
+        if (view === null || view === 'new-post')
+            try {
+                logic.retrievePosts((error, posts) => {
+                    if (error) {
+                        alert(error.message)
 
-    if (view === null || view === 'new-post')
-        try {
-            posts = logic.retrievePosts()
+                        return
+                    }
 
-            posts.reverse()
+                    posts.reverse()
 
-        } catch (error) {
-            alert(error.message)
-        } else if (view === 'favs')
-        try {
-            favs = logic.retrieveFavPosts()
+                    setPosts(posts)
+                })
 
-            favs.reverse()
+            } catch (error) {
+                alert(error.message)
+            }
+        else if (view === 'favs')
+            try {
+                logic.retrieveFavPosts((error, favs) => {
+                    if (error) {
+                        alert(error.message)
 
-        } catch (error) {
-            alert(error.message)
-        }
+                        return
+                    }
+
+                    favs.reverse()
+
+                    setFavs(favs)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+    }
+
+    React.useEffect(() => {
+        console.log('Home -> effect (posts)')
+
+        refreshPosts()
+    }, [])
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -78,12 +112,30 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            asyncDelay(() => {
-                logic.publishPost(image, text)
+            logic.publishPost(image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-                setView(null)
+                    return
+                }
 
-            }, 5)
+                try {
+                    logic.retrievePosts((error, posts) => {
+                        if (error) {
+                            alert(error.message)
+
+                            return
+                        }
+
+                        posts.reverse()
+
+                        setPosts(posts)
+                        setView(null)
+                    })
+                } catch (error) {
+                    alert(error.message)
+                }
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -91,39 +143,54 @@ function Home(props) {
 
     function handleToggleLikePostClick(postId) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestampState(Date.now())
+                    return
+                }
+
+                refreshPosts()
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
-    function handleDeletePostButtonClick(postId) {
-        if (confirm('Are you sure you want to delete this post?')) {
+    function handleDeletePostClick(postId) {
+        if (confirm('Are you sure you want to delete this post?'))
 
             try {
-                logic.deletePost(postId)
+                logic.deletePost(postId, error => {
+                    if (error) {
+                        alert(error.message)
 
-                setTimestampState(Date.now())
-
+                        return
+                    }
+                    refreshPosts()
+                })
             } catch (error) {
                 alert(error.message)
             }
-        }
     }
+
 
     function handleToggleFavPostClick(postId) {
         try {
-            logic.toggleFavPost(postId)
+            logic.toggleFavPost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestampState(Date.now())
+                    return
+                }
+
+                refreshPosts()
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
-    /////////
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
 
@@ -136,10 +203,15 @@ function Home(props) {
         const password = passwordInput.value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password)
+            logic.changeUserEmail(newEmail, newEmailConfirm, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            alert('Email changed!')
-            event.target.reset()
+                    return
+                }
+                alert('Email changed!')
+                setView(null)
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -157,11 +229,15 @@ function Home(props) {
         const password = passwordInput.value
 
         try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password, error => {
+                if (error) {
+                    alert(error.message)
 
-            alert('Password changed successfully!')
-            event.target.reset()
-
+                    return
+                }
+                alert('Password changed successfully!')
+                setView(null)
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -170,7 +246,21 @@ function Home(props) {
     function handleFavPostsClick(event) {
         event.preventDefault()
 
-        setView('favs')
+        try {
+            logic.retrieveFavPosts((error, favs) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                favs.reverse()
+                setFavs(favs)
+                setView('favs')
+            })
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     return <div>
@@ -239,8 +329,13 @@ function Home(props) {
                     handleToggleFavPostClick(post.id)
                 }
 
+                function handleDeletePostButtonClick() {
+                    handleDeletePostClick(post.id)
+                }
+
                 return <article key={post.id} className="post">
                     <h2>{post.author.name}</h2>
+                    {/* author o author.name */}
                     <img className="post-image" src={post.image} />
                     <p>{post.text}</p>
                     <div className="buttons-post">
@@ -260,6 +355,10 @@ function Home(props) {
 
                 function handleToggleFavButtonClick() {
                     handleToggleFavPostClick(post.id)
+                }
+
+                function handleDeletePostButtonClick() {
+                    handleDeletePostClick(post.id)
                 }
 
                 return <article key={post.id} className="post">
