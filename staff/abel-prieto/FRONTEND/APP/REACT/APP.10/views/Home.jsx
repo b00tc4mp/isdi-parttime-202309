@@ -1,14 +1,7 @@
 // HOME
 
 function Home(props) {
-
-    // logic.retrieveUser(userLog, error => {
-    //     if (error) {
-    //         alert(error.message)
-
-    //         return
-    //     }
-    // })
+    console.log('Home')
 
     // STATE VIEWS's
     const [view, setView] = React.useState(null)
@@ -34,10 +27,9 @@ function Home(props) {
                 }
 
                 setName(user.name)
-                // Nos traemos el usuario mediante retrieveUser para usar el "NAME"
+                // Guardamos en STATE el user para usar el "NAME"
                 setId(user.id)
-                // Nos traemos el usuario mediante retrieveUser para usar el "ID"
-
+                // Guardamos en STATE el user para usar el "ID"
             })
         } catch (error) {
             alert(error.message)

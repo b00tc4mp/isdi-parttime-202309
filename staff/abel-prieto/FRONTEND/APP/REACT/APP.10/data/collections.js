@@ -49,9 +49,9 @@ class Collection {
                         return
                     }
             
-                    this.__documents__.splice(index, 1)
+                    // this.__documents__.splice(index, 1)
         
-                    callback(null)
+                    callback(null, this.__documents__.splice(index, 1))
                 })
             }, 0.3)
         } catch (error) {

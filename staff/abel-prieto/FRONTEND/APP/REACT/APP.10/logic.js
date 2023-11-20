@@ -122,8 +122,19 @@ class Logic {
             }
         
             user.email = newEmail
+
+            callback(db.users.update(user))
+
     
-            db.users.update(null, user)
+            // db.users.update((error, user) => {
+            //     if (error) {
+            //         callback(error)
+
+            //         return
+            //     }
+
+            //     callback(user)
+            // })
         })
     }
     
@@ -153,8 +164,18 @@ class Logic {
             }
         
             user.password = newPassword
+
+            callback(db.users.update(user))
             
-            db.users.update(null, user)
+            // db.users.update((error, user) => {
+            //     if (error) {
+            //         callback(error)
+
+            //         return
+            //     }
+
+            //     callback(user)
+            // })
         })
     }
 
@@ -180,16 +201,28 @@ class Logic {
     deletePost(postId, callback) {
         validateText(postId, 'post id')
 
-        db.posts.findById(postId, post => {
-            db.users.findById(this.sessionUserId, user => {
-                const index = user.favs.indexOf(postId)
-    
-                if (!post) {
-                    throw new Error('post not found')
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+            }
+            
+            db.users.findById(this.sessionUserId, (error, user) => {
+                if (error) {
+                    callback(error)
+
+                    return
                 }
+
+                const index = user.favs.indexOf(postId)
         
                 if (!user) {
-                    throw new Error('user not found')
+                    callback(new Error('user not found'))
                 }
         
                 db.posts.deleteById(post.id, (error, post) => {
@@ -204,16 +237,18 @@ class Logic {
                     }
 
                     user.favs.splice(index, 1)
+
+                    callback(db.users.update(user))
         
-                    db.users.update(user, error => {
-                        if (error) {
-                            callback(error)
+                    // db.users.update(user, error => {
+                    //     if (error) {
+                    //         callback(error)
     
-                            return
-                        }
+                    //         return
+                    //     }
     
-                        callback(null)
-                    })
+                    //     callback(user, post)
+                    // })
                 })
             })
         })  
