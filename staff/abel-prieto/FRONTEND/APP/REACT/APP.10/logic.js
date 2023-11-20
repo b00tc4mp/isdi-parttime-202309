@@ -205,31 +205,33 @@ class Logic {
 
             if (!post) {
                 callback(new Error('post not found'))
+
+                return
             }
-            
-            db.users.findById(this.sessionUserId, (error, user) => {
+
+            // 1. Filtrado por usuarios con post.id en favs
+            // 2. Hacer forEach con ese ARRAY
+
+            db.users.getAll((error, users) => {
                 if (error) {
                     callback(error)
 
                     return
                 }
 
-                const index = user.favs.indexOf(postId)
-        
-                if (!user) {
-                    callback(new Error('user not found'))
+                const usersWithFav = users.filter((user) => user.favs.includes(postId))
+
+                let count = 0
+
+                if (!usersWithFav.length) {
+                    callback(error)
+
+                    return
                 }
-        
-                db.posts.deleteById(post.id, (error, post) => {
-                    if (error) {
-                        callback(error)
 
-                        return
-                    }
+                usersWithFav.forEach(user => {
 
-                    if (!post) {
-                        callback(new Error('post not found'))
-                    }
+                    const index = user.favs.indexOf(postId)
 
                     user.favs.splice(index, 1)
 
@@ -240,9 +242,15 @@ class Logic {
                             return
                         }
 
-                        callback(null)
+                        count++
+
+                        if (count === usersWithFav.length) {
+                            // TODO (DELETE POST)
+                            callback(null)
+                        }
                     })
                 })
+
             })
         })  
     }

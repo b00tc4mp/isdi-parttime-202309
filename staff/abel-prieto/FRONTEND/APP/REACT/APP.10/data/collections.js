@@ -171,6 +171,13 @@ class Users extends Collection {
             callback(error)
         }
     }
+    
+    // GET 
+    getAll(callback) {
+        asyncDelay(() => {
+            callback(null, this.__documents__.map(this.__clone__.bind(this)))
+        }, 0.8)
+    }
 }
 
 class Posts extends Collection {
