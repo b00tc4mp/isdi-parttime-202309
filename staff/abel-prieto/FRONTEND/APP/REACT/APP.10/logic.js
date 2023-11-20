@@ -98,7 +98,7 @@ class Logic {
         })
     }
     
-    // CHECK CHANGE EMAIL (TO DO)
+    // CHECK CHANGE EMAIL 
     changeUserEmail(newEmail, confirmNewEmail, password, callback) {
         validateText(newEmail, 'new email')
         validateText(confirmNewEmail, 'new email confirm')
@@ -123,22 +123,19 @@ class Logic {
         
             user.email = newEmail
 
-            callback(db.users.update(user))
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
 
-    
-            // db.users.update((error, user) => {
-            //     if (error) {
-            //         callback(error)
+                    return
+                }
 
-            //         return
-            //     }
-
-            //     callback(user)
-            // })
+                callback(null)
+            })
         })
     }
     
-    // CHECK CHANGE PASSWORD (TO DO)
+    // CHECK CHANGE PASSWORD 
     changeUserPassword(password, newPassword, againNewPassword, callback) {
         validateText(password, 'password')
         validateText(newPassword, 'new password')
@@ -165,17 +162,15 @@ class Logic {
         
             user.password = newPassword
 
-            callback(db.users.update(user))
-            
-            // db.users.update((error, user) => {
-            //     if (error) {
-            //         callback(error)
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
 
-            //         return
-            //     }
+                    return
+                }
 
-            //     callback(user)
-            // })
+                callback(null)
+            })
         })
     }
 
@@ -238,17 +233,15 @@ class Logic {
 
                     user.favs.splice(index, 1)
 
-                    callback(db.users.update(user))
-        
-                    // db.users.update(user, error => {
-                    //     if (error) {
-                    //         callback(error)
-    
-                    //         return
-                    //     }
-    
-                    //     callback(user, post)
-                    // })
+                    db.users.update(user, error => {
+                        if (error) {
+                            callback(error)
+
+                            return
+                        }
+
+                        callback(null)
+                    })
                 })
             })
         })  
