@@ -245,8 +245,16 @@ class Logic {
                         count++
 
                         if (count === usersWithFav.length) {
-                            // TODO (DELETE POST)
-                            callback(null)
+                            // TODO (DELETE POST - DONE)
+                            db.posts.deleteById(postId, error => {
+                                if (error) {
+                                    callback(error)
+
+                                    return
+                                }
+
+                                callback(null)
+                            })
                         }
                     })
                 })
