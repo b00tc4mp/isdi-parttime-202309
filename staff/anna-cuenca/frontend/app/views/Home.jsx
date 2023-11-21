@@ -1,34 +1,47 @@
 function Home(props) {
     console.log('Home')
 
-    const viewState = React.useState(null)
-
-    const view = viewState[0]
-    const setView = viewState[1]
-
-    const timestampState = React.useState(null)
-    //const timestamp = timestampState[0]
-    const setTimestamp = timestampState[1]
+    const [view, setView] = React.useState(null)
+    const [name, setName] = React.useState(null)
+    const [posts, setPosts] = React.useState(null)
+    const [favs, setFavs] = React.useState(null)
 
 
 
 
 
     function handleLogoutClick() {
-        logic.logoutUser()
+        logic.logoutUser(error => {
+            if (error) {
+                alert(error.message)
+                return
+            }
+        })
 
         props.onLogoutClick()
     }
 
-    let name = null
+    //use.Effect es un hook de React que permite realizar efectos secundarios en componentes funcionales
+    // () => { ... } es el cuerpo de la función que representa el efecto secundario. Este código se
+    //ejecuta después de que el componente se haya renderizaddo en el DOM
+    React.useEffect(() => {
+        console.log('Home -> effect (name)')
 
-    try {
-        const user = logic.retrieveUser()
+        try {
+            logic.retrieveUser((error, user) => {
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                setName(user.name)
+            })
 
-        name = user.name
-    } catch (error) {
-        alert(error.message)
-    }
+        } catch (error) {
+            alert(error.message)
+        }
+    }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
+    // para que el efecto secundario se vuelva a ejecutar. Si el array está vacío [] significa
+    // que sólo se ejecutará una vez.
 
     function handleProfileClick(event) {
         event.preventDefault()
@@ -36,46 +49,22 @@ function Home(props) {
         setView('profile')
     }
 
-
-
-    function handleFavsViewClick(event) {
+    function handleHomeClick(event) {
         event.preventDefault()
-        setView('favorites');
-
-
-
-        try {
-
-            favoritePosts = logic.retrieveFavoritePosts()
-
-            setTimestamp(Date.now())
-
-
-
-
-        } catch (error) {
-            alert(error.message)
-
-        }
-
-
+        setView(null)
     }
 
+    function handleNewPostClick() {
+        setView('new-post')
+    }
 
-    function handleFavsViewClick(event) {
+    function handleCancelNewPostClick(event) {
         event.preventDefault()
 
-        setView('favorites');
+        setView(null)
     }
 
-    let favoritePosts = null
 
-    try {
-        favoritePosts = logic.retrieveFavoritePosts()
-        //necesito que me devuelva un array con los posts favoritos del usuario conectado
-    } catch (error) {
-        alert(error.message)
-    }
 
 
     function handleChangeEmailSubmit(event) {
@@ -124,45 +113,84 @@ function Home(props) {
     }
 
 
-    function handleHomeClick(event) {
-        event.preventDefault()
+    function refreshPosts() {
 
-        setView(null)
+        if (view === null || view === 'new-post')
+            try {
+                logic.retrievePosts((error, posts) => {
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+
+                    posts.reverse()
+
+                    setPosts(posts)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+        else if (view === 'favs')
+            try {
+                logic.retrieveFavPosts((error, favs) => {
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+
+                    favs.reverse()
+                    setFavs(favs)
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+
     }
 
-    function handleNewPostClick() {
-        setView('new-post')
-    }
+    React.useEffect(() => {
+        console.log('Home -> effect (posts)')
 
-    function handleCancelNewPostClick(event) {
-        event.preventDefault()
+        refreshPosts()
+    }, [])
 
-        setView(null)
-    }
 
-    let posts = null
-
-    try {
-        posts = logic.retrievePosts()
-
-        posts.reverse()
-    } catch (error) {
-        alert(error.message)
-    }
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
 
-        const imageInput = event.target.querySelector("#image-input")
-        const textInput = event.target.querySelector("#text-input")
+        const imageInput = event.target.querySelector('#image-input')
+        const textInput = event.target.querySelector('#text-input')
 
         const image = imageInput.value
         const text = textInput.value
 
         try {
-            logic.publishPost(image, text)
+            logic.publishPost(image, text, error => {
+                if (error) {
+                    alert(error.message)
 
-            setView(null)
+                    return
+                }
+
+                try {
+                    logic.retrievePosts((error, posts) => {
+                        if (error) {
+                            alert(error.message)
+
+                            return
+                        }
+
+                        posts.reverse()
+
+                        setPosts(posts)
+                        setView(null)
+                    })
+                } catch (error) {
+                    alert(error.message)
+                }
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -170,31 +198,74 @@ function Home(props) {
 
     function handleToggleLikePostClick(postId) {
         try {
-            logic.toggleLikePost(postId)
+            logic.toggleLikePost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
-            setTimestamp(Date.now())
+                    return
+                }
+
+                refreshPosts()
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
+
+
+    function handleToggleFavPostClick(postId) {
+        try {
+            logic.toggleFavPost(postId, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                refreshPosts()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+
     function handleDeletePostClick(postId) {
+        console.log(db.posts.author);
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                logic.deletePost(postId)
-                setTimestamp(Date.now())
+                logic.deletePost(postId, error => {
+                    if (error) {
+                        alert(error.message)
+                        return
+                    }
+                    refreshPosts()
+                })
+
             } catch (error) {
                 alert(error.message)
             }
         }
-        return
     }
 
-    function handleToggleFavPostClick(postId) {
-        try {
-            logic.toggleFavPost(postId)
 
-            setTimestamp(Date.now())
+    function handleFavPostsClick(event) {
+        event.preventDefault()
+
+        try {
+            logic.retrieveFavPosts((error, favs) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                favs.reverse()
+
+                setFavs(favs)
+                setView('favs')
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -205,10 +276,16 @@ function Home(props) {
             <h1><a href="" onClick={handleHomeClick}>Home</a></h1>
 
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleFavsViewClick}>{name} Favs</a> <a href="" onClick={handleProfileClick}>{name}</a> <button onClick={handleLogoutClick}>Logout</button>
+                <button id="new-post-button" onClick={handleNewPostClick}>+</button>
+                &nbsp;
+
+                <a href="" onClick={handleProfileClick}>{name}</a>
+                &nbsp;
+                <a href="#" onClick={handleFavPostsClick}>Favs</a>
+
+                <button onClick={handleLogoutClick}>Logout</button>
             </div>
         </header>
-
         {view === 'profile' && <div className="view">
             <h2>Update e-mail</h2>
 
@@ -256,63 +333,50 @@ function Home(props) {
             </form>
         </div>}
 
-        {
-            view === 'favorites' && <div>
-                <h2>Your Favorites</h2>
-                {favoritePosts.map((post) => {
-                    function handleToggleLikeButtonClick() {
-                        handleToggleLikePostClick(post.id)
-                    }
 
-                    function handleDeletePostButtonClick() {
-                        handleDeletePostClick(post.id)
-                    }
+        {(view === null || view === 'new-post') && posts !== null && <div>
+            {posts.map((post) => {
 
-                    function handleToggleFavPostButtonClick() {
-                        handleToggleFavPostClick(post.id)
-                    }
+                return <article key={post.id} className="post">
+                    <h2>{post.author.name}</h2>
+                    <img className="post-image" src={post.image} />
+                    <p>{post.text}</p>
+                    <div className='buttons-posts'>
+                        <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                        <button className='button-submit' onClick={() => handleToggleFavPostClick(post.id)}>{post.fav ? '⭐️' : '✩'}</button>
+                        {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
 
-                    return <article key={post.id} className="post">
-                        <h2>{post.author.name}</h2>
-                        <img className="post-image" src={post.image} />
-                        <p>{post.text}</p>
-                        <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
-                        <button onClick={handleToggleFavPostButtonClick}>{post.fav ? '🌟' : '⭐'} fav</button>
-
-                    </article>
-                })}
-            </div>
+                    </div>
+                </article>
+            })}
+        </div>
         }
 
+        {view === 'favs' && favs !== null && <div>
+            {favs.map((post) => {
 
+                return <article key={post.id} className="post">
+                    <h2>{post.author.name}</h2>
+                    <img className="post-image" src={post.image} />
+                    <p>{post.text}</p>
+                    <div className='buttons-posts'>
+                        <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
+                        <button className='button-submit' onClick={() => handleToggleFavPostClick(post.id)}>{post.fav ? '⭐️' : '✩'}</button>
+                        {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
 
-        {
-            view !== 'profile' && view !== 'favorites' && posts !== null && <div>
-                {posts.map((post) => {
-                    function handleToggleLikeButtonClick() {
-                        handleToggleLikePostClick(post.id)
-                    }
-
-                    function handleDeletePostButtonClick() {
-                        handleDeletePostClick(post.id)
-                    }
-
-                    function handleToggleFavButtonClick() {
-                        handleToggleFavPostClick(post.id)
-                    }
-
-                    return <article key={post.id} className="post">
-                        <h2>{post.author.name}</h2>
-                        <img className="post-image" src={post.image} />
-                        <p>{post.text}</p>
-                        <button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        {post.author.id === logic.sessionUserId && <button onClick={handleDeletePostButtonClick}>Delete Post</button>}
-                        <button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐️' : '✩'}</button>
-
-                    </article>
-                })}
-            </div>
+                    </div>
+                </article>
+            })}
+        </div>
         }
+
     </div >
+
+
+
+
+
+
+
+
 }

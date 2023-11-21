@@ -101,21 +101,3 @@ function deletePostById(id) {
   db.posts.splice(index, 1);
 }
 
-/////
-/*
-function modifyUserEmail(email, newEmail) {
-  var user = db.users.find(function (user) {
-    return user.email === email;
-  });
-
-  user.email = newEmail;
-}
-
-function modifyUserPassword(email, newPassword) {
-  var user = db.users.find(function (user) {
-    return user.email === email;
-  });
-
-  user.password = newPassword;
-}
-*/
