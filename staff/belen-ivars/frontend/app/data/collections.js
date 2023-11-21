@@ -123,7 +123,8 @@ class Collection {
 						return
 
 					}
-					callback(null, this.__documents__.splice(index, 1))
+					this.__documents__.splice(index, 1)
+					callback(null)
 				})
 			}, 0.4)
 		} catch (error) {
@@ -157,6 +158,12 @@ class Users extends Collection {
 		} catch (error) {
 			callback(error)
 		}
+	}
+
+	getAll(callback) {
+		asyncDelay(() => {
+			callback(null, this.__documents__.map(this.__clone__.bind(this)))
+		}, 0.8)
 	}
 }
 

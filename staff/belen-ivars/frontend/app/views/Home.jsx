@@ -158,7 +158,8 @@ function Home(props) {
     }
 
     function handleDeletePostClick(postId) {
-        if (confirm('Are you sure you want to delete this post?'))
+        if (confirm('Are you sure you want to delete this post?')) {
+
 
             try {
                 logic.deletePost(postId, error => {
@@ -172,6 +173,7 @@ function Home(props) {
             } catch (error) {
                 alert(error.message)
             }
+        }
     }
 
 
