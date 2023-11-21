@@ -224,7 +224,15 @@ class Logic {
                 let count = 0
 
                 if (!usersWithFav.length) {
-                    callback(error)
+                    db.posts.deleteById(postId, error => {
+                        if (error) {
+                            callback(error)
+
+                            return
+                        }
+
+                        callback(null)
+                    })
 
                     return
                 }
@@ -258,7 +266,6 @@ class Logic {
                         }
                     })
                 })
-
             })
         })  
     }
