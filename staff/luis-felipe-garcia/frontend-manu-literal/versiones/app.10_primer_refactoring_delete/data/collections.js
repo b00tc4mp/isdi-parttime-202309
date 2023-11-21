@@ -68,7 +68,7 @@ class Collection {
 
                 }
                 callback(null, this.__clone__(document))
-            }, 0.3)
+            }, 0.6)
         } catch (error) {
             callback(error)
         }
@@ -94,7 +94,7 @@ class Collection {
                     this.__documents__[index] = this.__clone__(document)
                     callback(null)
                 })
-            }, 0.3)
+            }, 0.5)
         } catch (error) {
             callback(error)
         }
@@ -120,17 +120,12 @@ class Users extends Collection {
                 }
                 callback(null, this.__clone__(user))
 
-            }, 0.3)
+            }, 0.7)
 
         } catch (error) {
             callback(error)
 
         }
-    }
-    getAll(callback) {
-        asyncDelay(() => {
-            callback(null, this.__documents__.map(this.__clone__.bind(this)))
-        }, 0.2)
     }
 }
 
@@ -142,9 +137,36 @@ class Posts extends Collection {
     getAll(callback) {
         asyncDelay(() => {
             callback(null, this.__documents__.map(this.__clone__.bind(this)))
-        }, 0.2)
+        }, 0.8)
     }
 
+    /* Intento fallido refactoring delete
+    NOVALEdeleteById(id, callback) {
+
+        try {
+            validateText(id, `${this.__clazz__.name} id`)
+            asyncDelay(() => {
+                const index = this.__findIndexById__(document.id, (error, index) => {
+
+                    if (error) {
+                        callback(error)
+                        return
+                    }
+
+                    if (index < 0) {
+                        callback(new Error(`${this.__clazz__.name} not found`))
+                        return
+                    }
+                    this.__documents__.splice(index, 1)
+                    callback(null)
+                })
+            }, 0.5)
+        } catch (error) {
+            callback(error)
+        }
+    }*/
+
+    //Delete antes refactoring
     deleteById(id, callback) {
         validateText(id, `${this.__clazz__.name} id`)
         asyncDelay(() => {
@@ -162,7 +184,7 @@ class Posts extends Collection {
                 this.__documents__.splice(index, 1)
                 callback(null)
             })
-        }, 0.5)
+        }, 0.9)
     }
 }
 

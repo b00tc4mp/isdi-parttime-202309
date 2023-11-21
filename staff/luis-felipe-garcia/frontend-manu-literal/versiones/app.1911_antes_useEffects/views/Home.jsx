@@ -1,54 +1,36 @@
 function Home(props) {
-    console.log('Home')
-
-    const [view, setView] = React.useState(null)
-    const [name, setName] = React.useState(null)
-    const [posts, setPosts] = React.useState(null)
-    const [favs, setFavs] = React.useState(null)
+    const viewState = React.useState('null')
 
 
-    /*const timestampState = React.useState(null)
+    const view = viewState[0]
+    const setView = viewState[1]
+
+    const timestampState = React.useState(null)
     const setTimestamp = timestampState[1]
-*/
-    function handleLogoutClick() {
-        logic.logoutUser(error => {
-            if (error) {
-                alert(error.message)
-                return
-            }
-        })
 
+    function handleLogoutClick() {
+        logic.logoutUser()
         props.onLogoutClick()
 
     }
 
-    //  let name = null
+    let name = null
     //let favPosts = null
 
-    React.useEffect(() => {
-        console.log('Home -> effect (name')
+    try {
+        const user = logic.retrieveUser()
+        name = user.name
+    } catch (error) {
+        alert(error.message)
 
-        try {
-            logic.retrieveUser((error, user) => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-                setName(user.name)
-            })
-        } catch (error) {
-            alert(error.message)
-
-        }
-    }, [])
-
+    }
 
     function handleProfileClick(event) {
         event.preventDefault()
         setView('profile')
     }
 
-    function handleFavPostsClick(event) {
+    function handleFavPostsList(event) {
         event.preventDefault()
         setView('fav-posts')
     }
@@ -67,38 +49,19 @@ function Home(props) {
         setView(null)
     }
 
-    function refreshPosts() {
-        if (view === null || view === 'new-post')
-            try {
-                logic.retrievePosts((error, posts) => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    posts.reverse()
-                    setPosts(posts)
-                })
-            } catch (error) {
-                alert(error.message)
-            } else if (view === 'favs')
-            try {
-                logic.retrieveFavPosts((error, favs) => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    favs.reverse()
-                    setFavs(favs)
-                })
-            } catch (error) {
-                alert(error.message)
-            }
-    }
+    let posts = null
 
-    React.useEffect(() => {
-        console.log('Home -> effect(posts)')
-        refreshPosts()
-    }, [])
+    try {
+        if (view !== 'fav-posts') {
+            posts = logic.retrievePosts()
+        } else if (view === 'fav-posts') {
+            posts = logic.retrieveFavPosts()
+        }
+        posts.reverse()
+
+    } catch (error) {
+        alert(error.message)
+    }
 
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -109,25 +72,8 @@ function Home(props) {
         const text = textInput.value
 
         try {
-            logic.publishPost(image, text, error => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-                try {
-                    logic.retrievePosts((error, posts) => {
-                        if (error) {
-                            alert(error.message)
-                            return
-                        }
-                        posts.reverse()
-                        setPosts(posts)
-                        setView(null)
-                    })
-                } catch (error) {
-                    alert(error.message)
-                }
-            })
+            logic.publishPost(image, text)
+            setView(null)
         } catch (error) {
             alert(error.message)
         }
@@ -135,13 +81,8 @@ function Home(props) {
 
     function handleToggleLikePostClick(postId) {
         try {
-            logic.toggleLikePost(postId, error => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-                refreshPosts()
-            })
+            logic.toggleLikePost(postId)
+            setTimestamp(Date.now())
         } catch (error) {
             alert(error.message)
         }
@@ -196,14 +137,9 @@ function Home(props) {
     function handleDeletePostClick(postId) {
         if (confirm('Delete post?')) {
             try {
-                logic.deletePost(postId, error => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    refreshPosts()
+                logic.deletePost(postId)
+                setTimestamp(Date.now())
 
-                })
             } catch (error) {
                 alert(error.message)
 
@@ -211,39 +147,16 @@ function Home(props) {
         }
     }
 
-    function handleToggleFavPostClick(postId) {
+    function handleFavPostClick(postId) {
         try {
-            logic.toggleFavPost(postId, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                refreshPosts()
-            })
+            logic.toggleFavPost(postId)
+            setTimestamp(Date.now())
         } catch (error) {
             alert(error.message)
         }
+
     }
 
-    function handleFavPostsClick(event) {
-        event.preventDefault()
-
-        try {
-            logic.retrieveFavPosts((error, favs) => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-                favs.reverse()
-                setFavs(favs)
-                setView('favs')
-            })
-        } catch (error) {
-            alert(error.message)
-        }
-    }
 
     return <div>
         <header className="home-header">
@@ -255,7 +168,7 @@ function Home(props) {
 
                 <a href="" onClick={handleProfileClick}>{name}</a>
                 &nbsp;
-                <a href="#" onClick={handleFavPostsClick}>Favs</a>
+                <a href="#" onClick={handleFavPostsList}>Fav posts</a>
 
                 <button onClick={handleLogoutClick}>Logout</button>
             </div>
@@ -308,7 +221,7 @@ function Home(props) {
         </div>}
 
 
-        {(view === null || view === 'new-post') && posts !== null && <div>
+        {view !== 'profile' && posts !== null && <div>
             {posts.map((post) => {
 
                 return <article key={post.id} className="post">
@@ -317,24 +230,7 @@ function Home(props) {
                     <p>{post.text}</p>
                     <div className='buttons-posts'>
                         <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        <button className='button-submit' onClick={() => handleToggleFavPostClick(post.id)}>{post.fav ? '⭐️' : 'Fav'}</button>
-                        {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
-                    </div>
-                </article>
-            })}
-        </div>
-        }
-
-        {view === 'favs' && favs !== null && <div>
-            {favs.map((post) => {
-
-                return <article key={post.id} className="post">
-                    <h2>{post.author.name}</h2>
-                    <img className="post-image" src={post.image} />
-                    <p>{post.text}</p>
-                    <div className='buttons-posts'>
-                        <button className='button-submit' onClick={() => handleToggleLikePostClick(post.id)}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</button>
-                        <button className='button-submit' onClick={() => handleToggleFavPostClick(post.id)}>{post.fav ? '⭐️' : 'Fav'}</button>
+                        <button className='button-submit' onClick={() => handleFavPostClick(post.id)}>{post.fav ? '⭐️' : 'Fav'}</button>
                         {post.author.id === logic.sessionUserId && <button className='button-submit' onClick={() => handleDeletePostClick(post.id)}>Delete post</button>}
                     </div>
                 </article>

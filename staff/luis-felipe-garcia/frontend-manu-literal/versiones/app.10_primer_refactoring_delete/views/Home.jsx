@@ -193,6 +193,22 @@ function Home(props) {
         }
     }
 
+    //Intento refactoring handledeletePost
+    function NOVALEhandleDeletePostClick(postId) {
+        if (confirm('Delete post?')) {
+            try {
+                logic.deletePost(postId, error => {
+                    if (error) {
+                        alert(error.message)
+                        return
+                    }
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+    }
+    // función antes cambio:
     function handleDeletePostClick(postId) {
         if (confirm('Delete post?')) {
             try {
