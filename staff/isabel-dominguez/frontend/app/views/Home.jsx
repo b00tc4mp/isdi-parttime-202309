@@ -64,7 +64,7 @@ function Home(props) {
 
     // Función para refrescar los posts según la vista actual
     function refreshPosts() {
-        if (view === null || view === 'new-post') // Si la vista es nula o "new-post", recupera todos los posts
+        if (view === null || view === "new-post") // Si la vista es nula o "new-post", recupera todos los posts
             try {
                 logic.retrievePosts((error, posts) => {
                     if (error) {
