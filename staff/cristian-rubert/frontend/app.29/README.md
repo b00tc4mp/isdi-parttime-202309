@@ -1,4 +1,4 @@
-# App
+# APP
 
 ## Intro
 
@@ -7,5 +7,5 @@ Social app for ... ?
 ## Functional Description
 
 User
-- register
-- login
+- Register
+- Login
