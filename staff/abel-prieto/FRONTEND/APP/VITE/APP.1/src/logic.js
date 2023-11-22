@@ -1,5 +1,7 @@
 import { validateText } from "./utils/validators"
 import { asyncDelay } from "./utils/asyncDelay"
+
+import { User, Post } from "./data/models"
 import db from "./data/db"
 
 // CLASS - LOGIC
