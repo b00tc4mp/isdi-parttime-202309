@@ -3,24 +3,54 @@ class Logic {
         this.sessionUserId = null
     }
 
-    registerUser(name, email, password) {
+    registerUser(name, email, password, callback) {
         validateText(name, 'name')
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = findByEmail(email)
+        db.users.findByEmail(email, (error, user) => {
+            if (error) {
+                callback(error)
 
-        if (user)
-            throw new Error('user already exists')
+                return
+            }
 
-        db.users.insert(new User(name, email, password, []))
+            if (user) {
+                callback(new Error('user already exists'))
+
+                return
+            }
+
+            db.users.insert(new User(null, name, email, password, []), error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
     }
 
-    loginUser(email, password) {
+    loginUser(email, password, callback) {
         validateText(email, 'email')
         validateText(password, 'password')
 
-        const user = db.users.findByEmail(email)
+        db.users.findByEmail(email, (error, user) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!user || user.password !== password) {
+                callback(new Error('wrong credentials'))
+
+                return
+            }
+            // APPLY CALLBACKS BELLOW HERE
+        })
 
         if (!user || user.password !== password)
             throw new Error('wrong credentials')
