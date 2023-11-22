@@ -309,7 +309,11 @@ class Logic {
                                     return
                                 }
 
-                                post.author = author.name
+                                //post.author = author.name
+                                post.author = {
+                                    name: author.name,
+                                    id: author.id
+                                }
                                 post.fav = user.favs.includes(post.id)
                                 count2++
 
@@ -353,10 +357,7 @@ class Logic {
                 const usersWithFavs = users.filter(user => user.favs.includes(postId))
                 let count = 0
 
-                if (!usersWithFavs.length) {
-                    callback(error)
-                    return
-                }
+               //TODO if
 
                 usersWithFavs.forEach(user => {
                     const index = user.favs.indexOf(postId)
