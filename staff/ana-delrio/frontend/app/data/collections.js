@@ -107,6 +107,7 @@ class Collection {
     }
 }
 
+
 class Users extends Collection {
     constructor() {
         super(User, [])
@@ -145,6 +146,8 @@ class Posts extends Collection {
         }, 0.8)
     }
 }
+
+
 
 class CreditCards extends Collection {
     constructor() {

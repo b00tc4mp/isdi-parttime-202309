@@ -1,18 +1,22 @@
 function Home(props) {
     console.log('Home')
 
+    // Estado para gestionar la vista actual
     const viewState = React.useState(null)
     const view = viewState[0]
     const setView = viewState[1]
 
+    // Estado para gestionar la marca de tiempo
     const nameState = React.useState(null)
     const name = nameState[0]
     const setName = nameState[1]
 
+    // Estado para gestionar el nombre del usuario
     const postsState = React.useState(null)
     const posts = postsState[0]
     const setPosts = postsState[1]
 
+    // Estado para gestionar las publicaciones
     const favsState = React.useState(null)
     const favs = favsState[0]
     const setFavs = favsState[1]

@@ -35,6 +35,7 @@ function Home(props) {
         } catch (error) {
             alert(error.message)
         }
+        // esto lo ponemos para que nos sirva en varias situaciones
     }, [])
 
     function handleProfileClick(event) {
