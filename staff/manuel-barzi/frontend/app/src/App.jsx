@@ -1,17 +1,12 @@
 import React from 'react'
 import Login from './views/Login'
 import Register from './views/Register'
+import Home from './views/Home'
 
 function App() {
   console.log('App')
 
-  const viewState = React.useState('login')
-  // [<current-state>, <setter-for-next-state>]
-
-  const view = viewState[0]
-  const setView = viewState[1]
-  // setView('register')
-  // setView('login')
+  const [view, setView] = React.useState('login')
 
   function handleRegisterShow() {
     setView('register')

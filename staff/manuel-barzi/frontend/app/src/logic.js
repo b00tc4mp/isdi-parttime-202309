@@ -1,5 +1,6 @@
 import { validateText } from './utils/validators'
 import db from './data/db'
+import { User, Post } from './data/models'
 
 class Logic {
     constructor() {
