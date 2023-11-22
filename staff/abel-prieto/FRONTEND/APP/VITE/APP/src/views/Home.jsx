@@ -1,7 +1,7 @@
 import logic from "../logic"
 
-import { useState } from "react"
-import { useEffect } from "react"
+import { useState } from "react"    // Import method useState 
+import { useEffect } from "react"   // Import method useEffect
 
 // HOME
 
