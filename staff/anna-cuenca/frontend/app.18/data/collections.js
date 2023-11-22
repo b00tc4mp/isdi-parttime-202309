@@ -67,15 +67,21 @@ class Collection {
   // true a document.id === idd
 
   findById(id, callback) {
+
     try {
-      validateText(id, `${this.__clazz__.name} id`)
+
+      validateText(id, `${this.__clazz__.name} id`);
+
+
       asyncDelay(() => {
-        const document = this.__documents__.find(document => document.id === id) // Encuentra el documento por su ID
+        const document = this.__documents__.find(document => document.id === id)
+
         if (!document) {
-          callback(null, null) // El primer null se refiere al primer parámetro del callback y significa que no hay un error (la búsqueda del documento fue exitosa). El segundo null se refiere al segundo parámetro del callback y significa que el documento no fue encontrado.
+          callback(null, null)
           return
         }
-        callback(null, this.__clone__(document)) // La operación de búsqueda fue exitosa y posteriormente se crea una copia profunda del documento.
+        callback(null, this.__clone__(document))
+
       }, 0.6)
     } catch (error) {
       callback(error)
@@ -162,13 +168,6 @@ class Users extends Collection {
       callback(error)
     }
   }
-
-  getAll(callback) {
-    asyncDelay(() => {
-      callback(null, this.__documents__.map(this.__clone__.bind(this)))
-    }, 0.8)
-  }
-
 }
 
 class Posts extends Collection {

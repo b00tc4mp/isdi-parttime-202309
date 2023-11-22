@@ -1,8 +1,8 @@
-var db = {
-  users: new Users(),
-  posts: new Posts(),
-  cards: new CreditCards(),
-}
+const db = {
+  users: new Users,
+  posts: new Posts,
+  cards: new CreditCards,
+};
 
 // populate
 
@@ -10,8 +10,9 @@ const before = Date.now()
 
 // COMO USAN INSERT, TMB LOS TENEMOS QUE HACER ASINCRONOS
 
-db.users.insert(new User(null, "Wendy Darling", "wendy@darling.com", "123123123", []), () => {
-  db.users.insert(new User(null, "Peter Pan", "peter@pan.com", "123123123", []), () => {
+db.users.insert(new User(null, 'Wendy Darling', 'wendy@darling.com', '123123123', []), () => {
+  // lo que estamos diciendo es: cuando acabes el insert, haz el siguiente y te pongo en cola el soguiente
+  db.users.insert(new User(null, 'Peter Pan', 'peter@pan.com', '123123123', []), () => {
     db.posts.insert(new Post(
       null,
       db.users.__documents__[1].id,
@@ -21,10 +22,10 @@ db.users.insert(new User(null, "Wendy Darling", "wendy@darling.com", "123123123"
     ), () => {
       db.posts.insert(new Post(
         null,
-        db.users.__documents__[0].id, // ID del primer usuario en la colección "users"
+        db.users.__documents__[0].id,
         'https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg',
         'my sweety!',
-        [db.users.__documents__[1].id] // Lista de IDs de usuarios a los que les gusta el post
+        [db.users.__documents__[1].id]
       ), () => {
         db.posts.insert(new Post(
           null,
