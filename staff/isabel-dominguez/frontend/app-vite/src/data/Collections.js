@@ -199,7 +199,7 @@ class CreditCards extends Collection {
 }
 
 export {
-    User,
-    Post,
+    Users,
+    Posts,
     CreditCards
 }
