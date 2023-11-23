@@ -1,7 +1,5 @@
 import logic from '../logic'
 
-import { Button, Link, Form, Field, Container } from '../library'
-
 function Login(props) {
     console.log('Login')
 
@@ -35,18 +33,21 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    return <Container>
+    return <div className="view">
         <h1>Login</h1>
 
-        <Form onSubmit={handleSubmit}>
-            <Field id="email-input" type="email">E-mail</Field>
-            <Field id="password-input" type="password">Password</Field>
+        <form className="form" onSubmit={handleSubmit}>
+            <label htmlFor="email-input">E-mail</label>
+            <input id="email-input" type="email" />
 
-            <Button type="submit">Login</Button>
-        </Form>
+            <label htmlFor="password-input">Password</label>
+            <input type="password" id="password-input" />
 
-        <Link onClick={handleRegisterClick}>Register</Link>
-    </Container>
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="" onClick={handleRegisterClick}>Register</a>
+    </div>
 }
 
 export default Login

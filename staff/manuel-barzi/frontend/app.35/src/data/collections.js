@@ -1,5 +1,5 @@
 import { User, Post, CreditCard } from './models'
-import randomDelay from '../utils/randomDelay'
+import asyncDelay from '../utils/asyncDelay'
 import { validateText } from '../utils/validators'
 
 class Collection {
@@ -33,7 +33,7 @@ class Collection {
     }
 
     insert(document, callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             const documentCopy = this.__clone__(document)
 
             documentCopy.id = this.__generateId__()
@@ -41,18 +41,18 @@ class Collection {
             this.__documents__.push(documentCopy)
 
             callback(null)
-        })
+        }, 0.3)
     }
 
     __findIndexById__(id, callback) {
         try {
             validateText(id, `${this.__clazz__.name} id`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const index = this.__documents__.findIndex(document => document.id === id)
 
                 callback(null, index)
-            })
+            }, 0.4)
         } catch (error) {
             callback(error)
         }
@@ -62,7 +62,7 @@ class Collection {
         try {
             validateText(id, `${this.__clazz__.name} id`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const document = this.__documents__.find(document => document.id === id)
 
                 if (!document) {
@@ -72,7 +72,7 @@ class Collection {
                 }
 
                 callback(null, this.__clone__(document))
-            })
+            }, 0.6)
         } catch (error) {
             callback(error)
         }
@@ -82,7 +82,7 @@ class Collection {
         try {
             if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 this.__findIndexById__(document.id, (error, index) => {
                     if (error) {
                         callback(error)
@@ -100,7 +100,7 @@ class Collection {
 
                     callback(null)
                 })
-            })
+            }, 0.5)
         } catch (error) {
             callback(error)
         }
@@ -116,7 +116,7 @@ class Users extends Collection {
         try {
             validateText(email, 'email')
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const user = this.__documents__.find(document => document.email === email)
 
                 if (!user) {
@@ -126,7 +126,7 @@ class Users extends Collection {
                 }
 
                 callback(null, this.__clone__(user))
-            })
+            }, 0.7)
         } catch (error) {
             callback(error)
         }
@@ -139,9 +139,9 @@ class Posts extends Collection {
     }
 
     getAll(callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             callback(null, this.__documents__.map(this.__clone__.bind(this)))
-        })
+        }, 0.8)
     }
 }
 
