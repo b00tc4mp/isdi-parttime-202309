@@ -50,7 +50,7 @@ function Register(props) {
             <button type="submit">Register</button>
         </form>
 
-        <p>Go back to <a href="" onClick={handleLoginClick}>login</a></p>
+        <p>Go back to <a className="links" href="" onClick={handleLoginClick}>Login</a></p>
     </div>
 }
 

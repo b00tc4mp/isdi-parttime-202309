@@ -45,7 +45,7 @@ function Login(props) {
             <button type="submit">Login</button>
         </form>
 
-        <p>If you are new, <a href="" onClick={handleRegisterClick}>Register</a> here 👈</p>
+        <p>If you are new, <a className="links" href="" onClick={handleRegisterClick}>Register</a> here 👈</p>
     </div>
 }
 

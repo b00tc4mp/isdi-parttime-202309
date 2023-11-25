@@ -271,7 +271,7 @@ function Home(props) {
         <header className="home-header">
             <h1><a className="home-link" href="" onClick={handleHomeClick}>Home</a></h1>
             <div>
-                <button onClick={handleNewPostClick}>+</button> <a href="" onClick={handleProfileClick}>{name}</a> <button className="button-post" onClick={handleListFavPostsClick}>favs</button> <button onClick={handleLogoutClick}>Logout</button>
+                <button onClick={handleNewPostClick}>+</button> <a className="links" href="" onClick={handleProfileClick}>{name}</a> <button className="button-post" onClick={handleListFavPostsClick}>favs</button> <button onClick={handleLogoutClick}>Logout</button>
             </div>
         </header>
 
