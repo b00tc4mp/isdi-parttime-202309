@@ -67,7 +67,7 @@ class Logic {
             this.sessionUserId = null
 
             callback(null)
-        }, 0.9)
+        }, 0.1)
     }
 
     retrieveUser(callback) {
