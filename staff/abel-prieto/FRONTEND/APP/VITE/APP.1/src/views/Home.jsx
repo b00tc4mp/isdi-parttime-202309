@@ -1,7 +1,5 @@
+import React from "react"
 import logic from "../logic"
-
-import { useState } from "react"    // Import method useState 
-import { useEffect } from "react"   // Import method useEffect
 
 // HOME
 
@@ -9,18 +7,18 @@ function Home(props) {
     console.log('Home')
 
     // STATE VIEWS's
-    const [view, setView] = useState(null)
+    const [view, setView] = React.useState(null)
 
     // STATE NAME (Profile) & ID (Posts-Favs)
-    const [name, setName] = useState(null)
-    const [id, setId] = useState(null)
+    const [name, setName] = React.useState(null)
+    const [id, setId] = React.useState(null)
 
     // STATE POSTS - FAVS
-    const [posts, setPosts] = useState(null)
-    const [favs, setFavs] = useState(null)
+    const [posts, setPosts] = React.useState(null)
+    const [favs, setFavs] = React.useState(null)
 
     // STATE & EFFECT - NAME
-    useEffect(() => {
+    React.useEffect(() => {
         console.log('Home -> Effect (name-id)')
 
         try {
@@ -42,7 +40,7 @@ function Home(props) {
     }, [])
 
     // STATE & EFFECT - POSTS
-    useEffect(() => {
+    React.useEffect(() => {
         console.log('Home -> Effect (posts)')
 
         refreshPosts()
