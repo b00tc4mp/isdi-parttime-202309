@@ -1,5 +1,5 @@
 import { User, Post, CreditCard } from './models'
-import randomDelay from '../utils/randomDelay'
+import asyncDelay from '../utils/asyncDelay'
 import { validateText } from '../utils/validators'
 
 class Collection {
@@ -39,14 +39,14 @@ class Collection {
   }
 
   insert(document, callback) {
-    randomDelay(() => {
+    asyncDelay(() => {
 
       const documentCopy = this.__clone__(document);
       documentCopy.id = this.__generateId__()
 
       this.__documents__.push(documentCopy)
       callback(null) // llamamos al callback para indicar a la función que lo ha llamado, que ya ha acabado
-    }) //el delay que tendrá
+    }, 0.3) //el delay que tendrá
   }
 
 
@@ -56,10 +56,10 @@ class Collection {
     try {
       validateText(id, `${this.__clazz__.name} id`);
 
-      randomDelay(() => {
+      asyncDelay(() => {
         const index = this.__documents__.findIndex(document => document.id === id);
         callback(null, index)
-      })
+      }, 0.4)
 
     } catch (error) {
       callback(error)
@@ -73,14 +73,14 @@ class Collection {
   findById(id, callback) {
     try {
       validateText(id, `${this.__clazz__.name} id`)
-      randomDelay(() => {
+      asyncDelay(() => {
         const document = this.__documents__.find(document => document.id === id) // Encuentra el documento por su ID
         if (!document) {
           callback(null, null) // El primer null se refiere al primer parámetro del callback y significa que no hay un error (la búsqueda del documento fue exitosa). El segundo null se refiere al segundo parámetro del callback y significa que el documento no fue encontrado.
           return
         }
         callback(null, this.__clone__(document)) // La operación de búsqueda fue exitosa y posteriormente se crea una copia profunda del documento.
-      })
+      }, 0.6)
     } catch (error) {
       callback(error)
     }
@@ -95,7 +95,7 @@ class Collection {
       if (!(document instanceof this.__clazz__))
         throw new TypeError(`document is not a ${this.__clazz__.name}`);
 
-      randomDelay(() => {
+      asyncDelay(() => {
         this.__findIndexById__(document.id, (error, index) => {
           if (error) {
             callback(error)
@@ -109,7 +109,7 @@ class Collection {
           callback(null)
 
         })
-      })
+      }, 0.5)
 
 
     } catch (error) {
@@ -120,7 +120,7 @@ class Collection {
   deleteById(id, callback) {
 
     validateText(id, `${this.__clazz__.name} id`)
-    randomDelay(() => {
+    asyncDelay(() => {
       this.__findIndexById__(id, (error, index) => {
         if (error) {
           callback(error)
@@ -133,7 +133,7 @@ class Collection {
         this.__documents__.splice(index, 1)
         callback(null)
       })
-    })
+    }, 0.9)
   }
 }
 
@@ -153,7 +153,7 @@ class Users extends Collection {
 
     try {
       validateText(email, 'email')
-      randomDelay(() => {
+      asyncDelay(() => {
         const user = this.__documents__.find(document => document.email === email)
 
         if (!user) {
@@ -161,16 +161,16 @@ class Users extends Collection {
           return
         }
         callback(null, this.__clone__(user))
-      })
+      }, 0.7)
     } catch (error) {
       callback(error)
     }
   }
 
   getAll(callback) {
-    randomDelay(() => {
+    asyncDelay(() => {
       callback(null, this.__documents__.map(this.__clone__.bind(this)))
-    })
+    }, 0.8)
   }
 
 }
@@ -181,9 +181,9 @@ class Posts extends Collection {
   }
 
   getAll(callback) {
-    randomDelay(() => {
+    asyncDelay(() => {
       callback(null, this.__documents__.map(this.__clone__.bind(this)))
-    })
+    }, 0.8)
 
     // this.documents apunta a posts en este caso
     // this.clone.bind(this) se utiliza para asegurar 
