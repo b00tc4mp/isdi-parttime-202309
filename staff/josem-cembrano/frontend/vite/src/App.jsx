@@ -1,34 +1,34 @@
-import React from "react"
-import Login from "./views/login"
-import Register from "./views/register"
+import Login from "./views/Login"
+import Register from "./views/Register"
+import Home from "./views/Home"
+
+import { useState } from "react"  // Import method useState 
+
+// APP
 
 function App() {
-  console.log('App')
 
-  const viewState = React.useState('login')
-  // [<current-state>, <setter-for-next-state>]
-
-  const view = viewState[0]
-  const setView = viewState[1]
-  // setView('register')
-  // setView('login')
+  const [view, setView] = useState('login')
 
   function handleRegisterShow() {
-      setView('register')
+    setView('register')
+    // Cambiamos la vista a 'REGISTER'
   }
 
   function handleLoginShow() {
-      setView('login')
+    setView('login')
+    // Cambiamos la vista a 'LOGIN'
   }
 
   function handleHomeShow() {
-      setView('home')
+    setView('home')
+    // Cambiamos la vista a 'HOME'
   }
 
   return <>
-      {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
-      {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-      {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
+    {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
+    {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
+    {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
   </>
 }
 

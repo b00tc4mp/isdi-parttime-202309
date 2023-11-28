@@ -5,5 +5,3 @@ function syncDelay(callback, seconds) {
 
     callback()
 }
-
-export default syncDelay

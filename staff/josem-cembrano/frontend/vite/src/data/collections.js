@@ -1,6 +1,8 @@
 import { User, Post, CreditCard } from "./models"
-import asyncDelay from "../utils/asyncDelay"
-import syncDelay from "../utils/syncDelay"
+import { asyncDelay } from "../utils/asyncDelay"
+import { validateText } from "../utils/validators"
+
+// COLLECTION
 
 class Collection {
     constructor(clazz, documents) {
@@ -8,6 +10,7 @@ class Collection {
         this.__documents__ = documents
     }
 
+    // CLONE DOC.
     __clone__(document) {
         var copy = new this.__clazz__
 
@@ -16,10 +19,13 @@ class Collection {
 
             if (value instanceof Array)
                 copy[key] = [...value]
+
             else if (value instanceof Date)
                 copy[key] = new Date(document[key])
+
             else if (value instanceof Object)
                 copy[key] = { ...value }
+
             else
                 copy[key] = document[key]
 
@@ -28,10 +34,41 @@ class Collection {
         return copy
     }
 
+    // DELETE DOC. BY ID
+    deleteById(id, callback) {
+        try {
+            validateText(`${this.__clazz__.name} id`)
+
+            asyncDelay(() => {
+                this.__findIndexById__(id, (error, index) => {
+                    if (error) {
+                        callback(error)
+
+                        return
+                    }
+
+                    if (index < 0) {
+                        callback(new Error(`${this.__clazz__.name} not found`))
+
+                        return
+                    }
+
+                    // this.__documents__.splice(index, 1)
+
+                    callback(null, this.__documents__.splice(index, 1))
+                })
+            }, 0.3)
+        } catch (error) {
+            callback(error)
+        }
+    }
+
+    // GENERATE RANDOM & UNIQUE ID
     __generateId__() {
         return Math.floor(Math.random() * 1000000000000000000).toString(36)
     }
 
+    // CREATE DOC.
     insert(document, callback) {
         asyncDelay(() => {
             const documentCopy = this.__clone__(document)
@@ -40,24 +77,11 @@ class Collection {
 
             this.__documents__.push(documentCopy)
 
-            callback(null)
+            callback()
         }, 0.3)
     }
 
-    __findIndexById__(id, callback) {
-        try {
-            validateText(id, `${this.__clazz__.name} id`)
-
-            asyncDelay(() => {
-                const index = this.__documents__.findIndex(document => document.id === id)
-
-                callback(null, index)
-            }, 0.4)
-        } catch (error) {
-            callback(error)
-        }
-    }
-
+    // FIND DOC. BY ID
     findById(id, callback) {
         try {
             validateText(id, `${this.__clazz__.name} id`)
@@ -78,9 +102,28 @@ class Collection {
         }
     }
 
+    // FIND DOC. ID BY INDEX
+    __findIndexById__(id, callback) {
+        try {
+            validateText(id, `${this.__clazz__.name} id`)
+
+            asyncDelay(() => {
+                const index = this.__documents__.findIndex(document => document.id === id)
+
+                callback(null, index)
+            }, 0.4)
+        } catch (error) {
+            callback(error)
+        }
+    }
+
+
+    // UPDATE DOC.
     update(document, callback) {
         try {
-            if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
+            if (!(document instanceof this.__clazz__)) {
+                throw new TypeError(`document is not a ${this.__clazz__.name}`)
+            }
 
             asyncDelay(() => {
                 this.__findIndexById__(document.id, (error, index) => {
@@ -112,9 +155,10 @@ class Users extends Collection {
         super(User, [])
     }
 
+    // FIND BY EMAIL
     findByEmail(email, callback) {
         try {
-            validateText(email, 'email')
+            validateText(`email, ${this.__clazz__.name} email`)
 
             asyncDelay(() => {
                 const user = this.__documents__.find(document => document.email === email)
@@ -131,6 +175,13 @@ class Users extends Collection {
             callback(error)
         }
     }
+
+    // GET 
+    getAll(callback) {
+        asyncDelay(() => {
+            callback(null, this.__documents__.map(this.__clone__.bind(this)))
+        }, 0.8)
+    }
 }
 
 class Posts extends Collection {
@@ -138,6 +189,7 @@ class Posts extends Collection {
         super(Post, [])
     }
 
+    // GET 
     getAll(callback) {
         asyncDelay(() => {
             callback(null, this.__documents__.map(this.__clone__.bind(this)))
@@ -156,3 +208,17 @@ export {
     Posts,
     CreditCards
 }
+
+// var users = new Collection(User, db.users)
+
+// var user = new User(null, 'Ada Love', 'ada@love.com', '123123123')
+// users.create(user)
+
+// - - INFO - -
+
+// Queremos crear una clase Collection para traernos todos los manejadores de datos a una misma clase y poder así pasar dichos "métodos" en un todo.
+
+// Estructuramos la clase Collection y en su contructor, le pasamos como argumentos:
+
+// - Una clase (this.__clazz__), diferente de "class" (palabra reservada y PRIVADA (con los signos bajos)), en la que collection pueda saber/diferenciar si es User o Post
+// - La propia collection para determinar el this de la clase

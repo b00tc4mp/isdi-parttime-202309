@@ -1,12 +1,19 @@
 import { validateText } from "./utils/validators"
+import { asyncDelay } from "./utils/asyncDelay"
+
+import { User, Post } from "./data/models"
 import db from "./data/db"
-import { User, Post, CreditCard } from "./data/models"
+
+// CLASS - LOGIC
 
 class Logic {
     constructor() {
         this.sessionUserId = null
     }
 
+    // [ - - - - - USERS - - - - - ]
+
+    // REGISTER USER
     registerUser(name, email, password, callback) {
         validateText(name, 'name')
         validateText(email, 'email')
@@ -37,11 +44,73 @@ class Logic {
         })
     }
 
+    // LOGIN & AUTHENTICATE USER
     loginUser(email, password, callback) {
         validateText(email, 'email')
         validateText(password, 'password')
 
         db.users.findByEmail(email, (error, user) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!user) {
+                callback(new Error('user not found'))
+
+                return
+            }
+
+            if (user.password !== password) {
+                callback(new Error('wrong credentials'))
+
+                return
+            }
+
+            this.sessionUserId = user.id
+
+            callback(null)
+        })
+    }
+
+    // LOGOUT USER
+    logoutUser(callback) {
+        asyncDelay(() => {
+            this.sessionUserId = null
+
+            callback(null)
+        }, 0.9)
+    }
+
+    // LOGIN LOGIC
+    retrieveUser(callback) {
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!user) {
+                callback(new Error('user not found'))
+
+                return
+            }
+
+            delete user.password
+
+            callback(null, user)
+        })
+    }
+
+    // CHECK CHANGE EMAIL 
+    changeUserEmail(newEmail, confirmNewEmail, password, callback) {
+        validateText(newEmail, 'new email')
+        validateText(confirmNewEmail, 'new email confirm')
+        validateText(password, 'password')
+
+        db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {
                 callback(error)
 
@@ -54,22 +123,30 @@ class Logic {
                 return
             }
 
-            this.sessionUserId = user.id
+            if (newEmail !== confirmNewEmail) {
+                callback(new Error('New email and your confirm doesnt match each other'))
+            }
 
-            callback(null)
+            user.email = newEmail
+
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
-
     }
 
-    logoutUser(callback) {
-        asyncDelay(() => {
-            this.sessionUserId = null
+    // CHECK CHANGE PASSWORD 
+    changeUserPassword(password, newPassword, againNewPassword, callback) {
+        validateText(password, 'password')
+        validateText(newPassword, 'new password')
+        validateText(againNewPassword, 'repeat password')
 
-            callback(null)
-        }, 0.9)
-    }
-
-    retrieveUser(callback) {
         db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {
                 callback(error)
@@ -77,54 +154,129 @@ class Logic {
                 return
             }
 
-            if (!user) {
-                callback(new Error('user not found'))
+            if (!user || user.password !== password) {
+                callback(new Error('wrong credentials'))
+
+                return
             }
 
-            delete user.password
+            if (newPassword !== againNewPassword) {
+                callback(new Error('New pass and his confirmation are not correct. Try again'))
 
-            callback(null, user)
+                return
+            }
+
+            user.password = newPassword
+
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
     }
 
-    // TODO
-    changeUserEmail(newEmail, newEmailConfirm, password) {
-        validateText(newEmail, 'new email')
-        validateText(newEmailConfirm, 'new email confirm')
-        validateText(password, 'password')
+    // [ - - - - - POSTS - - - - - ]
 
-        const user = db.users.findById(this.sessionUserId)
+    // PUBLISH ALL POSTS
+    publishPost(image, text, callback) {
+        validateText(image, 'image')
+        validateText(text, 'text')
 
-        if (!user || user.password !== password)
-            throw new Error('wrong credentials')
+        db.posts.insert(new Post(null, this.sessionUserId, image, text, []), error => {
+            if (error) {
+                callback(error)
 
-        if (newEmail !== newEmailConfirm)
-            throw new Error('new email and its confirmation do not match')
+                return
+            }
 
-        user.email = newEmail
-
-        db.users.update(user)
+            callback(null)
+        })
     }
 
-    // TODO
-    changeUserPassword(newPassword, newPasswordConfirm, password) {
-        validateText(newPassword, 'new password')
-        validateText(newPasswordConfirm, 'new password confirm')
-        validateText(password, 'password')
+    // DELETE POST (PENDIENTE)
+    deletePost(postId, callback) {
+        validateText(postId, 'post id')
 
-        const user = db.users.findById(this.sessionUserId)
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
 
-        if (!user || user.password !== password)
-            throw new Error('wrong credentials')
+                return
+            }
 
-        if (newPassword !== newPasswordConfirm)
-            throw new Error('new password and its confirmation do not match')
+            if (!post) {
+                callback(new Error('post not found'))
 
-        user.password = newPassword
+                return
+            }
 
-        db.users.update(user)
+            // 1. Filtrado por usuarios con post.id en favs
+            // 2. Hacer forEach con ese ARRAY
+
+            db.users.getAll((error, users) => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                const usersWithFav = users.filter((user) => user.favs.includes(postId))
+
+                let count = 0
+
+                if (!usersWithFav.length) {
+                    db.posts.deleteById(postId, error => {
+                        if (error) {
+                            callback(error)
+
+                            return
+                        }
+
+                        callback(null)
+                    })
+
+                    return
+                }
+
+                usersWithFav.forEach(user => {
+
+                    const index = user.favs.indexOf(postId)
+
+                    user.favs.splice(index, 1)
+
+                    db.users.update(user, error => {
+                        if (error) {
+                            callback(error)
+
+                            return
+                        }
+
+                        count++
+
+                        if (count === usersWithFav.length) {
+                            // TODO (DELETE POST - DONE)
+                            db.posts.deleteById(postId, error => {
+                                if (error) {
+                                    callback(error)
+
+                                    return
+                                }
+
+                                callback(null)
+                            })
+                        }
+                    })
+                })
+            })
+        })
     }
 
+    // RETRIEVE POSTS
     retrievePosts(callback) {
         db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {
@@ -147,6 +299,7 @@ class Logic {
                 }
 
                 let count = 0
+                // Contador del posts.length
 
                 posts.forEach(post => {
                     post.liked = post.likes.includes(this.sessionUserId)
@@ -158,123 +311,27 @@ class Logic {
                             return
                         }
 
-                        post.author = author.name
-
                         post.fav = user.favs.includes(post.id)
+
+                        post.author = {
+                            email: author.email,
+                            id: author.id
+                        }
 
                         count++
 
-                        if (count === posts.length)
+                        if (count === posts.length) {
                             callback(null, posts)
+                        }
                     })
                 })
+
             })
         })
-
     }
 
-    publishPost(image, text, callback) {
-        validateText(image, 'image')
-        validateText(text, 'text')
-
-        db.posts.insert(new Post(null, this.sessionUserId, image, text, []), error => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            callback(null)
-        })
-    }
-
-    toggleLikePost(postId, callback) {
-        validateText(postId, 'post id')
-
-        db.posts.findById(postId, (error, post) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            if (!post) {
-                callback(new Error('post not found'))
-
-                return
-            }
-
-            const index = post.likes.indexOf(this.sessionUserId)
-
-            if (index < 0)
-                post.likes.push(this.sessionUserId)
-            else
-                post.likes.splice(index, 1)
-
-            db.posts.update(post, error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
-            })
-        })
-
-    }
-
-    toggleFavPost(postId, callback) {
-        validateText(postId, 'post id')
-
-        db.posts.findById(postId, (error, post) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            if (!post) {
-                callback(new Error('post not found'))
-
-                return
-            }
-
-            db.users.findById(this.sessionUserId, (error, user) => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                if (!user) {
-                    callback(new Error('user not found'))
-
-                    return
-                }
-
-                const index = user.favs.indexOf(post.id)
-
-                if (index < 0)
-                    user.favs.push(post.id)
-                else
-                    user.favs.splice(index, 1)
-
-                db.users.update(user, error => {
-                    if (error) {
-                        callback(error)
-
-                        return
-                    }
-
-                    callback(null)
-                })
-            })
-        })
-
-    }
-
-    retrieveFavPosts(callback) {
+    // RETRIEVE FAV SESSION POSTS
+    retrieveFavUserPosts(callback) {
         db.users.findById(this.sessionUserId, (error, user) => {
             if (error) {
                 callback(error)
@@ -294,6 +351,7 @@ class Logic {
 
             if (!user.favs.length) {
                 callback(null, favs)
+                // Si hay error, pasa "null" - Si no hay, devuelve los favs del user
 
                 return
             }
@@ -323,19 +381,114 @@ class Logic {
                                     return
                                 }
 
-                                post.author = author.name
+                                post.author = {
+                                    email: author.email,
+                                    id: author.id
+                                }
 
                                 post.fav = user.favs.includes(post.id)
 
                                 count2++
 
-                                if (count2 === favs.length) callback(null, favs)
+                                if (count2 === favs.length) {
+                                    callback(null, favs)
+                                    // Si hay error, tira "null" - Si todo OK, retorna al forEach los "favs"
+                                }
                             })
                         })
                     }
+
                 })
             })
+        })
+    }
 
+    // UPDATE ALL POSTS
+    toggleLikePost(postId, callback) {
+        validateText(postId, 'post id')
+
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            const likeIndex = post.likes.indexOf(this.sessionUserId)
+
+            if (likeIndex < 0) {
+                post.likes.push(this.sessionUserId)
+            } else {
+                post.likes.splice(likeIndex, 1)
+            }
+
+            db.posts.update(post, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+                // Callback porque es la última operación de la función
+            })
+        })
+    }
+
+    // FAV BUTTON
+    toggleFavPost(postId, callback) {
+        validateText(postId, 'post id')
+
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            db.users.findById(this.sessionUserId, (error, user) => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+                if (!user) {
+                    callback(new Error('user not found'))
+
+                    return
+                }
+
+                // const index = user.favs.indexOf(post.id)
+                const index = user.favs.indexOf(postId)
+
+                if (index < 0) {
+                    user.favs.push(post.id)
+                } else {
+                    user.favs.splice(index, 1)
+                }
+
+                db.users.update(user, error => {
+                    if (error) {
+                        callback(error)
+
+                        return
+                    }
+
+                    callback(null)
+                })
+            })
         })
     }
 }
@@ -343,3 +496,4 @@ class Logic {
 const logic = new Logic
 
 export default logic
+// Declaramos la instancia de Logic en una variable y la exportamos
