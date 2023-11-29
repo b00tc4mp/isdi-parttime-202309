@@ -1,88 +1,37 @@
-import logic from "../logic"
+import { Button } from '../library'
 
-import {Button, Field, Form, Link, Container} from '../library'
+export default function Profile() {
+    console.log('Profile')
 
-function Profile () {
-    function handleChangeEmailSubmit(event) {
-        event.preventDefault()
+    return <div className="container">
+        <h2>Update e-mail</h2>
 
-        const newEmailInput = event.target.querySelector('#new-email')
-        const confirmNewEmailInput = event.target.querySelector('#confirm-new-email')
-        const passwordInput = event.target.querySelector('#password')
+        <form className="form">
+            <label htmlFor="new-email-input">New e-mail</label>
+            <input className="input" id="new-email-input" type="email" />
 
-        const newEmail = newEmailInput.value
-        const confirmNewEmail = confirmNewEmailInput.value
-        const password = passwordInput.value
+            <label htmlFor="new-email-confirm-input">Confirm new e-mail</label>
+            <input className="input" id="new-email-confirm-input" type="email" />
 
-        try {
-            logic.changeUserEmail(newEmail, confirmNewEmail, password, error => {
-                if (error) {
-                    alert(error.message)
+            <label htmlFor="password-input">Password</label>
+            <input className="input" type="password" id="password-input" />
 
-                    return
-                }
+            <Button type="submit">Update e-mail</Button>
+        </form>
 
-                alert('Email changed successfully!')
+        <h2>Update password</h2>
 
-            })
+        <form className="form">
+            <label htmlFor="password-input">Current password</label>
+            <input className="input" type="password" id="password-input" />
 
-        } catch (error) {
-            alert(error.message)
-        }
-    }
+            <label htmlFor="new-password-input">New password</label>
+            <input className="input" id="new-password-input" type="password" />
 
-    //CHANGE PASSWORD
-    function handleChangePasswordSubmit(event) {
-        event.preventDefault()
+            <label htmlFor="new-password-confirm-input">Confirm new password</label>
+            <input className="input" id="new-password-confirm-input" type="password" />
 
-        const passwordInput = event.target.querySelector('#current-password')
-        const newPasswordInput = event.target.querySelector('#new-password')
-        const againNewPasswordInput = event.target.querySelector('#again-new-password')
-
-        const password = passwordInput.value
-        const newPassword = newPasswordInput.value
-        const againNewPassword = againNewPasswordInput.value
-
-        try {
-            logic.changeUserPassword(password, newPassword, againNewPassword, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                alert('Password changed successfully!')
-            })
-
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
-    return  <><Container>
-            <h2>Changes credentials</h2>
-
-            <Form onSubmit={handleChangeEmailSubmit}>
-                <h3>Change your email: </h3>
-
-                <Field id="new-email">New email</Field>
-                <Field id="confirm-new-email">Confirm new email</Field>
-                <Field id="password" type="password">Password</Field>
-
-                <Button type="submit">Change Email</Button>
-            </Form>
-
-            <Form onSubmit={handleChangePasswordSubmit}>
-                <h3>Change your password: </h3>
-
-                <Field id="current-password" type="password">Actual password</Field>
-                <Field id="new-password" type="password">New password</Field>
-                <Field id="again-new-password" type="password">Confirm new password</Field>
-
-                <Button type="submit">Change Password</Button>
-            </Form>
-
-        </Container></>
+            <Button type="submit">Update password</Button>
+        </form>
+    </div>
 }
-
-export default Profile

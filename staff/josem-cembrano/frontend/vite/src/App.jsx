@@ -1,28 +1,23 @@
-import Login from "./views/Login"
-import Register from "./views/Register"
-import Home from "./views/Home"
-
-import { useState } from "react"  // Import method useState 
-
-// APP
+import React from 'react'
+import Login from './views/Login'
+import Register from './views/Register'
+import Home from './views/Home'
 
 function App() {
+  console.log('App')
 
-  const [view, setView] = useState('login')
+  const [view, setView] = React.useState('login')
 
   function handleRegisterShow() {
     setView('register')
-    // Cambiamos la vista a 'REGISTER'
   }
 
   function handleLoginShow() {
     setView('login')
-    // Cambiamos la vista a 'LOGIN'
   }
 
   function handleHomeShow() {
     setView('home')
-    // Cambiamos la vista a 'HOME'
   }
 
   return <>

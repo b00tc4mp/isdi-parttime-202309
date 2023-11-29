@@ -1,8 +1,6 @@
-// VALIDATORS REGISTER AND LOGIN
-
-function validateText(string, explain) {
-    if (typeof string !== 'string') throw new TypeError(string + ' is not string')
-    if (!string.trim().length) throw new Error(explain + ' is empty')
+function validateText(text, explain) {
+    if (typeof text !== 'string') throw new TypeError(explain + ' is not string')
+    if (!text.trim().length) throw new Error(explain + ' is empty')
 }
 
 function validateNumber(number, explain) {
@@ -10,6 +8,6 @@ function validateNumber(number, explain) {
 }
 
 export {
-    validateNumber,
-    validateText
+    validateText,
+    validateNumber
 }
