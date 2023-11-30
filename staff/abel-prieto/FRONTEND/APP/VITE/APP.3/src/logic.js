@@ -1,5 +1,5 @@
 import { validateText } from "./utils/validators"
-import { randomDelay } from "./utils/randomDelay"
+import { asyncDelay } from "./utils/asyncDelay"
 
 import { User, Post } from "./data/models"
 import db from "./data/db"
@@ -76,7 +76,7 @@ class Logic {
 
     // LOGOUT USER
     logoutUser(callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             this.sessionUserId = null
     
             callback(null)
@@ -488,38 +488,6 @@ class Logic {
 
                     callback(null)
                 })
-            })
-        })
-    }
-
-    // EDIT POST TEXT
-    toggleEditPostText(postId, postText, callback) {
-        validateText(postId, 'post id')
-        validateText(postText, 'texts post')
-
-        db.posts.findById(postId, (error, post) => {
-            if (error) {
-                callback(error)
-
-                return
-            }   
-
-            if (!post) {
-                callback(new Error('post not found'))
-            
-                return
-            }
-            
-            post.text = postText
-
-            db.posts.update(post, error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
             })
         })
     }

@@ -8,8 +8,8 @@ import { useEffect } from "react"   // Import method useEffect
 
 
 // POSTS
-function Posts(props) {
-    console.log('Posts')
+function Post(props) {
+    console.log('Only Post')
 
     const post = props.post
 
@@ -111,4 +111,4 @@ function Posts(props) {
     </>
 }
 
-export default Posts
+export default Post

@@ -1,8 +1,8 @@
 import logic from "../logic"
 import { refreshPosts } from "../utils/refreshPosts"
 
-import { Profile, Newpost, Post } from "../components"
-
+import { Profile, Newpost } from "../components"
+import Post2 from "../components/Post2"
 import { Button, Link } from "../librery"
 
 import { useState } from "react"    // Import method useState 
@@ -10,7 +10,7 @@ import { useEffect } from "react"   // Import method useEffect
 
 // HOME
 
-function Home(props) {
+function Home2(props) {
     console.log('Home')
 
     // STATE VIEWS's (Home)
@@ -54,6 +54,8 @@ function Home(props) {
     // HOME BUTTON
     function handleHomeClick(event) {
         event.preventDefault()
+
+        window.scrollTo(0, 0)
 
         setView(null)
         // Cambiamos la vista a 'null' - home
@@ -132,14 +134,9 @@ function Home(props) {
         {view === 'new-post' && <Newpost onClick={handleNewPostClick} setPosts={setPosts} setView={setView} />}
         {/* Metemos setPosts y setView como props para poder manerajarlas en el componente 'Newpost' */}
 
-        {view !== 'profile' && view !== 'favs' && posts !== null && <div className='container'>
-            {posts.map(post => <Post key={post.id} post={post} setPosts={setPosts} setFavs={setFavs} view={view} />)}
-        </div>}
+        {view !== 'profile' && view !== 'favs' && posts !== null && <Post2 posts={posts} favs={favs} setPosts={setPosts} setFavs={setFavs} view={view} />}
 
-        {view === 'favs' && <div className="container">
-            <h1>⭐ All your favorite posts ⭐</h1>
-            {favs.map(post => <Post key={post.id} post={post} setPosts={setPosts} setFavs={setFavs} view={view} />)}
-        </div>}
+        {view === 'favs' && <Post2 posts={posts} favs={favs} setPosts={setPosts} setFavs={setFavs} view={view} setView={setView} />}
 
         <br></br>
         <br></br>
@@ -153,4 +150,4 @@ function Home(props) {
     </div >
 }
 
-export default Home
+export default Home2

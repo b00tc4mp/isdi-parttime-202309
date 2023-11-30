@@ -1,6 +1,6 @@
 import Login from "./views/Login"
 import Register from "./views/Register"
-import Home2 from "./views/Home2"
+import Home from "./views/Home"
 
 import { useState } from "react"  // Import method useState 
 
@@ -28,7 +28,7 @@ function App() {
   return <>
     {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
     {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-    {view === 'home' && <Home2 onLogoutClick={handleLoginShow} />}
+    {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
   </>
 }
 

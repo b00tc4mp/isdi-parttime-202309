@@ -5,6 +5,8 @@ import { Container, Form, Field, Button } from "../librery"
 function Newpost(props) {
     console.log('Home -> New Post')
 
+    window.scrollTo(0, 0)
+
     // CREATE NEW POST
     function handleNewPostSubmit(event) {
         event.preventDefault()
@@ -58,18 +60,20 @@ function Newpost(props) {
 
     // TEMPLATE
     return <>
-        <Container>
-            <h2>New Post</h2>
+        <div className="new-post">
+            <Container>
+                <h2>New Post</h2>
 
-            <Form onSubmit={handleNewPostSubmit}>
-                <Field id="image-input">Image</Field>
+                <Form onSubmit={handleNewPostSubmit}>
+                    <Field id="image-input">Image</Field>
 
-                <Field id="text-input">Text</Field>
+                    <Field id="text-input">Text</Field>
 
-                <Button type="submit">Post</Button>
-                <Button onClick={handleCancelNewPostClick}>Cancel</Button>
-            </Form>
-        </Container>
+                    <Button type="submit">Post</Button>
+                    <Button onClick={handleCancelNewPostClick}>Cancel</Button>
+                </Form>
+            </Container>
+        </div>
     </>
 }
 

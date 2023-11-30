@@ -1,5 +1,5 @@
 import { User, Post, CreditCard } from "./models"
-import { randomDelay } from "../utils/randomDelay"
+import { asyncDelay } from "../utils/asyncDelay"
 import { validateText } from "../utils/validators"
 
 // COLLECTION
@@ -39,7 +39,7 @@ class Collection {
         try {
             validateText(`${this.__clazz__.name} id`) 
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 this.__findIndexById__(id, (error, index) => {
                     if (error) {
                         callback(error)
@@ -70,7 +70,7 @@ class Collection {
 
     // CREATE DOC.
     insert(document, callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             const documentCopy = this.__clone__(document)
 
             documentCopy.id = this.__generateId__()
@@ -86,7 +86,7 @@ class Collection {
         try {
             validateText(id, `${this.__clazz__.name} id`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const document = this.__documents__.find(document => document.id === id)
          
                 if (!document) {
@@ -107,7 +107,7 @@ class Collection {
         try {
             validateText(id, `${this.__clazz__.name} id`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const index = this.__documents__.findIndex(document => document.id === id)
     
                 callback(null, index)
@@ -125,7 +125,7 @@ class Collection {
                 throw new TypeError(`document is not a ${this.__clazz__.name}`)
             }
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 this.__findIndexById__(document.id, (error, index) => {
                     if (error) {
                         callback(error)
@@ -160,7 +160,7 @@ class Users extends Collection {
         try {
             validateText(`email, ${this.__clazz__.name} email`)
 
-            randomDelay(() => {
+            asyncDelay(() => {
                 const user = this.__documents__.find(document => document.email === email)
          
                 if (!user) {
@@ -178,7 +178,7 @@ class Users extends Collection {
     
     // GET 
     getAll(callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             callback(null, this.__documents__.map(this.__clone__.bind(this)))
         }, 0.8)
     }
@@ -191,7 +191,7 @@ class Posts extends Collection {
 
     // GET 
     getAll(callback) {
-        randomDelay(() => {
+        asyncDelay(() => {
             callback(null, this.__documents__.map(this.__clone__.bind(this)))
         }, 0.8)
     }
