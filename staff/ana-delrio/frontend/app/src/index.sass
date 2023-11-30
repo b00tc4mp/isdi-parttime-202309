@@ -1,9 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap')
 
 /* reset */
+
 *
     font-family: Inter
     font-size: 1rem
+
+html
+    scroll-behavior: smooth
+
+html, body
+    margin: 0
+
+/* variables */
+
+$m-size: 768px
+$l-size: 1024px
+$footer-h: 3rem
 
 /* library */
 
@@ -24,11 +37,11 @@
 
 .input
     /* border-width: 2px */
-    border-style: solid
-    border-color: black
+    /* border-style: solid */
+    /* border-color: black */
     border: 2px solid black
     /* padding-left: 5px */
-    padding-right: 5px 
+    /* padding-right: 5px */
     padding: 5px
 
 .button
@@ -37,16 +50,17 @@
     background: transparent
     font-weight: bold
 
-.link
-    text-decoration: none
-
 /* Reglas de estilo cuando el enlace está siendo "hovered" (pseudo-clases)*/
-    &:visited
-        text-decoration: black
-        color: black
-
 /* Reglas de estilo para el contenido insertado antes de cada párrafo */
 /* Los pseudo-elementos son utilizados para seleccionar y estilizar partes específicas de un elemento */
+
+.link
+    text-decoration: none
+    color: black
+
+    &:visited
+        color: black
+
     &::before
         content: '[ '
 
@@ -55,10 +69,14 @@
 
 /* custom compos, estilos propios de nuestra aplicación */
 
-.home-header
+.header
     display: flex
     align-items: center
     justify-content: space-between
+    padding: .5rem
+
+.new-post
+    margin-bottom: 1rem
 
 .post
     display: flex
@@ -67,3 +85,32 @@
 
     &-image
         max-width: 320px
+    &-actions
+        display: flex
+        justify-content: space-between
+        gap: .5rem
+
+.posts
+    background-color: yellow
+    margin-bottom: $footer-h
+
+@media (min-width: $m-size)
+    .posts
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+
+@media (min-width: $l-size)
+    .posts
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+
+.footer
+    background-color: white
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    position: fixed
+    bottom: 0
+    width: 100%
+    min-height: $footer-h
