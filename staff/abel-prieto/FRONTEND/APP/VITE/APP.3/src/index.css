@@ -1,82 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Patua+One&display=swap");
 * {
-    font-family: Patua One;
+  font-family: Patua One;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
 }
 
 input {
-    border-style: solid;
-    border-color: black;
-    border-radius: 0.25rem;
+  border-style: solid;
+  border-color: black;
+  border-radius: 0.25rem;
 }
 
 .link {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
-
 .link::after {
-    content: ' ]';
+  content: " ]";
 }
-
 .link::before {
-    content: '[ ';
+  content: "[ ";
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .form {
-    color: rgb(43, 40, 40);
-    border-style: groove;
-    border-radius: 0.50rem;
-    border-color: black;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    max-width: 240px;
-    gap: 5px;
+  color: rgb(43, 40, 40);
+  border-style: groove;
+  border-radius: 0.5rem;
+  border-color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 240px;
+  gap: 5px;
 }
 
 .button {
-    background-color: rgb(43, 40, 40);
-    background-image: none;
-    color: white;
-    border-radius: 0.25rem;
-    cursor: pointer;
+  background-color: rgb(43, 40, 40);
+  background-image: none;
+  color: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
 }
-
 .buttons-post {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.buttons-edit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .home-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(165, 153, 153);
-    border-radius: 0.25rem;
-    border-style: dashed;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 10px;
-    padding-right: 10px;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: rgb(165, 153, 153);
+  border-radius: 0.25rem;
+  border-style: dashed;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .post {
-    border-style: groove;
-    border-color: rgb(0, 0, 0);
-    background-color: #fff;
-    margin-top: 20px;
-    padding: 10px;
+  border-style: groove;
+  border-color: rgb(0, 0, 0);
+  background-color: #fff;
+  margin-top: 20px;
+  padding: 10px;
+}
+.post-img {
+  max-width: 320px;
 }
 
-.post-img {
-    max-width: 320px;
+.new-post {
+  margin: 10px;
 }
+
+.footer {
+  display: flex;
+  position: fixed;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: rgb(165, 153, 153);
+  border-style: dotted;
+  border-radius: 0.25rem;
+  padding: 5px;
+  bottom: 0;
+  width: 100%;
+  min-height: 40px;
+}
+
+/*# sourceMappingURL=index.css.map */

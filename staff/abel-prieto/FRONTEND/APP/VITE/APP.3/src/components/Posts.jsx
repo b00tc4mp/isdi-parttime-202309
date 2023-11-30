@@ -1,23 +1,41 @@
 import logic from "../logic"
 
-import { Button } from "../librery"
+import Post from "./Post"
 
 import { useState } from "react"    // Import method useState 
 import { useEffect } from "react"   // Import method useEffect
 
 
 // POSTS
-function Posts(props) {
+function Posts({ loadPosts, stamp }) {
     console.log('Posts')
 
-    const post = props.post
-
-    // STATE ID (Posts)
+    // STATE ID & POSTS
     const [id, setId] = useState(null)
+    const [posts, setPosts] = useState([])
 
-    // STATE & EFFECT - NAME & ID
+    // REFRESH POSTS
+    const refreshPosts = () => {
+        try {
+            loadPosts((error, posts) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                posts.reverse()
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    // STATE & EFFECT - ID USER
     useEffect(() => {
-        console.log('Home -> Effect (NAME)')
+        console.log('Posts Effect')
 
         try {
             logic.retrieveUser((error, user) => {
@@ -29,39 +47,18 @@ function Posts(props) {
 
                 setId(user.id)
                 // Guardamos en STATE el user para usar el "ID"
+
+                refreshPosts()
             })
         } catch (error) {
             alert(error.message)
         }
-    }, [])
+    }, [stamp])
 
-    // GO TO LIKE POST BUTTON
-    function handleToggleLikeButtonClick() {
-        props.onToggleLikeClick(post.id)
-    }
-
-    // GO TO FAV POST BUTTON
-    function handleToggleFavButtonClick() {
-        props.onToggleFavClick(post.id)
-    }
-
-    // GO TO DELETE POST BUTTON
-    function handleToggleDeleteButtonClick() {
-        props.onToggleDeleteClick(post.id)
-    }
-
-    return <>
-        <article className="post">
-            <h2>{post.author.email}</h2>
-            <img className='post-img' src={post.image} />
-            <p>{post.text}</p>
-            <div className="buttons-post">
-                <Button onClick={handleToggleLikeButtonClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
-                <Button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐' : '☆'}Fav</Button>
-                {post.author.id === id && (<Button onClick={handleToggleDeleteButtonClick}>Delete post</Button>)}
-            </div>
-        </article>
-    </>
+    // TEMPLATE
+    return <div className="container">
+        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePost={refreshPosts} onEditText={refreshPosts} id={id} />)}
+    </div>
 }
 
 export default Posts

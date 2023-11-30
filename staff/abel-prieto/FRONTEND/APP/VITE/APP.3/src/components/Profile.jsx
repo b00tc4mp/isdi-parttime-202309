@@ -5,11 +5,13 @@ import { Container, Form, Field, Button } from "../librery"
 
 // PROFILE
 function Profile() {
-    console.log('Home -> Profile')
+    console.log('Profile')
 
     // SETTINGS - CHANGE EMAIL
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
+
+        console.log(event.target);
 
         const newEmailInput = event.target.querySelector('#new-email')
         const confirmNewEmailInput = event.target.querySelector('#confirm-new-email')
@@ -28,7 +30,6 @@ function Profile() {
                 }
 
                 alert('Email changed successfully!')
-
             })
 
         } catch (error) {
@@ -72,11 +73,9 @@ function Profile() {
             <Form onSubmit={handleChangeEmailSubmit}>
                 <h3>Change your email: </h3>
 
-                <Field htmlFor="new-email" type="email">New email</Field>
-
-                <Field htmlFor="confirm-new-email" type="email">Confirm new email</Field>
-
-                <Field htmlFor="password" type="password">Password</Field>
+                <Field id="new-email" type="email">New email</Field>
+                <Field id="confirm-new-email" type="email">Confirm new email</Field>
+                <Field id="password" type="password">Password</Field>
 
                 <Button type="submit">Change Email</Button>
             </Form>
@@ -84,11 +83,9 @@ function Profile() {
             <Form onSubmit={handleChangePasswordSubmit}>
                 <h3>Change your password: </h3>
 
-                <Field htmlFor="current-password" type="password">Actual password</Field>
-
-                <Field htmlFor="new-password" type="password">New password</Field>
-
-                <Field htmlFor="again-new-password" type="password">Confirm new password</Field>
+                <Field id="current-password" type="password">Actual password</Field>
+                <Field id="new-password" type="password">New password</Field>
+                <Field id="again-new-password" type="password">Confirm new password</Field>
 
                 <Button type="submit">Change Password</Button>
             </Form>

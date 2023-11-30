@@ -1,10 +1,12 @@
 import Profile from "./Profile";
+import Post from "./Post";
 import Posts from "./Posts";
-import Favs from "./Favs";
+import NewPost from "./NewPost";
 
 
 export {
     Profile,
+    Post,
     Posts,
-    Favs
+    NewPost,
 }
