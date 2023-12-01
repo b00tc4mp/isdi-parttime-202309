@@ -1,18 +1,16 @@
 import logic from "../logic"
 
+import { Button, Link, Form, Field, Container } from "../library"
+
 function Login(props) {
 	console.log('Login')
 
 	function handleSubmit(event) {
 		event.preventDefault()
 
-		const emailInput = event.target.querySelector('#email-input')
-		const passwordInput = event.target.querySelector('#password-input')
+		const email = event.target.querySelector('#email-input').value
+		const password = event.target.querySelector('#password-input').value
 
-		const email = emailInput.value
-		const password = passwordInput.value
-
-		//console.log(email, password)
 		try {
 			logic.loginUser(email, password, error => {
 				if (error) {
@@ -34,21 +32,18 @@ function Login(props) {
 		props.onRegisterClick()
 	}
 
-	return <div className="view">
+	return <Container>
 		<h1>Login</h1>
 
-		<form className="form" onSubmit={handleSubmit}>
-			<label htmlFor="email-input">E-mail</label>
-			<input id="email-input" type="email" />
+		<Form onSubmit={handleSubmit}>
+			<Field id="email-input" type="email" >E-mail</Field>
+			<Field id="password-input" type="password" >Password</Field>
 
-			<label htmlFor="password-input">Password</label>
-			<input id="password-input" type="password" />
+			<Button type="submit">Login</Button>
+		</Form>
 
-			<button type="submit">Login</button>
-		</form>
-
-		<a href="" onClick={handleRegisterClick}>Register</a>
-	</div>
+		<Link onClick={handleRegisterClick}>Register</Link>
+	</Container>
 }
 
 export default Login

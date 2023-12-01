@@ -1,18 +1,16 @@
 import logic from "../logic"
 
+import { Button, Link, Form, Field, Container } from "../library"
+
 function Register(props) {
     console.log('Register')
 
     function handleSubmit(event) {
         event.preventDefault()
 
-        const nameInput = event.target.querySelector('#name-input')
-        const emailInput = event.target.querySelector('#email-input')
-        const passwordInput = event.target.querySelector('#password-input')
-
-        const name = nameInput.value
-        const email = emailInput.value
-        const password = passwordInput.value
+        const name = event.target.querySelector('#name-input').value
+        const email = event.target.querySelector('#email-input').value
+        const password = event.target.querySelector('#password-input').value
 
         //console.log(name, email, password)
 
@@ -37,24 +35,19 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <div className="view">
+    return <Container>
         <h1>Register</h1>
 
-        <form className="form" onSubmit={handleSubmit}>
-            <label htmlFor="name-input">Name</label>
-            <input id="name-input" type="text" />
+        <Form onSubmit={handleSubmit}>
+            <Field id="name-input">Name</Field>
+            <Field id="email-input" type="email" >E-mail</Field>
+            <Field id="password-input" type="password" >Password</Field>
 
-            <label htmlFor="email-input">E-mail</label>
-            <input id="email-input" type="email" />
+            <Button type="submit">Register</Button>
+        </Form>
 
-            <label htmlFor="password-input">Password</label>
-            <input id="password-input" type="password" />
-
-            <button type="submit">Register</button>
-        </form>
-
-        <a href="" onClick={handleLoginClick}>Login</a>
-    </div>
+        <Link onClick={handleLoginClick}>Login</Link>
+    </Container>
 }
 
 export default Register

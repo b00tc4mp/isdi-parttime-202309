@@ -1,6 +1,7 @@
 import { validateText } from "./utils/validators"
 import db from "./data/db"
 import { User, Post } from "./data/models"
+import randomDelay from "./utils/randomDelay"
 
 class Logic {
     constructor() {
@@ -58,11 +59,11 @@ class Logic {
     }
 
     logoutUser(callback) {
-        asyncDelay(() => {
+        randomDelay(() => {
             this.sessionUserId = null
 
             callback(null)
-        }, 0.9)
+        })
     }
 
     retrieveUser(callback) {
@@ -76,13 +77,13 @@ class Logic {
             if (!user) {
 
                 callback(new Error('User not found'))
+
+                return
             }
             delete user.password
 
             callback(null, user)
         })
-
-
     }
     //TODO
     changeUserEmail(newEmail, newEmailConfirm, password, callback) {
@@ -111,7 +112,15 @@ class Logic {
 
             user.email = newEmail
 
-            callback(db.users.update(user))
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
     }
 
@@ -141,7 +150,15 @@ class Logic {
 
             user.password = newPassword
 
-            callback(db.users.update(user))
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
     }
 
@@ -187,8 +204,10 @@ class Logic {
 
                         count++
 
-                        if (count === posts.length)
+                        if (count === posts.length) {
+
                             callback(null, posts)
+                        }
                     })
                 })
             })
@@ -273,7 +292,7 @@ class Logic {
                     return
                 }
 
-                const index = user.favs.indexOf(post.id)
+                const index = user.favs.indexOf(postId)
 
                 if (index < 0)
                     user.favs.push(post.id)
@@ -365,8 +384,6 @@ class Logic {
 
                     })
                 })
-
-
             })
         })
     }
@@ -396,14 +413,14 @@ class Logic {
                 return
             }
 
-            user.favs.forEach(postId => {
+            user.favs.forEach((postId, index) => {
                 db.posts.findById(postId, (error, post) => {
                     if (error) {
                         callback(error)
 
                         return
                     }
-                    favs.push(post)
+                    favs[index] = post
 
                     count++
 
@@ -431,7 +448,10 @@ class Logic {
 
                                 count2++
 
-                                if (count2 === favs.length) callback(null, favs)
+                                if (count2 === favs.length) {
+
+                                    callback(null, favs)
+                                }
                             })
 
                         })

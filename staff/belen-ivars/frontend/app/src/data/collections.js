@@ -1,5 +1,5 @@
 import { User, Post, CreditCard } from "./models"
-import asyncDelay from "../utils/asyncDelay"
+import randomDelay from "../utils/randomDelay"
 import { validateText } from "../utils/validators"
 
 class Collection {
@@ -32,26 +32,26 @@ class Collection {
 	}
 
 	insert(document, callback) {
-		asyncDelay(() => {
+		randomDelay(() => {
 			const documentCopy = this.__clone__(document)
 
 			documentCopy.id = this.__generateId__()
 
 			this.__documents__.push(documentCopy)
 
-			callback(null)
-		}, 0.3)
+			callback(null) //ací jo tinc un null, però Abel no el té
+		})
 	}
 
 	__findIndexById__(id, callback) {
 		try {
 			validateText(id, `${this.__clazz__.name} id`)
 
-			asyncDelay(() => {
+			randomDelay(() => {
 				const index = this.__documents__.findIndex(document => document.id === id)
 
 				callback(null, index)
-			}, 0.4)
+			})
 		} catch (error) {
 			callback(error)
 		}
@@ -61,7 +61,7 @@ class Collection {
 		try {
 			validateText(id, `${this.__clazz__.name} id`)
 
-			asyncDelay(() => {
+			randomDelay(() => {
 				const document = this.__documents__.find(document => document.id === id)
 
 				if (!document) {
@@ -72,7 +72,7 @@ class Collection {
 
 				callback(null, this.__clone__(document))
 
-			}, 0.6)
+			})
 		} catch (error) {
 			callback(error)
 		}
@@ -80,9 +80,12 @@ class Collection {
 
 	update(document, callback) {
 		try {
-			if (!(document instanceof this.__clazz__)) throw new TypeError(`document is not a ${this.__clazz__.name}`)
+			if (!(document instanceof this.__clazz__)) {
 
-			asyncDelay(() => {
+				throw new TypeError(`document is not a ${this.__clazz__.name}`)
+			}
+
+			randomDelay(() => {
 				this.__findIndexById__(document.id, (error, index) => {
 					if (error) {
 						callback(error)
@@ -100,7 +103,7 @@ class Collection {
 
 					callback(null)
 				})
-			}, 0.5)
+			})
 
 		} catch (error) {
 			callback(error)
@@ -113,7 +116,7 @@ class Collection {
 
 			validateText(id, `${this.__clazz__.name} id`)
 
-			asyncDelay(() => {
+			randomDelay(() => {
 				this.__findIndexById__(id, (error, index) => {
 					if (error) {
 						callback(error)
@@ -127,10 +130,10 @@ class Collection {
 						return
 
 					}
-					this.__documents__.splice(index, 1)
-					callback(null)
+
+					callback(null, this.__documents__.splice(index, 1))
 				})
-			}, 0.4)
+			})
 		} catch (error) {
 			callback(error)
 		}
@@ -146,7 +149,7 @@ class Users extends Collection {
 		try {
 			validateText(email, `${this.__clazz__.name} email`)
 
-			asyncDelay(() => {
+			randomDelay(() => {
 
 				const user = this.__documents__.find(document => document.email === email)
 
@@ -157,7 +160,7 @@ class Users extends Collection {
 				}
 
 				callback(null, this.__clone__(user))
-			}, 0.7)
+			})
 
 		} catch (error) {
 			callback(error)
@@ -165,9 +168,9 @@ class Users extends Collection {
 	}
 
 	getAll(callback) {
-		asyncDelay(() => {
+		randomDelay(() => {
 			callback(null, this.__documents__.map(this.__clone__.bind(this)))
-		}, 0.8)
+		})
 	}
 }
 
@@ -177,9 +180,9 @@ class Posts extends Collection {
 	}
 
 	getAll(callback) {
-		asyncDelay(() => {
+		randomDelay(() => {
 			callback(null, this.__documents__.map(this.__clone__.bind(this)))
-		}, 0.8)
+		})
 	}
 }
 
