@@ -6,6 +6,18 @@
     font-family: Inter
     font-size: 1rem
 
+html
+    scroll-behavior: smooth
+
+html, body
+    margin: 0
+
+    /* variables */
+
+$m-size: 768px
+$l-size: 1024px
+$footer-h: 3rem
+
 /* library */
 
 .container
@@ -47,10 +59,14 @@
 
 /* custom compos */
 
-.home-header
+.header
     display: flex
     align-items: center
     justify-content: space-between
+    padding: .5rem
+
+.new-post
+    margin-bottom: 1rem
 
 .post
     display: flex
@@ -59,3 +75,33 @@
 
     &-image
         max-width: 320px
+
+    &-actions
+        display: flex
+        justify-content: space-between
+        gap: .5rem
+
+.posts
+    background-color: yellow
+    margin-bottom: $footer-h
+
+@media (min-width: $m-size)
+    .posts
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+
+@media (min-width: $l-size)
+    .posts
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+
+.footer
+    background-color: white
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    position: fixed
+    bottom: 0
+    width: 100%
+    min-height: $footer-h
