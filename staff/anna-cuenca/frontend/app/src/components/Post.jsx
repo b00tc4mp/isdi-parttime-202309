@@ -84,6 +84,27 @@ function Post(props) {
 
     }
 
+    function handleToggleDeletePostClick() {
+
+        if (confirm('Are you sure you want to delete this post?')) {
+            try {
+                logic.deletePost(post.id, error => {
+                    if (error) {
+                        alert(error.message)
+
+                        return
+                    }
+
+
+                    props.onToggleDeleteClick()
+
+                })
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+    }
+
 
 
 
@@ -99,7 +120,7 @@ function Post(props) {
 
             <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
             <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>
-            {/* {post.author.id === logic.sessionUserId && (<Button onClick={() => onToggleDeleteClick(post.id)}>Delete post</Button>)} */}
+            {post.author.id === logic.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
             {post.author.id === logic.sessionUserId && <Button onClick={handleEditClick}> 🖍</Button>}
 
         </div>

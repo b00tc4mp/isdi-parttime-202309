@@ -82,23 +82,6 @@ function Home(props) {
 
 
 
-    function handleDeletePostClick(postId) {
-        console.log(db.posts.author);
-        if (confirm('Are you sure you want to delete this post?')) {
-            try {
-                logic.deletePost(postId, error => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    refreshPosts()
-                })
-
-            } catch (error) {
-                alert(error.message)
-            }
-        }
-    }
 
 
     function handleFavPostsClick(event) {
