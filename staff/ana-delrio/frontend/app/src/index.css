@@ -6,6 +6,7 @@
   font-size: 1rem;
 }
 
+/* efecto chapiruli del scroll */
 html {
   scroll-behavior: smooth;
 }

@@ -1,6 +1,7 @@
 import { Button, Container, Field, Form } from "../library"
 import logic from "../logic"
 
+{/* las props se pueden desglosar */ }
 export default function NewPost({ onPublish, onCancel }) {
     const handleSubmit = event => {
         event.preventDefault()
@@ -15,7 +16,7 @@ export default function NewPost({ onPublish, onCancel }) {
 
                     return
                 }
-
+                {/* esto te viene por props de arriba */ }
                 onPublish()
 
 
@@ -28,7 +29,7 @@ export default function NewPost({ onPublish, onCancel }) {
 
     const handleCancel = event => {
         event.preventDefault()
-
+        {/* esto te viene por props de arriba */ }
         onCancel()
     }
 
