@@ -279,38 +279,6 @@ class Logic {
 
   }
 
-  toggleEditPost(postId, newText, callback) {
-    validateText(newText, 'text to edit')
-
-    db.posts.findById(postId, (error, post) => {
-      if (error) {
-        callback(error)
-
-        return
-      }
-
-      if (!post) {
-        callback(new Error('post not found'))
-
-        return
-      }
-
-
-      post.text = newText;
-
-      db.posts.update(post, error => {
-        if (error) {
-          callback(error)
-
-          return
-        }
-        callback(null)
-
-      })
-    })
-
-  }
-
   retrieveFavPosts(callback) {
     db.users.findById(this.sessionUserId, (error, user) => {
       if (error) {
@@ -360,13 +328,7 @@ class Logic {
                   return
                 }
 
-                // si no pongo esto así, no tengo el id y no puedo pintar el edit
-
-                post.author = {
-                  email: author.email,
-                  id: author.id,
-                  name: author.name
-                }
+                post.author = author.name
 
                 post.fav = user.favs.includes(post.id)
 
@@ -381,9 +343,6 @@ class Logic {
 
     })
   }
-
-
-
 
 
   deletePost(postId, callback) {
@@ -455,8 +414,6 @@ class Logic {
 
 
 }
-
-
 
 const logic = new Logic
 

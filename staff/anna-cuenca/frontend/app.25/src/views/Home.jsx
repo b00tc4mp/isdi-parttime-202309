@@ -14,8 +14,6 @@ function Home(props) {
     const [name, setName] = useState(null)
     const [stamp, setStamp] = useState(null)
 
-    // están declaradas en null porque es el estado inicial
-
 
 
 

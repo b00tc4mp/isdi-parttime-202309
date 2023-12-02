@@ -1,19 +1,9 @@
-import { useState } from 'react'
-import { Button, Form } from '../library'
+import { Button } from '../library'
 import logic from '../logic'
-import { Input } from '../library'
-
-
-
-//está declarado en null, porque es el estado inicial
 
 
 
 function Post(props) {
-
-    const [editTextPost, setEditTextPost] = useState(null)
-
-
     const post = props.post
 
     function handleToggleLikePostClick() {
@@ -27,7 +17,6 @@ function Post(props) {
 
 
                 props.onToggleLikeClick()
-
             })
         } catch (error) {
             alert(error.message)
@@ -53,39 +42,6 @@ function Post(props) {
         }
     }
 
-    function handleEditSubmit(event) {
-        event.preventDefault()
-
-        const text = event.target.querySelector("#text").value
-        console.log(text)
-
-        try {
-            logic.toggleEditPost(post.id, text, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-                setEditTextPost(null)
-                props.onToggleEditClick()
-
-
-
-            })
-        } catch (error) {
-            alert(error.message)
-        }
-
-    }
-
-    function handleEditClick() {
-
-        setEditTextPost('edit-text-post')
-
-    }
-
-
-
 
 
 
@@ -97,24 +53,11 @@ function Post(props) {
 
         <div className="post-actions">
 
-            <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
+            <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
             <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>
             {/* {post.author.id === logic.sessionUserId && (<Button onClick={() => onToggleDeleteClick(post.id)}>Delete post</Button>)} */}
-            {post.author.id === logic.sessionUserId && <Button onClick={handleEditClick}> 🖍</Button>}
 
         </div>
-
-        <div>
-
-            {editTextPost === 'edit-text-post' && <Form onSubmit={handleEditSubmit}>
-                <Input id="text"></Input>
-                <Button type='onSubmit'>👍🏼</Button>
-
-            </Form>}
-
-
-        </div>
-
 
 
 
