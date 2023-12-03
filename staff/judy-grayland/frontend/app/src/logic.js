@@ -235,7 +235,6 @@ class Logic {
 
     toggleLikePost(postId, callback) {
         validateText(postId, 'post id')
-        console.log('im a toggle')
 
         db.posts.findById(postId, (error, post) => {
             if (error) {

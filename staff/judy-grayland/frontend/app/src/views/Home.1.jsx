@@ -4,8 +4,7 @@ import logic from "../logic"
 
 import { Button, Link } from '../library'
 
-import { Post, NewPost } from "../components"
-
+import { Post } from "../components"
 
 
 function Home(props) {
@@ -274,9 +273,38 @@ function Home(props) {
             {favs.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePostClick={refreshPosts}/>)}
         </div>}
 
-        <footer className='footer'>
-            {view === 'new-post' && <NewPost onSubmit={handleNewPostSubmit} onCancel={handleCancelNewPostClick}/>}
+        {view === 'new-post' && <div className="container new-post">
+                <h2>New post</h2>
 
+                <form className="form" onSubmit={handleNewPostSubmit}>
+                    <label htmlFor="image-input">Image</label>
+                    <input type="url" id="image-input"/>
+
+                    <label htmlFor="text-input">Text</label>
+                    <input type="text" id="text-input"/>
+
+                    <Button type="submit">Post</Button>
+                    <Button onClick={handleCancelNewPostClick}>Cancel</Button>
+                </form>
+            </div>}
+            
+
+        <footer className='footer'>
+            {view === 'new-post' && <div className="container new-post">
+                <h2>New post</h2>
+
+                <form className="form" onSubmit={handleNewPostSubmit}>
+                    <label htmlFor="image-input">Image</label>
+                    <input type="url" id="image-input"/>
+
+                    <label htmlFor="text-input">Text</label>
+                    <input type="text" id="text-input"/>
+
+                    <Button type="submit">Post</Button>
+                    <Button onClick={handleCancelNewPostClick}>Cancel</Button>
+                </form>
+            </div>}
+            
             {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
         </footer>
     </div>
