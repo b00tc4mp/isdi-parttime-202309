@@ -1,4 +1,3 @@
-import React from "react"
 import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
 
@@ -23,9 +22,9 @@ function NewPost({ onClick, onSuccess }) {
 
                     return
                 }
-            })
 
-            onSuccess(event) // esto va a HOME a la función de handleHomeClick
+                onSuccess(event)
+            })
         } catch (error) {
             alert(error.message)
         }

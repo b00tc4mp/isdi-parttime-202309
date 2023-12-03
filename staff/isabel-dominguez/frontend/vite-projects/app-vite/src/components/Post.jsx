@@ -1,9 +1,9 @@
-import React from "react"
+import { useState } from "react"
 import { Button, Input, Form } from "../library"
 import logic from "../logic"
 
 function Post({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick }) {
-    const [editTextPost, setEditTextPost] = React.useState(null)
+    const [editTextPost, setEditTextPost] = useState(null)
 
     function handleLikeClick(postId) {
         try {
@@ -57,25 +57,30 @@ function Post({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
     }
 
     function handleEditClick() {
-        setEditTextPost("edit-text-post")
 
+        if (editTextPost === null) {
+            setEditTextPost("edit-text-post")
+        } else {
+            setEditTextPost(null)
+        }
     }
 
-    function handleEditSubmit(event, postId, postText) {
+    function handleEditSubmit(event) {
         event.preventDefault()
 
+        const text = event.target.querySelector("#text").value
+        console.log(text)
+
         try {
-            const text = event.target.querySelector("#text").value
-
-            postText = text
-
-            logic.changePostText(postId, postText, (error) => {
+            logic.changePostText(post.id, text, (error) => {
                 if (error) {
                     alert(error.message)
                     return
                 }
 
                 alert("Text changed")
+
+                setEditTextPost(null)
 
                 onToggleEditClick()
             })
@@ -96,9 +101,9 @@ function Post({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 {post.author.id === logic.sessionUserId && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
             </div>
             <div className="edit-text">
-                {editTextPost === "edit-text-post" && <Form onSubmit={() => handleEditSubmit(post.id)}>
+                {editTextPost === "edit-text-post" && <Form onSubmit={handleEditSubmit}>
                     <Input id="text"></Input>
-                    <Button type="submit">👌</Button>
+                    <Button type="submit">Cambiar texto</Button>
                 </Form>}
             </div>
         </article>

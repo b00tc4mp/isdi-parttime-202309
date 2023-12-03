@@ -457,14 +457,38 @@ class Logic {
         })
     }
 
-    // changePostText(postId, postText, callback) {
-    //     validateText(postId, 'post id')
-    //     validateText(postText, 'texts post')
+    changePostText(postId, newText, callback) {
+        validateText(postId, 'post id')
+        validateText(newText, 'texts post')
 
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
 
+                return
+            }
 
+            if (!post) {
+                callback(new Error('post not found'))
 
-    // }
+                return
+            }
+
+            post.text = newText
+
+            db.posts.update(post, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
+
+        })
+
+    }
 }
 
 const logic = new Logic
