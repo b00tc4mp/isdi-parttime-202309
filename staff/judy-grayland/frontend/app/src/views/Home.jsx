@@ -4,7 +4,7 @@ import logic from "../logic"
 
 import { Button, Link } from '../library'
 
-import { Post, NewPost } from "../components"
+import { Post, NewPost, Profile } from "../components"
 
 
 
@@ -233,38 +233,8 @@ function Home(props) {
                 <Link onClick={handleProfileClick}>{name}</Link> <Button onClick={handleFavPostsClick}>🌟 My Favs</Button> <Button onClick={handleLogoutClick}>Log out</Button>
             </div>
         </header>
-
-        {view === 'profile' && <div className="container">
-            <h2>Update e-mail</h2>
-
-            <form className="form" onSubmit={handleChangeEmailSubmit}>
-                <label htmlFor="new-email-input">New e-mail:</label>
-                <input className = "input" type="email" id="new-email-input"/>
-
-                <label htmlFor="new-email-confirm-input">Confirm new email:</label>
-                <input className = "input" type="email" id="new-email-confirm-input"/>
-
-                <label htmlFor="password-input">Password:</label>
-                <input className = "input" type="password" id="password-input"/>
-
-                <Button type="submit">Update e-mail</Button>
-            </form>
-
-            <h2>Update password</h2>
-
-            <form className="form" onSubmit={handleChangePasswordSubmit}>
-                <label htmlFor="password-input" >Current password:</label>
-                <input className = "input" type="password" id="password-input"/>
-
-                <label htmlFor="new-password-input">New password:</label>
-                <input className = "input" type="password" id="new-password-input"/>
-
-                <label htmlFor="new-password-confirm-input">Confirm new password:</label>
-                <input className = "input" type="password" id="new-password-confirm-input"/>
-
-                <Button type="submit">Update password</Button>
-            </form>
-        </div>}
+        
+        {view === 'profile' && <Profile onEmailSubmit={handleChangeEmailSubmit} onPasswordSubmit={handleChangePasswordSubmit} />}
 
         {(view === null || view === 'new-post') && posts !== null && <div className="posts">
             {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePostClick={refreshPosts}/>)}

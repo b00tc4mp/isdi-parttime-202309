@@ -2,8 +2,11 @@
 
 import Post from "./Post";
 import NewPost from "./NewPost";
+import Profile from "./profile";
+
 
 export {
     Post,
-    NewPost
+    NewPost,
+    Profile
 }
