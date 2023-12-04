@@ -10,6 +10,7 @@ function Posts({ posts, refreshPosts }) {
           onToggleLikeClick={refreshPosts}
           onToggleFavClick={refreshPosts}
           onDeletePostClick={refreshPosts}
+          onEditPostClick={refreshPosts}
         />
       ))}
     </div>

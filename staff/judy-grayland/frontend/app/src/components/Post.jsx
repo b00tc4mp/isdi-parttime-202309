@@ -1,9 +1,16 @@
-import { Button } from '../library'
+import { Button, Input } from '../library'
+import { useState } from 'react'
 
 import logic from '../logic'
 
 function Post(props) {
   const post = props.post
+
+  const [editForm, setEditForm] = useState(false)
+
+  function toggleEditForm() {
+    setEditForm(!editForm)
+  }
 
   function handleToggleLikeClick() {
     try {
@@ -63,15 +70,19 @@ function Post(props) {
       <p>{post.text}</p>
       <div className="post-actions">
         <Button onClick={handleToggleLikeClick}>
-          {post.liked ? '♥️' : '🤍'} {post.likes.length} likes
+          {post.liked ? '♥️' : '🤍'} {post.likes.length}
         </Button>
         <Button onClick={handleToggleFavClick}>
           {post.fav ? '🌟' : '☆'} Fav
         </Button>
         {post.author.id === logic.sessionUserId && (
-          <Button onClick={handleDeletePostClick}>Delete Post</Button>
+          <Button onClick={toggleEditForm}> ✏️</Button>
+        )}
+        {post.author.id === logic.sessionUserId && (
+          <Button onClick={handleDeletePostClick}>Delete</Button>
         )}
       </div>
+      {editForm && <Input />}
     </article>
   )
 }

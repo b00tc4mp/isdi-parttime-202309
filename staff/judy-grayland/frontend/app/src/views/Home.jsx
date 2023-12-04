@@ -165,9 +165,12 @@ function Home(props) {
     const password = passwordInput.value
 
     try {
-      logic.changeUserEmail(newEmail, newEmailConfirm, password)
-
-      alert('Email changed correctly')
+      logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
+        if (error) {
+          alert(error.message)
+        }
+        alert('Email changed correctly')
+      })
     } catch (error) {
       alert(error.message)
     }
