@@ -66,6 +66,10 @@ input {
   gap: 5px;
 }
 
+.home-view {
+  padding-top: 85px;
+}
+
 .home-header {
   display: flex;
   position: fixed;
@@ -91,6 +95,13 @@ input {
 .post-img {
   max-width: 320px;
 }
+.post-comments {
+  font: italic;
+  border-radius: 0;
+  height: 50px;
+  width: 310px;
+  margin-bottom: 0.5rem;
+}
 
 .new-post {
   margin: 10px;
@@ -110,6 +121,19 @@ input {
   bottom: 0;
   width: 100%;
   min-height: 40px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -101,7 +101,7 @@ function Home(props) {
     }
 
     // TEMPLATE
-    return <div className="home-view">
+    return <div>
 
         <header className="home-header">
             <h1><Link href="" onClick={handleHomeClick}>Home</Link></h1>
@@ -111,21 +111,24 @@ function Home(props) {
             </div>
         </header>
 
-        {view === 'profile' && <Profile onClick={handleProfileClick} />}
+        <div className="home-view">
+            {view === 'profile' && <Profile onClick={handleProfileClick} />}
 
-        {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}
+            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}
 
-        {view !== 'profile' && view !== 'favs' && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
+            {view !== 'profile' && view !== 'favs' && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
 
-        {view === 'favs' && <Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}
+            {view === 'favs' && <Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}
 
-        <br></br>
-        <br></br>
-        <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
 
-        <footer className="footer">
-            {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
-        </footer>
+            <footer className="footer">
+                {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
+            </footer>
+        </div>
+
     </div >
 }
 

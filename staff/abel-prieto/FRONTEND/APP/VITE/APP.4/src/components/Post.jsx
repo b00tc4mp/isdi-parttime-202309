@@ -6,8 +6,10 @@ import { useState } from "react"
 function Post(props) {
     const post = props.post
 
-    // STATE EDIT MODE
+    // STATE EDIT MODE & COMMENT TEXT
     const [editMode, setEditMode] = useState(false)
+    const [inputBorder, setInputBorder] = useState('solid');
+    const [commentText, setCommentText] = useState('')
 
     // LIKE POST BUTTON
     function handleToggleLikeClick() {
@@ -98,6 +100,31 @@ function Post(props) {
         }
     }
 
+    // SEND COMMENTS
+    function handleToggleCommentClick(postId) {
+        try {
+            const comment = document.querySelector("#text-comment").value
+
+            logic.toggleCommentPostText(postId, comment, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                props.onSendComment()
+                // Hacemos un repintado de los posts-favs
+
+                setInputBorder('none');
+                // Quitamos el borde del input por defecto
+
+                setCommentText('comment')
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     // TEMPLATE
     return <>
         <article className="post">
@@ -112,12 +139,18 @@ function Post(props) {
                         <Button onClick={() => handleToggleInputEditClick(post.id, post.text)}>Done</Button>
                     </div>}
             </div>
+            <div>
+                {post.coments.length
+                    ? <p>{post.coments}</p>
+                    : <input className="post-comments" id="text-comment" placeholder="Escribe un comentario" type="text" style={{ borderStyle: inputBorder }}></input>}
+            </div>
             <div className="buttons-post">
                 <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
+                <Button onClick={() => handleToggleCommentClick(post.id)}>🗨</Button>
                 <Button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐' : '☆'}</Button>
                 {post.author.id === props.id && (<Button onClick={() => handleToggleDeleteButtonClick(post.id)}>Delete post</Button>)}
             </div>
-        </article>
+        </article >
     </>
 }
 
