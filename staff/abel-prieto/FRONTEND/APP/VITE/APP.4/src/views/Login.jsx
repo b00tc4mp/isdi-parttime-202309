@@ -20,12 +20,9 @@ function Login(props) {
     function handleSubmit(event) {
         event.preventDefault()
 
-        const emailInput = event.target.querySelector('#email')
-        const passwordInput = event.target.querySelector('#password')
+        const email = event.target.querySelector('#email').value
+        const password = event.target.querySelector('#password').value
         // Usamos 'target' porque todo (event) del DOM apunta a un sitio, en este caso, al formulario del componente Login
-
-        const email = emailInput.value
-        const password = passwordInput.value
 
         try {
             logic.loginUser(email, password, error => {
@@ -51,9 +48,7 @@ function Login(props) {
 
         <Form onSubmit={handleSubmit}>
             <Field id="email" type="email">Email</Field>
-
             <Field id="password" type="password">Password</Field>
-
             <Button type="submit">Login</Button>
         </Form>
 

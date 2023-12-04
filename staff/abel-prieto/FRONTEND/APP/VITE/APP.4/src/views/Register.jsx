@@ -20,13 +20,9 @@ function Register(props) {
     function handleSubmit(event) {
         event.preventDefault()
 
-        const nameInput = event.target.querySelector('#name')
-        const emailInput = event.target.querySelector('#email')
-        const passwordInput = event.target.querySelector('#password')
-
-        const name = nameInput.value
-        const email = emailInput.value
-        const password = passwordInput.value
+        const name = event.target.querySelector('#name').value
+        const email = event.target.querySelector('#email').value
+        const password = event.target.querySelector('#password').value
 
         try {
             logic.registerUser(name, email, password, error => {
@@ -51,12 +47,9 @@ function Register(props) {
         <h1>Register</h1>
 
         <Form onSubmit={handleSubmit}>
-            <Field htmlFor="name">Username</Field>
-
-            <Field htmlFor="email" type="email">Email</Field>
-
-            <Field htmlFor="password" type="password">Password</Field>
-
+            <Field id="name">Username</Field>
+            <Field id="email" type="email">Email</Field>
+            <Field id="password" type="password">Password</Field>
             <Button type="submit">Register</Button>
         </Form>
 

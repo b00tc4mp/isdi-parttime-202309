@@ -1,7 +1,9 @@
-import logic from "../logic"
+import { useEffect } from "react"
+import { useState } from "react"
+
 import { Button, Input } from "../librery"
 
-import { useState } from "react"
+import logic from "../logic"
 
 function Post(props) {
     const post = props.post
@@ -9,7 +11,29 @@ function Post(props) {
     // STATE EDIT MODE & COMMENT TEXT
     const [editMode, setEditMode] = useState(false)
     const [inputBorder, setInputBorder] = useState('solid');
+    const [name, setName] = useState(null)
+
     const [commentText, setCommentText] = useState('')
+
+    // STATE & EFFECT - NAME
+    useEffect(() => {
+        try {
+            logic.retrieveUser((error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                setName(user.name)
+                // Guardamos en STATE el user para usar el "NAME"
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
+
+
 
     // LIKE POST BUTTON
     function handleToggleLikeClick() {
@@ -118,7 +142,7 @@ function Post(props) {
                 setInputBorder('none');
                 // Quitamos el borde del input por defecto
 
-                setCommentText('comment')
+                // setCommentText('comment')
             })
         } catch (error) {
             alert(error.message)
@@ -141,7 +165,7 @@ function Post(props) {
             </div>
             <div>
                 {post.coments.length
-                    ? <p>{post.coments}</p>
+                    ? <p>{name + ": " + post.coments}</p>
                     : <input className="post-comments" id="text-comment" placeholder="Escribe un comentario" type="text" style={{ borderStyle: inputBorder }}></input>}
             </div>
             <div className="buttons-post">

@@ -7,7 +7,7 @@ import { useEffect } from "react"   // Import method useEffect
 
 
 // POSTS
-function Posts({ loadPosts, stamp }) {
+function Posts({ loadPosts, stamp, name }) {
     console.log('Posts')
 
     // STATE ID & POSTS
