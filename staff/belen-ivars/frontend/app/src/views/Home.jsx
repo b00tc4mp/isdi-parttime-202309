@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 import logic from "../logic"
 
-import { Button, Link } from "../library"
+import { Button, Link, Container } from "../library"
 import { Posts, Profile, NewPost } from "../components"
 
 
@@ -83,10 +83,9 @@ function Home(props) {
 
     return <div>
         <header className="header">
-            <h1><Link onClick={handleHomeClick}>Home</Link></h1>
 
             <div>
-                <Link onClick={handleProfileClick}>{name}</Link> <Link onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout 🔚</Button>
+                <Link onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout 🔚</Button>
             </div>
         </header>
 
@@ -96,8 +95,12 @@ function Home(props) {
 
 
         <footer className="footer">
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
-            {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
+            <Container className="footer-menu">
+                <Button className="button-menu" onClick={handleHomeClick}>🏠</Button>
+                {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
+                {view !== 'new-post' && <Button className="button-menu" onClick={handleNewPostClick}>+</Button>}
+                <Button className="button-menu" onClick={handleProfileClick}>⚙️</Button>
+            </Container>
         </footer>
     </div>
 }

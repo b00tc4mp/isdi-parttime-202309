@@ -1,5 +1,5 @@
-function Input(props) {
-	return <input className="input" type={props.type} id={props.id} />
+function Input({ id, type, value }) {
+	return <input className="input" type={type} id={id} defaultValue={value} />
 }
 
 export default Input

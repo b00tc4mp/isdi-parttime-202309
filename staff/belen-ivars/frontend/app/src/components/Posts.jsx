@@ -33,7 +33,7 @@ function Posts({ loadPosts, stamp }) {
 	}, [stamp])
 
 	return <div className="posts">
-		{posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onDeletePostClick={refreshPosts} onToggleFavClick={refreshPosts} />)}
+		{posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onDeletePostClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} />)}
 	</div>
 
 }
