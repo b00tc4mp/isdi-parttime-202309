@@ -91,6 +91,7 @@ input {
   background-color: #fff;
   margin-top: 20px;
   padding: 10px;
+  width: 345px;
 }
 .post-img {
   max-width: 320px;
@@ -99,7 +100,7 @@ input {
   font: italic;
   border-radius: 0;
   height: 50px;
-  width: 310px;
+  width: 335px;
   margin-bottom: 0.5rem;
 }
 
