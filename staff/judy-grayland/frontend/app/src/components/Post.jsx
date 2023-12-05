@@ -1,5 +1,6 @@
-import { Button, Input } from '../library'
 import { useState } from 'react'
+
+import { Button, Form, Field } from '../library'
 
 import logic from '../logic'
 
@@ -7,6 +8,7 @@ function Post(props) {
   const post = props.post
 
   const [editForm, setEditForm] = useState(false)
+  const [view, setView] = useState(null)
 
   function toggleEditForm() {
     setEditForm(!editForm)
@@ -63,6 +65,27 @@ function Post(props) {
     }
   }
 
+  function handleEditFormSubmit(event) {
+    event.preventDefault()
+
+    const newText = event.target['new-text'].value
+
+    console.log(newText)
+
+    try {
+      logic.updatePostText(post.id, newText, (error) => {
+        if (error) {
+          alert(error.message)
+          return
+        }
+        props.onEditPostClick()
+        setEditForm(!editForm)
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <article className="post">
       <h2>{post.author.name}</h2>
@@ -72,17 +95,20 @@ function Post(props) {
         <Button onClick={handleToggleLikeClick}>
           {post.liked ? '♥️' : '🤍'} {post.likes.length}
         </Button>
-        <Button onClick={handleToggleFavClick}>
-          {post.fav ? '🌟' : '☆'} Fav
-        </Button>
+        <Button onClick={handleToggleFavClick}>{post.fav ? '🌟' : '☆'}</Button>
         {post.author.id === logic.sessionUserId && (
           <Button onClick={toggleEditForm}> ✏️</Button>
         )}
         {post.author.id === logic.sessionUserId && (
-          <Button onClick={handleDeletePostClick}>Delete</Button>
+          <Button onClick={handleDeletePostClick}>❌</Button>
         )}
       </div>
-      {editForm && <Input />}
+      {editForm && (
+        <Form onSubmit={handleEditFormSubmit}>
+          <Field id="new-text" />
+          <Button type="submit">Publish</Button>
+        </Form>
+      )}
     </article>
   )
 }
