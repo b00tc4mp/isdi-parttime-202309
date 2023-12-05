@@ -8,13 +8,12 @@ function Post(props) {
   const post = props.post
 
   const [editForm, setEditForm] = useState(false)
-  const [view, setView] = useState(null)
 
-  function toggleEditForm() {
+  const toggleEditForm = () => {
     setEditForm(!editForm)
   }
 
-  function handleToggleLikeClick() {
+  const handleToggleLikeClick = () => {
     try {
       logic.toggleLikePost(post.id, (error) => {
         if (error) {
@@ -31,7 +30,7 @@ function Post(props) {
   }
 
   // FAV POST BUTTON
-  function handleToggleFavClick() {
+  const handleToggleFavClick = () => {
     try {
       logic.toggleFavPost(post.id, (error) => {
         if (error) {
@@ -48,7 +47,7 @@ function Post(props) {
   }
 
   // DELETE BUTTON
-  function handleDeletePostClick() {
+  const handleDeletePostClick = () => {
     if (confirm('Are you sure you want to delete this post?')) {
       try {
         logic.deletePost(post.id, (error) => {
@@ -65,7 +64,7 @@ function Post(props) {
     }
   }
 
-  function handleEditFormSubmit(event) {
+  const handleEditFormSubmit = (event) => {
     event.preventDefault()
 
     const newText = event.target['new-text'].value

@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import logic from '../logic'
 
 import { Button, Link } from '../library'
-
-import { Post, NewPost, Profile, Posts } from '../components'
+import { NewPost, Profile, Posts } from '../components'
 
 function Home(props) {
   console.log('Home')
@@ -15,7 +14,7 @@ function Home(props) {
   const [favs, setFavs] = useState(null)
 
   //LOG OUT
-  function handleLogoutClick() {
+  const handleLogoutClick = () => {
     logic.logoutUser((error) => {
       if (error) {
         alert(error.message)
@@ -45,29 +44,29 @@ function Home(props) {
   }, [])
 
   // USER SETTINGS BUTTON
-  function handleProfileClick(event) {
+  const handleProfileClick = (event) => {
     event.preventDefault()
 
     setView('profile')
   }
 
-  function handleHomeClick(event) {
+  const handleHomeClick = (event) => {
     event.preventDefault()
 
     setView(null)
   }
 
-  function handleNewPostClick() {
+  const handleNewPostClick = () => {
     setView('new-post')
   }
 
-  function handleCancelNewPostClick(event) {
+  const handleCancelNewPostClick = (event) => {
     event.preventDefault()
 
     setView(null)
   }
 
-  function refreshPosts() {
+  const refreshPosts = () => {
     if (view === null || view === 'new-post') {
       try {
         logic.retrievePosts((error, posts) => {
@@ -109,7 +108,7 @@ function Home(props) {
     refreshPosts()
   }, [view])
 
-  function handleNewPostSubmit(event) {
+  const handleNewPostSubmit = (event) => {
     event.preventDefault()
 
     const imageInput = event.target.querySelector('#image-input')
@@ -151,7 +150,7 @@ function Home(props) {
   }
 
   // CHANGE EMAIL
-  function handleChangeEmailSubmit(event) {
+  const handleChangeEmailSubmit = (event) => {
     event.preventDefault()
 
     const newEmailInput = event.target.querySelector('#new-email-input')
@@ -177,7 +176,7 @@ function Home(props) {
   }
 
   // CHANGE PASSWORD
-  function handleChangePasswordSubmit(event) {
+  const handleChangePasswordSubmit = (event) => {
     event.preventDefault()
 
     const passwordInput = event.target.querySelector('#password-input')
@@ -199,7 +198,7 @@ function Home(props) {
     }
   }
 
-  function handleFavPostsClick() {
+  const handleFavPostsClick = () => {
     try {
       logic.retrieveFavPosts((error, favs) => {
         if (error) {
