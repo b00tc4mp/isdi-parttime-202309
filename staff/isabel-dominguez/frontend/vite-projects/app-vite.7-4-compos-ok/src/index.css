@@ -102,16 +102,6 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
 }
-.post-author {
-  margin-bottom: 7px;
-  color: rgba(0, 0, 0, 0.7568627451);
-  font-size: 2rem;
-}
-.post-text {
-  margin-bottom: 7px;
-  color: rgba(0, 0, 0, 0.7568627451);
-  font-size: 1.2rem;
-}
 
 @media (min-width: 768px) {
   .posts {
@@ -140,10 +130,6 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-}
-
-.edit-text {
-  margin-top: 10px;
 }
 
 /*# sourceMappingURL=index.css.map */

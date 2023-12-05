@@ -91,9 +91,9 @@ function Post({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
 
     return (
         <article className="post">
-            <h2 className="post-author">{post.author.name}</h2>
+            <h2>{post.author.name}</h2>
             <img className="post-image" src={post.image} alt="Post" />
-            <p className="post-text">{post.text}</p>
+            <p>{post.text}</p>
             <div>
                 <Button onClick={() => handleLikeClick(post.id)}>{post.liked ? "❤️" : "🤍"} {post.likes.length} </Button>
                 <Button onClick={() => handleFavPostClick(post.id)}>{post.fav ? "✅" : "☑️"} </Button>
