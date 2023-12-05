@@ -4,9 +4,13 @@ import { Button, Form, Field } from '../library'
 
 import logic from '../logic'
 
-function Post(props) {
-  const post = props.post
-
+function Post({
+  post,
+  onToggleLikeClick,
+  onToggleFavClick,
+  onDeletePostClick,
+  onEditPostClick,
+}) {
   const [editForm, setEditForm] = useState(false)
 
   const toggleEditForm = () => {
@@ -22,7 +26,7 @@ function Post(props) {
           return
         }
 
-        props.onToggleLikeClick()
+        onToggleLikeClick()
       })
     } catch (error) {
       alert(error.message)
@@ -39,7 +43,7 @@ function Post(props) {
           return
         }
 
-        props.onToggleFavClick()
+        onToggleFavClick()
       })
     } catch (error) {
       alert(error.message)
@@ -56,7 +60,7 @@ function Post(props) {
 
             return
           }
-          props.onDeletePostClick()
+          onDeletePostClick()
         })
       } catch (error) {
         alert(error.message)
@@ -77,7 +81,7 @@ function Post(props) {
           alert(error.message)
           return
         }
-        props.onEditPostClick()
+        onEditPostClick()
         setEditForm(!editForm)
       })
     } catch (error) {
