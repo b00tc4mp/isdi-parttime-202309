@@ -1,0 +1,232 @@
+.container {
+    width: 150 px;
+    height: 14px;
+    background-color: red;
+    padding: 10px;
+    border: 10 px solid red;
+    box-sizing: content-box;
+    /* La propiedad de CSS box-sizing indica cómo se deben calcular las medidas de un elemento */
+    box-sizing: border-box;
+    /* el border box se usa cuando queremos que una caja tenga una tamaño determinado */
+    /* El valor border-box en el box-sizing hace que el padding y el border pasen a formar parte del 
+    cálculo del ancho de la caja y no lo suman posteriormente */
+}
+
+
+
+
+
+/* Desbordamiento: Esto se produce cuando se ha definido un tamaño que no permite suficiente 
+espacio para acomodar el contenido */
+.container {
+    width: 150 px;
+    height: 14px;
+    background-color: red;
+    padding: 10px;
+    border: 10 px solid red;
+    box-sizing: content-box;
+    box-sizing: border-box;
+
+    /* hace lo que desborde, visible */
+    overflow: visible;
+    /* hace lo que desborde, no se vea */
+    overflow: hidden;
+    /* hace que se pueda scrollear */
+    overflow: scroll;
+    /* no aparecen las barras de scroll */
+    overflow: auto;
+
+    /* te detecta que va a desbordar y te pone ... */
+    text-overflow: ellipsis;
+    /* te detecta recorta donde acabe */
+    text-overflow: clip;
+}
+
+
+
+
+
+
+/* La magia del position: propiedades de CSS sirven para posicionar un elemento dentro de la página. */
+section {
+    border: 5px solid black;
+    width: 250px;
+    height: 250px;
+    box-sizing: border-box;
+    /* como se posicionan las cosas por defecto */
+    position: static;
+}
+
+.container {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    /* posicionar un elemento de manera absoluta con respecto a todo el documento */
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* creamos un punto realtivo para que cualquiera de nuestros hijos pueda tomarlo como ejemplo */
+    position: relative;
+
+}
+
+body {
+    background-color: rgb(red, green, blue);
+}
+
+
+
+
+
+
+
+/* fixed */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+section {
+    border: 5px solid black;
+    width: 250px;
+    height: 250px;
+    box-sizing: border-box;
+    /* como se posicionan las cosas por defecto */
+    position: static;
+}
+
+.container {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    /* se utiliza para posicionar un elemento de manera fija en la ventana del navegador */
+    position: fixed;
+    top: 0;
+    right: o;
+
+}
+
+body {
+    background-color: rgb(red, green, blue);
+}
+
+/* para un chatbot podría ser interesante, porque es fijo abajo */
+
+
+
+
+
+
+/* sitcky */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+section {
+    border: 5px solid black;
+    width: 250px;
+    height: 250px;
+    box-sizing: border-box;
+    /* como se posicionan las cosas por defecto */
+    position: static;
+}
+
+.container {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    /* se queda pegado al contenedor, hasta que alcanza un cierto punto mientras el usuario hace scroll que "se lo come"*/
+    position: sticky;
+    top: 0;
+    right: o;
+
+}
+
+body {
+    background-color: rgb(red, green, blue);
+}
+
+
+
+
+
+
+/* z-index */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+/* <sections className="parent"><div className:"container"><div/></sections> */
+.parent {
+    border: 5px solid black;
+    width: 250px;
+    height: 500;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.container {
+    background-color: blue;
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    right: 0;
+    /* apilamiento de elementos, podemos establecer que capa queremos que esté por encima */
+    z-index: 2;
+}
+
+body {
+    background-color: rgb(red, green, blue);
+}
+
+
+
+
+
+
+/* Flexbox */
+/* <section class: "container">
+    <div class="item">1</div>
+    <div class="item"2</div>
+    <div class="item">3</div>
+<section> */
+
+.body {}
+
+.parent {
+    /* establecer la visualización de un elemento como un bloque. */
+    display: block;
+    /* se utiliza para establecer la visualización de un elemento como un elemento en línea */
+    display: inline;
+    /* se utiliza para establecer un contenedor como un contenedor flexible, lo que activa el modelo de diseño flexible de CSS en sus elementos secundarios */
+    display: flex;
+    /* establecer la dirección principal en la que se colocan los elementos secundarios (hijos) dentro de un contenedor flexible */
+    /* los elementos secundarios se colocan en filas horizontales dentro del contenedor flexible. La dirección principal es horizontal, y los elementos se colocan de izquierda a derecha. */
+    flex-direction: row;
+    /* los elementos secundarios se colocan en columnas verticales. */
+    flex-direction: column;
+    /* indica que los elementos secundarios no deben envolverse y, por lo tanto, deben permanecer en una sola línea */
+    /* por defecto es nowrap */
+    flex-wrap: nowrap;
+}
+
+.item {
+    border: 1px solid;
+    opacity: .9;
+    width: 100px;
+    height: 100px;
+    background-color: #09f;
+
+
+    /* valores por defecto */
+    /* los elementos lo crecen */
+    flex-grow: 0;
+    /* los elementos pueden reducir su tamañi a uno más pequeño que su flex-basis */
+    flex-shrink: 1;
+    /* los elementos tienen un tamaño base en auto */
+    flex-basis: auto;
+    /*  que se ajuste automaticamente */
+    flex: auto;
+    /* */
+    flex: 1;
+}
+
+.item:first-child {
+    background-color: yellow;
+}
+
+.item:last-child {
+    background-color: red;
+}

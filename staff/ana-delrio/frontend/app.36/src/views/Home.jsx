@@ -138,8 +138,6 @@ function Home(props) {
 
                         setPosts(posts)
                         setView(null)
-
-                        window.scrollTo(0, 0)
                     })
                 } catch (error) {
                     alert(error.message)
@@ -150,7 +148,37 @@ function Home(props) {
         }
     }
 
+    function handleToggleLikePostClick(postId) {
+        try {
+            logic.toggleLikePost(postId, error => {
+                if (error) {
+                    alert(error.message)
 
+                    return
+                }
+
+                refreshPosts()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    function handleToggleFavPostClick(postId) {
+        try {
+            logic.toggleFavPost(postId, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                refreshPosts()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     function handleFavPostsClick(event) {
         event.preventDefault()
@@ -174,11 +202,11 @@ function Home(props) {
     }
 
     return <div>
-        <header className="header">
+        <header className="home-header">
             <h1><Link href="" onClick={handleHomeClick}>Home</Link></h1>
 
             <div>
-                <Link href="" onClick={handleProfileClick}>{name}</Link> <Link href="" onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout</Button>
+                <Button onClick={handleNewPostClick}>+</Button> <Link href="" onClick={handleProfileClick}>{name}</Link> <Link href="" onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout</Button>
             </div>
         </header>
 
@@ -214,33 +242,29 @@ function Home(props) {
             </form>
         </div>}
 
-        {(view === null || view === 'new-post') && posts !== null && <div className="posts">
+        {view === 'new-post' && <div className="container">
+            <h2>New post</h2>
+
+            <form className="form" onSubmit={handleNewPostSubmit}>
+                <label htmlFor="image-input">Image</label>
+                <input className="input" type="url" id="image-input" />
+
+                <label htmlFor="text-input">Text</label>
+                <input className="input" type="text" id="text-input" />
+
+                <Button type="submit">Post</Button>
+                <Button onClick={handleCancelNewPostClick}>Cancel</Button>
+            </form>
+        </div>}
+
+        {(view === null || view === 'new-post') && posts !== null && <div>
             {posts.map((post) => <Post key={post.id} post={post}
-                onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} />)}
+                onToggleLikeClick={handleToggleLikePostClick} onToggleFavClick={handleToggleFavPostClick} />)}
         </div>}
 
-        {view === 'favs' && favs !== null && <div className="posts">
-            {favs.map((post) => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} />)}
+        {view === 'favs' && favs !== null && <div>
+            {favs.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleToggleLikePostClick} onToggleFavClick={handleToggleFavPostClick} />)}
         </div>}
-
-        <footer className="footer">
-            {view === 'new-post' && <div className="container new-post">
-                <h2>New post</h2>
-
-                <form className="form" onSubmit={handleNewPostSubmit}>
-                    <label htmlFor="image-input">Image</label>
-                    <input className="input" type="url" id="image-input" />
-
-                    <label htmlFor="text-input">Text</label>
-                    <input className="input" type="text" id="text-input" />
-
-                    <Button type="submit">Post</Button>
-                    <Button onClick={handleCancelNewPostClick}>Cancel</Button>
-                </form>
-            </div>}
-
-            {view !== "new-post" && <Button onClick={handleNewPostClick}>+</Button>}
-        </footer>
     </div>
 }
 
