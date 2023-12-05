@@ -36,6 +36,9 @@ function Posts({ loadPosts, stamp }) {
     return <div className="posts">
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
         {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} />)}
+        {/* con React necesitamos crear una Key para renderizar una lista de
+         elementos. Esta lista de elementos se renderiza con .map, porque .map
+         devuelve un arrays */}
     </div>
 
 }

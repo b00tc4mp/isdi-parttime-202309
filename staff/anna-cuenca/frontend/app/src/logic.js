@@ -108,7 +108,7 @@ class Logic {
   }
 
   // ESTO FUNCIONABA ANTES DE LOS CALLBACKS HELL
-  hangeUserPassword(newPassword, newPasswordConfirm, password) {
+  changeUserPassword(newPassword, newPasswordConfirm, password) {
     validateText(newPassword, "new password")
     validateText(newPasswordConfirm, "new password confirm")
     validateText(password, "password")

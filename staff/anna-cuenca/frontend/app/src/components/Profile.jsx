@@ -1,4 +1,5 @@
 import { Button, Form } from '../library'
+import logic from '../logic'
 
 export default function Profile() {
 

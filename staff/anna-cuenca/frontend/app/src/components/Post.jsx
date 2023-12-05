@@ -80,7 +80,14 @@ function Post(props) {
 
     function handleEditClick() {
 
-        setEditTextPost('edit-text-post')
+        if (editTextPost === null) {
+
+            setEditTextPost('edit-text-post')
+        } else {
+            setEditTextPost(null)
+        }
+
+
 
     }
 
@@ -122,6 +129,9 @@ function Post(props) {
             <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>
             {post.author.id === logic.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
             {post.author.id === logic.sessionUserId && <Button onClick={handleEditClick}> 🖍</Button>}
+
+            {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
+             de like, {post.liked ? '❤️' : '🤍'} {post.likes.length}  eso son los children */}
 
         </div>
 

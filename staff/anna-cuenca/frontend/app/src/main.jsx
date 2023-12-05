@@ -10,3 +10,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>,
 )
+
+// Es el punto de entrada de nuestra app, desde donde se construye nuestra app,
+// es el primer archivo que se carga
