@@ -1,6 +1,6 @@
 import { validateText } from "./utils/validators"
 import db from "./data/db"
-import asyncDelay from "./utils/asyncDelay"
+import randomDelay from "./utils/randomDelay"
 import { User, Post } from "./data/models"
 
 
@@ -52,10 +52,10 @@ class Logic {
     }
 
     logoutUser(callback) {
-        asyncDelay(() => {
+        randomDelay(() => {
             this.sessionUserId = null
             callback(null)
-        }, 0.9)
+        })
     }
 
     retrieveUser(callback) {
@@ -74,41 +74,64 @@ class Logic {
         })
     }
 
-    changeUserEmail(newEmail, newEmailConfirm, password) {
+    changeUserEmail(newEmail, newEmailConfirm, password, callback) {
         validateText(newEmail, 'new email')
         validateText(newEmailConfirm, 'new email confirm')
         validateText(password, 'password')
 
-        const user = db.users.findById(this.sessionUserId)
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                callback(error)
+                return
+            }
 
-        if (!user || user.password !== password)
-            throw new Error('wrong credentials')
+            if (!user || user.password !== password)
+                throw new Error('wrong credentials')
 
-        if (newEmail !== newEmailConfirm)
-            throw new Error('new email and its confirmation do not match')
+            if (newEmail !== newEmailConfirm)
+                throw new Error('new email and its confirmation do not match')
 
-        user.email = newEmail
+            user.email = newEmail
 
-        db.users.update(user)
+            db.users.update(user)
+            callback(null, user)
+
+        })
+
 
     }
 
-    changeUserPassword(newPassword, newPasswordConfirm, password) {
+    changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
         validateText(newPassword, 'new password')
         validateText(newPasswordConfirm, 'new password confirm')
         validateText(password, 'password')
 
-        const user = db.users.findById(this.sessionUserId)
+        db.users.findById(this.sessionUserId, (error, user) => {
+            if (error) {
+                callback(error)
+                return
+            }
 
-        if (!user || user.password !== password)
-            throw new Error('wrong credentials')
+            if (!user || user.password !== password)
+                throw new Error('wrong credentials')
 
-        if (newPassword !== newPasswordConfirm)
-            throw new Error('new password and its confirmation do not match')
+            if (newPassword !== newPasswordConfirm)
+                throw new Error('new password and its confirmation do not match')
 
-        user.password = newPassword
+            user.password = newPassword
 
-        db.users.update(user)
+            db.users.update(user, error => {
+                if (error) {
+                    callback(error)
+                    return
+                }
+
+                callback(null)
+            })
+
+            callback(null, user)
+        })
+
     }
 
     retrievePosts(callback) {
@@ -161,7 +184,7 @@ class Logic {
         return posts.filter(post => user.favs.includes(post.id))
     }
     */
-    retrieveFavPosts() {
+    /*retrieveFavPosts() {
         //TODO
         const user = db.users.findById(this.sessionUserId)
 
@@ -186,7 +209,7 @@ class Logic {
 
 
         return favPosts
-    }
+    }*/
 
     publishPost(image, text, callback) {
         validateText(image, 'image')
@@ -232,6 +255,39 @@ class Logic {
         })
     }
 
+    updatePostText(postId, text, callback) {
+        validateText(postId, 'post id')
+        validateText(text, 'text')
+
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+                return
+            }
+
+            if (!post) {
+                callback(new Error('Post not found'))
+                return
+            }
+
+            if(post.author !== this.sessionUserId) {
+                callback(new Error ('Post does not belong to user'))
+                return
+            }
+
+            post.text = text
+
+            db.posts.update(post, error => {
+                if (error) {
+                    callback(error)
+                    return
+                }
+            
+                callback(null)
+            })
+        })
+    }
+
     toggleFavPost(postId, callback) {
         validateText(postId, 'post id')
 
@@ -257,10 +313,10 @@ class Logic {
                     return
                 }
 
-                const index = user.favs.indexOf(postId)
+                const index = user.favs.indexOf(post.id)
 
                 if (index < 0)
-                    user.favs.push(postId)
+                    user.favs.push(post.id)
                 else
                     user.favs.splice(index, 1)
 
@@ -295,14 +351,14 @@ class Logic {
                 return
             }
 
-            user.favs.forEach(postId => {
+            user.favs.forEach((postId, index) => {
                 db.posts.findById(postId, (error, post) => {
                     if (error) {
                         callback(error)
                         return
                     }
 
-                    favs.push(post)
+                    favs[index] = post
                     count++
 
                     if (count === user.favs.length) {
