@@ -1,4 +1,5 @@
 import logic from "../logic"
+const isLoginPage = true
 
 
 import { Button, Form, Link, Field, Container } from '../library'
@@ -37,16 +38,18 @@ function Login(props) {
     }
 
 
-    return <Container>
-        <h2>Neverland Island</h2>
+    return <div className="container-login-principal">
+        <Container className="container-body-login">
+            <h1 id="login-tittle">Neverland Island</h1>
 
-        <Form onSubmit={handleSubmit}>
-            <Field forId="email-input" id="email-input" type="email">E-mail</Field>
-            <Field forId="password-input" id="password-input" type="password">Password</Field>
-            <Button className="-login" type="submit">Login</Button>
-        </Form>
-        <Link onClick={handleRegisterClick}>Register</Link>
-    </Container>
+            <Form onSubmit={handleSubmit} id="form-login">
+                <Field forId="email-input" id="email-input" type="email">E-mail</Field>
+                <Field forId="password-input" id="password-input" type="password">Password</Field>
+                <Button className="-login" type="submit">Login</Button>
+            </Form>
+            <Link id="register-link" onClick={handleRegisterClick}>Register</Link>
+        </Container>
+    </div>
 }
 
 export default Login

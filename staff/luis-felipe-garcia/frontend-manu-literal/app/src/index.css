@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
 * {
   font-family: Inter;
   font-size: 1rem;
@@ -10,8 +11,10 @@ html {
   scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   margin: 0;
+  height: 100%;
 }
 
 /* variables */
@@ -23,7 +26,24 @@ html, body {
   margin-top: 3.5rem;
 }
 
-.container-change-email, .container-change-password {
+.container-login-principal {
+  background-image: url(https://e0.pxfuel.com/wallpapers/419/93/desktop-wallpaper-peter-pan-by-untamedunwanted-peter-pan-peter-pan-disney-peter-pan-art-peter-pan-flying.jpg);
+  background-size: cover;
+  background-position: bottom right;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-body-login {
+  background-position: bottom right;
+  background-color: transparent;
+  margin-top: 0;
+}
+
+.container-change-email,
+.container-change-password {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +55,10 @@ html, body {
   max-width: 280px;
   min-width: 220px;
   gap: 5px;
+}
+
+.form-login {
+  background-color: transparent;
 }
 
 .container-buttons {
@@ -53,6 +77,15 @@ html, body {
   padding: 5px;
 }
 
+#login-tittle,
+#email-input,
+#password-input,
+.label,
+#register-link,
+#form-login {
+  background-color: transparent;
+}
+
 .button {
   border: 2px solid black;
   border-radius: 5px;
@@ -61,6 +94,7 @@ html, body {
   min-width: 40px;
   max-height: 30px;
 }
+
 .button-login {
   background-color: white;
   color: black;
@@ -77,13 +111,15 @@ html, body {
   text-decoration: none;
   color: white;
 }
+
 .link:visited {
-  color: black;
+  color: white;
 }
 
 .text-menu::before {
   content: "[ ";
 }
+
 .text-menu::after {
   content: " ]";
 }
@@ -99,6 +135,7 @@ html, body {
   display: flex;
   justify-content: center;
 }
+
 .header-content {
   max-width: 320px;
   display: flex;
@@ -118,10 +155,12 @@ html, body {
   margin-bottom: 20px;
   max-width: 320px;
 }
+
 .post-image {
   width: 100%;
   border-radius: 5px;
 }
+
 .post-actions {
   display: flex;
   justify-content: space-between;
@@ -129,11 +168,13 @@ html, body {
   width: 100%;
   gap: 1rem;
 }
+
 .post-author {
   display: flex;
   justify-content: flex-end;
   width: 100%;
 }
+
 .post-comment {
   margin: 0;
   width: 100%;
@@ -154,12 +195,14 @@ html, body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (min-width: 1024px) {
   .posts {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 .footer {
   background-color: black;
   display: flex;
@@ -172,16 +215,10 @@ html, body {
   min-height: 3rem;
 }
 
-.body-login {
-  background-image: url(https://e0.pxfuel.com/wallpapers/419/93/desktop-wallpaper-peter-pan-by-untamedunwanted-peter-pan-peter-pan-disney-peter-pan-art-peter-pan-flying.jpg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  color: white;
-}
-
 .icons {
   max-width: 30px;
 }
+
 .icons-delete {
   max-height: 25px;
 }
