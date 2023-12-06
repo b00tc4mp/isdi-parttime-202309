@@ -22,7 +22,7 @@ const CSV = require('./utils/CSV')
 
 
 //const CSV = require('./CSV')
-CSV.loadAsObject('./data/posts.csv', (error, posts) => {
+CSV.loadAsObject('./posts.csv', (error, posts) => {
     if (error) {
         console.log(error)
         return
