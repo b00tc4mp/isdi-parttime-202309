@@ -159,7 +159,10 @@ class Logic {
                             return
                         }
 
-                        post.author = author.name
+                        post.author = {
+                            id: author.id,
+                            name: author.name
+                        }
 
                         post.fav = user.favs.includes(post.id)
 
@@ -187,42 +190,6 @@ class Logic {
 
             callback(null)
         })
-    }
-
-    toggleLikePost(postId, callback) {
-        validateText(postId, 'post id')
-
-        db.posts.findById(postId, (error, post) => {
-            if (error) {
-                callback(error)
-
-                return
-            }
-
-            if (!post) {
-                callback(new Error('post not found'))
-
-                return
-            }
-
-            const index = post.likes.indexOf(this.sessionUserId)
-
-            if (index < 0)
-                post.likes.push(this.sessionUserId)
-            else
-                post.likes.splice(index, 1)
-
-            db.posts.update(post, error => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                callback(null)
-            })
-        })
-
     }
 
     toggleFavPost(postId, callback) {
@@ -337,6 +304,44 @@ class Logic {
                 })
             })
 
+        })
+    }
+
+    updatePostText(postId, text, callback) {
+        validateText(postId, 'post id')
+        validateText(text, 'text')
+        //TODO validate callback
+
+        db.posts.findById(postId, (error, post) => {
+            if (error) {
+                callback(error)
+
+                return
+            }
+
+            if (!post) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            if (post.author !== this.sessionUserId) {
+                callback(new Error('post does not belong to user'))
+
+                return
+            }
+
+            post.text = text
+
+            db.posts.update(post, error => {
+                if (error) {
+                    callback(error)
+
+                    return
+                }
+
+                callback(null)
+            })
         })
     }
 }
