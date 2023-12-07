@@ -1,13 +1,16 @@
+import { useState } from "react"
 
-
-import { Button } from "../library"
+import { Button, Form, Field } from "../library"
 
 import logic from "../logic"
 
-function Post(props) {
-    const post = props.post
 
-    function handleToggleLikeClick() {
+function Post({ post, onToggleLikeClick, onToggleFavClick, onPostTextUpdate }) {
+    console.log('Post')
+
+    const [view, setView] = useState(null)
+
+    const handleToggleLikeClick = () => {
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
@@ -16,14 +19,14 @@ function Post(props) {
                     return
                 }
 
-                props.onToggleLikeClick()
+                onToggleLikeClick()
             })
         } catch (error) {
             alert(error.message)
         }
     }
 
-    function handleToggleFavClick() {
+    const handleToggleFavClick = () => {
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
@@ -32,7 +35,32 @@ function Post(props) {
                     return
                 }
 
-                props.onToggleFavClick()
+                onToggleFavClick()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    const handleEditClick = () => setView('edit')
+
+    const handleEditCancelClick = () => setView(null)
+
+    const handleEditSubmit = event => {
+        event.preventDefault()
+
+        const text = event.target.text.value
+
+        try {
+            logic.updatePostText(post.id, text, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostTextUpdate()
+                setView(null)
             })
         } catch (error) {
             alert(error.message)
@@ -40,12 +68,23 @@ function Post(props) {
     }
 
     return <article key={post.id} className="post">
-        <h2>{post.author}</h2>
+        <h2>{post.author.name}</h2>
+
         <img className="post-image" src={post.image} />
-        <p>{post.text}</p>
+
+        {view === null && <p>{post.text}</p>}
+
+        {view === 'edit' && <Form onSubmit={handleEditSubmit}>
+            <Field id="text" value={post.text} />
+            <Button type="submit">Save</Button>
+            <Button onClick={handleEditCancelClick}>Cancel</Button>
+        </Form>}
+
+
         <div className="post-actions">
             <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
             <Button onClick={handleToggleFavClick}>{post.fav ? '⭐️' : '✩'}</Button>
+            {logic.sessionUserId === post.author.id && view === null && <Button onClick={handleEditClick}>{'✏️'}</Button>}
         </div>
     </article>
 }
