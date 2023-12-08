@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="wclassth=device-wclassth, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .panel {
+        background-color: lightgrey;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin: 1rem;
+
+    }
+
+    .panel--warn {
+        background-color: yellow;
+    }
+
+    .panel--error {
+        background-color: red;
+        color: white
+        
+    }
+
+    .panel__subject {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .panel__body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    }
+
+    .panel__buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+    }
+
+    .button {
+        padding: .5rem;
+        border-radius: .5rem;
+        border: 0;
+        cursor: pointer;
+        font-size: 1rem;
+
+    }
+
+    .button:hover {
+        background-color: snow;
+    }
+
+    .button--acept {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .button--acept:hover {
+        color: black;
+    }
+    
+</style>
+
+<body>
+    <div class="panel">
+        <h2 class="panel__subject">Hello world !</h2>
+        <p class="panel__body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. In veritatis voluptate
+            dignissimos ut soluta, dolorem, nulla omnis eius tempore eum quaerat laudantium. Earum, rerum quos.
+            Blanditiis porro quam harum quo.</p>
+        <div class="panel__buttons">
+            <button class="button button--cancel">Cancel</button>
+            <button class="button button--acept">Acept</button>
+
+        </div>
+    </div>
+
+    <div class="panel panel--warn">
+        <h2 class="panel__subject">Hello world !</h2>
+        <p class="panel__body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. In veritatis voluptate
+            dignissimos ut soluta, dolorem, nulla omnis eius tempore eum quaerat laudantium. Earum, rerum quos.
+            Blanditiis porro quam harum quo.</p>
+    </div>
+
+    <div class="panel panel--error">
+        <h2 class="panel__subject">Hello world !</h2>
+        <p class="panel__body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. In veritatis voluptate
+            dignissimos ut soluta, dolorem, nulla omnis eius tempore eum quaerat laudantium. Earum, rerum quos.
+            Blanditiis porro quam harum quo.</p>
+    </div>
+
+</body>
+
+</html>
