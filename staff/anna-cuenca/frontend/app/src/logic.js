@@ -88,43 +88,83 @@ class Logic {
     })
   }
 
-  // ESTO FUNCIONABA ANTES DE LOS CALLBACKS HELL
-  changeUserEmail(newEmail, newEmailConfirm, password) {
+  // YA FUNCIONA :D
+  changeUserEmail(newEmail, newEmailConfirm, password, callback) {
     validateText(newEmail, "new email")
     validateText(newEmailConfirm, "new email confirm")
     validateText(password, "password")
 
-    const user = db.users.findById(this.sessionUserId)
+    db.users.findById(this.sessionUserId, (error, user) => {
+      if (error) {
+        callback(error)
 
-    if (!user || user.password !== password)
-      throw new Error("wrong credentials")
+        return
+      }
 
-    if (newEmail !== newEmailConfirm)
-      throw new Error("new email and its confirmation do not match")
+      if (!user || user.password !== password) {
+        callback(new Error("wrong credentials"))
 
-    user.email = newEmail
+        return
+      }
 
-    db.users.update(user)
+      if (newEmail !== newEmailConfirm) {
+        callback(new Error("new email and its confirmation do not match"))
+
+        return
+      }
+
+      user.email = newEmail
+
+      db.users.update(user, (error) => {
+        if (error) {
+          callback(error)
+
+          return
+        }
+
+        callback(null) // por qué llegados a este punto, el valor de callback es undefined??
+      })
+    })
   }
 
   // ESTO FUNCIONABA ANTES DE LOS CALLBACKS HELL
-  changeUserPassword(newPassword, newPasswordConfirm, password) {
+  changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
     validateText(newPassword, "new password")
     validateText(newPasswordConfirm, "new password confirm")
     validateText(password, "password")
 
-    const user = db.users.findById(this.sessionUserId)
+    db.users.findById(this.sessionUserId, (error, user) => {
+      if (error) {
+        callback(error)
+        return
+      }
 
-    if (!user || user.password !== password)
-      throw new Error("Wrong credentials")
+      if (!user || user.password !== password) {
+        callback(new Error("Wrong credentials"))
+        return
+      }
 
-    if (newPassword !== newPasswordConfirm)
-      throw new Error("New password and its confirmation do not match")
+      if (newPassword !== newPasswordConfirm) {
+        callback(new Error("New password and its confirmation do not match"))
+        return
+      }
+      user.password = newPassword
+      db.users.update(user, (error) => {
+        if (error) {
+          callback(error)
+          return
+        }
+        callback(null)
+      })
 
-    user.password = newPassword
-
-    db.users.update(user)
+    })
   }
+
+
+
+
+
+
 
   retrievePosts(callback) {
     db.users.findById(this.sessionUserId, (error, user) => {

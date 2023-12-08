@@ -105,7 +105,7 @@ function Home(props) {
                 <Button onClick={handleLogoutClick}>Logout</Button>
             </div>
         </header>
-        {view === 'profile' && <Profile />}
+        {view === 'profile' && <Profile onSuccess={() => setView(null)} />}
 
         {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}

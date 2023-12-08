@@ -1,7 +1,8 @@
-import { Button, Form } from '../library'
+import { Button, Form, Field } from '../library'
 import logic from '../logic'
 
-export default function Profile() {
+
+export default function Profile(props) {
 
     console.log('Profile')
 
@@ -18,11 +19,19 @@ export default function Profile() {
         const newPasswordConfirm = newPasswordConfirmInput.value
 
         try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password)
+            logic.changeUserPassword(newPassword, newPasswordConfirm, password, (error) => {
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                alert("Password changed")
+                event.target.reset()
+                props.onSuccess();
 
-            alert("Password changed")
+            })
 
-            setView(null)
+
+            // setView(null) // tengo que cambiar estofs
         } catch (error) {
             alert(error.message)
         }
@@ -40,11 +49,20 @@ export default function Profile() {
         const password = passwordInput.value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password)
+            logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
+                if (error) {
+                    alert(error.message)
+                    return
+                }
+                alert("E-mail changed")
+                event.target.reset() // limpia los campos
 
-            alert("E-mail changed")
+                //quita la vista :D
+                props.onSuccess();
 
-            setView(null)
+
+            })
+
         } catch (error) {
             alert(error.message)
         }
@@ -54,14 +72,10 @@ export default function Profile() {
         <h2>Update e-mail</h2>
 
         <Form onSubmit={handleChangeEmailSubmit}>
-            <label htmlFor="new-email-input">New e-mail</label>
-            <input className="input" id="new-email-input" type="email" />
+            <Field id="new-email-input" type="email">New e-mail</Field>
+            <Field id="new-email-confirm-input" type="email">Confirm new e-mail</Field>
+            <Field id="password-input" type="password">Password</Field>
 
-            <label htmlFor="new-email-confirm-input">Confirm new e-mail</label>
-            <input className="input" id="new-email-confirm-input" type="email" />
-
-            <label htmlFor="password-input">Password</label>
-            <input className="input" type="password" id="password-input" />
 
             <Button type="submit">Update e-mail</Button>
         </Form>
@@ -69,14 +83,10 @@ export default function Profile() {
         <h2>Update password</h2>
 
         <Form onSubmit={handleChangePasswordSubmit}>
-            <label htmlFor="password-input">Current password</label>
-            <input className="input" type="password" id="password-input" />
+            <Field id="password-input" type="password">Current password</Field>
+            <Field id="new-password-input" type="password">New password</Field>
+            <Field id="new-password-confirm-input" type="password">Confirm new password</Field>
 
-            <label htmlFor="new-password-input">New password</label>
-            <input className="input" id="new-password-input" type="password" />
-
-            <label htmlFor="new-password-confirm-input">Confirm new password</label>
-            <input className="input" id="new-password-confirm-input" type="password" />
 
             <Button type="submit">Update password</Button>
         </Form>
