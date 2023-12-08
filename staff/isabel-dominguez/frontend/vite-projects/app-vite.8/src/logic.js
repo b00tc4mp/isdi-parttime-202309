@@ -495,31 +495,6 @@ class Logic {
         })
 
     }
-
-    commentPost(PostId, comment, callback) {
-        validateText(PostId, 'post id')
-        validateText(comment, 'comment')
-
-        db.posts.findById(PostId, (error, post) => {
-            if (error) {
-                return callback(error)
-            }
-
-            if (!post) {
-                return callback(new Error('Post not found'));
-            }
-
-            post.addComment(comment)
-
-            db.posts.update(post, updateError => {
-                if (updateError) {
-                    return callback(updateError)
-                }
-
-                callback(null)
-            })
-        })
-    }
 }
 
 const logic = new Logic

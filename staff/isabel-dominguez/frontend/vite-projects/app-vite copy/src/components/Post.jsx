@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Form, Field, Container } from "../library"
+import { Button, Form, Field } from "../library"
 import logic from "../logic"
 
 const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment }) => {
@@ -125,13 +125,13 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 <Button onClick={handleCommentCancel}>Cancel</Button>
             </Form>}
 
-            {post.comments && post.comments.length > 0 && <Container className="post-comments">
+            {post.comments && post.comments.length > 0 && <div className="post-comments">
                 <ul>
                     {post.comments.map((comment, index) => (
                         <li key={index}>{comment}</li>
                     ))}
                 </ul>
-            </Container>}
+            </div>}
 
             <div>
                 {view === null && <Button onClick={() => handleLikeClick(post.id)}>{post.liked ? "❤️" : "🤍"} {post.likes.length} </Button>}

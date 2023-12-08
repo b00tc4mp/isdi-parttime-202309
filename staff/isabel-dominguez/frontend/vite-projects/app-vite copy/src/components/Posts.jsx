@@ -32,8 +32,6 @@ const Posts = ({ loadPosts, stamp }) => {
     return <Container className="posts">
         {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleDeleteClick={refreshPosts} onToggleEditClick={refreshPosts} onPostComment={refreshPosts} />)}
     </Container>
-
 }
-
 
 export default Posts

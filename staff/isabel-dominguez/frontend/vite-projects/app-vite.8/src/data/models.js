@@ -9,17 +9,12 @@ class User {
 }
 
 class Post {
-    constructor(id, author, image, text, likes, comments = []) {
+    constructor(id, author, image, text, likes) {
         this.id = id
         this.author = author
         this.image = image
         this.text = text
         this.likes = likes
-        this.comments = comments
-    }
-
-    addComment(comment) {
-        this.comments.push(comment);
     }
 }
 

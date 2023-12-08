@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { Button, Form, Field, Container } from "../library"
+import { Button, Input, Form, Field } from "../library"
 import logic from "../logic"
 
-const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment }) => {
+function Post({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick }) {
     const [view, setView] = useState(null)
-    const [comment, setComment] = useState(null)
 
-    const handleLikeClick = (postId) => {
+    function handleLikeClick(postId) {
         try {
             logic.toggleLikePost(postId, error => {
                 if (error) {
@@ -22,7 +21,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         }
     }
 
-    const handleFavPostClick = (postId) => {
+    function handleFavPostClick(postId) {
         try {
             logic.toggleFavPost(postId, error => {
                 if (error) {
@@ -38,7 +37,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         }
     }
 
-    const handleDeletePostClick = (postId) => {
+    function handleDeletePostClick(postId) {
         if (confirm("Are you sure you want to delete this post?")) {
 
             try {
@@ -58,6 +57,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
     }
 
     const handleEditClick = () => setView("edit")
+
     const handleEditCancelClick = () => setView(null)
 
     const handleEditSubmit = event => {
@@ -81,32 +81,6 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         }
     }
 
-    const handleCommentClick = () => setComment('new comment')
-    const handleCommentCancel = () => setComment(null)
-
-    const handleCommentSubmit = (event) => {
-        event.preventDefault()
-
-        const newComment = event.target.text.value
-
-        try {
-
-            logic.commentPost(post.id, newComment, error => {
-                if (error) {
-                    alert(error.message)
-
-                    return
-                }
-
-                onPostComment()
-                setComment(null)
-            })
-
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return (
         <article className="post">
             <h2 className="post-author">{post.author.name}</h2>
@@ -119,26 +93,11 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 <Button onClick={handleEditCancelClick}>Cancel</Button>
             </Form>}
 
-            {comment === 'new comment' && <Form onSubmit={handleCommentSubmit}>
-                <Field id="text" value={comment}></Field>
-                <Button type="submit">Publish</Button>
-                <Button onClick={handleCommentCancel}>Cancel</Button>
-            </Form>}
-
-            {post.comments && post.comments.length > 0 && <Container className="post-comments">
-                <ul>
-                    {post.comments.map((comment, index) => (
-                        <li key={index}>{comment}</li>
-                    ))}
-                </ul>
-            </Container>}
-
             <div>
                 {view === null && <Button onClick={() => handleLikeClick(post.id)}>{post.liked ? "❤️" : "🤍"} {post.likes.length} </Button>}
                 {view === null && <Button onClick={() => handleFavPostClick(post.id)}>{post.fav ? "✅" : "☑️"} </Button>}
                 {post.author.id === logic.sessionUserId && view === null && <Button onClick={() => handleEditClick(post.id)}>✏️</Button>}
                 {post.author.id === logic.sessionUserId && view === null && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
-                {view === null && <Button onClick={handleCommentClick}>💭</Button>}
             </div>
         </article>
     )
