@@ -83,12 +83,16 @@ function Post(props) {
         if (editTextPost === null) {
 
             setEditTextPost('edit-text-post')
-        } else {
-            setEditTextPost(null)
+            // } else {
+            //     setEditTextPost(null)
         }
 
 
 
+    }
+
+    function handleCancelEdit() {
+        setEditTextPost(null)
     }
 
     function handleToggleDeletePostClick() {
@@ -139,7 +143,8 @@ function Post(props) {
 
             {editTextPost === 'edit-text-post' && <Form onSubmit={handleEditSubmit}>
                 <Input id="text"></Input>
-                <Button type='onSubmit'>👍🏼</Button>
+                <Button type='onSubmit'>Save</Button>
+                <Button onClick={handleCancelEdit}>Cancel</Button>
 
             </Form>}
 
