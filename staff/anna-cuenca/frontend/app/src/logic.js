@@ -127,7 +127,7 @@ class Logic {
     })
   }
 
-  // ESTO FUNCIONABA ANTES DE LOS CALLBACKS HELL
+
   changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
     validateText(newPassword, "new password")
     validateText(newPasswordConfirm, "new password confirm")
