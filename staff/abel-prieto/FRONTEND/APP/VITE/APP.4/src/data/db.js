@@ -71,7 +71,7 @@ db.users.insert(new User(null, "Wendy Darling", "wendy@darling.com", "123123123"
                       "https://pecadosdeleden.files.wordpress.com/2015/05/toystoryparaimprimir9.png?w=1200",
                       "El gancho!",
                       [],
-                      []
+                      ["hehe"]
                     ), () => {
                       db.posts.insert(new Post(
                         null,

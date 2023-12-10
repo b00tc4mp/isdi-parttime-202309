@@ -527,6 +527,7 @@ class Logic {
         })
     }
 
+    // COMMENT TEXT POSTS
     toggleCommentPostText(postId, comment, callback) {
         validateText(postId, "post id")
         validateText(comment, "comment")
@@ -544,7 +545,8 @@ class Logic {
                 return
             }
             
-            post.coments = comment
+            post.coments.push(comment);
+
 
             db.posts.update(post, error => {
                 if (error) {

@@ -165,7 +165,7 @@ function Post(props) {
             </div>
             <div>
                 {post.coments.length
-                    ? <p>{name + ": " + post.coments}</p>
+                    ? <p>{name + ": " + post.coments + "  -  " + new Date().toLocaleDateString()}</p>
                     : <input className="post-comments" id="text-comment" placeholder="Escribe un comentario" type="text" style={{ borderStyle: inputBorder }}></input>}
             </div>
             <div className="buttons-post">
