@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="validator.js" defer></script>
+    <script src="data.js" defer></script>
+    <script src="logic.js" defer></script>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><!-->
+    <title>ISDI Page</title>
+</head>
+
+<body>
+
+    <div id="register">
+        <h1>Sign Up</h1>
+
+        <form>
+        <label for="name">Username</label>
+        <input id="name" type="text">
+
+        <br>
+
+        <label for="email">Email</label>
+        <input id="email" type="text">
+
+        <br>
+
+        <label for="password">Password</label>
+        <input id="password" type="password">
+
+        <br>
+
+        <a href="">Login</a>
+
+        <br>
+
+        <button id="register_button">Register</button>
+        </form>
+    </div>
+
+    <div id="login">
+        <h1>Log In</h1>
+
+        <form>
+        <label for="email">Email</label>
+        <input id="email" type="text">
+
+        <br>
+
+        <label for ="password">Password</label>
+        <input id="password" type="password">
+
+        <br>
+
+        <a href="">Register</a> 
+
+        <br>
+
+        <button id="login_button">Login</button>
+        </form>
+    </div>
+    
+    <div id="home">
+        <h1>HOME PAGE</h1>
+
+        <button id="home_button">Log Out</button>
+
+        <h2>Changes credentials</h2>
+
+        <form id ="select-email">
+            <h3>Change your email: </h3>
+
+            <label for="new_email">New email</label>
+            <input id="new_email" type="text">
+
+            <br>
+
+            <label for="confirm-new-email">Confirm new email</label>
+            <input id="confirm-new-email" type="text">
+
+            <br>
+
+            <label for="password">Password</label>
+            <input id="password" type="password">
+
+            <button id="change_email">Change Email</button>
+        </form>
+
+        <form id="select-password">
+            <h3>Change your password: </h3>
+
+            <label for="current_password">Actual password</label>
+            <input id="current_password" type="text">
+            
+            <br>
+            
+            <label for="new_password">New password</label>
+            <input id="new_password" type="password">
+            
+            <br>
+            
+            <label for="again_new_password">Repeat new password</label>
+            <input id="again_new_password" type="password">
+            
+            <button id="change_password">Change Password</button>
+        </form>
+        
+    </div>
+</body>
+</html>

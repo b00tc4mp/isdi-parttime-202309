@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="polyfills.js"></script>
+
+    <script src="data.js" defer></script>
+
+    <script src="validator.js" defer></script>
+    <script src="logic.js" defer></script>
+    
+    <script src="views/login.js" defer></script>
+    <script src="views/register.js" defer></script>
+    <script src="views/home.js" defer></script>
+    <script src="main.js" defer></script>
+
+    <link rel="stylesheet" href="style.css">
+    <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><!-->
+    <title>ISDI Page</title>
+</head>
+
+<body>
+
+    <div id="register" class="view">
+        <h1>Sign Up</h1>
+
+        <form class="form">
+            <label for="name">Username</label>
+            <input id="name" type="text">
+
+            <label for="email">Email</label>
+            <input id="email" type="text">
+
+            <label for="password">Password</label>
+            <input id="password" type="password">
+
+            <button id="register_button">Register</button>
+        </form>
+
+        <a href="">Login</a>
+    </div>
+
+    <div id="login" class="view">
+        <h1>Log In</h1>
+
+        <form class="form">
+            <label for="email">Email</label>
+            <input id="email" type="text">
+
+            <label for ="password">Password</label>
+            <input id="password" type="password">
+
+            <button id="login_button">Login</button>
+        </form>
+
+        <a href="">Register</a>
+    </div>
+
+    <div id="home" class="home-view">
+ 
+        <header class="home-header">
+            <h1><a href="" id="home-link">Home</a></h1>
+
+            <div>
+                <button id="new-post-button">+</button>
+                <a href="" class="profile-link" id="profile-link">Profile</a>
+                <button id="logout-button">Logout</button>
+            </div>
+        </header>
+
+        <div id="profile">
+            <h2>Changes credentials</h2>
+
+            <form id ="select-email" class="settings">
+                <h3>Change your email: </h3>
+
+                <label for="new_email">New email</label>
+                <input id="new_email" type="text">
+
+                <br>
+
+                <label for="confirm-new-email">Confirm new email</label>
+                <input id="confirm-new-email" type="text">
+
+                <br>
+
+                <label for="password">Password</label>
+                <input id="password" type="password">
+
+                <br>
+
+                <button id="change_email">Change Email</button>
+            </form>
+
+            <form id="select-password" class="settings">
+                <h3>Change your password: </h3>
+
+                <label for="current_password">Actual password</label>
+                <input id="current_password" type="text">
+
+                <br>
+
+                <label for="new_password">New password</label>
+                <input id="new_password" type="password">
+
+                <br>
+
+                <label for="again_new_password">Repeat new password</label>
+                <input id="again_new_password" type="password">
+
+                <button id="change_password">Change Password</button>
+            </form>
+
+        </div>
+
+        <div id="new-post-view" class="view">
+            <h2>New Post</h2>
+
+            <form id="new-post-form" class="form">
+                <label for="image-input">Image</label>
+                <input id="image-input" type="url">
+
+                <label for="text-input">Text</label>
+                <input id="text-input" type="text">
+
+                <button type="submit">Post</button>
+                <button id="cancel-new-post">Cancel</button>
+            </form>
+        </div>
+
+        <div id="post-view" class="view">
+            
+        </div>
+    </div>
+</body>
+</html>
