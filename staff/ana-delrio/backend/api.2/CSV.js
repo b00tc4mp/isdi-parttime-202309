@@ -1,7 +1,8 @@
+// CSV es una herramienta que vamos a usar para hacer una serie de procesos, lectura de archivos...
+
 const fs = require('fs')
-const { callbackify } = require('util')
 
-
+// lectura de datos
 function loadAsObject(file, callback) {
     fs.readFile(file, 'utf8', (error, csv) => {
         if (error) {
@@ -37,6 +38,7 @@ function loadAsObject(file, callback) {
 
 }
 
+// escritura 
 function saveFromObject(file, data, callback) {
     const fields = Object.keys(data[0])
 

@@ -7,6 +7,7 @@ function validateNumber(number, explain) {
     if (typeof number !== 'number') throw new TypeError(`${explain} is not a number`)
 }
 
+// ponemos funcktion porque la palabra function está reservada para las funciones
 function validateFunction(funktion, explain) {
     if (typeof funktion !== 'function') throw new TypeError(`${explain} is not a function`)
 }
