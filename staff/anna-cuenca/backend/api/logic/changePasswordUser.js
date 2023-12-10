@@ -1,11 +1,11 @@
 const CSV = require('../utils/CSV')
 const { validateText, validateFunction } = require('../utils/validators')
 
-function changePasswordUser(email, password, newPassword, repeatNewPassword, callback) {
+function changePasswordUser(userId, password, newPassword, repeatNewPassword, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
-    validateText(email, 'email')
+    validateText(userId, 'user id')
     validateText(password, 'password')
     validateText(newPassword, 'password')
     validateText(repeatNewPassword, 'password')
@@ -17,7 +17,7 @@ function changePasswordUser(email, password, newPassword, repeatNewPassword, cal
             return
         }
 
-        let user = users.find(user => user.email === email) // comprobamos que el usuario esté en la base de datos
+        let user = users.find(user => user.id === userId) // comprobamos que el usuario esté en la base de datos
 
 
         if (!user) {
