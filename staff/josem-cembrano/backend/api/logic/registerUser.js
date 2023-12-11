@@ -1,8 +1,14 @@
-const CSV = require('../util/CSV')
+const CSV = require('../utils/CSV')
+const generateId = require('../data/generateId')
+const { validateText, validateFunction } = require('../utils/validators')
 
 function registerUser(name, email, password, callback) {
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'password')
+    validateFunction(callback, 'callback')
 
-    CSV.loadAsObject('.data/users.csv', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
 
@@ -17,7 +23,12 @@ function registerUser(name, email, password, callback) {
             return
         }
 
-        user = { name, email, password }
+        user = {
+            id: generateId(),
+            name,
+            email,
+            password
+        }
 
         users.push(user)
 
