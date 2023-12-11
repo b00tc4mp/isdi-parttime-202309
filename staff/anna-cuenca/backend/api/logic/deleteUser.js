@@ -1,0 +1,51 @@
+const CSV = require('../utils/CSV')
+const generateId = require('../data/generateId')
+const { validateText, validateFunction } = require('../utils/validators')
+
+function deleteUser(userId, callback) {
+    // TODO validate inputs
+    // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
+
+
+    validateText(userId, 'user id')
+    validateFunction(callback, 'callback')
+
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
+        if (error) {
+            callback(error)
+            return
+        }
+
+        let user = users.find(user => user.id === userId)
+        // guardo el usuario en user si me coincide el id
+
+
+        if (!user) {
+            callback(new Error('user do not exists'))
+            return
+        }
+
+        //busco la posición de ese usuario en el array
+
+        const index = users.indexOf(user)
+
+        // una vez tengo la posición, elimino el usuario
+
+        users.splice(index, 1)
+
+
+
+        CSV.saveFromObject('./data/users.csv', users, error => {
+            if (error) {
+                callback(error)
+                return
+
+
+            }
+            callback(null, user.id)
+        })
+
+    }) //hay que hacerlo en la carpeta raiz, onde se ejecuta 
+}
+
+module.exports = deleteUser
