@@ -1,7 +1,7 @@
-const findUserById = require('./findIndexById')
+const findIndexById = require('../data/findIndexById')
 
 try {
-    findUserById('./data/users.csv','3n7rgalrgwg0', (error, index) => {
+    findIndexById('./data/users.csv', '3n7rgalrgwg0', (error, index) => {
         if (error) {
             console.error(error)
             return
@@ -14,13 +14,13 @@ try {
 }
 
 try {
-    findUserById('./data/posts.csv','post-123', (error, index) => {
+    findIndexById('./data/posts.csv', 'post-123', (error, index) => {
         if (error) {
             console.error(error)
             return
         }
         console.log('index found', index)
-        
+
     })
 } catch (error) {
     console.log(error)

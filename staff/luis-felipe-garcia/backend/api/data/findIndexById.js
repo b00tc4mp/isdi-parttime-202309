@@ -1,12 +1,12 @@
-const CVS = require(('./CSV'))
-const { validateText, validateFunction } = require('./validators')
+const CSV = require(('../utils/CSV'))
+const { validateText, validateFunction } = require('../utils/validators')
 
 function findIndexById(file, id, callback) {
     try {
         validateText(id, 'id')
         validateFunction(callback, 'callback')
 
-        CVS.loadAsObject(file, (error, documents) => {
+        CSV.loadAsObject(file, (error, documents) => {
             if (error) {
                 callback(error)
                 return

@@ -1,11 +1,11 @@
-const CVS = require(('../utils/CSV'))
+const CSV = require(('../utils/CSV'))
 const { validateText, validateFunction } = require('../utils/validators')
 
-function findUserById(id, callback) {
+function loadFileAndFindUserById(id, callback) {
     validateText(id, 'id')
     validateFunction(callback, 'callback')
 
-    CVS.loadAsObject('./data/users.csv', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return
@@ -23,6 +23,6 @@ function findUserById(id, callback) {
     })
 }
 
-module.exports = findUserById
+module.exports = loadFileAndFindUserById
 
 

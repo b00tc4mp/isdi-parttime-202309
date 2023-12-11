@@ -1,7 +1,5 @@
-const { error } = require('console')
-const changeUserEmail = require('./changeUserEmail')
-const CSV = require('../utils/CSV')
-
+const CSV = require(('../utils/CSV'))
+const findUserById = require('./findUserById')
 
 try {
     console.log('trying load file')
@@ -11,16 +9,21 @@ try {
             return
         }
 
-        changeUserEmail(users, 'u1', 'cala2@bacin.es', 'cala2@bacin.es', '1', (error, user) => {
+        console.log('Calling findUser')
+
+        findUserById('u3', users, (error, user) => {
             if (error) {
                 console.error(error)
                 return
             }
 
-            console.log('user changed', user)
+            console.log('Finishing findUser')
+
+            console.log(user)
         })
+
     })
 } catch (error) {
-    console.log(error)
-
+    console.error(error)
 }
+

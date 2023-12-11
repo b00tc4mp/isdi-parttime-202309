@@ -1,7 +1,7 @@
-const findUserById = require('./findUserById')
+const loadFileAndFindUserById = require('./loadFileAndFindUserById')
 
 try {
-    findUserById('3n7rgalrgwg0', (error, user) => {
+    loadFileAndFindUserById('u2', (error, user) => {
         if (error) {
             console.error(error)
             return

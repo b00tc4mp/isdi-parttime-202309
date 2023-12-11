@@ -1,7 +1,9 @@
 const fs = require('fs')
 
 function loadAsObject(file, callback) {
+    console.log('Loading data')
     fs.readFile(file, 'utf8', (error, csv) => {
+        console.log('Reading data')
         if (error) {
             callback(error)
             return
@@ -13,6 +15,7 @@ function loadAsObject(file, callback) {
         const dataFields = dataLines[0].split(',')
 
         for (let i = 1; i < dataLines.length; i++) {
+            console.log('Building data')
             const dataValues = dataLines[i].split(',')
             const dataItem = {}
 
@@ -22,9 +25,10 @@ function loadAsObject(file, callback) {
             data.push(dataItem)
 
         }
+        console.log('Data builded')
         callback(null, data)
+        console.log('Data imported')
     })
-    console.log('Data imported')
 }
 
 function saveFromObject(file, data, callback) {

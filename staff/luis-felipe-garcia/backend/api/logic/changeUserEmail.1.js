@@ -3,18 +3,18 @@ const { validateText, validateFunction } = require('../utils/validators')
 const findUserById = require('../data/findUserById')
 const updateUser = require('./updateUser')
 
-function changeUserEmail(users, id,  newEmail, newEmailConfirm, password, callback) {
+function changeUserEmail(id, newEmail, newEmailConfirm, password, callback) {
     validateText(id, 'id')
     validateText(newEmail, 'new email')
     validateText(newEmailConfirm, 'new email confirm')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    /*CSV.loadAsObject('./data/users.csv', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return
-        }*/
+        }
 
         findUserById(id, users, (error, user) => {
             console.log(id)
@@ -43,7 +43,7 @@ function changeUserEmail(users, id,  newEmail, newEmailConfirm, password, callba
             console.log('new user data', user)
 
         })
-    /*})*/
+    })
 }
 
 module.exports = changeUserEmail
