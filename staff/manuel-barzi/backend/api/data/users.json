@@ -26,5 +26,26 @@
         "email": "le@chuga.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "2n7wm494gge0",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "2d26woiz80kk",
+        "name": "Campa Nilla",
+        "email": "campa@nilla.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "e65oriudio8",
+        "name": "Man Zana",
+        "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
