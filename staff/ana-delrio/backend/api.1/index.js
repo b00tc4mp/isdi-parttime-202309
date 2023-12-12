@@ -46,7 +46,7 @@ fs.readFile('./users.csv', 'utf8', (error, content) => {
             // campos: me traigo la primera posición de fields fields[j], que es "i" de id, y se lo inserto en el array de field
             const field = fields[j]
 
-            // y la primera posición de los values, y se inserto en los user
+            // y la primera posición de los values, y se inserta en los user
             user[field] = values[j]
 
         }
