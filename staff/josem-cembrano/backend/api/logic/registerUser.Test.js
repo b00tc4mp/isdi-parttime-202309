@@ -1,7 +1,7 @@
 const registerUser = require('./registerUser')
 
 try {
-    registerUser('Cala Bacin', 'cala@bazin', '123123123', error => {
+    registerUser('Bro Coli', 'bro@coli', '123123123', error => {
         if (error) {
             console.error(error)
 
