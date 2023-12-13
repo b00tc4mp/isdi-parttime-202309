@@ -27,7 +27,8 @@ function registerUser(name, email, password, callback) {
             id: generateId(),
             name,
             email,
-            password
+            password,
+            favs: []
         }
 
         users.push(user)
