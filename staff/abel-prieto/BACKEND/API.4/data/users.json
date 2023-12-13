@@ -1,0 +1,26 @@
+[
+    {
+        "id": "3ntpfsql59c0",
+        "name": "Za Payo",
+        "email": "za@payo.com",
+        "password": "123123123"
+    },
+    {
+        "id": "2b4bwcqo9ps0",
+        "name": "Abel Prieto",
+        "email": "abelpriem94@hotmail.com",
+        "password": "1234"
+    },
+    {
+        "id": "2rbzvx8lwxs0",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "password": "123123123"
+    },
+    {
+        "id": "43htuuxgyl20",
+        "name": "Wendy Darling",
+        "email": "wendy@darling.com",
+        "password": "123123123"
+    }
+]

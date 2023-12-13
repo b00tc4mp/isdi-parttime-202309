@@ -1,5 +1,33 @@
 const fs = require('fs')
+const { stringify } = require('querystring')
 // Ponemos el require() porque es la importación
+
+function parse(csv) {
+    const data = []
+    
+    const lines = csv.split('\r\n')
+
+    const fields = lines[0].split(',')
+
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i]
+
+        const values = line.split(',')
+
+        const item = {}
+
+        for (let j in fields) {
+            const field = fields[j]
+
+            item[field] = values[j]
+        }
+
+        data.push(item)
+    }
+
+    return data
+    // Mediante parse() recibimos el CSV en forma de string y lo convertimos en un Objeto (un Array)
+}
 
 function loadAsObject(file, callback) {
     fs.readFile(file, "utf8", (error, csv) => {
@@ -9,33 +37,14 @@ function loadAsObject(file, callback) {
             return
         }
     
-        const data = []
-    
-        const lines = csv.split('\r\n')
-
-        const fields = lines[0].split(',')
-    
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i]
-    
-            const values = line.split(',')
-    
-            const item = {}
-    
-            for (let j in fields) {
-                const field = fields[j]
-    
-                item[field] = values[j]
-            }
-    
-            data.push(item)
-        }
+        const data = parse(csv)
+        // Con la función parse() hacemos que interprete el CSV para que nos devuelva los datos
     
         callback(null, data)
     })
 }
 
-function saveFromObject(file, data, callback) {
+function sstringify(data) {
     const fields = Object.keys(data[0])
 
     let csv = fields.join() 
@@ -52,6 +61,13 @@ function saveFromObject(file, data, callback) {
         csv += '\r\n' + line
     }
 
+    return csv
+    // Mediante el stringify() hacemos que se reciba un dato en forma de Objeto (Array) y lo transforme en un string
+}
+
+function saveFromObject(file, data, callback) {
+    const csv = sstringify(data)
+
     fs.writeFile(file, csv, error => {
         if (error) {
             callback(error)
@@ -65,7 +81,9 @@ function saveFromObject(file, data, callback) {
 
 module.exports = {
     loadAsObject,
-    saveFromObject
+    saveFromObject,
+    parse,
+    sstringify
 }
 
 // Ponemos el module.exports = {} para exportar las funciones
