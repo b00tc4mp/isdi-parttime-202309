@@ -1,5 +1,6 @@
 const { validateText, validateFunction } = require('../utils/validators')
 const JSON = require('../utils/JSON')
+const generateId = require('../data/generateId')
 
 const createPost = (userId, image, text, callback) => {
     validateText(userId, 'userId')
@@ -7,7 +8,7 @@ const createPost = (userId, image, text, callback) => {
     validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('.data/users.json', (error, users) => {
+    JSON.parseFromFile('./data/users.json', (error, users) => {
         if (error) {
             callback(error)
 
@@ -22,14 +23,20 @@ const createPost = (userId, image, text, callback) => {
             return
         }
 
-        JSON.parseFromFile('.data/posts.json', (error, posts) => {
+        JSON.parseFromFile('./data/posts.json', (error, posts) => {
             if (error) {
                 callback(error)
 
                 return
             }
 
-            const post = { author: userId, image, text }
+            const post = {
+                id: generateId(),
+                author: userId,
+                image,
+                text,
+                likes: []
+            }
 
             posts.push(post)
 
