@@ -1,11 +1,6 @@
-const JSON = require('../utils/JSON')
+const CSV = require('../utils/CSV')
 const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
-// aquí son 2 puntos en la ruta porque requeremos dependencias
-// las dependencias se cargan en relación al módulo (cada fichero es un módulo) 
-// por ejemplo authenticateUser es un módulo
-// Si estoy en un móddulo y cargo otro módulo, se hace en relación a él
-//authenticate está en logic y JSON en utils, por lo que tengo que usar ../
 
 // por qué no usamos el id, porque esto es como hacer login
 
@@ -18,7 +13,7 @@ function authenticateUser(email, password, callback) {
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return

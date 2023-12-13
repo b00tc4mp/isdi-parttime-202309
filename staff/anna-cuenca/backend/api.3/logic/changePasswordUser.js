@@ -1,18 +1,17 @@
-const JSON = require('../utils/JSON')
+const CSV = require('../utils/CSV')
 const { validateText, validateFunction } = require('../utils/validators')
 
-function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
+function changePasswordUser(userId, password, newPassword, repeatNewPassword, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
+
     validateText(userId, 'user id')
-
-    validateText(email, 'email')
-    validateText(newEmail, 'new email')
-    validateText(repeatNewEmail, 'new email confirm')
-
+    validateText(password, 'password')
+    validateText(newPassword, 'password')
+    validateText(repeatNewPassword, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return
@@ -26,31 +25,31 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
             return
         }
 
-        if (user.email !== email) {
+        if (user.password !== password) {
             callback(new Error('Wrong credentials'))
             return
         }
 
-        if (user.email === newEmail) {
-            callback(new Error('New email must be different from the current email'))
+        if (user.password === newPassword) {
+            callback(new Error('New password must be different from the current password'))
             return
         }
 
-        if (repeatNewEmail !== newEmail) {
-            callback(new Error('The new emails do not match'))
+        if (repeatNewPassword !== newPassword) {
+            callback(new Error('The new passwords do not match'))
             return
         }
 
-        user.email = newEmail
+        user.password = newPassword
 
-        JSON.stringifyToFile('./data/users.json', users, error => {
+        CSV.saveFromObject('./data/users.csv', users, error => {
             if (error) {
                 callback(error)
                 return
 
 
             }
-            callback(null, user.id) // el user.id por qué nos lo traemos? Yo lo uso para mensaje
+            callback(null, user.id) // el user.id por qué nos lo traemos?
         })
 
 
@@ -60,4 +59,6 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
     }) //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 }
 
-module.exports = changeEmailUser
+module.exports = changePasswordUser
+
+

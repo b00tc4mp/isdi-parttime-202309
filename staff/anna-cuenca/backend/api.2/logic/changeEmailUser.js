@@ -1,4 +1,4 @@
-const JSON = require('../utils/JSON')
+const CSV = require('../utils/CSV')
 const { validateText, validateFunction } = require('../utils/validators')
 
 function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
@@ -12,7 +12,7 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
 
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return
@@ -43,7 +43,7 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
 
         user.email = newEmail
 
-        JSON.stringifyToFile('./data/users.json', users, error => {
+        CSV.saveFromObject('./data/users.csv', users, error => {
             if (error) {
                 callback(error)
                 return

@@ -1,13 +1,13 @@
 const JSON = require('../utils/JSON')
-
+const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
 
-function deleteUser(userId, password, callback) {
+function registerUser(name, email, password, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
-
-    validateText(userId, 'user id')
+    validateText(name, 'name')
+    validateText(email, 'email')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
@@ -17,29 +17,19 @@ function deleteUser(userId, password, callback) {
             return
         }
 
-        let user = users.find(user => user.id === userId)
-        // guardo el usuario en user si me coincide el id
+        let user = users.find(user => user.email === email)
 
 
-        if (!user) {
-            callback(new Error('user do not exists'))
+        if (user) {
+            callback(new Error('user already exists'))
             return
         }
 
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
-            return
-        }
-
-        //busco la posición de ese usuario en el array
-
-        const index = users.indexOf(user)
-
-        // una vez tengo la posición, elimino el usuario
-
-        users.splice(index, 1)
 
 
+        user = { id: generateId(), name, email, password }
+
+        users.push(user)
 
         JSON.stringifyToFile('./data/users.json', users, error => {
             if (error) {
@@ -48,10 +38,10 @@ function deleteUser(userId, password, callback) {
 
 
             }
-            callback(null, user.id)
+            callback(null)
         })
 
     }) //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 }
 
-module.exports = deleteUser
+module.exports = registerUser

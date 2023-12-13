@@ -1,4 +1,4 @@
-const JSON = require('../utils/JSON')
+const CSV = require('../utils/CSV')
 
 const { validateText, validateFunction } = require('../utils/validators')
 
@@ -11,7 +11,7 @@ function deleteUser(userId, password, callback) {
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
             return
@@ -41,7 +41,7 @@ function deleteUser(userId, password, callback) {
 
 
 
-        JSON.stringifyToFile('./data/users.json', users, error => {
+        CSV.saveFromObject('./data/users.csv', users, error => {
             if (error) {
                 callback(error)
                 return
