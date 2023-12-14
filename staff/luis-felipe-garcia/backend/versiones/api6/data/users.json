@@ -28,6 +28,13 @@
         "favs": []
     },
     {
+        "id": "9h84g5uslmo",
+        "name": "Lee Chuga",
+        "email": "lee@chuga.es",
+        "password": "1",
+        "favs": []
+    },
+    {
         "id": "7hyl6aor59s0",
         "name": "Pepito Grillo",
         "email": "pepito@grillo.com",
@@ -60,13 +67,6 @@
         "name": "Tom Ate con POST",
         "email": "tom@ate.com",
         "password": "123123123",
-        "favs": []
-    },
-    {
-        "id": "14ltlqokdam8",
-        "name": "Lee Chuga",
-        "email": "lee@chuga.es",
-        "password": "1",
         "favs": []
     }
 ]

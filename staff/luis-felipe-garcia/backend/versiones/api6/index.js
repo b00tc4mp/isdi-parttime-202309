@@ -1,7 +1,6 @@
 const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
-const retrieveUser = require('./logic/retrieveUser')
 
 const server = express()
 server.get('/', (req, res) => res.send('Hello World'))
@@ -14,7 +13,7 @@ server.get('/hello', (req, res) => res.send(`<h1>Hello, ${req.query.name} ${req.
 
 const jasonBodyParser = express.json()
 
-server.post('/users', jasonBodyParser, (req, res) => {
+server.post('/register', jasonBodyParser, (req, res) => {
     try {
         const { name, email, password } = req.body
 
@@ -33,7 +32,7 @@ server.post('/users', jasonBodyParser, (req, res) => {
     }
 })
 
-server.post('/users/auth', jasonBodyParser, (req, res) => {
+server.post('/login', jasonBodyParser, (req, res) => {
     try {
         const {email, password} = req.body
 
@@ -43,31 +42,13 @@ server.post('/users/auth', jasonBodyParser, (req, res) => {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 return
             }
-            res.json(`${userId}`)
+            res.json(userId)
 
         })
 
     } catch (error) {
 
         res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-server.get('/users', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrieveUser(userId, (req, res) => {
-            if (error) {
-                res.status(400).json({error: error.constructor.name, message: error.message})
-                return
-            }
-
-            res.json(user)
-        })
-    } catch (error) {
-        res.status(400).json({error: error.constructor.name, message: error.message})
-        
     }
 })
 
