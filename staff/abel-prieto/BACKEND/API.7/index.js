@@ -2,6 +2,8 @@ const registerUser = require("./logic/registerUser")
 const authenticateUser = require("./logic/authenticateUser")
 const createPosts = require('./logic/createPosts')
 const retrieveUser = require('./logic/retrieveUser')
+const changeEmailUser = require('./logic/changeEmailUser')
+const changePasswordUser = require('./logic/changePasswordUser')
 
 const express = require('express')
 // Importamos el paquete EXPRESS
@@ -74,6 +76,46 @@ server.get('/users', (req, res) => {
 
             res.json(user)
             // Envía en formato json el usuario
+
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+server.post('/users/email', jsonBodyParser, (req, res) => {
+    try {
+        const { email, newEmail, password } = req.body
+
+        changeEmailUser(email, newEmail, password, error => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(200).send()
+            // Envía código 200 de 'OKEY'
+
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+server.post('/users/password', jsonBodyParser, (req, res) => {
+    try {
+        const { email, password, newPassword } = req.body
+
+        changePasswordUser(email, password, newPassword, error => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(200).send()
+            // Envía código 200 de 'OKEY'
 
         })
     } catch (error) {
