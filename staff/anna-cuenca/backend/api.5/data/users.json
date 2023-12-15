@@ -33,33 +33,5 @@
         "email": "gui@sante.com",
         "password": "123",
         "favs": []
-    },
-    {
-        "id": "1ej258gxb4hs",
-        "name": "Anna Cuenca",
-        "email": "a@cuenca.com",
-        "password": "123",
-        "favs": []
-    },
-    {
-        "id": "6et628xk5c80",
-        "name": "Gaz Pacho",
-        "email": "gaz@pacho.com",
-        "password": "123",
-        "favs": []
-    },
-    {
-        "id": "59htv6y1hj00",
-        "name": "Len Teja",
-        "email": "len@teja.com",
-        "password": "123",
-        "favs": []
-    },
-    {
-        "id": "2t26hnde0xc0",
-        "name": "Coli Flor",
-        "email": "coli@flor.com",
-        "password": "123",
-        "favs": []
     }
 ]
