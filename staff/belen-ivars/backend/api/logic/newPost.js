@@ -17,6 +17,7 @@ function newPost(userId, image, text, callback) {
 
 		let post = {
 			id: generateId(),
+			user,
 			image,
 			text,
 		}
