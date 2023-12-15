@@ -1,0 +1,37 @@
+[
+    {
+        "id": "206s36wbyvpc",
+        "name": "Cara Basseta",
+        "email": "cara@basseta.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "7ewdmsy1f1s0",
+        "name": "Wendy Darling",
+        "email": "wendy@darling.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "2c42g2kfwuf4",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "v0zp2q0s11c",
+        "name": "Alfi Cos",
+        "email": "alfi@cos.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "1c6i712w8rmo",
+        "name": "Fava Pela",
+        "email": "fava@pela.com",
+        "password": "123123123",
+        "favs": []
+    }
+]

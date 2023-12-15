@@ -8,7 +8,7 @@ function changePasswordUser(userId, password, newPassword, newPasswordConfirm, c
 	validateText(newPasswordConfirm, 'new password confirm')
 	validateFunction(callback, 'callback')
 
-	CSV.loadAsObject('./data/users.csv', (error, users) => {
+	CSV.parseFromFile('./data/users.csv', (error, users) => {
 		if (error) {
 			callback(error)
 
@@ -43,7 +43,7 @@ function changePasswordUser(userId, password, newPassword, newPasswordConfirm, c
 
 		user.password = newPassword
 
-		CSV.saveFromObject('./data/users.csv', users, error => {
+		CSV.stringifyToFile('./data/users.csv', users, error => {
 			if (error) {
 				callback(error)
 

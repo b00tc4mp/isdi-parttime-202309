@@ -1,5 +1,4 @@
-const CSV = require('../utils/CSV')
-const generateId = require('../data/generateId')
+const JSON = require('../utils/JSON')
 const { validateText, validateFunction } = require('../utils/validators')
 
 function authenticateUser(email, password, callback) {
@@ -8,7 +7,7 @@ function authenticateUser(email, password, callback) {
 	validateFunction(callback, 'callback')
 
 
-	CSV.loadAsObject('./data/users.csv', (error, users) => {
+	JSON.parseFromFile('./data/users.json', (error, users) => {
 		if (error) {
 			callback(error)
 
