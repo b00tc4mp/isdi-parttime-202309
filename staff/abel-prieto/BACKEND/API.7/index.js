@@ -4,6 +4,7 @@ const createPosts = require('./logic/createPosts')
 const retrieveUser = require('./logic/retrieveUser')
 const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
+const toggleLikePost = require('./logic/toggleLikePost')
 
 const express = require('express')
 // Importamos el paquete EXPRESS
@@ -126,9 +127,11 @@ server.post('/users/password', jsonBodyParser, (req, res) => {
 // TEST in browser 'POST' in localhost:8000/newpost?author=43htuuxgyl20&image="x"&text=hola
 server.post('/newpost', jsonBodyParser, (req, res) => {
     try {
-        const { author, image, text } = req.body
+        const userId = req.headers.authorization.substring(7)
         
-        createPosts(author, image, text, error => {
+        const { image, text } = req.body
+        
+        createPosts(userId, image, text, error => {
             if (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
@@ -142,6 +145,30 @@ server.post('/newpost', jsonBodyParser, (req, res) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+server.patch('/newpost/:postId/likes', (req, res) => {
+    // Ponemos :postId con (:) porque express lo toma como un parámetro variable y lo mete en la request
+
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        const { postId } = req.params
+        // Con .params recoge lo que indicamos mediante los (:) de la navegación dentro de un Objeto {}
+
+        toggleLikePost(userId, postId, error => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+            
+            res.status(204).send()
+            // Envía código 204 de 'OK' pero vacío
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+}) 
 
 server.listen(8000, () => console.log('server online'))
 // Hacemos que el servidor se mantenga en escucha a través del puerto 8000 e imprima un console.log()

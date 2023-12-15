@@ -3,5 +3,5 @@ function TEST() {
 }
 
 function CASE() {
-    echo "TEST $1"
+    echo "\n\nTEST $1"
 }

@@ -1,7 +1,7 @@
 const createPosts = require("./createPosts")
 
 try {
-    createPosts("43htuuxgyl20", "https://static.wikia.nocookie.net/disney/images/5/53/Profile_-_Wendy_Darling.jpeg/revision/latest?cb=20190312151612", "my name is Wendy!", error => {
+    createPosts("24dlukpa1skg", "https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg", "soy Batman!", error => {
         if (error) {
             console.error(error)
 

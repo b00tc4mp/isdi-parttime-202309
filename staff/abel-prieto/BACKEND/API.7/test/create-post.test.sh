@@ -7,9 +7,11 @@ source pepetest.sh
 TEST "CREATE POST"
 
 CASE "Creating a new post"
+
 curl 'http://localhost:8000/newpost' \
+-H 'Authorization: Bearer 24dlukpa1skg' \
 -H 'Content-Type: application/json' \
--d '{ "author": "24dlukpa1skg", "image": "https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg", "text": "soy Batman!" }' \
+-d '{ "image": "https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg", "text": "soy Batman!" }' \
 -v
 
 # > POST /newpost HTTP/1.1
@@ -26,11 +28,12 @@ curl 'http://localhost:8000/newpost' \
 # < Keep-Alive: timeout=5
 # < Content-Length: 0
 
-CASE "Error with user not found"
+# CASE "Error with wrong user id"
 
 curl 'http://localhost:8000/newpost' \
+-H 'Authorization: Bearer noexiste' \
 -H 'Content-Type: application/json' \
--d '{ "author": "1234567", "image": "https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg", "text": "soy Batman!" }' \
+-d '{ "image": "https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg", "text": "soy Batman!" }' \
 -v
 
 # > POST /newpost HTTP/1.1
