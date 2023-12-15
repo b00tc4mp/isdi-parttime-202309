@@ -1,7 +1,7 @@
 const changePasswordUser = require('./changePasswordUser')
 
 try {
-    changePasswordUser('3xhzp98ajw80', '234234234', '123123123', '123123123', (error, userId) => {
+    changePasswordUser('9nbvjt5wugo', '234234234', '234234234', '234234234', (error, userId) => {
         if (error) {
             console.error(error)
 

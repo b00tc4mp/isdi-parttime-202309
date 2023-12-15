@@ -1,7 +1,7 @@
 const changeEmailUser = require('./changeEmailUser')
 
 try {
-    changeEmailUser('amhkljhnhc4', 'cara@bassseta.com', 'cala@bacin.com', 'cala@bacin.com', (error, userId) => {
+    changeEmailUser('amhkljhnhc4', 'cara@basseta.com', 'cara@bassseta.com', 'cara@bassseta.com', (error, userId) => {
         if (error) {
             console.error(error)
 

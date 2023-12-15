@@ -1,5 +1,5 @@
 // Importación de Módulos:
-const JSON = require('../utils/JSON')
+const CSV = require('../utils/CSV')
 const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
 
@@ -10,7 +10,7 @@ function registerUser(name, email, password, callback) {
     validateFunction(callback, 'callback')
 
     //Carga de Usuarios desde CSV(lectura)
-    JSON.parseFromFile('./data/users.json', (error, users) => {
+    CSV.loadAsObject('./data/users.csv', (error, users) => {
         if (error) {
             callback(error)
 
@@ -29,14 +29,13 @@ function registerUser(name, email, password, callback) {
             id: generateId(),
             name,
             email,
-            password,
-            favs: []
+            password
         }
 
         users.push(user)
 
         //Guardado de Usuarios en CSV(escritura)
-        JSON.stringifyToFile('./data/users.json', users, error => {
+        CSV.saveFromObject('./data/users.csv', users, error => {
             if (error) {
                 callback(error)
 

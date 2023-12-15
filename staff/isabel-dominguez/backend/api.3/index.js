@@ -1,14 +1,4 @@
-const CSV = require('./CSV') //importamos el módulo
-
-// CSV.loadAsObject('./users.csv', (error, users) => {
-//     if (error) {
-//         console.error(error)
-
-//         return
-//     }
-
-//     console.log(users)
-// })
+const CSV = require('./CSV')
 
 CSV.loadAsObject('./users.csv', (error, users) => {
     if (error) {

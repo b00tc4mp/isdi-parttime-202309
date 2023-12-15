@@ -1,0 +1,30 @@
+[
+    {
+        "id": "amhkljhnhc4",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "9nbvjt5wugo",
+        "name": "Zana Horia",
+        "email": "zana@horia.com",
+        "password": "234234234",
+        "favs": []
+    },
+    {
+        "id": "6z32ut2oz4c0",
+        "name": "tom ate",
+        "email": "tom@ate.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "3u5gkv3so500",
+        "name": "Agua Cate",
+        "email": "agua@cate.com",
+        "password": "123123123",
+        "favs": []
+    }
+]
