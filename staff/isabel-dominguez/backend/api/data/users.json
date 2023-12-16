@@ -26,5 +26,19 @@
         "email": "agua@cate.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "4an7ym43zji0",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "1mjut8upgzy8",
+        "name": "Man Zana",
+        "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
