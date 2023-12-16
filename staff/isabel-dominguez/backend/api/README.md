@@ -2,23 +2,30 @@
 
 ## Register user
 
-```sh
-$ curl 'http://localhost:8000/register' \
--H 'Content-Type: application/json' \
--d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
--v
+Request: POST /users "Content-Type: application/json" { name, email, password }
+Response: 201
+Response (error): 400|409|500 "Content-Type: application/json" { error, message }
 
-> POST /register HTTP/1.1
-> Host: localhost:8000
-> User-Agent: curl/8.2.1
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 72
+## Authenticate user
 
-< HTTP/1.1 201 Created
-< X-Powered-By: Express
-< Date: Sat, 16 Dec 2023 11:52:05 GMT
-< Connection: keep-alive
-< Keep-Alive: timeout=5
-< Content-Length: 0
-```
+Request: POST /users/auth "Content-Type: application/json" { email, password }
+Response: 200 "Content-Type: application/json" userId
+Response (error): 400 "Content-Type: application/json" { error, message }
+
+## Retrieve user
+
+Request: GET /users "Authorization: Bearer userId"
+Response: 200 "Content-Type: application/json" { name }
+Response (error): 400 "Content-Type: application/json" { error, message }
+
+## Create post
+
+Request: POST /posts "Authorization: Bearer userId" "Content-type: application/json" { image, text }
+Response: 201
+Response (error): 400 "Content-Type: application/json" { error, message }
+
+## Toggle like post
+
+Request: PATCH /posts/postId/likes "Authorization: Bearer userId"
+Response: 204
+Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
