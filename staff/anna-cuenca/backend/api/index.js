@@ -3,6 +3,8 @@
 const express = require('express')
 
 const registerUser = require('./logic/registerUser') // el requiere es como el input
+const authenticateUser = require('./logic/authenticateUser')
+const retrieveUser = require('./logic/retrieveUser')
 
 const server = express()
 
@@ -29,7 +31,7 @@ server.get('/hello', (req, res) => res.send(`Hello its, ${req.query.name} ${req.
 const jsonBodyParser = express.json()
 
 //usar el metodo POST para hacer el registro
-server.post('/register', jsonBodyParser, (req, res) => {
+server.post('/users', jsonBodyParser, (req, res) => {
     const { name, email, password } = req.body //queremos que nos devuelva la respuesta en el body
 
     try {
@@ -47,4 +49,41 @@ server.post('/register', jsonBodyParser, (req, res) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+server.post('/users/auth', jsonBodyParser, (req, res) => {
+    try {
+        const { email, password } = req.body
+
+        authenticateUser(email, password, (error, userId) => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(userId)
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+server.get('/users', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        retrieveUser(userId, (error, user) => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(user)
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
 server.listen(8000, () => console.log('server is up'))

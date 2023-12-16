@@ -61,5 +61,12 @@
         "email": "coli@flor.com",
         "password": "123",
         "favs": []
+    },
+    {
+        "id": "lr4s8bbvagg",
+        "name": "Choco Late",
+        "email": "choco@late.com",
+        "password": "123",
+        "favs": []
     }
 ]
