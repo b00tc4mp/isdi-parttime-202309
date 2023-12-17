@@ -2,9 +2,6 @@ echo TEST "retrieve-user"
 
 echo CASE "success on correct user id"
 
-# isabe@Amyyluna MINGW64 ~/workspace/isdi-parttime-202309/staff/isabel-dominguez/backend/api (feature/backend)
-# $ ./test/retrieve-user.test.sh
-
 curl 'http://localhost:8000/users' \
 -H 'Authorization: Bearer 5gbocg2tsfs0' \
 -v
