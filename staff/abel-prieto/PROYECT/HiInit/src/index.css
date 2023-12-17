@@ -1,0 +1,65 @@
+* {
+  background-color: #1e252e;
+  font-family: Hack, monospace;
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  color: white;
+  margin-bottom: 0;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  color: grey;
+}
+a:active {
+  color: orange;
+}
+
+.home {
+  display: block;
+  background-color: #1e252e;
+  border-style: solid;
+  border-color: rgb(255, 128, 55);
+  border-radius: 0.25rem;
+  min-height: 498px;
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.tittle-logo {
+  white-space: pre;
+  font-family: monospace;
+  text-align: left;
+}
+.tittle-logo p {
+  margin: 0;
+}
+
+.sign {
+  margin-top: auto;
+  text-align: left;
+  padding: 10px;
+  padding: 0;
+}
+
+.info p {
+  margin: 0;
+}
+.info p :about p,
+.info p :contact p {
+  margin: 0;
+}
+
+.info-contact a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=index.css.map */
