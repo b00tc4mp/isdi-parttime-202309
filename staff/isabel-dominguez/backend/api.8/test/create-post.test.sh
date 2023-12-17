@@ -18,14 +18,10 @@ curl 'http://localhost:8000/posts' \
 # > Authorization: Bearer amhkljhnhc4
 # > Content-Type: application/json
 # > Content-Length: 301
-
+# >
 # < HTTP/1.1 201 Created
 # < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 66
-# < ETag: W/"42-SaEvLKVkuMIMLsYQzaJRjLVQNqQ"
-# < Date: Sun, 17 Dec 2023 17:33:31 GMT
+# < Date: Sun, 17 Dec 2023 12:29:59 GMT
 # < Connection: keep-alive
 # < Keep-Alive: timeout=5
-
-# {"message":"You have created a new post!.","userId":"amhkljhnhc4"}*
+# < Content-Length: 0

@@ -4,9 +4,6 @@ const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
-const changeEmailUser = require('./logic/changeEmailUser')
-const changePasswordUser = require('./logic/changePasswordUser')
-const deleteUser = require('./logic/deleteUser')
 const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
 
 const server = express()
@@ -130,7 +127,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
                 return
             }
 
-            res.status(201).json({ message: 'You have created a new post!.', userId }).send()
+            res.status(201).send()
         })
     } catch (error) {
         let status = 400
@@ -174,120 +171,5 @@ server.patch('/posts/:postId/likes', (req, res) => {
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
-
-// CHANGE EMAIL USER
-server.post('/users/email', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { email, newEmail, confirmNewEmail } = req.body
-
-        changeEmailUser(userId, email, newEmail, confirmNewEmail, (error, userId) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                } else if (error instanceof DuplicityError) {
-                    status = 409 // Conflicto, por ejemplo, nuevo correo igual al existente
-                }
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(200).json({ message: 'Email changed successfully.', userId }).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError) {
-            status = 406
-        }
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// CHANGE PASSWORD USER
-server.post('/users/password', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { password, newPassword, confirmNewPassword } = req.body
-
-        changePasswordUser(userId, password, newPassword, confirmNewPassword, (error, userId) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                } else if (error instanceof DuplicityError) {
-                    status = 409
-                }
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-                return
-            }
-
-            res.status(200).json({ message: 'Password changed successfully.', userId }).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError) {
-            status = 406
-        }
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// DELETE USER
-server.delete('/users', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { password } = req.body
-
-        deleteUser(userId, password, (error, userId) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                }
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(200).json({ message: 'User deleted successfully.', userId }).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError) {
-            status = 406
-        }
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
 
 server.listen(8000, () => console.log('server is up'))

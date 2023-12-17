@@ -4,7 +4,7 @@ echo CASE "success on new user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "cer veza", "email": "cer@veza.com", "password": "123123123" }' \
+-d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
 -v
 
 # isabe@Amyyluna MINGW64 ~/workspace/isdi-parttime-202309/staff/isabel-dominguez/backend/api (feature/backend)

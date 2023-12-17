@@ -14,6 +14,13 @@
         "favs": []
     },
     {
+        "id": "6z32ut2oz4c0",
+        "name": "tom ate",
+        "email": "tom@ate.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
         "id": "3u5gkv3so500",
         "name": "Agua Cate",
         "email": "agua@cate.com",
@@ -23,7 +30,7 @@
     {
         "id": "4an7ym43zji0",
         "name": "Pepito Grillo",
-        "email": "pep@grill.com",
+        "email": "pepito@grillo.com",
         "password": "123123123",
         "favs": []
     },
@@ -31,7 +38,7 @@
         "id": "5gbocg2tsfs0",
         "name": "Man Zana",
         "email": "man@zana.com",
-        "password": "234234234",
+        "password": "123123123",
         "favs": []
     }
 ]
