@@ -12,5 +12,47 @@
         "image": "https://cdn2.vectorstock.com/i/1000x1000/81/46/hello-world-code-vector-22928146.jpg",
         "text": "Hello, World!",
         "likes": []
+    },
+    {
+        "id": "2aol4l80yiy",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "7dlqabiv2000",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "48224osmahc0",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "97phir9s03c",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "5ac7angatas0",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "rkt7zv7tgzk",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
     }
 ]
