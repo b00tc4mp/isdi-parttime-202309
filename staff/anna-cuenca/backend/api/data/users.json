@@ -68,5 +68,12 @@
         "email": "choco@late.com",
         "password": "123",
         "favs": []
+    },
+    {
+        "id": "1r8fzxpg9b40",
+        "name": "Alba Ricoque",
+        "email": "alba@ricoque.com",
+        "password": "123",
+        "favs": []
     }
 ]

@@ -11,7 +11,7 @@ Response (error): 400|409|500 application/json {error, message}
 
 Request: POST /users "Content-Type:  -H application/json { email, password }
 Response: 200 application/json userId
-Response (error): 400 application/json {error, message}
+Response (error): 400|401 application/json {error, message}
 
 ## Retrieve user
 

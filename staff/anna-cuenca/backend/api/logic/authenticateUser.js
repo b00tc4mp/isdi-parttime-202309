@@ -1,6 +1,7 @@
 const JSON = require('../utils/JSON')
 const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
+const { SystemError, NotFoundError, AuthenticateError } = require('../utils/errors')
 // aquí son 2 puntos en la ruta porque requeremos dependencias
 // las dependencias se cargan en relación al módulo (cada fichero es un módulo) 
 // por ejemplo authenticateUser es un módulo
@@ -20,7 +21,7 @@ function authenticateUser(email, password, callback) {
 
     JSON.parseFromFile('./data/users.json', (error, users) => {
         if (error) {
-            callback(error)
+            callback(new SystemError(error.message))
             return
         }
 
@@ -28,12 +29,12 @@ function authenticateUser(email, password, callback) {
 
 
         if (!user) {
-            callback(new Error('user not found'))
+            callback(new NotFoundError('user not found'))
             return
         }
 
         if (user.password !== password) {
-            callback(new Error('wrong credentials'))
+            callback(new AuthenticateError('wrong credentials'))
             return
         }
 

@@ -20,7 +20,7 @@ function toggleLikePost(userId, postId, callback) {
         const user = users.find(user => user.id === userId)
 
         if (!user) {
-            callback(new NotFoundError('user not found '))
+            callback(new NotFoundError('user not found'))
             return
         }
 

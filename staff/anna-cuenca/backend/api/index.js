@@ -7,7 +7,7 @@ const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toogleLikePost')
-const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
+const { SystemError, NotFoundError, ContentError, DuplicityError, AuthenticateError } = require('./utils/errors')
 
 const server = express()
 
@@ -66,13 +66,24 @@ server.post('/users', jsonBodyParser, (req, res) => {
     }
 })
 
+//Authenticate User
+
 server.post('/users/auth', jsonBodyParser, (req, res) => {
     try {
         const { email, password } = req.body
 
         authenticateUser(email, password, (error, userId) => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+                else if (error instanceof AuthenticateError)
+                    status = 401
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -80,9 +91,13 @@ server.post('/users/auth', jsonBodyParser, (req, res) => {
             res.json(userId)
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+// Retrieve User
 
 server.get('/users', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
     try {
@@ -90,7 +105,14 @@ server.get('/users', (req, res) => { //no hay un jsonBodyParser porque no enviam
 
         retrieveUser(userId, (error, user) => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -102,6 +124,8 @@ server.get('/users', (req, res) => { //no hay un jsonBodyParser porque no enviam
     }
 })
 
+// createPost
+
 server.post('/posts', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
@@ -110,7 +134,14 @@ server.post('/posts', jsonBodyParser, (req, res) => {
 
         createPost(userId, image, text, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -118,9 +149,16 @@ server.post('/posts', jsonBodyParser, (req, res) => {
             res.status(201).send()
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError)
+            status = 406
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+// toggleLikePost
 
 server.patch('/posts/:postId/likes', (req, res) => {
     try {

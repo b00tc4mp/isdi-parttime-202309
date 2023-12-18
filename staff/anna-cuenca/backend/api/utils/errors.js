@@ -28,6 +28,15 @@ class ContentError extends Error {
 class DuplicityError extends Error {
     constructor(message) {
 
+        super(message) // podemos ponerle el message aqui?
+
+        this.name = this.constructor.name
+    }
+}
+
+class AuthenticateError extends Error {
+    constructor(message) {
+
         super(message)
 
         this.name = this.constructor.name
@@ -40,5 +49,6 @@ module.exports = {
     NotFoundError,
     SystemError,
     ContentError,
-    DuplicityError
+    DuplicityError,
+    AuthenticateError
 }
