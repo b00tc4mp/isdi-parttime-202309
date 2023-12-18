@@ -7,13 +7,6 @@
         "favs": []
     },
     {
-        "id": "9nbvjt5wugo",
-        "name": "Zana Horia",
-        "email": "zana@horia.com",
-        "password": "123123123",
-        "favs": []
-    },
-    {
         "id": "1g6al6ee05pc",
         "name": "Pe Pino",
         "email": "pe@pino.com",
@@ -45,6 +38,27 @@
         "id": "e65oriudio8",
         "name": "Man Zana",
         "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "u7togt5uvvk",
+        "name": "Zana",
+        "email": "zana@horia.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "1b43kkcm4oxs",
+        "name": "Higo Chumbo",
+        "email": "higo@chumbo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6ios8vr61z40",
+        "name": "Champi �on",
+        "email": "champi@�on.com",
         "password": "123123123",
         "favs": []
     }
