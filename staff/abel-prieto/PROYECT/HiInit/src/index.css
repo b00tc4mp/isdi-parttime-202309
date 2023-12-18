@@ -1,3 +1,17 @@
+.md\:text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.md\:min-w-full {
+  min-width: 100%;
+}
+
+.dark\:text-dark-foreground {
+  --tw-text-opacity: 1;
+  color: rgb(235 219 178/var(--tw-text-opacity));
+}
+
 * {
   background-color: #1e252e;
   font-family: Hack, monospace;
@@ -42,6 +56,15 @@ a:active {
   margin: 0;
 }
 
+.info p {
+  margin: 0;
+}
+
+.info-contact a {
+  display: block;
+  margin-bottom: 5px;
+}
+
 .field-order {
   display: flex;
   align-items: center;
@@ -54,22 +77,8 @@ a:active {
 }
 
 .sign {
-  margin-top: auto;
+  align-items: end;
   text-align: left;
-  padding: 10px;
-  padding: 0;
-}
-
-.info p {
-  margin: 0;
-}
-.info p :about p,
-.info p :contact p {
-  margin: 0;
-}
-
-.info-contact a {
-  display: block;
   margin-bottom: 5px;
 }
 
