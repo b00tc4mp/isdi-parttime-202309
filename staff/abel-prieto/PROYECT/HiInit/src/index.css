@@ -4,16 +4,17 @@
 }
 
 body {
-  margin: 0;
+  margin: 5px;
 }
 
 p {
   color: white;
-  margin-bottom: 0;
+  margin-bottom: 0px;
 }
 
 a {
   color: white;
+  text-decoration: none;
 }
 a:hover {
   color: grey;
@@ -28,7 +29,6 @@ a:active {
   border-style: solid;
   border-color: rgb(255, 128, 55);
   border-radius: 0.25rem;
-  min-height: 498px;
   padding-left: 20px;
   padding-top: 15px;
 }
@@ -40,6 +40,17 @@ a:active {
 }
 .tittle-logo p {
   margin: 0;
+}
+
+.field-order {
+  display: flex;
+  align-items: center;
+}
+
+.field-order input {
+  margin: 0 10px;
+  border: none;
+  color: white;
 }
 
 .sign {

@@ -6,7 +6,7 @@
 
 ## USER'S TYPE
 
-- Guest: First
+- Guest: First entry withot log
 
 - User: Regular user
 - Root: Administrator
