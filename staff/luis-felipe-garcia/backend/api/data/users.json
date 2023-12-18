@@ -68,5 +68,12 @@
         "email": "lee@chuga.es",
         "password": "1",
         "favs": []
+    },
+    {
+        "id": "7eaklejru480",
+        "name": "Tom Ate 2",
+        "email": "tom@ate2.com",
+        "password": "123123123",
+        "favs": []
     }
 ]

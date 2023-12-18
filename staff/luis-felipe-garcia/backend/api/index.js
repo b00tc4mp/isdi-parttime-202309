@@ -35,10 +35,10 @@ server.post('/users', jasonBodyParser, (req, res) => {
 
 server.post('/users/auth', jasonBodyParser, (req, res) => {
     try {
-        const {email, password} = req.body
+        const { email, password } = req.body
 
         authenticateUser(email, password, (error, userId) => {
-            
+
             if (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 return
@@ -59,15 +59,15 @@ server.get('/users', (req, res) => {
 
         retrieveUser(userId, (req, res) => {
             if (error) {
-                res.status(400).json({error: error.constructor.name, message: error.message})
+                res.status(400).json({ error: error.constructor.name, message: error.message })
                 return
             }
 
             res.json(user)
         })
     } catch (error) {
-        res.status(400).json({error: error.constructor.name, message: error.message})
-        
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+
     }
 })
 

@@ -12,8 +12,8 @@ curl 'http://localhost:8000/users' \
 
 
 
-# CASE "fails on non-existing user id"
+CASE "fails on non-existing user id"
 
-# curl 'http://localhost:8000/users' \
-# -H 'Authorization: Bearer 7hyl6aor5999' \
-# -v
+curl 'http://localhost:8000/users' \
+-H 'Authorization: Bearer 7hyl6aor5999' \
+-v
