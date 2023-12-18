@@ -2,11 +2,17 @@
 # El -d indica al servidor el tipo de dato que está enviando el cliente
 # El -v sirve para indicar en consola los procesos que estánocurriendo en el servidor
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "USER REGISTER"
+blue='\033[0;34m'
+green='\033[0;32m'
+tomato='\033[1;31m'
 
-CASE "Succes with register user"
+reset='\033[0m'
+
+echo -e "${blue}TEST USER REGISTER${reset}\n"
+
+echo -e "${green}CASE Succes with register user${reset}\n"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
@@ -27,7 +33,8 @@ curl 'http://localhost:8000/users' \
 # < Keep-Alive: timeout=5
 # < Content-Length: 0
 
-CASE "Error with same user registered"
+echo -e "${tomato}CASE Error with same user registered${reset}\n"
+
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
 -d '{ "name": "Bruce Wayne", "email": "nosoy@batman.com", "password": "1234" }' \

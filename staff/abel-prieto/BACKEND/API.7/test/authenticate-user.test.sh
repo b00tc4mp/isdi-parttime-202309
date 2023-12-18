@@ -2,11 +2,17 @@
 # El -d indica al servidor el tipo de dato que está enviando el cliente
 # El -v sirve para indicar en consola los procesos que estánocurriendo en el servidor
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "AUTHENTICATE USER"
+blue='\033[0;34m'
+green='\033[0;32m'
+tomato='\033[1;31m'
 
-CASE "Success on correct credentials"
+reset='\033[0m'
+
+echo -e "${blue}TEST AUTHENTICATE USER${reset}\n"
+
+echo -e "${green}CASE Success on correct credentials${reset}\n"
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
@@ -31,7 +37,7 @@ curl 'http://localhost:8000/users/auth' \
 #
 # 24dlukpa1skg* 
 
-CASE "Error on wrongs credentials"
+echo -e "${tomato}CASE Error on wrongs credentials${reset}\n"
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \

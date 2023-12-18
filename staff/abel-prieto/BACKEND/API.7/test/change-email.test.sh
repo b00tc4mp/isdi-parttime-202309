@@ -2,11 +2,17 @@
 # El -d indica al servidor el tipo de dato que está enviando el cliente
 # El -v sirve para indicar en consola los procesos que estánocurriendo en el servidor
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "CHANGE EMAIL USER"
+blue='\033[0;34m'
+green='\033[0;32m'
+tomato='\033[1;31m'
 
-CASE "Email change succesfully"
+reset='\033[0m'
+
+echo -e "${blue}TEST CHANGE EMAIL USER${reset}\n"
+
+echo -e "${green}CASE Email change succesfully${reset}\n"
 
 curl 'http://localhost:8000/users/email' \
 -H 'Content-Type: application/json' \
@@ -28,7 +34,7 @@ curl 'http://localhost:8000/users/email' \
 # < Content-Length: 0
 
 
-CASE "Error with change on same email"
+echo -e "${tomato}CASE Error with change on same email${reset}\n"
 
 curl 'http://localhost:8000/users/email' \
 -H 'Content-Type: application/json' \

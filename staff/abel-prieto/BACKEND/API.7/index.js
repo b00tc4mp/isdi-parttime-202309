@@ -7,6 +7,7 @@ const changePasswordUser = require('./logic/changePasswordUser')
 const toggleLikePost = require('./logic/toggleLikePost')
 
 const express = require('express')
+const { ContentError, NotFoundError, SystemError } = require("./utils/errors")
 // Importamos el paquete EXPRESS
 
 const server = express()
@@ -21,14 +22,24 @@ server.get('/hello', (req, res) => res.send(`Hello, ${req.query.name} ${req.quer
 const jsonBodyParser = express.json()
 // Permite convertir cualquier petición con un cuerpo .JSON en un objeto en la propiedad 'body' de la request
 
-// TEST in browser 'POST' in localhost:8000/users?name=Bruce+Wayne&email=nosoy@batman.com&password=1234
+// TEST in browser 'POST' in localhost 'REGISTER USER'
 server.post('/users', jsonBodyParser, (req, res) => {
     try {
         const { name, email, password } = req.body
     
         registerUser(name, email, password, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+                
+                res.status(status).json({ error: error.constructor.name, message: error.message })
     
                 return
             }
@@ -37,18 +48,34 @@ server.post('/users', jsonBodyParser, (req, res) => {
             // Envía código 201 de 'CREADO'
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
-// TEST in browser 'POST' in localhost:8000/users/auth?email=nosoy@batman.com&password=1234
+// TEST in browser 'POST' in localhost 'AUTHENTICATE USER'
 server.post('/users/auth', jsonBodyParser, (req, res) => {
     try {
         const { email, password } = req.body
 
         authenticateUser(email, password, (error, userId) => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -58,10 +85,17 @@ server.post('/users/auth', jsonBodyParser, (req, res) => {
 
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
+// TEST in browser 'GET' in localhost 'RETRIEVE USER'
 server.get('/users', (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
@@ -70,7 +104,17 @@ server.get('/users', (req, res) => {
 
         retrieveUser(userId, (error, user) => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -80,17 +124,34 @@ server.get('/users', (req, res) => {
 
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
+// TEST in browser 'POST' in localhost 'CHANGE EMAIL USER'
 server.post('/users/email', jsonBodyParser, (req, res) => {
     try {
         const { email, newEmail, password } = req.body
 
         changeEmailUser(email, newEmail, password, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -100,17 +161,34 @@ server.post('/users/email', jsonBodyParser, (req, res) => {
 
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
+// TEST in browser 'POST' in localhost 'CHANGE PASSWORD USER'
 server.post('/users/password', jsonBodyParser, (req, res) => {
     try {
         const { email, password, newPassword } = req.body
 
         changePasswordUser(email, password, newPassword, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -120,11 +198,17 @@ server.post('/users/password', jsonBodyParser, (req, res) => {
 
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
-// TEST in browser 'POST' in localhost:8000/newpost?author=43htuuxgyl20&image="x"&text=hola
+// TEST in browser 'POST' in localhost 'CREATE POST'
 server.post('/newpost', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
@@ -133,7 +217,17 @@ server.post('/newpost', jsonBodyParser, (req, res) => {
         
         createPosts(userId, image, text, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -142,10 +236,17 @@ server.post('/newpost', jsonBodyParser, (req, res) => {
             // Envía código 201 de 'CREADO'
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
+// TEST in browser 'PATCH' in localhost 'TOGGLE LIKE POST'
 server.patch('/newpost/:postId/likes', (req, res) => {
     // Ponemos :postId con (:) porque express lo toma como un parámetro variable y lo mete en la request
 
@@ -157,7 +258,17 @@ server.patch('/newpost/:postId/likes', (req, res) => {
 
         toggleLikePost(userId, postId, error => {
             if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 400
+
+                if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return
             }
@@ -166,7 +277,13 @@ server.patch('/newpost/:postId/likes', (req, res) => {
             // Envía código 204 de 'OK' pero vacío
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 }) 
 

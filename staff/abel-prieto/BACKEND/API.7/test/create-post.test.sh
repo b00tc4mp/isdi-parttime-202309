@@ -2,11 +2,17 @@
 # El -d indica al servidor el tipo de dato que está enviando el cliente
 # El -v sirve para indicar en consola los procesos que estánocurriendo en el servidor
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "CREATE POST"
+blue='\033[0;34m'
+green='\033[0;32m'
+tomato='\033[1;31m'
 
-CASE "Creating a new post"
+reset='\033[0m'
+
+echo -e "${blue}TEST CREATE POST${reset}\n"
+
+echo -e "${green}CASE Creating a new post${reset}\n"
 
 curl 'http://localhost:8000/newpost' \
 -H 'Authorization: Bearer 24dlukpa1skg' \
@@ -28,7 +34,7 @@ curl 'http://localhost:8000/newpost' \
 # < Keep-Alive: timeout=5
 # < Content-Length: 0
 
-# CASE "Error with wrong user id"
+echo -e "${tomato}CASE Error with wrong user id${reset}\n"
 
 curl 'http://localhost:8000/newpost' \
 -H 'Authorization: Bearer noexiste' \

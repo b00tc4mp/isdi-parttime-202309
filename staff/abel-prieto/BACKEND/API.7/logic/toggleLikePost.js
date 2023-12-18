@@ -1,4 +1,5 @@
 const JSON = require('../utils/JSON')
+const { NotFoundError, SystemError } = require('../utils/errors')
 const { validateText, validateFunction } = require('../utils/validators')
 
 
@@ -9,7 +10,7 @@ function toggleLikePost(userId, postId, callback) {
 
     JSON.parseFromFile('./data/users.json', (error, users) => {
         if (error) {
-            callback(error)
+            callback(new SystemError(error.message))
             
             return
         }
@@ -17,14 +18,14 @@ function toggleLikePost(userId, postId, callback) {
         const user = users.find(user => userId === user.id)
 
         if (!user) {
-            callback(new Error('user not found'))
+            callback(new NotFoundError('user not found'))
 
             return
         }
 
         JSON.parseFromFile('./data/posts.json', (error, posts) => {
             if (error) {
-                callback(error)
+                callback(new SystemError(error.message))
 
                 return
             }
@@ -32,7 +33,7 @@ function toggleLikePost(userId, postId, callback) {
             const postIndex = posts.findIndex(post => post.id === postId)
 
             if (!postIndex < 0) {
-                callback(new Error('post not found'))
+                callback(new NotFoundError('post not found'))
             }
 
             const post = posts[postIndex]
@@ -47,7 +48,7 @@ function toggleLikePost(userId, postId, callback) {
 
             JSON.stringifyToFile('./data/posts.json', posts, error => {
                 if (error) {
-                    callback(error)
+                    callback(new SystemError(error.message))
 
                     return
                 }

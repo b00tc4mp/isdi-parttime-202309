@@ -2,11 +2,17 @@
 # El -v sirve para indicar en consola los procesos que estánocurriendo en el servidor
 # Si no especificamos ningun -d (Dato) el servidor ya sabe que se trata de un GET y no un POST
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "RETRIEVE USER"
+blue='\033[0;34m'
+green='\033[0;32m'
+tomato='\033[1;31m'
 
-CASE "Retrieve user succesfully on correct user id"
+reset='\033[0m'
+
+echo -e "${blue}TEST RETRIEVE USER${reset}\n"
+
+echo -e "${green}CASE Retrieve user succesfully on correct user id${reset}\n"
 
 curl 'http://localhost:8000/users' \
 -H 'Authorization: Bearer 24dlukpa1skg' \
@@ -28,3 +34,26 @@ curl 'http://localhost:8000/users' \
 # < Keep-Alive: timeout=5
 
 # {"id":"24dlukpa1skg","name":"Bruce Wayne"}
+
+echo -e "${tomato}CASE Error trying retrieve wrong user id${reset}\n"
+
+# curl 'http://localhost:8000/users' \
+# -H 'Authorization: Bearer 25dlukpa1skg' \
+# -v
+
+# > GET /users HTTP/1.1
+# > Host: localhost:8000
+# > User-Agent: curl/8.2.1
+# > Accept: */*
+# > Authorization: Bearer 25dlukpa1skg
+# >
+# < HTTP/1.1 404 Not Found
+# < X-Powered-By: Express
+# < Content-Type: application/json; charset=utf-8
+# < Content-Length: 52
+# < ETag: W/"34-Cs2INrsYwSHLSHCKVUFPEWh9NjI"
+# < Date: Mon, 18 Dec 2023 12:04:46 GMT
+# < Connection: keep-alive
+# < Keep-Alive: timeout=5
+# <
+# {"error":"NotFoundError","message":"user not found"}

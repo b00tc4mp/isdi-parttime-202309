@@ -1,6 +1,7 @@
 const JSON = require("../utils/JSON")
 const generateId = require("../data/generateId")
 const { validateText, validateFunction } = require("../utils/validators")
+const { SystemError, NotFoundError } = require("../utils/errors")
 
 function createPosts(userId, image, text, callback) {
     validateText(userId, "user")
@@ -10,7 +11,7 @@ function createPosts(userId, image, text, callback) {
 
     JSON.parseFromFile("./data/users.json", (error, users) => {
         if (error) {
-            callback(error)
+            callback(new SystemError(error.message))
 
             return
         }
@@ -18,14 +19,14 @@ function createPosts(userId, image, text, callback) {
         let user = users.find(user => user.id === userId)
 
         if (!user) {
-            callback(new Error("user not found"))
+            callback(new NotFoundError("user not found"))
 
             return
         }
 
         JSON.parseFromFile("./data/posts.json", (error, posts) => {
             if (error) {
-                callback(error)
+                callback(new SystemError(error.message))
 
                 return
             }
@@ -42,7 +43,7 @@ function createPosts(userId, image, text, callback) {
     
             JSON.stringifyToFile("./data/posts.json", posts, error => {
                 if (error) {
-                    callback(error)
+                    callback(new SystemError)
     
                     return
                 }
