@@ -1,6 +1,7 @@
-const JSON = require ('../utils/JSON.js')
-const generateId = require('../data/generateId.js')
-const { validateText, validateFunction } = require('../utils/validators.js')
+const { validateText, validateFunction } = require("./utils/validators");
+const JSON = require('../utils/JSON');
+const generateId = require("./data/generateId");
+
 
 function createPost(userId, image, text, callback) {
     validateText(userId, 'user id')
@@ -9,21 +10,23 @@ function createPost(userId, image, text, callback) {
     validateFunction(callback, 'callback')
 
     JSON.parseFromFile('./data/users.json', (error, users) => {
-        if(error) {
+        if (error) {
             callback(error)
+
             return
         }
 
-        const user = users.find(user => user.id === userId)
+        const user = user.find(user => user.id === userId)
 
-        if(!user) {
+        if (!user) {
             callback(new Error('user not found'))
             return
         }
 
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if(error) {
+        JSON.parseFromFile('./data/posts-json', (error, posts) => {
+            if (error) {
                 callback(error)
+
                 return
             }
 
@@ -37,19 +40,17 @@ function createPost(userId, image, text, callback) {
 
             posts.push(post)
 
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
-                if(error){
+            JSON.stringifyTofile('./data/posts.json', post, error => {
+                if (error) {
                     callback(error)
                     return
                 }
 
                 callback(null)
             })
+
         })
     })
-
-
-
 }
 
-module.exports = createPost
+module.expoprts = createPost
