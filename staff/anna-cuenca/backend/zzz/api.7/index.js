@@ -33,20 +33,6 @@ server.get('/hello', (req, res) => res.send(`Hello its, ${req.query.name} ${req.
 // y nos lo pone como propiedad e la req.body
 const jsonBodyParser = express.json()
 
-// essto es un middlewhere que se va a ejecutar antes que cualquier petición
-//aqui añaddimos las cabeceras que permiten al cliente (al navegador), los accesos desde cualquier servidor
-server.use((req, res, next) => {
-
-    // en la respuesta se ponen los headers que tocan
-    // le decimos al cliente que nos puede llamar desde cualquier origen.
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Access-Control-Allow-Methods', '*')
-
-    next() // con esto, le decimos que primero pasará por el res.setHeader, luego sigue su camino
-
-})
-
 //usar el metodo POST para hacer el registro
 server.post('/users', jsonBodyParser, (req, res) => {
     const { name, email, password } = req.body //queremos que nos devuelva la respuesta en el body
