@@ -10,7 +10,7 @@
 
 - Request: POST /users/auth "Content-Type: application/json" { email, password }
 - Response: 200 "Content-Type: application/json" userId
-Response (error): 400 "Content-Type: application/json" { error, message }
+- Response (error): 400 "Content-Type: application/json" { error, message }
 
 ## Retrieve user
 
@@ -18,14 +18,20 @@ Response (error): 400 "Content-Type: application/json" { error, message }
 - Response: 200 "Content-Type: application/json" { name }
 Response (error): 400 "Content-Type: application/json" { error, message }
 
+## Retrieve posts
+
+- Request: GET /posts "Authorization: Bearer userId"
+- Response: 200 "Content-Type: application/json" [{ id, author: { id, name }, image, text, likes, liked, fav }]
+- Response (error): 400 "Content-Type: application/json" { error, message }
+
 ## Create post
 
 - Request: POST /posts "Authorization: Bearer userId" "Content-type: application/json" { image, text }
 - Response: 201
-Response (error): 400 "Content-Type: application/json" { error, message }
+- Response (error): 400 "Content-Type: application/json" { error, message }
 
 ## Toggle like post
 
 - Request: PATCH /posts/postId/likes "Authorization: Bearer userId"
 - Response: 204
-Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
+- Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
