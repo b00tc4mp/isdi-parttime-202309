@@ -33,5 +33,12 @@
         "email": "anadel@gmail.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "5sbtm9zs8ao0",
+        "name": "Po peye",
+        "email": "po@peye.com",
+        "password": "123123123",
+        "favs": []
     }
 ]

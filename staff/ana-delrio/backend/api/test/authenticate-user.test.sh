@@ -1,3 +1,8 @@
+
+#  curl es un cliente como el navegador. 
+#  curl te permite llamar al servidor desde el terminal. configurando las llamadas, para hacerte la vida facil en las pruebas rapidas. 
+#  User-Agent, ahi te pone el nombre de curl y su versión
+
 source pepetest.sh
 
 TEST "authenticate-user"

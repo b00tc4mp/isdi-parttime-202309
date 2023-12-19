@@ -10,10 +10,17 @@ const server = express()
 
 server.get('/', (req, res) => res.send('Hello, World!'))
 
-
-
 // es un middelware: te permite convertir cualquier peticion que le enviemos al servidor con un cuerpo json, lo convierte a objeto, en la propiedad body de la request
 const jsonBodyParser = express.json()
+
+//middleware
+server.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Acess-Control-Allow-Methods', '*')
+
+    next()
+})
 
 server.post('/users', jsonBodyParser, (req, res) => {
 
