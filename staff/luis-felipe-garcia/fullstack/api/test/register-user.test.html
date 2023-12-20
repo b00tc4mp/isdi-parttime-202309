@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST authenticate-user</title>
+</head>
+
+<body>
+    <script>
+        const req = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: 'Po Peye', email: 'po@peye.com', password: '123123123' })
+        }
+
+        fetch('http://localhost:8000/users', req)
+            .then(res => console.log(res.status))
+            .catch(error => console.error(error))
+
+    </script>
+</body>
+
+</html>
