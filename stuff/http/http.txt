@@ -1,0 +1,16 @@
+title BootCamp
+
+actor User
+User->Nav:http://localhost:5500/.../index.html
+Nav->Server:GET .../index.html
+Server->Storage:READ .../index.html
+Storage->Server:<html>...</html>
+Server->Nav:200 <html>...</html>
+Nav->Nav:parse
+Nav->User:oo
+Nav->Server:GET .../main.js
+Server->Storage:READ .../main.js
+Storage->Server:document.getElem...
+Server->Nav:document.getElem...
+Nav->Nav:parse
+Nav->User:oo
