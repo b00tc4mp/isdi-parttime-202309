@@ -1,7 +1,7 @@
 const retrieveUser = require('./retrieveUser')
 
 try {
-    retrieveUser('1g6al6ee05pc', (error, user) => {
+    retrieveUser('5hjsjd4co740', (error, user) => {
         if (error) {
             console.error(error)
             return

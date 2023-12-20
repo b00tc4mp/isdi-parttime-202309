@@ -56,13 +56,6 @@
         "favs": []
     },
     {
-        "id": "1zn6f7ltwy1s",
-        "name": "Tom Ate con POST",
-        "email": "tom@ate.com",
-        "password": "123123123",
-        "favs": []
-    },
-    {
         "id": "14ltlqokdam8",
         "name": "Lee Chuga",
         "email": "lee@chuga.es",
@@ -101,6 +94,13 @@
         "id": "579kpailkg80",
         "name": "Po Peye",
         "email": "po@peye.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5hjsjd4co740",
+        "name": "Tom Ate",
+        "email": "tom@ate.com",
         "password": "123123123",
         "favs": []
     }

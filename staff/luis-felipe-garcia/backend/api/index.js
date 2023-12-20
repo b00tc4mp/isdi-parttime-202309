@@ -17,12 +17,12 @@ server.get('/hello', (req, res) => res.send(`<h1>Hello, ${req.query.name} ${req.
 
 const jasonBodyParser = express.json()
 
-server.use((req, res, next) => {
+/*server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
 
     next()
-})
+})*/
 
 server.post('/users', jasonBodyParser, (req, res) => {
     try {
@@ -79,7 +79,7 @@ server.get('/users', (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
 
-        retrieveUser(userId, (error, res) => {
+        retrieveUser(userId, (error, user) => {
             if (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
                 return
@@ -96,7 +96,7 @@ server.get('/users', (req, res) => {
 server.post('/posts', jasonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
-        const { image, test } = req.body
+        const { image, text } = req.body
 
         createPost(userId, image, text, error => {
             if (error) {
@@ -125,7 +125,7 @@ server.patch('/posts/:postId/likes', (req, res) => {
                 else if (error instanceof NotFoundError)
                     status = 404
 
-                res.status(status).json({ error: error.constructos.name, message: error.message })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
                 return
             }
 
