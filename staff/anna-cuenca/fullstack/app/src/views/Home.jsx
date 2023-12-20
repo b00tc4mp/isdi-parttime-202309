@@ -107,11 +107,18 @@ function Home(props) {
         </header>
         {view === 'profile' && <Profile onSuccess={() => setView(null)} />}
 
+        {/* Esto es lo que he comentado
         {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
+        Hasta aquii */}
+
+
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
 
 
         {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts.bind(logic)} />}
+
+
+
         {/* {favs.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
 
 

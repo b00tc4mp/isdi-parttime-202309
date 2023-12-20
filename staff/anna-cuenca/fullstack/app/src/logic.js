@@ -26,7 +26,7 @@ class Logic {
       .then(res => {
         if (!res.ok) {
           res.json()
-            .then(body => callback(new Error(boddy.message)))
+            .then(body => callback(new Error(body.message)))
             .catch(error => callback(error))
 
           return
@@ -50,11 +50,10 @@ class Logic {
     }
 
     fetch('http://localhost:8000/users/auth', req)
-
       .then(res => {
         if (!res.ok) {
           res.json()
-            .then(body => callback(new Error(boddy.message)))
+            .then(body => callback(new Error(body.message)))
             .catch(error => callback(error))
 
           return
@@ -63,12 +62,12 @@ class Logic {
         res.json()
           .then(userId => {
             this.sessionUserId = userId
+
             callback(null)
           })
           .catch(error => callback(error))
-
       })
-      .catch(error => console.error(error)) // este error es
+      .catch(error => callback(error))
 
   }
 
@@ -85,8 +84,8 @@ class Logic {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${this.sessionUserId}`
-      },
-      body: JSON.stringify({ email, password })
+      }
+
     }
 
     fetch('http://localhost:8000/users', req)
@@ -94,7 +93,7 @@ class Logic {
       .then(res => {
         if (!res.ok) {
           res.json()
-            .then(body => callback(new Error(boddy.message)))
+            .then(body => callback(new Error(body.message)))
             .catch(error => callback(error))
 
           return
@@ -105,7 +104,7 @@ class Logic {
           .catch(error => callback(error))
 
       })
-      .catch(error => console.error(error)) // este error es
+      .catch(error => callback(error)) // este error es
   }
 
   // YA FUNCIONA :D
@@ -187,54 +186,31 @@ class Logic {
 
 
   retrievePosts(callback) {
-    db.users.findById(this.sessionUserId, (error, user) => {
-      if (error) {
-        callback(error)
+    // const req = {
+    //   method: 'GET',
+    //   headers: {
+    //     'Authorization': `Bearer ${this.sessionUserId}`
+    //   },
+    //   body: JSON.stringify({ email, password })
+    // }
 
-        return
-      }
+    // fetch('http://localhost:8000/users', req)
 
-      if (!user) {
-        callback(new Error('user not found'))
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       res.json()
+    //         .then(body => callback(new Error(boddy.message)))
+    //         .catch(error => callback(error))
 
-        return
-      }
+    //       return
+    //     }
 
-      const posts = db.posts.getAll((error, posts) => {
-        if (error) {
-          callback(error)
+    //     res.json()
+    //       .then(user => callback(null, user))
+    //       .catch(error => callback(error))
 
-          return
-        }
-
-        let count = 0
-
-        posts.forEach(post => {
-          post.liked = post.likes.includes(this.sessionUserId)
-
-          db.users.findById(post.author, (error, author) => {
-            if (error) {
-              callback(error)
-
-              return
-            }
-
-            post.author = {
-              email: author.email,
-              id: author.id,
-              name: author.name
-            }
-
-            post.fav = user.favs.includes(post.id)
-
-            count++
-
-            if (count === posts.length)
-              callback(null, posts)
-          })
-        })
-      })
-    })
+    //   })
+    //   .catch(error => console.error(error)) // este error es
 
   }
 
@@ -521,3 +497,7 @@ class Logic {
 const logic = new Logic
 
 export default logic
+
+
+
+

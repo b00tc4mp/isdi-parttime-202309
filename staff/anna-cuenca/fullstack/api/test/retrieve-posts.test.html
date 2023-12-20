@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST Retrieve-posts</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // AQUI PIDE EL CLIENTE
+    const req = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer 6lr4s8bbvagg'
+        }
+        // como es un GET no tiene body
+    }
+    // AQUI ESTA LA RESPUESTA DEL SERVIDOR 
+    fetch('http://localhost:8000/posts', req)
+
+        .then(res => {
+            if (res.ok)
+                res.json() //aqui si que hay body, porque es la respuesta
+                    .then(body => console.log(res.status, body))
+                    .catch(error => console.error(error))
+
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+</script>
+
+</html>

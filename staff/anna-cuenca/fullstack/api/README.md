@@ -19,6 +19,12 @@
 - Response: 200 "Content-Type: application/json { name }
 - Response (error): 400 application/json {error, message}
 
+## Retrieve posts
+
+- Request: GET /posts "Authorization: Bearer userId"
+- Resnponse: 200 "Content-Type: application/json" [{id, author: {id, name}, image, text, liked, fav}]
+- Response (error): 400 application/json {error, message}
+
 ## Create post
 
 - Request: POST /posts "Autohorization: Bearer userId" "Content-Type: H application/json { image, text }

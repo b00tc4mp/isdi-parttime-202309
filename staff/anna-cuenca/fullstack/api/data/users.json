@@ -89,5 +89,12 @@
         "email": "maca@rrones.com",
         "password": "123",
         "favs": []
+    },
+    {
+        "id": "4zzwzpkbkhg0",
+        "name": "peter",
+        "email": "peter@pan.com",
+        "password": "123",
+        "favs": []
     }
 ]
