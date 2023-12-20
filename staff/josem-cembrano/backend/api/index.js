@@ -3,17 +3,26 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
+const toggleLikePost = require('./logic/toggleLikePost')
+const { SystemError, ContentError, DuplicityError, NotFoundError } = require('./utils/errors')
 
 const server = express()
 
+// const cors = require('cors');
+// app.use(cors());
+
 server.get('/', (req, res) => res.send('Hello, World!!')) //Lo que manejamos entre la petición y la respuesta se llama "middleware"
-
-//TEST in browser GET http://localhost:8000/register?name=Zana&surname=Horia
-server.get('/hello', (req, res) => res.send(`Hello! ${req.query.name} ${req.query.surname}!!`))
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const jsonBodyParser = express.json()
+
+server.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+
+    next()
+})
 
 server.post('/users', jsonBodyParser, (req, res) => {
     try {
@@ -21,6 +30,15 @@ server.post('/users', jsonBodyParser, (req, res) => {
 
         registerUser(name, email, password, error => {
             if (error) {
+                let status = 400
+
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+                else if (error instanceof DuplicityError) {
+                    status = 409
+                }
+
                 res.status(400).json({ error: error.constructor.name, message: error.message })
 
                 return
@@ -29,7 +47,12 @@ server.post('/users', jsonBodyParser, (req, res) => {
             res.status(201).send()
         })
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
 
@@ -86,5 +109,39 @@ server.post('/posts', jsonBodyParser, (req, res) => {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
+
+server.patch('./posts/:postId/likes', (rep, res) => {
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        const { postId } = req.params
+
+        toggleLikePost(userId, postId, error => {
+            if (error) {
+                let status = 400
+                if (error instanceof SystemError) {
+                    status = 500
+                }
+                else if (error instanceof NotFoundError) {
+                    status = 404
+                }
+
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.status(204).send()
+        })
+    } catch (error) {
+        let status = 400
+
+        if (error instanceof ContentError) {
+            status = 406
+        }
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
 
 server.listen(8000, () => console.log('server is up ⭐!!'))
