@@ -117,5 +117,19 @@
         "email": "morta@delo.com",
         "password": "1",
         "favs": []
+    },
+    {
+        "id": "44zdgcnk8aq0",
+        "name": "Tom Ate",
+        "email": "tom@ate22222.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "7ivwmosn0f00",
+        "name": "Po Peye",
+        "email": "po@peye333333.com",
+        "password": "123123123",
+        "favs": []
     }
 ]

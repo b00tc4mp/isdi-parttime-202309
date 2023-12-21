@@ -1,35 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
+    
+    const req = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: 'po@peye.com', password: '123123123' })
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST authenticate-user</title>
-</head>
+    fetch('http://localhost:8000/users/auth', req)
+        .then(res => {
+            if (res.ok)
+                res.json()
+                    .then(body => console.log(res.status, body))
+                    .catch(error => console.error(error))
+            else
+                console.error(res.status)
+        })
 
-<body>
-    <script>
-        const req = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: 'po@peye.com', password: '123123123' })
-        }
+        .catch(error => console.error(error))
 
-        fetch('http://localhost:8000/users', req)
-            .then(res => {
-                if (res.ok)
-                    res.json()
-                        .then(body => console.log(res.status, body))
-                        .catch(error => console.error(error))
-                else
-                    console.error(res.status)
-            })
-
-            .catch(error => console.error(error))
-
-    </script>
-</body>
-
-</html>
+</script>
