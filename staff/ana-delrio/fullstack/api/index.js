@@ -17,7 +17,7 @@ const jsonBodyParser = express.json()
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Acess-Control-Allow-Methods', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
 
     next()
 })

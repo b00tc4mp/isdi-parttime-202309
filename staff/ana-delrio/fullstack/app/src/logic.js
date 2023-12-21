@@ -50,7 +50,8 @@ class Logic {
             body: JSON.stringify({ email, password })
         }
 
-        fetch('http://localhost:8000/auth', req)
+        // esto es un endpoint, a donde estamos llamando
+        fetch('http://localhost:8000/users/auth', req)
             .then(res => {
                 // si todo va bien irá por ese camino 
                 if (!res.ok) {
@@ -61,11 +62,13 @@ class Logic {
                     return
                 }
                 res.json()
-                    .then(userId => callback(null, userId))
-                    .catch(error => callback(error))
+                    .then(userId => {
+                        this.sessionUserId = userId
 
+                        callback(null)
+                    })
+                    .catch(error => callback(error))
             })
-            // está ruta la tomaríamos si el servidor se cayera por ejemplo, error de conexión
             .catch(error => callback(error))
 
     }
@@ -86,9 +89,9 @@ class Logic {
             }
         }
 
-        fetch('http://localhost:8000', req)
+        fetch('http://localhost:8000/users', req)
             .then(res => {
-                // si todo va bien irá por ese camino 
+                console.log(req)
                 if (!res.ok) {
                     res.json()
                         .then(body => callback(new Error(body.message)))
@@ -96,16 +99,11 @@ class Logic {
 
                     return
                 }
+
                 res.json()
-                    .then(userId => {
-                        this.sessionUserId = userId
-
-                        callback(null)
-                    })
+                    .then(user => callback(null, user))
                     .catch(error => callback(error))
-
             })
-            // está ruta la tomaríamos si el servidor se cayera por ejemplo, error de conexión
             .catch(error => callback(error))
     }
 
