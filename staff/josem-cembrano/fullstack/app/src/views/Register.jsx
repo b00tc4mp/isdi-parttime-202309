@@ -1,3 +1,6 @@
+import { Button, Link, Form, Field, Container } from '../library'
+import logic from '../logic'
+
 function Register(props) {
     console.log('Register')
 
@@ -36,22 +39,19 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <div className="view">
+    return <Container>
         <h1>Register</h1>
 
-        <form className="form" onSubmit={handleSubmit}>
-            <label htmlFor="name-input">Name</label>
-            <input id="name-input" type="text" />
+        <Form onSubmit={handleSubmit}>
+            <Field id="name-input">Name</Field>
+            <Field id="email-input" type="email">E-mail</Field>
+            <Field id="password-input" type="password">Password</Field>
 
-            <label htmlFor="email-input">E-mail</label>
-            <input id="email-input" type="email" />
+            <Button type="submit">Register</Button>
+        </Form>
 
-            <label htmlFor="password-input">Password</label>
-            <input type="password" id="password-input" />
-
-            <button type="submit">Register</button>
-        </form>
-
-        <a href="" onClick={handleLoginClick}>Login</a>
-    </div>
+        <Link onClick={handleLoginClick}>Login</Link>
+    </Container>
 }
+
+export default Register
