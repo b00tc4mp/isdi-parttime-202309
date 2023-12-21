@@ -1,9 +1,12 @@
-function toggleFavPost() {
+import { validateText } from "../utils/validators"
 
-//TODO
+function toggleFavPost() {
+    validateText(postId, 'post id')
+
+    //TODO
 
     // toggleFavPost(postId, callback) {
-    //     validateText(postId, 'post id')
+    //     
 
     //     db.posts.findById(postId, (error, post) => {
     //         if (error) {

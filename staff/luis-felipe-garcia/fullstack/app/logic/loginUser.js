@@ -25,7 +25,7 @@ function loginUser(email, password, callback) {
 
             res.json()
                 .then(userId => callback(null, userId => {
-                    this.sessionUserId = userId
+                    context.sessionUserId = userId
                     callback(null)
                 }))
                 .catch(error => callback(error))

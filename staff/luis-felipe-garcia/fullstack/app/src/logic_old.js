@@ -35,4 +35,4 @@ class Logic {
 
 const logic = new Logic
 
-export default logic
+//export default logic

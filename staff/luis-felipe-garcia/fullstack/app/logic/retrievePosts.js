@@ -1,32 +1,30 @@
-import { validateText } from "../utils/validators"
+
 import context from './context'
 
-
-function toggleLikePost(postId, callback) {
-    validateText(postId, 'post id')
-
+function retrievePosts(callback) {
     const req = {
-        method: 'PATCH',
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${context.sessionUserId}`
         }
     }
 
-
-    fetch(`http://localhost:8000/posts/${postId}/likes`, req)
+    fetch('http://localhost:8000/posts', req)
         .then(res => {
             if (!res.ok) {
                 res.json()
                     .then(body => callback(new Error(body.message)))
                     .catch(error => callback(error))
+
                 return
             }
-            callback(null)
+
+            res.json()
+                .then(posts => callback(null, posts))
+                .catch(error => callback(error))
         })
         .catch(error => callback(error))
 }
 
 
-
-
-export default toggleLikePost
+export default retrievePosts
