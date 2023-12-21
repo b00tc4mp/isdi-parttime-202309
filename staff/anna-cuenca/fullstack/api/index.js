@@ -6,6 +6,7 @@ const registerUser = require('./logic/registerUser') // el requiere es como el i
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
+const retrievePosts = require('./logic/retrievePosts')
 const toggleLikePost = require('./logic/toogleLikePost')
 const { SystemError, NotFoundError, ContentError, DuplicityError, AuthenticateError } = require('./utils/errors')
 
@@ -203,6 +204,33 @@ server.patch('/posts/:postId/likes', (req, res) => {
             status = 406
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+// retrievePosts
+
+server.get('/posts', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        retrievePosts(userId, (error, posts) => {
+            if (error) {
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+
+            res.json(posts)
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 

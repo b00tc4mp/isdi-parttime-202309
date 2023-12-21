@@ -22,7 +22,7 @@
 ## Retrieve posts
 
 - Request: GET /posts "Authorization: Bearer userId"
-- Resnponse: 200 "Content-Type: application/json" [{id, author: {id, name}, image, text, liked, fav}]
+- Response: 200 "Content-Type: application/json" [{id, author: {id, name}, image, text, liked, fav}]
 - Response (error): 400 application/json {error, message}
 
 ## Create post

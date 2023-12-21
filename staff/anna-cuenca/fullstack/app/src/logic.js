@@ -186,31 +186,30 @@ class Logic {
 
 
   retrievePosts(callback) {
-    // const req = {
-    //   method: 'GET',
-    //   headers: {
-    //     'Authorization': `Bearer ${this.sessionUserId}`
-    //   },
-    //   body: JSON.stringify({ email, password })
-    // }
+    const req = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.sessionUserId}`
+      }
+    }
 
-    // fetch('http://localhost:8000/users', req)
+    fetch('http://localhost:8000/posts', req)
 
-    //   .then(res => {
-    //     if (!res.ok) {
-    //       res.json()
-    //         .then(body => callback(new Error(boddy.message)))
-    //         .catch(error => callback(error))
+      .then(res => {
+        if (!res.ok) {
+          res.json()
+            .then(body => callback(new Error(body.message)))
+            .catch(error => callback(error))
 
-    //       return
-    //     }
+          return
+        }
 
-    //     res.json()
-    //       .then(user => callback(null, user))
-    //       .catch(error => callback(error))
+        res.json()
+          .then(posts => callback(null, posts))
+          .catch(error => callback(error))
 
-    //   })
-    //   .catch(error => console.error(error)) // este error es
+      })
+      .catch(error => console.error(error)) // este error es
 
   }
 
