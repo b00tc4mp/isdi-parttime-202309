@@ -16,7 +16,7 @@ function Home() {
 
         <div className="home">
 
-            <div>
+            <div className="container">
                 <div className="tittle-logo">
                     <p>    ___ ___  .___ .___  _______   .___ ___________     __      __        ___        </p>
                     <p>   /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__     </p>
@@ -36,6 +36,7 @@ function Home() {
 
                 <div className="info">
                     <p>INFORMATION</p>
+                    <br></br>
                     <p>-----------------------------------------</p>
                     <div className="info-about">
                         <p>ABOUT</p>
@@ -64,7 +65,6 @@ function Home() {
                     {/* <input type="text" autofocus autocomplete="off" value></input> */}
                     <p>{pointer}</p>
                 </div>
-
 
                 <br></br>
                 <br></br>

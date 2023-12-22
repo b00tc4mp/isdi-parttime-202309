@@ -1,18 +1,4 @@
 
-@media (min-width: 768px)
-.md\:text-base
-  font-size: 1rem
-  line-height: 1.5rem
-
-@media (min-width: 768px)
-.md\:min-w-full
-  min-width: 100%
-
-@media (prefers-color-scheme: dark)
-.dark\:text-dark-foreground
-  --tw-text-opacity: 1
-  color: rgb(235 219 178/var(--tw-text-opacity))
-
 *
   background-color: #1e252e
   font-family: Hack,monospace
@@ -42,6 +28,10 @@ a
   padding-left: 20px
   padding-top: 15px
 
+.container
+  overflow-y: auto
+  height: 100%
+
 .tittle-logo
   white-space: pre
   font-family: monospace
@@ -70,3 +60,18 @@ a
   align-items: end
   text-align: left
   margin-bottom: 5px
+
+::-webkit-scrollbar
+  width: 10px
+  height: 10px
+
+::-webkit-scrollbar-track
+  background: #1e252e
+  border-radius: 5px
+
+::-webkit-scrollbar-thumb
+  background: #ebdbb2
+  border-radius: 5px
+
+::-webkit-scrollbar-thumb:hover
+  background: #ff8037

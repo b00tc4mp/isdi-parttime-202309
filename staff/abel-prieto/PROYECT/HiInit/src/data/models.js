@@ -6,8 +6,6 @@ class Guest {
         this.name = name
         this.commands = commands
     }
-
-
 }
 
 // NORMAL USER
@@ -23,7 +21,8 @@ class User {
 
 // ADMINISTRATOR USER
 class Root {
-    constructor(id, name, email, password, commands) {
+    constructor(sudo, id, name, email, password, commands) {
+        this.sudo = sudo
         this.id = id
         this.name = name
         this.email = email
