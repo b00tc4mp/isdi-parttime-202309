@@ -4,7 +4,7 @@ const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
-const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
+const { SystemError, NotFoundError, ContentError, DuplicityError } = require('../api/logic/errors')
 
 const server = express()
 server.get('/', (req, res) => res.send('Hello World'))
