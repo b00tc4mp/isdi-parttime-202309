@@ -207,6 +207,11 @@ server.patch('/posts/:postId/likes', (req, res) => {
     }
 })
 
+// toggleFavPosts
+
+//TODO 
+
+
 // retrievePosts
 
 server.get('/posts', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
