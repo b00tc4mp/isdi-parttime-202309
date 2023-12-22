@@ -6,21 +6,29 @@ const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
 const toggleLikePost = require('./logic/toggleLikePost')
 
+// Importamos el paquete EXPRESS
 const express = require('express')
 const { ContentError, NotFoundError, SystemError } = require("./utils/errors")
-// Importamos el paquete EXPRESS
 
 const server = express()
 
-server.get('/', (req, res) => res.send('Hello API.6'))
 // Hacemos que la respuesta al servidor se envíe el 'Hello API.6'
-// Ruta en 'localhost:8000/'
+server.get('/', (req, res) => res.send('Hello API.6'))
 
 // TEST IN BROWSER 'GET' in localhost:8000/hello?name=Abel&surname=Prieto
 server.get('/hello', (req, res) => res.send(`Hello, ${req.query.name} ${req.query.surname}!`))
 
-const jsonBodyParser = express.json()
 // Permite convertir cualquier petición con un cuerpo .JSON en un objeto en la propiedad 'body' de la request
+const jsonBodyParser = express.json()
+
+// Con server.use() te permite usar un middleware a nivel global para que lo tengan todas las respuestas a peticiones al servidor y con next(), hace que continuen
+server.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*') // Permite cualquier puerto
+    res.setHeader('Access-Control-Allow-Headers', '*') // Permite cualquier header
+    res.setHeader('Access-Control-Allow-Methods', '*') // Permite cualquier método
+    
+    next()
+})
 
 // TEST in browser 'POST' in localhost 'REGISTER USER'
 server.post('/users', jsonBodyParser, (req, res) => {
@@ -287,5 +295,5 @@ server.patch('/newpost/:postId/likes', (req, res) => {
     }
 }) 
 
-server.listen(8000, () => console.log('server online'))
 // Hacemos que el servidor se mantenga en escucha a través del puerto 8000 e imprima un console.log()
+server.listen(8000, () => console.log('server online'))
