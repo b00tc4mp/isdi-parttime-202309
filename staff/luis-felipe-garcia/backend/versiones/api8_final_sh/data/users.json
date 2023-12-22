@@ -1,0 +1,107 @@
+[
+    {
+        "id": "amhkljhnhc4",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "9nbvjt5wugo",
+        "name": "Zana Horia",
+        "email": "zana@horia.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "1g6al6ee05pc",
+        "name": "Pe Pino",
+        "email": "pe@pino.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "6ttz1tptn2c0",
+        "name": "Le Chuga",
+        "email": "le@chuga.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "7hyl6aor59s0",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "14fqalrj3zsw",
+        "name": "Pepito2 Grillo",
+        "email": "pepito2@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5a3713n3ru80",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo2.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "79l31opohps0",
+        "name": "Man Zana con POST",
+        "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "14ltlqokdam8",
+        "name": "Lee Chuga",
+        "email": "lee@chuga.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "7eaklejru480",
+        "name": "Tom Ate 2",
+        "email": "tom@ate2.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "53j90459sy00",
+        "name": "Lee Chuga 2",
+        "email": "lee@chuga2.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "2uqapsfgf0g0",
+        "name": "Lee Chuga 2",
+        "email": "lee@chuga12.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "1g5suo28gu1s",
+        "name": "Lee Chuga 112",
+        "email": "lee@chuga11.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "579kpailkg80",
+        "name": "Po Peye",
+        "email": "po@peye.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5hjsjd4co740",
+        "name": "Tom Ate",
+        "email": "tom@ate.com",
+        "password": "123123123",
+        "favs": []
+    }
+]
