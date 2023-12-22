@@ -1,35 +1,29 @@
-const CSV = require('../utils/CSV')
-const generateId = require('../data/generateId')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { User } = require('../data/models')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 function authenticateUser(email, password, callback) {
     validateText(email, 'email')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    CSV.loadAsObject('./data/users.csv', (error, users) => {
-        if (error) {
-            callback(error)
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
-            return
-        }
+                return
+            }
 
-        let user = users.find(user => user.email === email)
+            if (user.password !== password) {
+                callback(new CredentialsError('wrong password'))
 
-        if (!user) {
-            callback(new Error('user not found'))
+                return
+            }
 
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
-
-            return
-        }
-
-        callback(null, user.id)
-    })
+            callback(null, user.id)
+        })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = authenticateUser
