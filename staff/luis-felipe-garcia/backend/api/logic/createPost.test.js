@@ -5,9 +5,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
             createPost(
-                '6584656975fc0b52c39022e1',
-                'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.agroponiente.com%2Fcatalogo-fruta-verdura%2Fpepino-almeria%2F&psig=AOvVaw37f9ptd9x1kLQ34gQfTk7M&ust=1702443959476000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjnjI-QiYMDFQAAAAAdAAAAABAD',
-                'Pepino from agropinente',
+                // '6584656975fc0b52c39022e1',
+                '658467e375fc0b52c39022e3',
+                'https://static.wikia.nocookie.net/heroe/images/5/5e/Peter_Pan_en_blanco.png/revision/latest?cb=20230303050514&path-prefix=es',
+                'Grande Peter !',
                 error => {
                     if (error) {
                         console.error(error)
