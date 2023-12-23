@@ -1,0 +1,72 @@
+[
+    {
+        "id": "amhkljhnhc4",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "9nbvjt5wugo",
+        "name": "Zana Horia",
+        "email": "zana@horia.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "1g6al6ee05pc",
+        "name": "Pe Pino",
+        "email": "pe@pino.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "6ttz1tptn2c0",
+        "name": "Le Chuga",
+        "email": "le@chuga.com",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "9h84g5uslmo",
+        "name": "Lee Chuga",
+        "email": "lee@chuga.es",
+        "password": "1",
+        "favs": []
+    },
+    {
+        "id": "7hyl6aor59s0",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "14fqalrj3zsw",
+        "name": "Pepito2 Grillo",
+        "email": "pepito2@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5a3713n3ru80",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo2.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "79l31opohps0",
+        "name": "Man Zana con POST",
+        "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "1zn6f7ltwy1s",
+        "name": "Tom Ate con POST",
+        "email": "tom@ate.com",
+        "password": "123123123",
+        "favs": []
+    }
+]
