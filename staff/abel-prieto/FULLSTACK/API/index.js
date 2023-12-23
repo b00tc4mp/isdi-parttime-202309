@@ -5,6 +5,7 @@ const retrieveUser = require('./logic/retrieveUser')
 const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
 const toggleLikePost = require('./logic/toggleLikePost')
+const retrievePost = require('./logic/retrievePost')
 
 // Importamos el paquete EXPRESS
 const express = require('express')
@@ -251,6 +252,25 @@ server.post('/newpost', jsonBodyParser, (req, res) => {
         }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+// TEST in browser 'GET' in localhost 'RETRIEVE POSTS'
+server.get('/newpost', (req, res) => {
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        retrievePost(userId, (error, posts) => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            } 
+
+            res.json(posts)
+        }) 
+    } catch(error) {
+        res.status(400).json({ error: error.contructor.name, message: error.message })
     }
 })
 

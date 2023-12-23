@@ -10,16 +10,15 @@ tomato='\033[1;31m'
 
 reset='\033[0m'
 
-echo -e "${blue}TEST USER REGISTER${reset}\n"
+echo -e "${blue}TEST RETRIEVE POSTS${reset}\n"
 
-echo -e "${green}CASE Success with register user${reset}\n"
+echo -e "${green}CASE Success with retrieve posts${reset}\n"
 
-curl 'http://localhost:8000/users' \
--H 'Content-Type: application/json' \
--d '{ "name": "Bruce Wayne", "email": "nosoy@batman.com", "password": "1234" }' \
+curl 'http://localhost:8000/newpost' \
+-H 'Authorization: Bearer 1g958dd4qk0w' \
 -v
 
-# > POST /users HTTP/1.1
+# > GET /newposts HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.1.2
 # > Accept: */*
@@ -33,14 +32,15 @@ curl 'http://localhost:8000/users' \
 # < Keep-Alive: timeout=5
 # < Content-Length: 0
 
-echo -e "${tomato}CASE Error with same user registered${reset}\n"
+# TODO
 
-curl 'http://localhost:8000/users' \
--H 'Content-Type: application/json' \
--d '{ "name": "Bruce Wayne", "email": "nosoy@batman.com", "password": "1234" }' \
--v
+# echo -e "${tomato}CASE Error with wrong user id${reset}\n"
 
-# > POST /users HTTP/1.1
+# curl 'http://localhost:8000/newpost' \
+# -H 'Authorization: Bearer 6g958dd4qk0w' \
+# -v
+
+# > GET /newpost HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.2.1
 # > Accept: */*
@@ -56,4 +56,4 @@ curl 'http://localhost:8000/users' \
 # < Connection: keep-alive
 # < Keep-Alive: timeout=5
 # <
-# {"error":"Error","message":"user already exists"}
+# {"error":"Error","message":"user not found"}

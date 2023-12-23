@@ -36,8 +36,14 @@
 - Response: 201
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
+## Retrieve Posts
+
+- Request: 'GET' /newpost "Authorization: Bearer userId" 
+- Response: 200 "Content-Type: application/json" [ { id, author: {id, name, email }, image,text, likes, liked, fav } ]
+- Reponse (error) : 400 "Content-Type: application/json" { error, message }
+
 ## Toggle Like 
 
 - Request: PATCH /newpost/postId/likes "Authorization: Bearer userId"
 - Response: 204 
-- Response (error) : 400|404|500 "Content-Type: application/json" { error, message }
+- Response (error) : 400|404|406|500 "Content-Type: application/json" { error, message }
