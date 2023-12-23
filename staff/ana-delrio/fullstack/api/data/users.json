@@ -54,5 +54,12 @@
         "email": "peter@pan.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "2sznecbbrn60",
+        "name": "Aitor",
+        "email": "aitor@gmail.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
