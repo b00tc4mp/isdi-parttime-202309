@@ -1,0 +1,21 @@
+<script>
+    const req = {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer 6ttz1tptn2c0'
+        }
+    }
+
+    fetch('http://localhost:8000/posts', req)
+        .then(res => {
+            if (res.ok)
+                res.json()
+                    // el body sería el usuario
+                    .then(body => console.log(res.status, body))
+                    .cath(error => console.error(error))
+            else
+                console.error(res.status)
+
+        })
+        .catch(error => console.error(error))
+</script>

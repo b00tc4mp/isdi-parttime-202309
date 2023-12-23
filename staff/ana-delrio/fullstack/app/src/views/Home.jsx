@@ -96,7 +96,7 @@ function Home(props) {
         {view === 'profile' && <Profile />}
 
         {/* lo que estamos enviando es la función, el logic es solo para traer el contexto */}
-        {/*  {(view === null || view === 'new-post') && <Posts loadPost={logic.retrievePosts.bind(logic)} stamp={stamp} />} */}
+        {(view === null || view === 'new-post') && <Posts loadPost={logic.retrievePosts.bind(logic)} stamp={stamp} />}
 
         {view === 'favs' && <Posts loadPost={logic.retrieveFavPosts.bind(logic)} />}
 
