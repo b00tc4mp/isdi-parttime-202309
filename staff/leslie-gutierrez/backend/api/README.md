@@ -2,22 +2,15 @@
 
 ## Register user
 
-```sh
-$ curl 'http://localhost:8000/register' \
--H 'Content-Type: application/json' \
--d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
--v
+Request: POST/users "Content-Type: application/json" {name, email, password}
+Response: 201
 
-> Host: localhost:8000  
-> User-Agent: curl/8.2.1
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 72    
->
-< HTTP/1.1 201 Created
-< X-Powered-By: Express 
-< Date: Thu, 21 Dec 2023 22:48:46 GMT
-< Connection: keep-alive
-< Keep-Alive: timeout=5 
-< Content-Length: 0 
-```
+## Authenticate user
+
+Request: POST/auth "Content-Type: application/json" {email, password}
+Response: 200 application/json userId
+
+## Retrieve user
+
+Request: GET /users "Authorization: Bearer userId"
+Response: 200 "Content-Type: application/json"{error, message}
