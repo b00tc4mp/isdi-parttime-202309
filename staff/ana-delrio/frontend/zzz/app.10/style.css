@@ -1,0 +1,47 @@
+/* {
+    background: red;
+    border: 1px solid white;
+} */
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* aquí se pone el # porque usamos el id como un selector */
+#login-view,
+#register-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-form,
+.register-form {
+    display: flex;
+    /* Establece el elemento con la clase .register-form y .login-form como un contenedor flex  */
+    flex-direction: column;
+    /* Establece la dirección de los elementos secundarios como una Fila */
+    max-width: 240px;
+    /* Establece el ancho máximo del formulario a 240 píxeles, para que no se extienda ilimitadamente */
+    gap: 5px;
+    /* Establece un espacio de 5 píxeles entre los elementos del formulario */
+}
+
+/* "em" es una unidad de medida relativa que se utiliza para definir tamaños de fuente y 
+otros valores relativos al tamaño del texto de un elemento padre */
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.post-image {
+    max-width: 320px;
+}
+
+/* esto lo hacemos para el ancho de los post */
