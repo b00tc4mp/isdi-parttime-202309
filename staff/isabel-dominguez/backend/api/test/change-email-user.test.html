@@ -1,0 +1,27 @@
+<script>
+  const req = {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer 6oqxcvv7rkw0',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: "6oqxcvv7rkw0",
+      email: "po@peye.com",
+      newEmail: "pop@peye.com",
+      confirmNewEmail: "pop@peye.com"
+    })
+  }
+
+  fetch('http://localhost:8000/users/email', req)
+    .then(res => {
+      if (res.ok) {
+        res.json()
+          .then(body => console.log(res.status, body))
+          .catch(error => console.error(error))
+      } else {
+        console.error(res.status)
+      }
+    })
+    .catch(error => console.error(error))
+</script>

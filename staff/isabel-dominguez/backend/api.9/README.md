@@ -47,21 +47,3 @@ Response (error): 400|404|406|409|500 "Content-Type: application/json" { error, 
 Request: DELETE /users "Authorization: Bearer userId" "Content-type: application/json" { userId, password }
 Response: 200
 Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
-
-## Delete post
-
-Request: DELETE /posts/:postId "Authorization: Bearer userId" "Content-type: application/json" { postId }
-Response: 200
-Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
-
-## Toggle fav post
-
-Request: PATCH /posts/:postId/favs "Authorization: Bearer userId"
-Response: 204
-Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
-
-## Retrieve post
-
-Request: GET /posts "Authorization: Bearer postId"
-Response: 200 "Content-Type: application/json" { post }
-Response (error): 400|406|404 "Content-Type: application/json" { error, message }

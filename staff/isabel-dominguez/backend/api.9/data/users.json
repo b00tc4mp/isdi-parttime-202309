@@ -33,14 +33,5 @@
         "email": "man@zana.com",
         "password": "234234234",
         "favs": []
-    },
-    {
-        "id": "5egbu0dbu9c0",
-        "name": "Po Peye",
-        "email": "po@peye.com",
-        "password": "123123123",
-        "favs": [
-            "2rcwe8wgvue0"
-        ]
     }
 ]
