@@ -105,7 +105,7 @@ test> db.users.findOne({ _id: ObjectId('6581f63fbc4abd5315fc8c24') })
 }
 
 // eliminar un usuario
-test> db.users.deleteOne({ _id: ObjectId('6581f63fbc4abd5315fc8c24') })
+test> db.users.deleteOne({ _id: ObjectId('6588021f2f5ebbb25f2f9181') })
 { acknowledged: true, deletedCount: 1 }
 
 test> db.users.find()
