@@ -1,9 +1,7 @@
-const { validateText, validateFunction } = require('./helpers/validators')
-
-const { SystemError, NotFoundError, AuthenticateError } = require('./errors')
-
-
-////////////// TODO ///////////////////
+const { validateText, validateFunction } = require('../utils/validators')
+const JSON = require('../utils/JSON')
+const generateId = require('../data/generateId')
+const { SystemError, NotFoundError, AuthenticateError } = require('../utils/errors')
 
 function createPost(userId, image, text, callback) {
     validateText(userId, 'user id')

@@ -15,14 +15,14 @@ CASE  error on wrong email
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "patata@freta.com", "password": "123" }' \
+-d '{"email": "wrong@flor.com", "password": "123" }' \
 -v
 
 CASE  error on wrong pasword
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "lechu@guita.com", "password": "1111" }' \
+-d '{"email": "coli@flor.com", "password": "133" }' \
 -v
 
 

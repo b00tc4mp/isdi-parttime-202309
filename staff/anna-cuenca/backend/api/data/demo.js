@@ -1,72 +1,95 @@
-const mongodb = require('mongodb')
+const mongoose = require('mongoose')
 
-//ahora me tengo que conectar a la base de datos
+const { Schema, model, ObjectId } = mongoose
 
-//MongoClient es una clase que esta dentro de mongodb (es como un gran objeto)
-// mongoClient sirve para crear un cliente
+// definimos el esquema de usuario
+const user = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true //crea un indice para que no deje registrar a más usuarios con el mismo email 
+    },
+    password: {
+        type: String,
+        required: true,
+        minlenght: 8
+    },
+    favs: [{
+        type: ObjectId,
+        ref: 'Post'
+    }]
+})
 
-const { MongoClient, ObjectId } = mongodb
+const post = new Schema({
+    author: {
+        type: ObjectId,
+        required: true,
+        ref: 'User' //le decimos que el objectIdd hace referencia a usuario
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    likes: [{
+        type: ObjectId,
+        ref: 'User'
+    }]
+})
 
-//nos montamos una mongo shell dentro de node
-const client = new MongoClient('mongodb://127.0.0.1:27017') //le pasamos la ruta de la conexión, que es mi dirección ip
-// y cogemos el puerto 27017 que es dondde esta mongo
+//tenemos que usar una clase para construir usuarios
+const User = model('User', user)
+const Post = model('Post', post)
 
-//ahora noss conectamos al servidor
-client.connect()
-    .then(connector => {
-        const db = connector.db('test')
+mongoose.connect('mongodb://127.0.0.1:27017/test') //me conecto a mongo
+    .then(() => {
 
-        const users = db.collection('users')
-        const posts = db.collection('posts')
+        /// CREATE USER
+        // const pepito = new User({ name: 'Patata Frita', email: 'patata@frita.com', password: '123' })
+        // pepito.save()
+        //     .then(() => console.log('saved'))
+        //     .catch(error => console.error(error))
 
-        ///// INSERTAR UN USUARIO EN LA BASE DE DATOS ///
+        // //CREATE POST
 
-        // users.insertOne({ name: 'Piru Leta', email: 'piru@leta.com', password: '123', favs: [] })
-        //     .then(result => console.log('inserted', result))
+        // const post = new Post({ author: '6589cf2c92335330a7f8c762', image: 'https://i.pinimg.com/originals/28/6a/27/286a2752a4c5c2988397e291dcb2d1a8.jpg', text: 'Hi' })
+        // post.save()
+        //     .then(() => console.log('post saved'))
         //     .catch(error => console.error(error))
 
 
-        ///// ACTUALIZAR UN USUARIO DE LA BASE DE DATOS ///
+        //LIKE POST
 
-        // users.updateOne({ _id: new ObjectId('658739a20aecab8d91db3e0d') }, { $set: { email: 'pirupiru@leta.com' } })
-        //     .then(result => console.log('updated', result))
+        //nos traemos el post
+        // Post.findById('6589d63d6b52ad4243c5c71b')
+        //     .then(post => {
+        //         post.likes.push('6589cf2c92335330a7f8c762')
+        //         post.save()
+        //             .then(() => console.log('like saved'))
+        //             .catch(error => console.error(error))
+
+        //     })
         //     .catch(error => console.error(error))
 
-
-        ///// BUSCAR UN USUARIO DE LA BASE DE DATOS ///
-
-
-        // users.findOne({ _id: new ObjectId('658739a20aecab8d91db3e0d') })
-        //     .then(result => console.log('found', result))
-        //     .catch(error => console.error(error))
-
-
-        ///// ELIMINAR UN USUARIO DE LA BASE DE DATOS ///
-
-        // users.deleteOne({ _id: new ObjectId('658739a20aecab8d91db3e0d') })
-        //     .then(result => console.log('deleted', result))
-        //     .catch(error => console.error(error))
+        // FAV POST
+        User.findById('658b0ef5483938daf11c9c4d') //id del usuario pepito grillo
+            .then(user => {
+                user.favs.push('658b0c0f86f8eb9c37d85e7c')
+                user.save()
+                    .then(() => console.log('fav saved'))
+                    .catch(error => console.error(error))
+            })
 
 
-        ///// BUSCAR MUCHOS USUARIOS DE LA BASE DE DATOS ///
 
-        // users.find().toArray()
-        //     .then(result => console.log('found all', result))
-        //     .catch(error => console.error(error))
-
-
-        ///// INSERTAR UN POST EN LA BASE DE DATOS ///
-
-        // posts.insertOne({ author: new ObjectId('658739a20aecab8d91db3e0d'), image: 'https://img.freepik.com/vector-premium/ilustracion-dibujos-animados-piruleta-cara-sobre-fondo-azul_782990-13.jpg', text: 'sweety', likes: [] })
-        //     .then(result => console.log('inserted', result))
-        //     .catch(error => console.error(error))
-
-
-        ///// BUSCAR LOS POSTS DE UN USUARIO, POR EJEMPLO, PETER ///
-
-        posts.find({ author: new ObjectId('65846d97aef8dec090ae81de') }).toArray()
-            .then(result => console.log('found posts', result))
-            .catch(error => console.error(error))
 
     })
-    .catch(error => console.error(error)) 
+
+    .catch(error => console.error(error))

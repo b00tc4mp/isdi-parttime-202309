@@ -1,10 +1,6 @@
-
-const { NotFoundError, SystemError } = require("./errors");
-const { validateText, validateFunction } = require("./helpers/validators");
-
-
-
-/////////// TODO //////////////////
+const JSON = require("../utils/JSON");
+const { NotFoundError, SystemError } = require("../utils/errors");
+const { validateText, validateFunction } = require("../utils/validators");
 
 function toggleLikePost(userId, postId, callback) {
     validateText(userId, "user id")

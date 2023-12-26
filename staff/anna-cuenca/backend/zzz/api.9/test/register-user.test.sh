@@ -37,7 +37,7 @@ CASE "fail on already existing user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Patata Frita", "email": "patata@frita.com", "password": "123" }' \
+-d '{ "name": "Coli Flor", "email": "coli@flor.com", "password": "123" }' \
 -v
 
 # > POST /users HTTP/1.1
