@@ -5,7 +5,8 @@ const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const retrievePosts = require('./logic/retrievePosts')
-const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
+const { SystemError, NotFoundError, ContentError, DuplicityError, CredentialsError } = require('./utils/errors')
+const changeUserEmail = require('./logic/changeUserEmail')
 
 const server = express()
 server.get('/', (req, res) => res.send('Hello World'))
@@ -163,6 +164,39 @@ server.patch('/posts/:postId/likes', (req, res) => {
     }
 })
 
+server.patch('/users/change-email', jasonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.substring(7)
+        const { newEmail, newEmailConfirm, password } = req.body
+
+        changeUserEmail(userId, newEmail, newEmailConfirm, password, error => {
+            if (error) {
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+                else if (error instanceof CredentialsError)
+                    status = 401
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+                return
+            }
+
+            res.status(204).send()
+        })
+
+    } catch (error) {
+        let status = 400
+
+        if (error instanceof ContentError)
+            status = 406
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+    }
+})
 
 
 server.listen(8000, () => console.log('server is up'))
