@@ -298,59 +298,28 @@ class Logic {
     retrievePosts(callback) {
         validateFunction(callback, 'callback')
 
-        db.users.findById(this.sessionUserId, (error, user) => {
-            if (error) {
-                callback(error)
-
-                return
+        const req = {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${this.sessionUserId}`
             }
+        }
 
-            if (!user) {
-                callback(new Error('user not found'))
-
-                return
-            }
-    
-            const posts = db.posts.getAll((error, posts) => {
-                if (error) {
-                    callback(error)
+        fetch('http://localhost:8000/newpost', req)
+            .then(res => {
+                if (!res.ok) {
+                    res.json()
+                        .then(body => callback(new Error(body.message)))
+                        .catch(error => callback(error))
 
                     return
                 }
 
-                let count = 0 
-                // Contador del posts.length
-
-                posts.forEach(post => {
-                    post.liked = post.likes.includes(this.sessionUserId)
-
-                    post.coments = post.coments
-                    
-                    db.users.findById(post.author, (error, author) => {
-                        if (error) {
-                            callback(error)
-
-                            return
-                        }
-
-                        post.fav = user.favs.includes(post.id)
-        
-                        post.author = {
-                            email : author.email,
-                            id: author.id,
-                            name: author.name
-                        }
-
-                        count++
-
-                        if (count === posts.length) {
-                            callback(null, posts)
-                        }
-                    })
-                })
-    
+                res.json()
+                    .then(posts => callback(null, posts))
+                    .catch(error => callback(error))
             })
-        })
+            .catch(error => callback(error))
     }
 
     // RETRIEVE FAV SESSION POSTS

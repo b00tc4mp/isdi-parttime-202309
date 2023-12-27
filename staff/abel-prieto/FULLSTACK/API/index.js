@@ -9,6 +9,7 @@ const retrievePost = require('./logic/retrievePost')
 
 // Importamos el paquete EXPRESS
 const express = require('express')
+
 const { ContentError, NotFoundError, SystemError } = require("./utils/errors")
 
 const server = express()

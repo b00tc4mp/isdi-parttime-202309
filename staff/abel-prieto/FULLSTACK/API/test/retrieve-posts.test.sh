@@ -15,7 +15,7 @@ echo -e "${blue}TEST RETRIEVE POSTS${reset}\n"
 echo -e "${green}CASE Success with retrieve posts${reset}\n"
 
 curl 'http://localhost:8000/newpost' \
--H 'Authorization: Bearer 1g958dd4qk0w' \
+-H 'Authorization: Bearer 2rbzvx8lwxs0' \
 -v
 
 # > GET /newposts HTTP/1.1
@@ -32,13 +32,13 @@ curl 'http://localhost:8000/newpost' \
 # < Keep-Alive: timeout=5
 # < Content-Length: 0
 
-# TODO
+# [{"id":"1knxmeh16rs0","author":{"email":"peter@pan.com","id":"2rbzvx8lwxs0","name":"Peter Pan"},"image":"https://filasiete.com/wp-content/uploads/2020/05/peterpan.jpg","text":"hola!!!","likes":[],"liked":false,"fav":false},{"id":"6180xnit6ks","author":{"email":"wendy@darling.com","id":"43htuuxgyl20","name":"Wendy Darling"},"image":"https://static.wikia.nocookie.net/disney/images/5/53/Profile_-_Wendy_Darling.jpeg/revision/latest?cb=20190312151612","text":"my name is Wendy!","likes":[],"liked":false,"fav":false},{"id":"2ytu1zjsl2u0","author":{"email":"soy@batman.com","id":"1g958dd4qk0w","name":"Bruce Wayne"},"image":"https://elcorreoweb.es/documents/10157/0/image_content_18563891_20161222114201.jpg","text":"soy Batman!","likes":[],"liked":false,"fav":false}]* Connection #0 to host localhost left intact
 
-# echo -e "${tomato}CASE Error with wrong user id${reset}\n"
+echo -e "${tomato}CASE Error with wrong user id${reset}\n"
 
-# curl 'http://localhost:8000/newpost' \
-# -H 'Authorization: Bearer 6g958dd4qk0w' \
-# -v
+curl 'http://localhost:8000/newpost' \
+-H 'Authorization: Bearer 5rbzvx8lwxs0' \
+-v
 
 # > GET /newpost HTTP/1.1
 # > Host: localhost:8000

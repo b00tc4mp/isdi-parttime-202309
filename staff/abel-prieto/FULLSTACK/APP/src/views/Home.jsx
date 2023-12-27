@@ -116,7 +116,7 @@ function Home(props) {
 
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}
 
-            {/*view !== 'profile' && view !== 'favs' && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />*/}
+            {view !== 'profile' && view !== 'favs' && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
 
             {view === 'favs' && <Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}
 
