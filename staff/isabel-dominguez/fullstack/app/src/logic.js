@@ -181,56 +181,28 @@ class Logic {
     }
 
     retrievePosts(callback) {
-        db.users.findById(this.sessionUserId, (error, user) => {
-            if (error) {
-                callback(error)
-
-                return
+        const req = {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${this.sessionUserId}`
             }
+        }
 
-            if (!user) {
-                callback(new Error("user not found"))
-
-                return
-            }
-
-            // Obtener todos los posts de la base de datos
-            const posts = db.posts.getAll((error, posts) => {
-                if (error) {
-                    callback(error)
+        fetch('http://localhost:8000/posts', req)
+            .then(res => {
+                if (!res.ok) {
+                    res.json()
+                        .then(body => callback(new Error(body.message)))
+                        .catch(error => callback(error))
 
                     return
                 }
 
-                let count = 0
-
-                posts.forEach(post => {
-                    post.liked = post.likes.includes(this.sessionUserId)
-                    // Buscar al autor del post por su ID y actualizar la propiedad "author"
-                    db.users.findById(post.author, (error, author) => {
-                        if (error) {
-                            callback(error)
-
-                            return
-                        }
-                        // Actualizar la propiedad "author" del post con información del autor
-                        post.author = {
-                            email: author.email,
-                            id: author.id,
-                            name: author.name
-                        }
-
-                        post.fav = user.favs.includes(post.id)
-
-                        count++
-                        // Si todos los posts han sido procesados, llamar a la callback con null (sin error) y la lista de posts
-                        if (count === posts.length) {
-                            callback(null, posts)
-                        }
-                    })
-                })
+                res.json()
+                    .then(posts => callback(null, posts))
+                    .catch(error => callback(error))
             })
-        })
+            .catch(error => callback(error))
     }
 
     retrieveFavPosts(callback) {

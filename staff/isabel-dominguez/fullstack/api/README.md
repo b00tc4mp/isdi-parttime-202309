@@ -62,6 +62,6 @@ Response (error): 400|404|406|500 "Content-Type: application/json" { error, mess
 
 ## Retrieve post
 
-Request: GET /posts "Authorization: Bearer postId"
-Response: 200 "Content-Type: application/json" { post }
+Request: GET /posts "Authorization: Bearer userId"
+Response: 200 "Content-Type: application/json" [{ id, author: { id, name }, image, text, likes, liked, fav }]
 Response (error): 400|406|404 "Content-Type: application/json" { error, message }

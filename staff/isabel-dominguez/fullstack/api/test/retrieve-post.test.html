@@ -2,19 +2,18 @@
     const req = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer 2rcwe8wgvue0'
+            Authorization: 'Bearer amhkljhnhc4'
         }
     }
 
     fetch('http://localhost:8000/posts', req)
         .then(res => {
-            if (res.ok) {
+            if (res.ok)
                 res.json()
                     .then(body => console.log(res.status, body))
                     .catch(error => console.error(error))
-            } else {
+            else
                 console.error(res.status)
-            }
         })
         .catch(error => console.error(error))
 </script>

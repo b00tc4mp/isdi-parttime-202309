@@ -2,7 +2,7 @@ const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
-const retrievePost = require('./logic/retrievePost')
+const retrievePosts = require('./logic/retrievePosts')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const toggleFavPost = require('./logic/toggleFavPost')
@@ -124,9 +124,9 @@ server.get('/users', (req, res) => {
 // RETRIEVE POST
 server.get('/posts', (req, res) => {
     try {
-        const postId = req.headers.authorization.substring(7)
+        const userId = req.headers.authorization.substring(7)
 
-        retrievePost(postId, (error, post) => {
+        retrievePosts(userId, (error, posts) => {
             if (error) {
                 let status = 400
 
@@ -140,7 +140,7 @@ server.get('/posts', (req, res) => {
                 return
             }
 
-            res.json(post)
+            res.json(posts)
         })
     } catch (error) {
         let status = 400

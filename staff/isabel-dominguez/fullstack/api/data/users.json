@@ -49,5 +49,26 @@
         "email": "o@livia.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "6hp1mi4t3nw0",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6ttz1tptn2c0",
+        "name": "Le Chuga",
+        "email": "le@chuga.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6fp1enrnkmw",
+        "name": "James",
+        "email": "james@hook.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
