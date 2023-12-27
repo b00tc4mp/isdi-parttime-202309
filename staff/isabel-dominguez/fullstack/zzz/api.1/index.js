@@ -10,8 +10,6 @@ const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
 const deleteUser = require('./logic/deleteUser')
 const deletePost = require('./logic/deletePost')
-const updatePostText = require('./logic/updatePostText')
-// const commentPost = require('./logic/commentPost')
 const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
 
 const server = express()
@@ -19,9 +17,6 @@ const server = express()
 server.get('/', (req, res) => res.send('Hello, World!'))
 
 const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware.
-
-// Middleware para analizar cuerpos JSON
-server.use(express.json())
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
@@ -401,70 +396,5 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 })
-
-//EDIT POST TEXT
-server.put('/posts/:postId', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-        const postId = req.params.postId
-        const { text } = req.body
-
-        updatePostText(postId, text, userId, (error) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError)
-                    status = 404
-                else if (error instanceof ContentError)
-                    status = 406
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-                return
-            }
-
-            res.json({ message: 'Text updated successfully' })
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// //COMMENTS POSTS
-// server.post('/posts/:postId/comments', (req, res) => {
-//     try {
-//         const userId = req.headers.authorization.substring(7)
-//         const postId = req.params.postId
-//         const { comment } = req.body
-
-//         commentPost(postId, comment, userId, (error) => {
-//             if (error) {
-//                 let status = 400
-
-//                 if (error instanceof NotFoundError)
-//                     status = 404
-//                 else if (error instanceof ContentError)
-//                     status = 406
-
-//                 res.status(status).json({ error: error.constructor.name, message: error.message })
-//                 return
-//             }
-
-//             res.json({ message: 'Comment added successfully' })
-//         })
-//     } catch (error) {
-//         let status = 400
-
-//         if (error instanceof ContentError)
-//             status = 406
-
-//         res.status(status).json({ error: error.constructor.name, message: error.message })
-//     }
-// })
-
 
 server.listen(8000, () => console.log('server is up'))

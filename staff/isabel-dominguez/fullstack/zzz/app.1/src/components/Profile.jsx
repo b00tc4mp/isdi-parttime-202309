@@ -49,22 +49,6 @@ function Profile({ onSuccess }) {
         }
     }
 
-    function handleDeleteAccount() {
-        try {
-            logic.deleteUser((error) => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-
-                logic.logoutUser()
-                alert("Your account has been successfully deleted")
-            });
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return <Container>
         <h2>Update E-mail</h2>
 
@@ -85,8 +69,6 @@ function Profile({ onSuccess }) {
 
             <Button type="submit">Update password</Button>
         </Form>
-
-        <Button onClick={handleDeleteAccount}>Delete Account</Button>
     </Container>
 }
 

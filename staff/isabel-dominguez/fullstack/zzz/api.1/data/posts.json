@@ -1,9 +1,16 @@
 [
     {
+        "id": "58xvwvc0rfw0",
+        "author": "6z32ut2oz4c0",
+        "image": "https://pbs.twimg.com/profile_images/1900970358/1204735785_f.jpg",
+        "text": "I am El Tomàtic!",
+        "likes": []
+    },
+    {
         "id": "4unovwbpfji0",
         "author": "3u5gkv3so500",
         "image": "https://th.bing.com/th/id/OIP.S1kgrJdqQkc2ohnpXCLhEwAAAA?rs=1&pid=ImgDetMain",
-        "text": "My name is Agua",
+        "text": "I am Aguacate!",
         "likes": [
             "amhkljhnhc4"
         ]
@@ -27,18 +34,21 @@
         "author": "2pwca0w1cmi0",
         "image": "https://2.bp.blogspot.com/-Za443hHoPto/Up_v0RjkcqI/AAAAAAAAFNg/LrMuXKqrKfw/s1600/Walt-Disney-Screencaps-Peter-Pan-walt-disney-characters-32703444-4332-3240.jpg",
         "text": "My friend Peter!!",
-        "likes": [
-            "6fp1enrnkmw"
-        ]
+        "likes": []
     },
     {
         "id": "7fotaaut0ww0",
         "author": "6hp1mi4t3nw0",
         "image": "https://m.media-amazon.com/images/M/MV5BMzIwMzUyYTUtMjQ3My00NDc3LWIyZjQtOGUzNDJmNTFlNWUxXkEyXkFqcGdeQXVyMjA0MDQ0Mjc@._V1_FMjpg_UX1000_.jpg",
         "text": "my granpa!",
-        "likes": [
-            "6fp1enrnkmw"
-        ]
+        "likes": []
+    },
+    {
+        "id": "1hqg6ordiiu8",
+        "author": "6hp1mi4t3nw0",
+        "image": "https://ih1.redbubble.net/image.2230349250.8377/pp,840x830-pad,1000x1000,f8f8f8.jpg",
+        "text": "my sweety!",
+        "likes": []
     },
     {
         "id": "3p8p15fc42a0",
@@ -52,17 +62,13 @@
         "author": "4an7ym43zji0",
         "image": "https://s-media-cache-ak0.pinimg.com/736x/e6/65/f4/e665f44e7f3b0c07b6faf507120f5466--disney-movies-teapots.jpg",
         "text": "He is the mad hatter",
-        "likes": [
-            "6hp1mi4t3nw0"
-        ]
+        "likes": []
     },
     {
         "id": "5dwfi0v6jlw0",
         "author": "4an7ym43zji0",
         "image": "https://i.pinimg.com/736x/6a/74/60/6a74606bffe8171d271458d93211c373.jpg",
         "text": "I am happy!",
-        "likes": [
-            "6hp1mi4t3nw0"
-        ]
+        "likes": []
     }
 ]
