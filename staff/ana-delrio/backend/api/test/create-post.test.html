@@ -8,7 +8,7 @@
         body: JSON.stringify({ image: 'http://image.com/123', text: 'Hola, Popeye!' })
     }
 
-    fetch('http://localhost:8000/post', req)
+    fetch('http://localhost:8000/posts', req)
         .then(res => {
             // si todo va bien irá por ese camino 
             if (res.ok)
