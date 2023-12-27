@@ -14,6 +14,7 @@ function retrievePosts(userId, callback) {
             return
         }
 
+        // Se busca el usuario en el array 'users' con el userId proporcionado
         const user = users.find(user => user.id === userId)
 
         if (!user) {
@@ -22,16 +23,19 @@ function retrievePosts(userId, callback) {
             return
         }
 
+        // Se utiliza JSON.parseFromFile para leer el archivo './data/users.json'
         JSON.parseFromFile('./data/posts.json', (error, posts) => {
             if (error) {
                 callback(error)
 
                 return
             }
-
+            // devolvemos los posts
             posts.forEach(post => {
+                // primero vemos si le dimos al like
                 post.liked = post.likes.includes(userId)
 
+                // Encuentra al autor del post en el array de usuarios y modifica la propiedad 'author'
                 const author = users.find(user => user.id === post.author)
 
                 post.author = {
@@ -39,11 +43,12 @@ function retrievePosts(userId, callback) {
                     name: author.name
                 }
 
+                // Agrega una propiedad 'fav' al post indicando si el post está en los favoritos del usuario
                 post.fav = user.favs.includes(post.id)
 
 
             })
-
+            // Llama a la función de devolución de llamada sin error y con la lista de posts modificada
             callback(null, posts)
 
         })

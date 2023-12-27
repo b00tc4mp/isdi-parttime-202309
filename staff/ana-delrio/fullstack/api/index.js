@@ -1,3 +1,5 @@
+// definición de una ruta en un servidor utilizando como Express en Node.js para manejar solicitudes
+
 const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
@@ -99,6 +101,7 @@ server.get('/users', (req, res) => {
 
 server.get('/posts', (req, res) => {
     try {
+        // Extrae el userId del encabezado 'Authorization' de la solicitud
         const userId = req.headers.authorization.substring(7)
 
         retrievePosts(userId, (error, posts) => {

@@ -11,6 +11,7 @@ function toggleLikePost(postId, callback) {
         }
     }
 
+    // Se realiza una solicitud fetch a la URL específica del post con el postId proporcionado y la configuración en req
     fetch(`http://localhost:8000/posts/${postId}/likes`, req)
         .then(res => {
             if (!res.ok) {
