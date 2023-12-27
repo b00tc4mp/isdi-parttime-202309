@@ -2,11 +2,11 @@ const { validateText, validateFunction } = require('../utils/validators')
 const JSON = require('../utils/JSON')
 const { NotFoundError, SystemError, ContentError, CredentialsError } = require("../utils/errors")
 
-function changeUserEmail(userId, newEmail, newEmailConfirm, password, callback) {
+function changeUserPassword(userId, newPassword, newPasswordConfirm, password, callback) {
 
     validateText(userId, 'user id')
-    validateText(newEmail, 'new email')
-    validateText(newEmailConfirm, 'new email confirm')
+    validateText(newPassword, 'new Password')
+    validateText(newPasswordConfirm, 'new Password confirm')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
@@ -28,12 +28,12 @@ function changeUserEmail(userId, newEmail, newEmailConfirm, password, callback) 
             return
         }
 
-        if (newEmail !== newEmailConfirm) {
-            callback(new ContentError('emails do not match'))
+        if (newPassword !== newPasswordConfirm) {
+            callback(new ContentError('Passwords do not match'))
             return
         }
 
-        user.email = newEmail
+        user.password = newPassword
 
         JSON.stringifyToFile('./data/users.json', users, error => {
             if (error) {
@@ -47,4 +47,4 @@ function changeUserEmail(userId, newEmail, newEmailConfirm, password, callback) 
 
 }
 
-module.exports = changeUserEmail
+module.exports = changeUserPassword

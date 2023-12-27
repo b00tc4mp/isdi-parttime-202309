@@ -1,9 +1,9 @@
 const { validateText, validateFunction } = require("../utils/validators")
 const JSON = require('../utils/JSON')
-const {NotFoundError, SystemError} = require ("../utils/errors")
+const { NotFoundError, SystemError } = require("../utils/errors")
 
 
-function toggleLikePost(userId, postId, callback) {
+function toggleFavPost(userId, postId, callback) {
     validateText(userId, 'user id')
     validateText(postId, 'post id')
     validateFunction(callback, 'callback')
@@ -28,22 +28,21 @@ function toggleLikePost(userId, postId, callback) {
 
             }
 
+            const post = posts.find(post => post.id === postId)
 
-            const postIndex = posts.findIndex(post => post.id === postId)
-
-            if (postIndex < 0) {
-                callback(new NotFoundError('post not found'))
+            if (!post) {
+                callback(new NotFoundError('post do not exist'))
                 return
             }
 
-            const post = posts[postIndex]
-            const userIdIndex = post.likes.indexOf(userId)
+            const postIdFavIndex = user.favs.findIndex(fav => fav.toString() === postId)
 
-            if (userIdIndex < 0)
-                post.likes.push(userId)
-            else post.likes.splice(userIdIndex, 1)
+            if (postIdFavIndex < 0)
+                user.favs.push(postId)
+            else user.favs.splice(postIdFavIndex, 1)
 
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
+
+            JSON.stringifyToFile('./data/users.json', users, error => {
                 if (error) {
                     callback(new SystemError('error.message'))
                     return
@@ -55,4 +54,4 @@ function toggleLikePost(userId, postId, callback) {
     })
 }
 
-module.exports = toggleLikePost
+module.exports = toggleFavPost
