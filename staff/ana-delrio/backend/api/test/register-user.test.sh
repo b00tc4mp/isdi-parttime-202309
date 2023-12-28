@@ -6,7 +6,7 @@ CASE "success on new user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name":"Ana delRio", "email": "anadel@gmail.com", "password": "123123123" }
+-d '{ "name":"Ana delRio", "email": "alca@chofa.com", "password": "123123123" }
 ' \
 -v
 
@@ -41,7 +41,7 @@ CASE "fail on already existing user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name":"Ana delRio", "email": "anadel@gmail.com", "password": "123123123" }
+-d '{ "name":"Ana delRio", "email": "alca@chofa.com", "password": "123123123" }
 ' \
 -v
 

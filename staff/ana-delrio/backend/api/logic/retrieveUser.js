@@ -5,8 +5,6 @@ const { User } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 
 
-
-
 function retrieveUser(userId, callback) {
     validateId(userId, 'user id')
     validateFunction(callback, 'callback')
@@ -18,7 +16,8 @@ function retrieveUser(userId, callback) {
 
                 return
             }
-
+            // del usuario, lo que nos interesa es el nombre de usuario
+            // que nos muestre solo ese dato
             callback(null, { name: user.name })
 
 
