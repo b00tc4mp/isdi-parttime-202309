@@ -12,13 +12,14 @@ Esta aplicación web permitirá a los usuarios compartir, explorar libros y part
 ### Use Cases
 
 - search books
-- share (book, reviews..) (etapa II) intentar usar verbos concretos
-- add / remove items 
+- add books
+- share (reviews, exchange intention)
+- Comments other's users reviews
+- Make make own list (read, want to read, reading)
+- add friends
+- make like
 - view history
-- view order status
-
-- 
-
+- publish post
 
 
 ## Views
@@ -58,11 +59,36 @@ Home:
     
 ## Technical Description
 
+## Data Model
+
+User
 User
 - id (string)
 - name (string)
 - email (string)
 - password (string)
+
+Socks
+- id (string)
+- name (string)
+- size (string)
+- theme (string)
+- brand (string)
+- model (string)
+- price (number)
+
+Cart
+- id (string)
+- user (User.id)
+- items ([Socks.id])
+
+Order
+- id (string)
+- user (User.id)
+- date (Date)
+- items ([Socks.id])
+
+
 
 
 
