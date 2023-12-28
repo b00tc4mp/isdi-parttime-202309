@@ -44,6 +44,6 @@
 
 ## Toggle Like 
 
-- Request: PATCH /newpost/postId/likes "Authorization: Bearer userId"
+- Request: PATCH /newpost/:postId/likes "Authorization: Bearer userId"
 - Response: 204 
 - Response (error) : 400|404|406|500 "Content-Type: application/json" { error, message }

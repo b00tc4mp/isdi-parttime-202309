@@ -14,20 +14,17 @@ export default function toggleLikePost(postId, callback) {
         }
     }
 
-    fetch('http://localhost:8000/newpost/:postId/likes', res)
-        try {
+    fetch(`http://localhost:8000/newpost/${postId}/likes`, req)
+        .then(res => {
             if (!res.ok){
                 res.json()
-                    .then()
-                    .catch()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
 
                 return
             }
 
-            res.json()
-                .then()
-                .catch()
-        } catch(error) {
-            callback(error)
-        }
+            callback(null)
+        })
+        .catch(error => callback(error))         
 }
