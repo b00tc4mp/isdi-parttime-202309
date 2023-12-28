@@ -1,0 +1,1 @@
+curl 'http://localhost:8000/register?name=Pepito2+Grillo&email=pepito2@grillo.com&password=123123123' -v

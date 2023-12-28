@@ -1,0 +1,21 @@
+<script>
+
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: 'Bearer amhkljhnhc4',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId: '40ga0cl8bd00' })
+    }
+
+    fetch('http://localhost:8000/users/amhkljhnhc4/favs', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+
+</script>

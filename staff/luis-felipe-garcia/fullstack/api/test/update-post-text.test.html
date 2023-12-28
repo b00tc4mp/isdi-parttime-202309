@@ -1,0 +1,32 @@
+<script>
+
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: 'Bearer 1g6al6ee05pc',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId: '4d543b5sy540', text: 'POST UPDATED BY HTML' })
+    }
+
+
+    fetch('http://localhost:8000/posts/4d543b5sy540/updatePost', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+
+</script>
+
+
+<!-- Resultado:
+  {
+        "id": "4d543b5sy540",
+        "author": "1g6al6ee05pc",
+        "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.agroponiente.com%2Fcatalogo-fruta-verdura%2Fpepino-almeria%2F&psig=AOvVaw37f9ptd9x1kLQ34gQfTk7M&ust=1702443959476000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjnjI-QiYMDFQAAAAAdAAAAABAD",
+        "text": "POST UPDATED BY HTML",
+        "likes": []
+    },
