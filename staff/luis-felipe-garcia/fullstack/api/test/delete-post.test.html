@@ -1,0 +1,22 @@
+<script>
+
+    const req = {
+        method: 'DELETE',
+        headers: {
+            Authorization: 'Bearer 1g6al6ee05pc',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId: '1feeau1mv1sw' })
+    }
+
+
+    fetch('http://localhost:8000/users/1g6al6ee05pc/favs', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+
+</script>

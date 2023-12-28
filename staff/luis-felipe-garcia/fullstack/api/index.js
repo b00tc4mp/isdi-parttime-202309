@@ -9,6 +9,9 @@ const retrievePosts = require('./logic/retrievePosts')
 const { SystemError, NotFoundError, ContentError, DuplicityError, CredentialsError } = require('./utils/errors')
 const changeUserEmail = require('./logic/changeUserEmail')
 const changeUserPassword = require('./logic/changeUserPassword')
+const retrieveFavPosts = require('./logic/retrieveFavPosts')
+const updatePostText = require('./logic/updatePostText')
+const deletePost = require('./logic/deletePost')
 
 const server = express()
 server.get('/', (req, res) => res.send('Hello World'))
@@ -266,5 +269,106 @@ server.patch('/users/change-password', jasonBodyParser, (req, res) => {
     }
 })
 
+server.get('/users/:userId/favs', (req, res) => {
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        retrieveFavPosts(userId, (error, userFavPosts) => {
+            if (error) {
+                let status = 400
+                if (error instanceof SystemError) {
+                    status = 500
+                } else if (error instanceof NotFoundError) {
+                    status = 404
+                } else if (error instanceof CredentialsError) {
+                    status = 401
+                }
+                res.status(status).json(({ error: error.constructor.name, message: error.message }))
+            }
+
+            res.json((userFavPosts))
+
+        })
+
+    } catch (error) {
+        let status = 400
+
+        if (error instanceof ContentError)
+            status = 406
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+    }
+}
+)
+
+server.patch('/posts/:postId/updatePost', jasonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.substring(7)
+        const { postId, text } = req.body
+
+        updatePostText(userId, postId, text, error => {
+            if (error) {
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+                else if (error instanceof CredentialsError)
+                    status = 401
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+                return
+            }
+
+            res.status(204).send()
+        })
+
+    } catch (error) {
+        let status = 400
+
+        if (error instanceof ContentError)
+            status = 406
+
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+    }
+})
+
+server.delete('/users/:userId/favs', jasonBodyParser, (req, res) => {
+    try {
+
+        const userId = req.headers.authorization.substring(7)
+        const { postId } = req.body
+
+        deletePost(userId, postId, error => {
+
+            if (error) {
+                let status = 400
+
+                if (error instanceof SystemError)
+                    status = 500
+                else if (error instanceof NotFoundError)
+                    status = 404
+                else if (error instanceof CredentialsError)
+                    status = 401
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+                return
+            }
+
+            res.status(204).send()
+        })
+
+    } catch (error) {
+        let status = 400
+        if (error instanceof ContentError)
+            status = 406
+        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+    }
+
+})
 
 server.listen(8000, () => console.log('server is up'))

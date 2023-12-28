@@ -33,10 +33,11 @@ function retrievePosts(userId, callback) {
 
                 post.author = {
                     id: author.id,
+                    
                     name: author.name
                 }
 
-                post.fav = user.favs.includes(post.id)
+                post.fav = user.fav.includes(post.id)
             })
 
 
