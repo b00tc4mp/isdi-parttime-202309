@@ -18,17 +18,17 @@ function toggleLikePost(userId, postId, callback) {
             Post.findById(postId)
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post id do not exist'))
+                        callback(new NotFoundError('post do not found'))
                         return
                     }
 
-                    const userIdLikeIndex = post.likes.findIndex(like => like.toString() === userId)
-                    if (userIdLikeIndex < 0) {
-                        post.likes.push(userId)
+                    const postIdFavIndex = user.favs.findIndex(fav => fav.toString() === postId)
+                    if (postIdFavIndex < 0) {
+                        user.favs.push(postId)
                     }
-                    else post.likes.splice(userIdLikeIndex, 1)
+                    else user.favs.splice(postIdFavIndex, 1)
 
-                    post.save()
+                    user.save()
                         .then(() => callback(null))
                         .catch(error => callback(new SystemError(error.message)))
 

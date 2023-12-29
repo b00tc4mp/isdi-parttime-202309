@@ -1,23 +1,22 @@
-
 const mongoose = require('mongoose')
-const toggleLikePost = require('./toggleLikePost')
+const retrieveFavPosts = require('./retrieveFavPosts')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            toggleLikePost('658d4dd388f3cf1b1fb4d3af', '658ea242aadfc657d89b7a30', error => {
+            retrieveFavPosts('658d4dd388f3cf1b1fb4d3af', (error, posts) => {
                 if (error) {
                     console.error(error)
 
                     return
                 }
-
-                console.log('post like toggled')
+                console.log('user fav posts', posts)
             })
         } catch (error) {
-            console.error(error)
-        }
+            console.log(error)
 
+        }
     })
 
-    .catch(error => console.error(error))
+
+

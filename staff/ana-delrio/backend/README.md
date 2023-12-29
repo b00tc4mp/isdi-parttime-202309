@@ -26,7 +26,7 @@ test> show collections
 
 
 
-// insertamos un usuarios
+// insertamos un usuario
 test> db.users.insertOne({ name: 'Peter Pan', email: 'peter@pan.com', password: '123123123' })
 {
   acknowledged: true,
