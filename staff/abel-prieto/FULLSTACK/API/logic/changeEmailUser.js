@@ -2,9 +2,10 @@ const JSON = require("../utils/JSON")
 const { SystemError, NotFoundError, ContentError } = require("../utils/errors")
 const { validateText, validateFunction } = require("../utils/validators")
  
-function changeEmailUser(email, newEmail, password, callback) {
-    validateText(email, "email")
-    validateText(newEmail, "newEmail")
+function changeEmailUser(userId, newEmail, againNewEmail, password, callback) {
+    validateText(userId, "user id")
+    validateText(newEmail, "new email")
+    validateText(againNewEmail, "again new email")
     validateText(password, "password")
     validateFunction(callback, "callback")
 
@@ -15,10 +16,16 @@ function changeEmailUser(email, newEmail, password, callback) {
             return
         }
 
-        let user = users.find(user => user.email === email)
+        let user = users.find(user => user.id === userId)
 
         if (!user) {
             callback(new NotFoundError("user not found"))
+
+            return
+        }
+
+        if (newEmail !== againNewEmail) {
+            callback(new ContentError("wrong credentials"))
 
             return
         }
@@ -27,7 +34,7 @@ function changeEmailUser(email, newEmail, password, callback) {
             callback(new ContentError("wrong credentials"))
 
             return
-
+            
         } else {
             user.email = newEmail
             

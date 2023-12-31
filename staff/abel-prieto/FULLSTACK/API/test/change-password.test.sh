@@ -15,6 +15,7 @@ echo -e "${blue}TEST CHANGE PASSWORD USER${reset}\n"
 echo -e "${green}CASE Password change succesfully${reset}\n"
 
 curl 'http://localhost:8000/users/password' \
+-H 'Authorization: Bearer 1g958dd4qk0w' \
 -H 'Content-Type: application/json' \
 -d '{ "email": "nosoy@batman.com", "password": "1234", "newPassword": "hello555" }' \
 -v
@@ -37,6 +38,7 @@ curl 'http://localhost:8000/users/password' \
 echo -e "${tomato}CASE Error with wrong credentials and old password${reset}\n"
 
 curl 'http://localhost:8000/users/password' \
+-H 'Authorization: Bearer 1g958dd4qk0w' \
 -H 'Content-Type: application/json' \
 -d '{ "email": "nosoy@batman.com", "password": "1234", "newPassword": "hello555" }' \
 -v

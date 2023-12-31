@@ -9,35 +9,26 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
     validateText(againNewPassword, 'repeat password')
     validateFunction(callback, 'callback')
 
-    db.users.findById(context.sessionUserId, (error, user) => {
-        if (error) {
-            callback(error)
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${context.sessionUserId}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password, newPassword, againNewPassword }) 
+    }
 
-            return
-        }
-
-        if (!user || user.password !== password) {
-            callback(new Error('wrong credentials'))
-
-            return
-        }
-
-        if (newPassword !== againNewPassword) {
-            callback(new Error('New pass and his confirmation are not correct. Try again') )
-
-            return
-        }
-    
-        user.password = newPassword
-
-        db.users.update(user, error => {
-            if (error) {
-                callback(error)
-
+    fetch('http://localhost:8000/users/password', req)
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
+                
                 return
             }
 
             callback(null)
         })
-    })
+        .catch(error => callback(error))
 }

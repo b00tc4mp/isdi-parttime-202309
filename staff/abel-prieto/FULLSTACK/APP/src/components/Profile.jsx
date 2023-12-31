@@ -13,16 +13,12 @@ function Profile() {
 
         console.log(event.target);
 
-        const newEmailInput = event.target.querySelector('#new-email')
-        const confirmNewEmailInput = event.target.querySelector('#confirm-new-email')
-        const passwordInput = event.target.querySelector('#password')
-
-        const newEmail = newEmailInput.value
-        const confirmNewEmail = confirmNewEmailInput.value
-        const password = passwordInput.value
+        const newEmail = event.target.querySelector('#new-email').value
+        const againNewEmail = event.target.querySelector('#confirm-new-email').value
+        const password = event.target.querySelector('#password').value
 
         try {
-            logic.changeUserEmail(newEmail, confirmNewEmail, password, error => {
+            logic.changeUserEmail(newEmail, againNewEmail, password, error => {
                 if (error) {
                     alert(error.message)
 
@@ -41,13 +37,9 @@ function Profile() {
     function handleChangePasswordSubmit(event) {
         event.preventDefault()
 
-        const passwordInput = event.target.querySelector('#current-password')
-        const newPasswordInput = event.target.querySelector('#new-password')
-        const againNewPasswordInput = event.target.querySelector('#again-new-password')
-
-        const password = passwordInput.value
-        const newPassword = newPasswordInput.value
-        const againNewPassword = againNewPasswordInput.value
+        const password = event.target.querySelector('#current-password').value
+        const newPassword = event.target.querySelector('#new-password').value
+        const againNewPassword = event.target.querySelector('#again-new-password').value
 
         try {
             logic.changeUserPassword(password, newPassword, againNewPassword, error => {
@@ -83,7 +75,7 @@ function Profile() {
             <Form onSubmit={handleChangePasswordSubmit}>
                 <h3>Change your password: </h3>
 
-                <Field id="current-password" type="password">Actual password</Field>
+                <Field id="current-password" type="password">Password</Field>
                 <Field id="new-password" type="password">New password</Field>
                 <Field id="again-new-password" type="password">Confirm new password</Field>
 

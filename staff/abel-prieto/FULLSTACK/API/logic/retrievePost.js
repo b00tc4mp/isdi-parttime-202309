@@ -1,5 +1,5 @@
 const JSON = require('../utils/JSON')
-const { NotFoundError } = require('../utils/errors')
+const { NotFoundError, SystemError } = require('../utils/errors')
 const { validateText, validateFunction } = require('../utils/validators')
 
 
@@ -9,7 +9,7 @@ function retrievePost(userId, callback) {
 
     JSON.parseFromFile('./data/users.json', (error, users) => {
         if (error) {
-            callback(error) 
+            callback(new SystemError(error)) 
 
             return
         }
@@ -24,7 +24,7 @@ function retrievePost(userId, callback) {
 
         JSON.parseFromFile('./data/posts.json', (error, posts) => {
             if (error) {
-                callback(error)
+                callback(new SystemError(error))
 
                 return
             }
