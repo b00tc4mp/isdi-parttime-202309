@@ -7,12 +7,7 @@ function validateNumber(number, explain) {
     if (typeof number !== "number") throw new TypeError(`${explain} is not a number`)
 }
 
-function validateFunction(funktion, explain) {
-    if (typeof funktion !== 'function') throw new TypeError(`${explain} is not a function`)
-}
-
 export {
     validateText,
-    validateNumber,
-    validateFunction
+    validateNumber
 }

@@ -3,7 +3,6 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const retrievePosts = require('./logic/retrievePosts')
-const retrieveFavPosts = require('./logic/retrieveFavPosts')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const toggleFavPost = require('./logic/toggleFavPost')
@@ -147,37 +146,6 @@ server.get('/posts', (req, res) => {
             }
 
             res.json(posts)
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// RETRIEVE FAV POST
-server.get('/fav-posts', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrieveFavPosts(userId, (error, favPosts) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError)
-                    status = 404
-                else if (error instanceof ContentError)
-                    status = 406
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.json(favPosts)
         })
     } catch (error) {
         let status = 400
@@ -434,7 +402,7 @@ server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
     }
 })
 
-//UPDATE POST TEXT
+//EDIT POST TEXT
 server.put('/posts/:postId', (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)

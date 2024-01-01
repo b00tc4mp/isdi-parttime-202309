@@ -1,7 +1,7 @@
 const { validateText, validateFunction } = require('../utils/validators')
 const JSON = require('../utils/JSON')
 
-function retrieveFavPosts(userId, callback) {
+function retrievePosts(userId, callback) {
     validateText(userId, 'user id')
     validateFunction(callback, 'callback')
 
@@ -21,9 +21,7 @@ function retrieveFavPosts(userId, callback) {
                 return callback(error)
             }
 
-            const favPosts = posts.filter(post => user.favs.includes(post.id))
-
-            favPosts.forEach(post => {
+            posts.forEach(post => {
                 post.liked = post.likes.includes(userId)
 
                 const author = users.find(user => user.id === post.author)
@@ -42,12 +40,12 @@ function retrieveFavPosts(userId, callback) {
                     }
                 }
 
-                post.fav = true // Marcar como favorito, ya que se trata de los favoritos del usuario
+                post.fav = user.favs.includes(post.id)
             })
 
-            callback(null, favPosts)
+            callback(null, posts)
         })
     })
 }
 
-module.exports = retrieveFavPosts
+module.exports = retrievePosts

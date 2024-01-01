@@ -1,14 +1,14 @@
-const retrievePosts = require('./retrievePosts')
+const retrieveFavPosts = require('./retrieveFavPosts')
 
 try {
-    retrievePosts('amhkljhnhc4', (error, posts) => {
+    retrieveFavPosts('5egbu0dbu9c0', (error, favPosts) => {
         if (error) {
             console.error(error)
 
             return
         }
 
-        console.log('retrieved', posts)
+        console.log('retrieved', favPosts)
     })
 } catch (error) {
     console.error(error)
