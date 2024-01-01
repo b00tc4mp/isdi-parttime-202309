@@ -55,7 +55,10 @@
         "name": "Peter Pan",
         "email": "peter@pan.com",
         "password": "123123123",
-        "favs": []
+        "favs": [
+            "5dwfi0v6jlw0",
+            "3p8p15fc42a0"
+        ]
     },
     {
         "id": "6ttz1tptn2c0",
@@ -69,6 +72,10 @@
         "name": "James",
         "email": "james@hook.com",
         "password": "123123123",
-        "favs": []
+        "favs": [
+            "a9lzqg3r2kc",
+            "7e5klaogm6o0",
+            "1pk0h2xgm0n4"
+        ]
     }
 ]

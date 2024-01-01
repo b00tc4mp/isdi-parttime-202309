@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button, Form, Field, Container } from "../library"
 import logic from "../logic"
+import context from "../logic/context"
 
 const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment }) => {
     const [view, setView] = useState(null)
@@ -136,8 +137,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             <div>
                 {view === null && <Button onClick={() => handleLikeClick(post.id)}>{post.liked ? "❤️" : "🤍"} {post.likes.length} </Button>}
                 {view === null && <Button onClick={() => handleFavPostClick(post.id)}>{post.fav ? "✅" : "☑️"} </Button>}
-                {post.author.id === logic.sessionUserId && view === null && <Button onClick={() => handleEditClick(post.id)}>✏️</Button>}
-                {post.author.id === logic.sessionUserId && view === null && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
+                {post.author.id === context.sessionUserId && view === null && <Button onClick={() => handleEditClick(post.id)}>✏️</Button>}
+                {post.author.id === context.sessionUserId && view === null && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
                 {view === null && <Button onClick={handleCommentClick}>💭</Button>}
             </div>
         </article>

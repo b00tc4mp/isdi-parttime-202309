@@ -16,7 +16,7 @@ function NewPost({ onClick, onSuccess }) {
         const text = event.target.querySelector("#text-input").value
 
         try {
-            logic.publishPost(image, text, error => {
+            logic.createPost(image, text, error => {
                 if (error) {
                     alert(error.message)
 
