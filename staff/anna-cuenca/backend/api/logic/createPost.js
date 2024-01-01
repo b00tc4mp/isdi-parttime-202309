@@ -1,59 +1,24 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const { validateText, validateFunction, validateId } = require('./helpers/validators')
 
-const { SystemError, NotFoundError, AuthenticateError } = require('./errors')
+const { SystemError } = require('./errors')
+
+const { Post } = require('../data/models')
 
 
-////////////// TODO ///////////////////
 
 function createPost(userId, image, text, callback) {
-    validateText(userId, 'user id')
+    validateId(userId, 'user id')
     validateText(image, 'image')
     validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
+    const post = new Post({ author: userId, image, text })
 
-            return
-        }
+    post.save()
 
-        const user = users.find(user => user.id === userId)
+        .then(() => callback(null))
+        .catch(error => callback(new SystemError(error.message)))
 
-        if (!user) {
-            callback(new NotFoundError('user not found'))
-
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error.message))
-
-                return
-            }
-
-            const post = {
-                id: generateId(),
-                author: userId,
-                image,
-                text,
-                likes: []
-            }
-
-            posts.push(post)
-
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
-                if (error) {
-                    callback(new SystemError(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
-        })
-    })
 }
 
 module.exports = createPost
