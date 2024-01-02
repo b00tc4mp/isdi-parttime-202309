@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
-const createPost = require('./createPost')
+const deletePost = require('./deletePost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 
     .then(() => {
         try {
-            createPost('65944ed178f044ee3aece02b', 'https://as1.ftcdn.net/v2/jpg/02/49/85/30/1000_F_249853026_lBR4FaSpeVk2RJukVg9TLUe4m95NRNE3.jpg', 'Patata frita', error => {
+            deletePost('65944ed178f044ee3aece02b', '65945b51702e424a787fb3f2', error => {
                 if (error) {
                     console.error(error)
                     return
                 }
-                console.log('post created')
+                console.log('post deleted')
             })
         } catch (error) {
             console.log(error)
