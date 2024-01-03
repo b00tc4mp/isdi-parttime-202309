@@ -31,7 +31,7 @@ function registerUser(name, email, password, callback) {
             password,
             favs : []
         }   
-        
+
         users.push(user)
 
         JSON.stringifyToFile("./data/users.json", users, error => {
