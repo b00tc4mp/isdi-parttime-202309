@@ -1,8 +1,12 @@
 ## HiInit v0.0
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 ## RESUME
 
 - Terminal web with local and drive services
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 ## USER'S TYPE
 
@@ -10,6 +14,31 @@
 
 - User: Regular user
 - Root: Administrator
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+## USE CASES
+
+REGULAR USER
+
+- Manage files & folders
+- Manage permissions
+- Manage groups 
+
+ADMIN
+
+- Manage users (CRUD) 
+- Manage files & folders
+- Manage permissions
+- Manage groups 
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+## STORIES
+
+** USE CASES
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 ## COMMANDS
 
@@ -37,3 +66,5 @@
 - chmod: Change permissions
 - clear: Cleaning the screen
 - help: Only list the commands with names & functions
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
