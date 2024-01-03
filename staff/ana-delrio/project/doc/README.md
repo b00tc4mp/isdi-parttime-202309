@@ -13,80 +13,71 @@ Esta aplicación web permitirá a los usuarios compartir, explorar libros y part
 
 - search books
 - add books
-- share (reviews, exchange intention)
-- Comments other's users reviews
+- Comments other's users comments (reviews, exchange intentions)
 - Make make own list (read, want to read, reading)
 - add friends
 - make like
-- view history
 - publish post
 
 
 ## Views
 
 Home: 
-    * Search books
-    * Friends activity
-    * like
-    * comment
-    * notification 
+ - Search books
+ - Friends activity
+ - like
+ - comment
+ - notification 
 
-- Search: 
-    * Want to read | Currently Reading | Read
-    * Community Rating and reviews 
-    * Comments
+Search: 
+- Want to read | Currently Reading | Read
+- Community Rating and reviews 
+- Comments
 
-- My fav list book
-    * lists: want to read, read
-    * Reading challenge 
+My fav list book
+- lists: want to read, read
+- Reading challenge 
 
-- More: 
-    * My profile
-    * Reading challenge
-    * Add friends
-    * Groups
-    * Scan books
-    * Settings
+More: 
+- My profile
+- Reading challenge
+- Add friends
+- Groups
+- Scan books
+- Settings
 
-- Reading club
-    * Novel
-    * Hystoric
-    * Clasics 
-    * Science fiction / fantasy
+Reading club
+- Novel
+- Hystoric
+- Clasics 
+- Science fiction / fantasy
 
 - Change books 
-    * chat ¿
+
     
 ## Technical Description
 
-## Data Model
+### Data Model
 
 User
-User
+
 - id (string)
 - name (string)
 - email (string)
 - password (string)
 
-Socks
+Books
 - id (string)
-- name (string)
-- size (string)
-- theme (string)
+- Title (string)
+- Author (string)
+- Year (number)
 - brand (string)
-- model (string)
-- price (number)
 
-Cart
-- id (string)
-- user (User.id)
-- items ([Socks.id])
 
-Order
-- id (string)
-- user (User.id)
-- date (Date)
-- items ([Socks.id])
+Comment
+- exchange 
+- review
+
 
 
 
