@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
-const deletePost = require('./deletePost')
+const editTextPost = require('./editTextPost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 
     .then(() => {
         try {
-            deletePost('65944ed178f044ee3aece02b', '659502ecd75215292fa1831c', error => {
+            editTextPost('65944ed178f044ee3aece02b', '6595064381b9e9c247381d20', 'La Patata y el Ketchup', error => {
                 if (error) {
                     console.error(error)
                     return
                 }
-                console.log('post deleted')
+                console.log('post text edited')
             })
         } catch (error) {
             console.log(error)
