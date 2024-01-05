@@ -1,3 +1,4 @@
+// The Error class in JavaScript is a built-in class that provides basic functionality for representing errors in code
 class NotFoundError extends Error {
     constructor(message) {
         super(message)

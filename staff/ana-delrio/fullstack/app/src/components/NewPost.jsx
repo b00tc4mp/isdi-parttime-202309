@@ -1,7 +1,8 @@
 import { Button, Container, Field, Form } from "../library"
 import logic from "../logic"
 
-{/* las props se pueden desglosar */ }
+// {/* las props se pueden desglosar */ }
+// these props comes from home
 export default function NewPost({ onPublish, onCancel }) {
     const handleSubmit = event => {
         event.preventDefault()
@@ -16,7 +17,7 @@ export default function NewPost({ onPublish, onCancel }) {
 
                     return
                 }
-                {/* esto te viene por props de arriba */ }
+                // Call the function provided by props (onPublish) to notify that the post has been successfully published
                 onPublish()
 
 
@@ -29,7 +30,7 @@ export default function NewPost({ onPublish, onCancel }) {
 
     const handleCancel = event => {
         event.preventDefault()
-        {/* esto te viene por props de arriba */ }
+        // Call the function provided by props (onCancel) to cancel the post publication
         onCancel()
     }
 

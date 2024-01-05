@@ -2,6 +2,8 @@ const fs = require('fs')
 
 // LECTURA
 function parseFromFile(file, callback) {
+    // fs (fils system) module provided by Node.js
+    // This module offers functions for working with the operating system's file system, enabling operations such as reading, writing, creating, and manipulating files and directories
     fs.readFile(file, 'utf8', (error, json) => {
         if (error) {
             callback(error)
