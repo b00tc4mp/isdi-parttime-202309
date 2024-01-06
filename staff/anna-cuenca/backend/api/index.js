@@ -1,4 +1,4 @@
-//tenemos que conectar con mongo
+//tenemos que conectar con mongoose
 const mongoose = require('mongoose')
 
 
@@ -6,15 +6,20 @@ const mongoose = require('mongoose')
 
 const express = require('express')
 
-const registerUser = require('./logic/registerUser') // el requiere es como el input
+const registerUser = require('./logic/registerUser') // el require es como el input
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
+const changeEmailUser = require('./logic/changeEmailUser')
+const changePasswordUser = require('./logic/changePasswordUser')
 const createPost = require('./logic/createPost')
+const deletePost = require('./logic/deletePost')
+const editTextPost = require('./logic/editTextPost')
 const toggleLikePost = require('./logic/toogleLikePost')
+const toggleFavPost = require('./logic/toggleFavPost')
 const { SystemError, NotFoundError, ContentError, DuplicityError, CredentialsError, TypeError } = require('./logic/errors')
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongose
     .then(() => {
 
         const server = express()
@@ -187,7 +192,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
         // toggleLikePost
 
-        server.patch('/posts/:postId/likes', (req, res) => {
+        server.patch('/posts/:postId/likes', jsonBodyParser, (req, res) => {
             try {
                 const userId = req.headers.authorization.substring(7)
 
@@ -217,6 +222,172 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
+
+        // toggleFavPost
+
+        server.patch('/users/:userId/favs', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { postId } = req.body
+
+                toggleFavPost(postId, userId, error => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // changeEmailUser
+
+        server.patch('/users/:userId/email', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { email, newEmail, repeatNewEmail } = req.body
+
+                changeEmailUser(userId, email, newEmail, repeatNewEmail, error => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // changePasswordUser
+
+        server.patch('/users/:userId/password', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { password, newPassword, repeatNewPassword } = req.body
+
+                changePasswordUser(userId, password, newPassword, repeatNewPassword, error => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // edit text post
+
+        server.patch('/posts/:postId/text', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { postId, text } = req.body
+
+                editTextPost(userId, postId, text, error => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // deletePost
+
+        server.delete('/posts/:postId', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { postId } = req.params
+
+                deletePost(userId, postId, error => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
 
         server.listen(8000, () => console.log('server is up'))
 

@@ -1,11 +1,13 @@
 source pepetest.sh
 
-TEST "toogle-like-post"
+TEST "change-user-email"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/659599ca1244919807eb0768/likes' \
+curl 'http://localhost:8000/users/65959e2a7eff18b095527371/email' \
 -H 'Authorization: Bearer 65959e2a7eff18b095527371' \
+-H 'Content-Type: application/json' \
+-d '{ "email": "pla@tano.com", "newEmail": "plata@nito.com", "repeatNewEmail": "plata@nito.com"}' \
 -X PATCH \
 -v
 

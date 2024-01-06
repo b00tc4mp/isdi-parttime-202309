@@ -1,13 +1,12 @@
 source pepetest.sh
 
-TEST "create-post"
+TEST "delete-post"
 
-CASE "success on new post"
+CASE "success on delete post"
 
-curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 65959e2a7eff18b095527371' \
--H 'Content-Type: application/json' \
--d '{ "image": "https://img.freepik.com/vector-premium/ilustracion-chocolate-saliendo-envoltura_498928-124.jpg", "text": "Platano Canario"}' \
+curl 'http://localhost:8000/posts/659599ca1244919807eb0768' \
+-H 'Authorization: Bearer 658b1787d6c3f0f29677ccc6' \
+-X DELETE \
 -v
 
 # > POST /posts HTTP/1.1
@@ -28,10 +27,9 @@ curl 'http://localhost:8000/posts' \
 
 CASE  "error on wrong user"
 
-curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer lr4s8bb2agg' \
--H 'Content-Type: application/json' \
--d '{ "image": "https://img.freepik.com/vector-premium/ilustracion-chocolate-saliendo-envoltura_498928-124.jpg", "text": "Sweet"}' \
+curl 'http://localhost:8000/posts/659599ca1244919807eb0768' \
+-H 'Authorization: Bearer 65959e2a7eff18b095527371' \
+-X DELETE \
 -v
 
 # > POST /posts HTTP/1.1

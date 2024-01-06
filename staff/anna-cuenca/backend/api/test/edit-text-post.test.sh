@@ -1,11 +1,13 @@
 source pepetest.sh
 
-TEST "toogle-like-post"
+TEST "edit-text-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/659599ca1244919807eb0768/likes' \
--H 'Authorization: Bearer 65959e2a7eff18b095527371' \
+curl 'http://localhost:8000/posts/6595064381b9e9c247381d20/text' \
+-H 'Authorization: Bearer 65944ed178f044ee3aece02b' \
+-H 'Content-Type: application/json' \
+-d '{ "postId": "6595064381b9e9c247381d20", "text": "Mejor al horno!"}' \
 -X PATCH \
 -v
 

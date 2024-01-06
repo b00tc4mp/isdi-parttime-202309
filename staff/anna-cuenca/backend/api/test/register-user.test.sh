@@ -6,7 +6,7 @@ CASE "success on new user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Alba Ricoque", "email": "alba@ricoque.com", "password": "123" }' \
+-d '{ "name": "Pla Tano", "email": "pla@tano.com", "password": "123" }' \
 -v
 
 # con el -v le pido que me enseñe la vuelta

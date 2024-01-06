@@ -1,11 +1,13 @@
 source pepetest.sh
 
-TEST "toogle-like-post"
+TEST "toogle-fav-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/659599ca1244919807eb0768/likes' \
--H 'Authorization: Bearer 65959e2a7eff18b095527371' \
+curl 'http://localhost:8000/users/658b1787d6c3f0f29677ccc6/favs' \
+-H 'Authorization: Bearer 658b1787d6c3f0f29677ccc6' \
+-H 'Content-Type: application/json' \
+-d '{ "postId": "6595064381b9e9c247381d20"}' \
 -X PATCH \
 -v
 
