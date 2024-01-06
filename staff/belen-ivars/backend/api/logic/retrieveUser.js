@@ -1,5 +1,6 @@
 const { validateText, validateFunction } = require('../utils/validators')
 const JSON = require('../utils/JSON')
+const { SystemError, NotFoundError } = require('../utils/errors')
 
 function retrieveUser(userId, callback) {
 	validateText(userId, 'user id')
@@ -7,7 +8,7 @@ function retrieveUser(userId, callback) {
 
 	JSON.parseFromFile('./data/users.json', (error, users) => {
 		if (error) {
-			callback(error)
+			callback(new SystemError(error.message))
 
 			return
 		}
@@ -15,7 +16,7 @@ function retrieveUser(userId, callback) {
 		const user = users.find(user => user.id === userId)
 
 		if (!user) {
-			callback(new Error('user not found'))
+			callback(new NotFoundError('user not found'))
 
 			return
 		}

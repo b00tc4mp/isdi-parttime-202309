@@ -33,5 +33,47 @@
         "email": "fava@pela.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "6w2rreuo2zg0",
+        "name": "Moni Ato",
+        "email": "moni@ato.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "76ffo0vesak0",
+        "name": "Coli Flor",
+        "email": "coli@flor.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "3zllyluwex40",
+        "name": "Napi Col",
+        "email": "napi@col.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5sxid5blncs0",
+        "name": "Coca Dacsa",
+        "email": "coca@dacsa.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "61t6qhvtsos0",
+        "name": "Tossi Lao",
+        "email": "tossi@lao.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "pauo1j9jhzk",
+        "name": "Po Peye",
+        "email": "po@peye.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
