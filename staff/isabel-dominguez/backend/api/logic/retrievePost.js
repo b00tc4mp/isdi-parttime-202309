@@ -1,25 +1,13 @@
-const { validateText, validateFunction } = require('../utils/validators')
-const JSON = require('../utils/JSON')
+// const { validateText, validateFunction } = require('./helpers/validators')
+// const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
-function retrievePost(postId, callback) {
-    validateText(postId, 'post id')
-    validateFunction(callback, 'callback')
+// const { User } = require('../data/models')
 
-    JSON.parseFromFile('./data/posts.json', (error, posts) => {
-        if (error) {
-            callback(error)
-            return
-        }
+// function retrievePost(postId, callback) {
+//     validateText(postId, 'post id')
+//     validateFunction(callback, 'callback')
 
-        const post = posts.find(post => post.id === postId)
 
-        if (!post) {
-            callback(new Error('post not found'))
-            return
-        }
+// }
 
-        callback(null, post)
-    })
-}
-
-module.exports = retrievePost
+// module.exports = retrievePost

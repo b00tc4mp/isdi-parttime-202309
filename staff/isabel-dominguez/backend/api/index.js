@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
@@ -10,391 +11,385 @@ const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
 const deleteUser = require('./logic/deleteUser')
 const deletePost = require('./logic/deletePost')
-const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./utils/errors')
+const { NotFoundError, ContentError, DuplicityError, CredentialsError } = require('./logic/errors')
 
-const server = express()
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        const server = express()
 
-server.get('/', (req, res) => res.send('Hello, World!'))
+        // server.get('/', (req, res) => res.send('Hello, World!'))
 
-const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware.
+        const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware.
 
-server.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
-    res.setHeader('Access-Control-Allow-Methods', '*')
+        server.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Headers', '*')
+            res.setHeader('Access-Control-Allow-Methods', '*')
 
-    next()
-})
-
-//REGISTER
-server.post('/users', jsonBodyParser, (req, res) => {
-    try {
-        const { name, email, password } = req.body
-
-        registerUser(name, email, password, error => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof SystemError)
-                    status = 500
-                else if (error instanceof DuplicityError)
-                    status = 409
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(201).send()
+            next()
         })
-    } catch (error) {
-        let status = 400
 
-        if (error instanceof ContentError)
-            status = 406
+        //REGISTER
+        server.post('/users', jsonBodyParser, (req, res) => {
+            try {
+                const { name, email, password } = req.body
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                registerUser(name, email, password, error => {
+                    if (error) {
+                        let status = 500
 
-//LOGIN
-server.post('/users/auth', jsonBodyParser, (req, res) => {
-    try {
-        const { email, password } = req.body
+                        if (error instanceof DuplicityError)
+                            status = 409
 
-        authenticateUser(email, password, (error, userId) => {
-            if (error) {
-                let status = 400
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                if (error instanceof SystemError)
-                    status = 500
-                else if (error instanceof DuplicityError)
-                    status = 409
-                else if (error instanceof NotFoundError)
-                    status = 404
+                        return
+                    }
 
-                res.status(status).json({ error: error.constructor.name, message: error.message })
+                    res.status(201).send()
+                })
+            } catch (error) {
+                let status = 500
 
-                return
-            }
-
-            res.json(userId)
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-//RETRIEVE USER
-server.get('/users', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)// El ID está a partir del carácter 7 del cabecero "-H 'Authorization: Bearer 5gbocg2tsfs0'"
-
-        retrieveUser(userId, (error, user) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError)
-                    status = 404 // Usuario no encontrado
-                else if (error instanceof ContentError)
-                    status = 406 // Contenido no aceptable
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.json(user)
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// RETRIEVE POST
-server.get('/posts', (req, res) => {
-    try {
-        const postId = req.headers.authorization.substring(7)
-
-        retrievePost(postId, (error, post) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError)
-                    status = 404
-                else if (error instanceof ContentError)
+                if (error instanceof ContentError || error instanceof TypeError)
                     status = 406
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             }
-
-            res.json(post)
         })
-    } catch (error) {
-        let status = 400
 
-        if (error instanceof ContentError)
-            status = 406
+        //LOGIN
+        server.post('/users/auth', jsonBodyParser, (req, res) => {
+            try {
+                const { email, password } = req.body
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                authenticateUser(email, password, (error, userId) => {
+                    if (error) {
+                        let status = 500
 
-//CREATE POST
-server.post('/posts', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
+                        if (error instanceof NotFoundError)
+                            status = 404
+                        else if (error instanceof CredentialsError)
+                            status = 401
 
-        const { image, text } = req.body
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
-        createPost(userId, image, text, error => {
-            if (error) {
-                let status = 400
+                        return
+                    }
 
-                if (error instanceof NotFoundError)
-                    status = 404
-                else if (error instanceof ContentError)
+                    res.json(userId)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
                     status = 406
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             }
-
-            res.status(201).json({ message: 'You have created a new post!.', userId }).send()
         })
-    } catch (error) {
-        let status = 400
 
-        if (error instanceof ContentError)
-            status = 406
+        //RETRIEVE USER
+        server.get('/users', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)// El ID está a partir del carácter 7 del cabecero "-H 'Authorization: Bearer 5gbocg2tsfs0'"
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+                retrieveUser(userId, (error, user) => {
+                    if (error) {
+                        let status = 500
 
-//TOGGLE LIKE POST
-server.patch('/posts/:postId/likes', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
+                        if (error instanceof NotFoundError)
+                            status = 404
 
-        const { postId } = req.params
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
-        toggleLikePost(userId, postId, error => {
-            if (error) {
-                let status = 400
+                        return
+                    }
 
-                if (error instanceof SystemError)
-                    status = 500
-                else if (error instanceof NotFoundError)
-                    status = 404
+                    res.json(user)
+                })
+            } catch (error) {
+                let status = 500
 
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// TOGGLE FAV POST
-server.patch('/posts/:postId/favs', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { postId } = req.params
-
-        toggleFavPost(userId, postId, error => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof SystemError)
-                    status = 500
-                else if (error instanceof NotFoundError)
-                    status = 404
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-                return
-            }
-
-            res.status(204).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError)
-            status = 406
-
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-// CHANGE EMAIL USER
-server.post('/users/email', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { email, newEmail, confirmNewEmail } = req.body
-
-        changeEmailUser(userId, email, newEmail, confirmNewEmail, (error, userId) => {
-            if (error) {
-                let status = 400
-
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
+                if (error instanceof ContentError || error instanceof TypeError)
                     status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                } else if (error instanceof DuplicityError) {
-                    status = 409 // Conflicto, por ejemplo, nuevo correo igual al existente
-                }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             }
-
-            res.status(200).json({ message: 'Email changed successfully.', userId }).send()
         })
-    } catch (error) {
-        let status = 400
 
-        if (error instanceof ContentError) {
-            status = 406
-        }
+        // RETRIEVE POST
+        // server.get('/posts', (req, res) => {
+        //     try {
+        //         const postId = req.headers.authorization.substring(7)
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+        //         retrievePost(postId, (error, post) => {
+        //             if (error) {
+        //                 let status = 500
 
-// CHANGE PASSWORD USER
-server.post('/users/password', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
+        //                 if (error instanceof NotFoundError)
+        //                     status = 404
 
-        const { password, newPassword, confirmNewPassword } = req.body
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
-        changePasswordUser(userId, password, newPassword, confirmNewPassword, (error, userId) => {
-            if (error) {
-                let status = 400
+        //                 return
+        //             }
 
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                } else if (error instanceof DuplicityError) {
-                    status = 409
-                }
+        //             res.json(post)
+        //         })
+        //     } catch (error) {
+        //         let status = 500
 
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-                return
-            }
+        //         if (error instanceof ContentError || error instanceof TypeError)
+        //             status = 406
 
-            res.status(200).json({ message: 'Password changed successfully.', userId }).send()
-        })
-    } catch (error) {
-        let status = 400
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
 
-        if (error instanceof ContentError) {
-            status = 406
-        }
+        //CREATE POST
+        // server.post('/posts', jsonBodyParser, (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+        //         const { image, text } = req.body
 
-// DELETE USER
-server.delete('/users', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
+        //         createPost(userId, image, text, error => {
+        //             if (error) {
+        //                 let status = 400
 
-        const { password } = req.body
+        //                 if (error instanceof NotFoundError)
+        //                     status = 404
+        //                 else if (error instanceof ContentError)
+        //                     status = 406
 
-        deleteUser(userId, password, (error, userId) => {
-            if (error) {
-                let status = 400
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                }
+        //                 return
+        //             }
 
-                res.status(status).json({ error: error.constructor.name, message: error.message })
+        //             res.status(201).json({ message: 'You have created a new post!.', userId }).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 400
 
-                return
-            }
+        //         if (error instanceof ContentError)
+        //             status = 406
 
-            res.status(200).json({ message: 'User deleted successfully.', userId }).send()
-        })
-    } catch (error) {
-        let status = 400
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
 
-        if (error instanceof ContentError) {
-            status = 406
-        }
+        //TOGGLE LIKE POST
+        // server.patch('/posts/:postId/likes', (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+        //         const { postId } = req.params
 
-// DELETE POST
-server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
-    try {
-        const postId = req.params.postId
+        //         toggleLikePost(userId, postId, error => {
+        //             if (error) {
+        //                 let status = 500
 
-        deletePost(postId, (error, deletedPostId) => {
-            if (error) {
-                let status = 400
+        //                 if (error instanceof NotFoundError)
+        //                     status = 404
 
-                if (error instanceof NotFoundError) {
-                    status = 404
-                } else if (error instanceof ContentError) {
-                    status = 406
-                } else if (error instanceof SystemError) {
-                    status = 500
-                }
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                return res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
+        //                 return
+        //             }
 
-            res.status(200).json({ message: 'Post deleted successfully.', deletedPostId })
-        })
-    } catch (error) {
-        let status = 400
+        //             res.status(204).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 500
 
-        if (error instanceof ContentError) {
-            status = 406
-        }
+        //         if (error instanceof ContentError || error instanceof TypeError)
+        //             status = 406
 
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
 
-server.listen(8000, () => console.log('server is up'))
+        // TOGGLE FAV POST
+        // server.patch('/posts/:postId/favs', (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
+
+        //         const { postId } = req.params
+
+        //         toggleFavPost(userId, postId, error => {
+        //             if (error) {
+        //                 let status = 400
+
+        //                 if (error instanceof SystemError)
+        //                     status = 500
+        //                 else if (error instanceof NotFoundError)
+        //                     status = 404
+
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
+        //                 return
+        //             }
+
+        //             res.status(204).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 400
+
+        //         if (error instanceof ContentError)
+        //             status = 406
+
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
+
+        // CHANGE EMAIL USER
+        // server.post('/users/email', jsonBodyParser, (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
+
+        //         const { email, newEmail, confirmNewEmail } = req.body
+
+        //         changeEmailUser(userId, email, newEmail, confirmNewEmail, (error, userId) => {
+        //             if (error) {
+        //                 let status = 400
+
+        //                 if (error instanceof NotFoundError) {
+        //                     status = 404
+        //                 } else if (error instanceof ContentError) {
+        //                     status = 406
+        //                 } else if (error instanceof SystemError) {
+        //                     status = 500
+        //                 } else if (error instanceof DuplicityError) {
+        //                     status = 409 // Conflicto, por ejemplo, nuevo correo igual al existente
+        //                 }
+
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
+
+        //                 return
+        //             }
+
+        //             res.status(200).json({ message: 'Email changed successfully.', userId }).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 400
+
+        //         if (error instanceof ContentError) {
+        //             status = 406
+        //         }
+
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
+
+        // CHANGE PASSWORD USER
+        // server.post('/users/password', jsonBodyParser, (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
+
+        //         const { password, newPassword, confirmNewPassword } = req.body
+
+        //         changePasswordUser(userId, password, newPassword, confirmNewPassword, (error, userId) => {
+        //             if (error) {
+        //                 let status = 400
+
+        //                 if (error instanceof NotFoundError) {
+        //                     status = 404
+        //                 } else if (error instanceof ContentError) {
+        //                     status = 406
+        //                 } else if (error instanceof SystemError) {
+        //                     status = 500
+        //                 } else if (error instanceof DuplicityError) {
+        //                     status = 409
+        //                 }
+
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
+        //                 return
+        //             }
+
+        //             res.status(200).json({ message: 'Password changed successfully.', userId }).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 400
+
+        //         if (error instanceof ContentError) {
+        //             status = 406
+        //         }
+
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
+
+        // DELETE USER
+        // server.delete('/users', jsonBodyParser, (req, res) => {
+        //     try {
+        //         const userId = req.headers.authorization.substring(7)
+
+        //         const { password } = req.body
+
+        //         deleteUser(userId, password, (error, userId) => {
+        //             if (error) {
+        //                 let status = 400
+
+        //                 if (error instanceof NotFoundError) {
+        //                     status = 404
+        //                 } else if (error instanceof ContentError) {
+        //                     status = 406
+        //                 } else if (error instanceof SystemError) {
+        //                     status = 500
+        //                 }
+
+        //                 res.status(status).json({ error: error.constructor.name, message: error.message })
+
+        //                 return
+        //             }
+
+        //             res.status(200).json({ message: 'User deleted successfully.', userId }).send()
+        //         })
+        //     } catch (error) {
+        //         let status = 400
+
+        //         if (error instanceof ContentError) {
+        //             status = 406
+        //         }
+
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
+
+        // DELETE POST
+        // server.delete('/posts/:postId', jsonBodyParser, (req, res) => {
+        //     try {
+        //         const postId = req.params.postId
+
+        //         deletePost(postId, (error, deletedPostId) => {
+        //             if (error) {
+        //                 let status = 400
+
+        //                 if (error instanceof NotFoundError) {
+        //                     status = 404
+        //                 } else if (error instanceof ContentError) {
+        //                     status = 406
+        //                 } else if (error instanceof SystemError) {
+        //                     status = 500
+        //                 }
+
+        //                 return res.status(status).json({ error: error.constructor.name, message: error.message })
+        //             }
+
+        //             res.status(200).json({ message: 'Post deleted successfully.', deletedPostId })
+        //         })
+        //     } catch (error) {
+        //         let status = 400
+
+        //         if (error instanceof ContentError) {
+        //             status = 406
+        //         }
+
+        //         res.status(status).json({ error: error.constructor.name, message: error.message })
+        //     }
+        // })
+
+        server.listen(8000, () => console.log('server is up'))
+    })
+    .catch(error => console.error(error))

@@ -1,16 +1,16 @@
-const retrievePost = require('./retrievePost')
+// const retrievePost = require('./retrievePost')
 
-try {
-    retrievePost('2rcwe8wgvue0', (error, post) => {
-        if (error) {
-            console.error(error)
+// try {
+//     retrievePost('2rcwe8wgvue0', (error, post) => {
+//         if (error) {
+//             console.error(error)
 
-            return
-        }
+//             return
+//         }
 
-        console.log('retrieved', post)
-    })
+//         console.log('retrieved', post)
+//     })
 
-} catch (error) {
-    console.error(error)
-}
+// } catch (error) {
+//     console.error(error)
+// }
