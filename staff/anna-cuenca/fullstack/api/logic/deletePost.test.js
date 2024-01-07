@@ -1,24 +1,20 @@
 const mongoose = require('mongoose')
-
-const registerUser = require('./registerUser') // el requiere es como el input
+const deletePost = require('./deletePost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then(() => {
 
+    .then(() => {
         try {
-            registerUser('Remo Lacha', 'remo@lacha.com', '123', error => {
+            deletePost('65944ed178f044ee3aece02b', '6595064381b9e9c247381d20', error => {
                 if (error) {
                     console.error(error)
                     return
                 }
-
-                console.log('user registered')
+                console.log('post deleted')
             })
-
         } catch (error) {
             console.log(error)
-
         }
     })
 
-    .catch(error => console.error(error))
+    .catch(error => console.error(error)) 

@@ -1,20 +1,22 @@
-const mongoose = require('mongoose')
 
-const changePasswordUser = require('./changePasswordUser')
+const mongoose = require('mongoose')
+const toggleFavPost = require('./toggleFavPost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 
     .then(() => {
+
         try {
-            changePasswordUser('659a904a06ac064c6025bc91', '123', '111', '111', error => {
+            toggleFavPost('65992f24bad309e29f867be1', '659a904a06ac064c6025bc91', error => {
                 if (error) {
                     console.error(error)
                     return
                 }
-                console.log('password changed')
+
+                console.log('fav toogled')
             })
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     })
 

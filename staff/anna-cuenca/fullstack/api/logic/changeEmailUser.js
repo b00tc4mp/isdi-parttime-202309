@@ -1,10 +1,14 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+
+const { validateText, validateFunction, validateId } = require('./helpers/validators')
+
+const { User } = require('../data/models')
+
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = require('./errors')
 
 function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
-    validateText(userId, 'user id')
+    validateId(userId, 'user id')
 
     validateText(email, 'email')
     validateText(newEmail, 'new email')
@@ -12,52 +16,39 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
 
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
-            return
-        }
+    //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 
-        let user = users.find(user => user.id === userId) // comprobamos que el usuario esté en la base de datos
-
-
-        if (!user) {
-            callback(new Error('user not found'))
-            return
-        }
-
-        if (user.email !== email) {
-            callback(new Error('Wrong credentials'))
-            return
-        }
-
-        if (user.email === newEmail) {
-            callback(new Error('New email must be different from the current email'))
-            return
-        }
-
-        if (repeatNewEmail !== newEmail) {
-            callback(new Error('The new emails do not match'))
-            return
-        }
-
-        user.email = newEmail
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('User not found'))
                 return
-
-
             }
-            callback(null, user.id) // el user.id por qué nos lo traemos? Yo lo uso para mensaje
+
+            if (user.email !== email) {
+                callback(new CredentialsError('wrong credentials'))
+                return
+            }
+
+            if (email === newEmail) {
+                callback(new DuplicityError('New email must be different from the current email'))
+                return
+            }
+
+            if (newEmail !== repeatNewEmail) {
+                callback(new CredentialsError('The new email and confirmation email do not match'))
+                return
+            }
+
+            user.email = newEmail
+            user.save()
+
+            callback(null)
+
+
         })
 
-
-
-
-
-    }) //hay que hacerlo en la carpeta raiz, onde se ejecuta 
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = changeEmailUser

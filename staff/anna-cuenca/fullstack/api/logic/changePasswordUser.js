@@ -1,62 +1,48 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction, validateId } = require('./helpers/validators')
+
+const { User } = require('../data/models')
+
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = require('./errors')
 
 function changePasswordUser(userId, password, newPassword, repeatNewPassword, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
-    validateText(userId, 'user id')
+    validateId(userId, 'user id')
     validateText(password, 'password')
     validateText(newPassword, 'password')
     validateText(repeatNewPassword, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
-            return
-        }
-
-        let user = users.find(user => user.id === userId) // comprobamos que el usuario esté en la base de datos
-
-
-        if (!user) {
-            callback(new Error('user not found'))
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('Wrong credentials'))
-            return
-        }
-
-        if (user.password === newPassword) {
-            callback(new Error('New password must be different from the current password'))
-            return
-        }
-
-        if (repeatNewPassword !== newPassword) {
-            callback(new Error('The new passwords do not match'))
-            return
-        }
-
-        user.password = newPassword
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('User not found'))
                 return
-
-
             }
-            callback(null, user.id) // el user.id por qué nos lo traemos?
+            if (user.password !== password) {
+                callback(new CredentialsError('Wrong Credentials'))
+                return
+            }
+
+            if (password === newPassword) {
+                callback(new DuplicityError('New password must be different from current one'))
+                return
+            }
+
+            if (newPassword !== repeatNewPassword) {
+                callback(new CredentialsError('The new email and the confirmation password do not match'))
+                return
+            }
+            user.password = newPassword
+
+            user.save()
+
+            callback(null)
         })
 
+        .catch(error => callback(new SystemError(error.message)))
 
-
-
-
-    }) //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 }
 
 module.exports = changePasswordUser
