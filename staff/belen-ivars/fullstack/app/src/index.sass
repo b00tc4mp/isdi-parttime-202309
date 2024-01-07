@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap')
+
+/*ressets*/
+
+*
+	font-family: Inter
+	font-size: 1rem
+
+html
+	scroll-behavior: smooth
+
+html, body
+	margin: 0
+	background: linear-gradient(to bottom right, #8C1B8C, #26C2C7)
+	background-attachment: fixed
+
+/* variables */
+
+$m-size: 768px
+$l-size: 1024px
+$footer-h: 3rem
+
+/* library */
+
+.container
+	display: flex
+	flex-direction: column
+	align-items: center
+	gap: 5px
+
+.form
+	display: flex
+	flex-direction: column
+	max-width: 240px
+	gap: 5px
+
+.label
+	font-weight: bold
+
+.input
+	border: 2px solid black
+	padding: 5px
+
+.button
+	border: 1px solid black
+	padding: 5px
+	background-color: silver
+	border-radius: 5px
+	font-weight: bold
+	cursor: pointer
+
+	&-menu
+		align-self: start
+
+.link
+	text-decoration: none
+	color: black
+
+	&:visited
+		color: black
+
+	&::before
+		content: '[ '
+
+	&::after
+		content: ' ]'
+
+/* custom compos */
+
+.header
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: .5rem
+	background-color: white
+	border-block-end: .3rem solid black
+
+.new-post
+	margin-bottom: 1rem
+	background-color: white
+
+.post
+	display: flex
+	flex-direction: column
+	align-items: center
+	margin: .7rem
+	border: .3rem solid black
+	padding: 1rem
+	background-color: #F2EDF8
+
+	&-image
+		max-width: 320px
+		max-height: 320px
+		border: 1rem inset
+
+	&-actions
+		display: flex
+		justify-content: space-between
+		gap: .5rem
+
+.posts
+	margin-bottom: $footer-h
+
+@media (min-width: $m-size)
+	.posts
+		display: grid
+		grid-template-columns: repeat(2, 1fr)
+
+@media (min-width: $l-size)
+	.posts
+		display: grid
+		grid-template-columns: repeat(3, 1fr)
+
+.footer
+	background-color: white
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	position: fixed
+	bottom: 0
+	width: 100%
+	min-height: $footer-h
+	border-block-start: .3rem solid black
+
+	&-menu
+		display: flex
+		flex-direction: row
+		justify-content: space-around
+		width: 100%
