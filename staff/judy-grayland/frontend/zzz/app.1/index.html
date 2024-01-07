@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="register">
+    <h1>Register</h1>
+    <p id="register-errormsg">This user already exists</p><br>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name"><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email"><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password">
+
+      <button>Register</button>
+    </form>
+
+    <a href="">Login</a>
+  </div>
+
+   <div id="login">
+    <h1>Log in</h1>
+    <p id="login-errormsg">Incorrect user or password</p><br>
+    <form>
+      <label for="email">Email:</label>
+      <input type="email" id="email"><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password"><br>
+
+      <button>Log in</button>
+    </form>
+    <a href="">Register</a>
+  </div>
+
+  <div id="home">
+    <h1>Hello, Home!</h1>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

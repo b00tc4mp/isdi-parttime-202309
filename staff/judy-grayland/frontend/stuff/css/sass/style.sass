@@ -1,0 +1,66 @@
+// @mixin nos crea un componente que podemos reutilizar pasándole los valores. para meterlo en un componente ponemos @include
+// usamos @extend para reutilizar unas reglas de CSS en varios elementos. Se declara una clase y luego la añades a un elemento con @extend
+
+//in your sass file if you go to the terminal you can write sass. --watch and it will start running it for you.
+    
+@mixin rounded-box ($bgcolor, $radius, $padding, $margin)
+    background-color: $bgcolor
+    border-radius: $radius
+    padding: $padding
+    margin: $margin  
+
+.bordered
+    border: 1px solid black
+
+    // indentamos todo lo que sigue a .panel para que quede anidado. El ampersand sustituye al nombre del elemento/bloque al que pertenece
+
+.panel 
+    @extend .bordered
+    @include rounded-box(lightgray, 1rem, 1rem, 1rem)
+
+
+    &--warn 
+        background-color: yellow
+
+
+    &--error 
+        background-color: orange
+        color: white
+
+
+    &__subject 
+        font-family: Verdana, Geneva, Tahoma, sans-serif
+
+
+    &__body 
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
+
+    &__buttons 
+        display: flex
+        justify-content: center
+        gap: 1rem
+
+
+
+/* Quitamos la palabra panel del elemento button para hacer que button sea un elemento independiente => elemento atómico */
+
+
+.button 
+    @extend .bordered
+    @include rounded-box(rgb(239, 239, 239),0.5rem, .5rem, 0)
+    cursor: pointer
+    font-size: 1rem
+
+
+    &:hover 
+        background-color: snow
+
+
+    &--accept 
+        background-color: dodgerblue
+        color: white
+
+
+    &--accept:hover 
+        color: black

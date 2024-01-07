@@ -1,0 +1,12 @@
+true && console.log('whatever')
+// VM142: 1 whatever
+
+!true && console.log('whatever')
+// false
+
+true || console.log('whatever')
+// true 
+// the second part will never get read because true is always true
+
+!true || console.log('whatever')
+// VM219:1 whatever
