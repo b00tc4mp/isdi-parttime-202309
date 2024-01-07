@@ -7,7 +7,7 @@ CASE success on correct credentials
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "alba@ricoque.com", "password": "123" }' \
+-d '{"email": "plata@nito.com", "password": "123" }' \
 -v
 
 
@@ -22,7 +22,7 @@ CASE  error on wrong pasword
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "coli@flor.com", "password": "133" }' \
+-d '{"email": "remo@lacha.com", "password": "133" }' \
 -v
 
 
