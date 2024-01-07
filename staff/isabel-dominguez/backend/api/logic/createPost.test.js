@@ -1,15 +1,24 @@
-// const createPost = require('./createPost')
+const mongoose = require('mongoose')
+const createPost = require('./createPost.js')
 
-// try {
-//     createPost('3u5gkv3so500', 'https://th.bing.com/th/id/OIP.S1kgrJdqQkc2ohnpXCLhEwAAAA?rs=1&pid=ImgDetMain', 'I am Aguacate!', error => {
-//         if (error) {
-//             console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            createPost(
+                '659aaf07e1d0a278068d446a',
+                'https://cdn5.dibujos.net/dibujos/pintados/201443/dos-manzanas-comida-frutas-pintado-por-isis1234-9909248.jpg',
+                'My sister and me',
+                error => {
+                    if (error) {
+                        console.error(error)
+                        return
+                    }
+                    console.log('post created')
+                })
 
-//             return
-//         }
+        } catch (error) {
+            console.log(error)
+        }
 
-//         console.log('created')
-//     })
-// } catch (error) {
-//     console.error(error)
-// }
+    })
+    .catch(error => console.error(error))

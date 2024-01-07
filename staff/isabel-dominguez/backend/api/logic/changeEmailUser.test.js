@@ -1,15 +1,21 @@
-// const changeEmailUser = require('./changeEmailUser')
+const mongoose = require('mongoose')
 
-// try {
-//     changeEmailUser('amhkljhnhc4', 'cara@bassseta.com', 'cala@bacin.com', 'cala@bacin.com', (error, userId) => {
-//         if (error) {
-//             console.error(error)
+const changeEmailUser = require('./changeEmailUser')
 
-//             return
-//         }
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            changeEmailUser('659aaf07e1d0a278068d446a', 'man@zana.com', 'man@zanita.com', 'man@zanita.com', (error, userId) => {
+                if (error) {
+                    console.error(error)
 
-//         console.log('email changed', userId)
-//     })
-// } catch (error) {
-//     console.log(error)
-// }
+                    return
+                }
+
+                console.log('email changed', userId)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    .catch(error => console.error(error))
