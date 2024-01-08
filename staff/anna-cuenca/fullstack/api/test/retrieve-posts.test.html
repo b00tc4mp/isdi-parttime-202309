@@ -1,0 +1,23 @@
+<script>
+    // AQUI PIDE EL CLIENTE
+    const req = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer 3vxs04m50tk0'
+        }
+        // como es un GET no tiene body
+    }
+    // AQUI ESTA LA RESPUESTA DEL SERVIDOR 
+    fetch('http://localhost:8000/posts', req)
+
+        .then(res => {
+            if (res.ok)
+                res.json() //aqui si que hay body, porque es la respuesta
+                    .then(body => console.log(res.status, body))
+                    .catch(error => console.error(error))
+
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+</script>
