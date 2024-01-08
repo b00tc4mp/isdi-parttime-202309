@@ -68,5 +68,12 @@
         "email": "peter@pan.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "7el0o5ujwd80",
+        "name": "Wendy Darling",
+        "email": "wendy@darling.com",
+        "password": "123123",
+        "favs": []
     }
 ]
