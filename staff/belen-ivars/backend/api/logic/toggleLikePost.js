@@ -1,15 +1,14 @@
-const JSON = require('../utils/JSON');
-const { NotFoundError, SystemError } = require('../utils/errors');
-const { validateText, validateFunction } = require('../utils/validators');
-
-// manu fa els requeriments amb dos cometes, i no sé perquè en esta funcionalitat posa ; després dels requeriments.
+const { NotFoundError, SystemError } = require('./errors')
+const { validateText, validateFunction } = require('./helpers/validators')
 
 function toggleLikePost(userId, postId, callback) {
 	validateText(userId, 'user id')
 	validateText(postId, 'post id')
 	validateFunction(callback, 'callback')
 
-	JSON.parseFromFile('./data/users.json', (error, users) => {
+	// TODO use models
+
+	/* JSON.parseFromFile('./data/users.json', (error, users) => {
 		if (error) {
 			callback(new SystemError(error.messsage))
 
@@ -58,7 +57,7 @@ function toggleLikePost(userId, postId, callback) {
 				callback(null)
 			})
 		})
-	})
+	}) */
 }
 
 module.exports = toggleLikePost

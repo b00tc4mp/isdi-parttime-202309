@@ -1,6 +1,4 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
-const generateId = require('../data/generateId')
+const { validateText, validateFunction } = require('./helpers/validators')
 
 function createPost(userId, image, text, callback) {
 	validateText(userId, 'user id')
@@ -8,7 +6,9 @@ function createPost(userId, image, text, callback) {
 	validateText(text, 'text')
 	validateFunction(callback, 'callback')
 
-	JSON.parseFromFile('./data/users.json', (error, users) => {
+	// TODO use model
+
+	/* JSON.parseFromFile('./data/users.json', (error, users) => {
 		if (error) {
 			console.error(error)
 
@@ -51,7 +51,7 @@ function createPost(userId, image, text, callback) {
 
 			})
 		})
-	})
+	}) */
 }
 
 module.exports = createPost

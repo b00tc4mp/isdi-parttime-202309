@@ -56,7 +56,7 @@ CASE "error of wrong password"
 
 curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "wrong-tossi@lao.com", "password":"12312312"}' \
+-d '{"email": "tossi@lao.com", "password":"12312312"}' \
 -v
 
 # > POST /users/auth HTTP/1.1
