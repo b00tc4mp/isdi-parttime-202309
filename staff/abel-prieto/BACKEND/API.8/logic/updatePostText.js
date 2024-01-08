@@ -2,10 +2,10 @@ const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 const { validateText, validateFunction } = require('./helpers/validators')
 
-
-function toggleLikePost(userId, postId, callback) {
+function updatePostText(userId, postId, newText, callback) {
     validateText(userId, 'user id')
     validateText(postId, 'post id')
+    validateText(newText, 'text')
     validateFunction(callback, 'callback')
 
     User.findById(userId)
@@ -15,7 +15,7 @@ function toggleLikePost(userId, postId, callback) {
 
                 return
             }
-            
+
             Post.findById(postId)
                 .then(post => {
                     if (!post) {
@@ -24,13 +24,13 @@ function toggleLikePost(userId, postId, callback) {
                         return
                     }
 
-                    const userIndex = post.likes.indexOf(userId)
+                    // if (post.author !== userId) {
+                    //     callback(new ContentError('this is not your post'))
 
-                    if (userIndex < 0) {
-                        post.likes.push(userId)
-                    } else {
-                        post.likes.splice(userIndex, 1)
-                    }
+                    //     return
+                    // }
+
+                    post.text = newText
 
                     post.save()
                         .then(() => {
@@ -41,7 +41,6 @@ function toggleLikePost(userId, postId, callback) {
                 .catch(error => callback(new SystemError(error.message)))
         })
         .catch(error => callback(new SystemError(error.message)))
-    
 }
 
-module.exports = toggleLikePost
+module.exports = updatePostText

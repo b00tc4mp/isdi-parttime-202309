@@ -2,11 +2,11 @@
     const req = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer 65942e03e5a6dab915783e58'
+            Authorization: 'Bearer 6595b6f5a456f32af3f9b029'
         }
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch('http://localhost:8000/newpost', req)
         .then(res => {
             if (res.ok) {
                 res.json()
@@ -16,7 +16,6 @@
                 console.error(res.status)
             }
         })
-        .catch(error => console.error(error))
-</script>
+        .catch(error => console.log(error))
 
-// Al ser un método 'GET', no tiene body
+</script>

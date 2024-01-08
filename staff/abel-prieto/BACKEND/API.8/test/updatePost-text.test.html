@@ -1,13 +1,14 @@
 <script>
     const req = {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
+            Authorization: 'Bearer 65942e03e5a6dab915783e58',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: 'Man Zana', email: 'man@zana.com', password: '123123123' })
+        body: JSON.stringify({ text: 'Hello Batman again!!' })
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch('http://localhost:8000/newpost/65942e77657640a65767094d', req)
         .then(res => {
             if (res.ok) {
                 console.log(res.status)

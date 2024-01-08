@@ -3,11 +3,16 @@ const { ContentError, NotFoundError,DuplicityError, CredentialsError } = require
 
 const registerUser = require("./logic/registerUser")
 const authenticateUser = require("./logic/authenticateUser")
-const createPosts = require('./logic/createPosts')
 const retrieveUser = require('./logic/retrieveUser')
 const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
+
+const createPosts = require('./logic/createPosts')
+const retrievePost = require('./logic/retrievePost')
 const toggleLikePost = require('./logic/toggleLikePost')
+const toggleFavPost = require('./logic/toggleFavPost')
+const updatePostText = require('./logic/updatePostText')
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
@@ -242,6 +247,46 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
             }
         })
 
+        // TEST in browser 'GET' in localhost 'RETRIEVE POST'
+        server.get('/newpost', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                retrievePost(userId, (error, posts) => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError) {
+                            status = 404
+                        }
+                        
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(posts)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (status instanceof ContentError || error instanceof TypeError) {
+                    status = 406
+                }
+
+                res.status(status).json({ error: error.contructor.name, message: error.message })
+            }
+        })
+
+        // TEST in browser 'DELETE' in localhost 'DELETE POST'
+        server.delete('/users:userId/favs', (req, res) => {
+            try {
+
+            } catch (error) {
+                
+            }
+        })
+
         // TEST in browser 'PATCH' in localhost 'TOGGLE LIKE POST'
         server.patch('/newpost/:postId/likes', (req, res) => {
             // Ponemos :postId con (:) porque express lo toma como un parámetro variable y lo mete en la request
@@ -277,6 +322,74 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             }
+        })
+
+        // TEST in browser 'PATCH' in localhost 'TOGGLE FAV POST'
+        server.patch('/users/:postId/favs', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { postId } = req.params
+
+                toggleFavPost(postId, userId, error => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError) {
+                            status = 404
+                        }
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+            
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError) {
+                    status = 406
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.patch('/newpost/:postId', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+                const postId = req.params
+
+                const { newText } = req.body
+
+                updatePostText(userId, postId, newText, error => {
+                    if (error) {
+                        let status = 500
+
+                        if (status instanceof NotFoundError) {
+                            status = 404
+                        }
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(202).send()
+                    // Envía código 202 de 'ACEPTADO'
+
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError) {
+                    status = 406
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message }) 
+            } 
         })
 
         // Hacemos que el servidor se mantenga en escucha a través del puerto 8000 e imprima un console.log()

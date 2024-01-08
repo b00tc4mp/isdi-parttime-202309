@@ -2,37 +2,36 @@ const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 const { validateText, validateFunction } = require('./helpers/validators')
 
-
-function toggleLikePost(userId, postId, callback) {
+function toggleFavPost(postId, userId, callback) {
     validateText(userId, 'user id')
     validateText(postId, 'post id')
     validateFunction(callback, 'callback')
 
-    User.findById(userId)
-        .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+    Post.findById(postId)
+        .then(post => {
+            if (!post) {
+                callback(new NotFoundError('post not found'))
 
                 return
             }
-            
-            Post.findById(postId)
-                .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
+
+            User.findById(userId)
+                .then(user => {
+                    if (!user) {
+                        callback(new NotFoundError('user not found'))
 
                         return
                     }
 
-                    const userIndex = post.likes.indexOf(userId)
+                    const postIndex = user.favs.indexOf(postId)
 
-                    if (userIndex < 0) {
-                        post.likes.push(userId)
+                    if (postIndex < 0) {
+                        user.favs.push(postId)
                     } else {
-                        post.likes.splice(userIndex, 1)
+                        user.favs.splice(postIndex, 1)
                     }
 
-                    post.save()
+                    user.save()
                         .then(() => {
                             callback(null)
                         })
@@ -41,7 +40,6 @@ function toggleLikePost(userId, postId, callback) {
                 .catch(error => callback(new SystemError(error.message)))
         })
         .catch(error => callback(new SystemError(error.message)))
-    
 }
 
-module.exports = toggleLikePost
+module.exports = toggleFavPost
