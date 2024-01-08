@@ -1,0 +1,6 @@
+// GENERATE RANDOM & UNIQUE ID
+function generateId() {
+    return Math.floor(Math.random() * 1000000000000000000).toString(36)
+}
+
+module.exports = generateId
