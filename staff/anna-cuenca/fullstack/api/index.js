@@ -315,17 +315,18 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
 
         // retrievePosts
 
+        // Retrieve posts
+
         server.get('/posts', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
             try {
                 const userId = req.headers.authorization.substring(7)
 
                 retrievePosts(userId, (error, posts) => {
                     if (error) {
-                        let status = 400
+                        let status = 500
 
-                        if (error instanceof SystemError)
-                            status = 500
-                        else if (error instanceof NotFoundError)
+
+                        if (error instanceof NotFoundError)
                             status = 404
 
                         res.status(status).json({ error: error.constructor.name, message: error.message })
@@ -336,7 +337,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
                     res.json(posts)
                 })
             } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
