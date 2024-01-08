@@ -61,5 +61,12 @@
         "email": "o@livia.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "5mfprs6yen80",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "password": "123123123",
+        "favs": []
     }
 ]
