@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST Authenticate-user</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    const req = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: 'po@peye.com', password: '123' })
+    }
+
+    fetch('http://localhost:8000/users/auth', req)
+        .then(res => {
+            if (res.ok)
+                res.json() // como este método nos devuelve el id del usuario, tenemos que indicarlo, nos devuelve un json
+                    .then(body => console.log(res.status, body)) //de manera que en forma de promessa, devuelvo el estado y el body (que tiene el id)
+                    .catch(error => console.error(error))
+
+            else
+                console.error(res.status)
+
+        })
+        .catch(error => console.error(error))
+</script>
+
+</html>

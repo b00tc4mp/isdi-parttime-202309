@@ -1,0 +1,37 @@
+[
+    {
+        "id": "69d4ph8zzj00",
+        "name": "Patata Frita",
+        "email": "patata@frita.com",
+        "password": "222",
+        "favs": []
+    },
+    {
+        "id": "3vxs04m50tk0",
+        "name": "Lechu Guita",
+        "email": "lechu@guita.com",
+        "password": "111",
+        "favs": []
+    },
+    {
+        "id": "5tw7oh7a0n80",
+        "name": "Pasta Naga",
+        "email": "pasta@naga.com",
+        "password": "123",
+        "favs": []
+    },
+    {
+        "id": "1mtb9uvewfmo",
+        "name": "Gar Banzo",
+        "email": "gar@banzo.com",
+        "password": "123",
+        "favs": []
+    },
+    {
+        "id": "5s74ic8sew00",
+        "name": "Gui Sante",
+        "email": "gui@sante.com",
+        "password": "123",
+        "favs": []
+    }
+]
