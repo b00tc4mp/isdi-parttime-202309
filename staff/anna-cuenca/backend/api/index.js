@@ -9,6 +9,7 @@ const express = require('express')
 const registerUser = require('./logic/registerUser') // el require es como el input
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
+const retrievePosts = require('./logic/retrievePosts')
 const changeEmailUser = require('./logic/changeEmailUser')
 const changePasswordUser = require('./logic/changePasswordUser')
 const createPost = require('./logic/createPost')
@@ -377,6 +378,37 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
                     }
 
                     res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // Retrieve posts
+
+        server.get('/posts', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                retrievePosts(userId, (error, posts) => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(posts)
                 })
             } catch (error) {
                 let status = 500
