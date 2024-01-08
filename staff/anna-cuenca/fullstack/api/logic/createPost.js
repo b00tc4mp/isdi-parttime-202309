@@ -2,7 +2,7 @@ const { validateText, validateFunction, validateId } = require('./helpers/valida
 
 const { SystemError } = require('./errors')
 
-const { Post } = require('../data/models')
+const { Post, User } = require('../data/models')
 
 function createPost(userId, image, text, callback) {
     validateId(userId, 'user id')
@@ -10,10 +10,20 @@ function createPost(userId, image, text, callback) {
     validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    const post = new Post({ author: userId, image, text })
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('User not found'))
+                return
+            }
+            const post = new Post({ author: userId, image, text })
 
-    post.save()
-        .then(() => callback(null))
+            post.save()
+
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
+        })
+
         .catch(error => callback(new SystemError(error.message)))
 
 
