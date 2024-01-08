@@ -13,26 +13,25 @@ function retrievePosts(userId, callback) {
                 return
             }
 
-            Post.find({}).populate('author')
-                // recupero el post y los detalles del autor
+            Post.find().populate('author', 'name').lean()
                 .then(posts => {
-                    if (!posts) {
-                        callback(new NotFoundError('posts not found'))
-                        return
-                    }
-                    // tengo a los posts guardados en posts
-                    // hago un mapeo para comprobar si está el like/fav
-                    const modifiedPosts = []; // creo un array vacio
                     posts.forEach(post => {
-                        const postObject = post.toObject();
+                        post.id = post._id.toString();
+                        delete post._id;
 
-                        postObject.liked = postObject.likes.includes(userId);
-                        postObject.faved = user.favs.includes(postObject._id);
+                        if (post.author && post.author._id) {
+                            post.author.id = post.author._id.toString();
+                            delete post.author._id;
+                        }
 
-                        modifiedPosts.push(postObject);
+                        delete post.__v;
 
-                    })
-                    callback(null, modifiedPosts)
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString());
+
+                        post.liked = post.likes.includes(userId);
+                        post.faved = user.favs.some(fav => fav.toString() === post.id);
+                    });
+                    callback(null, posts);
 
                 })
 

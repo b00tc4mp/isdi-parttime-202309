@@ -5,7 +5,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
     .then(() => {
         try {
-            createPost('658b1787d6c3f0f29677ccc6', 'https://as1.ftcdn.net/v2/jpg/02/49/85/30/1000_F_249853026_lBR4FaSpeVk2RJukVg9TLUe4m95NRNE3.jpg', 'Guisante Verde', error => {
+            createPost('659b00eb4e62f914182bb698', 'https://as1.ftcdn.net/v2/jpg/02/49/85/30/1000_F_249853026_lBR4FaSpeVk2RJukVg9TLUe4m95NRNE3.jpg', 'Me encanta el azucar', error => {
                 if (error) {
                     console.error(error)
                     return
