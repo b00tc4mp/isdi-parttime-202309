@@ -4,7 +4,7 @@ const toggleLikePost = require('./toggleLikePost')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            toggleLikePost('65996aa2effb039830404b09', '659ab25810af0c2ef119051b', error => {
+            toggleLikePost('659d80f8aab595d1bf1d8ece', '659d824f9f02bc61a6c11859', error => {
                 if (error) {
                     console.error(error)
 
