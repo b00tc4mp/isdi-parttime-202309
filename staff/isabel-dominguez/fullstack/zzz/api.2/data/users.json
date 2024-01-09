@@ -1,0 +1,77 @@
+[
+    {
+        "id": "amhkljhnhc4",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "9nbvjt5wugo",
+        "name": "Zana Horia",
+        "email": "zana@horia.com",
+        "password": "234234234",
+        "favs": []
+    },
+    {
+        "id": "3u5gkv3so500",
+        "name": "Agua Cate",
+        "email": "agua@cate.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "4an7ym43zji0",
+        "name": "Pepito Grillo",
+        "email": "pep@grill.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "5gbocg2tsfs0",
+        "name": "Man Zana",
+        "email": "man@zana.com",
+        "password": "234234234",
+        "favs": []
+    },
+    {
+        "id": "5egbu0dbu9c0",
+        "name": "Po Peye",
+        "email": "po@peye.com",
+        "password": "123123123",
+        "favs": [
+            "2rcwe8wgvue0"
+        ]
+    },
+    {
+        "id": "2pwca0w1cmi0",
+        "name": "O Livia",
+        "email": "o@livia.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6hp1mi4t3nw0",
+        "name": "Peter Pan",
+        "email": "peter@pan.com",
+        "password": "123123123",
+        "favs": [
+            "5dwfi0v6jlw0",
+            "7fotaaut0ww0"
+        ]
+    },
+    {
+        "id": "6ttz1tptn2c0",
+        "name": "Le Chuga",
+        "email": "le@chuga.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6fp1enrnkmw",
+        "name": "James",
+        "email": "james@hook.com",
+        "password": "123123123",
+        "favs": []
+    }
+]
