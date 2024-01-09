@@ -4,7 +4,7 @@ const retrieveFavPosts = require('./retrieveFavPosts')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            retrieveFavPosts('659aaf07e1d0a278068d446a', (error, favPosts) => {
+            retrieveFavPosts('659d80f8aab595d1bf1d8ece', (error, favPosts) => {
                 if (error) {
                     console.error(error)
 

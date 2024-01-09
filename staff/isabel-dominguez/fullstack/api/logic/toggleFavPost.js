@@ -1,11 +1,11 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const { validateId, validateFunction } = require('./helpers/validators')
 const { SystemError, NotFoundError } = require('./errors')
 
 const { User, Post } = require('../data/models')
 
 function toggleFavPost(userId, postId, callback) {
-    validateText(userId, 'user id')
-    validateText(postId, 'post id')
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
     validateFunction(callback, 'callback')
 
     User.findById(userId)
@@ -16,7 +16,7 @@ function toggleFavPost(userId, postId, callback) {
                 return
             }
 
-            Post.findById(postId)
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new NotFoundError('post not found'))
@@ -24,13 +24,12 @@ function toggleFavPost(userId, postId, callback) {
                         return
                     }
 
-                    const indexPost = user.favs.findIndex(fav => fav.toString() === postId)
+                    const index = user.favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
-                    if (indexPost < 0) {
+                    if (index < 0)
                         user.favs.push(postId)
-                    } else {
-                        user.favs.splice(indexPost, 1)
-                    }
+                    else
+                        user.favs.splice(index, 1)
 
                     user.save()
                         .then(() => callback(null))
