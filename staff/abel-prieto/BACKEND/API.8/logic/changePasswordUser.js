@@ -8,7 +8,7 @@ function changePasswordUser(email, password, newPassword, callback) {
     validateText(newPassword, "new password")
     validateFunction(callback, "callback")
 
-    User.findOne({ email: email })
+    User.findOne({ email: email }).lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))

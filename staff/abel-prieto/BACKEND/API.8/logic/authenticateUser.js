@@ -7,7 +7,7 @@ function authenticateUser(email, password, callback) {
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    User.findOne({ email })
+    User.findOne({ email }).lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))

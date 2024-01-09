@@ -4,7 +4,7 @@ const toggleFavPost = require('./toggleFavPost')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            toggleFavPost('65942e77657640a65767094d', '6595b6f5a456f32af3f9b029', error => {
+            toggleFavPost('659d5f969e4dd0113d9a4f44', '659c1bd1492d8b445a0884b7', error => {
                 if (error) {
                     console.error(error)
 

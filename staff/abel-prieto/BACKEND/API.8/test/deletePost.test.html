@@ -1,12 +1,12 @@
 <script>
     const req = {
-        method: 'PATCH',
+        method: 'DELETE',
         headers: {
-            Authorization: 'Bearer 659c1bd1492d8b445a0884b7'
+            Authorization: 'Bearer 65942e03e5a6dab915783e58'
         }
     }
 
-    fetch('http://localhost:8000/newpost/659d5f969e4dd0113d9a4f44/likes', req)
+    fetch('http://localhost:8000/users/659d5f969e4dd0113d9a4f44/favs', req)
         .then(res => {
             if (res.ok) {
                 console.log(res.status)
@@ -14,5 +14,5 @@
                 console.error(res.status)
             }
         })
-        .catch(error => console.log(error))
+        .catch(error => console.error(error))
 </script>

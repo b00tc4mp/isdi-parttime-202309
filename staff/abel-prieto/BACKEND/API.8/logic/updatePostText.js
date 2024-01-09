@@ -1,5 +1,5 @@
 const { User, Post } = require('../data/models')
-const { SystemError, NotFoundError } = require('./errors')
+const { SystemError, NotFoundError, ContentError } = require('./errors')
 const { validateText, validateFunction } = require('./helpers/validators')
 
 function updatePostText(userId, postId, newText, callback) {

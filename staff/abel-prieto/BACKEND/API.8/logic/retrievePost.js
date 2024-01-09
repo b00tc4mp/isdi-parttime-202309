@@ -6,7 +6,7 @@ function retrievePost(userId, callback) {
     validateText(userId, 'post id')
     validateFunction(callback, 'callback')
 
-    User.findById(userId)
+    User.findById(userId).lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
@@ -14,15 +14,29 @@ function retrievePost(userId, callback) {
                 return
             }
 
-            Post.find({})
-                .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
+            Post.find().populate('author', 'name').lean()
+                // Con .populate() nos permite traernos a una propiedad (1) lo que le pidamos, si está referenciado (2)
+                // Con .lean() nos traemos, en vez de el modelo de dato, SOLO el documento
+                .then(posts => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-                        return
-                    }
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
+                        // Por si hubiera varios post del mismo author
 
-                    callback(null, post)
+                        delete post.__v
+
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString())
+                        post.liked = post.likes.includes(userId)
+
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
+                    })
+
+                    callback(null, posts)
                 })
                 .catch(error => callback(new SystemError(error.message)))
         })

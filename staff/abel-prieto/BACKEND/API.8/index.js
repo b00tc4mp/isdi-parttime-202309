@@ -9,6 +9,7 @@ const changePasswordUser = require('./logic/changePasswordUser')
 
 const createPosts = require('./logic/createPosts')
 const retrievePost = require('./logic/retrievePost')
+const deletePost = require('./logic/deletePost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const toggleFavPost = require('./logic/toggleFavPost')
 const updatePostText = require('./logic/updatePostText')
@@ -279,11 +280,35 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         })
 
         // TEST in browser 'DELETE' in localhost 'DELETE POST'
-        server.delete('/users:userId/favs', (req, res) => {
+        server.delete('/users/:postId/favs', (req, res) => {
             try {
+                const userId = req.headers.authorization.substring(7)
 
+                const postId = req.params
+
+                deletePost(userId, postId, error => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError) {
+                            status = 404
+                        }
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+            
+                    res.status(204).send()
+                })
             } catch (error) {
-                
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError) {
+                    status = 406
+                }
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
         })
 
@@ -357,6 +382,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
             }
         })
 
+        // TEST in browser 'PATCH' in localhost 'UPDATE POST TEXT'
         server.patch('/newpost/:postId', jsonBodyParser, (req, res) => {
             try {
                 const userId = req.headers.authorization.substring(7)
