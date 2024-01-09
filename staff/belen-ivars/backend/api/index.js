@@ -6,6 +6,7 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
+const retrievePosts = require('./logic/retrievePosts')
 const toggleLikePost = require('./logic/toggleLikePost')
 const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
 const { CredentialsError } = require('./logic/errors')
@@ -130,6 +131,33 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 				})
 			} catch (error) {
 				res.status(400).json({ error: error.constructor.name, message: error.message })
+			}
+		})
+
+		server.get('/posts', (req, res) => {
+			try {
+				const userId = req.headers.authorization.substring(7)
+
+				retrievePosts(userId, (error, posts) => {
+					if (error) {
+						let status = 500
+
+						if (error instanceof NotFoundError)
+							status = 404
+
+						req.status(status).json({ error: error.constructor.name, message: error.message })
+
+						return
+					}
+					res.json(posts)
+				})
+			} catch (error) {
+				let status = 500
+
+				if (error instanceof ContentError || error instanceof TypeError)
+					status = 406
+
+				res.status(status).json({ error: error.constructor.name, message: error.message })
 			}
 		})
 

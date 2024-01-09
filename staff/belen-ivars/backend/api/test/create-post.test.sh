@@ -5,7 +5,7 @@ TEST "create-post"
 CASE "succes on correct data"
 
 curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 3zllyluwex40' \
+-H 'Authorization: Bearer 659abc660e890e8a7a2ddaa5' \
 -H 'Content-Type: application/json' \
 -d '{"image": " https://i.etsystatic.com/9495620/r/il/b8853a/3046206824/il_1588xN.3046206824_2ghg.jpg", "text":"crochet version of me"}' \
 -v
