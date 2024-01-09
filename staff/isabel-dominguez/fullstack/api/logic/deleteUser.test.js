@@ -1,15 +1,20 @@
+const mongoose = require('mongoose')
 const deleteUser = require('./deleteUser')
 
-try {
-    deleteUser('3xhzp98ajw80', '123123123', (error, userId) => {
-        if (error) {
-            console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            deleteUser('6599810a2c6f1a3caa0ed9f3', '234234234', (error, userId) => {
+                if (error) {
+                    console.error(error)
 
-            return
+                    return
+                }
+
+                console.log('user deleted', userId)
+            })
+        } catch (error) {
+            console.log(error)
         }
-
-        console.log('user deleted', userId)
     })
-} catch (error) {
-    console.log(error)
-}
+    .catch(error => console.error(error))

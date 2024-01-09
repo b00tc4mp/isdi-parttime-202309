@@ -1,46 +1,24 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, NotFoundError } = require('./errors')
+
+const { User } = require('../data/models')
 
 function deleteUser(userId, password, callback) {
     validateText(userId, 'id')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        let user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('wrong credencial'))
-
-            return
-        }
-
-        const index = users.indexOf(user)
-
-        users.splice(index, 1)
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
+    User.findByIdAndDelete(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            callback(null, user.id)
+            callback(null, user)
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = deleteUser

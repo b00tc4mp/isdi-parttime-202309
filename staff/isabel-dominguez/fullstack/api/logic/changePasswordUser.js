@@ -1,5 +1,6 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+const { User } = require('../data/models')
 
 function changePasswordUser(userId, password, newPassword, confirmNewPassword, callback) {
     validateText(userId, 'id')
@@ -8,51 +9,33 @@ function changePasswordUser(userId, password, newPassword, confirmNewPassword, c
     validateText(confirmNewPassword, 'confirm new password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        let user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (password !== user.password) {
-            callback(new Error('wrong credencials'))
-
-            return
-        }
-
-        if (newPassword !== confirmNewPassword) {
-            callback(new Error('new password and new password confirm does not match'))
-
-            return
-        }
-
-        if (newPassword === user.password) {
-            callback(new Error('new password must be diferent'))
-
-            return
-        }
-
-        user.password = newPassword
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
-
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'));
                 return
             }
 
-            callback(null, user.id)
+            if (user.password !== password) {
+                callback(new CredentialsError('wrong password'));
+                return
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                callback(new CredentialsError('new password and confirm new password do not match'));
+                return
+            }
+
+            user.password = newPassword
+
+            return user.save()
         })
-    })
+        .then(updatedUser => {
+            if (updatedUser) {
+                callback(null, updatedUser)
+            }
+        })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = changePasswordUser

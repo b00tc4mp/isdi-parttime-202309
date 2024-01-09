@@ -1,62 +1,45 @@
-const JSON = require("../utils/JSON");
-const { NotFoundError, SystemError } = require("../utils/errors");
-const { validateText, validateFunction } = require("../utils/validators");
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, NotFoundError } = require('./errors')
+
+const { User, Post } = require('../data/models')
 
 function toggleLikePost(userId, postId, callback) {
     validateText(userId, 'user id')
     validateText(postId, 'post id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
-
-            return
-        }
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new NotFoundError('user not found'))
-
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error.message))
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not exist'))
 
                 return
             }
 
-            const postIndex = posts.findIndex(post => post.id === postId)
+            Post.findById(postId)
+                .then(post => {
+                    if (!post) {
+                        callback(new NotFoundError('post not exist'))
 
-            if (postIndex < 0) {
-                callback(new NotFoundError('post not found'))
+                        return
+                    }
 
-                return
-            }
+                    const indexLikes = post.likes.findIndex(like => like.toString() === userId)
 
-            const post = posts[postIndex]
+                    if (indexLikes < 0) {
+                        post.likes.push(userId)
+                    }
+                    else post.likes.splice(indexLikes, 1)
 
-            const userIdIndex = post.likes.indexOf(userId)
+                    post.save()
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
 
-            if (userIdIndex < 0)
-                post.likes.push(userId)
-            else
-                post.likes.splice(userIdIndex, 1)
+                })
+                .catch(error => callback(new SystemError(error.message)))
 
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
-                if (error) {
-                    callback(new SystemError(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = toggleLikePost

@@ -1,51 +1,43 @@
-const { validateText, validateFunction } = require('../utils/validators')
-const JSON = require('../utils/JSON')
+const { validateFunction, validateId } = require('./helpers/validators')
+const { SystemError, NotFoundError } = require('./errors')
+const { User, Post } = require('../data/models')
 
 function retrievePosts(userId, callback) {
-    validateText(userId, 'user id')
+    validateId(userId, 'user id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            return callback(error)
-        }
+    User.findById(userId).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            return callback(new Error('User not found'))
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                return callback(error)
+                return
             }
 
-            posts.forEach(post => {
-                post.liked = post.likes.includes(userId)
+            Post.find().populate('author', 'name').lean()
+                .then(posts => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-                const author = users.find(user => user.id === post.author)
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
 
-                // Verificar si el autor existe
-                if (author) {
-                    post.author = {
-                        id: author.id,
-                        name: author.name
-                    }
-                } else {
-                    // Si el autor no existe
-                    post.author = {
-                        id: post.author,
-                        name: 'Unknown Author'
-                    }
-                }
+                        delete post.__v
 
-                post.fav = user.favs.includes(post.id)
-            })
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString())
+                        post.liked = post.likes.includes(userId)
 
-            callback(null, posts)
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
+                    })
+
+                    callback(null, posts)
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = retrievePosts

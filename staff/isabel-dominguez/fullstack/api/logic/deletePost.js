@@ -1,36 +1,22 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, NotFoundError } = require('./errors')
+const { Post } = require('../data/models')
 
 function deletePost(postId, callback) {
     validateText(postId, 'id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/posts.json', (error, posts) => {
-        if (error) {
-            callback(error)
-            return
-        }
+    Post.findByIdAndDelete(postId)
+        .then(post => {
+            if (!post) {
+                callback(new NotFoundError('post not found'))
 
-        let post = posts.find(post => post.id === postId)
-
-        if (!post) {
-            callback(new Error('Post not found'))
-            return
-        }
-
-        const index = posts.indexOf(post)
-
-        posts.splice(index, 1)
-
-        JSON.stringifyToFile('./data/posts.json', posts, (error) => {
-            if (error) {
-                callback(error)
                 return
             }
 
-            callback(null, post.id)
+            callback(null, post)
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = deletePost

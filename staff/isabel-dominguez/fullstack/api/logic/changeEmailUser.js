@@ -1,5 +1,7 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+
+const { User } = require('../data/models')
 
 function changeEmailUser(userId, email, newEmail, confirmNewEmail, callback) {
     validateText(userId, 'id')
@@ -8,51 +10,33 @@ function changeEmailUser(userId, email, newEmail, confirmNewEmail, callback) {
     validateText(confirmNewEmail, 'confirm new email')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
-
-            return
-        }
-
-        let user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (email !== user.email) {
-            callback(new Error('wrong credencials'))
-
-            return
-        }
-
-        if (newEmail !== confirmNewEmail) {
-            callback(new Error('new email and new email confirm does not match'))
-
-            return
-        }
-
-        if (newEmail === user.email) {
-            callback(new Error('new email must be diferent'))
-
-            return
-        }
-
-        user.email = newEmail
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
-
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
                 return
             }
 
-            callback(null, user.id)
+            if (user.email !== email) {
+                callback(new CredentialsError('wrong email'))
+                return
+            }
+
+            if (newEmail !== confirmNewEmail) {
+                callback(new CredentialsError('new email and confirm new email do not match'))
+                return
+            }
+
+            user.email = newEmail
+
+            return user.save()
         })
-    })
+        .then(updatedUser => {
+            if (updatedUser) {
+                callback(null, updatedUser)
+            }
+        })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = changeEmailUser
