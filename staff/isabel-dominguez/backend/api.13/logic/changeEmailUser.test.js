@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 
-const registerUser = require('./registerUser')
+const changeEmailUser = require('./changeEmailUser')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            registerUser('Man zana', 'man@zana.com', '123123123', error => {
+            changeEmailUser('659aaf07e1d0a278068d446a', 'man@zana.com', 'man@zanita.com', 'man@zanita.com', (error, userId) => {
                 if (error) {
                     console.error(error)
 
                     return
                 }
 
-                console.log('user registered')
+                console.log('email changed', userId)
             })
         } catch (error) {
             console.log(error)

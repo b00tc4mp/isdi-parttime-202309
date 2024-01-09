@@ -1,13 +1,14 @@
-const { validateId, validateFunction } = require('./helpers/validators')
-
-const { User } = require('../data/models')
+const { validateText, validateFunction } = require('./helpers/validators')
 const { SystemError, NotFoundError } = require('./errors')
 
-function retrieveUser(userId, callback) {
-    validateId(userId, 'user id')
+const { User } = require('../data/models')
+
+function deleteUser(userId, password, callback) {
+    validateText(userId, 'id')
+    validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    User.findById(userId, 'name').lean()
+    User.findByIdAndDelete(userId)
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
@@ -15,11 +16,9 @@ function retrieveUser(userId, callback) {
                 return
             }
 
-            delete user._id
-
             callback(null, user)
         })
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = retrieveUser
+module.exports = deleteUser
