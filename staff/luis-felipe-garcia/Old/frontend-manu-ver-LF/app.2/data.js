@@ -1,0 +1,32 @@
+var users = [
+    {
+        name: 'Wendy Darling',
+        email: 'wendy@darling.com',
+        password: '1'
+    },
+    {
+        name: 'Peter Pan',
+        email: 'peter@pan.com',
+        password: '1'
+    }
+]
+
+function checkAndGetUser(email) {
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.email === email)
+            return user
+    }
+    return false
+}
+
+function createUser(name, email, password) {
+    var user = {}
+
+    user.name = name
+    user.email = email
+    user.password = password
+
+    users.push(user)
+}

@@ -1,0 +1,14 @@
+class Player {
+    constructor(name, sport) {
+        this.name = name
+        this.sport = sport
+    }
+}
+
+class Golfer extends Player {
+    constructor(name) {
+        super(name, 'Golf')
+    }
+
+    makeBirdie() { console.log('🐤') }
+}
