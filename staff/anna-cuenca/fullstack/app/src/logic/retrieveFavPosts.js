@@ -1,74 +1,31 @@
 import context from "./context"
 
 function retrieveFavPosts(callback) {
-    db.users.findById(context.sessionUserId, (error, user) => {
-        if (error) {
-            callback(error)
-
-            return
+    const req = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${context.sessionUserId}`
         }
+    }
 
-        if (!user) {
-            callback(new Error('user not found'))
+    fetch('http://localhost:8000/posts/favs', req)
 
-            return
-        }
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
 
-        const favs = []
+                return
+            }
 
-        let count = 0
+            res.json()
+                .then(posts => callback(null, posts))
+                .catch(error => callback(error))
 
-        if (!user.favs.length) {
-            callback(null, favs)
-
-            return
-        }
-
-        user.favs.forEach((postId, index) => {
-            db.posts.findById(postId, (error, post) => {
-                if (error) {
-                    callback(error)
-
-                    return
-                }
-
-                favs[index] = post
-
-                count++
-
-                if (count === user.favs.length) {
-                    let count2 = 0
-
-                    favs.forEach(post => {
-                        post.liked = post.likes.includes(context.sessionUserId)
-
-                        db.users.findById(post.author, (error, author) => {
-                            if (error) {
-                                callback(error)
-
-                                return
-                            }
-
-                            // si no pongo esto así, no tengo el id y no puedo pintar el edit
-
-                            post.author = {
-                                email: author.email,
-                                id: author.id,
-                                name: author.name
-                            }
-
-                            post.fav = user.favs.includes(post.id)
-
-                            count2++
-
-                            if (count2 === favs.length) callback(null, favs)
-                        })
-                    })
-                }
-            })
         })
+        .catch(error => console.error(error)) // este error es
 
-    })
 }
 
 export default retrieveFavPosts

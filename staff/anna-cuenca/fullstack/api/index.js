@@ -11,6 +11,7 @@ const createPost = require('./logic/createPost')
 const deletePost = require('./logic/deletePost')
 const editTextPost = require('./logic/editTextPost')
 const retrievePosts = require('./logic/retrievePosts')
+const retrieveFavPosts = require('./logic/retrieveFavPosts')
 const toggleLikePost = require('./logic/toogleLikePost')
 const toggleFavPost = require('./logic/toggleFavPost')
 const { SystemError, NotFoundError, ContentError, DuplicityError, CredentialsError, TypeError } = require('./logic/errors')
@@ -321,6 +322,37 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
                 const userId = req.headers.authorization.substring(7)
 
                 retrievePosts(userId, (error, posts) => {
+                    if (error) {
+                        let status = 500
+
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(posts)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        // Retrieve FAV posts
+
+        server.get('/posts/favs', (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                retrieveFavPosts(userId, (error, posts) => {
                     if (error) {
                         let status = 500
 
