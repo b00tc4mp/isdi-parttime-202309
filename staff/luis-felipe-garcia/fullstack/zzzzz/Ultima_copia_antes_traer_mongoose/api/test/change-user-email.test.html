@@ -1,0 +1,32 @@
+<script>
+
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: 'Bearer amhkljhnhc4',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newEmail: 'FETCHcala@bacin.com', newEmailConfirm: 'FETCHcala@bacin.com', password: '123123123' })
+    }
+
+
+    fetch('http://localhost:8000/users/change-email', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+
+</script>
+
+
+<!-- Resultado:
+{
+    "id": "amhkljhnhc4",
+    "name": "Cala Bacin",
+    "email": "FETCHcala@bacin.com",
+    "password": "123123123",
+    "favs": []
+}, -->

@@ -22,7 +22,7 @@ function Home(props) {
 
 
     React.useEffect(() => {
-        console.log('Home -> effect (name)')
+        console.log('Home -> effect (name')
 
         try {
             logic.retrieveUser((error, user) => {
@@ -94,6 +94,27 @@ function Home(props) {
     }
 
 
+
+
+
+
+    /* function handleFavPostsClick(event) {
+         event.preventDefault()
+ 
+         try {
+             logic.retrieveFavPosts((error, favs) => {
+                 if (error) {
+                     alert(error.message)
+                     return
+                 }
+                 favs.reverse()
+                 setFavs(favs)
+                 setView('favs')
+             })
+         } catch (error) {
+             alert(error.message)
+         }
+     }*/
 
     return <div>
         <header className="header">
