@@ -1,7 +1,7 @@
-const JSON = require('../utils/JSON')
-const generateId = require('../data/generateId')
-const { validateText, validateFunction } = require('../utils/validators')
-const { DuplicityError, SystemError } = require('../utils/errors')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { DuplicityError, SystemError } = require('./errors')
+
+const {User} = require('../data/models')
 
 function registerUser(name, email, password, callback) {
     validateText(name, 'name')
@@ -9,41 +9,21 @@ function registerUser(name, email, password, callback) {
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
-
-            return
-        }
-
-        let user = users.find(user => user.email === email)
-
-        if (user) {
+    //const user = new User({name, email, password})
+    //user.save()
+    //User.create() resume las dos línneas anteriores en una sola línea
+    User.create({name, email, password})
+        .then(() => callback(null))
+        .catch(error => {
+            //11000 es un código que pone el objeto de error mongoose cuando detecta que se produce una duplicidad
+           if(error.code === 11000) {
             callback(new DuplicityError('user already exists'))
 
-            return
-        }
-
-        user = {
-            id: generateId(),
-            name,
-            email,
-            password,
-            favs: []
-        }
-
-        users.push(user)
-
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(new SystemError(error.message))
-
-                return
-            }
-
-            callback(null)
+            return 
+           }
+            callback(new SystemError(error.message))
         })
-    })
+  
 }
 
 module.exports = registerUser

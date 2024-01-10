@@ -9,22 +9,29 @@ curl 'http://localhost:8000/users/auth' \
 -d '{ "email": "man@zana.com", "password": "123123123" }' \
 -v
 
-# > POST /users/auth HTTP/1.1
-# > Host: localhost:8000
-# > User-Agent: curl/8.2.1
+\n\nCASE success on correct credentials
+# * processing: http://localhost:8000/users/auth
+# *   Trying [::1]:8000...     
+# * Connected to localhost (::1) port 8000
+# > POST /users/auth HTTP/1.1  
+# > Host: localhost:8000       
+# > User-Agent: curl/8.2.1     
 # > Accept: */*
-# > Content-Type: application/json      
-# > Content-Length: 52  
-
+# > Content-Type: application/json
+# > Content-Length: 52
+# >
 # < HTTP/1.1 200 OK
-# < X-Powered-By: Express
+# < X-Powered-By: Express      
+# < Access-Control-Allow-Origin: *
+# < Access-Control-Allow-Headers: *
+# < Access-Control-Allow-Methods: *
 # < Content-Type: application/json; charset=utf-8
-# < Content-Length: 14
-# < ETag: W/"e-les1/h1Wxpk5Oh/ZH5QlMkuyIpo"
-# < Date: Sat, 23 Dec 2023 12:25:09 GMT 
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
-# "4di130e14fa0"
+# < Content-Length: 26
+# < ETag: W/"1a-NgNH/ZjDox/6smdcXgxNL8d3TYY"
+# < Date: Wed, 10 Jan 2024 20:12:08 GMT
+# < Connection: keep-alive     
+# < Keep-Alive: timeout=5      
+# <  
 
 CASE error on wrong email
 
@@ -33,21 +40,26 @@ curl 'http://localhost:8000/users/auth' \
 -d '{ "email": "wrong-man@zana.com", "password": "123123123" }' \
 -v
 
-# > POST /users/auth HTTP/1.1
-# > Host: localhost:8000
-# > User-Agent: curl/8.2.1
+# > POST /users/auth HTTP/1.1  
+# > Host: localhost:8000       
+# > User-Agent: curl/8.2.1     
 # > Accept: */*
-# > Content-Type: application/json      
+# > Content-Type: application/json
 # > Content-Length: 58
 # >
-# < HTTP/1.1 400 Bad Request
-# < X-Powered-By: Express
+# < HTTP/1.1 404 Not Found     
+# < X-Powered-By: Express      
+# < Access-Control-Allow-Origin: *
+# < Access-Control-Allow-Headers: *
+# < Access-Control-Allow-Methods: *
 # < Content-Type: application/json; charset=utf-8
-# < Content-Length: 44
-# < ETag: W/"2c-DA3KcjMxbAqH25TOBQigpuC1Bjs"
-# < Date: Sat, 23 Dec 2023 12:30:35 GMT 
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
+# < Content-Length: 52
+# < ETag: W/"34-Cs2INrsYwSHLSHCKVUFPEWh9NjI"
+# < Date: Wed, 10 Jan 2024 20:12:08 GMT
+# < Connection: keep-alive     
+# < Keep-Alive: timeout=5      
+# <
+# {"error":"NotFoundError","message":"user not found"}* Connection #0 to host localhost left intact
 
 CASE "error on wrong password"
 
@@ -56,24 +68,15 @@ curl 'http://localhost:8000/users/auth' \
 -d '{ "email": "man@zana.com", "password": "wrong-123123123" }' \
 -v
 
-
-#* processing: http://localhost:8000/users/auth      
-# *   Trying [::1]:8000...  
-# * Connected to localhost (::1) port 8000
-# > POST /users/auth HTTP/1.1
-# > Host: localhost:8000    
-# > User-Agent: curl/8.2.1  
-# > Accept: */*
-# > Content-Type: application/json
-# > Content-Length: 58      
-# >
-# < HTTP/1.1 400 Bad Request
-# < X-Powered-By: Express   
-# < Content-Type: application/json; charset=utf-8     
-# < Content-Length: 47      
-# < ETag: W/"2f-gSxgt/X3rXUFm8ouTih67ywXda0"
-# < Date: Wed, 03 Jan 2024 17:35:07 GMT
-# < Connection: keep-alive  
-# < Keep-Alive: timeout=5   
+# > POST /users/auth HTTP/1.1  
+# > Host: localhost:8000       
+# > User-Agent: curl/8.2.1     
+# < Access-Control-Allow-Methods: *
+# < Content-Type: application/json; charset=utf-8
+# < Content-Length: 55
+# < ETag: W/"37-3mBc0WtcQO2Ze4UXSt4AJH7BRe8"
+# < Date: Wed, 10 Jan 2024 20:12:08 GMT
+# < Connection: keep-alive
+# < Keep-Alive: timeout=5
 # <
-# {"error":"Error","message":"wrong credentials"}* Connection #0 to host localhost left intact
+# {"error":"CredentialsError","message":"wrong password"}* Connection #0 to host localhost left intact
