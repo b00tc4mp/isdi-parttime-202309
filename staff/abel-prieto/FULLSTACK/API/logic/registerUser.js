@@ -1,7 +1,6 @@
-const JSON = require('../utils/JSON')
-const generateId = require('../data/generateId')
-const { validateText, validateFunction } = require('../utils/validators')
-const { SystemError, ContentError } = require('../utils/errors')
+const { User } = require('../data/models')
+const { validateText, validateFunction } = require('./helpers/validators')
+const { SystemError, DuplicityError } = require('./errors')
 
 function registerUser(name, email, password, callback) {
     validateText(name, 'name')
@@ -9,41 +8,21 @@ function registerUser(name, email, password, callback) {
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile("./data/users.json", (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
-
-            return
-        }
-
-        let user = users.find(user => user.email === email)
-
-        if (user) {
-            callback(new ContentError('user already exists'))
-
-            return
-        }
-
-        user = {
-            id: generateId(),
-            name,
-            email,
-            password,
-            favs : []
-        }   
+    // const user = new User({ name: name, email: email, password: password })
+    // user.save()
         
-        users.push(user)
-
-        JSON.stringifyToFile("./data/users.json", users, error => {
-            if (error) {
-                callback(new SystemError(error.message))
+    User.create({ name, email, password })
+        .then(() => callback(null))
+        .catch(error => {
+            if (error.code === 11000) {
+                callback(new DuplicityError('user already exist'))
 
                 return
             }
 
-            callback(null)
+            callback(new SystemError(error.message))
         })
-    })
+    
 }
 
 module.exports = registerUser

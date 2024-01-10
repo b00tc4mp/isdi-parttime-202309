@@ -1,42 +1,45 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
-const { SystemError, NotFoundError } = require('../utils/errors')
+const { User, Post } = require('../data/models')
+const { SystemError, NotFoundError } = require('./errors')
+const { validateText, validateId, validateFunction } = require('./helpers/validators')
 
 function retrieveFavs(userId, callback) {
     validateText(userId, 'user id')
+    validateId(userId, 'user id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error))
-
-            return
-        }
-
-        const user = users.find(user => userId === user.id)
-
-        if (!user) {
-            callback(new NotFoundError(error))
-
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error))
+    User.findById(userId).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            const favs = []
+            Post.find({ _id: {$in: user.favs} }).populate('author', 'name').lean()
+                .then(favs => {
+                    favs.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-            user.favs.forEach(fav => {
-                favs.push(posts.find(post => post.id === fav))
-            })
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
+                        // Por si hubiera varios post del mismo author
 
-            callback(null, favs)
+                        delete post.__v
+
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString())
+                        post.liked = post.likes.includes(userId)
+
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
+                    })
+
+                    callback(null, favs)
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
-}
+        .catch(error => callback(new SystemError(error.message)))
+} 
 
 module.exports = retrieveFavs

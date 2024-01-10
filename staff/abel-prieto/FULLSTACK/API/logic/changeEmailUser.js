@@ -1,56 +1,37 @@
-const JSON = require("../utils/JSON")
-const { SystemError, NotFoundError, ContentError } = require("../utils/errors")
-const { validateText, validateFunction } = require("../utils/validators")
+const { User } = require('../data/models')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+const { validateText, validateFunction } = require("./helpers/validators")
  
 function changeEmailUser(userId, newEmail, againNewEmail, password, callback) {
     validateText(userId, "user id")
-    validateText(newEmail, "new email")
-    validateText(againNewEmail, "again new email")
+    validateText(newEmail, "newEmail")
+    validateText(againNewEmail, "newEmail")
     validateText(password, "password")
     validateFunction(callback, "callback")
 
-    JSON.parseFromFile("./data/users.json", (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
-            return
-        }
+                return
+            }
 
-        let user = users.find(user => user.id === userId)
+            if (password !== user.password) {
+                callback(new CredentialsError('wrong credentials'))
 
-        if (!user) {
-            callback(new NotFoundError("user not found"))
+                return
+            }
 
-            return
-        }
-
-        if (newEmail !== againNewEmail) {
-            callback(new ContentError("wrong credentials"))
-
-            return
-        }
-
-        if (password !== user.password) {
-            callback(new ContentError("wrong credentials"))
-
-            return
-            
-        } else {
             user.email = newEmail
+
+            user.save()
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
             
-            JSON.stringifyToFile("./data/users.json", users, error => {
-                if (error) {
-                    callback(new SystemError(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
-        }
-
-
-    })
+        })
+        .catch(error => callback(new SystemError(error.message)))
+    
 }
 
 module.exports = changeEmailUser

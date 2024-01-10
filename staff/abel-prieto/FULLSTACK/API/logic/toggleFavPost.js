@@ -1,59 +1,45 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
-const { NotFoundError, SystemError } = require('../utils/errors')
+const { User, Post } = require('../data/models')
+const { SystemError, NotFoundError } = require('./errors')
+const { validateText, validateFunction } = require('./helpers/validators')
 
-function toggleFavPost(userId, postId, callback) {
+function toggleFavPost(postId, userId, callback) {
     validateText(userId, 'user id')
     validateText(postId, 'post id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error))
-
-            return
-        }
-
-        const user = users.find(user => userId === user.id)
-
-        if (!user) {
-            callback(new NotFoundError('user not found'))
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error))
-
-                return
-            }
-
-            const post = posts.find(post => postId === post.id)
-
+    Post.findById(postId)
+        .then(post => {
             if (!post) {
                 callback(new NotFoundError('post not found'))
-                
+
                 return
             }
 
-            const indexPost = user.favs.indexOf(postId)
+            User.findById(userId)
+                .then(user => {
+                    if (!user) {
+                        callback(new NotFoundError('user not found'))
 
-            if (indexPost < 0) {
-                user.favs.push(postId)
-            } else {
-                user.favs.splice(indexPost, 1)
-            }
+                        return
+                    }
 
-            JSON.stringifyToFile('./data/users.json', users, error => {
-                if (error) {
-                    callback(new SystemError(error))
+                    const postIndex = user.favs.indexOf(postId)
 
-                    return
-                }
+                    if (postIndex < 0) {
+                        user.favs.push(postId)
+                    } else {
+                        user.favs.splice(postIndex, 1)
+                    }
 
-                callback(null)
-            })
+                    user.save()
+                        .then(() => {
+                            callback(null)
+                        })
+                        .catch(error => callback(new SystemError(error.message)))
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = toggleFavPost

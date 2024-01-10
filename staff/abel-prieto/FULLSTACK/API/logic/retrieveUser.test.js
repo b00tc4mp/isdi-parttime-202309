@@ -1,15 +1,20 @@
+const mongoose = require('mongoose')
 const retrieveUser = require("./retrieveUser")
 
-try {
-    retrieveUser("24dlukpa1skg", (error, user) => {
-        if (error) {
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            retrieveUser("6594001301bf4244974a5268", (error, user) => {
+                if (error) {
+                    console.error(error)
+        
+                    return
+                }
+        
+                console.log("retrieved", user)
+            })
+        } catch (error) {
             console.error(error)
-
-            return
         }
-
-        console.log("retrieved", user)
     })
-} catch (error) {
-    console.error(error)
-}
+    .catch(error => console.error(error.message))

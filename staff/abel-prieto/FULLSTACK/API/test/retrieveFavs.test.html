@@ -2,7 +2,7 @@
     const req = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer 2b4bwcqo9ps0'
+            Authorization: 'Bearer userId'
         }
     }
 
@@ -13,8 +13,8 @@
                     .then(body => console.log(res.status, body))
                     .catch(error => console.error(error))
             } else {
-                console.log(res.status)
+                console.error(res.status)
             }
         })
-        .catch(error => console.error(error))
+        .catch(error => console.log(error))
 </script>

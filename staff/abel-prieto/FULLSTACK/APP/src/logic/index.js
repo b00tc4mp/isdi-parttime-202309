@@ -11,7 +11,7 @@ import retrieveFavUserPosts from './retrieveFavUserPosts'
 import deletePost from './deletePost' 
 import toggleFavPost from './toggleFavPost' 
 import toggleLikePost from './toggleLikePost'
-import toggleEditPost from './toggleEditPost' 
+import toggleEditPostText from './toggleEditPostText' 
 import toggleCommentPost from './toggleCommentPost' 
 
 const logic = {
@@ -28,7 +28,7 @@ const logic = {
     deletePost,
     toggleFavPost,
     toggleLikePost,
-    toggleEditPost,
+    toggleEditPostText,
     toggleCommentPost
 }
 

@@ -1,4 +1,5 @@
 import { validateFunction, validateText } from "../utils/validators"
+import context from './context'
 
 // DELETE POST (PENDIENTE)
 
@@ -6,76 +7,24 @@ export default function deletePost(postId, callback) {
     validateText(postId, 'post id')
     validateFunction(callback, 'callback')
 
-    db.posts.findById(postId, (error, post) => {
-        if (error) {
-            callback(error)
-
-            return
+    const req = {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${String(context.sessionUserId)}`
         }
+    }
 
-        if (!post) {
-            callback(new Error('post not found'))
-
-            return
-        }
-
-        // 1. Filtrado por usuarios con post.id en favs
-        // 2. Hacer forEach con ese ARRAY
-
-        db.users.getAll((error, users) => {
-            if (error) {
-                callback(error)
-
+    fetch(`http://localhost:8000/users/${String(postId)}/favs`, req)
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
+                
                 return
             }
 
-            const usersWithFav = users.filter((user) => user.favs.includes(postId))
-
-            let count = 0
-
-            if (!usersWithFav.length) {
-                db.posts.deleteById(postId, error => {
-                    if (error) {
-                        callback(error)
-
-                        return
-                    }
-
-                    callback(null)
-                })
-
-                return
-            }
-
-            usersWithFav.forEach(user => {
-
-                const index = user.favs.indexOf(postId)
-
-                user.favs.splice(index, 1)
-
-                db.users.update(user, error => {
-                    if (error) {
-                        callback(error)
-
-                        return
-                    }
-
-                    count++
-
-                    if (count === usersWithFav.length) {
-                        // TODO (DELETE POST - DONE)
-                        db.posts.deleteById(postId, error => {
-                            if (error) {
-                                callback(error)
-
-                                return
-                            }
-
-                            callback(null)
-                        })
-                    }
-                })
-            })
+            callback(null)
         })
-    })  
+        .catch(error => callback(error))
 }

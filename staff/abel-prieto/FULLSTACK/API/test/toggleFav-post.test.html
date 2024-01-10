@@ -2,17 +2,17 @@
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: 'Bearer 2ytu1zjsl2u0'
+            Authorization: 'Bearer 65942e03e5a6dab915783e58'
         }
     }
 
-    fetch('http://localhost:8000/users/2b4bwcqo9ps0/favs', req)
+    fetch('http://localhost:8000/users/65942e77657640a65767094d/favs', req)
         .then(res => {
             if (res.ok) {
                 console.log(res.status)
             } else {
-                console.error(res.status)
+                console.log(res.status)
             }
         })
-        .catch(error => console.log(error))
+        .catch(error => console.error(error))
 </script>

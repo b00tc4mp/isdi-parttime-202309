@@ -1,54 +1,41 @@
-const JSON = require("../utils/JSON")
-const { SystemError, NotFoundError, ContentError } = require("../utils/errors")
-const { validateText, validateFunction } = require("../utils/validators")
+const { User } = require('../data/models')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+const { validateText, validateFunction } = require("./helpers/validators")
 
 function changePasswordUser(userId, password, newPassword, againNewPassword, callback) {
-    validateText(userId, 'user id')
+    validateText(userId, "email")
     validateText(password, "password")
     validateText(newPassword, "new password")
-    validateText(againNewPassword, "confirm new password")
+    validateText(againNewPassword, "again password")
     validateFunction(callback, "callback")
 
-    JSON.parseFromFile("./data/users.json", (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
-            return
-        }
+                return
+            }
 
-        let user = users.find(user => user.id === userId)
+            if (password !== user.password) {
+                callback(new CredentialsError('wrong credentials'))
 
-        if (!user) {
-            callback(new NotFoundError("user not found"))
+                return
+            }
 
-            return
-        }
+            if (newPassword !== againNewPassword) {
+                callback(new CredentialsError('wrong credentials with new password'))
 
-        if (newPassword !== againNewPassword) {
-            callback(new ContentError("wrong credentials"))
+                return
+            }
 
-            return
-        }
-
-        if (password !== user.password) {
-            callback(new ContentError("wrong credentials"))
-
-            return
-
-        } else {
             user.password = newPassword
 
-            JSON.stringifyToFile("./data/users.json", users, error => {
-                if (error) {
-                    callback(new SystemError(error.message))
-
-                    return
-                }
-
-                callback(null)
-            })
-        }
-    })
+            user.save()
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
+        })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = changePasswordUser

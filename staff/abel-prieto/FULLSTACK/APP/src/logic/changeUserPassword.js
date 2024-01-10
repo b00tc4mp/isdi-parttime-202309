@@ -10,9 +10,9 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
     validateFunction(callback, 'callback')
 
     const req = {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${String(context.sessionUserId)}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ password, newPassword, againNewPassword }) 

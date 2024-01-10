@@ -1,15 +1,20 @@
+const mongoose = require('mongoose')
 const toggleFavPost = require('./toggleFavPost')
 
-try {
-    toggleFavPost('postId', 'userId', error => {
-        if (error) {
-            console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            toggleFavPost('659d5f969e4dd0113d9a4f44', '659c1bd1492d8b445a0884b7', error => {
+                if (error) {
+                    console.error(error)
 
-            return
+                    return
+                }
+
+                console.log('toggle fav succesfully!')
+            })
+        } catch (error) {
+            console.log(error)
         }
-
-        console.log('toggle success')
     })
-} catch (error) {
-    console.error(error)
-}
+    .catch(error => console.error(error))

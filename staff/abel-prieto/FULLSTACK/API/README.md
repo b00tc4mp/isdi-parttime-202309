@@ -1,4 +1,4 @@
-# API v0.0
+# API
 
 ## Register User ✅
 
@@ -18,16 +18,16 @@
 - Response: 200 "Content-Type: application/json { name }
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
-## Change Email ✅
+## Change Email 
 
-- Request: PATCH /users/email "Authorization: Bearer userId"
-- Response: 200 "Content-Type: application/json { new email, again new email, password }
+- Request: POST /users/email
+- Response: 200 "Content-Type: application/json { email, new email, password }
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
-## Change Password ✅
+## Change Password 
 
-- Request: PATCH /users/password "Authorization: Bearer userId"
-- Response: 200 "Content-Type: application/json { password, new password, again new password }
+- Request: POST /users/password
+- Response: 200 "Content-Type: application/json { email, password, new password }
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
 ## Create Post ✅
@@ -36,32 +36,38 @@
 - Response: 201
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
-## Retrieve Posts ✅
+## Retrieve Post ✅
 
-- Request: 'GET' /newpost "Authorization: Bearer userId" 
-- Response: 200 "Content-Type: application/json" [ { id, author: { id, name, email }, image, text, likes, liked, fav } ]
-- Reponse (error) : 400 "Content-Type: application/json" { error, message }
+- Request: GET /newpost "Authorization: Bearer userId"
+- Response: 200 "Content-Type: application/json" [ { post } ]
+- Response (error) : 400 "Content-Type: application/json" { error, message }
 
 ## Retrieve Favs ✅
 
-- Request: 'GET' /users "Authorization: Bearer postId"
-- Response: 200 "Content-Type: application/json" [ { id, author, image, text, likes } ]
-- Response (error): 400 "Content-Type: application/json" { error, message }
+- Request: GET /users/favs "Authorization: Bearer userId"
+- Response: 200 "Content-Type: application/json" [ { favs }]
+- Response (error) : 400 "Content-Type: application/json" { error, message }
+
+## Delete Post ✅
+
+- Request: DELETE /newpost "Authorization: Bearer userId"
+- Response: 201
+- Response (error) : 400 "Content-Type: application/json" { error, message }
 
 ## Toggle Like ✅
 
-- Request: PATCH /newpost/:postId/likes "Authorization: Bearer userId"
+- Request: PATCH /newpost/postId/likes "Authorization: Bearer userId"
 - Response: 204 
-- Response (error) : 400|404|406|500 "Content-Type: application/json" { error, message }
+- Response (error) : 400|404|500 "Content-Type: application/json" { error, message }
 
 ## Toggle Fav ✅
 
-- Request: PATCH /users/:userId/favs "Authorization: Bearer postId"
-- Response: 204
-- Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
-
-## Delete Post
-
-- Request: DELETE /users/:userId/favs "Authorization: Bearer postId"
+- Request: PATCH /users:postId/favs "Authorization: Bearer userId"
 - Response: 204 
-- Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
+- Response (error) : 400|404|500 "Content-Type: application/json" { error, message }
+
+## Update Post Text ✅
+
+- Request: PATCH /newpost "Authorization: Bearer userId" "Content-Type: application/json" { new text }
+- Response: 202
+- Response (error) : 400|404|500 "Content-Type: application/json" { error, message }

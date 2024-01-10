@@ -12,7 +12,7 @@ reset='\033[0m'
 
 echo -e "${blue}TEST USER REGISTER${reset}\n"
 
-echo -e "${green}CASE Success with register user${reset}\n"
+echo -e "${green}CASE Succes with register user${reset}\n"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \

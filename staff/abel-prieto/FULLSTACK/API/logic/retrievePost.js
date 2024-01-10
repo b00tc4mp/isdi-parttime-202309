@@ -1,57 +1,46 @@
-const JSON = require('../utils/JSON')
-const { NotFoundError, SystemError } = require('../utils/errors')
-const { validateText, validateFunction } = require('../utils/validators')
-
+const { Post, User } = require('../data/models')
+const { SystemError, NotFoundError } = require('./errors')
+const { validateText, validateFunction } = require('./helpers/validators')
 
 function retrievePost(userId, callback) {
-    validateText(userId, 'user id')
+    validateText(userId, 'post id')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error)) 
-
-            return
-        }
-
-        const user = users.find(user => userId === user.id)
-
-        if (!user) {
-            callback(new NotFoundError('user not found'))
-
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error))
+    User.findById(userId).lean()
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
 
                 return
             }
 
-            posts.forEach(post => {
-                post.liked = post.likes.includes(userId)
+            Post.find().populate('author', 'name').lean()
+                // Con .populate() nos permite traernos a una propiedad (1) lo que le pidamos, si está referenciado (2)
+                // Con .lean() nos traemos, en vez de el modelo de dato, SOLO el documento
+                .then(posts => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-                const author = users.find(user => user.id === post.author)
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
+                        // Por si hubiera varios post del mismo author
 
-                if (!author) {
-                    callback(new NotFoundError('user not found'))
+                        delete post.__v
 
-                    return
-                }
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString())
+                        post.liked = post.likes.includes(userId)
 
-                post.fav = user.favs.includes(post.id)
-        
-                post.author = {
-                    email : author.email,
-                    id: author.id,
-                    name: author.name
-                }
-            })
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
+                    })
 
-            callback(null, posts)
+                    callback(null, posts)
+                })
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = retrievePost

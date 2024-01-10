@@ -1,11 +1,10 @@
 <script>
     const req = {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
-            Authorization: 'Bearer 2b4bwcqo9ps0',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newEmail: 'hola@mundo.com', againNewEmail: 'hola@mundo.com', password: '1234' })
+        body: JSON.stringify({ email: 'soy@batman.com', newEmail: 'nosoy@batman.com', password: '1234' })
     }
 
     fetch('http://localhost:8000/users/email', req)

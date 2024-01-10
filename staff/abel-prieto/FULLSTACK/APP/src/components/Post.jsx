@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button, Input } from "../librery"
 
 import logic from "../logic"
+import context from "../logic/context"
 
 function Post(props) {
     const post = props.post
@@ -156,7 +157,7 @@ function Post(props) {
             <img className='post-img' src={post.image} />
             <div className="buttons-edit">
                 <p>{post.text}</p>
-                {post.author.id === props.id && <Button onClick={handleToggleEditClick}>✏</Button>}
+                {post.author.id === context.sessionUserId && <Button onClick={handleToggleEditClick}>✏</Button>}
                 {editMode === true &&
                     <div>
                         <Input id={'post-tittle'}></Input>
@@ -172,7 +173,7 @@ function Post(props) {
                 <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
                 <Button onClick={() => handleToggleCommentClick(post.id)}>🗨</Button>
                 <Button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐' : '☆'}</Button>
-                {post.author.id === props.id && (<Button onClick={() => handleToggleDeleteButtonClick(post.id)}>Delete post</Button>)}
+                {post.author.id === context.sessionUserId && (<Button onClick={() => handleToggleDeleteButtonClick(post.id)}>Delete post</Button>)}
             </div>
         </article >
     </>
