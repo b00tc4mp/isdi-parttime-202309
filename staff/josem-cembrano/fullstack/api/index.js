@@ -4,6 +4,8 @@ const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
+const retrievePosts = require('./logic/retrievePosts')
+
 const { SystemError, ContentError, DuplicityError, NotFoundError } = require('./utils/errors')
 
 const server = express()
@@ -140,6 +142,23 @@ server.patch('./posts/:postId/likes', (rep, res) => {
             status = 406
         }
         res.status(status).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
+server.get('/posts', (req, res) => {//manejar errores como en togglelike post.
+    try {
+        const userId = req.headers.authorization.substring(7)
+
+        retrievePosts(userId, (error, posts) => {
+            if (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                return
+            }
+            res.json(posts)
+        })
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
     }
 })
 

@@ -8,8 +8,8 @@ import changeUserPassword from './changeUserPassword'
 import publishPost from './publishPost'
 import retrieveFavPosts from './retrieveFavPosts'
 import retrievePosts from './retrievePosts'
-import toggleFavPost from './toggleFavPost'
-import toggleLikePost from './toggleLikePost'
+// import toggleFavPost from './toggleFavPost'
+// import toggleLikePost from './toggleLikePost'
 import updatePostText from './updatePostText'
 
 const logic = {
@@ -23,8 +23,8 @@ const logic = {
     publishPost,
     retrieveFavPosts,
     retrievePosts,
-    toggleFavPost,
-    toggleLikePost,
+    // toggleFavPost,
+    // toggleLikePost,
     updatePostText
 }
 
