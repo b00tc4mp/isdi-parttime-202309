@@ -16,7 +16,7 @@ function createPost(userId, image, text, callback) {
 				return
 			}
 
-			Post.creeate({ author: userId, image, text })
+			Post.create({ author: userId, image, text })
 				.then(() => callback(null))
 				.catch(error => callback(new SystemError(error.message)))
 		})

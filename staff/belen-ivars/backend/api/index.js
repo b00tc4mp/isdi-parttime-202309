@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-
-
 const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
@@ -8,7 +6,7 @@ const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const retrievePosts = require('./logic/retrievePosts')
 const toggleLikePost = require('./logic/toggleLikePost')
-const { SystemError, NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
+const { NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
 const { CredentialsError } = require('./logic/errors')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')

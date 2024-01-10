@@ -5,7 +5,7 @@ TEST "retrieve-user"
 CASE "success on correct user id"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 61t6qhvtsos0' \
+-H 'Authorization: Bearer 659b348c696ad77021d9e2f8' \
 -v
 
 # > GET /users HTTP/1.1
