@@ -4,10 +4,8 @@ TEST "toogle-fav-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/users/659b00eb4e62f914182bb69a/favs' \
--H 'Authorization: Bearer 659b00eb4e62f914182bb69a' \
--H 'Content-Type: application/json' \
--d '{ "postId": "65992f24bad309e29f867be1"}' \
+curl 'http://localhost:8000/posts/659d30db76b0e532f9a1b6f8/favs' \
+-H 'Authorization: Bearer 659b00eb4e62f914182bb698' \
 -X PATCH \
 -v
 

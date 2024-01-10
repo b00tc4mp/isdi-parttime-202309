@@ -7,7 +7,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
 
         try {
-            toggleFavPost('65992f24bad309e29f867be1', '659a904a06ac064c6025bc91', error => {
+            toggleFavPost('659b00eb4e62f914182bb698', '659d30db76b0e532f9a1b6f8', error => {
                 if (error) {
                     console.error(error)
                     return

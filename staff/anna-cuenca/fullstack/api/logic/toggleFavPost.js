@@ -5,48 +5,40 @@ const { User, Post } = require('../data/models')
 
 
 
-function toggleFavPost(postId, userId, callback) {
+function toggleFavPost(userId, postId, callback) {
+    validateId(postId, "post id");
+    validateId(userId, "user id");
+    validateFunction(callback, "callback");
 
-    validateId(postId, "post id")
-    validateId(userId, "user id")
-    validateFunction(callback, "callback")
-
-
-
-    Post.findById(postId)
-        .then(post => {
-            if (!post) {
-                callback(new NotFoundError('Post not found'))
-                return
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('User not found'));
+                return;
             }
 
-            User.findById(userId)
-                .then(user => {
-                    if (!user) {
-
-                        callback(new NotFoundError('User not found'))
+            Post.findById(postId).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new NotFoundError('Post not found'));
+                        return;
                     }
 
-                    let index = user.favs.indexOf(postId)
+                    const index = user.favs.findIndex(postObjectId => postObjectId.toString() === postId);
 
-                    if (index !== -1) {
-                        user.favs.splice(index, 1)
+                    if (index < 0) {
+                        user.favs.push(postId);
                     } else {
-                        user.favs.push(postId)
+                        user.favs.splice(index, 1);
                     }
 
                     user.save()
-
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)));
                 })
-
-            callback(null)
-
+                .catch(error => callback(new SystemError(error.message)));
         })
-        .catch(error => callback(new SystemError(error.message)))
-
-
+        .catch(error => callback(new SystemError(error.message)));
 }
 
-
-
-module.exports = toggleFavPost
+module.exports = toggleFavPost;

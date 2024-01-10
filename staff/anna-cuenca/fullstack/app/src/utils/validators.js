@@ -8,8 +8,13 @@ function validateNumber(number, explain) {
     throw new TypeError(`${explain} is not a number`);
 }
 
+function validateId(id, explain) {
+  if (!isObjectIdOrHexString(id)) throw new ContentError(`${explain} is not a valid id`)
+}
+
 
 export {
   validateText,
-  validateNumber
+  validateNumber,
+  validateId
 }

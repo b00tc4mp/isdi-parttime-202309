@@ -182,16 +182,15 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
 
         // toggleFavPosts
 
-        server.patch('/users/:userId/favs', jsonBodyParser, (req, res) => {
+        server.patch('/posts/:postId/favs', (req, res) => {
             try {
                 const userId = req.headers.authorization.substring(7)
 
-                const { postId } = req.body
+                const { postId } = req.params
 
-                toggleFavPost(postId, userId, error => {
+                toggleFavPost(userId, postId, error => {
                     if (error) {
                         let status = 500
-
 
                         if (error instanceof NotFoundError)
                             status = 404
@@ -313,7 +312,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test') //hagola conexión con moongo
         })
 
 
-        // retrievePosts
+
 
         // Retrieve posts
 

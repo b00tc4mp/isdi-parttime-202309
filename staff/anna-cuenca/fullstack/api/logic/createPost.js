@@ -10,7 +10,7 @@ function createPost(userId, image, text, callback) {
     validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    User.findById(userId)
+    User.findById(userId).lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('User not found'))

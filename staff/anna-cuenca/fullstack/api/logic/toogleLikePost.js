@@ -27,8 +27,11 @@ function toggleLikePost(userId, postId, callback) {
                         post.likes.push(userId)
                     }
                     post.save()
+
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
                 })
-            callback(null)
+                .catch(error => callback(new SystemError(error.message)))
 
         })
         .catch(error => callback(new SystemError(error.message)))
