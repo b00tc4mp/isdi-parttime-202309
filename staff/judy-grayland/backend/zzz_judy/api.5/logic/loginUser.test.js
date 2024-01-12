@@ -1,7 +1,7 @@
 const loginUser = require('./loginUser')
 
 try {
-  loginUser('gui@sante', '123123123', (error, userId) => {
+  loginUser('lechu@guita', '123123123', (error, userId) => {
     if (error) {
       console.error(error)
 

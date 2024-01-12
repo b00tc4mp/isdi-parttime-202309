@@ -1,4 +1,4 @@
-const CSV = require('./CSV')
+const CSV = require('./utils/CSV')
 
 // CSV.loadAsObject('./users.csv', (error, users) => {
 //   if (error) {
@@ -10,14 +10,14 @@ const CSV = require('./CSV')
 //   console.log(users)
 // })
 
-CSV.loadAsObject('./data/users.csv', (error, users) => {
+CSV.loadAsObject('./users.csv', (error, users) => {
   if (error) {
     console.error(error)
 
     return
   }
 
-  CSV.saveFromObject('./data/users2.csv', users, (error) => {
+  CSV.saveFromObject('./users2.csv', users, (error) => {
     if (error) {
       console.error(error)
 

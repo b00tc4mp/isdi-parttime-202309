@@ -6,7 +6,7 @@ const fs = require('fs')
 // parsing means analyzing and interpreting or converting a programme into an internal format that a runtime environment, like node or the browser, can actually understand and run. The browser, for example, parses HTML into a DOM tree and CSS styles into the CSS Object Model, a data structure it then uses for styling layouts. JS is parsed during compile time or when the parse is invoked.
 // compile time is the time from when the programme is first loaded until the programme is parsed.
 
-// with the parse function we receive data as a string and then convert it to an array
+// with the parse function we receive data as a string and then convert it to an object(which is an array)
 function parse(csv) {
   const data = []
 
@@ -34,9 +34,11 @@ function parse(csv) {
 
     data.push(item)
   }
+  return data
 }
 
-function loadAsObject(file, callback) {
+// guardar de disco a memoria: lee del disco, te trae el csv en forma de string y lo convierte a data
+function parseFromFile(file, callback) {
   fs.readFile(file, 'utf8', (error, csv) => {
     if (error) {
       callback(error)
@@ -49,6 +51,7 @@ function loadAsObject(file, callback) {
     callback(null, data)
   })
 }
+
 // with stringify we receive data as an array and then convert it to a string
 function stringify(data) {
   // first we get an array of property names (ie. the fields) using the Object.keys method
@@ -69,10 +72,12 @@ function stringify(data) {
 
     csv += '\n' + line
   }
+
+  return csv
 }
 
-// We use the following method to create a csv from an array
-function saveFromObject(file, data, callback) {
+// We use the following method to create a csv (string) from an array and save it
+function stringifyToFile(file, data, callback) {
   const csv = stringify(data)
   // after compiling the csv we need to save it to the disk
   fs.writeFile(file, csv, (error) => {
@@ -85,6 +90,8 @@ function saveFromObject(file, data, callback) {
 }
 
 module.exports = {
-  loadAsObject,
-  saveFromObject,
+  parse,
+  parseFromFile,
+  stringifyToFile,
+  stringify,
 }
