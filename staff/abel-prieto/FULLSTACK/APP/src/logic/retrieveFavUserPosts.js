@@ -1,10 +1,10 @@
-import { validateFunction } from "../utils/validators"
+import validate from "./helpers/validate"
 import context from "./context"
 
 // RETRIEVE FAV SESSION POSTS
 
 export default function retrieveFavUserPosts(callback) {
-    validateFunction(callback, 'callback')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'GET',
@@ -13,7 +13,7 @@ export default function retrieveFavUserPosts(callback) {
         }
     }
 
-    fetch('http://localhost:8000/users/favs', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/favs`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

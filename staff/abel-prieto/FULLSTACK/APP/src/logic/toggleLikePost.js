@@ -1,11 +1,11 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from "./helpers/validate"
 import context from "./context"
 
 // LIKE POST & UPDATE
 
 export default function toggleLikePost(postId, callback) {
-    validateText(postId, 'post id')
-    validateFunction(callback, 'callback')
+    validate.text(postId, 'post id')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'PATCH',
@@ -14,7 +14,7 @@ export default function toggleLikePost(postId, callback) {
         }
     }
 
-    fetch(`http://localhost:8000/newpost/${postId}/likes`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/newpost/${postId}/likes`, req)
         .then(res => {
             if (!res.ok){
                 res.json()

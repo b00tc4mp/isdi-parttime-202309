@@ -1,11 +1,11 @@
 const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 function deletePost(userId, postId, callback) {
-    validateText(userId, 'user id')
-    validateText(postId, 'post id')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.id(postId, 'post id')
+    validate.function(callback, 'callback')
 
     User.find({'favs': postId })
         .then(users => {

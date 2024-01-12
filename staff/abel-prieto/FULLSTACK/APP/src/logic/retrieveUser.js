@@ -1,10 +1,10 @@
-import { validateFunction } from "../utils/validators"
+import validate from "./helpers/validate"
 import context from "./context"
 
 // LOGIN LOGIC
 
 export default function retrieveUser(callback) {
-    validateFunction(callback, 'callback')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'GET',
@@ -13,7 +13,7 @@ export default function retrieveUser(callback) {
         }
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

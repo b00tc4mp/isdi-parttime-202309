@@ -1,12 +1,12 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from "./helpers/validate"
 import context from "./context"
 
 // EDIT POST TEXT
 
 export default function toggleEditPostText(postId, postText, callback) {
-    validateText(postId, 'post id')
-    validateText(postText, 'texts post')
-    validateFunction(callback, 'callback')
+    validate.text(postId, 'post id')
+    validate.text(postText, 'post text')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'PATCH',
@@ -17,7 +17,7 @@ export default function toggleEditPostText(postId, postText, callback) {
         body: JSON.stringify({ postText })
     }
 
-    fetch(`http://localhost:8000/newpost/${String(postId)}`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

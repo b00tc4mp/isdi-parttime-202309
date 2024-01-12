@@ -1,11 +1,11 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from "./helpers/validate"
 
 // COMMENT TEXT POSTS
 
 export default function toggleCommentPostText(postId, comment, callback) {
-    validateText(postId, "post id")
-    validateText(comment, "comment")
-    validateFunction(callback, 'callback')
+    validate.text(postId, "post id")
+    validate.text(comment, "comment")
+    validate.function(callback, 'callback')
 
     db.posts.findById(postId, (error, post) => {
         if (error) {

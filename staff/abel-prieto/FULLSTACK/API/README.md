@@ -18,13 +18,13 @@
 - Response: 200 "Content-Type: application/json { name }
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
-## Change Email 
+## Change Email ✅
 
 - Request: POST /users/email
 - Response: 200 "Content-Type: application/json { email, new email, password }
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
-## Change Password 
+## Change Password ✅
 
 - Request: POST /users/password
 - Response: 200 "Content-Type: application/json { email, password, new password }

@@ -1,13 +1,13 @@
-import { validateFunction, validateText } from "../utils/validators"
+import validate from './helpers/validate'
 import context from "./context"
 
 // CHECK CHANGE PASSWORD 
 
 export default function changeUserPassword(password, newPassword, againNewPassword, callback) {
-    validateText(password, 'password')
-    validateText(newPassword, 'new password')
-    validateText(againNewPassword, 'repeat password')
-    validateFunction(callback, 'callback')
+    validate.password(password)
+    validate.password(newPassword, 'new password')
+    validate.password(againNewPassword, 'repeat password')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
@@ -18,7 +18,7 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
         body: JSON.stringify({ password, newPassword, againNewPassword }) 
     }
 
-    fetch('http://localhost:8000/users/password', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/password`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
