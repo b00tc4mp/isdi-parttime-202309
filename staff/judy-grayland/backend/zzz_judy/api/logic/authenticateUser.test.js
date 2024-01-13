@@ -1,7 +1,7 @@
-const loginUser = require('./loginUser')
+const authenticateUser = require('./authenticateUser')
 
 try {
-  loginUser('lechu@guita', '123123123', (error, userId) => {
+  authenticateUser('lechu@guita', '123123123', (error, userId) => {
     if (error) {
       console.error(error)
 

@@ -1,13 +1,12 @@
 const JSON = require('../utils/JSON')
-const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
 
-function loginUser(email, password, callback) {
+function authenticateUser(email, password, callback) {
   validateText(email, 'email')
   validateText(password, 'password')
   validateFunction(callback, 'callback')
 
-  JSON.parseFromFile('./data/users.json', (error, users) => {
+  JSON.parseFromFile('../data/users.json', (error, users) => {
     if (error) {
       callback(error)
 
@@ -32,4 +31,4 @@ function loginUser(email, password, callback) {
   })
 }
 
-module.exports = loginUser
+module.exports = authenticateUser
