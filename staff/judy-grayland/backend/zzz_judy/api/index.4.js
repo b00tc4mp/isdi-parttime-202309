@@ -17,12 +17,10 @@ server.get('/hello', (req, res) =>
   res.send(`Hello, ${req.query.name} ${req.query.surname}!`)
 )
 
-// middleware:como un json.parse que te permite convertir cualquier petición que le enviemos al servidor con un json lo convierta a objeto en la propiedad body del request. ie. si le envías un json al servidor lo sabrá interpetar gracias a este middleware, que luego pasamos dentro del post como la propiedad body en el objeto req:
-const jsonBodyParser = express.json()
-
-server.post('/register', jsonBodyParser, (req, res) => {
+// TEST in browser GET http://localhost:8000/register?name=Pepito+Grillo&email=pepito@grillo.com&password=123123123
+server.get('/register', (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password } = req.query
 
     registerUser(name, email, password, (error) => {
       if (error) {
