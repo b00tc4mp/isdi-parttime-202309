@@ -1,9 +1,9 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from './helpers/validate'
 import context from './context'
 
 export default function deleteUser(userId, callback) {
-    validateText(userId, "user id")
-    validateFunction(callback, 'callback')
+    validate.text(userId, "user id")
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'DELETE',
@@ -13,7 +13,7 @@ export default function deleteUser(userId, callback) {
         }
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/:userId`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

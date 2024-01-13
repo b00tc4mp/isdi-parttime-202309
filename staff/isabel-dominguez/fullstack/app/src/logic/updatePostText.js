@@ -1,10 +1,11 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from './helpers/validate'
 import context from './context'
 
-export default function updatePostText(postId, text, callback) {
-    validateText(postId, 'post id')
-    validateText(text, 'text')
-    validateFunction(callback, 'callback')
+export default function updatePostText(userId, postId, text, callback) {
+    validate.text(userId, 'user id')
+    validate.text(postId, 'post id')
+    validate.text(text, 'text')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'PUT',
@@ -18,7 +19,7 @@ export default function updatePostText(postId, text, callback) {
         })
     }
 
-    fetch(`http://localhost:8000/posts/${postId}`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

@@ -1,13 +1,13 @@
-const { validateId, validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 const { User } = require('../data/models')
 
 function changeUserPassword(userId, password, newPassword, confirmNewPassword, callback) {
-    validateId(userId, 'id')
-    validateText(password, 'password')
-    validateText(newPassword, 'new password')
-    validateText(confirmNewPassword, 'confirm new password')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'id')
+    validate.text(password, 'password')
+    validate.text(newPassword, 'new password')
+    validate.text(confirmNewPassword, 'confirm new password')
+    validate.function(callback, 'callback')
 
     User.findById(userId)
         .then(user => {

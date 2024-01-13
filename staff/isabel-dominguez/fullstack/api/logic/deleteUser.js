@@ -1,11 +1,11 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { SystemError, NotFoundError } = require('./errors')
 
 const { User } = require('../data/models')
 
 function deleteUser(userId, callback) {
-    validateText(userId, 'id')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'id')
+    validate.function(callback, 'callback')
 
     User.findByIdAndDelete(userId)
         .then(user => {

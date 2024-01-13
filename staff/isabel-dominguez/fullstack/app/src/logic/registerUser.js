@@ -1,10 +1,10 @@
-import { validateText, validateFunction } from "../utils/validators"
+import validate from './helpers/validate'
 
 export default function registerUser(name, email, password, callback) {
-    validateText(name, 'name')
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+    validate.text(name, 'name')
+    validate.email(email)
+    validate.password(password)
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
@@ -14,7 +14,7 @@ export default function registerUser(name, email, password, callback) {
         body: JSON.stringify({ name, email, password })
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
