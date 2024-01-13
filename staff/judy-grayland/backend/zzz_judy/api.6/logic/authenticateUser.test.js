@@ -8,7 +8,7 @@ try {
       return
     }
 
-    console.log('user authenticated', userId)
+    console.log('logged in successfully', userId)
   })
 } catch (error) {
   console.log(error)

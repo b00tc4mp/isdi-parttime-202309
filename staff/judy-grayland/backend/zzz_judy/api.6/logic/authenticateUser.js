@@ -6,7 +6,7 @@ function authenticateUser(email, password, callback) {
   validateText(password, 'password')
   validateFunction(callback, 'callback')
 
-  JSON.parseFromFile('./data/users.json', (error, users) => {
+  JSON.parseFromFile('../data/users.json', (error, users) => {
     if (error) {
       callback(error)
 

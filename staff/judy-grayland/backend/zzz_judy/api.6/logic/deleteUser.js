@@ -1,8 +1,8 @@
 const JSON = require('../utils/JSON')
 const { validateText, validateFunction } = require('../utils/validators')
 
-function authenticateUser(email, password, callback) {
-  validateText(email, 'email')
+function deleteUser(userId, password, callback) {
+  validateText(userId, 'user id')
   validateText(password, 'password')
   validateFunction(callback, 'callback')
 
@@ -13,7 +13,7 @@ function authenticateUser(email, password, callback) {
       return
     }
 
-    let user = users.find((user) => user.email === email)
+    let user = users.find((user) => user.id === userId)
 
     if (!user) {
       callback(new Error('user not found'))
@@ -27,8 +27,20 @@ function authenticateUser(email, password, callback) {
       return
     }
 
-    callback(null, user.id)
+    const index = users.indexOf(user)
+
+    users.splice(index, 1)
+
+    JSON.stringifyToFile('./data/users.json', users, (error) => {
+      if (error) {
+        callback(error)
+
+        return
+      }
+
+      callback(null, user.id)
+    })
   })
 }
 
-module.exports = authenticateUser
+module.exports = deleteUser

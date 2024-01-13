@@ -21,8 +21,6 @@ function stringifyToFile(file, data, callback) {
   fs.writeFile(file, json, (error) => {
     if (error) {
       callback(error)
-
-      return
     }
 
     callback(null)
