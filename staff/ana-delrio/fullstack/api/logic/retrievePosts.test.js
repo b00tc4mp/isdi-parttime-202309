@@ -1,19 +1,23 @@
+const mongoose = require('mongoose')
 const retrievePosts = require('./retrievePosts')
 
-try {
-    retrievePosts('6ttz1tptn2c0', (error, posts) => {
-        if (error) {
-            console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            retrievePosts('', (error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            return
+                    return
+                }
+                console.log('user posts', posts)
+            })
+        } catch (error) {
+            console.log(error)
+
         }
-
-        console.log('retrieved', posts)
-
-
     })
-} catch (error) {
-    console.error(error)
+    .catch(error => console.error(error))
 
 
-}
+

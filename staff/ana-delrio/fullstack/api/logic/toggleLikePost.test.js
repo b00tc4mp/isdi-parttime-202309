@@ -1,16 +1,23 @@
+
+const mongoose = require('mongoose')
 const toggleLikePost = require('./toggleLikePost')
 
-try {
-    toggleLikePost('9nbvjt5wugo', '4op7rg7el9y0', error => {
-        if (error) {
-            console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            toggleLikePost('658d4dd388f3cf1b1fb4d3af', '658ea242aadfc657d89b7a30', error => {
+                if (error) {
+                    console.error(error)
 
-            return
+                    return
+                }
+
+                console.log('post like toggled')
+            })
+        } catch (error) {
+            console.error(error)
         }
 
-        console.log('post like toggled')
     })
-} catch (error) {
-    console.error(error)
-}
 
+    .catch(error => console.error(error))
