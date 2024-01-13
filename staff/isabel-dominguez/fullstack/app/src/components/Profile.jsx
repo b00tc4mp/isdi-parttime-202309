@@ -1,17 +1,20 @@
 import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
+import context from "../logic/context"
 
 function Profile({ onSuccess }) {
+
+    const userId = context.sessionUserId
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
 
         const newEmail = event.target.querySelector("#new-email-input").value
-        const newEmailConfirm = event.target.querySelector("#new-email-confirm-input").value
+        const confirmNewEmail = event.target.querySelector("#new-email-confirm-input").value
         const password = event.target.querySelector("#password-input").value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
+            logic.changeUserEmail(newEmail, confirmNewEmail, password, (error) => {
                 if (error) {
                     alert(error.message)
                     return
@@ -31,10 +34,10 @@ function Profile({ onSuccess }) {
 
         const password = event.target.querySelector("#password-input").value
         const newPassword = event.target.querySelector("#new-password-input").value
-        const newPasswordConfirm = event.target.querySelector("#new-password-confirm-input").value
+        const confirmNewPassword = event.target.querySelector("#new-password-confirm-input").value
 
         try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password, (error) => {
+            logic.changeUserPassword(newPassword, confirmNewPassword, password, (error) => {
                 if (error) {
                     alert(error.message)
                     return
@@ -51,15 +54,18 @@ function Profile({ onSuccess }) {
 
     function handleDeleteAccount() {
         try {
-            logic.deleteUser((error) => {
+            logic.deleteUser(userId, error => {
+
                 if (error) {
                     alert(error.message)
+
                     return
                 }
 
                 logic.logoutUser()
-                alert("Your account has been successfully deleted")
-            });
+
+                cancelIdleCallback(null, alert("Your account has been successfully deleted"))
+            })
         } catch (error) {
             alert(error.message)
         }

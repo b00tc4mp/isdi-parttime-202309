@@ -1,9 +1,8 @@
 import { validateText, validateFunction } from "../utils/validators"
 import context from './context'
 
-export default function deleteUser(userId, password, callback) {
+export default function deleteUser(userId, callback) {
     validateText(userId, "user id")
-    validateText(password, "password")
     validateFunction(callback, 'callback')
 
     const req = {
@@ -11,18 +10,20 @@ export default function deleteUser(userId, password, callback) {
         headers: {
             Authorization: `Bearer ${context.sessionUserId}`,
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userId, password })
+        }
     }
 
     fetch('http://localhost:8000/users', req)
         .then(res => {
             if (!res.ok) {
-                return res.json().then(body => {
-                    throw new Error(body.message)
-                })
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
+
+                return
             }
+
+            callback(null)
         })
-        .then(() => callback(null))
         .catch(error => callback(error))
 }

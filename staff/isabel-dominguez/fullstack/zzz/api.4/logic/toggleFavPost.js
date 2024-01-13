@@ -1,15 +1,14 @@
-const { validateId, validateText, validateFunction } = require('./helpers/validators')
+const { validateId, validateFunction } = require('./helpers/validators')
 const { SystemError, NotFoundError } = require('./errors')
 
 const { User, Post } = require('../data/models')
 
-function updatePostText(userId, postId, text, callback) {
+function toggleFavPost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
-    validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    User.findById(userId).lean()
+    User.findById(userId)
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
@@ -17,7 +16,7 @@ function updatePostText(userId, postId, text, callback) {
                 return
             }
 
-            Post.findById(postId)
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new NotFoundError('post not found'))
@@ -25,12 +24,15 @@ function updatePostText(userId, postId, text, callback) {
                         return
                     }
 
-                    post.text = postText
+                    const index = user.favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
-                    post.save()
-                        .then(() => {
-                            callback(null)
-                        })
+                    if (index < 0)
+                        user.favs.push(postId)
+                    else
+                        user.favs.splice(index, 1)
+
+                    user.save()
+                        .then(() => callback(null))
                         .catch(error => callback(new SystemError(error.message)))
                 })
                 .catch(error => callback(new SystemError(error.message)))
@@ -38,4 +40,4 @@ function updatePostText(userId, postId, text, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = updatePostText
+module.exports = toggleFavPost

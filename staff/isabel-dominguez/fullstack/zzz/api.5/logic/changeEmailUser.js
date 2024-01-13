@@ -1,10 +1,10 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const { validateId, validateText, validateFunction } = require('./helpers/validators')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 const { User } = require('../data/models')
 
 function changeEmailUser(userId, email, newEmail, confirmNewEmail, callback) {
-    validateText(userId, 'id')
+    validateId(userId, 'id')
     validateText(email, 'email')
     validateText(newEmail, 'new email')
     validateText(confirmNewEmail, 'confirm new email')
@@ -14,27 +14,28 @@ function changeEmailUser(userId, email, newEmail, confirmNewEmail, callback) {
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
+
                 return
             }
 
-            if (user.email !== email) {
-                callback(new CredentialsError('wrong email'))
+            if (email !== user.email) {
+                callback(new CredentialsError('wrong credentials'))
+
                 return
             }
 
             if (newEmail !== confirmNewEmail) {
-                callback(new CredentialsError('new email and confirm new email do not match'))
+                callback(new CredentialsError('wrong credentials'))
+
                 return
             }
 
             user.email = newEmail
 
-            return user.save()
-        })
-        .then(updatedUser => {
-            if (updatedUser) {
-                callback(null, updatedUser)
-            }
+            user.save()
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
+
         })
         .catch(error => callback(new SystemError(error.message)))
 }

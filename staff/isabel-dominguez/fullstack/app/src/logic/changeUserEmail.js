@@ -1,19 +1,19 @@
 import { validateText, validateFunction } from "../utils/validators"
 import context from './context'
 
-export default function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
+export default function changeUserEmail(newEmail, confirmNewEmail, password, callback) {
     validateText(newEmail, "new email")
-    validateText(newEmailConfirm, "new email confirm")
+    validateText(confirmNewEmail, "new email confirm")
     validateText(password, "password")
     validateFunction(callback, 'callback')
 
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${(context.sessionUserId)}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newEmail, newEmailConfirm, password })
+        body: JSON.stringify({ newEmail, confirmNewEmail, password })
     }
 
     fetch('http://localhost:8000/users/email', req)

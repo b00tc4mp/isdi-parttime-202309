@@ -1,9 +1,9 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const { validateId, validateText, validateFunction } = require('./helpers/validators')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 const { User } = require('../data/models')
 
 function changePasswordUser(userId, password, newPassword, confirmNewPassword, callback) {
-    validateText(userId, 'id')
+    validateId(userId, 'id')
     validateText(password, 'password')
     validateText(newPassword, 'new password')
     validateText(confirmNewPassword, 'confirm new password')
@@ -12,28 +12,28 @@ function changePasswordUser(userId, password, newPassword, confirmNewPassword, c
     User.findById(userId)
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'));
+                callback(new NotFoundError('user not found'))
+
                 return
             }
 
-            if (user.password !== password) {
-                callback(new CredentialsError('wrong password'));
+            if (password !== user.password) {
+                callback(new CredentialsError('wrong credentials'))
+
                 return
             }
 
             if (newPassword !== confirmNewPassword) {
-                callback(new CredentialsError('new password and confirm new password do not match'));
+                callback(new CredentialsError('wrong credentials'))
+
                 return
             }
 
             user.password = newPassword
 
-            return user.save()
-        })
-        .then(updatedUser => {
-            if (updatedUser) {
-                callback(null, updatedUser)
-            }
+            user.save()
+                .then(() => callback(null))
+                .catch(error => callback(new SystemError(error.message)))
         })
         .catch(error => callback(new SystemError(error.message)))
 }

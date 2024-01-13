@@ -3,8 +3,9 @@ const { SystemError, NotFoundError } = require('./errors')
 
 const { User } = require('../data/models')
 
-function deleteUser(userId, callback) {
+function deleteUser(userId, password, callback) {
     validateText(userId, 'id')
+    validateText(password, 'password')
     validateFunction(callback, 'callback')
 
     User.findByIdAndDelete(userId)
@@ -15,7 +16,7 @@ function deleteUser(userId, callback) {
                 return
             }
 
-            callback(null)
+            callback(null, user)
         })
         .catch(error => callback(new SystemError(error.message)))
 }

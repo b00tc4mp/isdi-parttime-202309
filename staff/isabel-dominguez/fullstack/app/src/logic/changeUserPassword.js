@@ -1,9 +1,9 @@
 import { validateText, validateFunction } from "../utils/validators"
 import context from './context'
 
-export default function changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
+export default function changeUserPassword(newPassword, confirmNewPassword, password, callback) {
     validateText(newPassword, "new password")
-    validateText(newPasswordConfirm, "new password confirm")
+    validateText(confirmNewPassword, "new password confirm")
     validateText(password, "password")
     validateFunction(callback, 'callback')
 
@@ -13,7 +13,7 @@ export default function changeUserPassword(newPassword, newPasswordConfirm, pass
             Authorization: `Bearer ${context.sessionUserId}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ password, newPassword, newPasswordConfirm })
+        body: JSON.stringify({ password, newPassword, confirmNewPassword })
     }
 
     fetch('http://localhost:8000/users/password', req)
