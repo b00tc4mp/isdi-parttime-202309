@@ -9,16 +9,16 @@ function retrieveUser(userId, callback) {
     validateId(userId, 'user id')
     validateFunction(callback, 'callback')
 
-    User.findById(userId)
+    User.findById(userId, 'name').lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
 
                 return
             }
-            // del usuario, lo que nos interesa es el nombre de usuario
-            // que nos muestre solo ese dato
-            callback(null, { name: user.name })
+
+            delete user._id
+            callback(null, user)
 
 
         })

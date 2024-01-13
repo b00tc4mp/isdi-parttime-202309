@@ -4,6 +4,7 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
+const retrievePosts = require('./logic/retrievePosts')
 const toggleLikePost = require('./logic/toggleLikePost')
 const { NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
 const { CredentialsError } = require('./logic/errors')
@@ -113,6 +114,37 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                         return
                     }
                     res.json(user)
+                })
+
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+
+            }
+
+        })
+
+        server.get('/posts', (req, res) => {
+            try {
+                // eliminamos los primeros 7 caracteres del token. Esto asume que los primeros 7 caracteres representan la palabra "Bearer" seguida de un espacio, y se están eliminando para obtener solo el ID del usuario
+                const userId = req.headers.authorization.substring(7)
+
+                retrievePosts(userId, (error, posts) => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+                    res.json(posts)
                 })
 
             } catch (error) {

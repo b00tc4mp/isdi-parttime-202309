@@ -3,20 +3,20 @@ const { NotFoundError, SystemError } = require('./errors.js')
 const { validateText, validateFunction, validateId } = require('./helpers/validators.js')
 
 
-function createPost(author, image, text, callback) {
-    validateId(author, 'user id')
+function createPost(userId, image, text, callback) {
+    validateId(userId, 'user id')
     validateText(image, 'image')
     validateText(text, 'text')
     validateFunction(callback, 'callback')
 
-    User.findById(author)
+    User.findById(userId).lean()
         .then(user => {
             if (!user) {
                 callback(new NotFoundError('user not found'))
                 return
             }
 
-            Post.create({ author, image, text })
+            Post.create({ author: userId, image, text })
                 .then(callback(null))
                 .catch(error => callback(new SystemError(error.message)))
         })
