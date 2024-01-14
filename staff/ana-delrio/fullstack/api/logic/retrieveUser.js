@@ -1,13 +1,13 @@
 
-const { validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validators')
 
 const { User } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 
 
 function retrieveUser(userId, callback) {
-    validateId(userId, 'user id')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.function(callback, 'callback')
 
     User.findById(userId, 'name').lean()
         .then(user => {

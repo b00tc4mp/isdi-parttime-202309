@@ -1,8 +1,9 @@
-import { validateText } from '../utils/validators'
+import validate from './helpers/validate'
 import context from "./context"
 
 function toggleLikePost(postId, callback) {
-    validateText(postId, 'post id')
+    validate.text(postId, 'post id')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'PATCH',
@@ -12,7 +13,7 @@ function toggleLikePost(postId, callback) {
     }
 
     // Se realiza una solicitud fetch a la URL específica del post con el postId proporcionado y la configuración en req
-    fetch(`http://localhost:8000/posts/${postId}/likes`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

@@ -1,14 +1,14 @@
 
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 // me traigo los modelos que necesito
 const { User } = require('../data/models')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 function authenticateUser(email, password, callback) {
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+    validate.email(email, 'email')
+    validate.text(password, 'password')
+    validate.function(callback, 'callback')
 
     // Utiliza el método findOne proporcionado por Mongoose
     User.findOne({ email })
