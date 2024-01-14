@@ -1,20 +1,34 @@
 import { validateText } from "../utils/validators"
+import context from "./context"
 
 function publishPost(image, text, callback) {
 	validateText(image, 'image')
 	validateText(text, 'text')
 
-	// TODO call api
+	const req = {
+		method: 'POST',
+		headers: {
+			Authorization: ` Bearer ${context.sessionUserId}`,
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ image, text })
+	}
 
-	/* db.posts.insert(new Post(null, this.sessionUserId, image, text, []), error => {
-		if (error) {
-			callback(error)
+	fetch('http://localhost:8000/posts', req)
+		.then(res => {
+			if (!res.ok) {
 
-			return
-		}
+				res.json()
+					.then(body => callback(new Error(body.message)))
+					.catch(error => callback(error))
 
-		callback(null)
-	}) */
+				return
+			}
+
+			callback(null)
+		})
+
+		.catch(error => callback(error))
 }
 
 export default publishPost

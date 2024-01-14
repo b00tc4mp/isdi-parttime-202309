@@ -1,33 +1,26 @@
-const { validateText, validateFunction } = require('../utils/validators')
-const JSON = require('../utils/JSON')
-const { SystemError, NotFoundError } = require('../utils/errors')
+const { validateFunction, validateId } = require('./helpers/validators')
+const { SystemError, NotFoundError } = require('./errors')
+
+const { User } = require('../data/models')
 
 function retrieveUser(userId, callback) {
-	validateText(userId, 'user id')
+	validateId(userId, 'user id')
 	validateFunction(callback, 'callback')
 
-	JSON.parseFromFile('./data/users.json', (error, users) => {
-		if (error) {
-			callback(new SystemError(error.message))
+	User.findById(userId, 'name').lean()
+		.then(user => {
+			if (!user) {
+				callback(new NotFoundError('user not found'))
 
-			return
-		}
+				return
+			}
 
-		const user = users.find(user => user.id === userId)
+			delete user._id
 
-		if (!user) {
-			callback(new NotFoundError('user not found'))
+			callback(null, user)
+		})
+		.catch(error => callback(new SystemError(error.message)))
 
-			return
-		}
-
-		delete user.id
-		delete user.password
-		delete user.email
-		delete user.favs
-
-		callback(null, user)
-	})
 }
 
 module.exports = retrieveUser
