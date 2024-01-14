@@ -3,13 +3,6 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
-const toggleLikePost = require('./logic/toggleLikePost')
-const {
-  SystemError,
-  NotFoundError,
-  ContentError,
-  DuplicityError,
-} = require('./utils/errors')
 
 const server = express()
 
@@ -24,15 +17,9 @@ server.post('/users', jsonBodyParser, (req, res) => {
 
     registerUser(name, email, password, (error) => {
       if (error) {
-        let status = 400
-
-        if (error instanceof SystemError) {
-          status = 500
-        } else if (error instanceof DuplicityError) {
-          status = 400
-        }
         res
-          .status(status)
+          .status(400)
+
           .json({ error: error.constructor.name, message: error.message })
 
         return
@@ -41,11 +28,6 @@ server.post('/users', jsonBodyParser, (req, res) => {
       res.status(201).send()
     })
   } catch (error) {
-    let status = 400
-
-    if (error instanceof ContentError) {
-      status = 406
-    }
     res
       .status(400)
       .json({ error: error.constructor.name, message: error.message })
@@ -114,40 +96,6 @@ server.post('/posts', jsonBodyParser, (req, res) => {
       res.status(201).send()
     })
   } catch (error) {
-    res
-      .status(400)
-      .json({ error: error.constructor.name, message: error.message })
-  }
-})
-
-server.patch('/posts/:postId/likes', (req, res) => {
-  try {
-    const userId = req.headers.authorization.substring(7)
-
-    const { postId } = req.params
-
-    toggleLikePost(userId, postId, (error) => {
-      if (error) {
-        let status = 400
-
-        if (error instanceof SystemError) {
-          status = 500
-        } else if (error instanceof NotFoundError) {
-          status = 404
-        }
-
-        res
-          .status(status)
-          .json({ error: error.constructor.name, message: error.message })
-      }
-      res.status(204).send()
-    })
-  } catch (error) {
-    let status = 400
-
-    if (error instanceof ContentError) {
-      status = 406
-    }
     res
       .status(400)
       .json({ error: error.constructor.name, message: error.message })
