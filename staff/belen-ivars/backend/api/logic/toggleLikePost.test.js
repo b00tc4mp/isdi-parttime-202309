@@ -1,7 +1,7 @@
 const toggleLikePost = require('./toggleLikePost')
 
 try {
-	toggleLikePost('206s36wbyvpc', '5430cj18p5k0', error => {
+	toggleLikePost('659b348c696ad77021d9e2f8', '659ac06c0e890e8a7a2ddaaa', error => {
 		if (error) {
 			console.error(error)
 
