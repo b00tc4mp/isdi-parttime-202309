@@ -1,38 +1,38 @@
 
-import { validateText } from "../utils/validators"
+import validate from "./helpers/validate"
 
 function changeUserPassword(newPassword, newPasswordConfirm, password) {
-    validateText(newPassword, 'new password')
-    validateText(newPasswordConfirm, 'new password confirm')
-    validateText(password, 'password')
+    validate.password(newPassword, 'new password')
+    validate.password(newPasswordConfirm, 'new password confirm')
+    validate.password(password, 'password')
 
     //TO DO
 
-//     db.users.findById(this.sessionUserId, (error, user) => {
-//         if (error) {
-//             callback(error)
-//             return
-//         }
+    //     db.users.findById(this.sessionUserId, (error, user) => {
+    //         if (error) {
+    //             callback(error)
+    //             return
+    //         }
 
-//         if (!user || user.password !== password)
-//             throw new Error('wrong credentials')
+    //         if (!user || user.password !== password)
+    //             throw new Error('wrong credentials')
 
-//         if (newPassword !== newPasswordConfirm)
-//             throw new Error('new password and its confirmation do not match')
+    //         if (newPassword !== newPasswordConfirm)
+    //             throw new Error('new password and its confirmation do not match')
 
-//         user.password = newPassword
+    //         user.password = newPassword
 
-//         db.users.update(user, error => {
-//             if (error) {
-//                 callback(error)
-//                 return
-//             }
+    //         db.users.update(user, error => {
+    //             if (error) {
+    //                 callback(error)
+    //                 return
+    //             }
 
-//             callback(null)
-//         })
+    //             callback(null)
+    //         })
 
-//         callback(null, user)
-//     })
+    //         callback(null, user)
+    //     })
 }
 
 

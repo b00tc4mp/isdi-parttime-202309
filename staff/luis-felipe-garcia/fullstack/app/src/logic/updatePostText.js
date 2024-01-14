@@ -1,9 +1,10 @@
-import {validateText} from '../utils/validators'
+import validate from "./helpers/validate"
 
 function updatePostText(postId, text, callback) {
-    validateText(postId, 'post id')
-    validateText(text, 'text')
-//TODO
+    validate.text(postId, 'post id')
+    validate.text(text, 'text')
+    validate.function(callback, 'callback')
+    //TODO
     // db.posts.findById(postId, (error, post) => {
     //     if (error) {
     //         callback(error)

@@ -1,76 +1,49 @@
-const JSON = require('../utils/JSON.js')
-const { validateText, validateFunction } = require('../utils/validators.js')
-const { NotFoundError, SystemError, ContentError, CredentialsError } = require("../utils/errors")
+const { User, Post } = require('../data/models')
+const validate = require('./helpers/validate')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+
 
 function deletePost(userId, postId, callback) {
-    validateText(userId, 'user id')
-    validateText(postId, 'post id')
-    validateFunction(callback, 'callback')
+    validate.id(postId)
+    validate.function(callback)
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
-            return
-        }
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new NotFoundError('user do not dound'))
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error.message))
-                return
-            }
-
-            const post = posts.find(post => post.id === postId)
-
+    Post.findById(postId)
+        .then(post => {
             if (!post) {
-                callback(new NotFoundError('post do not found'))
+                callback(new NotFoundError('post id not found'))
                 return
             }
 
-            if (userId !== post.author) {
-                callback(new CredentialsError('post do not belongs to user'))
-                return
-            }
+            User.findById(userId)
+                .then(user => {
+                    if (!user) {
+                        callback(new NotFoundError('user id not found'))
+                        return
+                    }
 
-            users.forEach(user => {
-                if(user.favs.includes(postId)) {
+                    if (post.author.toString() !== userId) {
+                        callback(new CredentialsError('post do not belong to user id'))
+                        return
+                    }
 
-                    favIndexToRemove = user.favs.findIndex(fav => fav === postId)
-                    user.favs.splice(favIndexToRemove, 1)
-                }
+                    User.updateMany({ favs: postId }, { $pull: { favs: postId } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new SystemError(error.message)))
 
-            })
-            JSON.stringifyToFile('./data/users.json', users, error => {
-                if(error) {callback(new SystemError(error.message))
-                return
-                }
-
-            })
-            
-            const postToDeteleIndex = posts.findIndex(post => post.id === postId)
-            posts.splice(postToDeteleIndex, 1)        
-            
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
-                if(error) {
-                    callback(new SystemError(error.message))
-                    return
-                }
-
-                callback(null)
-            })
+                    // DESCOMENTAR PARA BORRAR
+                    // post.deleteOne({ _id: postId })
+                    //     .then(callback(null))
+                    //     .catch(error => callback(new SystemError(error.message)))
+                })
+                .catch(error => callback(new SystemError(error.message)))
 
         })
+        .catch(error => callback(new SystemError(error.message)))
 
 
 
 
-    })
+
 }
 
 module.exports = deletePost

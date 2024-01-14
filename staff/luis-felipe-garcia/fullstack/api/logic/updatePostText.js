@@ -1,63 +1,31 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
-const { SystemError, NotFoundError, CredentialsError } = require('../utils/errors')
+const { User, Post } = require('../data/models')
+const validate = require('./helpers/validate')
+const { SystemError, CredentialsError, NotFoundError, ContentError } = require('./errors')
 
 function updatePostText(userId, postId, text, callback) {
-    validateText(userId)
-    validateText(postId)
-    validateText(text)
-    validateFunction(callback)
+    validate.id(userId, 'user id')
+    validate.id(postId, 'post id')
+    validate.text(text, 'text')
+    validate.function(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(new SystemError(error.message))
-            return
-        }
-
-        const user = users.find(user => user.id === userId)
-
-        if (!user) {
-            callback(new NotFoundError('user do not exist'))
-            return
-        }
-
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(new SystemError(error.message))
-                return
-            }
-
-            const post = posts.find(post => post.id === postId)
-            
-
+    Post.findById(postId)
+        .then(post => {
             if (!post) {
-                callback(new NotFoundError('post do not exist'))
-                return
-            }
-            if (userId !== post.author) {
-                callback(new CredentialsError('wrong credentials'))
+                callback(new NotFoundError('post id not matched'))
                 return
             }
 
-            
+            if (post.author.toString() !== userId) {
+                callback(new CredentialsError('post do not belong to user'))
+                return
+            }
 
             post.text = text
-            console.log(post)
-
-            JSON.stringifyToFile('./data/posts.json', posts, error => {
-                if (error) {
-                    callback(new SystemError('error.message'))
-                    return
-                }
-                callback(null)
-            })
-
-
+            post.save()
+                .then(callback(null))
+                .catch(error => callback(new SystemError(error.message)))
         })
-    })
-
-        
-
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = updatePostText

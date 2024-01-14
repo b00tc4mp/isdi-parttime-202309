@@ -1,12 +1,12 @@
+import validate from "./helpers/validate"
 
-
-function deletePost (){
+function deletePost() {
 
     //TODO
     // deletePost(postId, callback) {
     //     // Eliminar los ID's de Favoritos
 
-    //     validateText(postId, 'post id')
+    //     validate.text(postId, 'post id')
     //     db.posts.findById(postId, (error, post) => {
     //         if (error) {
     //             callback(error)

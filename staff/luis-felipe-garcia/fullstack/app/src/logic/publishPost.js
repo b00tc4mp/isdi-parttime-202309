@@ -1,10 +1,11 @@
-import { validateText } from "../utils/validators"
+import validate from "./helpers/validate"
 
 import context from './context'
 
 function publishPost(image, text, callback) {
-    validateText(image, 'image')
-    validateText(text, 'text')
+    validate.text(image, 'image')
+    validate.text(text, 'text')
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
@@ -15,7 +16,7 @@ function publishPost(image, text, callback) {
         body: JSON.stringify({ image, text })
     }
 
-    fetch('http://localhost:8000/posts', req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
