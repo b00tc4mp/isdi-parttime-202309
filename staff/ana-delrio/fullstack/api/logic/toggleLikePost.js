@@ -8,25 +8,26 @@ function toggleLikePost(userId, postId, callback) {
     validateId(postId, 'post id')
     validateFunction(callback, 'callback')
 
-    User.findById(userId)
+    User.findById(userId).lean()
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user id do not exist'))
+                callback(new NotFoundError('user not found'))
                 return
             }
 
+            // aqui no ponemos el lean, porque queremos modificar alguna de sus propiedades
             Post.findById(postId)
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post id do not exist'))
+                        callback(new NotFoundError('post not found'))
                         return
                     }
 
-                    const userIdLikeIndex = post.likes.findIndex(like => like.toString() === userId)
-                    if (userIdLikeIndex < 0) {
+                    const index = post.likes.findIndex(userObjectId => userObjectId.toString() === userId)
+                    if (index < 0) {
                         post.likes.push(userId)
                     }
-                    else post.likes.splice(userIdLikeIndex, 1)
+                    else post.likes.splice(index, 1)
 
                     post.save()
                         .then(() => callback(null))

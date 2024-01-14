@@ -18,6 +18,7 @@ function retrievePosts(userId, callback) {
                 return
             }
             // sanemanos/normalizamos las propiedades que no nos interesan en posts
+            // The populate function in Mongoose is used to fetch referenced documents from another collection and replace the references in the original document with the actual referenced documents
             Post.find().populate('author', 'name').lean()
                 .then(posts => {
                     posts.forEach(post => {
