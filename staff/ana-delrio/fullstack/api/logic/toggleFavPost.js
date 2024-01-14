@@ -3,7 +3,7 @@ const { User, Post } = require('../data/models')
 const { NotFoundError, SystemError } = require("./errors")
 const { validateId, validateFunction } = require("./helpers/validators")
 
-function toggleLikePost(userId, postId, callback) {
+function toggleFavPost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateFunction(callback, 'callback')
@@ -11,22 +11,22 @@ function toggleLikePost(userId, postId, callback) {
     User.findById(userId)
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user id do not exist'))
+                callback(new NotFoundError('user not found'))
                 return
             }
 
-            Post.findById(postId)
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new NotFoundError('post do not found'))
                         return
                     }
 
-                    const postIdFavIndex = user.favs.findIndex(fav => fav.toString() === postId)
-                    if (postIdFavIndex < 0) {
+                    const index = user.favs.findIndex(postObjectId => postObjectId.toString() === postId)
+                    if (index < 0) {
                         user.favs.push(postId)
                     }
-                    else user.favs.splice(postIdFavIndex, 1)
+                    else user.favs.splice(index, 1)
 
                     user.save()
                         .then(() => callback(null))
@@ -40,5 +40,5 @@ function toggleLikePost(userId, postId, callback) {
 
 }
 
-module.exports = toggleLikePost
+module.exports = toggleFavPost
 
