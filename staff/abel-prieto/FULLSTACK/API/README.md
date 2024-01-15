@@ -51,7 +51,7 @@
 ## Delete Post ✅
 
 - Request: DELETE /newpost "Authorization: Bearer userId"
-- Response: 201
+- Response: 200
 - Response (error) : 400 "Content-Type: application/json" { error, message }
 
 ## Toggle Like ✅
@@ -70,4 +70,10 @@
 
 - Request: PATCH /newpost "Authorization: Bearer userId" "Content-Type: application/json" { new text }
 - Response: 202
+- Response (error) : 400|404|500 "Content-Type: application/json" { error, message }
+
+## Add Comments
+
+- Request: POST /newpost/:postId "Authorization: Bearer userId" "Content-Type: application/json" { post comment }
+- Response: 200
 - Response (error) : 400|404|500 "Content-Type: application/json" { error, message }

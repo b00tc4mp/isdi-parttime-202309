@@ -17,7 +17,7 @@ export default function toggleEditPostText(postId, postText, callback) {
         body: JSON.stringify({ postText })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/edit`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

@@ -45,6 +45,11 @@ const post = new Schema({
             type: ObjectId,
             ref: 'User'
         }
+    ],
+    comments: [
+        {
+            type: String
+        }
     ]
 })
 

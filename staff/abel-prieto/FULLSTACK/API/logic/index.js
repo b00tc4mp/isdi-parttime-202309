@@ -9,6 +9,7 @@ const retrievePost = require('./retrievePost')
 const retrieveUser = require('./retrieveUser')
 const toggleFavPost = require('./toggleFavPost')
 const toggleLikePost = require('./toggleLikePost')
+const togglePostComment = require('./togglePostComment')
 const updatePostText = require('./updatePostText')
 
 const logic = {
@@ -23,6 +24,7 @@ const logic = {
     retrieveUser,
     toggleFavPost,
     toggleLikePost,
+    togglePostComment,
     updatePostText
 }
 

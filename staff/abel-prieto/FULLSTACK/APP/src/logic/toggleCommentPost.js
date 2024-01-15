@@ -1,36 +1,33 @@
+import context from "./context"
 import validate from "./helpers/validate"
 
 // COMMENT TEXT POSTS
 
-export default function toggleCommentPostText(postId, comment, callback) {
+export default function toggleCommentPostText(postId, postComment, callback) {
     validate.text(postId, "post id")
-    validate.text(comment, "comment")
+    validate.text(postComment, "comment")
     validate.function(callback, 'callback')
 
-    db.posts.findById(postId, (error, post) => {
-        if (error) {
-            callback(error)
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${String(context.sessionUserId)}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ postComment })
+    }
 
-            return
-        }   
-
-        if (!post) {
-            callback(new Error('post not found'))
-        
-            return
-        }
-        
-        post.coments.push(comment);
-
-
-        db.posts.update(post, error => {
-            if (error) {
-                callback(error)
-
+    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/comments`, req)
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
+                
                 return
             }
 
             callback(null)
         })
-    })
+        .catch(error => callback(error))
 }

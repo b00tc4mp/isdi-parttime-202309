@@ -17,9 +17,9 @@ const {
     retrieveUserHandler,
     toggleFavPostHandler,
     toggleLikePostHandler,
+    togglePostCommentHandler,
     updatePostTextHandler
 } = require('./handlers/index')
-
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -73,7 +73,10 @@ mongoose.connect(process.env.MONGODB_URL)
         server.patch('/users/:userId/favs', toggleFavPostHandler)
 
         // TEST in browser 'PATCH' in localhost 'UPDATE POST TEXT'
-        server.patch('/newpost/:postId', jsonBodyParser, updatePostTextHandler)
+        server.patch('/newpost/:postId/edit', jsonBodyParser, updatePostTextHandler)
+
+        // TEST in browser 'PATCH' in localhost 'ADD POST COMMENT'
+        server.patch('/newpost/:postId/comments', jsonBodyParser, togglePostCommentHandler)
 
         // Hacemos que el servidor se mantenga en escucha a través del puerto 8000 e imprima un console.log()
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))

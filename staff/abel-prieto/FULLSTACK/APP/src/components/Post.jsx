@@ -125,30 +125,30 @@ function Post(props) {
         }
     }
 
-    // SEND COMMENTS
-    // function handleToggleCommentClick(postId) {
-    //     try {
-    //         const comment = document.querySelector("#text-comment").value
+    // SEND POST COMMENTS
+    function handleToggleCommentClick(postId) {
+        try {
+            const postComment = document.querySelector("#text-comment").value
 
-    //         logic.toggleCommentPostText(postId, comment, error => {
-    //             if (error) {
-    //                 alert(error.message)
+            logic.toggleCommentPost(postId, postComment, error => {
+                if (error) {
+                    alert(error.message)
 
-    //                 return
-    //             }
+                    return
+                }
 
-    //             props.onSendComment()
-    //             // Hacemos un repintado de los posts-favs
+                props.onSendComment()
+                // Hacemos un repintado de los posts-favs
 
-    //             setInputBorder('none');
-    //             // Quitamos el borde del input por defecto
+                setInputBorder('none');
+                // Quitamos el borde del input por defecto
 
-    //             // setCommentText('comment')
-    //         })
-    //     } catch (error) {
-    //         alert(error.message)
-    //     }
-    // }
+                setCommentText('comment')
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     // TEMPLATE
     return <>
@@ -164,11 +164,11 @@ function Post(props) {
                         <Button onClick={() => handleToggleInputEditClick(post.id, post.text)}>Done</Button>
                     </div>}
             </div>
-            {/* <div>
-                {post.coments.length
-                    ? <p>{name + ": " + post.coments + "  -  " + new Date().toLocaleDateString()}</p>
+            {<div>
+                {post.comments.length
+                    ? <p>{name + ": " + post.comments + "  -  " + new Date().toLocaleDateString()}</p>
                     : <input className="post-comments" id="text-comment" placeholder="Escribe un comentario" type="text" style={{ borderStyle: inputBorder }}></input>}
-            </div> */}
+            </div>}
             <div className="buttons-post">
                 <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
                 <Button onClick={() => handleToggleCommentClick(post.id)}>🗨</Button>

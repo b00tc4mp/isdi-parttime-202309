@@ -8,6 +8,7 @@ const retrievePostHandler = require('./retrievePostHandler')
 const retrieveFavPostHandler = require('./retrieveFavPostHandler')
 const retrieveUserHandler = require('./retrieveUserHandler')
 const toggleFavPostHandler = require('./toggleFavPostHandler')
+const togglePostCommentHandler = require('./togglePostCommentHandler')
 const toggleLikePostHandler = require('./toggleLikePostHandler')
 const updatePostTextHandler = require('./updatePostTextHandler')
 
@@ -23,5 +24,6 @@ module.exports = {
     retrieveUserHandler,
     toggleFavPostHandler,
     toggleLikePostHandler,
+    togglePostCommentHandler,
     updatePostTextHandler
 }
