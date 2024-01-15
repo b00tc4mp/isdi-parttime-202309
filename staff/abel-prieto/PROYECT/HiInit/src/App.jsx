@@ -1,9 +1,12 @@
-import Home from "./views/Home"
+import Loading from "./views/Loading"
+import { useState } from "react"
 
 function App() {
 
+  const [view, setView] = useState(null)
+
   return <>
-  <Home />
+    <Loading />
   </>
 
 }

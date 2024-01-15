@@ -12,18 +12,25 @@ p {
   margin-bottom: 0px;
 }
 
+.guest {
+  color: rgb(255, 128, 55);
+  font-weight: bold;
+}
+
 a {
   color: white;
   text-decoration: none;
 }
+
 a:hover {
   color: grey;
 }
+
 a:active {
   color: orange;
 }
 
-.home {
+.loading {
   display: block;
   background-color: #1e252e;
   border-style: solid;
@@ -43,6 +50,7 @@ a:active {
   font-family: monospace;
   text-align: left;
 }
+
 .tittle-logo p {
   margin: 0;
 }
@@ -71,6 +79,14 @@ a:active {
   align-items: end;
   text-align: left;
   margin-bottom: 5px;
+}
+
+.command-input {
+  display: inline-block;
+  border: none;
+  outline: none;
+  width: 20ch;
+  padding-top: 20px;
 }
 
 ::-webkit-scrollbar {

@@ -1,44 +1,37 @@
 ## HiInit v0.0
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 ## RESUME
 
-- Terminal web with local and drive services
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+- Terminal web with local files and drive online services.
+- Personal desktop for each user.
+- Upload and download files: PDF's, text, images.
 
 ## USER'S TYPE
 
-- Guest: First entry withot log
+- Guest: First entry without log
 
 - User: Regular user
 - Root: Administrator
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 ## USE CASES
 
-REGULAR USER
+{ REGULAR USER }
 
 - Manage files & folders
 - Manage permissions
 - Manage groups 
 
-ADMIN
+{ ADMIN }
 
 - Manage users (CRUD) 
 - Manage files & folders
 - Manage permissions
 - Manage groups 
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 ## STORIES
 
 ** USE CASES
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 ## COMMANDS
 
