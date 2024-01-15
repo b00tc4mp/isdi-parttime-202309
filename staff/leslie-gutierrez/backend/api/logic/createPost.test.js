@@ -1,14 +1,21 @@
+const mongoose = require('mongoose')
+
 const createPost = require('./createPost')
 
-try{
-    createPost("6ttz1tptn2c0", 'https://s2.abcstatics.com/media/bienestar/2020/09/01/lechuga-kSlD--1248x698@abc.jpg', 'what a fresh day', error=>{
-        if(error){
-            console.error(error)
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            createPost('659eda7f439e5bb06833d695', 'https://media.istockphoto.com/id/181072765/es/foto/lechuga-aislado.jpg?s=612x612&w=0&k=20&c=7spdLdTK_iyTUdpdp6cjdHkDE9dCkahoTtnOvQYY8mE=', 'what a fresh day', error => {
+                if (error) {
+                    console.error(error)
 
-            return 
+                    return
+                }
+
+                console.log('created')
+            })
+        } catch (error) {
+            console.error(error)
         }
-        console.log('created')
     })
-} catch(error){
-    console.log(error)
-}
+    .catch(error => console.error(error))
