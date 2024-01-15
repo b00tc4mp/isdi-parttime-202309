@@ -17,6 +17,16 @@ server.get('/', (req, res) => res.send('hello world'))
 
 const jsonBodyParser = express.json()
 
+server.use((req, res, next) => {
+  // le decimos al navegador que nos puede llamar desde cualquier origen:
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
+
+  // next sirve para decirle que cualquier petición pasa por este middleware y que luego con la nueva configuración continúe con el siguiente middleware. En un register user, por ejemplo, los objetos req y res pasan primero por este middleware, luego por el jsonBodyParser de server.post('/users') y luego por el try, catch.
+  next()
+})
+
 // register a user:
 server.post('/users', jsonBodyParser, (req, res) => {
   try {
@@ -29,7 +39,7 @@ server.post('/users', jsonBodyParser, (req, res) => {
         if (error instanceof SystemError) {
           status = 500
         } else if (error instanceof DuplicityError) {
-          status = 400
+          status = 409
         }
         res
           .status(status)
@@ -97,6 +107,7 @@ server.get('/users', (req, res) => {
   }
 })
 
+// publish a post
 server.post('/posts', jsonBodyParser, (req, res) => {
   try {
     const userId = req.headers.authorization.substring(7)
@@ -120,6 +131,7 @@ server.post('/posts', jsonBodyParser, (req, res) => {
   }
 })
 
+// like or unlike a post
 server.patch('/posts/:postId/likes', (req, res) => {
   try {
     const userId = req.headers.authorization.substring(7)
