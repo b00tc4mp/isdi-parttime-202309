@@ -1,12 +1,13 @@
 <script>
     const req = {
-        method: 'GET',
+        method: 'POST',
         headers: {
-            Authorization: 'Bearer 2eqjhn1o45no'
-        }
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: 'po@peye.com', password: '123123123' })
     }
 
-    fetch('http://localhost:8000/users', req)
+    fetch('http://localhost:8000/users/auth', req)
         .then(res => {
             if (res.ok)
                 res.json()

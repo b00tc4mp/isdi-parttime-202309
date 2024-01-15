@@ -1,34 +1,30 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateText, validateFunction } = require('./helpers/validators')
+const {User} = require ('../data/models')
+const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 function authenticateUser(email, password, callback) {
     validateText(email, 'email')
     validateText(password, 'password')
     validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
+   User.findOne({email})
+        .then(user =>{
+            if (!user){
+                callback(new NotFoundError('user not found'))
 
+                return 
+            }
+
+            if(user.password !== password){
+                callback(new CredentialsError('wrong password'))
             return
-        }
+            
+            }
 
-        let user = users.find(user => user.email === email)
+            callback(null, user.id)
+        })
 
-        if (!user) {
-            callback(new Error('user not found'))
-
-            return
-        }
-
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
-
-            return
-        }
-
-        callback(null, user.id)
-    })
+        .catch(error=> callback(new SystemError(error.message)))
 }
 
 module.exports = authenticateUser
