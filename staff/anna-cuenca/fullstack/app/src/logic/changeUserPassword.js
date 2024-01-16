@@ -1,10 +1,10 @@
-import { validateText } from "../utils/validators"
+import validate from './helpers/validate'
 import context from "./context"
 
 function changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
-    validateText(newPassword, "new password")
-    validateText(newPasswordConfirm, "new password confirm")
-    validateText(password, "password")
+    validate.password(newPassword, "new password")
+    validate.password(newPasswordConfirm, "new password confirm")
+    validate.password(password)
 
     db.users.findById(context.sessionUserId, (error, user) => {
         if (error) {

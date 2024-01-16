@@ -1,4 +1,4 @@
-const { validateText, validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
@@ -7,10 +7,10 @@ const { Post, User } = require('../data/models')
 
 
 function editTextPost(userId, postId, text, callback) {
-    validateId(userId, 'user id')
-    validateId(postId, 'post id')
-    validateText(text, 'text')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.id(postId, 'post id')
+    validate.text(text, 'text')
+    validate.function(callback, 'callback')
 
     User.findById(userId)
         .then(user => {

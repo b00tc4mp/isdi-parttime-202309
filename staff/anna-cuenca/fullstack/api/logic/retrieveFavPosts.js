@@ -1,10 +1,10 @@
-const { validateText, validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors.js')
 
 function retrieveFavPosts(userId, callback) {
-    validateId(userId, 'user id')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.function(callback, 'callback')
 
     User.findById(userId).lean()
         .then(user => {

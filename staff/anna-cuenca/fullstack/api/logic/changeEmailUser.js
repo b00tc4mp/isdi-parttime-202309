@@ -1,5 +1,5 @@
 
-const { validateText, validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 const { User } = require('../data/models')
 
@@ -8,13 +8,13 @@ const { SystemError, NotFoundError, CredentialsError, DuplicityError } = require
 function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
-    validateId(userId, 'user id')
+    validate.id(userId, 'user id')
 
-    validateText(email, 'email')
-    validateText(newEmail, 'new email')
-    validateText(repeatNewEmail, 'new email confirm')
+    validate.email(email, 'email')
+    validate.email(newEmail, 'new email')
+    validate.email(repeatNewEmail, 'new email confirm')
 
-    validateFunction(callback, 'callback')
+    validate.function(callback, 'callback')
 
     //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 

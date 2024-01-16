@@ -1,4 +1,4 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 const { User } = require('../data/models')
@@ -8,9 +8,9 @@ function authenticateUser(email, password, callback) {
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
 
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+    validate.email(email, 'email')
+    validate.text(password, 'password')
+    validate.function(callback, 'callback')
 
     User.findOne({ email })
         .then(user => {

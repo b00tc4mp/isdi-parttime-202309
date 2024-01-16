@@ -1,4 +1,4 @@
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { DuplicityError, SystemError } = require('./errors')
 
 const { User } = require('../data/models')
@@ -7,10 +7,10 @@ function registerUser(name, email, password, callback) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
-    validateText(name, 'name')
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+    validate.text(name, 'name')
+    validate.email(email, 'email')
+    validate.text(password, 'password')
+    validate.function(callback, 'callback')
 
     const user = new User({ name, email, password })
     user.save()

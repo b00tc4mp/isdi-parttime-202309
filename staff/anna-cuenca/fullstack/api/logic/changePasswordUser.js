@@ -1,4 +1,4 @@
-const { validateText, validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 const { User } = require('../data/models')
 
@@ -8,11 +8,11 @@ function changePasswordUser(userId, password, newPassword, repeatNewPassword, ca
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
-    validateId(userId, 'user id')
-    validateText(password, 'password')
-    validateText(newPassword, 'password')
-    validateText(repeatNewPassword, 'password')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.text(password, 'password')
+    validate.text(newPassword, 'password')
+    validate.text(repeatNewPassword, 'password')
+    validate.function(callback, 'callback')
 
     User.findById(userId)
         .then(user => {

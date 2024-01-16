@@ -1,10 +1,12 @@
-import { validateText } from "../utils/validators"
+import validate from './helpers/validate'
 
 //cambiar el nombre por upddatePostText
 
 
 function toggleEditPost(postId, newText, callback) {
-    validateText(newText, 'text to edit')
+    validate.text(postId, 'post id')
+    validate.text(newText, 'text to edit')
+    validate.function(callback, 'callback')
 
     db.posts.findById(postId, (error, post) => {
         if (error) {

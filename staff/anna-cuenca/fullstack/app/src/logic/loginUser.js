@@ -1,9 +1,9 @@
-import { validateText } from "../utils/validators"
-import context from "./context"
+import validate from './helpers/validate'
+import context from './context'
 
 function loginUser(email, password, callback) {
-    validateText(email, 'email')
-    validateText(password, 'password')
+    validate.email(email)
+    validate.password(password)
 
     const req = {
         method: 'POST',
@@ -13,7 +13,7 @@ function loginUser(email, password, callback) {
         body: JSON.stringify({ email, password })
     }
 
-    fetch('http://localhost:8000/users/auth', req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

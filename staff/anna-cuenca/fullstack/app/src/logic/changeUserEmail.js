@@ -1,10 +1,10 @@
-import { validateText } from "../utils/validators"
+import validate from './helpers/validate'
 import context from "./context"
 
 function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
-    validateText(newEmail, "new email")
-    validateText(newEmailConfirm, "new email confirm")
-    validateText(password, "password")
+    validate.email(newEmail, "new email")
+    validate.email(newEmailConfirm, "new email confirm")
+    validate.email(password)
 
     db.users.findById(context.sessionUserId, (error, user) => {
         if (error) {
