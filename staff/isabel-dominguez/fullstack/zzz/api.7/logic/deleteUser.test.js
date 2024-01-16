@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText');
+const deleteUser = require('./deleteUser')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('65a2786812e5cd4ec6c5b99d', '65a2787912e5cd4ec6c5b9a9', 'My granspa', (error) => {
+            deleteUser('6599810a2c6f1a3caa0ed9f3', '234234234', (error, userId) => {
                 if (error) {
                     console.error(error)
+
                     return
                 }
 
-                console.log('Post text updated successfully')
+                console.log('user deleted', userId)
             })
         } catch (error) {
             console.log(error)
         }
     })
-
     .catch(error => console.error(error))

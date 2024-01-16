@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText');
+const retrieveFavPosts = require('./retrieveFavPosts')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('65a2786812e5cd4ec6c5b99d', '65a2787912e5cd4ec6c5b9a9', 'My granspa', (error) => {
+            retrieveFavPosts('659d80f8aab595d1bf1d8ece', (error, favPosts) => {
                 if (error) {
                     console.error(error)
+
                     return
                 }
 
-                console.log('Post text updated successfully')
+                console.log('retrieved', favPosts)
             })
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     })
-
     .catch(error => console.error(error))

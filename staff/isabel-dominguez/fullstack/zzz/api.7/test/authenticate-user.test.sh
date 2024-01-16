@@ -2,12 +2,12 @@ echo TEST "authenticate-user"
 
 echo CASE "success on correct credentials"
 
-curl 'http://localhost:9000/users/auth' \
+curl 'http://localhost:8000/users/auth' \
 -H 'Content-Type: application/json' \
 -d '{ "email": "man@zana.com", "password": "123123123" }' \
 -v
 
-# * processing: http://localhost:9000/users/auth
+# * processing: http://localhost:8000/users/auth
 # *   Trying [::1]:8000...
 # * Connected to localhost (::1) port 8000
 # > POST /users/auth HTTP/1.1

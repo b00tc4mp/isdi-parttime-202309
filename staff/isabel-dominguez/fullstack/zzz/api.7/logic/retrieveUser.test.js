@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText');
+const retrieveUser = require('./retrieveUser')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('65a2786812e5cd4ec6c5b99d', '65a2787912e5cd4ec6c5b9a9', 'My granspa', (error) => {
+            retrieveUser('659d80cd92931dda482823f6', (error, user) => {
                 if (error) {
                     console.error(error)
+
                     return
                 }
 
-                console.log('Post text updated successfully')
+                console.log('retrieved', user)
             })
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     })
-
     .catch(error => console.error(error))

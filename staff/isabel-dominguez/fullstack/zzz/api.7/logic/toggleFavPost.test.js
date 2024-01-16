@@ -1,20 +1,21 @@
 const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText');
+const toggleFavPost = require('./toggleFavPost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('65a2786812e5cd4ec6c5b99d', '65a2787912e5cd4ec6c5b9a9', 'My granspa', (error) => {
+            toggleFavPost('659d998329ee11d6151ee661', '659d99a329ee11d6151ee670', error => {
                 if (error) {
                     console.error(error)
+
                     return
                 }
 
-                console.log('Post text updated successfully')
+                console.log('post fav toggled')
             })
+
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     })
-
     .catch(error => console.error(error))

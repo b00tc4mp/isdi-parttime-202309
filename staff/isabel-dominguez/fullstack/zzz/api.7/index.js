@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 const express = require('express')
-const cors = require('cors')
+const cors = require('./utils/cors')
 
 const {
     registerUserHandler,
@@ -26,7 +26,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware.
 
-        server.use(cors())
+        // Middleware para analizar cuerpos JSON
+        server.use(express.json())
+
+        server.use(cors)
 
         //REGISTER
         server.post('/users', jsonBodyParser, registerUserHandler)
@@ -65,7 +68,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.delete('/posts/:postId', deletePostHandler)
 
         //UPDATE POST TEXT
-        server.patch('/posts/:postId', jsonBodyParser, updatePostTextHandler)
+        server.put('/posts/:postId', jsonBodyParser, updatePostTextHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

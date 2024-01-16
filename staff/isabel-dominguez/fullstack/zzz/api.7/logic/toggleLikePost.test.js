@@ -1,19 +1,21 @@
 const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText');
+const toggleLikePost = require('./toggleLikePost')
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('65a2786812e5cd4ec6c5b99d', '65a2787912e5cd4ec6c5b9a9', 'My granspa', (error) => {
+            toggleLikePost('659d80f8aab595d1bf1d8ece', '659d824f9f02bc61a6c11859', error => {
                 if (error) {
                     console.error(error)
+
                     return
                 }
 
-                console.log('Post text updated successfully')
+                console.log('post like toggled')
             })
+
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     })
 
