@@ -5,9 +5,15 @@ import registerUser from './registerUser.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            registerUser('Le On', 'le@on.com', '123123123')
-                .then(() => console.log('user registered'))
-                .catch(error => console.error(error))
+            registerUser('Le Chuga', 'le@chuga.com', '123123123', error => {
+                if (error) {
+                    console.error(error)
+
+                    return
+                }
+
+                console.log('user registered')
+            })
         } catch (error) {
             console.log(error)
         }
