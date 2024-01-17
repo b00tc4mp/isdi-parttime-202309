@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-
+import mongoose from 'mongoose'
 const { Schema, model, ObjectId } = mongoose
 // Nos traemos los parametros propios de mongoose que vayamos a utilizar
 
@@ -56,7 +55,7 @@ const post = new Schema({
 const User = model('User', user)
 const Post = model('Post', post)
 
-module.exports = {
+export {
     User,
     Post
 }

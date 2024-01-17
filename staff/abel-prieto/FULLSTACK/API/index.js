@@ -1,11 +1,13 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 // Requerimos la librería 'dotenv' y su método config() para que lea el archivo .env y nos traiga las variables de MONGODB_URL y PORT en nuestro servidor
 
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('./utils/cors')
+import express from 'express'
+import mongoose from 'mongoose'
 
-const {
+import cors from 'cors'
+
+import {
     authenticateUserHandler,
     changeEmailUserHandler,
     changePasswordUserHandler,
@@ -19,7 +21,7 @@ const {
     toggleLikePostHandler,
     togglePostCommentHandler,
     updatePostTextHandler
-} = require('./handlers/index')
+} from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -37,7 +39,7 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = express.json()
 
         // Con server.use() te permite usar un middleware a nivel global para que lo tengan todas las respuestas a peticiones al servidor y con next(), hace que continuen
-        server.use(cors)
+        server.use(cors())
 
         // TEST in browser 'POST' in localhost 'REGISTER USER'
         server.post('/users', jsonBodyParser, registerUserHandler)

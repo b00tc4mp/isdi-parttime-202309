@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const { Schema, model, ObjectId } = mongoose
 // Nos traemos los parametros propios de mongoose que vayamos a utilizar

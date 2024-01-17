@@ -1,6 +1,6 @@
-const { User } = require('../data/models')
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
-const validate= require('./helpers/validate')
+import { User } from '../data/models.js'
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
+import validate from './helpers/validate.js'
 
 function authenticateUser(email, password, callback) {
     validate.email(email, 'name')
@@ -27,4 +27,4 @@ function authenticateUser(email, password, callback) {
     
 }
 
-module.exports = authenticateUser
+export default authenticateUser

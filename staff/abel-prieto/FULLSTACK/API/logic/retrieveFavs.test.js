@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const retrieveFavs = require('./retrieveFavs')
+import mongoose from 'mongoose'
+import retrieveFavs from './retrieveFavs'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {

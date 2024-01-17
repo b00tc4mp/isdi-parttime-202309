@@ -1,16 +1,16 @@
-const authenticateUser = require('./authenticateUser')
-const changeEmailUser = require('./changeEmailUser')
-const changePasswordUser = require('./changePasswordUser')
-const createPost = require('./createPosts')
-const deletePost = require('./deletePost')
-const registerUser = require('./registerUser')
-const retrieveFavs = require('./retrieveFavs')
-const retrievePost = require('./retrievePost')
-const retrieveUser = require('./retrieveUser')
-const toggleFavPost = require('./toggleFavPost')
-const toggleLikePost = require('./toggleLikePost')
-const togglePostComment = require('./togglePostComment')
-const updatePostText = require('./updatePostText')
+import authenticateUser from './authenticateUser.js'
+import changeEmailUser from './changeEmailUser.js'
+import changePasswordUser from './changePasswordUser.js'
+import createPost from './createPosts.js'
+import deletePost from './deletePost.js'
+import registerUser from './registerUser.js'
+import retrieveFavs from './retrieveFavs.js'
+import retrievePost from './retrievePost.js'
+import retrieveUser from './retrieveUser.js'
+import toggleFavPost from './toggleFavPost.js'
+import toggleLikePost from './toggleLikePost.js'
+import togglePostComment from './togglePostComment.js'
+import updatePostText from './updatePostText.js'
 
 const logic = {
     authenticateUser,
@@ -28,4 +28,4 @@ const logic = {
     updatePostText
 }
 
-module.exports = logic
+export default logic

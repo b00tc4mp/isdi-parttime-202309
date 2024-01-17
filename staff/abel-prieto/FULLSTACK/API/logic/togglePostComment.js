@@ -1,6 +1,6 @@
-const { Post, User } = require('../data/models')
-const { SystemError, NotFoundError } = require('./errors')
-const validate = require('./helpers/validate')
+import { Post, User } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
+import validate from './helpers/validate.js'
 
 function togglePostComment(userId, postId, comment, callback) {
     validate.id(userId, 'user id')
@@ -43,4 +43,4 @@ function togglePostComment(userId, postId, comment, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = togglePostComment
+export default togglePostComment

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const togglePostComment = require('./togglePostComment')
+import mongoose from 'mongoose'
+import togglePostComment from './togglePostComment'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {

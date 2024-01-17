@@ -1,16 +1,12 @@
-const mongoose = require('mongoose')
-const authenticateUser = require("./authenticateUser")
+import mongoose from 'mongoose'
+import { expect  } from 'chai'
 
-const { NotFoundError } = require('./errors')
+import authenticateUser from './authenticateUser'
+import { NotFoundError } from './errors.js'
+
 
 describe('authenticateUser', () => {
-    let expect
-
-    before(() => {
-        import('chai')
-            .then(chai => expect = chai.expect)
-            .then(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
-    })
+    before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
 
     it('succeeds on correct credentials', done => {
         authenticateUser('wendy@darling.com', '123123123', (error, userId) => {

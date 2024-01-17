@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { NotFoundError, ContentError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { NotFoundError, ContentError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
     // Ponemos :postId con (:) porque express lo toma como un parámetro variable y lo mete en la request
 
     try {

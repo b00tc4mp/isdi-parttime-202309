@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const createPosts = require("./createPosts")
+import mongoose from 'mongoose'
+import createPosts from './createPosts'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {

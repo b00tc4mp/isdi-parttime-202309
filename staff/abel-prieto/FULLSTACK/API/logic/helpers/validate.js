@@ -2,7 +2,7 @@
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const ID_REGEX = /^[0-9A-Fa-f]{24}$/
-const { ContentError } = require('../errors')
+import { ContentError } from '../errors.js'
 
 function text(string, explain) {
     if (typeof string !== 'string') throw new TypeError(`${string} is not a string`)
@@ -35,4 +35,4 @@ const validate = {
     id
 }
 
-module.exports = validate
+export default validate

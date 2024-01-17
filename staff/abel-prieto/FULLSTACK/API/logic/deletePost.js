@@ -1,6 +1,6 @@
-const { User, Post } = require('../data/models')
-const { SystemError, NotFoundError } = require('./errors')
-const validate = require('./helpers/validate')
+import { User, Post } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
+import validate from './helpers/validate.js'
 
 function deletePost(userId, postId, callback) {
     validate.id(userId, 'user id')
@@ -32,4 +32,4 @@ function deletePost(userId, postId, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
     
-module.exports = deletePost
+export default deletePost
