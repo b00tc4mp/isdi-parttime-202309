@@ -47,5 +47,19 @@
         "email": "alca@chofa.com",
         "password": "123123123",
         "favs": []
+    },
+    {
+        "id": "57dy6n93lrk0",
+        "name": "judy2",
+        "email": "dani@berlin",
+        "password": "aaa",
+        "favs": []
+    },
+    {
+        "id": "6nxxex8ewmo0",
+        "name": "plonky",
+        "email": "plonky@pops.es",
+        "password": "111",
+        "favs": []
     }
 ]

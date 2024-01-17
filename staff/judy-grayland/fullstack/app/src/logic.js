@@ -13,52 +13,62 @@ class Logic {
     validateText(email, 'email')
     validateText(password, 'password')
 
-    db.users.findByEmail(email, (error, user) => {
-      if (error) {
-        callback(error)
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, password }),
+    }
 
-        return
-      }
-
-      if (user) {
-        callback(new Error('user already exists'))
-
-        return
-      }
-
-      db.users.insert(new User(null, name, email, password, []), (error) => {
-        if (error) {
-          callback(error)
+    fetch('http://localhost:8000/users/', req)
+      .then((res) => {
+        if (!res.ok) {
+          res
+            .json()
+            .then((body) => callback(new Error(body.message)))
+            .catch((error) => callback(error))
 
           return
         }
 
         callback(null)
       })
-    })
+      .catch((error) => callback(error))
   }
 
   loginUser(email, password, callback) {
     validateText(email, 'email')
     validateText(password, 'password')
 
-    db.users.findByEmail(email, (error, user) => {
-      if (error) {
-        callback(error)
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }
 
-        return
-      }
+    fetch('http://localhost:8000/users/auth', req)
+      .then((res) => {
+        if (!res.ok) {
+          res
+            .json()
+            .then((body) => callback(new Error(body.message)))
+            .catch((error) => callback(error))
 
-      if (!user || user.password !== password) {
-        callback(new Error('wrong credentials'))
+          return
+        }
 
-        return
-      }
-
-      this.sessionUserId = user.id
-
-      callback(null)
-    })
+        res
+          .json()
+          .then((userId) => {
+            this.sessionUserId = userId
+            callback(null)
+          })
+          .catch((error) => callback(error))
+      })
+      .catch((error) => callback(error))
   }
 
   logoutUser(callback) {
@@ -70,21 +80,30 @@ class Logic {
   }
 
   retrieveUser(callback) {
-    db.users.findById(this.sessionUserId, (error, user) => {
-      if (error) {
-        callback(error)
+    const req = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.sessionUserId}`,
+      },
+    }
 
-        return
-      }
+    fetch('http://localhost:8000/users', req)
+      .then((res) => {
+        if (!res.ok) {
+          res
+            .json()
+            .then((body) => callback(new Error(body.message)))
+            .catch((error) => callback(error))
 
-      if (!user) {
-        callback(new Error('user not found'))
-      }
+          return
+        }
 
-      delete user.password
-
-      callback(null, user)
-    })
+        res
+          .json()
+          .then((user) => callback(null, user))
+          .catch((error) => callback(error))
+      })
+      .catch((error) => callback(error))
   }
 
   changeUserEmail(newEmail, newEmailConfirm, password, callback) {
@@ -170,7 +189,8 @@ class Logic {
       }
 
       if (!user) {
-        callback(new Error('user not found'))
+        // console.log('this is the error')
+        callback(new Error('user on holiday'))
 
         return
       }

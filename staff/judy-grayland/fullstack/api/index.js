@@ -18,12 +18,10 @@ server.get('/', (req, res) => res.send('hello world'))
 const jsonBodyParser = express.json()
 
 server.use((req, res, next) => {
-  // le decimos al navegador que nos puede llamar desde cualquier origen:
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.setHeader('Access-Control-Allow-Methods', '*')
 
-  // next sirve para decirle que cualquier petición pasa por este middleware y que luego con la nueva configuración continúe con el siguiente middleware. En un register user, por ejemplo, los objetos req y res pasan primero por este middleware, luego por el jsonBodyParser de server.post('/users') y luego por el try, catch.
   next()
 })
 
@@ -57,7 +55,7 @@ server.post('/users', jsonBodyParser, (req, res) => {
       status = 406
     }
     res
-      .status(400)
+      .status(status)
       .json({ error: error.constructor.name, message: error.message })
   }
 })

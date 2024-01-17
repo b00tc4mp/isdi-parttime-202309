@@ -1,6 +1,6 @@
 import logic from '../logic'
 
-import { Button, Link, Form, Field, Container} from '../library'
+import { Button, Link, Form, Field, Container } from '../library'
 
 // function SubmitButton(props){
 //     function handleClick(event) {
@@ -14,52 +14,57 @@ import { Button, Link, Form, Field, Container} from '../library'
 
 // props es un objeto que tiene como propiedades todo lo que le asignes en la app: en este caso serían onRegisterClick y onSuccess
 function Login(props) {
-    console.log('Login')
-    
-    function handleSubmit(event) {
-        event.preventDefault()
+  console.log('Login')
 
-        const emailInput = event.target.querySelector('#email-input')
-        const passwordInput = event.target.querySelector('#password-input')
+  function handleSubmit(event) {
+    event.preventDefault()
 
-        const email = emailInput.value
-        const password = passwordInput.value
+    const emailInput = event.target.querySelector('#email-input')
+    const passwordInput = event.target.querySelector('#password-input')
 
-        try {
-            logic.loginUser(email, password, error => {
-                if(error) {
-                    alert(error.message)
+    const email = emailInput.value
+    const password = passwordInput.value
 
-                    return
-                }
-                
-                props.onSuccess()
-            })
-        } catch (error) {
-            alert(error.message)
+    try {
+      logic.loginUser(email, password, (error) => {
+        if (error) {
+          alert(error.message)
+
+          return
         }
+        props.onSuccess()
+      })
+    } catch (error) {
+      alert(error.message)
     }
+  }
 
-    function handleRegisterClick(event) {
-        event.preventDefault()
+  function handleRegisterClick(event) {
+    event.preventDefault()
 
-        // console.log('register click')
-        props.onRegisterClick() // Here we ACCESS the onRegisterClick attribute of props object. It is a function that it receives from the parent component and we call that function by adding ()
-    }
+    // console.log('register click')
+    props.onRegisterClick() // Here we ACCESS the onRegisterClick attribute of props object. It is a function that it receives from the parent component and we call that function by adding ()
+  }
 
-    return <Container>
-        <h1>Log in</h1>
+  return (
+    <Container>
+      <h1>Log in</h1>
 
-        <Form onSubmit={handleSubmit}>
-            <Field id="email-input" type="email">Email:</Field>
+      <Form onSubmit={handleSubmit}>
+        <Field id="email-input" type="email">
+          Email:
+        </Field>
 
-            <Field id="password-input" type="password">Password:</Field>
-          
-            <Button type="submit">Log in</Button>
-        </Form>
+        <Field id="password-input" type="password">
+          Password:
+        </Field>
 
-        <Link onClick={handleRegisterClick}>Register</Link>
+        <Button type="submit">Log in</Button>
+      </Form>
+
+      <Link onClick={handleRegisterClick}>Register</Link>
     </Container>
+  )
 }
 
 export default Login
