@@ -1,6 +1,7 @@
-const validate = require('./helpers/validate')
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
-const { User } = require('../data/models')
+import validate from './helpers/validate.js'
+
+import { User } from '../data/models.js'
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 
 function changeUserPassword(userId, password, newPassword, confirmNewPassword, callback) {
     validate.id(userId, 'id')
@@ -38,4 +39,4 @@ function changeUserPassword(userId, password, newPassword, confirmNewPassword, c
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = changeUserPassword
+export default changeUserPassword

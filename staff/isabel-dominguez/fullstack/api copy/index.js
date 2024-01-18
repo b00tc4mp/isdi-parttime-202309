@@ -1,10 +1,11 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
-const mongoose = require('mongoose')
-const express = require('express')
-const cors = require('cors')
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
 
-const {
+import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
@@ -18,7 +19,7 @@ const {
     deleteUserHandler,
     retrieveFavPostsHandler,
     updatePostTextHandler
-} = require('./handlers')
+} from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -65,7 +66,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.delete('/posts/:postId', deletePostHandler)
 
         //UPDATE POST TEXT
-        server.patch('/posts/:postId', jsonBodyParser, updatePostTextHandler)
+        server.patch('/posts/:postId/text', jsonBodyParser, updatePostTextHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

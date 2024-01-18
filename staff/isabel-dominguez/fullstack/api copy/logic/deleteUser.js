@@ -1,7 +1,7 @@
-const validate = require('./helpers/validate')
-const { SystemError, NotFoundError } = require('./errors')
+import validate from './helpers/validate.js'
 
-const { User } = require('../data/models')
+import { User } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
 
 function deleteUser(userId, callback) {
     validate.id(userId, 'id')
@@ -20,4 +20,4 @@ function deleteUser(userId, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = deleteUser
+export default deleteUser

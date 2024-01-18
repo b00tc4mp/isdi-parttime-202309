@@ -1,19 +1,19 @@
-const registerUserHandler = require('./registerUserHandler')
-const authenticateUserHandler = require('./authenticateUserHandler')
-const retrieveUserHandler = require('./retrieveUserHandler')
-const retrievePostsHandler = require('./retrievePostsHandler')
-const createPostHandler = require('./createPostHandler')
-const toggleLikePostHandler = require('./toggleLikePostHandler')
-const toggleFavPostHandler = require('./toggleFavPostHandler')
-const changeUserEmailHandler = require('./changeUserEmailHandler')
-const changeUserPasswordHandler = require('./changeUserPasswordHandler')
-const deletePostHandler = require('./deletePostHandler')
-const deleteUserHandler = require('./deleteUserHandler')
-const retrieveFavPostsHandler = require('./retrieveFavPostsHandler')
-const updatePostTextHandler = require('./updatePostTextHandler')
+import registerUserHandler from './registerUserHandler.js'
+import authenticateUserHandler from './authenticateUserHandler.js'
+import retrieveUserHandler from './retrieveUserHandler.js'
+import retrievePostsHandler from './retrievePostsHandler.js'
+import createPostHandler from './createPostHandler.js'
+import toggleLikePostHandler from './toggleLikePostHandler.js'
+import toggleFavPostHandler from './toggleFavPostHandler.js'
+import changeUserEmailHandler from './changeUserEmailHandler.js'
+import changeUserPasswordHandler from './changeUserPasswordHandler.js'
+import deletePostHandler from './deletePostHandler.js'
+import deleteUserHandler from './deleteUserHandler.js'
+import retrieveFavPostsHandler from './retrieveFavPostsHandler.js'
+import updatePostTextHandler from './updatePostTextHandler.js'
 
 
-module.exports = {
+export {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,

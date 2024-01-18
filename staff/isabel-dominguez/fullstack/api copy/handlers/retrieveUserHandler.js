@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { NotFoundError, ContentError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { NotFoundError, ContentError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)// El ID está a partir del carácter 7 del cabecero "-H 'Authorization: Bearer 5gbocg2tsfs0'"
 
