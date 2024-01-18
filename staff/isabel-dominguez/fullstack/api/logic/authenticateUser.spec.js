@@ -23,7 +23,7 @@ describe('authenticateUser', () => {
     })
 
     it('fails on wrong email', () => {
-        return authenticateUser('le@chuga.com', '123123123')
+        return authenticateUser('le@chuga2.com', '123123123')
             .then(() => { throw new Error('should not reach this point') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
