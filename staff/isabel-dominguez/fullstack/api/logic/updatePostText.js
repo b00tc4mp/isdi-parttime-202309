@@ -1,41 +1,37 @@
-const validate = require('./helpers/validate')
-const { SystemError, NotFoundError } = require('./errors')
+import { Post, User } from '../data/models.js'
+import validate from './helpers/validate.js'
+import { SystemError, NotFoundError } from './errors.js'
 
-const { User, Post } = require('../data/models')
 
 function updatePostText(userId, postId, text, callback) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
-    validate.text(text, 'text')
+    validate.text(text)
     validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+    User.findById(userId)
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
+                callback(new NotFoundError('User not found'))
                 return
             }
 
             Post.findById(postId)
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
+                        callback(new NotFoundError('Post not found'))
+                        return;
                     }
 
                     post.text = text
-
                     post.save()
-                        .then(() => {
-                            callback(null)
-                        })
-                        .catch(error => callback(new SystemError(error.message)))
+
+                    callback(null)
+
                 })
                 .catch(error => callback(new SystemError(error.message)))
         })
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = updatePostText
+export default updatePostText

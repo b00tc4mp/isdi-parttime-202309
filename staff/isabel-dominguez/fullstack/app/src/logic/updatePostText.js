@@ -1,25 +1,21 @@
-import validate from './helpers/validate'
-import context from './context'
+import context from "./context"
+import validate from "./helpers/validate"
 
-export default function updatePostText(userId, postId, text, callback) {
-    validate.text(userId, 'user id')
+function updatePostText(postId, text, callback) {
     validate.text(postId, 'post id')
-    validate.text(text, 'text')
+    validate.text(text)
     validate.function(callback, 'callback')
 
     const req = {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.sessionUserId}`,
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            postId,
-            text
-        })
+        body: JSON.stringify({ text })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/text`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
@@ -33,3 +29,5 @@ export default function updatePostText(userId, postId, text, callback) {
         })
         .catch(error => callback(error))
 }
+
+export default updatePostText

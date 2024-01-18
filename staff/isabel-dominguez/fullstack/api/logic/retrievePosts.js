@@ -1,6 +1,7 @@
-const validate = require('./helpers/validate')
-const { SystemError, NotFoundError } = require('./errors')
-const { User, Post } = require('../data/models')
+import validate from './helpers/validate.js'
+
+import { User, Post } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
 
 function retrievePosts(userId, callback) {
     validate.id(userId, 'user id')
@@ -40,4 +41,4 @@ function retrievePosts(userId, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = retrievePosts
+export default retrievePosts
