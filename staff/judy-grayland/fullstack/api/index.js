@@ -2,6 +2,7 @@ const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
+const retrievePosts = require('./logic/retrievePosts')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const {
@@ -97,6 +98,28 @@ server.get('/users', (req, res) => {
         return
       }
       res.json(user)
+    })
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: error.constructor.name, message: error.message })
+  }
+})
+
+// retrieve posts
+server.get('/posts', (req, res) => {
+  try {
+    const userId = req.headers.authorization.substring(7)
+
+    retrievePosts(userId, (error, posts) => {
+      if (error) {
+        res
+          .status(400)
+          .json({ error: error.constructor.name, message: error.message })
+
+        return
+      }
+      res.json(posts)
     })
   } catch (error) {
     res

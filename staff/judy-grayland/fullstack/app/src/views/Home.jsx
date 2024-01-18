@@ -102,11 +102,11 @@ function Home(props) {
     }
   }
 
-  // useEffect(() => {
-  //   console.log('Home -> effect (posts)')
+  useEffect(() => {
+    console.log('Home -> effect (posts)')
 
-  //   refreshPosts()
-  // }, [view])
+    refreshPosts()
+  }, [view])
 
   const handleNewPostSubmit = (event) => {
     event.preventDefault()
@@ -239,11 +239,11 @@ function Home(props) {
         />
       )}
 
-      {/*(view === null || view === 'new-post') && posts !== null && (
+      {(view === null || view === 'new-post') && posts !== null && (
         <Posts posts={posts} refreshPosts={refreshPosts} />
-      )*/}
+      )}
 
-      {/*view === 'favs' && <Posts posts={favs} refreshPosts={refreshPosts} />*/}
+      {view === 'favs' && <Posts posts={favs} refreshPosts={refreshPosts} />}
 
       <footer className="footer">
         {view === 'new-post' && (
