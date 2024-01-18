@@ -22,9 +22,6 @@ devDependencies:
   chai:
     specifier: ^5.0.0
     version: 5.0.0
-  esm:
-    specifier: ^3.2.25
-    version: 3.2.25
   mocha:
     specifier: ^10.2.0
     version: 10.2.0
@@ -742,11 +739,6 @@ packages:
   /escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
-    dev: true
-
-  /esm@3.2.25:
-    resolution: {integrity: sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==}
-    engines: {node: '>=6'}
     dev: true
 
   /esprima@4.0.1:
