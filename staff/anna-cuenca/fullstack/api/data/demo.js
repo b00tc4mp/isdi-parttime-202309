@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const { Schema, model, ObjectId } = mongoose
+import { User, Post } from './models.js'
 
 // definimos el esquema de usuario
 const user = new Schema({
@@ -45,8 +46,7 @@ const post = new Schema({
 })
 
 //tenemos que usar una clase para construir usuarios
-const User = model('User', user)
-const Post = model('Post', post)
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/test') //me conecto a mongo
     .then(() => {

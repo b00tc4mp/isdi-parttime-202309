@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { ContentError, DuplicityError, TypeError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { NotFoundError, ContentError, CredentialsError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
     const { name, email, password } = req.body //queremos que nos devuelva la respuesta en el body
     try {
         logic.registerUser(name, email, password, error => {

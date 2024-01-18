@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const registerUser = require('./registerUser') // el requiere es como el input
+import registerUser from './registerUser.js' // el requiere es como el input
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {

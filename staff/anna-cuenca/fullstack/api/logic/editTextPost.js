@@ -1,8 +1,7 @@
-const validate = require('./helpers/validate')
+import validate from './helpers/validate.js'
+import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
 
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
-
-const { Post, User } = require('../data/models')
+import { Post, User } from '../data/models.js'
 
 
 
@@ -44,4 +43,4 @@ function editTextPost(userId, postId, text, callback) {
         .catch(error => callback(new SystemError(error.message)));
 }
 
-module.exports = editTextPost;
+export default editTextPost;

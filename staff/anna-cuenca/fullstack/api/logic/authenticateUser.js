@@ -1,7 +1,7 @@
-const validate = require('./helpers/validate')
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+import validate from './helpers/validate.js'
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 
-const { User } = require('../data/models')
+import { User } from '../data/models.js'
 
 function authenticateUser(email, password, callback) {
     // TODO validate inputs
@@ -33,4 +33,4 @@ function authenticateUser(email, password, callback) {
     //hay que hacerlo en la carpeta raiz, onde se ejecuta 
 }
 
-module.exports = authenticateUser
+export default authenticateUser

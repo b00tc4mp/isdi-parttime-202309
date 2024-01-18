@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const editTextPost = require('./editTextPost')
+import mongoose from 'mongoose'
+import editTextPost from './editTextPost.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 

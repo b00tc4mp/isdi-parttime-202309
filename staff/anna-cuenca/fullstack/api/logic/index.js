@@ -1,19 +1,19 @@
-// la forma de trabajar con require se llama commonJS (CJS), es la forma tradicional de node
-// en cambio trabajar con export se llama ESM (ECMA script Modules)
+// la forma de trabajar con require se llama commonJS (CJ.jsS, es la forma tradicional de node
+// en cambio trabajar con export se llama ESM (ECMA script Module.jss
 
 
-const registerUser = require('./registerUser')
-const authenticateUser = require('./authenticateUser')
-const retrieveUser = require('./retrieveUser')
-const changeEmailUser = require('./changeEmailUser')
-const changePasswordUser = require('./changePasswordUser')
-const createPost = require('./createPost')
-const retrieveFavPosts = require('./retrieveFavPosts')
-const retrievePosts = require('./retrievePosts')
-const toggleFavPost = require('./toggleFavPost')
-const toogleLikePost = require('./toogleLikePost')
-const editTextPost = require('./editTextPost')
-const deletePost = require('./deletePost')
+import registerUser from './registerUser.js'
+import authenticateUser from './authenticateUser.js'
+import retrieveUser from './retrieveUser.js'
+import changeEmailUser from './changeEmailUser.js'
+import changePasswordUser from './changePasswordUser.js'
+import createPost from './createPost.js'
+import retrieveFavPosts from './retrieveFavPosts.js'
+import retrievePosts from './retrievePosts.js'
+import toggleFavPost from './toggleFavPost.js'
+import toogleLikePost from './toogleLikePost.js'
+import editTextPost from './editTextPost.js'
+import deletePost from './deletePost.js'
 
 const logic = {
     registerUser,
@@ -30,5 +30,5 @@ const logic = {
     deletePost
 }
 
-module.exports = logic
+export default logic
 

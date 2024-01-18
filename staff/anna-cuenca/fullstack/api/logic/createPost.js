@@ -1,8 +1,7 @@
-const validate = require('./helpers/validate')
+import validate from './helpers/validate.js'
+import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
 
-const { SystemError } = require('./errors')
-
-const { Post, User } = require('../data/models')
+import { Post, User } from '../data/models.js'
 
 function createPost(userId, image, text, callback) {
     validate.id(userId, 'user id')
@@ -29,4 +28,4 @@ function createPost(userId, image, text, callback) {
 
 }
 
-module.exports = createPost
+export default createPost

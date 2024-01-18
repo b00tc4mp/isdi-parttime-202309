@@ -1,15 +1,21 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
+//esto carga variables de un entorno .env (lo que hicimos para elegir desde que puerto cargams el server)
 
 // aqui montamos un server rápido
-const mongoose = require('mongoose')
-const express = require('express')
+// const mongoose = require('mongoose')
+// const express = require('express')
+
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
 // el require funciona de la mimsa manera, si encuentras un index, traemelo
 
 
 
-const cors = require('./utils/cors')
+// const cors = require('./utils/cors')
 
-const {
+import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
@@ -22,7 +28,7 @@ const {
     retrievePostsHandler,
     retrieveFavPostsHandler,
     deletePostHandler
-} = require('./handlers')
+} from './handlers/index.js'
 
 
 
@@ -54,7 +60,7 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         // essto es un middlewhere que se va a ejecutar antes que cualquier petición
         //aqui añaddimos las cabeceras que permiten al cliente (al navegador), los accesos desde cualquier servidor
-        server.use(cors)
+        server.use(cors())
 
 
 

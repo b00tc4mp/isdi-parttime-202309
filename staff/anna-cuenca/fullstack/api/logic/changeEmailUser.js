@@ -1,9 +1,8 @@
+import validate from './helpers/validate.js'
+import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
 
-const validate = require('./helpers/validate')
+import { User } from '../data/models.js'
 
-const { User } = require('../data/models')
-
-const { SystemError, NotFoundError, CredentialsError, DuplicityError } = require('./errors')
 
 function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
     // TODO validate inputs
@@ -51,4 +50,4 @@ function changeEmailUser(userId, email, newEmail, repeatNewEmail, callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = changeEmailUser
+export default changeEmailUser

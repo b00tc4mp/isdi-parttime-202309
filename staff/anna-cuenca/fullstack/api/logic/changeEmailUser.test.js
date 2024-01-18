@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const changeEmailUser = require('./changeEmailUser')
+import mongoose from 'mongoose'
+import changeEmailUser from './changeEmailUser.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 

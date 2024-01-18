@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { ContentError, NotFoundError, TypeError, CredentialsError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { NotFoundError, ContentError, CredentialsError } from '../logic/errors.js'
 
-module.exports = (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
+export default (req, res) => { //no hay un jsonBodyParser porque no enviamos nada en el body, enviamos una cabecera con el id
     try {
         const userId = req.headers.authorization.substring(7)
         logic.retrieveUser(userId, (error, user) => {
