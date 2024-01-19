@@ -12,7 +12,7 @@ curl 'http://localhost:8000/users' \
 # > Host: localhost:8000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
-# > Authorization: Bearer 61t6qhvtsos0
+# > Authorization: Bearer 659b348c696ad77021d9e2f8
  
 # < HTTP/1.1 200 OK
 # < X-Powered-By: Express

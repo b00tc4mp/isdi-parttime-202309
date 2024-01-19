@@ -5,7 +5,9 @@ const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
 const retrievePosts = require('./logic/retrievePosts')
+const retrieveFavPosts = require('./logic/retrieveFavPosts')
 const toggleLikePost = require('./logic/toggleLikePost')
+const toggleFavPost = require('./logic/toggleFavPost')
 const { NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
 const { CredentialsError } = require('./logic/errors')
 
@@ -52,8 +54,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 				res.status(status).json({ error: error.constructor.name, message: error.message })
 			}
 		})
-
-		// TODO
 
 		server.post('/users/auth', jsonBodyParser, (req, res) => {
 			try {
@@ -112,8 +112,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 			}
 		})
 
-		//TODO
-
 		server.post('/posts', jsonBodyParser, (req, res) => {
 			try {
 				const userId = req.headers.authorization.substring(7)
@@ -122,13 +120,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 				createPost(userId, image, text, error => {
 					if (error) {
-						res.status(400).json({ error: error.constructor.name, message: error.message })
+						let status = 500
+
+						if (error instanceof NotFoundError)
+							status = 404
+
+						res.status(status).json({ error: error.constructor.name, message: error.message })
+
 						return
 					}
 					res.status(201).send()
 				})
 			} catch (error) {
-				res.status(400).json({ error: error.constructor.name, message: error.message })
+				let status = 500
+
+				if (error instanceof ContentError || error instanceof TypeError)
+					status = 406
+
+				res.status(status).json({ error: error.constructor.name, message: error.message })
 			}
 		})
 
@@ -137,6 +146,33 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 				const userId = req.headers.authorization.substring(7)
 
 				retrievePosts(userId, (error, posts) => {
+					if (error) {
+						let status = 500
+
+						if (error instanceof NotFoundError)
+							status = 404
+
+						req.status(status).json({ error: error.constructor.name, message: error.message })
+
+						return
+					}
+					res.json(posts)
+				})
+			} catch (error) {
+				let status = 500
+
+				if (error instanceof ContentError || error instanceof TypeError)
+					status = 406
+
+				res.status(status).json({ error: error.constructor.name, message: error.message })
+			}
+		})
+
+		server.get('/posts/favs', (req, res) => {
+			try {
+				const userId = req.headers.authorization.substring(7)
+
+				retrieveFavPosts(userId, (error, posts) => {
 					if (error) {
 						let status = 500
 
@@ -189,6 +225,38 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 				res.status(status).json({ error: error.constructor.name, message: error.message })
 			}
 		})
+
+		server.patch('/posts/:postId/favs', (req, res) => {
+			try {
+
+				const userId = req.headers.authorization.substring(7)
+
+				const { postId } = req.params
+
+				toggleFavPost(userId, postId, error => {
+					if (error) {
+						let status = 500
+
+						if (error instanceof NotFoundError)
+							status = 404
+
+						res.status(status).json({ error: error.constructor.name, message: error.message })
+
+						return
+					}
+
+					res.status(204).send()
+				})
+			} catch (error) {
+				let status = 500
+
+				if (error instanceof ContentError || error instanceof TypeError)
+					status = 406
+
+				res.status(status).json({ error: error.constructor.name, message: error.message })
+			}
+		})
+
 		server.listen(8000, () => console.log('server is up'))
 	})
 	.catch(error => console.error(error))

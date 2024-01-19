@@ -1,77 +1,31 @@
+import context from "./context"
+
 function retrieveFavPosts(callback) {
 
-	// TODO call api
+	const req = {
+		method: 'GET',
+		headers: {
+			Authorization: `Barear ${context.sessionUserId}`
+		},
+	}
 
-	/* db.users.findById(this.sessionUserId, (error, user) => {
-		if (error) {
-			callback(error)
+	fetch('http://localhost:8000/posts/favs', req)
+		.then(res => {
+			if (!res.ok) {
 
-			return
-		}
-		if (!user) {
+				res.json()
+					.then(body => callback(new Error(body.message)))
+					.catch(error => callback(error))
 
-			callback(new Error('user not found'))
+				return
+			}
 
-			return
-		}
-
-		const favs = []
-
-		let count = 0
-
-		if (!user.favs.length) {
-			callback(null, favs)
-
-			return
-		}
-
-		user.favs.forEach((postId, index) => {
-			db.posts.findById(postId, (error, post) => {
-				if (error) {
-					callback(error)
-
-					return
-				}
-				favs[index] = post
-
-				count++
-
-				if (count === user.favs.length) {
-					let count2 = 0
-
-					favs.forEach(post => {
-						post.liked = post.likes.includes(this.sessionUserId)
-
-						db.users.findById(post.author, (error, author) => {
-							if (error) {
-								callback(error)
-
-								return
-							}
-
-							post.author = {
-								email: author.email,
-								id: author.id,
-								name: author.name
-
-							}
-
-							post.fav = user.favs.includes(post.id)
-
-							count2++
-
-							if (count2 === favs.length) {
-
-								callback(null, favs)
-							}
-						})
-
-					})
-				}
-
-			})
+			res.json()
+				.then(posts => callback(null, posts))
+				.catch(error => callback(error))
 		})
-	}) */
+		.catch(error => callback(error))
+
 }
 
 export default retrieveFavPosts
