@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const changeUserEmail = require('./changeUserEmail')
+import mongoose from 'mongoose'
+import changeUserEmail from './changeUserEmail'
 
 
 //CASE HAPPY PATH
@@ -47,24 +47,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 //   },
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-.then(() => {
-    try {
-        changeUserEmail('658474423281e9fb97995467', 'elefan@te.com', 'wrong@mail.com', '123123123', error => {
-            if (error) {
-                console.error(error)
-                return
-            }
+    .then(() => {
+        try {
+            changeUserEmail('658474423281e9fb97995467', 'elefan@te.com', 'wrong@mail.com', '123123123', error => {
+                if (error) {
+                    console.error(error)
+                    return
+                }
 
-            console.log('mail changed')
+                console.log('mail changed')
 
-        })
-    } catch (error) {
-        console.error(error)
+            })
+        } catch (error) {
+            console.error(error)
 
-    }
+        }
 
-})
-.catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 
 //CASE wrong password
 //Ex Change mail to 'elefan@te.com':
@@ -77,24 +77,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 //   },
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-.then(() => {
-    try {
-        changeUserEmail('658474423281e9fb97995467', 'elefan@te.com', 'elefan@te.com', 'wrongpassword', error => {
-            if (error) {
-                console.error(error)
-                return
-            }
+    .then(() => {
+        try {
+            changeUserEmail('658474423281e9fb97995467', 'elefan@te.com', 'elefan@te.com', 'wrongpassword', error => {
+                if (error) {
+                    console.error(error)
+                    return
+                }
 
-            console.log('mail changed')
+                console.log('mail changed')
 
-        })
-    } catch (error) {
-        console.error(error)
+            })
+        } catch (error) {
+            console.error(error)
 
-    }
+        }
 
-})
-.catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 
 //Terminal return
 // (base) lf@MacBook-Pro-de-Luis api % node ./logic/changeUserEmail.test.js

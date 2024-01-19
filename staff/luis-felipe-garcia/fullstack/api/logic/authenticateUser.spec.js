@@ -1,17 +1,11 @@
-const mongoose = require('mongoose')
-
-const authenticateUser = require('./authenticateUser')
-
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+import mongoose from 'mongoose'
+import { expect } from 'chai'
+import authenticateUser from './authenticateUser.js'
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 
 describe('authenticateUser', () => {
-    let expect
 
-    before(() =>
-        import('chai')
-            .then(chai => expect = chai.expect)
-            .then(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
-    )
+    before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
 
     it('succeeds on correct credentials', done => {
         authenticateUser('peter@pan.com', '123123123', (error, userId) => {

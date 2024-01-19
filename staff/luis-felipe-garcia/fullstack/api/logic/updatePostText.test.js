@@ -1,27 +1,27 @@
-const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText')
+import mongoose from 'mongoose'
+import updatePostText from './updatePostText'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-.then(() => {
-    try {
+    .then(() => {
+        try {
 
-        updatePostText('6584656975fc0b52c39022e1', '6584687a75fc0b52c39022e4', 'A este post le hemos cambiado el texto !!!', error => {
-            if(error) {
-                console.error(error)
-                return
-            }
+            updatePostText('6584656975fc0b52c39022e1', '6584687a75fc0b52c39022e4', 'A este post le hemos cambiado el texto !!!', error => {
+                if (error) {
+                    console.error(error)
+                    return
+                }
 
-            console.log('text updated')
+                console.log('text updated')
 
-        })
-        
-    } catch (error) {
-        console.error(error)
-        
-    }
-})
+            })
 
-.catch(error => console.error(error))
+        } catch (error) {
+            console.error(error)
+
+        }
+    })
+
+    .catch(error => console.error(error))
 
 //Terminal return
 
@@ -40,26 +40,26 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-.then(() => {
-    try {
+    .then(() => {
+        try {
 
-        updatePostText('658467e375fc0b52c39022e3', '6584687a75fc0b52c39022e4', 'A este post le hemos cambiado el texto !!!', error => {
-            if(error) {
-                console.error(error)
-                return
-            }
+            updatePostText('658467e375fc0b52c39022e3', '6584687a75fc0b52c39022e4', 'A este post le hemos cambiado el texto !!!', error => {
+                if (error) {
+                    console.error(error)
+                    return
+                }
 
-            console.log('text updated')
+                console.log('text updated')
 
-        })
-        
-    } catch (error) {
-        console.error(error)
-        
-    }
-})
+            })
 
-.catch(error => console.error(error))
+        } catch (error) {
+            console.error(error)
+
+        }
+    })
+
+    .catch(error => console.error(error))
 //Terminal return with post not belongs to user Id
 // CredentialsError: post do not belong to user
 //     at /Users/lf/workspace/isdi-parttime-202309/staff/luis-felipe-garcia/backend/api/logic/updatePostText.js:19:26

@@ -1,6 +1,6 @@
-const validate = require('./helpers/validate')
-const { DuplicityError, SystemError } = require('./errors')
-const { User } = require('../data/models')
+import validate from './helpers/validate.js'
+import { DuplicityError, SystemError } from './errors.js'
+import { User } from '../data/models.js'
 
 
 function registerUser(name, email, password, callback) {
@@ -20,4 +20,4 @@ function registerUser(name, email, password, callback) {
         })
 }
 
-module.exports = registerUser
+export default registerUser

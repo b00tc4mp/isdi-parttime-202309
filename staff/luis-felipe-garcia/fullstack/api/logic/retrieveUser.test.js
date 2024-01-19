@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const retrieveUser = require('./retrieveUser')
+import mongoose from 'mongoose'
+import retrieveUser from './retrieveUser'
 
 
 //CASE user exist

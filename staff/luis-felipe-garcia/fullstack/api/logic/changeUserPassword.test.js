@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const changeUserPassword = require('./changeUserPassword')
+import mongoose from 'mongoose'
+import changeUserPassword from './changeUserPassword'
 
 
 //CASE HAPPY PATH
@@ -58,26 +58,26 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
     .catch(error => console.error(error))
 
 
-    //CASE wrong password
+//CASE wrong password
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-.then(() => {
-    try {
-        changeUserPassword('658474423281e9fb97995467', '999999999', '999999999', 'wrongpassword', error => {
-            if (error) {
-                console.error(error)
-                return
-            }
+    .then(() => {
+        try {
+            changeUserPassword('658474423281e9fb97995467', '999999999', '999999999', 'wrongpassword', error => {
+                if (error) {
+                    console.error(error)
+                    return
+                }
 
-            console.log('password changed')
+                console.log('password changed')
 
-        })
-    } catch (error) {
-        console.error(error)
+            })
+        } catch (error) {
+            console.error(error)
 
-    }
+        }
 
-})
-.catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 
 //Terminal return
 // (base) lf@MacBook-Pro-de-Luis api % node ./logic/changeUserPassword.test.js

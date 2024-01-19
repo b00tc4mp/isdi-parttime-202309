@@ -1,6 +1,6 @@
-const validate = require('./helpers/validate')
-const { Post } = require('../data/models')
-const { SystemError } = require('./errors')
+import validate from './helpers/validate.js'
+import { Post } from '../data/models.js'
+import { SystemError } from './errors.js'
 
 function retrieveAllDatabasePosts(callback) {
     validate.function(callback, 'callback')
@@ -10,4 +10,4 @@ function retrieveAllDatabasePosts(callback) {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = retrieveAllDatabasePosts
+export default retrieveAllDatabasePosts

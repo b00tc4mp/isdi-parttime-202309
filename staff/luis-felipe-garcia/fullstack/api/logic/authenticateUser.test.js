@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const authenticateUser = require('./authenticateUser')
+import mongoose from 'mongoose'
+import authenticateUser from './authenticateUser'
 
 //CASE user exists
 mongoose.connect('mongodb://127.0.0.1:27017/test')

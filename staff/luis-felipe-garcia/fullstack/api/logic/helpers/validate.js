@@ -1,4 +1,4 @@
-const { ContentError } = require('../errors')
+import { ContentError } from '../errors.js'
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const ID_REGEX = /^[0-9A-Fa-f]{24}$/
 
@@ -7,9 +7,9 @@ function text(text, explain) {
     if (!text.trim().length) throw new ContentError(explain + ' is empty')
 }
 
-function email(email,explain = 'email') {
+function email(email, explain = 'email') {
     text(email, explain)
-    if (!EMAIL_REGEX.test(email)) throw new ContentError (`${explain} is not valid`)
+    if (!EMAIL_REGEX.test(email)) throw new ContentError(`${explain} is not valid`)
 }
 
 // function password(password, explain = 'password') {
@@ -46,10 +46,10 @@ const validate = {
     email,
     number,
     //password,
-   // objekt,
+    // objekt,
     function: funktion,
-   // csvFile,
-    id    
+    // csvFile,
+    id
 }
 
-module.exports = validate
+export default validate

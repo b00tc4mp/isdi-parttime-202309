@@ -1,9 +1,9 @@
 
-const logic = require('../logic')
-const { SystemError, DuplicityError, NotFoundError, ContentError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { SystemError, DuplicityError, NotFoundError, ContentError } from '../logic/errors.js'
 
 
-module.exports = (req, res) => {
+export default (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
         const { postId } = req.params
