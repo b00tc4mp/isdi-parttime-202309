@@ -30,9 +30,18 @@ class DuplicityError extends Error {
     }
 }
 
+class CredentialsError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 module.exports = {
     NotFoundError,
     SystemError,
     ContentError,
-    DuplicityError
+    DuplicityError,
+    CredentialsError
 }

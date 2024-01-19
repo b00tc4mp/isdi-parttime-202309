@@ -10,21 +10,16 @@
 
 ## Authenticate user
 
-- Request: POST /users/auth "Content-Type: application/json {email, password}<!-- "Se pone POST porque estamos indicando nuestros datos a la API, por lo que necesitamos que esta informacion no se refleje en el header y se envíe en el body -->
+- Request: POST /users/auth "Content-Type: application/json {email, password}
 - Response: 200 "Content-Type: application/json userId
 - Response (error): 400 application/json { error, message }
 
 ## Retrieve user
 
-- Request: GET /users "Authorization: Bearer userId"
+Request: GET /users "Authorization: Bearer userId"
+
 - Response: 200 "Content-Type: application/json" { name }
 - Response (error): 400 application/json { error, message }
-
-## Retrieve posts
-
-- Request: GET /posts "Authorization: Bearer userId" <!-- "Se utiliza GET porque estamos pidiendo a la API datos" -->
-- Request: 200 "Content-Type: application/json" [{ id, author: { id, name }, image, text, likes, liked, fav }]
-- Request (error): 400|401|404|406|500 <!--"el error (406), indica que el servidor no puede proporcionar una respuesta en formato JSON". -->
 
 ## Create post
 

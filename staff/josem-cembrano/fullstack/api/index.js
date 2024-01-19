@@ -1,166 +1,194 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const createPost = require('./logic/createPost')
-const toggleLikePost = require('./logic/toggleLikePost')
 const retrievePosts = require('./logic/retrievePosts')
+const toggleLikePost = require('./logic/toggleLikePost')
+const { NotFoundError, ContentError, DuplicityError } = require('./logic/errors')
+const { CredentialsError } = require('./logic/errors')
 
-const { SystemError, ContentError, DuplicityError, NotFoundError } = require('./utils/errors')
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        const server = express()
 
-const server = express()
+        server.get('/', (req, res) => res.send('Hello, World!'))
 
-// const cors = require('cors');
-// app.use(cors());
+        const jsonBodyParser = express.json()
 
-server.get('/', (req, res) => res.send('Hello, World!!')) //Lo que manejamos entre la petición y la respuesta se llama "middleware"
-////////////////////////////////////////////////////////////////////////////////////////////////
+        server.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Headers', '*')
+            res.setHeader('Access-Control-Allow-Methods', '*')
 
-const jsonBodyParser = express.json()
+            next()
+        })
 
-server.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Methods', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
+        server.post('/users', jsonBodyParser, (req, res) => {
+            try {
+                const { name, email, password } = req.body
 
-    next()
-})
+                registerUser(name, email, password, error => {
+                    if (error) {
+                        let status = 500
 
-server.post('/users', jsonBodyParser, (req, res) => {
-    try {
-        const { name, email, password } = req.body
+                        if (error instanceof DuplicityError)
+                            status = 409
 
-        registerUser(name, email, password, error => {
-            if (error) {
-                let status = 400
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                if (error instanceof SystemError) {
-                    status = 500
-                }
-                else if (error instanceof DuplicityError) {
-                    status = 409
-                }
+                        return
+                    }
 
+                    res.status(201).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.post('/users/auth', jsonBodyParser, (req, res) => {
+            try {
+                const { email, password } = req.body
+
+                authenticateUser(email, password, (error, userId) => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+                        else if (error instanceof CredentialsError)
+                            status = 401
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(userId)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.get('/users', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                retrieveUser(userId, (error, user) => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(user)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.get('/posts', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                retrievePosts(userId, (error, posts) => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.json(posts)
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        server.post('/posts', jsonBodyParser, (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
+
+                const { image, text } = req.body
+
+                createPost(userId, image, text, error => {
+                    if (error) {
+                        res.status(400).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(201).send()
+                })
+            } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
-
-                return
             }
-
-            res.status(201).send()
         })
-    } catch (error) {
-        let status = 400
 
-        if (error instanceof ContentError) {
-            status = 406
-        }
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
+        server.patch('/posts/:postId/likes', (req, res) => {
+            try {
+                const userId = req.headers.authorization.substring(7)
 
-server.post('/users/auth', jsonBodyParser, (req, res) => {
-    try {
-        const { email, password } = req.body
-        authenticateUser(email, password, (error, userId) => {
-            if (error) {
-                res.status(400).json({ error: error.contructor.name, message: error.message })
+                const { postId } = req.params
 
-                return
+                toggleLikePost(userId, postId, error => {
+                    if (error) {
+                        let status = 500
+
+                        if (error instanceof NotFoundError)
+                            status = 404
+
+                        res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                        return
+                    }
+
+                    res.status(204).send()
+                })
+            } catch (error) {
+                let status = 500
+
+                if (error instanceof ContentError || error instanceof TypeError)
+                    status = 406
+
+                res.status(status).json({ error: error.constructor.name, message: error.message })
             }
-
-            res.json(userId)
         })
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
 
-server.get('/users', (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrieveUser(userId, (error, user) => {
-            if (error) {
-                res.status(401).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-            res.json(user)
-        })
-    } catch (error) {
-        res.status(401).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-server.post('/posts', jsonBodyParser, (req, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { image, text } = req.body
-
-        createPost(userId, image, text, error => {
-            if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(201).send()
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-server.patch('./posts/:postId/likes', (rep, res) => {
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { postId } = req.params
-
-        toggleLikePost(userId, postId, error => {
-            if (error) {
-                let status = 400
-                if (error instanceof SystemError) {
-                    status = 500
-                }
-                else if (error instanceof NotFoundError) {
-                    status = 404
-                }
-
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
-    } catch (error) {
-        let status = 400
-
-        if (error instanceof ContentError) {
-            status = 406
-        }
-        res.status(status).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-server.get('/posts', (req, res) => {//manejar errores como en togglelike post.
-    try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrievePosts(userId, (error, posts) => {
-            if (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-            res.json(posts)
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
-    }
-})
-
-
-server.listen(8000, () => console.log('server is up ⭐!!'))
+        server.listen(8000, () => console.log('server is up ⭐!!'))
+    })
+    .catch(error => console.error(error))
