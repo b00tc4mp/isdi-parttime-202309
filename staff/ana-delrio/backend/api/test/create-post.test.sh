@@ -5,7 +5,7 @@ TEST "create-post"
 CASE "success on correct data"
 
 curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 9nbvjt5wugo' \
+-H 'Authorization: Bearer 658961111bef8b597847ec00' \
 -H 'Content-Type: application/json' \
 -d '{ "image": "https://cdn2.vectorstock.com/i/1000x1000/81/46/hello-world-code-vector-22928146.jpg", "text": "Hello, World!" }
 ' \

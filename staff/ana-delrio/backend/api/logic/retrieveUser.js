@@ -9,6 +9,7 @@ function retrieveUser(userId, callback) {
     validateId(userId, 'user id')
     validateFunction(callback, 'callback')
 
+    // que el findby solo me traiga el userid con el nombre
     User.findById(userId, 'name').lean()
         .then(user => {
             if (!user) {
