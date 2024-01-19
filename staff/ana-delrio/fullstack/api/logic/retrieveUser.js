@@ -1,5 +1,5 @@
 
-const validate = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 const { User } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
