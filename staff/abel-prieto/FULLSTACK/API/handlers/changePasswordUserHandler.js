@@ -6,8 +6,9 @@ export default (req, res) => {
         const userId = req.headers.authorization.substring(7)
         const { password, newPassword, againNewPassword } = req.body
 
-        logic.changePasswordUser(userId, password, newPassword, againNewPassword, error => {
-            if (error) {
+        logic.changePasswordUser(userId, password, newPassword, againNewPassword)
+            .then(() => res.status(200).send())
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError) {
@@ -19,14 +20,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(200).send()
-            // Envía código 200 de 'OKEY'
-
-        })
+            })
     } catch (error) {
         let status = 500
 

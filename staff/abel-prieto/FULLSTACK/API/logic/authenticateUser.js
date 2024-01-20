@@ -2,29 +2,23 @@ import { User } from '../data/models.js'
 import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 import validate from './helpers/validate.js'
 
-function authenticateUser(email, password, callback) {
+function authenticateUser(email, password) {
     validate.email(email, 'name')
     validate.text(password, 'password')
-    validate.function(callback, 'callback')
 
-    User.findOne({ email })
+    return User.findOne({ email })
+        .catch(error => { throw new SystemError(error.message) } )
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-                
-                return
+                throw new NotFoundError('user not found')
             }
 
             if (user.password !== password) {
-                callback(new CredentialsError('wrong credentials'))
-
-                return
+                throw new CredentialsError('wrong credentials')
             }
 
-            callback(null, user.id)
-        })
-        .catch(error => callback(new SystemError(error.message)))
-    
+            return user.id
+        })    
 }
 
 export default authenticateUser

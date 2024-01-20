@@ -1,6 +1,6 @@
 import { Post, User } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
-import validate from './helpers/validate.js'
+import { SystemError, NotFoundError } from './errors'
+import validate from './helpers/validate'
 
 function retrievePost(userId, callback) {
     validate.id(userId, 'post id')

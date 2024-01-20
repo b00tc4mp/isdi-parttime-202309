@@ -2,25 +2,22 @@ import { Post, User } from '../data/models.js'
 import validate from './helpers/validate.js'
 import { SystemError, NotFoundError }  from './errors.js'
 
-function createPosts(userId, image, text, callback) {
+function createPosts(userId, image, text) {
     validate.id(userId, "user")
     validate.text(image, "image")
     validate.text(text, "text")
-    validate.function(callback, "callback")
 
-    User.findById(userId).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
+                throw new NotFoundError('user not found')
             }
 
-            Post.create({ author: userId, image, text })
-                .then(() => callback(null))
-                .catch(error => callback(new SystemError(error.message)))
+            return Post.create({ author: userId, image, text })
+                .catch(error => { throw new SystemError(error.message) })
+                .then(post => { })
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
 export default createPosts

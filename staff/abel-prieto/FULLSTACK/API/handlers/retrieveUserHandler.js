@@ -7,8 +7,9 @@ export default (req, res) => {
         // Recogemos en la cabecera el elemento solicitado en GET con el Authorization
         // Mediante el .substring() indicamos con número el carácter donde empieza el contenido/dato
 
-        logic.retrieveUser(userId, (error, user) => {
-            if (error) {
+        logic.retrieveUser(userId)
+            .then(user => res.json(user))
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError) {
@@ -16,14 +17,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.json(user)
-            // Envía en formato json el usuario
-
-        })
+            })
     } catch (error) {
         let status = 500
 

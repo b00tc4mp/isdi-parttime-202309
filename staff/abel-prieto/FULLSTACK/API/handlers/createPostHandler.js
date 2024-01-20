@@ -4,11 +4,11 @@ import { DuplicityError, ContentError } from '../logic/errors.js'
 export default (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
-
         const { image, text } = req.body
 
-        logic.createPost(userId, image, text, error => {
-            if (error) {
+        logic.createPost(userId, image, text)
+            .then(() => res.status(201).send())
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof DuplicityError) {
@@ -16,13 +16,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(201).send()
-            // Envía código 201 de 'CREADO'
-        })
+            })
     } catch (error) {
         let status = 500
 

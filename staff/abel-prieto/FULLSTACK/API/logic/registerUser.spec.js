@@ -1,0 +1,53 @@
+import mongoose from 'mongoose'
+import { expect } from 'chai'
+import dotenv from 'dotenv'
+
+import registerUser from './registerUser.js'
+import { DuplicityError } from './errors.js'
+import { User } from '../data/models.js'
+import random from './helpers/random.js'
+
+dotenv.config()
+
+describe('registerUser', () => {
+    before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
+
+    beforeEach(() => User.deleteMany())
+
+    // CASO POSITIVO
+    it('success on NEW user', () => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password() 
+
+        return registerUser( name, email, password)
+            .then(() => {
+                return User.findOne({ email: email })
+                    .then(user => {
+                        expect(user).to.exist
+                        expect(user.name).to.equal(name)
+                        expect(user.email).to.equal(email)
+                        expect(user.password).to.equal(password)
+                    })
+            })
+    })
+
+    // CASO NEGATIVO - USER ALREADY EXIST
+    it('fails on already existing user', () => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password() 
+
+        return User.create({ name, email, password })
+            .then(user => {
+                return registerUser(user.name, user.email, user.password)
+                    .then(() => { throw new Error('should not reach this point!')})
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(DuplicityError)
+                        expect(error.message).to.equal('user already exist')
+                })
+            })
+    })
+
+    after(() => mongoose.disconnect())
+})
