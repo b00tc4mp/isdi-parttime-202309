@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { ContentError, NotFoundError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { ContentError, NotFoundError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
 	try {
 		const userId = req.headers.authorization.substring(7)
 

@@ -1,5 +1,5 @@
-const { User, Post } = require('../data/models')
-const validate = require('./helpers/validate')
+import { User, Post } from '../data/models.js'
+import validate from './helpers/validate.js'
 
 function changeEmailUser(userId, email, newEmail, newEmailConfirm, callback) {
 	validate.id(userId, 'user id')
@@ -11,4 +11,4 @@ function changeEmailUser(userId, email, newEmail, newEmailConfirm, callback) {
 	// TODO
 }
 
-module.exports = changeEmailUser
+export default changeEmailUser

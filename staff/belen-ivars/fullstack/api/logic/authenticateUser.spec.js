@@ -1,17 +1,11 @@
-const mongoose = require('mongoose')
-
-const authenticateUser = require('./authenticateUser')
-
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+import mongoose from 'mongoose'
+import { expect } from 'chai'
+import authenticateUser from './authenticateUser.js'
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 
 describe('authenticateUser', () => {
-	let expect
+	before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
 
-	before(() =>
-		import('chai')
-			.then(chai => expect = chai.expect)
-			.then(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
-	)
 
 	it('succeeds on correct credentials', done => {
 		authenticateUser('peter@pan.com', '123123123', (error, userId) => {
@@ -20,17 +14,21 @@ describe('authenticateUser', () => {
 				done(error)
 				return
 			}
+			try {
 
-			expect(userId).to.be.a('string')
-			expect(userId).to.have.lengthOf(24)
-			expect(userId).to.equal('659abc140e890e8a7a2ddaa4')
+				expect(userId).to.be.a('string')
+				expect(userId).to.have.lengthOf(24)
+				expect(userId).to.equal('659abc140e890e8a7a2ddaa4')
 
-			done()
+				done()
+			} catch (error) {
+				done(error)
+			}
 		})
 	})
 
 	it('fails on wrong email', done => {
-		debugger
+		// debugger
 		authenticateUser('peter2@pan.com', '123123123', (error, userId) => {
 
 			try {
