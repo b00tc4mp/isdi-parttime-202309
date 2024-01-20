@@ -5,24 +5,24 @@ TEST authenticate-user
 
 CASE success on correct credentials
 
-curl 'http://localhost:8000/users/auth' \
+curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "plata@nito.com", "password": "123" }' \
+-d '{"email": "le@chuga.com", "password": "123123123" }' \
 -v
 
 
 CASE  error on wrong email
 
-curl 'http://localhost:8000/users/auth' \
+curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "wrong@flor.com", "password": "123" }' \
+-d '{"email": "coli@flor.com", "password": "123123123" }' \
 -v
 
 CASE  error on wrong pasword
 
-curl 'http://localhost:8000/users/auth' \
+curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "remo@lacha.com", "password": "133" }' \
+-d '{"email": "azucar@moreno.com", "password": "133" }' \
 -v
 
 
