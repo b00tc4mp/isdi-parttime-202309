@@ -1,18 +1,18 @@
-import registerUser from './registerUser.js'
-import loginUser from './loginUser.js'
-import logoutUser from './logoutUser.js'
-import retrieveUser from './retrieveUser.js'
-import changeUserEmail from './changeUserEmail.js'
-import changeUserPassword from './changeUserPassword.js'
+import registerUser from './registerUser'
+import loginUser from './loginUser'
+import logoutUser from './logoutUser'
+import retrieveUser from './retrieveUser'
+import changeUserEmail from './changeUserEmail'
+import changeUserPassword from './changeUserPassword'
 
 
-import publishPost from './publishPost.js'
-import retrieveFavPosts from './retrieveFavPosts.js'
-import retrievePosts from './retrievePosts.js'
-import toggleFavPost from './toggleFavPost.js'
-import toggleLikePost from './toggleLikePost.js'
-import updatePostText from './updatePostText.js'
-import deletePost from './deletePost.js'
+import publishPost from './publishPost'
+import retrieveFavPosts from './retrieveFavPosts'
+import retrievePosts from './retrievePosts'
+import toggleFavPost from './toggleFavPost'
+import toggleLikePost from './toggleLikePost'
+import updatePostText from './updatePostText'
+import deletePost from './deletePost'
 
 const logic = {
 	registerUser,

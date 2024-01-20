@@ -1,11 +1,11 @@
 const { NotFoundError, SystemError } = require('./errors')
-const { validateText, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { User, Post } = require('../data/models')
 
 function toggleLikePost(userId, postId, callback) {
-	validateText(userId, 'user id')
-	validateText(postId, 'post id')
-	validateFunction(callback, 'callback')
+	validate.id(userId, 'user id')
+	validate.id(postId, 'post id')
+	validate.funktion(callback, 'callback')
 
 	User.findById(userId).lean()
 		.then(user => {

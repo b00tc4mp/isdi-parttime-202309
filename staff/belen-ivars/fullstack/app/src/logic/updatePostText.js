@@ -1,43 +1,14 @@
-import { validateText } from "../utils/validators"
+import validate from "./helpers/validate"
+import context from "./context"
 
 function updatePostText(postId, text, callback) {
-	validateText(postId, 'post id')
-	validateText(text, 'text')
+	validate.text(postId, 'post id')
+	validate.text(text)
+	validate.funktion(callback)
 
 	// TODO validate callback
 
-	// TODO call api
 
-	/* db.posts.findById(postId, (error, post) => {
-		if (error) {
-			callback(error)
-
-			return
-		}
-		if (!post) {
-
-			callback(new Error('post not found'))
-
-			return
-		}
-
-		if (post.author !== this.sessionUserId) {
-			callback(new Error('post does not belong to user'))
-
-			return
-		}
-
-		post.text = text
-
-		db.posts.update(post, error => {
-			if (error) {
-				callback(error)
-
-				return
-			}
-			callback(null)
-		})
-	}) */
 }
 
 export default updatePostText

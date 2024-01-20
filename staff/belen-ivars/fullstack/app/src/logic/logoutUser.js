@@ -1,6 +1,8 @@
+import validate from "./helpers/validate"
 import context from "./context"
 
 function logoutUser(callback) {
+	validate.funktion(callback)
 
 	context.sessionUserId = null
 

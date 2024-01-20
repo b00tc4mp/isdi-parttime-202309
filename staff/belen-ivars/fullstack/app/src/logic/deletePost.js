@@ -1,7 +1,9 @@
-import { validateText } from "../utils/validators"
+import validate from "./helpers/validate"
+import context from "./context"
 
 function deletePost(postId, callback) {
-	validateText(postId, 'post id')
+	validate.text(postId, 'post id')
+	validate.funktion(callback)
 
 	// TODO call api
 
