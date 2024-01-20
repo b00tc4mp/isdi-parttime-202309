@@ -58,7 +58,7 @@ function Register(props) {
             <Field id="email-input" type="email">E-mail</Field>
             <Field id="password-input" type="password">Password</Field>
 
-            <Button type="submit">Login</Button>
+            <Button type="submit">Register</Button>
         </Form>
 
         <Link onClick={handleLoginClick}>Login</Link>

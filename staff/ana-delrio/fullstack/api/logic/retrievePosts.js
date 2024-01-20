@@ -1,12 +1,12 @@
 
-const { validateFunction, validateId } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 
 
 function retrievePosts(userId, callback) {
-    validateId(userId, 'user id')
-    validateFunction(callback, 'callback')
+    validate.id(userId, 'user id')
+    validate.function(callback, 'callback')
 
     // lean(), in a Mongoose query, the Mongoose instance is removed and a simple JavaScript object is obtained
     // This can be beneficial in terms of performance, as flat objects are lighter

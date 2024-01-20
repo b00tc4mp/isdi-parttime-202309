@@ -4,8 +4,8 @@ TEST "toggle-like-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/4op7rg7el9y0/likes' \
--H 'Authorization: Bearer 9nbvjt5wugo' \
+curl 'http://localhost:8000/posts/658ea242aadfc657d89b7a30/likes' \
+-H 'Authorization: Bearer 658d4dd388f3cf1b1fb4d3af' \
 -X PATCH \
 -v
 
