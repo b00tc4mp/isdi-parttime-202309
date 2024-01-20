@@ -1,9 +1,9 @@
-import validate from './helpers/validate'
+import { validateText } from '../utils/validators'
 
 
 function updatePostText(postId, text, callback) {
-    validate.text(postId, 'post id')
-    validate.text(text, 'text')
+    validateText(postId, 'post id')
+    validateText(text, 'text')
 
     // TODO CALL API
 

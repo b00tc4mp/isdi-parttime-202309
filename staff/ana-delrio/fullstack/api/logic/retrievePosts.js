@@ -1,12 +1,12 @@
 
-const validate = require('./helpers/validate')
+const { validateFunction, validateId } = require('./helpers/validators')
 const { User, Post } = require('../data/models')
 const { SystemError, NotFoundError } = require('./errors')
 
 
 function retrievePosts(userId, callback) {
-    validate.id(userId, 'user id')
-    validate.function(callback, 'callback')
+    validateId(userId, 'user id')
+    validateFunction(callback, 'callback')
 
     // lean(), in a Mongoose query, the Mongoose instance is removed and a simple JavaScript object is obtained
     // This can be beneficial in terms of performance, as flat objects are lighter
@@ -18,7 +18,6 @@ function retrievePosts(userId, callback) {
                 return
             }
             // sanemanos/normalizamos las propiedades que no nos interesan en posts
-            // The populate function in Mongoose is used to fetch referenced documents from another collection and replace the references in the original document with the actual referenced documents
             Post.find().populate('author', 'name').lean()
                 .then(posts => {
                     posts.forEach(post => {

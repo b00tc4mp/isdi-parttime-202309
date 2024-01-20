@@ -1,10 +1,7 @@
 import context from "./context"
-import validate from './helpers/validate'
 
 
 function retrieveUser(callback) {
-    validate.function(callback, 'callback')
-
     const req = {
         method: 'GET',
         headers: {
@@ -12,7 +9,7 @@ function retrieveUser(callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+    fetch('http://localhost:8000/users', req)
         .then(res => {
             console.log(req)
             if (!res.ok) {

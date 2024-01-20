@@ -1,9 +1,9 @@
-import validate from './helpers/validate'
+import { validateText } from '../utils/validators'
 import context from './context'
 
 function publishPost(image, text, callback) {
-    validate.text(image, 'image')
-    validate.text(text, 'text')
+    validateText(image, 'image')
+    validateText(text, 'text')
 
     // / Se crea un objeto 'req' que contiene la configuración de la solicitud
     const req = {
@@ -16,7 +16,7 @@ function publishPost(image, text, callback) {
     }
 
     // esto es un endpoint, a donde estamos llamando
-    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
+    fetch('http://localhost:8000/posts', req)
         .then(res => {
             // si todo va bien irá por ese camino 
             if (!res.ok) {

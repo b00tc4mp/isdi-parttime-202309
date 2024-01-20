@@ -1,10 +1,9 @@
-import validate from './helpers/validate'
-
+import { validateText } from '../utils/validators'
 
 function registerUser(name, email, password, callback) {
-    validate.text(name)
-    validate.email(email)
-    validate.function(callback)
+    validateText(name, 'name')
+    validateText(email, 'email')
+    validateText(password, 'password')
 
     // configuración de la solicitud HTTP (fetch)
     const req = {
@@ -16,7 +15,7 @@ function registerUser(name, email, password, callback) {
     }
 
     // Realización de la solicitud con la configuración del objeto proporcionado rew
-    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+    fetch('http://localhost:8000/users', req)
         .then(res => {
             // si todo va bien irá por ese camino 
             if (!res.ok) {

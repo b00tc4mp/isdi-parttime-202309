@@ -1,10 +1,7 @@
 import context from "./context"
-import validate from './helpers/validate'
 
 
 function retrieveFavPosts(callback) {
-    validate.function(callback, 'callback')
-
     const req = {
         method: 'GET',
         headers: {
@@ -12,7 +9,7 @@ function retrieveFavPosts(callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/favs`, req)
+    fetch('http://localhost:8000/posts/favs', req)
         .then(res => {
             console.log(req)
             // Si la respuesta no es exitosa (código de estado no está en el rango 200-299), se maneja el error

@@ -1,33 +1,32 @@
 
 const { User, Post } = require('../data/models')
 const { NotFoundError, SystemError } = require("./errors")
-const validate = require("./helpers/validate")
+const { validateId, validateFunction } = require("./helpers/validators")
 
 function toggleLikePost(userId, postId, callback) {
-    validate.id(userId, 'user id')
-    validate.id(postId, 'post id')
-    validate.function(callback, 'callback')
+    validateId(userId, 'user id')
+    validateId(postId, 'post id')
+    validateFunction(callback, 'callback')
 
-    User.findById(userId).lean()
+    User.findById(userId)
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
+                callback(new NotFoundError('user id do not exist'))
                 return
             }
 
-            // aqui no ponemos el lean, porque queremos modificar alguna de sus propiedades
             Post.findById(postId)
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post not found'))
+                        callback(new NotFoundError('post id do not exist'))
                         return
                     }
 
-                    const index = post.likes.findIndex(userObjectId => userObjectId.toString() === userId)
-                    if (index < 0) {
+                    const userIdLikeIndex = post.likes.findIndex(like => like.toString() === userId)
+                    if (userIdLikeIndex < 0) {
                         post.likes.push(userId)
                     }
-                    else post.likes.splice(index, 1)
+                    else post.likes.splice(userIdLikeIndex, 1)
 
                     post.save()
                         .then(() => callback(null))

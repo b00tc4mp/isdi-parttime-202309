@@ -1,10 +1,10 @@
-import validate from './helpers/validate'
+import { validateText } from '../utils/validators'
 
 
 function changeUserEmail(newEmail, newEmailConfirm, password) {
-    validate.email(newEmail, 'new email')
-    validate.email(newEmailConfirm, 'new email confirm')
-    validate.password(password)
+    validateText(newEmail, 'new email')
+    validateText(newEmailConfirm, 'new email confirm')
+    validateText(password, 'password')
 
     //TODO CALL API
 

@@ -1,11 +1,10 @@
-import validate from './helpers/validate'
+import { validateText } from '../utils/validators'
 import context from './context'
 
 
 function loginUser(email, password, callback) {
-    validate.email(email)
-    validate.password(password)
-    validate.function(callback)
+    validateText(email, 'email')
+    validateText(password, 'password')
 
     // / Se crea un objeto 'req' que contiene la configuración de la solicitud
     const req = {
@@ -17,7 +16,7 @@ function loginUser(email, password, callback) {
     }
 
     // esto es un endpoint, a donde estamos llamando
-    fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+    fetch('http://localhost:8000/users/auth', req)
         .then(res => {
             // si todo va bien irá por ese camino 
             if (!res.ok) {
