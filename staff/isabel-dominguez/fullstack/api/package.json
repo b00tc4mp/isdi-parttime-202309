@@ -8,7 +8,8 @@
     "watch": "node --watch .",
     "inspect": "node --inspect-brk .",
     "test": "mocha logic/*.spec.js",
-    "test-inspect": "mocha --inspect-brk logic/*.spec.js"
+    "test-inspect": "mocha --inspect-brk logic/*.spec.js",
+    "test-coverage": "nyc --cache=false --reporter=text-summary --reporter=html mocha logic/*.spec.js"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,8 @@
   },
   "devDependencies": {
     "chai": "^5.0.0",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
   },
   "type": "module"
 }

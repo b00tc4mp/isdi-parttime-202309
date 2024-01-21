@@ -15,7 +15,7 @@ function registerUser(name, email, password) {
 
             throw new SystemError(error.message)
         })
-        .then(user => { })
+        .then(user => { })//return undefind
 }
 
 export default registerUser

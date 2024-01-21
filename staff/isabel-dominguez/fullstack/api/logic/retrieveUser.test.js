@@ -1,18 +1,16 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
+
 import retrieveUser from './retrieveUser.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.TEST_MONGODB_URL)
     .then(() => {
         try {
-            retrieveUser('659d80cd92931dda482823f6', (error, user) => {
-                if (error) {
-                    console.error(error)
-
-                    return
-                }
-
-                console.log('retrieved', user)
-            })
+            retrieveUser('65ad6369e08fa20d689d4eb4')
+                .then(user => console.log('retrieved', user))
+                .catch(error => console.error(error))
         } catch (error) {
             console.error(error)
         }
