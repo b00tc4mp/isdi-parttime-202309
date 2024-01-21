@@ -173,6 +173,7 @@ server.patch('/posts/:postId/likes', (req, res) => {
           .status(status)
           .json({ error: error.constructor.name, message: error.message })
       }
+
       res.status(204).send()
     })
   } catch (error) {
