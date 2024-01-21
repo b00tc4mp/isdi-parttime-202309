@@ -3,45 +3,45 @@ const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
 
 function registerUser(name, email, password, callback) {
-    validateText(name, 'name')
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+  validateText(name, 'name')
+  validateText(email, 'email')
+  validateText(password, 'password')
+  validateFunction(callback, 'callback')
 
-    CSV.loadAsObject('./data/users.csv', (error, users) => {
-        if (error) {
-            callback(error)
+  CSV.loadAsObject('./data/users.csv', (error, users) => {
+    if (error) {
+      callback(error)
 
-            return
-        }
+      return
+    }
 
-        let user = users.find(user => user.email === email)
+    let user = users.find((user) => user.email === email)
 
-        if (user) {
-            callback(new Error('user already exists'))
+    if (user) {
+      callback(new Error('user already exists'))
 
-            return
-        }
+      return
+    }
 
-        user = {
-            id: generateId(),
-            name,
-            email,
-            password
-        }
+    user = {
+      id: generateId(),
+      name,
+      email,
+      password,
+    }
 
-        users.push(user)
+    users.push(user)
 
-        CSV.saveFromObject('./data/users.csv', users, error => {
-            if (error) {
-                callback(error)
+    CSV.saveFromObject('./data/users.csv', users, (error) => {
+      if (error) {
+        callback(error)
 
-                return
-            }
+        return
+      }
 
-            callback(null)
-        })
+      callback(null)
     })
+  })
 }
 
 module.exports = registerUser

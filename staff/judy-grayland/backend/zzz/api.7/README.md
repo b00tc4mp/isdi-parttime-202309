@@ -17,3 +17,9 @@ Response (error): 400 "Content-Type: application/json" { error, message }
 Request: GET /users "Authorization: Bearer userId"
 Response: 200 "Content-Type: application/json" { name }
 Response (error): 400 "Content-Type: application/json" { error, message }
+
+## Create post
+
+Request: POST /posts "Authorization: Bearer userId" "Content-Type: application/json" { image, text }
+Response: 201
+Response (error): 400 "Content-Type: application/json" { error, message }

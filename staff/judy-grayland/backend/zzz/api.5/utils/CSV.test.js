@@ -1,29 +1,28 @@
 const CSV = require('./CSV')
 
-CSV.parseFromFile('./data/users.csv', (error, users) => {
-    if (error) {
-        console.error(error)
+// CSV.parseFromFile('./data/users.csv', (error, users) => {
+//   if (error) {
+//     console.error(error)
 
-        return
-    }
+//     return
+//   }
 
-    CSV.stringifyToFile('./data/users2.csv', users, error => {
-        if (error) {
-            console.error(error)
+//   CSV.stringifyToFile('./data/users2.csv', users, (error) => {
+//     if (error) {
+//       console.error(error)
 
-            return
-        }
+//       return
+//     }
+//     console.log('end')
+//   })
+// })
 
-        console.log('end')
-    })
-})
+const csv = `id,name,email,password\r
+amhkljhnhc4,Cala Bacin,cala@bacin.com,123123123\r
+9nbvjt5wugo,Zana Horia,zana@horia.com,123123123`
 
-// const csv = `id,name,email,password\r
-// amhkljhnhc4,Cala Bacin,cala@bacin.com,123123123\r
-// 9nbvjt5wugo,Zana Horia,zana@horia.com,123123123`
+const users = CSV.parse(csv)
+console.log(users)
 
-// const users = CSV.parse(csv)
-// console.log(users)
-
-// const csv2 = CSV.stringify(users)
-// console.log(csv2)
+const csv2 = CSV.stringify(users)
+console.log(csv2)

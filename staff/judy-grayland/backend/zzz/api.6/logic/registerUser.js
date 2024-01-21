@@ -3,46 +3,46 @@ const generateId = require('../data/generateId')
 const { validateText, validateFunction } = require('../utils/validators')
 
 function registerUser(name, email, password, callback) {
-    validateText(name, 'name')
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+  validateText(name, 'name')
+  validateText(email, 'email')
+  validateText(password, 'password')
+  validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
+  JSON.parseFromFile('./data/users.json', (error, users) => {
+    if (error) {
+      callback(error)
 
-            return
-        }
+      return
+    }
 
-        let user = users.find(user => user.email === email)
+    let user = users.find((user) => user.email === email)
 
-        if (user) {
-            callback(new Error('user already exists'))
+    if (user) {
+      callback(new Error('user already exists'))
 
-            return
-        }
+      return
+    }
 
-        user = {
-            id: generateId(),
-            name,
-            email,
-            password,
-            favs: []
-        }
+    user = {
+      id: generateId(),
+      name,
+      email,
+      password,
+      favs: [],
+    }
 
-        users.push(user)
+    users.push(user)
 
-        JSON.stringifyToFile('./data/users.json', users, error => {
-            if (error) {
-                callback(error)
+    JSON.stringifyToFile('./data/users.json', users, (error) => {
+      if (error) {
+        callback(error)
 
-                return
-            }
+        return
+      }
 
-            callback(null)
-        })
+      callback(null)
     })
+  })
 }
 
 module.exports = registerUser

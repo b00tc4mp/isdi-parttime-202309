@@ -2,33 +2,33 @@ const JSON = require('../utils/JSON')
 const { validateText, validateFunction } = require('../utils/validators')
 
 function authenticateUser(email, password, callback) {
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+  validateText(email, 'email')
+  validateText(password, 'password')
+  validateFunction(callback, 'callback')
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
+  JSON.parseFromFile('./data/users.json', (error, users) => {
+    if (error) {
+      callback(error)
 
-            return
-        }
+      return
+    }
 
-        let user = users.find(user => user.email === email)
+    let user = users.find((user) => user.email === email)
 
-        if (!user) {
-            callback(new Error('user not found'))
+    if (!user) {
+      callback(new Error('user not found'))
 
-            return
-        }
+      return
+    }
 
-        if (user.password !== password) {
-            callback(new Error('wrong credentials'))
+    if (user.password !== password) {
+      callback(new Error('wrong credentials'))
 
-            return
-        }
+      return
+    }
 
-        callback(null, user.id)
-    })
+    callback(null, user.id)
+  })
 }
 
 module.exports = authenticateUser

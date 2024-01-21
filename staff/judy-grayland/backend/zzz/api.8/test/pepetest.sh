@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function TEST() {
     echo "TEST $1"
 }

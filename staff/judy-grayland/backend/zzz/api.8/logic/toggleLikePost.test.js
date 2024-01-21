@@ -1,15 +1,15 @@
 const toggleLikePost = require('./toggleLikePost')
 
 try {
-    toggleLikePost('4945v51dd8i0', '7e5klaogm6o0', error => {
-        if (error) {
-            console.error(error)
+  toggleLikePost('3kmmn4f11xe0', 't8gzwceff0', (error) => {
+    if (error) {
+      console.error(error)
 
-            return
-        }
+      return
+    }
 
-        console.log('post like toggled')
-    })
+    console.log('post like toggled')
+  })
 } catch (error) {
-    console.error(error)
+  console.error(error)
 }
