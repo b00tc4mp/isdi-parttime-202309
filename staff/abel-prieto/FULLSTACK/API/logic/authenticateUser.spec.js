@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import authenticateUser from './authenticateUser.js'
+import random from './helpers/random.js'
 import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
 
@@ -15,10 +16,14 @@ describe('authenticateUser', () => {
     beforeEach(() => User.deleteMany())
 
     // CASO POSITIVO
-    it('succeeds on correct credentials', () => {                           
-        return User.create({ name: 'Wendy Darling', email: 'wendy@darling.com', password: '123123123' })
+    it('succeeds on correct credentials', () => {
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        return User.create({ name, email, password })
             .then(user => {
-                return authenticateUser('wendy@darling.com', '123123123')
+                return authenticateUser(user.email, user.password)
                     .then(userId => {
                         expect(userId).to.be.a('string')         // Que SEA un String
                         expect(userId).to.have.lengthOf(24)      // Que TENGA 24 caracteres
@@ -29,7 +34,10 @@ describe('authenticateUser', () => {
 
     // CASO NEGATIVO - EMAIL
     it('fails on wrong email', () => {
-        return authenticateUser('wendoling@darling.com', '123123123') 
+        const email = random.email() 
+        const password = random.password() 
+
+        return authenticateUser( email, password) 
             .then(() => { throw new Error('should not reach this point!') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)     // Que SEA un error del tipo NotFoundError
@@ -39,9 +47,13 @@ describe('authenticateUser', () => {
 
     // CASO NEGATIVO - PASSWORD
     it('fails on wrong password', () => {
-        return User.create({ name: 'Wendy Darling', email: 'wendy@darling.com', password: '123123123' })
-            .then(() => {
-                return authenticateUser('wendy@darling.com', '1234')
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password()
+
+        return User.create({ name, email, password })
+            .then(user => {
+                return authenticateUser(user.email, '1234')
                     .then(() => { throw new Error('shoul not reach this point!')})
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)     // Que SEA un error del tipo CredentialsError

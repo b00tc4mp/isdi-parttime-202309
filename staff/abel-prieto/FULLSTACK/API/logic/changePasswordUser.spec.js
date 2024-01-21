@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import changePasswordUser from './changePasswordUser.js'
+import random from './helpers/random.js'
 import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
 
@@ -17,18 +18,27 @@ describe('changePasswordUser', () => {
 
     // CASO POSITIVO
     it('succeeds with change user password', () => {
-        return User.create({ name: 'Le Chuga', email: 'le@chuga.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const newPassword = random.password()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changePasswordUser(user.id, '123123123', 'verdura10', 'verdura10')
-            })
-            .then(value => {
-                expect(value).to.be.undefined
+                return changePasswordUser(user.id, user.password, newPassword, newPassword)
+                    .then(value => {
+                        expect(value).to.be.undefined
+                    })
             })
     })
 
     // CASO NEGATIVO - Not Found
     it('fails on user not found', () => {
-        return changePasswordUser(new ObjectId().toString(), '123123123', 'verdura10', 'verdura10')
+        const password = random.password()
+        const newPassword = random.password()
+
+        return changePasswordUser(new ObjectId().toString(), password, newPassword, newPassword)
             .then(() => { throw new Error('should not reach this point!') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -38,9 +48,16 @@ describe('changePasswordUser', () => {
         
     // CASO NEGATIVO - Wrong credentials
     it('fails on wrong password', () => {
-        return User.create({ name: 'Le Chuga', email: 'le@chuga.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const wrongPassword = random.password()
+        const newPassword = random.password()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changePasswordUser(user.id, '1234', 'verdura10', 'verdura10')
+                return changePasswordUser(user.id, wrongPassword, newPassword, newPassword)
                     .then(() => { throw new Error('should not reach this point!') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)
@@ -52,9 +69,16 @@ describe('changePasswordUser', () => {
     
     // CASO NEGATIVO - Error with confirmation
     it('fails between new password and confirmation', () => {
-        return User.create({ name: 'Le Chuga', email: 'le@chuga.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const newPassword = random.password()
+        const wrongPassword = random.password()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changePasswordUser(user.id, '123123123', 'verdura10', 'hortaliza10')
+                return changePasswordUser(user.id, user.password, newPassword, wrongPassword)
                     .then(() => { throw new Error('should not reach this point!') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)

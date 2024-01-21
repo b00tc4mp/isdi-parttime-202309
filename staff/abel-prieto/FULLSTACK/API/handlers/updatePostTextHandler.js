@@ -8,8 +8,9 @@ export default (req, res) => {
 
         const { postText } = req.body
 
-        logic.updatePostText(userId, postId, postText, error => {
-            if (error) {
+        logic.updatePostText(userId, postId, postText)
+            .then(() => res.status(202).send())
+            .catch(error => {
                 let status = 500
 
                 if (status instanceof NotFoundError) {
@@ -17,14 +18,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(202).send()
-            // Envía código 202 de 'ACEPTADO'
-
-        })
+            })
     } catch (error) {
         let status = 500
 

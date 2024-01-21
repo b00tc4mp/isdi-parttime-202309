@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import retrieveUser from './retrieveUser.js'
+import random from './helpers/random.js'
 import { NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
 
@@ -17,7 +18,11 @@ describe('retrieveUser', () => {
 
     // CASO POSITIVO
     it('success with retrieve user', () => {
-        return User.create({ name: 'Bruce Wayne', email: 'soy@batman.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email()
+        const password = random.password() 
+
+        return User.create({ name, email, password })
             .then(user => {
                 return retrieveUser(user.id)
                     .then(user1 => {

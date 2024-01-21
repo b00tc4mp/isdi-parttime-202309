@@ -1,12 +1,14 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import createPosts from './createPosts.js'
+import random from './helpers/random.js'
 import { NotFoundError } from './errors.js'
 import { Post, User } from '../data/models.js'
 
 dotenv.config()
+const { ObjectId } = Types
 
 describe("createPosts", () => {
   before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
@@ -16,15 +18,33 @@ describe("createPosts", () => {
 
   // CASO POSITIVO
   it("success on NEW post", () => {
-    return User.create({ name: "Le Chuga", email: "le@chuga.com", password: "123123123" })
-      .then((user) => {
-        return createPosts(user.id, "https://www.shutterstock.com/image-photo/fresh-lettuce-on-white-background-260nw-1787554472.jpg", "Hola Mundo!")
+    const name = random.name()
+    const email = random.email()
+    const password = random.password()
+
+    const image = random.image()
+    const text = random.text()
+
+    return User.create({ name, email, password })
+      .then(user => {
+        return createPosts(user.id, image, text)
+          .then(() => {
+            return Post.findOne({ image: image })
+              .then(post => {
+                  expect(post).to.exist
+                  expect(post.image).to.equal(image)
+                  expect(post.text).to.equal(text)
+              })
+          })
       })
   })
 
   // CASO NEGATIVO - Not Found
   it("fails on user not found", () => {
-    return createPosts("659eb75801ced6e04a9df7a1","https://www.shutterstock.com/image-photo/fresh-lettuce-on-white-background-260nw-1787554472.jpg", "Hola Mundo!")
+    const image = random.image()
+    const text = random.text()
+
+    return createPosts(new ObjectId().toString(), image, text)
       .then(() => {
         throw new Error("should not reach this point!")
       })

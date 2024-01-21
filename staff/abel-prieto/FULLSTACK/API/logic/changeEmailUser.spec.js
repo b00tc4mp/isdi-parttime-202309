@@ -1,12 +1,14 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import changeEmailUser from './changeEmailUser.js'
+import random from './helpers/random.js'
 import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
 
 dotenv.config()
+const { ObjectId } = Types
 
 describe('changeEmailUser', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
@@ -15,18 +17,28 @@ describe('changeEmailUser', () => {
 
     // CASO POSITIVO - OK
     it('success with change email user', () => {
-        return User.create({ name: 'Bruce Wayne', email: 'bruce@wayne.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const newEmail = random.email()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changeEmailUser(user.id, 'soy@batman.com', 'soy@batman.com', '123123123')
+                return changeEmailUser(user.id, newEmail, newEmail, user.password)
+                    .then(value => {
+                        expect(value).to.be.undefined
+                    })
             })
-            .then(value => {
-                expect(value).to.be.undefined
-            })
+            
     })
 
     // CASO NEGATIVO - Not Found
     it('fails on user not found', () => {
-        return changeEmailUser('659eb75801ced6e04a9df7a1', 'soy@batman.com', 'soy@batman.com', '123123123')
+        const newEmail = random.email()
+        const password = random.password()
+
+        return changeEmailUser(new ObjectId().toString(), newEmail, newEmail, password)
             .then(() => { throw new Error('should not reach this point!') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -36,9 +48,16 @@ describe('changeEmailUser', () => {
 
     // CASO NEGATIVO - Wrong password
     it('fails on wrong password', () => {
-        return User.create({ name: 'Bruce Wayne', email: 'bruce@wayne.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const newEmail = random.email()
+        const otherPassword = random.password()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changeEmailUser(user.id, 'soy@batman.com', 'soy@batman.com', 'alfred555')
+                return changeEmailUser(user.id, newEmail, newEmail, otherPassword)
                     .then(() => { throw new Error('should not reach this point') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)
@@ -49,9 +68,16 @@ describe('changeEmailUser', () => {
 
     // CASO NEGATIVO - Email's diferents
     it('fails between new email and confirmation', () => {
-        return User.create({ name: 'Bruce Wayne', email: 'bruce@wayne.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email() 
+        const password = random.password() 
+
+        const newEmail = random.email()
+        const otherEmail = random.email()
+
+        return User.create({ name, email, password })
             .then(user => {
-                return changeEmailUser(user.id, 'soy@batman.com', 'no-soy@batman.com', 'alfred555')
+                return changeEmailUser(user.id, newEmail, otherEmail, user.password)
                     .then(() => { throw new Error('should not reach this point') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)

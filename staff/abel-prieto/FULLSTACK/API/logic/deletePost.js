@@ -2,12 +2,12 @@ import { User, Post } from '../data/models.js'
 import { SystemError, NotFoundError } from './errors.js'
 import validate from './helpers/validate.js'
 
-function deletePost(userId, postId, callback) {
+function deletePost(userId, postId) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
-    validate.function(callback, 'callback')
 
-    User.find({'favs': postId })
+    return User.find({'favs': postId })
+        .catch(error => { throw new SystemError(error.message) })
         .then(users => {
             
             users.forEach(user => {
@@ -17,19 +17,16 @@ function deletePost(userId, postId, callback) {
                 user.save()
             })
             
-            Post.findByIdAndDelete(postId)
+            return Post.findByIdAndDelete(postId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
+                        throw new NotFoundError('post not found')
                     }
 
-                    callback(null)
+                    // return { }
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
     
 export default deletePost
