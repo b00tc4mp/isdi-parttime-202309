@@ -3,6 +3,7 @@ dotenv.config()
 
 import mongoose from 'mongoose'
 import { expect } from 'chai'
+import random from './helpers/random.js'
 
 import authenticateUser from './authenticateUser.js'
 import { SystemError, NotFoundError, CredentialsError } from './errors.js'
@@ -15,10 +16,14 @@ describe('authenticateUser', () => {
 
     it('succeeds on correct credentials', () => {
         // si el expect falla, va a ser un throw, captura el error el it, tiene un catch el propio mocha por dento
-        return User.create({ name: 'Le Chuga', email: 'le@chuga.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
+
+        return User.create({ name, email, password })
             //caso positivo, crea usuario
             .then(user => {
-                return authenticateUser('le@chuga.com', '123123123')
+                return authenticateUser(email, password)
                     //caso possitivo, devuelve el id del usuario
                     .then(userId => {
                         //compruebo que el id del usuario tenga los parámetros que espero
@@ -34,7 +39,10 @@ describe('authenticateUser', () => {
 
 
     it('fails on wrong email', () => {
-        return authenticateUser('le@chuga2.com', '123123123')
+        const email = random.email()
+        const password = random.password()
+
+        return authenticateUser(email, password)
             //aqui espero que no llegue
             .then(() => { throw new Error('should not reach this point') })
             //espero un error, que llegue aqui
@@ -48,17 +56,22 @@ describe('authenticateUser', () => {
 
     it('fails on wrong password', () => {
 
-        return User.create({ name: 'San Dia', email: 'san@dia.com', password: '123123123' })
-            .then(() => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
 
-                return authenticateUser('san@dia.com', '123123124')
+        return User.create({ name, email, password })
+
+            .then(user => {
+
+                return authenticateUser(email, password + '-wrong')
+                    .then(() => { throw new Error('should not reach this point') })
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(CredentialsError)
+                        expect(error.message).to.equal('wrong password')
+                    })
             })
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.be.instanceOf(CredentialsError);
-                expect(error.message).to.equal('wrong password');
-            });
-    });
+    })
 
 
     after(() => mongoose.disconnect())

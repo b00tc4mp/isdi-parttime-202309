@@ -1,7 +1,14 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 // primero nos traemos mongoose para conectar los modelos y conectar la base de datos
 import mongoose from "mongoose";
 // nos traemos los expect de chai
 import { expect } from 'chai'
+
+import random from './helpers/random.js'
+
+
 
 import registerUser from './registerUser.js'
 
@@ -18,14 +25,33 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
     beforeEach(() => User.deleteMany())
 
     it('succeds on new user', () => {
-        return registerUser('Pe Pino', 'pe@pino.com', '123123123')
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
+
+        return registerUser(name, email, password)
+            .then(() => {
+                return User.findOne({ email })
+                    //comprobamos que realmente el usuario que acabmos de registrar est´en la base de dato
+                    .then(user => {
+                        expect(user).to.exist
+                        expect(user.name).to.equal(name)
+                        expect(user.email).to.equal(email)
+                        expect(user.password).to.equal(password)
+                    })
+            })
         //si se registra bien, devuelve la promesa
     })
 
     it('fails on already existing user', () => {
-        return User.create({ name: 'Gui Sante', email: 'gui@sante.com', password: '123123123' })
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
+
+        return User.create({ name, email, password })
             .then(() => {
-                return registerUser('Gui Sante', 'gui@sante.com', '123123123')
+                return registerUser(name, email, password)
+                    .then(() => { throw new Error('should not reach this point') })
                     //espero que llegue al catch, que me recoja el error
                     .catch(error => {
                         expect(error).to.be.instanceOf(DuplicityError)

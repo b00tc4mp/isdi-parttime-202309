@@ -3,24 +3,19 @@ import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './
 
 import { User } from '../data/models.js'
 
-function retrieveUser(userId, callback) {
+function retrieveUser(userId) {
     validate.id(userId, 'user id')
-    validate.function(callback, 'callback')
 
-    User.findById(userId, 'name').lean()
+
+    return User.findById(userId, 'name').lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('User not found'))
-                return
-            }
-
+            if (!user)
+                throw new NotFoundError('User not found')
             delete user._id
 
-            callback(null, user)
+            return user
         })
-        .catch(error => callback(new SystemError(error.message)))
-
-
 
 }
 

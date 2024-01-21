@@ -3,27 +3,27 @@ import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './
 
 import { Post, User } from '../data/models.js'
 
-function createPost(userId, image, text, callback) {
+function createPost(userId, image, text) {
     validate.id(userId, 'user id')
     validate.text(image, 'image')
     validate.text(text, 'text')
-    validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('User not found'))
-                return
-            }
-            const post = new Post({ author: userId, image, text })
+            if (!user)
+                throw new NotFoundError('User not found')
 
-            post.save()
 
-                .then(() => callback(null))
-                .catch(error => callback(new SystemError(error.message)))
+            return Post.create({ author: userId, image, text })
+
+                .catch(error => { throw new SystemError(error.message) })
+
+
         })
+        .then(() => { })
 
-        .catch(error => callback(new SystemError(error.message)))
 
 
 }

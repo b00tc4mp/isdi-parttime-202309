@@ -1,17 +1,17 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
 import createPost from './createPost.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.MONGODB_URL)
 
     .then(() => {
         try {
-            createPost('659a904a06ac064c6025bc91', 'https://as1.ftcdn.net/v2/jpg/02/49/85/30/1000_F_249853026_lBR4FaSpeVk2RJukVg9TLUe4m95NRNE3.jpg', 'Remo', error => {
-                if (error) {
-                    console.error(error)
-                    return
-                }
-                console.log('post created')
-            })
+            createPost('65abeea7ccb29864b82b9dc4', 'https://previews.123rf.com/images/pcanzo/pcanzo1309/pcanzo130900038/21960104-las-patatas-fritas-franc%C3%A9s-saludando.jpg', 'Remo')
+                .then(() => console.log('post created'))
+                .catch(error => console.error(error))
+
         } catch (error) {
             console.log(error)
         }
