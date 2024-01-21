@@ -3,26 +3,19 @@ import { DuplicityError, SystemError } from './errors.js'
 
 import { User } from '../data/models.js'
 
-function registerUser(name, email, password, callback) {
-	validate.text(name, 'name')
-	validate.email(email, 'email')
-	validate.text(password, 'password')
-	validate.funktion(callback, 'callback')
+function registerUser(name, email, password) {
+	validate.text(name)
+	validate.email(email)
+	validate.text(password)
 
-	/* const user = new User({ name, email, password })
-	user.save() */
-
-	User.create({ name, email, password })
-		.then(() => callback(null))
+	return User.create({ name, email, password })
 		.catch(error => {
-			if (error.code === 11000) {
-				callback(new DuplicityError('user already exists'))
-				return
-			}
+			if (error.code === 11000)
+				throw new DuplicityError('user already exists')
 
-			callback(new SystemError(error.message))
+			throw new SystemError(error.message)
 		})
+		.then(user => { })
 }
-
 
 export default registerUser
