@@ -1,7 +1,7 @@
-const logic = require('../logic')
-const { ContentError, DuplicityError, NotFoundError, CredentialsError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { ContentError, DuplicityError, NotFoundError, CredentialsError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
     try {
         // eliminamos los primeros 7 caracteres del token. Esto asume que los primeros 7 caracteres representan la palabra "Bearer" seguida de un espacio, y se están eliminando para obtener solo el ID del usuario
         const userId = req.headers.authorization.substring(7)

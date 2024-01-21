@@ -1,7 +1,7 @@
 
-const { User, Post } = require('../data/models')
-const { NotFoundError, SystemError, CredentialsError } = require("./errors")
-const validate = require('./helpers/validate')
+import { User, Post } from '../data/models.js'
+import { NotFoundError, SystemError, CredentialsError } from './errors.js'
+import validate from './helpers/validate.js'
 
 function updatePostText(userId, postId, text, callback) {
     validate.id(userId, 'user id')
@@ -31,5 +31,5 @@ function updatePostText(userId, postId, text, callback) {
 
 }
 
-module.exports = updatePostText
+export default updatePostText
 

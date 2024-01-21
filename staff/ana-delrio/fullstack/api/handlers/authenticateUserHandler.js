@@ -1,9 +1,9 @@
-const logic = require('../logic')
-const { ContentError, DuplicityError, NotFoundError, CredentialsError } = require('../logic/errors')
+import logic from '../logic/index.js'
+import { NotFoundError, ContentError, CredentialsError } from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
     try {
-        const name = { email, password } = req.body
+        const { email, password } = req.body
 
         logic.authenticateUser(email, password, (error, userId) => {
             if (error) {
@@ -11,7 +11,6 @@ module.exports = (req, res) => {
 
                 if (error instanceof NotFoundError)
                     status = 404
-
                 else if (error instanceof CredentialsError)
                     status = 401
 
@@ -29,6 +28,5 @@ module.exports = (req, res) => {
             status = 406
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
-
     }
 }

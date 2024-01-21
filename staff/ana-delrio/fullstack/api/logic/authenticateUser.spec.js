@@ -1,20 +1,15 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const authenticateUser = require('./authenticateUser')
+import authenticateUser from './authenticateUser.js'
 
-const { SystemError, NotFoundError, CredentialsError } = require('./errors')
+import { SystemError, NotFoundError, CredentialsError } from './errors.js'
+import { expect } from 'chai'
 
 
 describe('authenticateUser', () => {
-    let expect
 
     // antes de nada, conectamos con mongo
-    before(() =>
-        import('chai')
-            .then(chai => expect = chai.expect)
-            .then(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
-
-    )
+    before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
 
     // primera prueba
     // done actua como callback
@@ -33,6 +28,7 @@ describe('authenticateUser', () => {
             done()
         })
     })
+
 
     // segunda prueba
     it('fails on wrong email', done => {

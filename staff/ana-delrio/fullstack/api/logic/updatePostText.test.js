@@ -1,6 +1,6 @@
 
-const mongoose = require('mongoose')
-const updatePostText = require('./updatePostText')
+import mongoose from 'mongoose'
+import updatePostText from './updatePostText.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {

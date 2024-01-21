@@ -1,13 +1,13 @@
-const registerUserHandler = require('./registerUserHandler')
-const authenticateUserHandler = require('./authenticateUserHandler')
-const retrieveUserHandler = require('./retrieveUserHandler')
-const retrievePostsHandler = require('./retrievePostsHandler')
-const createPostHandler = require('./createPostHandler')
-const toggleLikePostHandler = require('./toggleLikePostHandler')
-const toggleFavPostHandler = require('./toggleFavPostHandler')
-const retrieveFavPostsHandler = require('./retrievePostsHandler')
+import registerUserHandler from './registerUserHandler.js'
+import authenticateUserHandler from './authenticateUserHandler.js'
+import retrieveUserHandler from './retrieveUserHandler.js'
+import retrievePostsHandler from './retrievePostsHandler.js'
+import createPostHandler from './createPostHandler.js'
+import toggleLikePostHandler from './toggleLikePostHandler.js'
+import toggleFavPostHandler from './toggleFavPostHandler.js'
+import retrieveFavPostsHandler from './retrievePostsHandler.js'
 
-module.exports = {
+export {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,

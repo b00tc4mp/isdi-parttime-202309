@@ -1,12 +1,11 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
-const mongoose = require('mongoose')
-const express = require('express')
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
 
-
-const cors = require('./utils/cors')
-
-const {
+import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
@@ -15,8 +14,7 @@ const {
     toggleLikePostHandler,
     toggleFavPostHandler,
     retrieveFavPostsHandler
-} = require('./handlers')
-
+} from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -29,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = express.json()
 
         //middleware: configuramos los encabezados CORS para poder acceder desde cualquier origen (*)
-        server.use(cors)
+        server.use(cors())
 
         // manejamos la solicitud de login con la ruta /users
         server.post('/users', jsonBodyParser, registerUserHandler)
