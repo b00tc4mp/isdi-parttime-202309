@@ -60,10 +60,10 @@ client
     //   .then((result) => console.log('inserted', result))
     //   .catch((error) => console.error(error))
 
-    posts
-      .find({ author: new ObjectId('65acf7e1f0bad8bad5bcdd9e') })
-      .toArray()
-      .then((result) => console.log('found posts', result))
-      .catch((error) => console.error(error))
+    // posts
+    //   .find({ author: new ObjectId('65acf7e1f0bad8bad5bcdd9e') })
+    //   .toArray()
+    //   .then((result) => console.log('found posts', result))
+    //   .catch((error) => console.error(error))
   })
   .catch((error) => console.error(error))

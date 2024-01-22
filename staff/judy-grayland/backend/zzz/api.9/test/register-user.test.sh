@@ -1,13 +1,13 @@
 
-source pepetest.sh
+# source pepetest.sh
 
-TEST "register-user"
+# TEST "register-user"
 
-CASE "success on new user"
+# CASE "success on new user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Beren Jena", "email": "beren@jena.com", "password": "123123123" }' \
+-d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
 -v
 
 # > POST /register HTTP/1.1
