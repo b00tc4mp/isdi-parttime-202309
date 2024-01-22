@@ -1,19 +1,29 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
 import { expect } from 'chai'
+import random from './helpers/random.js'
+
 import authenticateUser from './authenticateUser.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
+import { NotFoundError, CredentialsError } from './errors.js'
 import { User } from '../data/models.js'
 
 describe('authenticateUser', () => {
-	before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
+	before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
 	beforeEach(() => User.deleteMany())
 
 	it('succeeds on correct credentials', () => {
-		return User.create({ name: 'Peter Pan', email: 'peter@pan.com', password: '123123123' })
+
+		const name = random.name()
+		const email = random.email()
+		const password = random.password()
+
+		return User.create({ name, email, password })
 
 			.then(user => {
-				return authenticateUser('peter@pan.com', '123123123')
+				return authenticateUser(email, password)
 					.then(userId => {
 						expect(userId).to.be.a('string')
 						expect(userId).to.have.lengthOf(24)
@@ -23,12 +33,34 @@ describe('authenticateUser', () => {
 	})
 
 	it('fails on wrong email', () => {
-		return authenticateUser('peter2@pan.com', '123123123')
+
+		const email = random.email()
+		const password = random.password()
+
+		return authenticateUser(email, password)
 			.then(() => { throw new Error('should not reach this point') })
 			.catch(error => {
 				expect(error).to.be.instanceOf(NotFoundError)
 				expect(error.message).to.equal('user not found')
 			})
+	})
+
+	it('fails on wrong password', () => {
+
+		const name = random.name()
+		const email = random.email()
+		const password = random.password()
+
+		return User.create({ name, email, password })
+			.then(user => {
+				return authenticateUser(email, password + '-wrong')
+					.then(() => { throw new Error('should not reach this point') })
+					.catch(error => {
+						expect(error).to.be.instanceOf(CredentialsError)
+						expect(error.message).to.equal('wrong password')
+					})
+			})
+
 	})
 
 	after(() => mongoose.disconnect())

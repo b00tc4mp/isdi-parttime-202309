@@ -1,19 +1,19 @@
 import mongoose from 'mongoose'
 import createPost from './createPost.js'
+import { User } from '../data/models.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-	.then(() => {
+	.then(() => User.deleteMany())
+	.then(() => User.create({ name: 'Peter Pan', email: 'peter@pan.com', password: '123123123' }))
+	.then(user => {
 
 		try {
-			createPost('659b348c696ad77021d9e2f8', 'http://www.lafaneca.net/images/virtuemart/product/resized/calabacines-451x300_0x200.jpg', 'hello!', error => {
+			createPost(user.id, 'http://www.lafaneca.net/images/virtuemart/product/resized/calabacines-451x300_0x200.jpg', 'hello!')
 
-				if (error) {
-					console.error(error)
+				.then(() => console.log('created'))
+				.catch(error => console.error(error))
 
-					return
-				}
-				console.log('new post created')
-			})
+
 		} catch (error) {
 			console.error(error)
 		}
