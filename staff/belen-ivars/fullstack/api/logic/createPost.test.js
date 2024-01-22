@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import createPost from './createPost.js'
 import { User } from '../data/models.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.TEST_MONGODB_URL)
 	.then(() => User.deleteMany())
 	.then(() => User.create({ name: 'Peter Pan', email: 'peter@pan.com', password: '123123123' }))
 	.then(user => {
