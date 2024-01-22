@@ -1,22 +1,21 @@
 import { Post, User } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors'
-import validate from './helpers/validate'
+import { SystemError, NotFoundError } from './errors.js'
+import validate from './helpers/validate.js'
 
-function retrievePost(userId, callback) {
+function retrievePost(userId) {
     validate.id(userId, 'post id')
-    validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
+                throw new NotFoundError('user not found')
             }
 
-            Post.find().populate('author', 'name').lean()
+            return Post.find().populate('author', 'name').lean()
                 // Con .populate() nos permite traernos a una propiedad (1) lo que le pidamos, si está referenciado (2)
                 // Con .lean() nos traemos, en vez de el modelo de dato, SOLO el documento
+                .catch(error => { throw new SystemError(error.message) })
                 .then(posts => {
                     posts.forEach(post => {
                         post.id = post._id.toString()
@@ -36,11 +35,9 @@ function retrievePost(userId, callback) {
                         post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
                     })
 
-                    callback(null, posts)
+                    return posts
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
 export default retrievePost

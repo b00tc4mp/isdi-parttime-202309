@@ -6,25 +6,25 @@ function deletePost(userId, postId) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
 
-    return User.find({'favs': postId })
+    return Post.findByIdAndDelete(postId)
         .catch(error => { throw new SystemError(error.message) })
-        .then(users => {
-            
-            users.forEach(user => {
-                const postFavIndex = user.favs.indexOf(postId)
-                user.favs.splice(postFavIndex, 1)
+        .then(post => {
+            if (!post) {
+                throw new NotFoundError('post not found')
+            }
 
-                user.save()
-            })
-            
-            return Post.findByIdAndDelete(postId)
+            return User.find({ 'favs': postId })
                 .catch(error => { throw new SystemError(error.message) })
-                .then(post => {
-                    if (!post) {
-                        throw new NotFoundError('post not found')
-                    }
+                .then(users => {
 
-                    // return { }
+                    for (const user of users) {
+                        const postFavIndex = user.favs.indexOf(postId)
+                        user.favs.splice(postFavIndex, 1)
+
+                        return user.save()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(user => { })
+                    }
                 })
         })
 }

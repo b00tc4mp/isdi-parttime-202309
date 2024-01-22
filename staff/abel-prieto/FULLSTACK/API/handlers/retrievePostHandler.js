@@ -5,8 +5,9 @@ export default (req, res) => {
     try {
         const userId = req.headers.authorization.substring(7)
 
-        logic.retrievePost(userId, (error, posts) => {
-            if (error) {
+        logic.retrievePost(userId)
+            .then(posts => res.json(posts))
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError) {
@@ -14,12 +15,7 @@ export default (req, res) => {
                 }
                 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.json(posts)
-        })
+            })
     } catch (error) {
         let status = 500
 

@@ -18,7 +18,7 @@ describe('deletePost', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
     // CASO POSITIVO - Deleting post
-    it('success with deleting a post', () => {
+    it('succeeds on deleting a post', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
@@ -29,14 +29,19 @@ describe('deletePost', () => {
         return User.create({ name, email, password })
             .then(user => {
                 return Post.create({ author: user.id, image, text })
-                .   then(post => {
-                        return deletePost(user.id, post.id)
-                        .then(() => {
-                            return Post.findOne({ image: image })
-                                .then(post => {
-                                    expect(post).to.not.exist
-                                })
-                        })
+                    .then(post => {
+                        user.favs.push(post.id)
+                        return user.save()
+                            .then(user => {
+                                return deletePost(user.id, post.id)
+                                    .then(() => {
+                                        return Post.findOne({ image: image })
+                                            .then(post => {
+                                                expect(post).to.be.null
+                                                expect(user.favs).to.be.an('array').that.is.empty
+                                            })
+                                    })
+                            })
                     })
             })
     })

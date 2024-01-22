@@ -1,20 +1,24 @@
-import mongoose, { Types } from 'mongoose' 
+import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import dotenv from 'dotenv'
 
-import retrieveFavs from './retrieveFavs.js'
-import { Post, User } from '../data/models.js'
+import retrievePost from './retrievePost.js'
 import random from './helpers/random.js'
+import { Post, User } from '../data/models.js'
 import { NotFoundError } from './errors.js'
 
-dotenv.config()
 const { ObjectId } = Types
 
-describe('retrieveFavs', () => {
+dotenv.config()
+
+describe('retrievePosts', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
-    // CASO POSITIVO - Retrieve Favs
-    it('succeeds on retrieve fav posts', () => {
+    beforeEach(() => User.deleteMany())
+    beforeEach(() => Post.deleteMany())
+
+    // CASO POSITIVO
+    it('succeeds on retrieve posts', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
@@ -26,14 +30,10 @@ describe('retrieveFavs', () => {
             .then(user => {
                 return Post.create({ author: user.id, image, text })
                     .then(post => {
-                        user.favs.push(post)
-                        return user.save()
-                            .then(user => {
-                                return retrieveFavs(user.id)
-                                .then(favs => {
-                                    expect(favs).to.be.an('array').that.has.lengthOf(1)
-                                    expect(favs[0].id).to.equal(post.id)
-                                })
+                        return retrievePost(user.id)
+                            .then(posts => {
+                                expect(posts).to.be.an('array').that.has.lengthOf(1)
+                                expect(posts[0].id).to.equal(post.id)
                             })
                     })
             })
@@ -47,8 +47,8 @@ describe('retrieveFavs', () => {
         const userId = new ObjectId().toString()
 
         return Post.create({ author: userId, image, text })
-            .then(() => {
-                return retrieveFavs(userId)
+            .then(post => {
+                return retrievePost(userId)
                     .then(() => { throw new Error('should not reach this point!') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
@@ -56,6 +56,8 @@ describe('retrieveFavs', () => {
                     })
             })
     })
+
+
 
     after(() => mongoose.disconnect())
 })

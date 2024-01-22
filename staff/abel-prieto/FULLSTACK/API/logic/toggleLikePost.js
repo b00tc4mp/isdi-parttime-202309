@@ -14,7 +14,7 @@ function toggleLikePost(userId, postId) {
                 throw new NotFoundError('user not found')
             }
             
-            Post.findById(postId)
+            return Post.findById(postId)
                 .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     if (!post) {
@@ -29,7 +29,7 @@ function toggleLikePost(userId, postId) {
                         post.likes.splice(userIndex, 1)
                     }
 
-                    post.save()
+                    return post.save()
                         .catch(error => { throw new SystemError(error.message) })
                         .then(post => { })
                 })

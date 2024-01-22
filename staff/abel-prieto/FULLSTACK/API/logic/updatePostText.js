@@ -23,8 +23,8 @@ function updatePostText(userId, postId, postText) {
 
                     post.text = postText
 
-                    post.save()
-                        .catch(error => {throw new SystemError(error.message) })
+                    return post.save()
+                        .catch(error => { throw new SystemError(error.message) })
                         .then(post => { })
                 })
         })

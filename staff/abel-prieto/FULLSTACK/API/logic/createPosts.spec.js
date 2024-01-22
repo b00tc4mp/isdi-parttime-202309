@@ -17,7 +17,7 @@ describe("createPosts", () => {
   beforeEach(() => User.deleteMany())
 
   // CASO POSITIVO
-  it("success on NEW post", () => {
+  it("succeeds on create NEW post", () => {
     const name = random.name()
     const email = random.email()
     const password = random.password()

@@ -15,7 +15,7 @@ describe('registerUser', () => {
     beforeEach(() => User.deleteMany())
 
     // CASO POSITIVO
-    it('success on NEW user', () => {
+    it('succeeds on register NEW user', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password() 

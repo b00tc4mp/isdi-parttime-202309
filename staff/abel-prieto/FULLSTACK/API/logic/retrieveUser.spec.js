@@ -17,7 +17,7 @@ describe('retrieveUser', () => {
     beforeEach(() => User.deleteMany())
 
     // CASO POSITIVO
-    it('success with retrieve user', () => {
+    it('succeeds on retrieve user', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password() 

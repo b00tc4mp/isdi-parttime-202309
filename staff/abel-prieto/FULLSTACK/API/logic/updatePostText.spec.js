@@ -18,7 +18,7 @@ describe('updatePostText', () => {
     beforeEach(() => Post.deleteMany())
 
     // CASO POSITIVO - Update Text
-    it('success with updating post text', () => {
+    it('succeeds on updating post text', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
@@ -34,6 +34,7 @@ describe('updatePostText', () => {
                             .then(() => {
                                 return Post.findOne({ image: image })
                                     .then(post => {
+                                        expect(post.text).to.be.a('string')
                                         expect(post.text).to.equal('new text')
                                     })
                             })

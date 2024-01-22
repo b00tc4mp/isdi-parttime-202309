@@ -2,25 +2,22 @@ import { User, Post } from '../data/models.js'
 import { SystemError, NotFoundError } from './errors.js'
 import validate from './helpers/validate.js'
 
-function toggleFavPost(postId, userId, callback) {
+function toggleFavPost(postId, userId) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
-    validate.function(callback, 'callback')
 
-    Post.findById(postId)
+    return Post.findById(postId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(post => {
             if (!post) {
-                callback(new NotFoundError('post not found'))
-
-                return
+                throw new NotFoundError('post not found')
             }
 
-            User.findById(userId)
+            return User.findById(userId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(user => {
                     if (!user) {
-                        callback(new NotFoundError('user not found'))
-
-                        return
+                        throw new NotFoundError('user not found')
                     }
 
                     const postIndex = user.favs.indexOf(postId)
@@ -31,15 +28,11 @@ function toggleFavPost(postId, userId, callback) {
                         user.favs.splice(postIndex, 1)
                     }
 
-                    user.save()
-                        .then(() => {
-                            callback(null)
-                        })
-                        .catch(error => callback(new SystemError(error.message)))
+                    return user.save()
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(user => { })
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
 export default toggleFavPost
