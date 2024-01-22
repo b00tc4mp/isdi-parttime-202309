@@ -4,13 +4,13 @@ TEST "register-user"
 
 CASE "success on new user"
 
-curl 'http://localhost:8000/users' \
+curl 'http://localhost:9000/users' \
 -H 'Content-Type: application/json' \
 -d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
 -v
 
 # > POST /users HTTP/1.1
-# > Host: localhost:8000
+# > Host: localhost:9000
 # > User-Agent: curl/8.1.2
 # > Accept: */*
 # > Content-Type: application/json
@@ -25,13 +25,13 @@ curl 'http://localhost:8000/users' \
 
 CASE "fail on already existing user"
 
-curl 'http://localhost:8000/users' \
+curl 'http://localhost:9000/users' \
 -H 'Content-Type: application/json' \
 -d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \
 -v
 
 # > POST /users HTTP/1.1
-# > Host: localhost:8000
+# > Host: localhost:9000
 # > User-Agent: curl/8.1.2
 # > Accept: */*
 # > Content-Type: application/json
