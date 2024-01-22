@@ -1,10 +1,13 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
 import registerUser from './registerUser.js'
 
-mongoose.connect(process.env.TEST_MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
 	.then(() => {
 		try {
-			registerUser('Coca Dacsa', 'coca@dacsa.com', '123123123')
+			registerUser('Napi Col', 'napi@col.com', '123123123')
 				.then(() => console.log('user registered'))
 				.catch(error => console.error(error))
 

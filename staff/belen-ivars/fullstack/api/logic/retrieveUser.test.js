@@ -4,7 +4,7 @@ dotenv.config()
 import mongoose from 'mongoose'
 import retrieveUser from './retrieveUser.js'
 
-mongoose.connect(process.env.TEST_MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
 	.then(() => {
 		try {
 			retrieveUser('659b24a58a11867925806583')

@@ -1,8 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
 import createPost from './createPost.js'
 import { User } from '../data/models.js'
 
-mongoose.connect(process.env.TEST_MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
 	.then(() => User.deleteMany())
 	.then(() => User.create({ name: 'Peter Pan', email: 'peter@pan.com', password: '123123123' }))
 	.then(user => {
