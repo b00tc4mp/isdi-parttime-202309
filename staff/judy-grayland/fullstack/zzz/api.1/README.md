@@ -12,12 +12,6 @@
 - Response: 200 "Content-Type: application/json" userId
 - Response (error): 400 "Content-Type: application/json" { error, message }
 
-## Change user email
-
-- Request: PATCH /users "Authorization: Bearer userId"
-- Response: 204
-- Response (error): 400|404|406|500 "Content-Type: application/json" { error, message }
-
 ## Retrieve user
 
 - Request: GET /users "Authorization: Bearer userId"

@@ -106,40 +106,6 @@ server.get('/users', (req, res) => {
   }
 })
 
-// change email
-// server.patch('/users', (req, res) => {
-//   try {
-//     const { email, newEmail, newEmailConfirm, password } = req.body
-
-//     changeUserEmail(email, newEmail, newEmailConfirm, password, (error) => {
-//       if (error) {
-//         let status = 400
-
-//         if (error instanceof SystemError) {
-//           status = 500
-//         } else if (error instanceof NotFoundError) {
-//           status = 404
-//         }
-
-//         res
-//           .status(status)
-//           .json({ error: error.constructor.name, message: error.message })
-//       }
-
-//       res.status(204).send()
-//     })
-//   } catch (error) {
-//     let status = 400
-
-//     if (error instanceof ContentError) {
-//       status = 406
-//     }
-//     res
-//       .status(400)
-//       .json({ error: error.constructor.name, message: error.message })
-//   }
-// })
-
 // retrieve posts
 server.get('/posts', (req, res) => {
   try {
