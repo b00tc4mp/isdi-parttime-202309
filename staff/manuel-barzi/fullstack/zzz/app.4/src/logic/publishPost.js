@@ -1,17 +1,20 @@
 import validate from './helpers/validate'
 import context from './context'
 
-function retrieveUser(callback) {
-    validate.function(callback, 'callback')
+function publishPost(image, text, callback) {
+    validate.text(image, 'image')
+    validate.text(text, 'text')
 
     const req = {
-        method: 'GET',
+        method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.token}`
-        }
+            Authorization: `Bearer ${context.sessionUserId}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image, text })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
@@ -21,11 +24,9 @@ function retrieveUser(callback) {
                 return
             }
 
-            res.json()
-                .then(user => callback(null, user))
-                .catch(error => callback(error))
+            callback(null)
         })
         .catch(error => callback(error))
 }
 
-export default retrieveUser
+export default publishPost

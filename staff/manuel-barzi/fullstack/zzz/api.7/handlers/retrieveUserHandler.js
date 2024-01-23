@@ -1,15 +1,9 @@
-import jwt from 'jsonwebtoken'
-
 import logic from '../logic/index.js'
 import { NotFoundError, ContentError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
-        const token = req.headers.authorization.substring(7)
-
-        const payload = jwt.verify(token, process.env.JWT_SECRET)
-
-        const userId = payload.sub
+        const userId = req.headers.authorization.substring(7)
 
         logic.retrieveUser(userId)
             .then(user => res.json(user))

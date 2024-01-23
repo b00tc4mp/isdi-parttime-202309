@@ -1,23 +1,17 @@
-import jwt from 'jsonwebtoken'
-
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError } from '../logic/errors.js'
+import { ContentError, DuplicityError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
-        const token = req.headers.authorization.substring(7)
+        const { name, email, password } = req.body
 
-        const payload = jwt.verify(token, process.env.JWT_SECRET)
-
-        const userId = payload.sub
-
-        logic.retrieveUser(userId)
-            .then(user => res.json(user))
+        logic.registerUser(name, email, password)
+            .then(() => res.status(201).send())
             .catch(error => {
                 let status = 500
 
-                if (error instanceof NotFoundError)
-                    status = 404
+                if (error instanceof DuplicityError)
+                    status = 409
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             })
