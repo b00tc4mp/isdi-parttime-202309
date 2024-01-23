@@ -28,6 +28,7 @@ function toggleFavPost(userId, postId, callback) {
                     }
                     else user.favs.splice(index, 1)
 
+
                     user.save()
                         .then(() => callback(null))
                         .catch(error => callback(new SystemError(error.message)))

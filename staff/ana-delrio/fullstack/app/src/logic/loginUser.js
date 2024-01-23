@@ -16,6 +16,7 @@ function loginUser(email, password, callback) {
 
     fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
         .then(res => {
+            console.log('Miguel', req)
             if (!res.ok) {
                 res.json()
                     .then(body => callback(new Error(body.message)))

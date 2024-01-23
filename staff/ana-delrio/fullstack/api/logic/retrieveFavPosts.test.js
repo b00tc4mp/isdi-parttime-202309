@@ -4,7 +4,7 @@ import retrieveFavPosts from './retrieveFavPosts.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            retrieveFavPosts('658d4d9888f3cf1b1fb4d3ab', (error, posts) => {
+            retrieveFavPosts('65ad5eab7930b43d626fd0f8', (error, posts) => {
                 if (error) {
                     console.error(error)
 

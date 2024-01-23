@@ -97,10 +97,10 @@ function Home(props) {
     return <div>
         {/* To apply CSS classes to a component in React we use the prop className */}
         <header className="header">
-            <h1><Link href="" onClick={handleHomeClick}>Home</Link></h1>
+            <h1><Link onClick={handleHomeClick}>Home</Link></h1>
 
             <div>
-                <Link href="" onClick={handleProfileClick}>{name}</Link> <Link href="" onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout</Button>
+                <Link onClick={handleProfileClick}>{name}</Link> <Link onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout</Button>
             </div>
         </header>
 
@@ -109,7 +109,9 @@ function Home(props) {
         {/* lo que estamos enviando es la función, el logic es solo para traer el contexto */}
         {(view === null || view === 'new-post') && <Posts loadPost={logic.retrievePosts.bind(logic)} stamp={stamp} />}
 
+
         {view === 'favs' && <Posts loadPost={logic.retrieveFavPosts.bind(logic)} />}
+
 
 
         <footer className="footer">

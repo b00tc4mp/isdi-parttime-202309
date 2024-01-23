@@ -15,6 +15,8 @@ function retrieveFavPosts(userId, callback) {
                 return
             }
 
+            console.log("retrieveFavPosts API")
+
             Post.find({ _id: { $in: user.favs } }).populate('author', 'name').lean()
                 .then(posts => {
                     posts.forEach(post => {
@@ -33,6 +35,7 @@ function retrieveFavPosts(userId, callback) {
 
                         post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
                     })
+
 
                     callback(null, posts)
                 })
