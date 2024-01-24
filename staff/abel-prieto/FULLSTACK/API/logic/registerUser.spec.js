@@ -34,11 +34,7 @@ describe('registerUser', () => {
 
     // CASO NEGATIVO - USER ALREADY EXIST
     it('fails on already existing user', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password() 
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return registerUser(user.name, user.email, user.password)
                     .then(() => { throw new Error('should not reach this point!')})

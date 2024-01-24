@@ -19,25 +19,19 @@ describe('deletePost', () => {
 
     // CASO POSITIVO - Deleting post
     it('succeeds on deleting a post', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
-        const image = random.image()
-        const text = random.text()
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return Post.create({ author: user.id, image, text })
+                return Post.create({ author: user.id, image: random.image(), text: random.text() })
                     .then(post => {
                         user.favs.push(post.id)
+
                         return user.save()
-                            .then(user => {
+                            .then(() => {
                                 return deletePost(user.id, post.id)
                                     .then(() => {
-                                        return Post.findOne({ image: image })
+                                        return Post.findOne({ image: post.image })
                                             .then(post => {
-                                                expect(post).to.be.null
+                                                expect(post).to.be.null // .to.not.exist
                                                 expect(user.favs).to.be.an('array').that.is.empty
                                             })
                                     })
@@ -48,17 +42,10 @@ describe('deletePost', () => {
 
     // CASO NEGATIVO - Not Found
     it('fails on post not found', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
-        const image = random.image()
-        const text = random.text()
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return Post.create({ author: user.id, image, text })
-                    .then(post => {
+                return Post.create({ author: user.id, image: random.image(), text: random.text() })
+                    .then(()=> {
                         return deletePost(user.id, new ObjectId().toString())
                             .then(() => {throw new Error('should not reach this point!')})
                             .catch(error => {

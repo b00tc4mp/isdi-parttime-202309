@@ -18,15 +18,11 @@ describe("createPosts", () => {
 
   // CASO POSITIVO
   it("succeeds on create NEW post", () => {
-    const name = random.name()
-    const email = random.email()
-    const password = random.password()
-
     const image = random.image()
     const text = random.text()
 
-    return User.create({ name, email, password })
-      .then(user => {
+    return User.create({ name: random.name(), email: random.email(), password: random.password() })
+    .then(user => {
         return createPosts(user.id, image, text)
           .then(() => {
             return Post.findOne({ image: image })

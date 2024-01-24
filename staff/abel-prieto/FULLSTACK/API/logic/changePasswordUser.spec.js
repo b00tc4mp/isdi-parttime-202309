@@ -18,13 +18,9 @@ describe('changePasswordUser', () => {
 
     // CASO POSITIVO
     it('succeeds with change user password', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const newPassword = random.password()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changePasswordUser(user.id, user.password, newPassword, newPassword)
                     .then(value => {
@@ -48,14 +44,10 @@ describe('changePasswordUser', () => {
         
     // CASO NEGATIVO - Wrong credentials
     it('fails on wrong password', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const wrongPassword = random.password()
         const newPassword = random.password()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changePasswordUser(user.id, wrongPassword, newPassword, newPassword)
                     .then(() => { throw new Error('should not reach this point!') })
@@ -69,14 +61,10 @@ describe('changePasswordUser', () => {
     
     // CASO NEGATIVO - Error with confirmation
     it('fails between new password and confirmation', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const newPassword = random.password()
         const wrongPassword = random.password()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changePasswordUser(user.id, user.password, newPassword, wrongPassword)
                     .then(() => { throw new Error('should not reach this point!') })

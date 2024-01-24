@@ -17,13 +17,9 @@ describe('changeEmailUser', () => {
 
     // CASO POSITIVO - OK
     it('success with change email user', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const newEmail = random.email()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changeEmailUser(user.id, newEmail, newEmail, user.password)
                     .then(value => {
@@ -48,14 +44,10 @@ describe('changeEmailUser', () => {
 
     // CASO NEGATIVO - Wrong password
     it('fails on wrong password', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const newEmail = random.email()
         const otherPassword = random.password()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changeEmailUser(user.id, newEmail, newEmail, otherPassword)
                     .then(() => { throw new Error('should not reach this point') })
@@ -68,14 +60,10 @@ describe('changeEmailUser', () => {
 
     // CASO NEGATIVO - Email's diferents
     it('fails between new email and confirmation', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
         const newEmail = random.email()
         const otherEmail = random.email()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return changeEmailUser(user.id, newEmail, otherEmail, user.password)
                     .then(() => { throw new Error('should not reach this point') })

@@ -19,20 +19,13 @@ describe('toogleLikePost', () => {
 
     // CASO POSITIVO
     it('succeeds on toggle like post', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
-        const image = random.image()
-        const text = random.text()
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return Post.create({ author: user.id, image, text })
+                return Post.create({ author: user.id, image: random.image(), text: random.text() })
                     .then(post => {
                         return toggleLikePost(user.id, post.id)
                             .then(() => {
-                                return Post.findOne({ image: image })
+                                return Post.findOne({ image: post.image })
                                     .then(post => {
                                         expect(post.likes).to.be.an('array').that.has.lengthOf(1)
                                         expect(post.likes[0].toString()).to.equal(user.id)
@@ -44,11 +37,9 @@ describe('toogleLikePost', () => {
 
     // CASO NEGATIVO - User Not Found
     it('fails on user not found', () => {
-        const image = random.image()
-        const text = random.text()
         const userId = new ObjectId().toString()
 
-        return Post.create({ author: userId, image, text })
+        return Post.create({ author: userId, image: random.image(), text: random.text() })
             .then(post => {
                 return toggleLikePost(userId, post.id)
                     .then(() => { throw new Error('should not reach this point!') })
@@ -61,13 +52,9 @@ describe('toogleLikePost', () => {
 
     // CASO NEGATIVO - Post Not Found
     it('fails on post not found', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
         const postId = new ObjectId().toString()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return toggleLikePost(user.id, postId)
                     .then(() => { throw new Error('should not reach this point!') })

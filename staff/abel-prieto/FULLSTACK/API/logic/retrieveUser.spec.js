@@ -18,11 +18,7 @@ describe('retrieveUser', () => {
 
     // CASO POSITIVO
     it('succeeds on retrieve user', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password() 
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return retrieveUser(user.id)
                     .then(user1 => {

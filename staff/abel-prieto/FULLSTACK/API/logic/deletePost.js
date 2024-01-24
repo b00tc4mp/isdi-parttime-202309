@@ -17,14 +17,17 @@ function deletePost(userId, postId) {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(users => {
 
-                    for (const user of users) {
+                    users.forEach(user => {
                         const postFavIndex = user.favs.indexOf(postId)
-                        user.favs.splice(postFavIndex, 1)
 
-                        return user.save()
-                            .catch(error => { throw new SystemError(error.message) })
-                            .then(user => { })
-                    }
+                        if (postFavIndex !== -1) {
+                            user.favs.splice(postFavIndex, 1)
+
+                            return user.save()
+                                .catch(error => { throw new SystemError(error.message) })
+                                .then(() => { })
+                        }
+                    })
                 })
         })
 }

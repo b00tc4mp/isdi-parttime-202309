@@ -19,20 +19,13 @@ describe('toggleFavPost', () => {
 
     // CASO POSTIVO
     it('succeeds on toggle fav post', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
-        const image = random.image()
-        const text = random.text()
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return Post.create({ author: user.id, image, text })
+                return Post.create({ author: user.id, image: random.image(), text: random.text() })
                     .then(post => {
                         return toggleFavPost(post.id, user.id)
                             .then(() => {
-                                return User.findOne({ email: email })
+                                return User.findOne({ email: user.email })
                                     .then(user => {
                                         expect(user.favs).to.be.an('array').that.has.lengthOf(1)
                                         expect(user.favs[0].toString()).to.equal(post.id)
@@ -44,13 +37,9 @@ describe('toggleFavPost', () => {
 
     // CASO NEGATIVO - Post not found
     it('fails on post not found', () => {
-        const name = random.name()
-        const email = random.email()
-        const password = random.password()
-
         const postId = new ObjectId().toString()
 
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return toggleFavPost(postId, user.id)
                     .then(() => { throw new Error('should not reach this point!') })
@@ -63,12 +52,9 @@ describe('toggleFavPost', () => {
 
     // CASO NEGATIVO - User not found
     it('fails on user not found', () => {
-        const image = random.image()
-        const text = random.text()
-
         const userId = new ObjectId().toString()
 
-        return Post.create({ author: userId, image, text })
+        return Post.create({ author: userId, image: random.image(), text: random.text() })
             .then(post => {
                 return toggleFavPost(post.id, userId)
                     .then(() => { throw new Error('should not reach this point!') })

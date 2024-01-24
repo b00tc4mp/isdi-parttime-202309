@@ -17,11 +17,7 @@ describe('authenticateUser', () => {
 
     // CASO POSITIVO
     it('succeeds on correct credentials', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password() 
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return authenticateUser(user.email, user.password)
                     .then(userId => {
@@ -47,11 +43,7 @@ describe('authenticateUser', () => {
 
     // CASO NEGATIVO - PASSWORD
     it('fails on wrong password', () => {
-        const name = random.name()
-        const email = random.email() 
-        const password = random.password()
-
-        return User.create({ name, email, password })
+        return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
                 return authenticateUser(user.email, '1234')
                     .then(() => { throw new Error('shoul not reach this point!')})
