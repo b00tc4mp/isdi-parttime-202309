@@ -1,0 +1,10 @@
+title JWT Auth
+
+App->API: POST /users/auth { email, password }
+note right of API: jwt.sign({ sub: userId }, secret) → token
+API->App: 200 token
+
+App->API: GET /users Authorization: Bearer token
+note right of API: jwt.verify(token, secret) → { sub: userId } (or JwtError)
+API -> App: 200 { name }
+API -> App: (or 401 { error: 'TokenError', message: 'invalid token' })
