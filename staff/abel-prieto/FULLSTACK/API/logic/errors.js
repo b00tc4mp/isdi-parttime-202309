@@ -40,10 +40,19 @@ class CredentialsError extends Error {
     }
 }
 
+class RelationalError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 export {
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
-    CredentialsError
+    CredentialsError,
+    RelationalError
 }

@@ -1,35 +1,47 @@
 import { User, Post } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
+import { SystemError, NotFoundError, RelationalError } from './errors.js'
 import validate from './helpers/validate.js'
 
 function deletePost(userId, postId) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
 
-    return Post.findByIdAndDelete(postId)
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user)
+                throw new NotFoundError('user not found')
+
+            return Post.findById(postId)
+                .catch(error => { throw new SystemError(error.message) })
+        })
         .then(post => {
             if (!post) {
                 throw new NotFoundError('post not found')
             }
 
-            return User.find({ 'favs': postId })
-                .catch(error => { throw new SystemError(error.message) })
-                .then(users => {
+            if (post.author.toString() !== userId)
+                throw new RelationalError('post does not belong to user')
 
-                    users.forEach(user => {
-                        const postFavIndex = user.favs.indexOf(postId)
+            return Post.findByIdAndDelete(postId)
+                .then(() => {
+                    return User.find({ 'favs': postId })
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(users => {
+                            const deletions = users.map(user => {
+                                const postFavIndex = user.favs.indexOf(postId)
 
-                        if (postFavIndex !== -1) {
-                            user.favs.splice(postFavIndex, 1)
+                                user.favs.splice(postFavIndex, 1)
 
-                            return user.save()
+                                return user.save()
+                            })
+
+                            return Promise.all(deletions)
                                 .catch(error => { throw new SystemError(error.message) })
-                                .then(() => { })
-                        }
-                    })
+                        })
                 })
+                .then(() => { })
         })
 }
-    
+
 export default deletePost
