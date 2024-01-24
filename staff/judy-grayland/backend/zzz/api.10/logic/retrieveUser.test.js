@@ -6,7 +6,7 @@ mongoose
   .connect('mongodb://127.0.0.1:27017/test')
   .then(() => {
     try {
-      retrieveUser('65b0f34bf9beb466beb3a8df', (error, user) => {
+      retrieveUser('65ae005b12a57f55da9799f0', (error, user) => {
         if (error) {
           console.error(error)
 

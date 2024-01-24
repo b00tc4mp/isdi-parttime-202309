@@ -1,23 +1,29 @@
+const mongoose = require('mongoose')
+
 const createPost = require('./createPost')
 
 // catch is there to handle errors that we did not anticipate and deal with in our function
 // the callback error handler is there to deal with errors that we have contemplated.
+mongoose
+  .connect('mongodb://127.0.0.1:27017/test')
+  .then(() => {
+    try {
+      createPost(
+        '65ae94b79032e56adfb60266',
+        'https://cmon-files.s3.amazonaws.com/images/product_line/hero_mobo/72/2018-july-wackyraces-smallhero-v2.jpg',
+        'Good morning, wacky races!',
+        (error) => {
+          if (error) {
+            console.error(error)
 
-try {
-  createPost(
-    '3kmmn4f11xe0',
-    'https://i.guim.co.uk/img/media/89e26240da3c49a5053f4b750f9c4a749508ab6f/111_0_2415_1450/master/2415.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=6c581f2b42dba6b9dedb5e4f02b77b71',
-    'Long live the lettuce',
-    (error) => {
-      if (error) {
-        console.error(error)
+            return
+          }
 
-        return
-      }
-
-      console.log('post created')
+          console.log('post created')
+        }
+      )
+    } catch (error) {
+      console.error(error)
     }
-  )
-} catch (error) {
-  console.error(error)
-}
+  })
+  .catch((error) => console.error(error))

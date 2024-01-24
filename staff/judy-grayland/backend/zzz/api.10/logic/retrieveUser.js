@@ -7,17 +7,14 @@ function retrieveUser(userId, callback) {
   validateId(userId, 'user id')
   validateFunction(callback, 'callback')
 
-  // ponemos 'name' para indicar que solo queremos el name del usuario. no necesitamos el resto de datos.
-  User.findById(userId, 'name')
-    .lean()
+  User.findById(userId)
     .then((user) => {
       if (!user) {
         callback(new NotFoundError('user not found'))
         return
       }
 
-      //tenemos que sanear:
-      delete user._id
+      callback(null, { name: user.name })
     })
     .catch((error) => callback(new SystemError(error.message)))
 }

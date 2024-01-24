@@ -3,7 +3,6 @@ const express = require('express')
 const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
-const retrievePosts = require('./logic/retrievePosts')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
 const {
@@ -136,29 +135,6 @@ mongoose
       }
     })
 
-    // retrieve posts
-    server.get('/posts', jsonBodyParser, (req, res) => {
-      try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrievePosts(userId, (error, posts) => {
-          if (error) {
-            let status = 500
-
-            if (error instanceof NotFoundError) {
-              status = 404
-            }
-
-            res
-              .status(status)
-              .json({ error: error.constructor.name, message: error.message })
-
-            return
-          }
-          res.json(posts)
-        })
-      } catch (error) {}
-    })
     // publish a post
     server.post('/posts', jsonBodyParser, (req, res) => {
       try {

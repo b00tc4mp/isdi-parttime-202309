@@ -6,7 +6,7 @@ mongoose
   .connect('mongodb://127.0.0.1:27017/test')
   .then(() => {
     try {
-      authenticateUser('pata@tin.com', 'aaa', (error, userId) => {
+      authenticateUser('agua@cate.com', 'aaa', (error, userId) => {
         if (error) {
           console.error(error)
 

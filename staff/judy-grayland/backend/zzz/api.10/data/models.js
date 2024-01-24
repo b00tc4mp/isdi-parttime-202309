@@ -15,7 +15,7 @@ const user = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: 8,
+    minlenght: 8,
   },
   favs: [
     {
@@ -43,7 +43,7 @@ const post = new Schema({
   likes: [
     {
       type: ObjectId,
-      ref: 'User',
+      ref: ['User'],
     },
   ],
 })
