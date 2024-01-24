@@ -2,49 +2,22 @@ source pepetest.sh
 
 TEST "retrieve-user"
 
-CASE "success on correct user id"
+CASE "success on correct token"
 
 curl 'http://localhost:9000/users' \
--H 'Authorization: Bearer 65aec7d3b74f4a52aceedd65' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFlYzdkM2I3NGY0YTUyYWNlZWRkNjUiLCJpYXQiOjE3MDYxMjY4MjJ9.u_ZvHObaiIJICa6wU32Fs_qfIn41zT4g8GbQ32jWHq4' \
 -v
 
-# > GET /users HTTP/1.1
-# > Host: localhost:9000
-# > User-Agent: curl/8.1.2
-# > Accept: */*
-# > Authorization: Bearer 4945v51dd8i0
+CASE "fails on corrupted token"
 
-# < HTTP/1.1 200 OK
-# < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 19
-# < ETag: W/"13-6WtBlAj7hEi29Q9uRrUVVn0dcFk"
-# < Date: Wed, 13 Dec 2023 20:31:54 GMT
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
+curl 'http://localhost:9000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWIwMTYxMDdkYzE3MjhjZTAzZDJmNGUiLCJpYXQiOjE3MDYxMjY4MjJ9.u_ZvHObaiIJICa6wU32Fs_qfIn41zT4g8GbQ32jWHq4' \
+-v
 
-# {"name":"Man Zana"}
+CASE "fails on token expired"
 
-# CASE "fails on non-existing user id"
+curl 'http://localhost:9000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFlYzdkM2I3NGY0YTUyYWNlZWRkNjUiLCJpYXQiOjE3MDYxMjc5NjIsImV4cCI6MTcwNjEyNzk2M30.BGdfHZvWSTmfQWNvOZaK4O5zuZfP6mwKP0BZ8pY_RQ8' \
+-v
 
-# curl 'http://localhost:9000/users' \
-# -H 'Authorization: Bearer 85849effd6fe566e658c5580' \
-# -v
 
-# > GET /users HTTP/1.1
-# > Host: localhost:9000
-# > User-Agent: curl/8.1.2
-# > Accept: */*
-# > Authorization: Bearer 5945v51dd8i0
-
-# < HTTP/1.1 400 Bad Request
-# < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 44
-# < ETag: W/"2c-DA3KcjMxbAqH25TOBQigpuC1Bjs"
-# < Date: Wed, 13 Dec 2023 20:33:12 GMT
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
-
-# * Connection #0 to host localhost left intact
-# {"error":"Error","message":"user not found"}                                                                                                

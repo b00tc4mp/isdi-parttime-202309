@@ -22,7 +22,7 @@ function Login(props) {
                     return
                 }
 
-                props.onSuccess()
+                setTimeout(() => props.onSuccess(), 2000)
             })
         } catch (error) {
             alert(error.message)
