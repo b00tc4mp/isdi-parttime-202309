@@ -1,15 +1,17 @@
-const authenticateUser = require('./authenticateUser')
+import mongoose from 'mongoose'
 
-try {
-    authenticateUser('zana@horia.com', '123123123', (error, userId) => {
-        if (error) {
-            console.error(error)
+import authenticateUser from './authenticateUser.js'
 
-            return
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            authenticateUser('le@chuga.com', '123123123')
+                .then(userId => {
+                    console.log('user authenticated', userId)
+                })
+                .catch(error => console.error(error))
+        } catch (error) {
+            console.log(error)
         }
-
-        console.log('user authenticated', userId)
     })
-} catch (error) {
-    console.log(error)
-}
+    .catch(error => console.error(error))

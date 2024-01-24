@@ -1,50 +1,38 @@
-const { validateText, validateFunction } = require('../utils/validators')
-const JSON = require('../utils/JSON')
+import validate from './helpers/validate.js'
 
-function retrievePosts(userId, callback) {
-    validateText(userId, 'user id')
-    validateFunction(callback, 'callback')
+import { User, Post } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
 
-    JSON.parseFromFile('./data/users.json', (error, users) => {
-        if (error) {
-            callback(error)
+function retrievePosts(userId) {
+    validate.id(userId, 'user id')
 
-            return
-        }
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user)
+                throw new NotFoundError('user not found')
 
-        const user = users.find(user => user.id === userId)
+            return Post.find().populate('author', 'name').select('-__v').lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(posts => {
+                    posts.forEach(post => {
+                        post.id = post._id.toString()
+                        delete post._id
 
-        if (!user) {
-            callback(new Error('user not found'))
+                        if (post.author._id) {
+                            post.author.id = post.author._id.toString()
+                            delete post.author._id
+                        }
 
-            return
-        }
+                        post.likes = post.likes.map(userObjectId => userObjectId.toString())
+                        post.liked = post.likes.includes(userId)
 
-        JSON.parseFromFile('./data/posts.json', (error, posts) => {
-            if (error) {
-                callback(error)
+                        post.fav = user.favs.some(postObjectId => postObjectId.toString() === post.id)
+                    })
 
-                return
-            }
-
-            posts.forEach(post => {
-                post.liked = post.likes.includes(userId)
-
-                const author = users.find(user => user.id === post.author)
-
-                // TODO what if the author suddenly does not exist?
-
-                post.author = {
-                    id: author.id,
-                    name: author.name
-                }
-
-                post.fav = user.favs.includes(post.id)
-            })
-
-            callback(null, posts)
+                    return posts
+                })
         })
-    })
 }
 
-module.exports = retrievePosts
+export default retrievePosts

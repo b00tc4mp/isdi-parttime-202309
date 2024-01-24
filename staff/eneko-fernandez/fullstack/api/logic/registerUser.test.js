@@ -1,15 +1,15 @@
-const registerUser = require('./registerUser')
+import mongoose from 'mongoose'
 
-try {
-    registerUser('Zana Horia', 'zana@horia.com', '123123123', error => {
-        if (error) {
-            console.error(error)
+import registerUser from './registerUser.js'
 
-            return
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+    .then(() => {
+        try {
+            registerUser('Le On', 'le@on.com', '123123123')
+                .then(() => console.log('user registered'))
+                .catch(error => console.error(error))
+        } catch (error) {
+            console.log(error)
         }
-
-        console.log('user registered')
     })
-} catch (error) {
-    console.log(error)
-}
+    .catch(error => console.error(error))

@@ -1,15 +1,18 @@
-const retrieveUser = require('./retrieveUser')
+import dotenv from 'dotenv'
+dotenv.config()
 
-try {
-    retrieveUser('6ttz1tptn2c0', (error, user) => {
-        if (error) {
+import mongoose from 'mongoose'
+
+import retrieveUser from './retrieveUser.js'
+
+mongoose.connect(process.env.TEST_MONGODB_URL)
+    .then(() => {
+        try {
+            retrieveUser('65a979a653b226ca2338e109')
+                .then(user => console.log('retrieved', user))
+                .catch(error => console.error(error))
+        } catch (error) {
             console.error(error)
-
-            return
         }
-
-        console.log('retrieved', user)
     })
-} catch (error) {
-    console.error(error)
-}
+    .catch(error => console.error(error))
