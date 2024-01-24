@@ -27,8 +27,18 @@ export default function loginUser(email, password, callback) {
             } 
 
             res.json()
-                .then(userId => {
+                .then(token => {
+                    // Extraemos con .slice() el userId del formato B64 (base 64) del token
+                    const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
+                    // Descodificamos los datos en B64 con el método atob()
+                    const payloadJson = atob(payloadB64)
+                    // Parseamos a formato JSON los datos decodificados
+                    const payload = JSON.parse(payloadJson)
+                    // El payload devuelve un objeto { sub: userId } con la propiedad sub
+                    const userId = payload.sub
+
                     context.sessionUserId = userId
+                    context.token = token
 
                     callback(null)
                 })
