@@ -5,8 +5,11 @@ export default (req, res) => { //no hay un jsonBodyParser porque no enviamos nad
     try {
         const userId = req.headers.authorization.substring(7)
 
-        logic.retrievePosts(userId, (error, posts) => {
-            if (error) {
+        logic.retrievePosts(userId)
+
+            .then(posts => res.json(posts))
+            .catch(error => {
+
                 let status = 500
 
 
@@ -15,11 +18,9 @@ export default (req, res) => { //no hay un jsonBodyParser porque no enviamos nad
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                return
-            }
+            })
 
-            res.json(posts)
-        })
+
     } catch (error) {
         let status = 500
 

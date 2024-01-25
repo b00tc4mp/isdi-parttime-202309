@@ -3,18 +3,20 @@ import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './
 
 import { Post, User } from '../data/models.js'
 
-function retrievePosts(userId, callback) {
+function retrievePosts(userId) {
     validate.id(userId, 'user id')
-    validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+
+    return User.findById(userId).lean()
+        .catch(error => callback(new SystemError(error.message)))
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('User not found'))
-                return
+                throw new NotFoundError('User not found')
+
             }
 
-            Post.find().populate('author', 'name').lean()
+            return Post.find().populate('author', 'name').lean()
+                .catch(error => callback(new SystemError(error.message)))
                 //Post.find() me devuelve todos los posts en forma de array
                 //con .populate('author') le decimos llename el autor, pero si le añado 'name' solo me trae name, no las otras propiedaes como el email, contraseña...
                 .then(posts => {
@@ -38,16 +40,11 @@ function retrievePosts(userId, callback) {
                         // el some lo que hace es mirar si algun objeto de se array cumple con la condicion
 
                     })
-                    callback(null, posts)
 
+                    return posts
                 })
 
-                .catch(error => callback(new SystemError(error.message)))
-
-
         })
-
-        .catch(error => callback(new SystemError(error.message)))
 
 
 }

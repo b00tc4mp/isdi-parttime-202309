@@ -6,7 +6,7 @@ CASE "success on new user"
 
 curl 'http://localhost:9000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Azucar Moreno", "email": "azucar@moreno.com", "password": "123123123" }' \
+-d '{ "name": "Gui Sante", "email": "gui@sante.com", "password": "123123123" }' \
 -v
 
 # con el -v le pido que me enseñe la vuelta
@@ -37,7 +37,7 @@ CASE "fail on already existing user"
 
 curl 'http://localhost:9000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Coli Flor", "email": "coli@flor.com", "password": "123" }' \
+-d '{ "name": "Remo Lacha", "email": "remo@lacha.com", "password": "123123123" }' \
 -v
 
 # > POST /users HTTP/1.1

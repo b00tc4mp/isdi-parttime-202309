@@ -4,8 +4,8 @@ TEST "toogle-like-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/65992f24bad309e29f867be1/likes' \
--H 'Authorization: Bearer 659b00eb4e62f914182bb69a' \
+curl 'http://localhost:9000/posts/65acdfe84f5971df0e614d4f/likes' \
+-H 'Authorization: Bearer 65afe365b142d240772c491f' \
 -X PATCH \
 -v
 

@@ -1,18 +1,23 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
 
 import retrieveFavPosts from './retrieveFavPosts.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
 
         try {
-            retrieveFavPosts('65944ed178f044ee3aece02b', (error, posts) => {
-                if (error) {
+            retrieveFavPosts('65afe3cee4a6208ef9bf08b0')
+                .then((posts) => {
+
+                    console.log('retrieved fav posts', posts)
+                })
+                .catch(error => {
                     console.error(error)
-                    return
-                }
-                console.log('retrieved fav posts', posts)
-            })
+                })
+
 
         } catch (error) {
             console.error(error)

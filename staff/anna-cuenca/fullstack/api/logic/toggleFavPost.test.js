@@ -1,20 +1,25 @@
+import dotenv from 'dotenv'
+dotenv.config()
 
 import mongoose from 'mongoose'
 import toggleFavPost from './toggleFavPost.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect(process.env.MONGODB_URL)
 
     .then(() => {
 
-        try {
-            toggleFavPost('659b00eb4e62f914182bb698', '659d30db76b0e532f9a1b6f8', error => {
-                if (error) {
+        try { //userId // postId
+            toggleFavPost('65afdf535c84b191db2dad5b', '65acdfe84f5971df0e614d4f')
+                .then(() => {
+                    console.log('fav toogled')
+                })
+                .catch(error => {
                     console.error(error)
-                    return
-                }
+                })
 
-                console.log('fav toogled')
-            })
+
+
+
         } catch (error) {
             console.error(error)
         }
