@@ -118,7 +118,7 @@ function Home(props) {
     const text = textInput.value
 
     try {
-      logic.publishPost(image, text, (error) => {
+      logic.createPost(image, text, (error) => {
         if (error) {
           alert(error.message)
 

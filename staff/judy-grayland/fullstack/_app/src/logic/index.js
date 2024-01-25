@@ -7,7 +7,7 @@ import logout from './logout'
 
 import retrieveFavPosts from './retrieveFavPosts'
 import retrievePosts from './retrievePosts'
-import publishPosts from './publishPosts'
+import createPost from './createPost'
 import toggleFavPost from './toggleFavPost'
 import toggleLikePost from './toggleLikePost'
 import updatePostText from './updatePostText'
@@ -23,7 +23,7 @@ const logic = {
 
   retrieveFavPosts,
   retrievePosts,
-  publishPosts,
+  createPost,
   toggleFavPost,
   toggleLikePost,
   updatePostText,
