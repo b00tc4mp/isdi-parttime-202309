@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
+const { JsonWebTokenError } = jwt
 
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError } from '../logic/errors.js'
+import { NotFoundError, ContentError, TokenError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
@@ -9,11 +10,9 @@ export default (req, res) => {
         // Recogemos en la cabecera el elemento solicitado en GET con el Authorization
         // Mediante el .substring() indicamos con número el carácter donde empieza el contenido/dato
 
-        const payload = jwt.verify(token, process.env.JWT_SECRET) 
+        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
         // Con jwt.verify() comprobamos que el token que recibimos coincide con la secret word
-
-        const userId = payload.sub
-        // Rescatamos el sub del payload que contiene el userId
+        // Rescatamos la propiedad sub del payload que contiene el userId
 
         logic.retrieveUser(userId)
             .then(user => res.json(user))
@@ -31,6 +30,10 @@ export default (req, res) => {
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
+        } else if (error instanceof JsonWebTokenError) {
+            status = 401
+
+            error = new TokenError(error.message)
         }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })

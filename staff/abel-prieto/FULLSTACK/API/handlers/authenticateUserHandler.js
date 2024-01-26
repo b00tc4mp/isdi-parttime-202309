@@ -9,8 +9,8 @@ export default (req, res) => {
 
         logic.authenticateUser(email, password)
             .then(userId => {
-                // Creamos el token con jwt y desarrollamos la firma digital
-                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET)
+                // Creamos el token con jwt, desarrollamos la firma digital mediante el secreto y añadimos una expiración de 1 hora
+                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
                 res.json(token)
             })

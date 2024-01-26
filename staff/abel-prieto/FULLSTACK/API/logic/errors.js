@@ -48,11 +48,20 @@ class RelationalError extends Error {
     }
 }
 
+class TokenError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.contructor.name
+    }
+}
+
 export {
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
     CredentialsError,
-    RelationalError
+    RelationalError,
+    TokenError
 }
