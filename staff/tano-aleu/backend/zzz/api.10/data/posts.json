@@ -1,0 +1,41 @@
+[
+    {
+        "id": "7e5klaogm6o0",
+        "author": "6ttz1tptn2c0",
+        "image": "https://media.istockphoto.com/id/181072765/es/foto/lechuga-aislado.jpg?s=612x612&w=0&k=20&c=7spdLdTK_iyTUdpdp6cjdHkDE9dCkahoTtnOvQYY8mE=",
+        "text": "what a fresh day",
+        "likes": [
+            "4945v51dd8i0"
+        ]
+    },
+    {
+        "id": "6hxu3k6tyl00",
+        "author": "4945v51dd8i0",
+        "image": "https://cdn2.vectorstock.com/i/1000x1000/81/46/hello-world-code-vector-22928146.jpg",
+        "text": "Hello, World!",
+        "likes": [
+            "2eqjhn1o45no"
+        ]
+    },
+    {
+        "id": "6nvhy84jcfk0",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "2vqkxgg8bhy0",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    },
+    {
+        "id": "2qbyang83k80",
+        "author": "2eqjhn1o45no",
+        "image": "http://image.com/123",
+        "text": "Hola, Popeye!",
+        "likes": []
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "5ubuymm4k700",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "123123123"
+    },
+    {
+        "id": "6ediwmlcy4o0",
+        "name": "Zana Horia",
+        "email": "zan@horia.com",
+        "password": "123123123"
+    },
+    {
+        "id": "4ep1d67yilu0",
+        "name": "Pe Pino",
+        "email": "pe@pino.com",
+        "password": "123123123"
+    }
+]

@@ -1,0 +1,51 @@
+[
+    {
+        "id": "5ubuymm4k700",
+        "name": "Cala Bacin",
+        "email": "cala@bacin.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "6ediwmlcy4o0",
+        "name": "Zana Horia",
+        "email": "zan@horia.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "4ep1d67yilu0",
+        "name": "Pe Pino",
+        "email": "pe@pino.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "4q0ivj68xgq0",
+        "name": "Le Chuga",
+        "email": "le@chuga.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "1p474kw9s8dc",
+        "name": "Pepito Grillo",
+        "email": "pepito@grillo.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "y8e18fwxw8",
+        "name": "Campa Nilla",
+        "email": "campa@nilla.com",
+        "password": "123123123",
+        "favs": []
+    },
+    {
+        "id": "4u7twf9k0jk0",
+        "name": "Man Zana",
+        "email": "man@zana.com",
+        "password": "123123123",
+        "favs": []
+    }
+]
