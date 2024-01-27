@@ -1,36 +1,52 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import mongoose from 'mongoose'
+import { expect } from 'chai'
+import random from './helpers/random.js'
 
 import registerUser from './registerUser.js'
-
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
-import { expect } from 'chai'
+import { DuplicityError } from './errors.js'
 import { User } from '../data/models.js'
 
-
 describe('registerUser', () => {
-    // this is a mocha method that makes you run this before you begin
-    before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
+    before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
     beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', () => {
-        return registerUser('Josefa', 'josefa@gmail.com', '123123123')
+    it('succeds on new user', () => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
+
+        return registerUser(name, email, password)
+            .then(() => {
+                return User.findOne({ email })
+                    .then(user => {
+                        expect(user).to.exist
+                        expect(user.name).to.equal(name)
+                        expect(user.email).to.equal(email)
+                        expect(user.password).to.equal(password)
+                    })
+            })
     })
 
     it('fails on already existing user', () => {
-        return User.create({ name: 'Francesco', email: 'francesco@gmail.com', passowrd: '123123123' })
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
+
+        return User.create({ name, email, password })
             .then(() => {
-                return registerUser('Francesco', 'francesco@gmail.com', '123123123')
+                return registerUser(name, email, password)
+                    .then(() => { throw new Error('should not reach this point') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(DuplicityError)
                         expect(error.message).to.equal('user already exists')
                     })
             })
-
     })
 
     after(() => mongoose.disconnect())
-
 })
-
 
