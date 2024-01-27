@@ -1,0 +1,28 @@
+VSCode shortcuts
+If you select two files and right click on them, you can choose the option Compare files to see the differences between them. 
+
+TERMINAL commands
+npm innit --yes => creates an initial package.json
+mkdir + path/foldername => creates a new folder 
+touch + filename => creates a new file
+node . => busca un index file en la carpeta en la que estás parado y lo ejecuta.
+. => en cualquier comando el punto significa busca el index y ejecútalo
+node --inspect-brk . => To debug in the browser (then, in the browser, inspect and click on node symbol) 
+ctrl c => disconnects from the debugger
+
+
+NODE explanations
+- Node is a runtime, ie.an environment (entorno) where your programme runs. It allows your computer to read and execute JS, because it doesn't understand it per se. The browser is also a runtime.
+
+- Each file in a Node.js project is treated as a module that can export values to be used by other modules.
+
+- Dentro de node hay varios paquetes prefabricados. Hay un paquete que se llama .fs => file system.
+    .fs es una caja de herramientes que entre varios herramientes contiene el readFile que te permite leer el archivo que tú le digas:
+
+    eg.fs.readFile('./helloworld.txt')
+    También contiene una herramienta que te deja crear un fichero nuevo: writeFile
+    eg. fs.writeFile('./holamundo.txt', 'Hola mundo', error =>{...})
+
+- utf8: es el formato del sistema operativo de todos.
+
+- .csv: comma separated values. Es el formato más básico que existe para escribir datos en un archivo.
