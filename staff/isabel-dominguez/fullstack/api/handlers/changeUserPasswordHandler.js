@@ -7,8 +7,9 @@ export default (req, res) => {
 
         const { password, newPassword, confirmNewPassword } = req.body
 
-        logic.changeUserPassword(userId, password, newPassword, confirmNewPassword, error => {
-            if (error) {
+        logic.changeUserPassword(userId, password, newPassword, confirmNewPassword)
+            .then(() => res.status(200).send())
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError)
@@ -19,17 +20,13 @@ export default (req, res) => {
                     status = 409
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(200).send()
-        })
+            });
     } catch (error) {
         let status = 500
 
-        if (error instanceof ContentError || error instanceof TypeError)
+        if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
+        }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }

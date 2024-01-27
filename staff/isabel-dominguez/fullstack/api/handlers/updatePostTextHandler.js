@@ -9,24 +9,23 @@ export default (req, res) => {
 
         const { text } = req.body
 
-        logic.updatePostText(userId, postId, text, error => {
-            if (error) {
-                let status = 505
+        logic.updatePostText(userId, postId, text)
+            .then(() => res.status(202).send())
+            .catch(error => {
+                let status = 500
 
-                if (error instanceof NotFoundError)
+                if (status instanceof NotFoundError) {
                     status = 404
+                }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-            }
-
-            res.status(204).send()
-        })
-
+            });
     } catch (error) {
         let status = 500
 
-        if (error instanceof ContentError || error instanceof TypeError)
+        if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
+        }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }

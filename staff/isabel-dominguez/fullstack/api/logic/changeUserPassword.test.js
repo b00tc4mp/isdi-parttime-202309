@@ -5,15 +5,9 @@ import changeUserPassword from './changeUserPassword.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            changeUserPassword('6599810a2c6f1a3caa0ed9f3', '123123123', '234234234', '234234234', (error, userId) => {
-                if (error) {
-                    console.error(error)
-
-                    return
-                }
-
-                console.log('password changed', userId)
-            })
+            changeUserPassword('65b531d607c29e5eb47be400', '123123123', '234234234', '234234234')
+                .then(() => console.log("password succesfully changed!"))
+                .catch(error => console.log(error))
         } catch (error) {
             console.log(error)
         }

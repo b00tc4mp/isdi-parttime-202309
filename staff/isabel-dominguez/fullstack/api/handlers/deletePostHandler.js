@@ -6,8 +6,9 @@ export default (req, res) => {
         const userId = req.headers.authorization.substring(7)
         const postId = req.params.postId
 
-        logic.deletePost(userId, postId, error => {
-            if (error) {
+        logic.deletePost(userId, postId)
+            .then(() => res.status(200).send())
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError) {
@@ -15,12 +16,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(204).send()
-        })
+            });
     } catch (error) {
         let status = 500
 

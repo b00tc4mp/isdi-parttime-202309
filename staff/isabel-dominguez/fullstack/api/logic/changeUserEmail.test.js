@@ -5,15 +5,9 @@ import changeUserEmail from './changeUserEmail.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            changeUserEmail('659aaf07e1d0a278068d446a', 'man@zana.com', 'man@zanita.com', 'man@zanita.com', (error, userId) => {
-                if (error) {
-                    console.error(error)
-
-                    return
-                }
-
-                console.log('email changed', userId)
-            })
+            changeUserEmail('', 'man@zana.com', 'man@zanita.com', 'man@zanita.com')
+                .then(() => console.log("email succesfully changed!"))
+                .catch(error => console.log(error))
         } catch (error) {
             console.log(error)
         }

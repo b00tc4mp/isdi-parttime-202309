@@ -3,21 +3,19 @@ import validate from './helpers/validate.js'
 import { User } from '../data/models.js'
 import { SystemError, NotFoundError } from './errors.js'
 
-function deleteUser(userId, callback) {
+function deleteUser(userId) {
     validate.id(userId, 'id')
-    validate.function(callback, 'callback')
 
-    User.findByIdAndDelete(userId)
+    return User.findByIdAndDelete(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
+                throw new NotFoundError('user not found')
             }
 
-            callback(null)
+            return user
         })
-        .catch(error => callback(new SystemError(error.message)))
+
 }
 
 export default deleteUser

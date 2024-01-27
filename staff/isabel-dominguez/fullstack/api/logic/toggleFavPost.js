@@ -3,26 +3,21 @@ import validate from './helpers/validate.js'
 import { User, Post } from '../data/models.js'
 import { SystemError, NotFoundError } from './errors.js'
 
-function toggleFavPost(userId, postId, callback) {
-    validate.id(userId, 'user id')
-    validate.id(postId, 'post id')
-    validate.function(callback, 'callback')
+function toggleFavPost(userId, postId) {
+    validate.text(userId, 'user id')
+    validate.text(postId, 'post id')
 
-    User.findById(userId)
+    return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
+            if (!user)
+                throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.findById(postId).lean()
+            return Post.findById(postId).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
-                    }
+                    if (!post)
+                        throw new NotFoundError('post not found')
 
                     const index = user.favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
@@ -31,13 +26,13 @@ function toggleFavPost(userId, postId, callback) {
                     else
                         user.favs.splice(index, 1)
 
-                    user.save()
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
+                    return user.save()
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(() => { })
                 })
-                .catch(error => callback(new SystemError(error.message)))
+
         })
-        .catch(error => callback(new SystemError(error.message)))
+
 }
 
 export default toggleFavPost

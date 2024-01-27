@@ -1,36 +1,48 @@
 import validate from './helpers/validate.js'
 
 import { User, Post } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
+import { SystemError, NotFoundError, RelationalError } from './errors.js'
 
-function deletePost(userId, postId, callback) {
+function deletePost(userId, postId) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
-    validate.function(callback, 'callback')
 
-    User.find({ 'favs': postId })
-        .then(users => {
+    return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(user => {
+            if (!user)
+                throw new NotFoundError('user not found')
 
-            users.forEach(user => {
-                const postFavIndex = user.favs.indexOf(postId)
-                user.favs.splice(postFavIndex, 1)
-
-                user.save()
-            })
-
-            Post.findByIdAndDelete(postId)
-                .then(post => {
-                    if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
-                    }
-
-                    callback(null)
-                })
-                .catch(error => callback(new SystemError(error.message)))
+            return Post.findById(postId)
+                .catch(error => { throw new SystemError(error.message) })
         })
-        .catch(error => callback(new SystemError(error.message)))
+        .then(post => {
+            if (!post) {
+                throw new NotFoundError('post not found')
+            }
+
+            if (post.author.toString() !== userId)
+                throw new RelationalError('post does not belong to user')
+
+            return Post.findByIdAndDelete(postId)
+                .then(() => {
+                    return User.find({ 'favs': postId })
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(users => {
+                            const deletions = users.map(user => {
+                                const postFavIndex = user.favs.indexOf(postId)
+
+                                user.favs.splice(postFavIndex, 1)
+
+                                return user.save()
+                            })
+
+                            return Promise.all(deletions)
+                                .catch(error => { throw new SystemError(error.message) })
+                        })
+                })
+                .then(() => { })
+        })
 }
 
 export default deletePost

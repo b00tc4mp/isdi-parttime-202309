@@ -5,17 +5,11 @@ import updatePostText from './updatePostText.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            updatePostText('658956f7eed889536efe91d7', '65895deeeed889536efe91dd', '123', error => {
-                if (error) {
-                    console.error(error)
-
-                    return
-                }
-
-                console.log('text updated')
-            })
+            updatePostText('', '', 'probandooo')
+                .then(() => console.log('text post updated!'))
+                .catch(error => console.error(error))
         } catch (error) {
-            console.error(error)
+            console.error(error.message)
         }
     })
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))

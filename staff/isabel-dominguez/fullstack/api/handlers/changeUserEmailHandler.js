@@ -7,30 +7,29 @@ export default (req, res) => {
 
         const { newEmail, confirmNewEmail, password } = req.body
 
-        logic.changeUserEmail(userId, newEmail, confirmNewEmail, password, error => {
-            if (error) {
+        logic.changeUserEmail(userId, newEmail, confirmNewEmail, password)
+            .then(() => res.status(200).send())
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError)
                     status = 404
+
                 else if (error instanceof CredentialsError)
                     status = 401
+
                 else if (error instanceof DuplicityError)
                     status = 409
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
-            }
-
-            res.status(200).send()
-        })
+            });
     } catch (error) {
         let status = 500
 
-        if (error instanceof ContentError || error instanceof TypeError)
+        if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
+        }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
-}
+} 

@@ -4,16 +4,11 @@ import deletePost from './deletePost.js'
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            deletePost('6599ac7b3cdc02423f048cd3', (error, deletedPost) => {
-                if (error) {
-                    console.error(error)
-                    return
-                }
-
-                console.log('Post deleted:', deletedPost)
-            });
+            deletePost('659c1bd1492d8b445a0884b7', '65967a8eae0c052505f5f059')
+                .then(() => console.log('post succesfully deleted!'))
+                .catch(error => console.error(error))
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     })
     .catch(error => console.error(error))
