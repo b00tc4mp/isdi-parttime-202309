@@ -5,7 +5,7 @@ TEST "retrieve-user"
 CASE "success on correct user id"
 
 curl 'http://localhost:9000/users' \
--H 'Authorization: Bearer 65abeea7ccb29864b82b9dc4' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFmZGY1MzVjODRiMTkxZGIyZGFkNWIiLCJpYXQiOjE3MDYzODEwNjZ9.q7KPqCtxeOmWU5iT18Z7izigIDSwIgZxjoagbp8IOGo' \
 -v
 
 # > GET /users HTTP/1.1
@@ -27,10 +27,10 @@ curl 'http://localhost:9000/users' \
 # * Connection #0 to host localhost left intact
 # {"name":"Patata Frita"}
 
-CASE "fails on non-existing user id"
+CASE "fails on corrupted token"
 
 curl 'http://localhost:9000/users' \
--H 'Authorization: Bearer 69d4ph8zzj01' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFmZGY1MzVjODRiMTkxZGIyZGFkNWIiLCJpYXQiOjE3MDYzODMyMzEsImV4cCI6MTcwNjM4MzIzMn0.g11GT2TQer6c7sHUvpcVsAfpaGrIOyFv_Rtk7vv5w_0' \
 -v
 
 
@@ -52,3 +52,9 @@ curl 'http://localhost:9000/users' \
 # < 
 # * Connection #0 to host localhost left intact
 # {"error":"Error","message":"user not found"}%  
+
+CASE "fails on expirated token"
+
+curl 'http://localhost:9000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFmZGY1MzVjODRiMTkxZGIyZGFkNWIiLCJpYXQiOjE3MDYzODEwNjZ9.q7KPqCtxeOmWU5iT18Z7izigIDSwIgZxjoagbp8IOGo' \
+-v
