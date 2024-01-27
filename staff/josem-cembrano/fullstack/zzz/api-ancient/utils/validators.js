@@ -1,5 +1,4 @@
-const { ContentError } = require('../errors')
-const { isObjectIdOrHexString } = require('mongoose')
+const { ContentError } = require('./errors')
 
 function validateText(text, explain) {
     if (typeof text !== 'string') throw new TypeError(explain + ' is not string')
@@ -14,13 +13,8 @@ function validateFunction(funktion, explain) {
     if (typeof funktion !== 'function') throw new TypeError(`${explain} is not a function`)
 }
 
-function validateId(id, explain) {
-    if (!isObjectIdOrHexString(id)) throw new ContentError(`${explain} is not a validate id`)
-}
-
 module.exports = {
     validateText,
     validateNumber,
-    validateFunction,
-    validateId
+    validateFunction
 }

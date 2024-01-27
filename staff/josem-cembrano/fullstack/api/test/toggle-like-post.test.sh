@@ -1,12 +1,12 @@
-source ./test/pepetest.sh #ARCHIVO EXPORTADO DE CONFIGURACIÓN DE COLOR-TEXTO PARA LOS TEST
+source ./pepetest.sh #ARCHIVO EXPORTADO DE CONFIGURACIÓN DE COLOR-TEXTO PARA LOS TEST
 
 
 echo -e "\n${backgroundWhite}${black}TEST ${tomato}toggle-like-post${reset}\n"
 
 echo -e "${green}CASE success on correct data${reset}"
 
-curl 'http://localhost:8000/posts/70j3gtp5k5s0/likes' \
--H 'Authorization: Bearer 1b43kkcm4oxs' \
+curl 'http://localhost:8000/posts/65acffdb7e9f6dc641a72c6c/likes' \
+-H 'Authorization: Bearer 65a7bcdaff739420cdb3f9a1' \
 -X  PATCH \
 -v
 

@@ -1,4 +1,4 @@
-source ./test/pepetest.sh #ARCHIVO EXPORTADO DE CONFIGURACIÓN DE COLOR-TEXTO PARA LOS TEST
+source ./pepetest.sh #ARCHIVO EXPORTADO DE CONFIGURACIÓN DE COLOR-TEXTO PARA LOS TEST
 
 
 echo -e "\n${backgroundWhite}${black}TEST ${tomato}authenticate-user${reset}\n"

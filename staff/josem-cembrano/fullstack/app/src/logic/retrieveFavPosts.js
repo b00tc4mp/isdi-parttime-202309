@@ -1,9 +1,30 @@
-import { validateText } from '../utils/validators'
+import validate from './helpers/validate'
+import context from './context'
 
-function toggleFavPost(postId, callback) {
-    validateText(postId, 'post id')
+function retrieveFavPosts(callback) {
+    validate.function(callback, 'callback')
+    const req = {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${context.sessionUserId}`
+        }
+    }
 
-    // TODO call api
+    fetch('http://localhost:8000/posts/favs', req)
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new Error(body.message)))
+                    .catch(error => callback(error))
+
+                return
+            }
+
+            res.json()
+                .then(posts => callback(null, posts))
+                .catch(error => callback(error))
+        })
+        .catch(error => callback(error))
 }
 
-export default toggleFavPost
+export default retrieveFavPosts

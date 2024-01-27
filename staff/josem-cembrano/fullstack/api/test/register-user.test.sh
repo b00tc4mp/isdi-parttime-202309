@@ -1,4 +1,4 @@
-source ./test/pepetest.sh
+source ./pepetest.sh
 
 echo -e "\n${backgroundWhite}${black}TEST ${tomato}register-user ${reset}\n"
 
@@ -6,7 +6,7 @@ echo -e "\n${green}CASE success on new user${reset}\n"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Champi Ñon", "email": "champi@ñon.com", "password": "123123123" }' \
+-d '{ "name": "Pis Tacho", "email": "pis@tacho.com", "password": "123123123" }' \
 -v
 
 # > POST /users HTTP/1.1
@@ -27,7 +27,7 @@ echo -e "\n${tomato}CASE fail on already existing user ${reset}\n"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Champi Ñon", "email": "champi@ñon.com", "password": "123123123" }' \
+-d '{ "name": "Pis Tacho", "email": "pis@tacho.com", "password": "123123123" }' \
 -v
 
 # > POST /users HTTP/1.1

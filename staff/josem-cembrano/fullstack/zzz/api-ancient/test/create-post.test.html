@@ -1,0 +1,21 @@
+<script>
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer 1g6al6ee05pc',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        image: 'https://img.freepik.com/vector-premium/icono-dibujo-pepino_202271-1060.jpg',
+        text: ' Pepinillo!!'})
+    }
+
+    fetch('http://localhost:8000/posts', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error =>console.error(error))  
+ </script>

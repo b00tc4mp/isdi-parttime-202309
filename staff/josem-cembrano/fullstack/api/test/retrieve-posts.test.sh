@@ -1,4 +1,4 @@
-source ./test/pepetest.sh
+source ./pepetest.sh
 
 echo -e "\n${backgroundWhite}${black}TEST ${tomato}retrieve-posts${reset}\n"
 

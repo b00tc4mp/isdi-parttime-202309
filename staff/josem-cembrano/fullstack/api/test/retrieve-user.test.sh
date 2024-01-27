@@ -1,18 +1,18 @@
-source ./test/pepetest.sh
+source ./pepetest.sh
 
 echo -e "\n${backgroundWhite}${black}TEST ${tomato}retrieve-user${reset}\n"
 
 echo -e "\n${green}CASE success on correct user id${reset}\n"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 1b43kkcm4oxs' \
+-H 'Authorization: Bearer 65a7bd5bac10d94819cc652e' \
 -v
 
 # > GET /users HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.2.1
 # > Accept: */*
-# > Authorization: Bearer 1b43kkcm4oxs
+# > Authorization: Bearer 65a7bd5bac10d94819cc652e
 
 # < HTTP/1.1 200 OK
 # < X-Powered-By: Express
@@ -29,14 +29,14 @@ curl 'http://localhost:8000/users' \
 echo -e "\n${tomato}CASE fails on non-existing user id${reset}\n"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer wrong-1b43kkcm4oxs' \
+-H 'Authorization: Bearer wrong-65a7bd5bac10d94819cc652e' \
 -v
 
 # > GET /users HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.2.1
 # > Accept: */*
-# > Authorization: Bearer wrong-1b43kkcm4oxs
+# > Authorization: Bearer wrong-65a7bd5bac10d94819cc652e
 
 # < HTTP/1.1 401 Unauthorized
 # < X-Powered-By: Express
