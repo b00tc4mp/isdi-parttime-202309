@@ -1,0 +1,113 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+* {
+    font-family: Inter;
+}
+*/
+
+p {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+h3 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+body {
+    background-color: rgb(42, 39, 39);
+    color: white;
+    font-family: Arial, sans-serif;
+    min-width: 300px
+}
+
+#new-account, #back-login{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.form {
+    background-color: #fff;
+    color: rgb(43, 40, 40);
+    border-style: groove;
+    border-radius: 0.50rem;
+    border-color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 5px;
+    margin: 200px auto 0; 
+}
+    
+
+#login-button{
+    background-color: rgb(43, 40, 40);
+    color: #fff;
+    border-radius: 5rem;
+    cursor: pointer;
+
+}
+
+.button-submit {
+    background-color: rgb(98, 155, 93);
+    color: white;
+    border-radius: 5rem;
+    cursor: pointer;
+}
+
+.buttons-post {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(219, 229, 222);
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.post {
+    border-style: groove;
+    border-radius: 0.50rem;
+    border-color: rgb(0, 0, 0);
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.post-img {
+    max-width: 320px;
+}
