@@ -6,7 +6,7 @@ CASE "success on correct credentials"
 
 curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{ "email": "man@zana.com", "password": "123123123" }' \
+-d '{ "email": "peter@pan.com", "password": "123123123" }' \
 -v
 
 # > POST /users/auth HTTP/1.1
@@ -31,7 +31,7 @@ CASE "error on wrong email"
 
 curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{ "email": "wrong-man@zana.com", "password": "123123123" }' \
+-d '{ "email": "peter@pan.com", "password": "123123123" }' \
 -v
 
 # > POST /users/auth HTTP/1.1
