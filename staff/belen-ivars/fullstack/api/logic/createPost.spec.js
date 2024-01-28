@@ -16,8 +16,6 @@ describe('createPost', () => {
 
 	beforeEach(() => User.deleteMany())
 
-
-
 	it('succeds on existing user', () => {
 		const name = random.name()
 		const email = random.email()
@@ -27,7 +25,6 @@ describe('createPost', () => {
 		const text = random.text()
 
 		return User.create({ name, email, password })
-
 			.then(user => {
 				return createPost(user.id, image, text)
 					.then(value => {
@@ -38,13 +35,11 @@ describe('createPost', () => {
 					.then(post => {
 						expect(post.image).to.equal(image)
 						expect(post.text).to.equal(text)
-
 					})
 			})
-
 	})
 
-	it('fails on already existing user', () => {
+	it('fails on non-existing user', () => {
 
 		const image = random.image()
 		const text = random.text()

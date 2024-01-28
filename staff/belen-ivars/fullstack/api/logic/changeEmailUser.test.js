@@ -1,15 +1,18 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
+import mongoose from 'mongoose'
+
 import changeEmailUser from './changeEmailUser.js'
 
-try {
-	changeEmailUser('206s36wbyvpc', 'cala@bacin.com', 'cara@basseta.com', 'cara@basseta.com', (error, userId) => {
-		if (error) {
-			console.error(error)
-
-			return
+mongoose.connect(process.env.TEST_MONGODB_URL)
+	.then(() => {
+		try {
+			changeEmailUser('65aed0bee005e644a95afb2a', 'peter2@pan.com', 'peter@pan.com', 'peter@pan.com', '123123123')
+				.then(() => console.log('email changed'))
+				.catch(error => console.log(error))
+		} catch (error) {
+			console.log(error)
 		}
-		console.log('email changed', userId)
-
 	})
-} catch (error) {
-	console.log(error)
-}
+	.catch(error => console.error(error))

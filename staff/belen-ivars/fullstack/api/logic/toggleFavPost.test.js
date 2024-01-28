@@ -7,15 +7,13 @@ import toggleFavPost from './toggleFavPost.js'
 mongoose.connect(process.env.MONGODB_URL)
 	.then(() => {
 		try {
-			toggleFavPost('659b348c696ad77021d9e2f8', '659ac06c0e890e8a7a2ddaaa', error => {
-				if (error) {
+			toggleFavPost('65aed0bee005e644a95afb2a', '65aed0bee005e644a95afb2d')
+				.then(() => {
+					console.log('post fav toggled')
+				})
+				.catch(error => {
 					console.error(error)
-
-					return
-				}
-
-				console.log('post fav toggled')
-			})
+				})
 		} catch (error) {
 			console.error(error)
 		}

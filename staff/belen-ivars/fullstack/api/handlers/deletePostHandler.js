@@ -1,12 +1,13 @@
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError } from '../logic/errors.js'
+import { ContentError, NotFoundError } from '../logic/errors.js'
 
 export default (req, res) => {
 	try {
 		const userId = req.headers.authorization.substring(7)
+		const postId = req.params.postId
 
-		logic.retrievePosts(userId)
-			.then(posts => res.json(posts))
+		logic.deletePost(userId, postId)
+			.then(() => res.status(200).send())
 			.catch(error => {
 				let status = 500
 
@@ -15,6 +16,7 @@ export default (req, res) => {
 
 				res.status(status).json({ error: error.constructor.name, message: error.message })
 			})
+
 	} catch (error) {
 		let status = 500
 

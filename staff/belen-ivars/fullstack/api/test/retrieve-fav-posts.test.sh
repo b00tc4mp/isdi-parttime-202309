@@ -2,12 +2,12 @@ echo TEST "retrieve-fav-posts"
 
 echo CASE "on success correct user id"
 
-curl 'http://localhost:8000/posts/favs' \
+curl 'http://localhost:9000/posts/favs' \
 -H 'Authorization: Bearer 659abc660e890e8a7a2ddaa5' \
 -v
 
 # > GET /posts HTTP/1.1
-# > Host: localhost:8000
+# > Host: localhost:9000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
 # > Authorization: Bearer 659abc660e890e8a7a2ddaa5

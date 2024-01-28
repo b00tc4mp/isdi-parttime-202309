@@ -4,14 +4,14 @@ TEST "create-post"
 
 CASE "succes on correct data"
 
-curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 659abc660e890e8a7a2ddaa5' \
+curl 'http://localhost:9000/posts' \
+-H 'Authorization: Bearer 65b54a7d6506f93382c4bc01' \
 -H 'Content-Type: application/json' \
 -d '{"image": " https://i.etsystatic.com/9495620/r/il/b8853a/3046206824/il_1588xN.3046206824_2ghg.jpg", "text":"crochet version of me"}' \
 -v
 
 #  POST /posts HTTP/1.1
-# > Host: localhost:8000
+# > Host: localhost:9000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
 # > Authorization: Bearer 659abc660e890e8a7a2ddaa5

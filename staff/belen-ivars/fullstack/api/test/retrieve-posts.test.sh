@@ -2,12 +2,12 @@ echo TEST "retrieve-posts"
 
 echo CASE "on success correct user id"
 
-curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 659abc660e890e8a7a2ddaa5' \
+curl 'http://localhost:9000/posts' \
+-H 'Authorization: Bearer 65b6a178a4dafda88b055b9f' \
 -v
 
 # > GET /posts HTTP/1.1
-# > Host: localhost:8000
+# > Host: localhost:9000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
 # > Authorization: Bearer 659abc660e890e8a7a2ddaa5
