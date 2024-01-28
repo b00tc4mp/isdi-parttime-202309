@@ -6,6 +6,6 @@ import NewPost from './NewPost'
 export {
     Post,
     Posts,
-    NewPost,
-    Profile
+    Profile,
+    NewPost
 }

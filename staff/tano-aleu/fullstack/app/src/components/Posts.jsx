@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import Post from "./Post"
+import { useEffect, useState } from 'react'
+import Post from './Post'
 
 function Posts({ loadPosts, stamp }) {
     console.log('Posts')
@@ -25,13 +25,13 @@ function Posts({ loadPosts, stamp }) {
     }
 
     useEffect(() => {
-        console.log('Post effect')
+        console.log('Posts effect')
 
         refreshPosts()
     }, [stamp])
 
     return <div className="posts">
-        {posts.map(post => <Post key={post.id} post={post} onLikeSuccess={refreshPosts} onDeleteSuccess={refreshPosts} onFavSuccess={refreshPosts} onEditSuccess={refreshPosts} />)}
+        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} />)}
     </div>
 }
 

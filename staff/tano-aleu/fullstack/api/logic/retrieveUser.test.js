@@ -8,7 +8,7 @@ import retrieveUser from './retrieveUser.js'
 mongoose.connect(process.env.TEST_MONGODB_URL)
     .then(() => {
         try {
-            retrieveUser('65afe9af8faad612a04d8990')
+            retrieveUser('65a979a653b226ca2338e109')
                 .then(user => console.log('retrieved', user))
                 .catch(error => console.error(error))
         } catch (error) {
