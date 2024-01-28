@@ -2,7 +2,7 @@ import validate from "./helpers/validate"
 import context from "./context"
 
 function publishPost(image, text, callback) {
-	validate.text(image, 'image')
+	validate.text(image)
 	validate.text(text)
 
 	const req = {

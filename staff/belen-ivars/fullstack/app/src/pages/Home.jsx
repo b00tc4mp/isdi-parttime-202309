@@ -69,7 +69,7 @@ function Home(props) {
     }
 
     function handleNewPostPublish() {
-        setStamp(Date.now)
+        setStamp(Date.now())
         setView(null)
 
         window.scrollTo(0, 0)
