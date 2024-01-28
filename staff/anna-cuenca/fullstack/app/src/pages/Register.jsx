@@ -1,6 +1,8 @@
 import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
 
+
+
 function Register(props) {
   console.log('Register')
   function handleSubmit(event) {
@@ -20,14 +22,17 @@ function Register(props) {
       logic.registerUser(name, email, password, error => {
 
         if (error) {
-          alert(error.message)
+          //alert(error.message)
+          props.onError(error)
           return
         }
         props.onSuccess()
       })
 
     } catch (error) {
-      alert(error.message)
+      //alert(error.message)
+
+      props.onError(error)
     }
   }
 

@@ -20,7 +20,8 @@ function Post(props) {
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    //alert(error.message)
+                    props.onErro(error)
 
                     return
                 }
@@ -30,7 +31,8 @@ function Post(props) {
 
             })
         } catch (error) {
-            alert(error.message)
+            //alert(error.message)
+            props.onErro(error)
         }
     }
 
@@ -40,7 +42,8 @@ function Post(props) {
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    //alert(error.message)
+                    props.onErro(error)
 
                     return
                 }
@@ -49,7 +52,8 @@ function Post(props) {
                 props.onToggleFavClick()
             })
         } catch (error) {
-            alert(error.message)
+            //alert(error.message)
+            props.onErro(error)
         }
     }
 
@@ -62,7 +66,8 @@ function Post(props) {
         try {
             logic.toggleEditPost(post.id, text, error => {
                 if (error) {
-                    alert(error.message)
+                    //alert(error.message)
+                    props.onErro(error)
 
                     return
                 }
@@ -73,7 +78,8 @@ function Post(props) {
 
             })
         } catch (error) {
-            alert(error.message)
+            //alert(error.message)
+            props.onErro(error)
         }
 
     }
@@ -101,7 +107,8 @@ function Post(props) {
             try {
                 logic.deletePost(post.id, error => {
                     if (error) {
-                        alert(error.message)
+                        //alert(error.message)
+                        props.onErro(error)
 
                         return
                     }
@@ -111,7 +118,8 @@ function Post(props) {
 
                 })
             } catch (error) {
-                alert(error.message)
+                //alert(error.message)
+                props.onErro(error)
             }
         }
     }

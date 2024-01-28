@@ -50,13 +50,33 @@ class CredentialsError extends Error {
     }
 }
 
+class TokenError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
 
 
-export {
+
+export {  //esto es un bucket
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
     AuthenticateError,
-    CredentialsError
+    CredentialsError,
+    TokenError
 }
+
+const errors = { // esto un objeto
+    NotFoundError,
+    SystemError,
+    ContentError,
+    DuplicityError,
+    CredentialsError,
+    TokenError
+}
+
+export default errors

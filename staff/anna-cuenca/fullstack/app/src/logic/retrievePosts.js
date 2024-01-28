@@ -1,5 +1,6 @@
 import context from './context'
 import validate from './helpers/validate'
+import errors from './errors'
 
 function retrievePosts(callback) {
     //la función toma un callback como argumento 
@@ -10,7 +11,7 @@ function retrievePosts(callback) {
         method: 'GET',
         //se establecen los encabezados HTTP de la solicitud
         headers: {
-            'Authorization': `Bearer ${context.sessionUserId}`
+            'Authorization': `Bearer ${context.token}`
         }
     }
 
@@ -24,7 +25,7 @@ function retrievePosts(callback) {
                 res.json() //convierte la respuesta a JSON
                     // si la conversión es exitosa, llama al callback con un nuevo error
                     // que contiene el mensaje del cuerpo de la respuesta
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     //si hay un error al convertir la respuesta a JSON, llama al callback con ese error
                     .catch(error => callback(error))
 

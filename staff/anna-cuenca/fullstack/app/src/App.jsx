@@ -2,6 +2,7 @@ import React from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import { ContentError, DuplicityError, NotFoundError } from './logic/errors'
 
 function App() {
   console.log('App')
@@ -28,13 +29,25 @@ function App() {
     setView('home')
   }
 
+  function handleError(error) {
+    if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
+      console2.log(error.message, 'warn')
+    else if (error instanceof DuplicityError || error instanceof NotFoundError)
+      console2.log(error.message, 'error')
+    else
+      console2.log(error.message, 'fatal')
+
+    alert(error.message)
+  }
+
   return <>
-    {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
+    {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} onError={handleError} />}
     {/* renderiza el componente login si el estado es login. Y le pasa dos propiedades "onRegisterLink"
        y "onSuccess" */}
-    {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-    {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
+    {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} onError={handleError} />}
+    {view === 'home' && <Home onLogoutClick={handleLoginShow} onError={handleError} />}
   </>
 }
 
 export default App
+

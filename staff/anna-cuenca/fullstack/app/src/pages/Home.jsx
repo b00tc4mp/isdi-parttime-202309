@@ -21,7 +21,8 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                alert(error.message)
+                //alert(error.message)
+                props.onError(error)
                 return
             }
         })
@@ -38,14 +39,16 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    alert(error.message)
+                    //alert(error.message)
+                    props.onError(error)
                     return
                 }
                 setName(user.name)
             })
 
         } catch (error) {
-            alert(error.message)
+            //alert(error.message)
+            props.onError(error)
         }
     }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
     // para que el efecto secundario se vuelva a ejecutar. Si el array está vacío [] significa
@@ -105,14 +108,14 @@ function Home(props) {
         {view === 'profile' && <Profile onSuccess={() => setView(null)} />}
 
 
-        {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
+        {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
 
 
 
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
 
 
-        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts.bind(logic)} />}
+        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />}
 
 
 
@@ -125,7 +128,7 @@ function Home(props) {
 
         <footer className="footer">
 
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
+            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={props.onError} />}
             {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
 
         </footer>

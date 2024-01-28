@@ -11,7 +11,7 @@ export default (req, res) => {
             .then(userId => {
 
                 //sub significa 'subject' y luegole tengo que pasar una frase secretra ue solo sepa el servidor
-                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1s' })
+                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXP })
 
 
                 res.json(token)

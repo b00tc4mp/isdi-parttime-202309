@@ -28,7 +28,7 @@ const post = new Schema({
     author: {
         type: ObjectId,
         required: true,
-        ref: 'User' //le decimos que el objectIdd hace referencia a usuario
+        ref: 'User' //le decimos que el objectId hace referencia a usuario
     },
     image: {
         type: String,
@@ -41,6 +41,11 @@ const post = new Schema({
     likes: [{
         type: ObjectId,
         ref: 'User'
+    }],
+    comments: [{
+        author: { type: ObjectId, ref: 'User' },
+        text: { type: String, required: true }
+
     }]
 })
 

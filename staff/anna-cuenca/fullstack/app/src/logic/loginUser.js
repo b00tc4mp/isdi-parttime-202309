@@ -1,6 +1,8 @@
 import validate from './helpers/validate'
 import context from './context'
 
+import errors from './errors'
+
 function loginUser(email, password, callback) {
     validate.email(email)
     validate.password(password)
@@ -21,7 +23,7 @@ function loginUser(email, password, callback) {
                     //como la respuesta no ha sido ok, el callback recogerá el error que tenga el body
                     // el callback recibe el body (que es un bojeto), del body extrae el propiedad message
                     // crea un objeto nuevo del tipo error y lo envía al callback
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return

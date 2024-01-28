@@ -1,9 +1,14 @@
+import jwt from 'jsonwebtoken'
+const { JsonWebTokenError } = jwt
+
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError, CredentialsError } from '../logic/errors.js'
+import { NotFoundError, ContentError, CredentialsError, TokenError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
-        const userId = req.headers.authorization.substring(7)
+        const token = req.headers.authorization.substring(7)
+        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
         const { image, text } = req.body
         logic.createPost(userId, image, text)
             .then(() => res.status(201).send())
@@ -23,6 +28,10 @@ export default (req, res) => {
         let status = 400
         if (error instanceof ContentError)
             status = 406
+        else if (error instanceof JsonWebTokenError) {
+            status = 401
+            error = new TokenError(error.message)
+        }
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 }
