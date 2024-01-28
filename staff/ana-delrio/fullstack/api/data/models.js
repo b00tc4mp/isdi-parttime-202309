@@ -29,7 +29,6 @@ const post = new Schema({
         required: true,
         ref: 'User'
     },
-
     image: {
         type: String,
         required: true
@@ -44,13 +43,10 @@ const post = new Schema({
     }]
 })
 
-
-
 const User = model('User', user)
 const Post = model('Post', post)
 
 export {
     User,
     Post
-
 }

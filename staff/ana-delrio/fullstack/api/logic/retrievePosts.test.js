@@ -1,23 +1,25 @@
 import mongoose from 'mongoose'
+
 import retrievePosts from './retrievePosts.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => {
         try {
-            retrievePosts('658d4dd388f3cf1b1fb4d3af', (error, posts) => {
-                if (error) {
+            // An attempt is made to retrieve posts associated with a specific ID
+            retrievePosts('65b621b1b17051e49a33cbc0')
+                .then(posts => {
+                    console.log('retrieved posts', posts)
+                })
+                // refers to possible errors during the call to retrievePosts
+                .catch(error => {
                     console.error(error)
-
-                    return
-                }
-                console.log('user posts', posts)
-            })
+                })
+            // any synchronous errors that may occur in code that is directly inside the try block
         } catch (error) {
-            console.log(error)
-
+            console.error(error)
         }
     })
+    /// This block will be executed if there is an error in the connection to the database using mongoose.connec
     .catch(error => console.error(error))
-
 
 

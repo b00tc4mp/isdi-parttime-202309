@@ -4,8 +4,8 @@ TEST "toggle-fav-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/65abe37795c5be3b208f8bfb/favs' \
--H 'Authorization: Bearer 658961111bef8b597847ec00' \
+curl 'http://localhost:8000/posts/65b6b8d7863a3781cd5d98d3/favs' \
+-H 'Authorization: Bearer 65b6b67b9eefc0521f3fc496' \
 -X PATCH \
 -v
 

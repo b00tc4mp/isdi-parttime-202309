@@ -5,5 +5,5 @@ TEST "retrieve-posts"
 CASE "success on correct user id"
 
 curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 658d4dd388f3cf1b1fb4d3af' \
+-H 'Authorization: Bearer 65b6b67b9eefc0521f3fc496' \
 -v

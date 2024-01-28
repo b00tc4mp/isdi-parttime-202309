@@ -5,9 +5,9 @@ TEST "create-post"
 CASE "success on correct data"
 
 curl 'http://localhost:8000/posts' \
--H 'Authorization: Bearer 658961111bef8b597847ec00' \
+-H 'Authorization: Bearer 65b6b67b9eefc0521f3fc496' \
 -H 'Content-Type: application/json' \
--d '{ "image": "https://cdn2.vectorstock.com/i/1000x1000/81/46/hello-world-code-vector-22928146.jpg", "text": "Hello, World!" }
+-d '{ "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/WoodyWoodpecker-PantryPanic1.png/1024px-WoodyWoodpecker-PantryPanic1.png", "text": "Hello, World!" }
 ' \
 -v
 
