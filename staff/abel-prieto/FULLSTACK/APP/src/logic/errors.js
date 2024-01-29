@@ -40,10 +40,30 @@ class CredentialsError extends Error {
     }
 }
 
-export {
+class RelationalError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+class TokenError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+const errors = {
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
-    CredentialsError
+    CredentialsError,
+    RelationalError,
+    TokenError
 }
+
+export default errors

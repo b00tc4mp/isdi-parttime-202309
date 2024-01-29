@@ -1,5 +1,6 @@
 import validate from './helpers/validate'
 import context from "./context"
+import errors from './errors'
 
 // CHECK CHANGE PASSWORD 
 
@@ -15,16 +16,16 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
             Authorization: `Bearer ${String(context.sessionUserId)}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ password, newPassword, againNewPassword }) 
+        body: JSON.stringify({ password, newPassword, againNewPassword })
     }
 
     fetch(`${import.meta.env.VITE_API_URL}/users/password`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
-                
+
                 return
             }
 

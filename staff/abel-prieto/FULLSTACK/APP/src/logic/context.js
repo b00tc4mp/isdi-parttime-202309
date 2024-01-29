@@ -1,7 +1,8 @@
 // USER LOGED
 
 const context = {
-    sessionUserId: null
+    sessionUserId: null,
+    token: null
 }
 
 export default context

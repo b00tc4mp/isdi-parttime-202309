@@ -1,7 +1,7 @@
 // VALIDATORS REGISTER AND LOGIN
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-import { ContentError } from '../errors'
+import errors from '../errors'
 
 function text(string, explain = 'text') {
     if (typeof string !== 'string') throw new TypeError(`${string} is not valid`)
@@ -10,7 +10,7 @@ function text(string, explain = 'text') {
 
 function email(email, explain = 'email') {
     text(email, explain)
-    if (!EMAIL_REGEX.test(email)) throw new ContentError(`${explain} is not valid`)
+    if (!EMAIL_REGEX.test(email)) throw new errors.ContentError(`${explain} is not valid`)
 }
 
 function password(password, explain = 'password') {

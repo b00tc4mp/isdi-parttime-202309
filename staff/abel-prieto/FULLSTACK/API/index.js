@@ -72,7 +72,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.patch('/newpost/:postId/likes', toggleLikePostHandler)
 
         // TEST in browser 'PATCH' in localhost 'TOGGLE FAV POST'
-        server.patch('/users/:userId/favs', toggleFavPostHandler)
+        server.patch('/users/:token/favs', toggleFavPostHandler)
 
         // TEST in browser 'PATCH' in localhost 'UPDATE POST TEXT'
         server.patch('/newpost/:postId/edit', jsonBodyParser, updatePostTextHandler)

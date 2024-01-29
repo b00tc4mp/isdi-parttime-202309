@@ -1,5 +1,6 @@
 import validate from "./helpers/validate"
 import context from './context'
+import errors from "./errors"
 
 // DELETE POST (PENDIENTE)
 
@@ -10,7 +11,7 @@ export default function deletePost(postId, callback) {
     const req = {
         method: 'DELETE',
         headers: {
-            Authorization: `Bearer ${String(context.sessionUserId)}`
+            Authorization: `Bearer ${String(context.token)}`
         }
     }
 
@@ -18,9 +19,9 @@ export default function deletePost(postId, callback) {
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
-                
+
                 return
             }
 

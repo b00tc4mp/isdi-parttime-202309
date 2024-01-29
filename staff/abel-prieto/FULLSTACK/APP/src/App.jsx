@@ -1,3 +1,4 @@
+import "./utils/console2"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"

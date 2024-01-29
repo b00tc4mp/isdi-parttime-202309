@@ -1,5 +1,6 @@
 import validate from "./helpers/validate"
 import context from "./context"
+import errors from "./errors"
 
 // RETRIEVE FAV SESSION POSTS
 
@@ -9,7 +10,7 @@ export default function retrieveFavUserPosts(callback) {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.token}`
         }
     }
 
@@ -17,9 +18,9 @@ export default function retrieveFavUserPosts(callback) {
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
-                
+
                 return
 
             }
@@ -27,7 +28,7 @@ export default function retrieveFavUserPosts(callback) {
             res.json()
                 .then(favs => callback(null, favs))
                 .catch(error => callback(error))
-            
+
         })
         .catch(error => callback(error))
 }

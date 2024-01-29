@@ -1,11 +1,20 @@
 import logic from "../logic"
 
 import { Button, Link, Field, Form, Container } from "../librery"
+import errors from "../logic/errors"
 
 // REGISTER
 
 function Register(props) {
     console.log('Register')
+
+    // function alert(error) {
+    //     if (error instanceof TypeError || error instanceof RangeError || error instanceof errors.ContentError) {
+    //         console2.log(error.message, 'warn')
+    //     } else if (error instanceof errors.DuplicityError) {
+    //         console2.log(error.message, 'error')
+    //     }
+    // }
 
     // LOGIN LINK
     function handleLoginClick(event) {
