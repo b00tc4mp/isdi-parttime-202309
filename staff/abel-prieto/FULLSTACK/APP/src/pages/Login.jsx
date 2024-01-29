@@ -27,7 +27,7 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError()
                     // Nos traemos todos los errores recogidos de los callback mediante ALERT
 
                     return
@@ -38,7 +38,7 @@ function Login(props) {
             })
 
         } catch (error) {
-            alert(error.message)
+            props.onError()
         }
     }
 

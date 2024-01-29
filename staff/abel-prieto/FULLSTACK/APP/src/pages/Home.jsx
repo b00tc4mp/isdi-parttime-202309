@@ -28,7 +28,7 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    alert(error.message)
+                    props.onError()
 
                     return
                 }
@@ -37,7 +37,7 @@ function Home(props) {
                 // Guardamos en STATE el user para usar el "NAME"
             })
         } catch (error) {
-            alert(error.message)
+            props.onError()
         }
     }, [])
 
@@ -45,7 +45,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                alert(error.message)
+                props.onError()
 
                 return
             }
