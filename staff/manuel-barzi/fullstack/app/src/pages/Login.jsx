@@ -2,8 +2,12 @@ import logic from '../logic'
 
 import { Button, Link, Form, Field, Container } from '../library'
 
+import { useContext } from '../hooks'
+
 function Login(props) {
     console.log('Login')
+
+    const context = useContext()
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -17,7 +21,7 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -26,7 +30,7 @@ function Login(props) {
                 props.onSuccess()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

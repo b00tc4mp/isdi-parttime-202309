@@ -5,9 +5,13 @@ import logic from '../logic'
 import { Button, Link } from '../library'
 import { Posts, Profile, NewPost } from '../components'
 
+import { useContext } from '../hooks'
+
 
 function Home(props) {
     console.log('Home')
+
+    const context = useContext()
 
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
@@ -16,7 +20,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                props.onError(error)
+                context.handleError(error)
 
                 return
             }
@@ -31,7 +35,7 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -40,7 +44,7 @@ function Home(props) {
             })
 
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }, [])
 
@@ -88,12 +92,12 @@ function Home(props) {
 
         {view === 'profile' && <Profile />}
 
-        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
+        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts} stamp={stamp} />}
 
-        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />}
+        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts} />}
 
         <footer className="footer">
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={props.onError} />}
+            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
 
             {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
         </footer>

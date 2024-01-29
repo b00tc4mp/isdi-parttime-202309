@@ -6,8 +6,10 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import authenticateUser from './authenticateUser.js'
-import { NotFoundError, CredentialsError } from './errors.js'
+import { errors } from 'com'
 import { User } from '../data/models.js'
+
+const { NotFoundError, CredentialsError } = errors
 
 describe('authenticateUser', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
