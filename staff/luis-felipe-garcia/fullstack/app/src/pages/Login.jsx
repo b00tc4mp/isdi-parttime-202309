@@ -20,14 +20,14 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
                     return
                 }
                 props.onSuccess()
             })
 
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
 
         }
     }

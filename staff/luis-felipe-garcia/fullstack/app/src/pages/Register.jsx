@@ -1,9 +1,11 @@
 import logic from "../logic"
 import { Button, Form, Link, Field, Container } from '../library'
 
+import { ContentError, DuplicityError } from '../logic/errors'
 
 function Register(props) {
     function handleSubmit(event) {
+        console.log('Register')
         event.preventDefault()
 
         const nameInput = event.target.querySelector('#name-input')
@@ -17,7 +19,7 @@ function Register(props) {
         try {
             logic.registerUser(name, email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
                     return
                 }
             })
@@ -25,7 +27,7 @@ function Register(props) {
             props.onSuccess()
 
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 

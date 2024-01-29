@@ -2,6 +2,8 @@ import validate from "./helpers/validate"
 
 import context from './context'
 
+import errors from './errors'
+
 function publishPost(image, text, callback) {
     validate.text(image, 'image')
     validate.text(text, 'text')
@@ -20,7 +22,7 @@ function publishPost(image, text, callback) {
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return
@@ -30,5 +32,6 @@ function publishPost(image, text, callback) {
         })
         .catch(error => callback(error))
 }
+
 
 export default publishPost

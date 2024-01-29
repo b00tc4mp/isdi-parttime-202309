@@ -1,10 +1,10 @@
 import { useState } from "react"
 import logic from "../logic"
 import { Button, Field, Form } from '../library'
-import eliminar from '../icons/eliminar.png'
+
 import context from "../logic/context"
 
-function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onPostTextUpdate}) {
+function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onPostTextUpdate, onError}) {
     console.log('Post')
     const [view, setView] = useState(null)
     //const post = props.post
@@ -13,14 +13,14 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    onError(error)
                     return
                 }
                 //props.onToggleLikeClick()
                 onToggleLikeClick()
             })
         } catch (error) {
-            alert(error.message)
+            onError(error)
         }
     }
 
@@ -28,7 +28,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -37,7 +37,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
                 onToggleFavClick()
             })
         } catch (error) {
-            alert(error.message)
+            onError(error)
         }
     }
 
@@ -46,7 +46,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
             try {
                 logic.deletePost(post.id, error => {
                     if (error) {
-                        alert(error.message)
+                        onError(error)
                         return
                     }
                     //props.onToggleDeleteClick()
@@ -54,7 +54,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
 
                 })
             } catch (error) {
-                alert(error.message)
+                onError(error)
 
             }
         }
@@ -74,7 +74,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         try {
             logic.updatePostText(post.id, text, error => {
                 if (error) {
-                    alert(error.message)
+                    onError(error)
                     return
                 }
 
@@ -85,7 +85,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
             })
 
         } catch (error) {
-            alert(error.message)
+            onError(error)
 
         }
     }

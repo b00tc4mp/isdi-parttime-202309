@@ -18,7 +18,7 @@ function Profile(props) {
         try {
             logic.changeUserEmail(newEmail, newEmailConfirm, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
                     return
                 }
                 alert('E-mail changed')
@@ -28,7 +28,7 @@ function Profile(props) {
             })
 
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -42,7 +42,7 @@ function Profile(props) {
         try {
             logic.changeUserPassword(newPassword, newPasswordConfirm, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
                     return
                 }
                 alert('Password changed')
@@ -52,7 +52,7 @@ function Profile(props) {
                 //  setView(null)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 

@@ -2,7 +2,7 @@ import { Field, Form, Button, Container } from "../library"
 import logic from "../logic"
 
 
-function NewPost({ onPublish, onCancel }) {
+function NewPost({ onPublish, onCancel, onError }) {
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -23,7 +23,7 @@ function NewPost({ onPublish, onCancel }) {
 
             })
         } catch (error) {
-            alert(error.message)
+            onError(error)
         }
     }
     const handleCancel = event => {

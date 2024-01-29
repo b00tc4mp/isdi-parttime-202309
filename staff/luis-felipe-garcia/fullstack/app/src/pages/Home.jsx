@@ -28,13 +28,13 @@ function Home(props) {
             logic.retrieveUser((error, user) => {
                 console.log('User retrieved')
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
                     return
                 }
                 setName(user.name)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
 
         }
     }, [])
@@ -57,7 +57,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                alert(error.message)
+                props.onError(error)
                 return
             }
         })
@@ -108,11 +108,11 @@ function Home(props) {
 
         </header>
 
-        {view === 'profile' && <Profile onCancel={handleChangeProfileCancel} onChangeEmailSubmit={handleChangeEmailSubmit} onChangePasswordSubmit={handleChangePasswordSubmit} />}
+        {view === 'profile' && <Profile onCancel={handleChangeProfileCancel} onChangeEmailSubmit={handleChangeEmailSubmit} onError={props.onError} onChangePasswordSubmit={handleChangePasswordSubmit} />}
 
-        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
+        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} onError={props.onError}/>}
 
-        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts.bind(logic)} />}
+        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts.bind(logic)} onError={props.onError} />}
 
         <footer className="footer">
 
@@ -123,7 +123,7 @@ function Home(props) {
             {view !== 'new-post' && <Button id="new-post-button" onClick={handleNewPostClick}>
                 <img className="icons" src={addPost} />
             </Button>}
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
+            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onError={props.onError} onCancel={handleNewPostCancel} />}
             <Link className="text-menu" onClick={handleProfileClick}>
                 {/*name*/}
                 <img className="icons" src={settings} />

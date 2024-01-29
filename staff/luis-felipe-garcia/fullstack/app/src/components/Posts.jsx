@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Post from "./Post"
 
 
-function Posts({loadPosts, stamp}) {
+function Posts({ loadPosts, stamp, onError }) {
     console.log('Posts')
 
     const [posts, setPosts] = useState([])
@@ -12,14 +12,14 @@ function Posts({loadPosts, stamp}) {
         try {
             loadPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    onError(error)
                     return
                 }
                 posts.reverse()
                 setPosts(posts)
             })
         } catch (error) {
-            alert(error.message)
+            onError(error)
         }
     }
 
@@ -29,12 +29,13 @@ function Posts({loadPosts, stamp}) {
     }, [stamp])
 
     return <div className="posts">
-        {posts.map(post => 
+        {posts.map(post =>
             <Post key={post.id} post={post}
                 onToggleLikeClick={refreshPosts}
                 onToggleFavClick={refreshPosts}
-                onToggleDeleteClick={refreshPosts} 
-                onPostTextUpdate={refreshPosts}/>
+                onToggleDeleteClick={refreshPosts}
+                onPostTextUpdate={refreshPosts}
+                onError={onError} />
 
         )}
     </div>

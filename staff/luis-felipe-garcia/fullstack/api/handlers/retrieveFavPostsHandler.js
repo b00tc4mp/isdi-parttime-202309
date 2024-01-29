@@ -1,12 +1,18 @@
+import jwt from 'jsonwebtoken'
+const { JsonWebTokenError } = jwt
+
 import logic from '../logic/index.js'
 import { NotFoundError, ContentError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
-        const userId = req.headers.authorization.substring(7)
+        const token = req.headers.authorization.substring(7)
 
-        logic.retrieveFavPosts(userId, (error, posts) => {
-            if (error) {
+        const { sub: userid } = jwt.verify(token, process.env.JWT_SECRET)
+
+        logic.retrieveFavPosts(userId)
+            .then(() => res.json(posts))
+            .catch(error => {
                 let status = 500
 
                 if (error instanceof NotFoundError)
@@ -14,16 +20,20 @@ export default (req, res) => {
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
-                return
-            }
+            })
 
-            res.json(posts)
-        })
+
+
     } catch (error) {
         let status = 500
 
         if (error instanceof ContentError || error instanceof TypeError)
             status = 406
+        else if (error instanceof JsonWebTokenError) {
+            status = 401
+
+            error = new TokenError(error.message)
+        }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
