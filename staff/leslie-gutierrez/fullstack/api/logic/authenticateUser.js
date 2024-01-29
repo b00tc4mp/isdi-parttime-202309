@@ -1,30 +1,30 @@
-const { validateText, validateFunction } = require('./helpers/validators')
-const {User} = require ('../data/models')
+const validate = require('./helpers/validate')
+
+const { User } = require('../data/models')
 const { SystemError, NotFoundError, CredentialsError } = require('./errors')
 
 function authenticateUser(email, password, callback) {
-    validateText(email, 'email')
-    validateText(password, 'password')
-    validateFunction(callback, 'callback')
+    validate.email(email, 'email')
+    validate.text(password, 'password')
+    validate.function(callback, 'callback')
 
-   User.findOne({email})
-        .then(user =>{
-            if (!user){
+    User.findOne({ email })
+        .then(user => {
+            if (!user) {
                 callback(new NotFoundError('user not found'))
 
-                return 
+                return
             }
 
-            if(user.password !== password){
+            if (user.password !== password) {
                 callback(new CredentialsError('wrong password'))
-            return
-            
+
+                return
             }
 
             callback(null, user.id)
         })
-
-        .catch(error=> callback(new SystemError(error.message)))
+        .catch(error => callback(new SystemError(error.message)))
 }
 
 module.exports = authenticateUser
