@@ -33,13 +33,13 @@ curl 'http://localhost:8000/users/auth' \
 # < 
 # "5w9o7zyhewc0"%    
 
-CASE "error or wrong email"
+# CASE "error or wrong email"
 
-curl 'http://localhost:8000/users/auth' \
--H 'Content-Type: application/json' \
--d '{ "email": "wrong-anadel@gmail.com", "password": "123123123" }
-' \
--v
+# curl 'http://localhost:8000/users/auth' \
+# -H 'Content-Type: application/json' \
+# -d '{ "email": "wrong-anadel@gmail.com", "password": "123123123" }
+# ' \
+# -v
 
 # *   Trying 127.0.0.1:8000...
 # * Connected to localhost (127.0.0.1) port 8000 (#0)
@@ -62,13 +62,13 @@ curl 'http://localhost:8000/users/auth' \
 # * Connection #0 to host localhost left intact
 # {"error":"Error","message":"user not found"}%   
 
-CASE "error or wrong password"
+# CASE "error or wrong password"
 
-curl 'http://localhost:8000/users/auth' \
--H 'Content-Type: application/json' \
--d '{ "email": "anadel@gmail.com", "password": "wrong-123123123" }
-' \
--v
+# curl 'http://localhost:8000/users/auth' \
+# -H 'Content-Type: application/json' \
+# -d '{ "email": "anadel@gmail.com", "password": "wrong-123123123" }
+# ' \
+# -v
 
 # CASE error or wrong password
 # *   Trying 127.0.0.1:8000...

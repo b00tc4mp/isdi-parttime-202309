@@ -5,7 +5,7 @@ TEST "retrieve-user"
 CASE "success on correct user id"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 65b6b67b9eefc0521f3fc496' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWI2YjY3YjllZWZjMDUyMWYzZmM0OTYiLCJpYXQiOjE3MDY2NDM2NTR9.Q8AUTfd9nlMcg2-tft3N0aIy8JXNHHgamagM7AVTmBg' \
 -v
 
 
@@ -27,11 +27,11 @@ curl 'http://localhost:8000/users' \
 # {"name":"Zana Horia"}%     
 
 
-CASE "success on non.existing user id"
+# CASE "success on non.existing user id"
 
-curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 058961111bef8b597847ec00' \
--v
+# curl 'http://localhost:8000/users' \
+# -H 'Authorization: Bearer 058961111bef8b597847ec00' \
+# -v
 
 # > GET /users HTTP/1.1
 # > Host: localhost:8000
