@@ -11,8 +11,12 @@ import settings from "../icons/settings.png"
 import { Button, Form, Link, Field, Container } from '../library'
 import { Posts, NewPost, Profile } from "../components"
 
+import { useContext } from '../hooks'
+
 function Home(props) {
     console.log('Home')
+
+    const context = useContext()
 
     const [view, setView] = React.useState(null)
     const [name, setName] = React.useState(null)
@@ -28,13 +32,13 @@ function Home(props) {
             logic.retrieveUser((error, user) => {
                 console.log('User retrieved')
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
                     return
                 }
                 setName(user.name)
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
 
         }
     }, [])
@@ -57,7 +61,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                props.onError(error)
+                context.handleError(error)
                 return
             }
         })
@@ -125,7 +129,7 @@ function Home(props) {
             </Button>}
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onError={props.onError} onCancel={handleNewPostCancel} />}
             <Link className="text-menu" onClick={handleProfileClick}>
-                {/*name*/}
+                {name}
                 <img className="icons" src={settings} />
             </Link>
         </footer>

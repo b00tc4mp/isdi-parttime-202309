@@ -1,26 +1,28 @@
 import { useState } from "react"
-import logic from "../logic"
 import { Button, Field, Form } from '../library'
+import { useContext } from "../hooks"
 
-import context from "../logic/context"
+import logic from "../logic"
 
-function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onPostTextUpdate, onError}) {
+function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onPostTextUpdate}) {
     console.log('Post')
     const [view, setView] = useState(null)
+
+    const context = useContext()
     //const post = props.post
 
     function handleToggleLikeClick() {
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
-                    onError(error)
+                    context.handleError(error)
                     return
                 }
                 //props.onToggleLikeClick()
                 onToggleLikeClick()
             })
         } catch (error) {
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -28,7 +30,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -37,7 +39,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
                 onToggleFavClick()
             })
         } catch (error) {
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -46,7 +48,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
             try {
                 logic.deletePost(post.id, error => {
                     if (error) {
-                        onError(error)
+                        context.handleError(error)
                         return
                     }
                     //props.onToggleDeleteClick()
@@ -54,7 +56,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
 
                 })
             } catch (error) {
-                onError(error)
+                context.handleError(error)
 
             }
         }
@@ -74,7 +76,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         try {
             logic.updatePostText(post.id, text, error => {
                 if (error) {
-                    onError(error)
+                    context.handleError(error)
                     return
                 }
 
@@ -85,7 +87,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
             })
 
         } catch (error) {
-            onError(error)
+            context.handleError(error)
 
         }
     }
@@ -111,7 +113,7 @@ function Post({post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, o
         {view === null && <p className="post-comment">{post.text}</p>}
         {view === 'edit' && <Form onSubmit={handleEditTextSubmit}>
             <Field id="text" value={post.text}></Field>
-            <Button >Change text</Button>
+            <Button type = 'submit'>Change text</Button>
             <Button onClick={handleEditCancelText}>Cancel</Button>
         </Form>}
     </article>

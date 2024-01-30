@@ -1,12 +1,14 @@
+//ESTA CON CALLBACKS/ID. PASAR A PROMISE/TOKEN...
+
 import { User } from '../data/models.js'
-import validate from './helpers/validate.js'
-import { SystemError, ContentError, CredentialsError, NotFoundError } from './errors.js'
+import { validate, errors } from 'com'
+const { SystemError, ContentError, CredentialsError, NotFoundError } = errors
 
 function changeUserEmail(userId, newEmail, newEmailConfirm, password, callback) {
     validate.id(userId, 'user id')
     validate.text(newEmail, 'new email')
     validate.text(newEmailConfirm, 'new email confirm')
-    validate.text(password, 'password')
+    validate.password(password, 'password')
     validate.function(callback, 'callback')
 
     User.findById(userId)

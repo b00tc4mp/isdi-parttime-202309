@@ -1,7 +1,7 @@
-import validate from "./helpers/validate"
+import { validate, errors } from 'com'
 import context from './context'
 
-import errors from './errors'
+
 
 function toggleLikePost(postId, callback) {
     validate.text(postId, 'post id')
@@ -10,7 +10,7 @@ function toggleLikePost(postId, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.token}`
         }
     }
 
@@ -19,7 +19,7 @@ function toggleLikePost(postId, callback) {
         .then(res => {
             if (!res.ok) {
                 res.json()
-                .then(body => callback(new errors[body.error](body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
                 return
             }

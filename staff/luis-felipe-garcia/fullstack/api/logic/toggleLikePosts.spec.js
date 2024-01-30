@@ -1,5 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
+import { errors } from 'com'
+
+
 
 import mongoose from 'mongoose'
 import { expect } from 'chai'
@@ -7,7 +10,7 @@ import random from './helpers/random.js'
 
 import toggleLikePost from './toggleLikePost.js'
 import { User, Post } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+const { NotFoundError } = errors
 
 const { ObjectId } = mongoose.Types
 

@@ -1,14 +1,14 @@
 
+import { validate, errors } from 'com'
 import context from './context'
-import validate from "./helpers/validate"
-import errors from './errors'
+
 
 function retrievePosts(callback) {
     validate.function(callback, 'callback')
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.token}`
         }
     }
 

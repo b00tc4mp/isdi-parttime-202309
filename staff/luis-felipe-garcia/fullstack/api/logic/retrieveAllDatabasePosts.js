@@ -1,6 +1,7 @@
-import validate from './helpers/validate.js'
+//ESTA CON CALLBACKS/ID. PASAR A PROMISE/TOKEN...
+import { validate, errors } from 'com'
 import { Post } from '../data/models.js'
-import { SystemError } from './errors.js'
+const { SystemError } = errors
 
 function retrieveAllDatabasePosts(callback) {
     validate.function(callback, 'callback')

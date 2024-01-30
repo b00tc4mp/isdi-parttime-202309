@@ -1,12 +1,14 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import { errors } from 'com'
+
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import registerUser from './registerUser.js'
-import { DuplicityError } from './errors.js'
+const { DuplicityError } = errors
 import { User } from '../data/models.js'
 
 describe('registerUser', () => {

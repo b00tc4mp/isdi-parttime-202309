@@ -1,12 +1,12 @@
-import validate from './helpers/validate.js'
-import { DuplicityError, SystemError } from './errors.js'
+import { validate, errors } from 'com'
+const { DuplicityError, SystemError } = errors
 import { User } from '../data/models.js'
 
 
 function registerUser(name, email, password) {
     validate.text(name, 'name')
     validate.email(email, 'email')
-    validate.text(password, 'password')
+    validate.password(password, 'password')
 
     return User.create({ name, email, password })
         .catch(error => {

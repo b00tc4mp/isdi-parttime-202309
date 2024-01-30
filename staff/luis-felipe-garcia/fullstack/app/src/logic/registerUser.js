@@ -1,6 +1,6 @@
-import validate from "./helpers/validate"
+import { validate, errors } from 'com'
 
-import errors from './errors'
+
 
 function registerUser(name, email, password, callback) {
     validate.text(name, 'name')

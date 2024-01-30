@@ -1,12 +1,13 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import {errors} from 'com'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import createPost from './createPost.js'
-import { DuplicityError, NotFoundError } from './errors.js'
+const { DuplicityError, NotFoundError } = errors
 import { User, Post } from '../data/models.js'
 
 const { ObjectId } = mongoose.Types

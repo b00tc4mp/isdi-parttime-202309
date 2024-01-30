@@ -1,8 +1,12 @@
 import { Field, Form, Button, Container } from "../library"
 import logic from "../logic"
 
+import { useContext } from '../hooks'
 
-function NewPost({ onPublish, onCancel, onError }) {
+function NewPost({ onPublish, onCancel}) {
+    console.log('NewPost')
+    const context = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -15,7 +19,7 @@ function NewPost({ onPublish, onCancel, onError }) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    context.handleError(error)
                     return
                 }
 
@@ -23,7 +27,7 @@ function NewPost({ onPublish, onCancel, onError }) {
 
             })
         } catch (error) {
-            onError(error)
+            context.handleError(error)
         }
     }
     const handleCancel = event => {

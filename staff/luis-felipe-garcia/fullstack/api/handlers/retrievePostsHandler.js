@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken'
 const { JsonWebTokenError } = jwt
 
 import logic from '../logic/index.js'
-import { SystemError, DuplicityError, NotFoundError, ContentError } from '../logic/errors.js'
-
+import {errors} from 'com'
+const { SystemError, DuplicityError, NotFoundError, ContentError, TokenError } = errors
 
 export default (req, res) => {
     try {
@@ -13,7 +13,7 @@ export default (req, res) => {
 
 
         logic.retrievePosts(userId)
-            .then(() => res.json(posts))
+            .then(posts => res.json(posts))
             .catch(error => {
                 let status = 500
 

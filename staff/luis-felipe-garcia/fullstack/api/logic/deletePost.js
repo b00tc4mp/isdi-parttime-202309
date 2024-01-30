@@ -1,6 +1,7 @@
+//ESTA CON CALLBACKS/ID. PASAR A PROMISE/TOKEN...
 import { User, Post } from '../data/models.js'
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
+import { validate, errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError } = errors
 
 
 function deletePost(userId, postId, callback) {

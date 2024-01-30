@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
 const { JsonWebTokenError } = jwt
 
-import logic from '../logic/index.js'
-import { NotFoundError, ContentError } from '../logic/errors.js'
+import {errors} from 'com'
 
+import logic from '../logic/index.js'
+const { NotFoundError, ContentError, TokenError } = errors
 export default (req, res) => {
     try {
         const token = req.headers.authorization.substring(7)

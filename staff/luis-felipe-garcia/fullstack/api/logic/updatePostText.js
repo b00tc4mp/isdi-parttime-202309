@@ -1,6 +1,7 @@
+//ESTA CON CALLBACKS E ID.PASAR A PROMISE Y TOKEN
 import { User, Post } from '../data/models.js'
-import validate from './helpers/validate.js'
-import { SystemError, CredentialsError, NotFoundError, ContentError } from './errors.js'
+import { validate, errors } from 'com'
+const { SystemError, CredentialsError, NotFoundError, ContentError } = errors
 
 function updatePostText(userId, postId, text, callback) {
     validate.id(userId, 'user id')
