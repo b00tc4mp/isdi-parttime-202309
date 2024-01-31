@@ -1,13 +1,15 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import logic from '../logic'
+import session from '../logic/session'
+import Context from '../Context'
 
-import { Button, Input } from "../librery"
+import { useContext, useEffect, useState } from 'react'
+import { Button, Input } from '../librery'
 
-import logic from "../logic"
-import session from "../logic/session"
 
 function Post(props) {
     const post = props.post
+
+    const { handleError } = useContext(Context)
 
     // STATE EDIT MODE & COMMENT TEXT
     const [editMode, setEditMode] = useState(false)
@@ -21,7 +23,7 @@ function Post(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    props.onError(error)
+                    handleError(error)
 
                     return
                 }
@@ -30,7 +32,7 @@ function Post(props) {
                 // Guardamos en STATE el user para usar el "NAME"
             })
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }, [])
 
@@ -41,7 +43,7 @@ function Post(props) {
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    handleError(error)
 
                     return
                 }
@@ -49,7 +51,7 @@ function Post(props) {
                 props.onToggleLikeClick()
             })
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }
 
@@ -58,7 +60,7 @@ function Post(props) {
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    handleError(error)
 
                     return
                 }
@@ -66,7 +68,7 @@ function Post(props) {
                 props.onToggleFavClick()
             })
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }
 
@@ -76,7 +78,7 @@ function Post(props) {
             try {
                 logic.deletePost(postId, error => {
                     if (error) {
-                        props.onError(error)
+                        handleError(error)
 
                         return
                     }
@@ -84,7 +86,7 @@ function Post(props) {
                     props.onDeletePost()
                 })
             } catch (error) {
-                props.onError(error)
+                handleError(error)
             }
         }
 
@@ -97,7 +99,7 @@ function Post(props) {
             setEditMode(!editMode)
 
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }
 
@@ -110,7 +112,7 @@ function Post(props) {
 
             logic.toggleEditPostText(postId, postText, error => {
                 if (error) {
-                    props.onError(error)
+                    handleError(error)
 
                     return
                 }
@@ -121,7 +123,7 @@ function Post(props) {
                 setEditMode(!editMode)
             })
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }
 
@@ -132,7 +134,7 @@ function Post(props) {
 
             logic.toggleCommentPost(postId, postComment, error => {
                 if (error) {
-                    props.onError(error)
+                    handleError(error)
 
                     return
                 }
@@ -146,7 +148,7 @@ function Post(props) {
                 setCommentText('comment')
             })
         } catch (error) {
-            props.onError(error)
+            handleError(error)
         }
     }
 
