@@ -4,10 +4,8 @@ const registerUser = require('./logic/registerUser')
 const authenticateUser = require('./logic/authenticateUser')
 const retrieveUser = require('./logic/retrieveUser')
 const retrievePosts = require('./logic/retrievePosts')
-const retrieveFavPosts = require('./logic/retrieveFavPosts')
 const createPost = require('./logic/createPost')
 const toggleLikePost = require('./logic/toggleLikePost')
-const toggleFavPost = require('./logic/toggleFavPost')
 const {
   SystemError,
   NotFoundError,
@@ -161,32 +159,6 @@ mongoose
         })
       } catch (error) {}
     })
-
-    // retrieve fav posts
-    // a nivel de ruta de api se puede poner así: devuélveme los posts que sean favs -> posts/favs.
-    server.get('/posts/favs', (req, res) => {
-      try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrieveFavPosts(userId, (error, posts) => {
-          if (error) {
-            let status = 500
-
-            if (error instanceof NotFoundError) {
-              status = 404
-            }
-
-            res
-              .status(status)
-              .json({ error: error.constructor.name, message: error.message })
-
-            return
-          }
-          res.json(posts)
-        })
-      } catch (error) {}
-    })
-
     // publish a post
     server.post('/posts', jsonBodyParser, (req, res) => {
       try {
@@ -195,12 +167,6 @@ mongoose
 
         createPost(userId, image, text, (error) => {
           if (error) {
-            let status = 500
-
-            if (error instanceof NotFoundError) {
-              status = 404
-            }
-
             res
               .status(400)
               .json({ error: error.constructor.name, message: error.message })
@@ -225,39 +191,6 @@ mongoose
         const { postId } = req.params
 
         toggleLikePost(userId, postId, (error) => {
-          if (error) {
-            let status = 500
-
-            if (error instanceof NotFoundError) {
-              status = 404
-            }
-
-            res
-              .status(status)
-              .json({ error: error.constructor.name, message: error.message })
-          }
-          res.status(204).send()
-        })
-      } catch (error) {
-        let status = 500
-
-        if (error instanceof ContentError || error instanceof TypeError) {
-          status = 406
-        }
-        res
-          .status(status)
-          .json({ error: error.constructor.name, message: error.message })
-      }
-    })
-
-    // favourite or unfavourite a post
-    server.patch('/posts/:postId/favs', (req, res) => {
-      try {
-        const userId = req.headers.authorization.substring(7)
-
-        const { postId } = req.params
-
-        toggleFavPost(userId, postId, (error) => {
           if (error) {
             let status = 500
 

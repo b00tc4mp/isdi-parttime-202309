@@ -1,4 +1,4 @@
-import { Post } from '../components'
+import { Post } from '.'
 
 function Posts({ posts, refreshPosts }) {
   return (

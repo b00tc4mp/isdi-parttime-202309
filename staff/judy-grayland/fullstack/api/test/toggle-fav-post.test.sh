@@ -1,15 +1,15 @@
 # source pepetest.sh
 
-# TEST "toggle-like-post"
+# TEST "toggle-fav-post"
 
 # CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/65b541279135d27445f27aa3/likes' \
+curl 'http://localhost:8000/posts/65b541279135d27445f27aa3/favs' \
 -H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
 -X PATCH \
 -v
 
-# > PATCH /posts/t8gzwceff0/likes HTTP/1.1
+# > PATCH /posts/t8gzwceff0/favs HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
@@ -23,11 +23,11 @@ curl 'http://localhost:8000/posts/65b541279135d27445f27aa3/likes' \
 
 # CASE "fails on incorrect post id"
 
-curl 'http://localhost:8000/posts/55b541279135d27445f27aa3/likes' \
+curl 'http://localhost:8000/posts/55b541279135d27445f27aa3/favs' \
 -H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
 -X PATCH \
 
-# > PATCH /posts/55b541279135d27445f27aa3/likes HTTP/1.1
+# > PATCH /posts/55b541279135d27445f27aa3/favs HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.4.0
 # > Accept: */*

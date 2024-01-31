@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
-const toggleLikePost = require('./toggleLikePost')
+const registerUser = require('./registerUser')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/test')
   .then(() => {
     try {
-      toggleLikePost(
-        '65b0f579f9beb466beb3a8e1',
-        '65b541279135d27445f27aa3',
+      registerUser(
+        'Tomate Cherry',
+        'tomate@cherry.com',
+        '123123123',
         (error) => {
           if (error) {
             console.error(error)
@@ -16,7 +17,7 @@ mongoose
             return
           }
 
-          console.log('post like toggled')
+          console.log('registered successfully')
         }
       )
     } catch (error) {
