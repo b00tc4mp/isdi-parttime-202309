@@ -1,8 +1,9 @@
-import { validate, errors } from 'com'
-
+import { validate } from 'com'
 import context from './context'
 
-function toggleLikePost(postId, callback) {
+import errors from './errors'
+
+function toggleFavPost(postId, callback) {
     validate.text(postId, 'post id')
     validate.function(callback, 'callback')
 
@@ -13,7 +14,7 @@ function toggleLikePost(postId, callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favs`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
@@ -28,4 +29,4 @@ function toggleLikePost(postId, callback) {
         .catch(error => callback(error))
 }
 
-export default toggleLikePost
+export default toggleFavPost

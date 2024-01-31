@@ -1,21 +1,22 @@
-import { validate, errors } from 'com'
+import { validate } from 'com'
 
-import context from './context'
+import errors from './errors'
 
-function publishPost(image, text, callback) {
-    validate.text(image, 'image')
-    validate.text(text, 'text')
+function registerUser(name, email, password, callback) {
+    validate.text(name, 'name')
+    validate.email(email)
+    validate.password(password)
+    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image, text })
+        body: JSON.stringify({ name, email, password })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
@@ -30,4 +31,4 @@ function publishPost(image, text, callback) {
         .catch(error => callback(error))
 }
 
-export default publishPost
+export default registerUser

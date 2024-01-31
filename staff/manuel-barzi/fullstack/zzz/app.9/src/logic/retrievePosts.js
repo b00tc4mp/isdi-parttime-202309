@@ -1,18 +1,16 @@
-import { validate, errors } from 'com'
-
+import { validate } from 'com'
 import context from './context'
 
-function publishPost(image, text, callback) {
-    validate.text(image, 'image')
-    validate.text(text, 'text')
+import errors from './errors'
+
+function retrievePosts(callback) {
+    validate.function(callback, 'callback')
 
     const req = {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ image, text })
+            Authorization: `Bearer ${context.token}`
+        }
     }
 
     fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
@@ -25,9 +23,11 @@ function publishPost(image, text, callback) {
                 return
             }
 
-            callback(null)
+            res.json()
+                .then(posts => callback(null, posts))
+                .catch(error => callback(error))
         })
         .catch(error => callback(error))
 }
 
-export default publishPost
+export default retrievePosts

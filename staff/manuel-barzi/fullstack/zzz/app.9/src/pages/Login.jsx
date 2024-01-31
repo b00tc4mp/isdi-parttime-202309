@@ -1,32 +1,32 @@
-import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
+
+import { Button, Link, Form, Field, Container } from '../library'
 
 import { useContext } from '../hooks'
 
-function Register(props) {
-    console.log('Register')
+function Login(props) {
+    console.log('Login')
 
     const context = useContext()
 
     function handleSubmit(event) {
         event.preventDefault()
 
-        const nameInput = event.target.querySelector('#name-input')
         const emailInput = event.target.querySelector('#email-input')
         const passwordInput = event.target.querySelector('#password-input')
 
-        const name = nameInput.value
         const email = emailInput.value
         const password = passwordInput.value
 
         try {
-            logic.registerUser(name, email, password, error => {
+            logic.loginUser(email, password, error => {
                 if (error) {
                     context.handleError(error)
 
                     return
                 }
 
+                //setTimeout(() => props.onSuccess(), 2000)
                 props.onSuccess()
             })
         } catch (error) {
@@ -34,26 +34,24 @@ function Register(props) {
         }
     }
 
-    function handleLoginClick(event) {
+    function handleRegisterClick(event) {
         event.preventDefault()
 
-        // console.log('login click')
-        props.onLoginClick()
+        props.onRegisterClick()
     }
 
     return <Container>
-        <h1>Register</h1>
+        <h1>Login</h1>
 
         <Form onSubmit={handleSubmit}>
-            <Field id="name-input">Name</Field>
             <Field id="email-input" type="email">E-mail</Field>
             <Field id="password-input" type="password">Password</Field>
 
-            <Button type="submit">Register</Button>
+            <Button type="submit">Login</Button>
         </Form>
 
-        <Link onClick={handleLoginClick}>Login</Link>
+        <Link onClick={handleRegisterClick}>Register</Link>
     </Container>
 }
 
-export default Register
+export default Login

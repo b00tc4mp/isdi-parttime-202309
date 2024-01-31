@@ -1,19 +1,19 @@
-import { validate, errors } from 'com'
-
+import { validate } from 'com'
 import context from './context'
 
-function toggleLikePost(postId, callback) {
-    validate.text(postId, 'post id')
+import errors from './errors'
+
+function retrieveFavPosts(callback) {
     validate.function(callback, 'callback')
 
     const req = {
-        method: 'PATCH',
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${context.token}`
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/favs`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()
@@ -23,9 +23,11 @@ function toggleLikePost(postId, callback) {
                 return
             }
 
-            callback(null)
+            res.json()
+                .then(posts => callback(null, posts))
+                .catch(error => callback(error))
         })
         .catch(error => callback(error))
 }
 
-export default toggleLikePost
+export default retrieveFavPosts
