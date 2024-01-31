@@ -1,7 +1,7 @@
-import validate from './helpers/validate'
-import context from './context'
+import { validate, errors } from 'com'
+import session from './session'
 
-import errors from './errors'
+
 
 function loginUser(email, password, callback) {
     validate.email(email)
@@ -40,10 +40,10 @@ function loginUser(email, password, callback) {
                     const payload = JSON.parse(payloadJson)
                     //desestrtucturamos y nos quedamos con el sub
                     const userId = payload.sub //acabar de entender esto 
-                    // lo guardo en el contextto
-                    context.sessionUserId = userId
-                    //me guardo el token en el contexto, para poder usarlo desde otras logicas 
-                    context.token = token
+                    // lo guardo en el sessionto
+                    session.sessionUserId = userId
+                    //me guardo el token en el sessiono, para poder usarlo desde otras logicas 
+                    session.token = token
 
                     callback(null)
                 })

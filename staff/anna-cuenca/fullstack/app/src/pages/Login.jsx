@@ -2,6 +2,8 @@ import logic from '../logic'
 
 import { Button, Link, Form, Field, Container } from '../library'
 
+import { useContext } from '../hooks'
+
 
 
 function Login(props) {
@@ -9,6 +11,8 @@ function Login(props) {
   //las props las tenemos para manejar situaciones, de momento pueden pasar 2 cosas
   // cuando se haga click en el link de registro
   console.log('Login')
+
+  const context = useContext()
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -24,7 +28,7 @@ function Login(props) {
       logic.loginUser(email, password, error => {
         if (error) {
           //alert(error.message)
-          props.onError(error)
+          context.handleError(error)
           return
         }
         props.onSuccess() // la App que está por encima, hace esto (apagar Login y encender HOme)
@@ -32,7 +36,7 @@ function Login(props) {
 
     } catch (error) {
       //alert(error.message)
-      props.onError(error)
+      context.handleError(error)
     }
   }
 

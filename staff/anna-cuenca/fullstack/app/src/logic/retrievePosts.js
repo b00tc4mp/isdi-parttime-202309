@@ -1,6 +1,5 @@
-import context from './context'
-import validate from './helpers/validate'
-import errors from './errors'
+import session from './session'
+import { validate, errors } from 'com'
 
 function retrievePosts(callback) {
     //la función toma un callback como argumento 
@@ -11,7 +10,7 @@ function retrievePosts(callback) {
         method: 'GET',
         //se establecen los encabezados HTTP de la solicitud
         headers: {
-            'Authorization': `Bearer ${context.token}`
+            'Authorization': `Bearer ${session.token}`
         }
     }
 

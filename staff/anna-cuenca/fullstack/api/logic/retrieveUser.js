@@ -1,7 +1,10 @@
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
+import { validate, errors } from 'com'
+
+
 
 import { User } from '../data/models.js'
+
+const { SystemError, NotFoundError } = errors
 
 function retrieveUser(userId) {
     validate.id(userId, 'user id')

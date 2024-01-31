@@ -1,7 +1,12 @@
 import { Button, Container, Field, Form } from "../library"
 import logic from "../logic"
 
+import { useContext } from '../hooks'
+
 export default function ({ onPublish, onCancel }) {
+    console.log('New Post')
+
+    const context = useContext()
 
     // si lo exportamos de esta manera(en la cabecera de la función), se puede exportar la función de 
     // manera anónima
@@ -17,7 +22,7 @@ export default function ({ onPublish, onCancel }) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    context.handleError(error)
 
                     return
                 }
@@ -27,7 +32,7 @@ export default function ({ onPublish, onCancel }) {
 
             })
         } catch (error) {
-            alert(error.message)
+            context.handleError(error)
         }
     }
 

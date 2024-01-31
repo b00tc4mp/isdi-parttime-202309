@@ -1,5 +1,6 @@
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError, CredentialsError, DuplicityError } from '../logic/errors.js'
+import { errors } from 'com'
+const { DuplicityError, ContentError } = errors
 
 export default (req, res) => {
     const { name, email, password } = req.body //queremos que nos devuelva la respuesta en el body

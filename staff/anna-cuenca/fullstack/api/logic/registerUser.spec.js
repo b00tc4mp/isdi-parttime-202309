@@ -12,9 +12,11 @@ import random from './helpers/random.js'
 
 import registerUser from './registerUser.js'
 
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from "./errors.js";
+import { errors } from 'com'
 
 import { User } from '../data/models.js'
+
+const { DuplicityError } = errors
 
 describe('registerUser', () => { //describimos el test, le ponemos un título
 

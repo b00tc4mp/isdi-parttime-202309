@@ -1,4 +1,5 @@
-import validate from './helpers/validate'
+import { validate, errors } from "com"
+import session from './session'
 
 //cambiar el nombre por upddatePostText
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import logic from '../logic'
 
-
+import { useContext } from '../hooks'
 
 import { Button, Form, Link, Field } from '../library'
 import { Posts, Profile, NewPost } from '../components'
@@ -9,6 +9,7 @@ import { Posts, Profile, NewPost } from '../components'
 
 function Home(props) {
     console.log('Home')
+    const context = useContext()
 
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
@@ -22,7 +23,7 @@ function Home(props) {
         logic.logoutUser(error => {
             if (error) {
                 //alert(error.message)
-                props.onError(error)
+                context.handleError(error)
                 return
             }
         })
@@ -40,7 +41,7 @@ function Home(props) {
             logic.retrieveUser((error, user) => {
                 if (error) {
                     //alert(error.message)
-                    props.onError(error)
+                    context.handleError(error)
                     return
                 }
                 setName(user.name)
@@ -48,7 +49,7 @@ function Home(props) {
 
         } catch (error) {
             //alert(error.message)
-            props.onError(error)
+            context.handleError(error)
         }
     }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
     // para que el efecto secundario se vuelva a ejecutar. Si el array está vacío [] significa
@@ -108,14 +109,14 @@ function Home(props) {
         {view === 'profile' && <Profile onSuccess={() => setView(null)} />}
 
 
-        {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
+        {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />}
 
 
 
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
 
 
-        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />}
+        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />}
 
 
 
@@ -128,7 +129,7 @@ function Home(props) {
 
         <footer className="footer">
 
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={props.onError} />}
+            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={context.handleError} />}
             {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
 
         </footer>

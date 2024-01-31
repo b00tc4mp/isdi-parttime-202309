@@ -1,7 +1,7 @@
-import validate from './helpers/validate'
-import context from './context'
+import { validate, errors } from 'com'
+import session from './session'
 
-import errors from './errors'
+
 
 function toggleFavPost(postId, callback) {
     validate.text(postId, 'post id')
@@ -11,7 +11,7 @@ function toggleFavPost(postId, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${session.token}`
         }
     }
 

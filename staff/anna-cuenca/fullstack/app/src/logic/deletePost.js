@@ -1,4 +1,5 @@
-import validate from './helpers/validate'
+import { validate, errors } from 'com'
+import session from './session'
 
 function deletePost(postId, callback) {
     validate.text(postId, 'post id')

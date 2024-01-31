@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import Post from './Post'
 
+import { useContext } from '../hooks'
+
 function Posts(props) {
     console.log('Posts')
+    const context = useContext()
     const [posts, setPosts] = useState([])
 
 
@@ -11,7 +14,7 @@ function Posts(props) {
             props.loadPosts((error, posts) => {
                 if (error) {
                     //alert(error.message)
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -22,7 +25,7 @@ function Posts(props) {
             })
         } catch (error) {
             //alert(error.message)
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
@@ -37,7 +40,7 @@ function Posts(props) {
 
     return <div className="posts">
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
-        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={props.onError} />)}
+        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={context.handleError} />)}
         {/* con React necesitamos crear una Key para renderizar una lista de
          elementos. Esta lista de elementos se renderiza con .map, porque .map
          devuelve un arrays */}
@@ -65,7 +68,7 @@ export default Posts
 //             loadPosts((error, posts) => {
 //                 if (error) {
 //                     //alert(error.message)
-//                     props.onError(error)
+//                     context.handleError(error)
 
 //                     return
 //                 }
@@ -76,7 +79,7 @@ export default Posts
 //             })
 //         } catch (error) {
 //             //alert(error.message)
-//             props.onError(error)
+//             context.handleError(error)
 //         }
 //     }
 

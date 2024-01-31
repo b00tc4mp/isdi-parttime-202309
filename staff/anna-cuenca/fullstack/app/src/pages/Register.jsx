@@ -1,10 +1,13 @@
 import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
 
-
+import { useContext } from '../hooks'
 
 function Register(props) {
   console.log('Register')
+
+  const context = useContext()
+
   function handleSubmit(event) {
     event.preventDefault()
 
@@ -23,7 +26,7 @@ function Register(props) {
 
         if (error) {
           //alert(error.message)
-          props.onError(error)
+          context.handleError(error)
           return
         }
         props.onSuccess()
@@ -32,7 +35,7 @@ function Register(props) {
     } catch (error) {
       //alert(error.message)
 
-      props.onError(error)
+      context.handleError(error)
     }
   }
 

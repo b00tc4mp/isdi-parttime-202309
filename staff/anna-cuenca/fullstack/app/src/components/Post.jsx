@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { Button, Form } from '../library'
 import logic from '../logic'
 import { Input } from '../library'
+import session from '../logic/session'
 
+import Context from '../Context'
+import { useContext } from '../hooks'
 
 
 //está declarado en null, porque es el estado inicial
@@ -13,6 +16,10 @@ function Post(props) {
 
     const [editTextPost, setEditTextPost] = useState(null)
 
+    //const { handleError } = useContext(Context)
+
+    const context = useContext()
+
 
     const post = props.post
 
@@ -21,7 +28,7 @@ function Post(props) {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
                     //alert(error.message)
-                    props.onErro(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -32,7 +39,7 @@ function Post(props) {
             })
         } catch (error) {
             //alert(error.message)
-            props.onErro(error)
+            context.handleError(error)
         }
     }
 
@@ -43,7 +50,7 @@ function Post(props) {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
                     //alert(error.message)
-                    props.onErro(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -53,7 +60,7 @@ function Post(props) {
             })
         } catch (error) {
             //alert(error.message)
-            props.onErro(error)
+            context.handleError(error)
         }
     }
 
@@ -67,7 +74,7 @@ function Post(props) {
             logic.toggleEditPost(post.id, text, error => {
                 if (error) {
                     //alert(error.message)
-                    props.onErro(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -79,7 +86,7 @@ function Post(props) {
             })
         } catch (error) {
             //alert(error.message)
-            props.onErro(error)
+            context.handleError(error)
         }
 
     }
@@ -108,7 +115,7 @@ function Post(props) {
                 logic.deletePost(post.id, error => {
                     if (error) {
                         //alert(error.message)
-                        props.onErro(error)
+                        context.handleError(error)
 
                         return
                     }
@@ -119,7 +126,7 @@ function Post(props) {
                 })
             } catch (error) {
                 //alert(error.message)
-                props.onErro(error)
+                context.handleError(error)
             }
         }
     }
@@ -139,8 +146,8 @@ function Post(props) {
 
             <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
             <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>
-            {post.author.id === logic.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
-            {post.author.id === logic.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>}
+            {post.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
+            {post.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>}
 
             {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
              de like, {post.liked ? '❤️' : '🤍'} {post.likes.length}  eso son los children */}
