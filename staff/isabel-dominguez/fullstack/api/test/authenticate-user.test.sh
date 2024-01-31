@@ -4,7 +4,7 @@ echo CASE "success on correct credentials"
 
 curl "http://localhost:9000/users/auth" \
 -H 'Content-Type: application/json' \
--d '{ "email": "le@on.com", "password": "123123123" }' \
+-d '{ "email": "o@livia.com", "password": "123123123" }' \
 -v
 
 # TEST authenticate-user
