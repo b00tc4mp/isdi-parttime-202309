@@ -1,12 +1,13 @@
 import { User } from '../data/models.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
-import validate from './helpers/validate.js'
- 
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
+
 function changeEmailUser(userId, newEmail, againNewEmail, password) {
     validate.id(userId, "user id")
     validate.email(newEmail, "newEmail")
     validate.email(againNewEmail, "newEmail")
-    validate.text(password, "password")
+    validate.password(password, "password")
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
@@ -28,7 +29,7 @@ function changeEmailUser(userId, newEmail, againNewEmail, password) {
             user.save()
                 .then(user => { })
                 .catch(error => { throw new SystemError(error.message) })
-            
+
         })
 }
 

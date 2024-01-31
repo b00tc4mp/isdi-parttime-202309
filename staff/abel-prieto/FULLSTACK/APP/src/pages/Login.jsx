@@ -1,12 +1,16 @@
-import logic from "../logic"
+import logic from '../logic'
+import Context from '../Context'
 
-import { Button, Link, Field, Form, Container } from "../librery"
+import { useContext } from 'react'
+import { Button, Link, Field, Form, Container } from '../librery'
 
 
 // LOGIN
 
 function Login(props) {
     console.log('Login')
+
+    const { handleError } = useContext(Context)
 
     // REGISTER LINK
     function handleRegisterClick(event) {
@@ -27,7 +31,7 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    props.onError()
+                    handleError(error)
                     // Nos traemos todos los errores recogidos de los callback mediante ALERT
 
                     return
@@ -38,7 +42,7 @@ function Login(props) {
             })
 
         } catch (error) {
-            props.onError()
+            handleError(error)
         }
     }
 

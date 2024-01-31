@@ -1,11 +1,15 @@
-import logic from "../logic"
+import logic from '../logic'
 
-import { Container, Form, Field, Button } from "../librery"
+import { useContext } from 'react'
+import Context from '../Context'
+import { Container, Form, Field, Button } from '../librery'
 
 
 // PROFILE
 function Profile() {
     console.log('Profile')
+
+    const { handleError } = useContext(Context)
 
     // SETTINGS - CHANGE EMAIL
     function handleChangeEmailSubmit(event) {
@@ -20,7 +24,7 @@ function Profile() {
         try {
             logic.changeUserEmail(newEmail, againNewEmail, password, error => {
                 if (error) {
-                    alert(error.message)
+                    handleError(error)
 
                     return
                 }
@@ -29,7 +33,7 @@ function Profile() {
             })
 
         } catch (error) {
-            alert(error.message)
+            handleError(error)
         }
     }
 
@@ -44,7 +48,7 @@ function Profile() {
         try {
             logic.changeUserPassword(password, newPassword, againNewPassword, error => {
                 if (error) {
-                    alert(error.message)
+                    handleError(error)
 
                     return
                 }
@@ -53,7 +57,7 @@ function Profile() {
             })
 
         } catch (error) {
-            alert(error.message)
+            handleError(error)
         }
     }
 

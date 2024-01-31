@@ -1,5 +1,7 @@
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError } from '../logic/errors.js'
+import { errors } from 'com'
+
+const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
     try {
@@ -17,7 +19,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-                
+
                 return
             }
 

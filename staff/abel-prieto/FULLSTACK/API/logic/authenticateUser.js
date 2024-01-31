@@ -1,13 +1,14 @@
 import { User } from '../data/models.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
-import validate from './helpers/validate.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
 
 function authenticateUser(email, password) {
     validate.email(email, 'name')
-    validate.text(password, 'password')
+    validate.password(password, 'password')
 
     return User.findOne({ email })
-        .catch(error => { throw new SystemError(error.message) } )
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
                 throw new NotFoundError('user not found')
@@ -18,7 +19,7 @@ function authenticateUser(email, password) {
             }
 
             return user.id
-        })    
+        })
 }
 
 export default authenticateUser

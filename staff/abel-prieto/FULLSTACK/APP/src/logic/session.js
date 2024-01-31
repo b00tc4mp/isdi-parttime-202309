@@ -1,8 +1,8 @@
 // USER LOGED
 
-const context = {
+const session = {
     sessionUserId: null,
     token: null
 }
 
-export default context
+export default session

@@ -1,6 +1,5 @@
-import validate from "./helpers/validate"
-import context from "./context"
-import errors from "./errors"
+import { validate, errors } from 'com'
+import session from './session'
 
 // FAV BUTTON
 
@@ -11,11 +10,11 @@ export default function toggleFavPost(postId, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${postId}`
+            Authorization: `Bearer ${session.token}`
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/${context.token}/favs`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/${String(postId)}/favs`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

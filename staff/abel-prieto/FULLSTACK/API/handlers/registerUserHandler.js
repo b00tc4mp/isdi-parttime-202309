@@ -1,5 +1,7 @@
 import logic from '../logic/index.js'
-import { DuplicityError, ContentError } from '../logic/errors.js'
+import { errors } from 'com'
+
+const { DuplicityError, ContentError } = errors
 
 export default (req, res) => {
     try {
@@ -11,9 +13,9 @@ export default (req, res) => {
                 let status = 500
 
                 if (error instanceof DuplicityError) {
-                    error = 409
+                    status = 409
                 }
-        
+
                 res.status(status).json({ error: error.constructor.name, message: error.message })
 
                 return

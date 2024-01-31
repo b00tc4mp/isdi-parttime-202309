@@ -1,6 +1,5 @@
-import validate from "./helpers/validate"
-import context from "./context"
-import errors from "./errors"
+import { validate, errors } from 'com'
+import session from './session'
 
 // CHECK CHANGE EMAIL 
 
@@ -13,7 +12,7 @@ export default function changeUserEmail(newEmail, againNewEmail, password, callb
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${String(context.token)}`,
+            Authorization: `Bearer ${String(session.token)}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ newEmail, againNewEmail, password })

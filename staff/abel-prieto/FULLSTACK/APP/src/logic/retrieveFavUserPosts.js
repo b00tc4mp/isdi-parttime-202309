@@ -1,6 +1,5 @@
-import validate from "./helpers/validate"
-import context from "./context"
-import errors from "./errors"
+import { validate, errors } from 'com'
+import session from './session'
 
 // RETRIEVE FAV SESSION POSTS
 
@@ -10,7 +9,7 @@ export default function retrieveFavUserPosts(callback) {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${session.token}`
         }
     }
 
@@ -22,7 +21,6 @@ export default function retrieveFavUserPosts(callback) {
                     .catch(error => callback(error))
 
                 return
-
             }
 
             res.json()

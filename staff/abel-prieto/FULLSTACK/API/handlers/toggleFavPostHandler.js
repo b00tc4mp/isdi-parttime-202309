@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken'
-const { JsonWebTokenError } = jwt
-
 import logic from '../logic/index.js'
-import { NotFoundError, ContentError, TokenError } from '../logic/errors.js'
+import { errors } from 'com'
+
+const { JsonWebTokenError } = jwt
+const { NotFoundError, ContentError, TokenError } = errors
 
 export default (req, res) => {
     try {
-        const postId = req.headers.authorization.substring(7)
+        const { postId } = req.params
 
-        const { token } = req.params
+        const token = req.headers.authorization.substring(7)
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         logic.toggleFavPost(postId, userId)
@@ -29,7 +30,6 @@ export default (req, res) => {
             status = 406
         } else if (error instanceof JsonWebTokenError) {
             status = 401
-
             error = new TokenError(error.message)
         }
 

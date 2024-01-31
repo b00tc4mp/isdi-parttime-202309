@@ -1,6 +1,5 @@
-import validate from "./helpers/validate"
-import context from "./context"
-import errors from "./errors"
+import { validate, errors } from 'com'
+import session from './session'
 
 // LOGIN & AUTHENTICATE USER
 
@@ -38,8 +37,8 @@ export default function loginUser(email, password, callback) {
                     // El payload devuelve un objeto { sub: userId } con la propiedad sub
                     const userId = payload.sub
 
-                    context.sessionUserId = userId
-                    context.token = token
+                    session.sessionUserId = userId
+                    session.token = token
 
                     callback(null)
                 })

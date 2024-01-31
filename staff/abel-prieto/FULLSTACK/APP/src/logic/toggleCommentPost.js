@@ -1,6 +1,5 @@
-import context from "./context"
-import validate from "./helpers/validate"
-import errors from "./errors"
+import session from './session'
+import { validate, errors } from 'com'
 
 // COMMENT TEXT POSTS
 
@@ -12,7 +11,7 @@ export default function toggleCommentPostText(postId, postComment, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${String(context.sessionUserId)}`,
+            Authorization: `Bearer ${String(session.sessionUserId)}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ postComment })

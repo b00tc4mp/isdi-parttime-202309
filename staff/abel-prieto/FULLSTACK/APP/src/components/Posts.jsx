@@ -1,25 +1,23 @@
-import logic from "../logic"
+import logic from '../logic'
+import Post from './Post'
+import Context from '../Context'
 
-import Post from "./Post"
-
-import { useState } from "react"    // Import method useState 
-import { useEffect } from "react"   // Import method useEffect
-
+import { useState, useEffect, useContext } from 'react'
 
 // POSTS
-function Posts({ loadPosts, stamp, name }) {
+function Posts({ loadPosts, stamp }) {
     console.log('Posts')
 
-    // STATE ID & POSTS
-    const [id, setId] = useState(null)
+    // STATE ID & CONTEXT
     const [posts, setPosts] = useState([])
+    const { handleError } = useContext(Context)
 
     // REFRESH POSTS
     const refreshPosts = () => {
         try {
             loadPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    handleError(error)
 
                     return
                 }
@@ -29,7 +27,7 @@ function Posts({ loadPosts, stamp, name }) {
                 setPosts(posts)
             })
         } catch (error) {
-            alert(error.message)
+            handleError(error)
         }
     }
 
@@ -38,20 +36,17 @@ function Posts({ loadPosts, stamp, name }) {
         console.log('Posts Effect')
 
         try {
-            logic.retrieveUser((error, user) => {
+            logic.retrieveUser(error => {
                 if (error) {
-                    alert(error.message)
+                    handleError(error)
 
                     return
                 }
 
-                setId(user.id)
-                // Guardamos en STATE el user para usar el "ID"
-
                 refreshPosts()
             })
         } catch (error) {
-            alert(error.message)
+            handleError(error)
         }
     }, [stamp])
 

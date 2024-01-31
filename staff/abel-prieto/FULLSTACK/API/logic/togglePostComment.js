@@ -1,6 +1,7 @@
 import { Post, User } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
-import validate from './helpers/validate.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function togglePostComment(userId, postId, comment, callback) {
     validate.id(userId, 'user id')
@@ -23,14 +24,6 @@ function togglePostComment(userId, postId, comment, callback) {
 
                         return
                     }
-
-                    // post.comments.push([
-                    //     {
-                    //         author: user.name,
-                    //         comment: comment,
-                    //         date: newDate()
-                    //     }
-                    // ])
 
                     post.comments.push(comment)
 

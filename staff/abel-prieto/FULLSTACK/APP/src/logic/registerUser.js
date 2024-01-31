@@ -1,5 +1,4 @@
-import validate from "./helpers/validate"
-import errors from "./errors"
+import { validate, errors } from 'com'
 
 // REGISTER USER
 

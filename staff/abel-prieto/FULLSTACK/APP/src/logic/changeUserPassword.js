@@ -1,6 +1,5 @@
-import validate from './helpers/validate'
-import context from "./context"
-import errors from './errors'
+import { validate, errors } from 'com'
+import session from './session'
 
 // CHECK CHANGE PASSWORD 
 
@@ -13,7 +12,7 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${String(context.sessionUserId)}`,
+            Authorization: `Bearer ${String(session.sessionUserId)}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ password, newPassword, againNewPassword })

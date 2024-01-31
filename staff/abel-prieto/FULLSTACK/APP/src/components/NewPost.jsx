@@ -1,7 +1,13 @@
-import { Button, Container, Form, Field } from "../librery";
-import logic from "../logic";
+import logic from '../logic'
+import Context from '../Context'
+import { useContext } from 'react'
+import { Button, Container, Form, Field } from '../librery'
 
 export default function NewPost({ onPublish, onCancel }) {
+    console.log('New Post')
+
+    const { handleError } = useContext(Context)
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -11,7 +17,7 @@ export default function NewPost({ onPublish, onCancel }) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    handleError(error)
 
                     return
                 }
@@ -19,7 +25,7 @@ export default function NewPost({ onPublish, onCancel }) {
                 onPublish()
             })
         } catch (error) {
-            alert(error.message)
+            handleError(error)
         }
     }
 

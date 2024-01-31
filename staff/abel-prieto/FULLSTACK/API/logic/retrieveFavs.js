@@ -1,6 +1,7 @@
 import { User, Post } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
-import validate from './helpers/validate.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError } = errors
 
 function retrieveFavs(userId) {
     validate.id(userId, 'user id')
@@ -12,8 +13,8 @@ function retrieveFavs(userId) {
                 throw new NotFoundError('user not found')
             }
 
-            return Post.find({ _id: {$in: user.favs} }).populate('author', 'name').lean()
-                .catch(error => {throw new SystemError(error.message) })
+            return Post.find({ _id: { $in: user.favs } }).populate('author', 'name').lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(favs => {
                     favs.forEach(post => {
                         post.id = post._id.toString()
@@ -36,6 +37,6 @@ function retrieveFavs(userId) {
                     return favs
                 })
         })
-} 
+}
 
 export default retrieveFavs

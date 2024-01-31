@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button, Input } from "../librery"
 
 import logic from "../logic"
-import context from "../logic/context"
+import session from "../logic/session"
 
 function Post(props) {
     const post = props.post
@@ -21,7 +21,7 @@ function Post(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -30,7 +30,7 @@ function Post(props) {
                 // Guardamos en STATE el user para usar el "NAME"
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }, [])
 
@@ -41,7 +41,7 @@ function Post(props) {
         try {
             logic.toggleLikePost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -49,7 +49,7 @@ function Post(props) {
                 props.onToggleLikeClick()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -58,7 +58,7 @@ function Post(props) {
         try {
             logic.toggleFavPost(post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -66,7 +66,7 @@ function Post(props) {
                 props.onToggleFavClick()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -76,7 +76,7 @@ function Post(props) {
             try {
                 logic.deletePost(postId, error => {
                     if (error) {
-                        alert(error.message)
+                        props.onError(error)
 
                         return
                     }
@@ -84,7 +84,7 @@ function Post(props) {
                     props.onDeletePost()
                 })
             } catch (error) {
-                alert(error.message)
+                props.onError(error)
             }
         }
 
@@ -97,7 +97,7 @@ function Post(props) {
             setEditMode(!editMode)
 
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -110,7 +110,7 @@ function Post(props) {
 
             logic.toggleEditPostText(postId, postText, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -121,7 +121,7 @@ function Post(props) {
                 setEditMode(!editMode)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -132,7 +132,7 @@ function Post(props) {
 
             logic.toggleCommentPost(postId, postComment, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -146,7 +146,7 @@ function Post(props) {
                 setCommentText('comment')
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -157,7 +157,7 @@ function Post(props) {
             <img className='post-img' src={post.image} />
             <div className="buttons-edit">
                 <p>{post.text}</p>
-                {post.author.id === context.sessionUserId && <Button onClick={handleToggleEditClick}>✏</Button>}
+                {post.author.id === session.sessionUserId && <Button onClick={handleToggleEditClick}>✏</Button>}
                 {editMode === true &&
                     <div>
                         <Input id={'post-tittle'}></Input>
@@ -173,7 +173,7 @@ function Post(props) {
                 <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
                 <Button onClick={() => handleToggleCommentClick(post.id)}>🗨</Button>
                 <Button onClick={handleToggleFavButtonClick}>{post.fav ? '⭐' : '☆'}</Button>
-                {post.author.id === context.sessionUserId && (<Button onClick={() => handleToggleDeleteButtonClick(post.id)}>Delete post</Button>)}
+                {post.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeleteButtonClick(post.id)}>Delete post</Button>)}
             </div>
         </article >
     </>

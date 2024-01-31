@@ -1,7 +1,6 @@
 import logic from "../logic"
 
 import { Profile, NewPost, Posts, } from "../components"
-
 import { Button, Link } from "../librery"
 
 import { useState } from "react"    // Import method useState 
@@ -28,7 +27,7 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    props.onError()
+                    props.onError(error)
 
                     return
                 }
@@ -37,7 +36,7 @@ function Home(props) {
                 // Guardamos en STATE el user para usar el "NAME"
             })
         } catch (error) {
-            props.onError()
+            props.onError(error)
         }
     }, [])
 
@@ -45,7 +44,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                props.onError()
+                props.onError(error)
 
                 return
             }

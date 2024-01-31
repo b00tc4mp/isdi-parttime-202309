@@ -56,6 +56,16 @@ class TokenError extends Error {
     }
 }
 
+export {
+    NotFoundError,
+    SystemError,
+    ContentError,
+    DuplicityError,
+    RelationalError,
+    CredentialsError,
+    TokenError
+}
+
 const errors = {
     NotFoundError,
     SystemError,

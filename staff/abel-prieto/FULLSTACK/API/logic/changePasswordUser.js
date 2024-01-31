@@ -1,12 +1,13 @@
 import { User } from '../data/models.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
-import validate from './helpers/validate.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
 
 function changePasswordUser(userId, password, newPassword, againNewPassword) {
     validate.id(userId, "id")
-    validate.text(password, "password")
-    validate.text(newPassword, "new password")
-    validate.text(againNewPassword, "again password")
+    validate.password(password, "password")
+    validate.password(newPassword, "new password")
+    validate.password(againNewPassword, "again password")
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
