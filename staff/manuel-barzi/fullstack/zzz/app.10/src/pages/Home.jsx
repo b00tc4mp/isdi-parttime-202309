@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 import logic from '../logic'
 
 import { Button, Link } from '../library'
-import { Posts, Profile, NewPost, UserPosts } from '../components'
+import { Posts, Profile, NewPost } from '../components'
 
 import { useContext } from '../hooks'
 
@@ -17,9 +16,6 @@ function Home(props) {
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
     const [stamp, setStamp] = useState(null)
-
-    const navigate = useNavigate()
-    const location = useLocation()
 
     function handleLogoutClick() {
         logic.logoutUser(error => {
@@ -55,13 +51,13 @@ function Home(props) {
     function handleProfileClick(event) {
         event.preventDefault()
 
-        navigate('/profile')
+        setView('profile')
     }
 
     function handleHomeClick(event) {
         event.preventDefault()
 
-        navigate('/')
+        setView(null)
     }
 
     function handleNewPostClick() {
@@ -75,7 +71,6 @@ function Home(props) {
     function handleNewPostPublish() {
         setStamp(Date.now())
         setView(null)
-        navigate('/')
 
         window.scrollTo(0, 0)
     }
@@ -83,7 +78,7 @@ function Home(props) {
     function handleFavPostsClick(event) {
         event.preventDefault()
 
-        navigate('/favs')
+        setView('favs')
     }
 
     return <div>
@@ -95,17 +90,16 @@ function Home(props) {
             </div>
         </header>
 
-        <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/favs" element={<Posts loadPosts={logic.retrieveFavPosts} />} />
-            <Route path="/users/:userId" element={<UserPosts />} />
-            <Route path="/" element={<Posts loadPosts={logic.retrievePosts} stamp={stamp} />} />
-        </Routes>
+        {view === 'profile' && <Profile />}
+
+        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts} stamp={stamp} />}
+
+        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts} />}
 
         <footer className="footer">
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
 
-            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
+            {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
         </footer>
     </div>
 }
