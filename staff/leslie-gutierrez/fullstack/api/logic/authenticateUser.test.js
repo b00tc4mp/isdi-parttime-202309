@@ -1,11 +1,11 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const authenticateUser = require('./authenticateUser')
+import authenticateUser from './authenticateUser.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then(()=> {
+    .then(() => {
         try {
-            authenticateUser('le@chuga.com', '123123123', (error, userId) => {
+            authenticateUser('le@chuga.com', '', (error, userId) => {
                 if (error) {
                     console.error(error)
 
@@ -17,6 +17,5 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
         } catch (error) {
             console.log(error)
         }
-
-})
-.catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))

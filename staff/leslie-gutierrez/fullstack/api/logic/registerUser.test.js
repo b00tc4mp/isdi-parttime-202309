@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const registerUser = require('./registerUser')
+import mongoose from 'mongoose'
 
+import registerUser from './registerUser.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then(()=> {
+    .then(() => {
         try {
             registerUser('Le Chuga', 'le@chuga.com', '123123123', error => {
                 if (error) {
@@ -12,10 +12,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
                     return
                 }
 
-            console.log('user registered')
+                console.log('user registered')
             })
         } catch (error) {
             console.log(error)
-    }
-})
-.catch(error => console.error(error))
+        }
+    })
+    .catch(error => console.error(error))
