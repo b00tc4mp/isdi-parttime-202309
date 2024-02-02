@@ -9,7 +9,7 @@ function updatePostText(postId, text, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${context.token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ text })

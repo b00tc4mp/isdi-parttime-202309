@@ -85,9 +85,9 @@ function Home(props) {
 
         {view === "new-post" && <NewPost onSuccess={handleNewPostPublish} onClick={setView} />}
 
-        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
+        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts} stamp={stamp} />}
 
-        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts.bind(logic)} />}
+        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts} />}
 
         <footer className="footer">
             {view !== "new-post" && <Button className="footer-button" onClick={handleNewPostClick}>+</Button>}

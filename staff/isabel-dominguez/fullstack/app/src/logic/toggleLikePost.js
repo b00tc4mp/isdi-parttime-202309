@@ -8,7 +8,7 @@ export default function toggleLikePost(postId, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.token}`
         }
     }
 

@@ -7,7 +7,7 @@ export default function retrieveFavPosts(callback) {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`
+            Authorization: `Bearer ${context.token}`
         }
     }
 

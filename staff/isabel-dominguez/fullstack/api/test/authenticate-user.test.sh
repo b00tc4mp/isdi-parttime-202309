@@ -17,16 +17,16 @@ curl "http://localhost:9000/users/auth" \
 # > User-Agent: curl/8.2.1
 # > Accept: */*
 # > Content-Type: application/json
-# > Content-Length: 49
-# >
+# > Content-Length: 51
+# > 
 # < HTTP/1.1 200 OK
 # < X-Powered-By: Express
 # < Access-Control-Allow-Origin: *
 # < Content-Type: application/json; charset=utf-8
-# < Content-Length: 26
-# < ETag: W/"1a-Yoa3K8B38WGMlSCINQSmB2oeS9Q"
-# < Date: Sun, 21 Jan 2024 17:01:12 GMT
+# < Content-Length: 151
+# < ETag: W/"97-1yc/5jZ+CllpbQ/za5rpfs36vzU"
+# < Date: Fri, 02 Feb 2024 17:29:38 GMT
 # < Connection: keep-alive
 # < Keep-Alive: timeout=5
 # <
-# "65ad491c939601e86358d406"* Connection #0 to host localhost left intact
+# "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFkNjk1OWM3NWMwMzFhZDRhNjg2ODciLCJpYXQiOjE3MDY4OTQ5Nzh9.g5F1rzjOUPu-u7lQZQsotFcJ8_kSQaQ9H2O7VP22EEc"* Connection #0 to host localhost left intact

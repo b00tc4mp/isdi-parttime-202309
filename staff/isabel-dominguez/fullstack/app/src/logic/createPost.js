@@ -9,7 +9,7 @@ export default function createPost(image, text, callback) {
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${context.token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ image, text })

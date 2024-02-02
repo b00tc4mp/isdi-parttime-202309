@@ -8,7 +8,7 @@ export default function deletePost(postId, callback) {
     const req = {
         method: 'DELETE',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${context.token}`,
             'Content-Type': 'application/json'
         }
     }
