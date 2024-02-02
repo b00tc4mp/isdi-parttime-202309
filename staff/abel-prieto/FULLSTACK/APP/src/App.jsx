@@ -4,10 +4,12 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 
 import Context from './Context'
+import logic from './logic'
 import { Feedback } from './components'
 import { errors } from 'com'
 
 import { useState } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 const { ContentError, DuplicityError, NotFoundError } = errors
 
@@ -19,23 +21,25 @@ function App() {
   const [message, setMessage] = useState(null)
   const [level, setLevel] = useState(null)
 
+  const navigate = useNavigate()
+
   // Cambiamos la vista a 'REGISTER'
   const handleRegisterShow = () => {
-    setView('register')
+    navigate('/register')
     setMessage(null)
     setLevel(null)
   }
 
   // Cambiamos la vista a 'LOGIN'
   const handleLoginShow = () => {
-    setView('login')
+    navigate('/login')
     setMessage(null)
     setLevel(null)
   }
 
   // Cambiamos la vista a 'HOME'
   const handleHomeShow = () => {
-    setView('home')
+    navigate('/')
     setMessage(null)
     setLevel(null)
   }
@@ -59,9 +63,11 @@ function App() {
     <Context.Provider value={{ handleError }}>
       {message && <Feedback level={level} message={message} />}
 
-      {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
-      {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-      {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
+      <Routes>
+        <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}></Route>
+        <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}></Route>
+        <Route path="/" element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="login" />}></Route>
+      </Routes>
     </Context.Provider>
   </>
 }
