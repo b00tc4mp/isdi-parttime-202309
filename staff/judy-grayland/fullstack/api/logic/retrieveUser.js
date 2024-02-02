@@ -1,11 +1,11 @@
-const { validateId, validateFunction } = require('./helpers/validators')
+const validate = require('./helpers/validate')
 
 const { User } = require('../data/models')
 const { NotFoundError, SystemError } = require('./errors')
 
 function retrieveUser(userId, callback) {
-  validateId(userId, 'user id')
-  validateFunction(callback, 'callback')
+  validate.id(userId, 'user id')
+  validate.function(callback, 'callback')
 
   // ponemos 'name' para indicar que solo queremos el name del usuario. no necesitamos el resto de datos.
   User.findById(userId, 'name')

@@ -1,5 +1,4 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const validate = require('./helpers/validate')
 
 function changeUserPassword(
   email,
@@ -8,11 +7,11 @@ function changeUserPassword(
   newPasswordConfirm,
   callback
 ) {
-  validateText(email, 'email')
-  validateText(password, 'password')
-  validateText(newPassword, 'new password')
-  validateText(newPasswordConfirm, 'new password confirm')
-  validateFunction(callback, 'callback')
+  validate.email(email)
+  validate.password(password)
+  validate.password(newPassword, 'new password')
+  validate.password(newPasswordConfirm, 'new password confirm')
+  validate.function(callback, 'callback')
 
   JSON.parseFromFile('./data/users.json', (error, users) => {
     if (error) {

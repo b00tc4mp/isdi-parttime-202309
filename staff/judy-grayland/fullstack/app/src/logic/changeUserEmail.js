@@ -1,10 +1,11 @@
-import { validateText } from '../utils/validators'
+import validate from './helpers/validate'
 import context from './context'
 
 function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
-  validateText(newEmail, 'email')
-  validateText(newEmailConfirm, 'new email confirm')
-  validateText(password, 'password')
+  validate.email(newEmail, 'email')
+  validate.email(newEmailConfirm, 'new email confirm')
+  validate.password(password, 'password')
+  validate.function(callback, 'callback')
 
   // TODO refactor to call API
 

@@ -1,13 +1,13 @@
-#!/bin/bash
+# !/bin/bash
 
-source pepetest.sh
+# source ./pepetest.sh
 
-TEST "retrieve-user"
+# TEST "retrieve-user"
 
-CASE "success on correct user id"
+# CASE "success on correct user id"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 3kmmn4f11xe0' \
+-H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
 -v
 
 # > GET /users HTTP/1.1
@@ -27,10 +27,10 @@ curl 'http://localhost:8000/users' \
 
 # {"name":"Lechu Guita"}%    
 
-CASE "fails on invalid user id"
+# CASE "fails on invalid user id"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 3wkmmn4f11xe0' \
+-H 'Authorization: Bearer 3kmmn4f11xe0' \
 -v
 
 # > GET /users HTTP/1.1

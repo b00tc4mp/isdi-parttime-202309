@@ -1,7 +1,8 @@
-import { validateText } from '../utils/validators'
+import validate from './helpers/validate'
 
 function deletePost(postId, callback) {
-  validateText(postId, 'post id')
+  validate.text(postId, 'post id')
+  validate.function(callback, 'callback')
 
   // TODO call API
 

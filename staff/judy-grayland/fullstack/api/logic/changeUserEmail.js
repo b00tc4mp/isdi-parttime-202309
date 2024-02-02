@@ -1,52 +1,51 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const validate = require('./helpers/validate')
 
 function changeUserEmail(email, newEmail, newEmailConfirm, password, callback) {
-  validateText(email, 'email')
-  validateText(newEmail, 'new email')
-  validateText(newEmailConfirm, 'new email confirm')
-  validateText(password, 'password')
-  validateFunction(callback, 'callback')
+  validate.text(email, 'email')
+  validate.text(newEmail, 'new email')
+  validate.text(newEmailConfirm, 'new email confirm')
+  validate.text(password, 'password')
+  validate.function(callback, 'callback')
 
-  JSON.parseFromFile('./data/users.json', (error, users) => {
-    if (error) {
-      callback(error)
+  //   JSON.parseFromFile('./data/users.json', (error, users) => {
+  //   if (error) {
+  //     callback(error)
 
-      return
-    }
+  //     return
+  //   }
 
-    let user = users.find((user) => user.email === email)
+  //   let user = users.find((user) => user.email === email)
 
-    if (!user) {
-      callback(new Error('user not found'))
+  //   if (!user) {
+  //     callback(new Error('user not found'))
 
-      return
-    }
+  //     return
+  //   }
 
-    if (email !== user.email || password !== user.password) {
-      callback(new Error('wrong credentials'))
-    }
+  //   if (email !== user.email || password !== user.password) {
+  //     callback(new Error('wrong credentials'))
+  //   }
 
-    if (newEmail !== newEmailConfirm) {
-      callback(new Error('new email does not match confirmation'))
-    }
+  //   if (newEmail !== newEmailConfirm) {
+  //     callback(new Error('new email does not match confirmation'))
+  //   }
 
-    if (newEmail === email) {
-      callback(new Error('the new email must not be the same as the old email'))
-    }
+  //   if (newEmail === email) {
+  //     callback(new Error('the new email must not be the same as the old email'))
+  //   }
 
-    user.email = newEmail
+  //   user.email = newEmail
 
-    JSON.stringifyToFile('./data/users.json', users, (error) => {
-      if (error) {
-        callback(error)
+  //   JSON.stringifyToFile('./data/users.json', users, (error) => {
+  //     if (error) {
+  //       callback(error)
 
-        return
-      }
+  //       return
+  //     }
 
-      callback(null)
-    })
-  })
+  //     callback(null)
+  //   })
+  // })
 }
 
 module.exports = changeUserEmail

@@ -1,55 +1,55 @@
-const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const { validateId, validateFunction } = require('./helpers/validators')
+
+const { User, Post } = require('../data/models')
+const { NotFoundError, SystemError } = require('./errors')
 
 function retrievePosts(userId, callback) {
-  validateText(userId, 'user id')
+  validateId(userId, 'user id')
   validateFunction(callback, 'callback')
 
-  JSON.parseFromFile('./data/users.json', (error, users) => {
-    if (error) {
-      callback(error)
-
-      return
-    }
-
-    const user = users.find((user) => user.id === userId)
-
-    if (!user) {
-      callback(new Error('user not found'))
-
-      return
-    }
-    // el fichero de posts es una copia, no el fichero original. lo mismo con el de usuarios. trabajamos siempre con una copia en memoria convertido a objeto, no con el fichero original.
-    // como los posts y los usuario están cargados en memoria (el json.parse nos trae todos los posts y todos los usuarios), todo esto es un proceso síncrono. Esto sería insostenible cuando tengamos muchos usuarios. Es de juguete este código, que nos sirve hasta que lleguemos a Mongo ;)
-    JSON.parseFromFile('./data/posts.json', (error, posts) => {
-      if (error) {
-        callback(error)
+  User.findById(userId)
+    .lean()
+    .then((user) => {
+      if (!user) {
+        callback(new NotFoundError('user not found'))
 
         return
       }
-      // primero vamos a ver qué posts tienen un like nuestro:
-      posts.forEach((post) => {
-        // aqui le ponemos true or false a la propiedad del post:
-        post.liked = post.likes.includes(userId)
 
-        const author = users.find((user) => user.id === post.author)
+      // con el lean() hacemos que nos devuelva únicamente el documento
+      // con el populate hacemos referencia al Usuario, y traemos el author. como solo queremos el nombre, lo indicamos como segundo parámetro.
+      Post.find()
+        .populate('author', 'name')
+        .lean()
+        .then((posts) => {
+          posts.forEach((post) => {
+            post.id = post._id.toString()
+            delete post._id
 
-        //TODO -what if the author suddenly doesn't exist?
+            if (post.author._id) {
+              post.author.id = post.author._id.toString()
+              delete post.author._id
+            }
 
-        //reemplazamos el string post.author que hemos encontrado en la línea anterior (const author = ...) por una referencia a este objeto en memoria, y al autor le ponemos más datos (ie. añadimos el name, para que no solo sea el id). Esto lo ponemos para saber si es nuestro el post y si lo es añadimos luego la opción de borrar y editar
-        post.author = {
-          id: author.id,
-          name: author.name,
-        }
+            delete post.__v
 
-        // calculamos si el post es favorito o no del usuario, buscando en su array de favoritos, a ver si está incluido el id del post.
-        post.fav = user.favs.includes(post.id)
-      })
+            // saneamos los likes para que convertir todos los ObjectId que salen en likes a string
+            post.likes = post.likes.map((userObjectId) =>
+              userObjectId.toString()
+            )
+            //miramos a ver si es un post al que le ha dado like el usuario:
+            post.liked = post.likes.includes(userId)
+            //miramos a ver si el post está guardado en los favs del user
+            post.fav = user.favs.some(
+              (postObjectId) => postObjectId.toString() === post.id
+            )
+          })
 
-      // en cuanto terminamos el forEach, hacemos el callback. Hemos mutado todos los posts en la copia.
-      callback(null, posts)
+          callback(null, posts)
+        })
+        .catch((error) => callback(new SystemError(error.message)))
     })
-  })
+    .catch((error) => callback(new SystemError(error.message)))
 }
 
 module.exports = retrievePosts

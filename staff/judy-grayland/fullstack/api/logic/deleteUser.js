@@ -1,10 +1,10 @@
 const JSON = require('../utils/JSON')
-const { validateText, validateFunction } = require('../utils/validators')
+const validate = require('./helpers/validate')
 
 function deleteUser(userId, password, callback) {
-  validateText(userId, 'user id')
-  validateText(password, 'password')
-  validateFunction(callback, 'callback')
+  validate.text(userId, 'user id')
+  validate.text(password, 'password')
+  validate.function(callback, 'callback')
 
   JSON.parseFromFile('./data/users.json', (error, users) => {
     if (error) {
