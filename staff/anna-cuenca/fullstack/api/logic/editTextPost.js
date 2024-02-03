@@ -1,46 +1,47 @@
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
+import { validate, errors } from 'com'
 
 import { Post, User } from '../data/models.js'
 
+const { NotFoundError, CredentialsError, SystemError } = errors
 
-
-function editTextPost(userId, postId, text, callback) {
+function editTextPost(userId, postId, text) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
     validate.text(text, 'text')
-    validate.function(callback, 'callback')
 
-    User.findById(userId)
+
+    return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('User not found'));
-                return;
+                throw new NotFoundError('User not found')
+
             }
 
-            Post.findById(postId)
+            return Post.findById(postId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('Post not found'));
-                        return;
+                        throw new NotFoundError('Post not found')
                     }
 
                     // Comprueba si el usuario es el autor del post
                     if (userId.toString() !== post.author.toString()) {
-                        callback(new CredentialsError('Wrong Credentials'));
-                        return;
+                        throw new CredentialsError('Wrong Credentials')
+
                     }
 
                     // Edita el texto
                     post.text = text
-                    post.save()
 
-                    callback(null);
+                    return post.save()
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(() => { })
+
+
 
                 })
-                .catch(error => callback(new SystemError(error.message)));
         })
-        .catch(error => callback(new SystemError(error.message)));
 }
 
 export default editTextPost;

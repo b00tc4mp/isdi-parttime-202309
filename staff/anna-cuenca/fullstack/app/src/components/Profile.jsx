@@ -1,10 +1,15 @@
-import { Button, Form, Field } from '../library'
+import { useState } from 'react'
+
+import { Button, Form, Field } from '../library/index'
 import logic from '../logic'
+import { useContext } from '../hooks' //esto
 
 
 export default function Profile(props) {
 
     console.log('Profile')
+
+    const context = useContext()
 
 
     function handleChangePasswordSubmit(event) {
@@ -19,9 +24,9 @@ export default function Profile(props) {
         const newPasswordConfirm = newPasswordConfirmInput.value
 
         try {
-            logic.changeUserPassword(newPassword, newPasswordConfirm, password, (error) => {
+            logic.changeUserPassword(password, newPassword, newPasswordConfirm, (error) => {
                 if (error) {
-                    alert(error.message)
+                    context.handleError(error)
                     return
                 }
                 alert("Password changed")
@@ -33,7 +38,7 @@ export default function Profile(props) {
 
             // setView(null) // tengo que cambiar estofs
         } catch (error) {
-            alert(error.message)
+            context.handleError(error)
         }
     }
 
@@ -51,20 +56,23 @@ export default function Profile(props) {
         try {
             logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
                 if (error) {
-                    alert(error.message)
+                    context.handleError(error)
                     return
                 }
+
+                props.onSuccess() // quita la vista
                 alert("E-mail changed")
+
                 event.target.reset() // limpia los campos
 
                 //quita la vista :D
-                props.onSuccess();
+
 
 
             })
 
         } catch (error) {
-            alert(error.message)
+            context.handleError(error)
         }
     }
 

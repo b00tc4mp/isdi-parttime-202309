@@ -1,49 +1,51 @@
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
+import { validate, errors } from 'com'
+
 
 import { Post, User } from '../data/models.js'
 
+const { NotFoundError, CredentialsError, SystemError } = errors
+
+function deletePost(userId, postId) {
+    validate.id(userId, 'user id')
+    validate.id(postId, 'post id')
 
 
-function deletePost(userId, postId, callback) {
-    validate.id(userId, 'user id');
-    validate.id(postId, 'post id');
-    validate.function(callback, 'callback');
-
-    Post.findById(postId)
+    return Post.findById(postId)
+        .catch(error => { throw new SystemError(error.message) })
         .then(post => {
             if (!post) {
-                callback(new NotFoundError('Post not found'));
-                return;
+                throw new NotFoundError('Post not found')
+
             }
 
-            User.findById(userId)
+            // he encontrado el post quiero borrar, ahora compruebo el usuario 
+
+            return User.findById(userId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(user => {
                     if (!user) {
-                        callback(new NotFoundError('User not found'));
-                        return;
+                        throw new NotFoundError('User not found')
+
                     }
 
                     // Comprueba si el usuario es el autor del post
                     if (userId.toString() !== post.author.toString()) {
-                        callback(new CredentialsError('Wrong Credentials'));
-                        return;
+                        throw new CredentialsError('Wrong Credentials')
+
                     }
 
                     // Elimina el post
-                    Post.findByIdAndDelete(postId)
+                    return Post.findByIdAndDelete(postId)
+                        .catch(error => { throw new SystemError(error.message) })
                         .then(deletedPost => {
                             if (!deletedPost) {
-                                callback(new NotFoundError('Post can\'t be deleted'));
-                                return;
+                                throw new NotFoundError('Post can\'t be deleted')
+
                             }
-                            callback(null);
+
                         })
-                        .catch(error => callback(new SystemError(error.message)));
                 })
-                .catch(error => callback(new SystemError(error.message)));
         })
-        .catch(error => callback(new SystemError(error.message)));
 }
 
 export default deletePost;

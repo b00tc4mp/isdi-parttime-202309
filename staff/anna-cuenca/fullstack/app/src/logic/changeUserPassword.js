@@ -1,36 +1,40 @@
 import { validate, errors } from 'com'
 import session from "./session"
 
-function changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
+function changeUserPassword(password, newPassword, newPasswordConfirm, callback) {
+    validate.password(password, "password")
     validate.password(newPassword, "new password")
     validate.password(newPasswordConfirm, "new password confirm")
-    validate.password(password)
 
-    db.users.findById(session.sessionUserId, (error, user) => {
-        if (error) {
-            callback(error)
-            return
-        }
 
-        if (!user || user.password !== password) {
-            callback(new Error("Wrong credentials"))
-            return
-        }
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${String(session.token)}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password, newPassword, newPasswordConfirm })
+    }
+    fetch(`${import.meta.env.VITE_API_URL}/users/change-password`, req)
+        .then(res => {
 
-        if (newPassword !== newPasswordConfirm) {
-            callback(new Error("New password and its confirmation do not match"))
-            return
-        }
-        user.password = newPassword
-        db.users.update(user, (error) => {
-            if (error) {
-                callback(error)
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new errors[body.error](body.message)))
+                    .catch(error => callback(error))
+
                 return
             }
+
             callback(null)
+
         })
 
-    })
+
+        .catch(error => {
+
+            callback(error)
+        })
 }
 
 

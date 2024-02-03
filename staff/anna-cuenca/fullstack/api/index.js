@@ -91,11 +91,11 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         // changeEmailUser
 
-        server.patch('/users/:userId/email', jsonBodyParser, changeUserEmailHandler)
+        server.post('/users/change-email', jsonBodyParser, changeUserEmailHandler)
 
         // changePasswordUser
 
-        server.patch('/users/:userId/password', jsonBodyParser, changeUserPasswordHandler)
+        server.post('/users/change-password', jsonBodyParser, changeUserPasswordHandler)
 
         // edit text post
 
@@ -111,6 +111,7 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         // Retrieve FAV posts
 
         server.get('/posts/favs', retrieveFavPostsHandler)
+
 
         // deletePost
 

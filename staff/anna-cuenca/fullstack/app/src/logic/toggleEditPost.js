@@ -4,37 +4,36 @@ import session from './session'
 //cambiar el nombre por upddatePostText
 
 
-function toggleEditPost(postId, newText, callback) {
-    validate.text(postId, 'post id')
-    validate.text(newText, 'text to edit')
+function toggleEditPost(postId, text, callback) {
+    validate.id(postId, 'post id')
+    validate.text(text, 'text')
     validate.function(callback, 'callback')
 
-    db.posts.findById(postId, (error, post) => {
-        if (error) {
-            callback(error)
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${session.token}`,
+            'Content-Type': 'application/json'
 
-            return
-        }
+        },
+        body: JSON.stringify({ text })
+    }
 
-        if (!post) {
-            callback(new Error('post not found'))
-
-            return
-        }
-
-
-        post.text = newText;
-
-        db.posts.update(post, error => {
-            if (error) {
-                callback(error)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/text`, req)
+        .then(res => {
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new errors[body.error](body.message)))
+                    .catch(error => callback(error))
 
                 return
             }
-            callback(null)
 
+            callback(null)
         })
-    })
+        .catch(error => callback(error))
+
+
 
 }
 

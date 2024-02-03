@@ -4,9 +4,9 @@ TEST "edit-text-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/65992f24bad309e29f867be1/text' \
--H 'Authorization: Bearer 65959e2a7eff18b095527371' \
+curl 'http://localhost:9000/posts/65ba930da33136f844b14a0a/text' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWI5M2I4NjlmOGRkODllZWFhZjljMjgiLCJpYXQiOjE3MDY3Njk4NjcsImV4cCI6MTcwNjc3MzQ2N30.BTBs6ndQqowIcH78z-jD571dC0crwzlhSBlIxse7t4o' \
 -H 'Content-Type: application/json' \
--d '{ "postId": "65992f24bad309e29f867be1", "text": "Mejor los Canarios!"}' \
+-d '{ "postId": "65ba930da33136f844b14a0a", "text": "Mejor los Pepinillos Canarios!"}' \
 -X PATCH \
 -v

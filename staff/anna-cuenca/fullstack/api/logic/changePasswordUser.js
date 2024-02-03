@@ -1,46 +1,49 @@
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
+import { validate, errors } from 'com'
+
 
 import { User } from '../data/models.js'
 
-function changePasswordUser(userId, password, newPassword, repeatNewPassword, callback) {
+const { NotFoundError, CredentialsError, SystemError, DuplicityError } = errors
+
+function changePasswordUser(userId, password, newPassword, repeatNewPassword) {
     // TODO validate inputs
     // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
 
     validate.id(userId, 'user id')
-    validate.text(password, 'password')
-    validate.text(newPassword, 'password')
-    validate.text(repeatNewPassword, 'password')
-    validate.function(callback, 'callback')
+    validate.password(password, 'password')
+    validate.password(newPassword, 'password')
+    validate.password(repeatNewPassword, 'password')
 
-    User.findById(userId)
+
+    return User.findById(userId)
+        .catch(error => callback(new SystemError(error.message)))
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('User not found'))
-                return
+                throw new NotFoundError('User not found')
+
             }
             if (user.password !== password) {
-                callback(new CredentialsError('Wrong Credentials'))
-                return
+                throw new CredentialsError('Wrong Credentials')
+
             }
 
             if (password === newPassword) {
-                callback(new DuplicityError('New password must be different from current one'))
-                return
+                throw new DuplicityError('New password must be different from current one')
+
             }
 
             if (newPassword !== repeatNewPassword) {
-                callback(new CredentialsError('The new email and the confirmation password do not match'))
-                return
+                throw new CredentialsError('The new email and the confirmation password do not match')
+
             }
             user.password = newPassword
 
             user.save()
+                .catch(error => { throw new SystemError(error.message) })
 
-            callback(null)
+
         })
 
-        .catch(error => callback(new SystemError(error.message)))
 
 }
 

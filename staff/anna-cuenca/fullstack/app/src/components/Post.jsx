@@ -4,8 +4,8 @@ import logic from '../logic'
 import { Input } from '../library'
 import session from '../logic/session'
 
-import Context from '../Context'
-import { useContext } from '../hooks'
+//import Context from '../Context'
+import { useContext } from '../hooks' //esto
 
 
 //está declarado en null, porque es el estado inicial

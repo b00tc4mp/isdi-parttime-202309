@@ -1,42 +1,45 @@
-import { validate, errors } from 'com'
-import session from "./session"
+
+
+import { validate } from 'com'
+import session from './session'
+import errors from './errors'
 
 function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
-    validate.email(newEmail, "new email")
-    validate.email(newEmailConfirm, "new email confirm")
-    validate.email(password)
+    validate.email(newEmail)
+    validate.email(newEmailConfirm)
+    validate.password(password)
+    validate.function(callback, 'callback')
 
-    db.users.findById(session.sessionUserId, (error, user) => {
-        if (error) {
-            callback(error)
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${session.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newEmail, newEmailConfirm, password })
+    }
+    fetch(`${import.meta.env.VITE_API_URL}/users/change-email`, req)
+        .then(res => {
 
-            return
-        }
-
-        if (!user || user.password !== password) {
-            callback(new Error("wrong credentials"))
-
-            return
-        }
-
-        if (newEmail !== newEmailConfirm) {
-            callback(new Error("new email and its confirmation do not match"))
-
-            return
-        }
-
-        user.email = newEmail
-
-        db.users.update(user, (error) => {
-            if (error) {
-                callback(error)
+            if (!res.ok) {
+                res.json()
+                    .then(body => callback(new errors[body.error](body.message)))
+                    .catch(error => callback(error))
 
                 return
             }
 
-            callback(null) // por qué llegados a este punto, el valor de callback es undefined??
-        })
-    })
-}
+            callback(null)
 
+        })
+
+
+        .catch(error => {
+
+            callback(error)
+        })
+
+
+}
 export default changeUserEmail
+

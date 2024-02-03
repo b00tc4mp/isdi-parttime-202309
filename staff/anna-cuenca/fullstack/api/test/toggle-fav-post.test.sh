@@ -4,8 +4,8 @@ TEST "toogle-fav-post"
 
 CASE "success on correct data"
 
-curl 'http://localhost:9000/posts/65acdfe84f5971df0e614d4f/favs' \
--H 'Authorization: Bearer 65afe3cee4a6208ef9bf08b0' \
+curl 'http://localhost:9000/posts/65ba930da33136f844b14a0a/favs' \
+-H 'Authorization: Bearer 65b93b869f8dd89eeaaf9c28s' \
 -X PATCH \
 -v
 
