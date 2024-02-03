@@ -40,7 +40,7 @@ describe('createPost', () => {
             })
     })
 
-    it('fails on already existing user', () => {
+    it('fails on no-existing user', () => {
         const image = random.image()
         const text = random.text()
 
