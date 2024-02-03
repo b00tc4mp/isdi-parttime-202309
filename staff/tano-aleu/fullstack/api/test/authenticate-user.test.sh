@@ -6,7 +6,7 @@ CASE "success on correct credentials"
 
 curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{ "email": "peter@pan.com", "password": "123123123" }' \
+-d '{ "email": "peter@pan.com", "password": "123123123" }' \n
 -v
 
 # > POST /users/auth HTTP/1.1

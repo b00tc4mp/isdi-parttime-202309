@@ -1,6 +1,6 @@
-import logic from "../logic"
+import logic from '../logic'
 
-import {Button, Link, Form, Field, Container} from '../library/index'
+import { Button, Link, Form, Field, Container } from '../library'
 
 function Login(props) {
     console.log('Login')
@@ -22,7 +22,7 @@ function Login(props) {
                     return
                 }
 
-                props.onSuccess()
+                setTimeout(() => props.onSuccess(), 2000)
             })
         } catch (error) {
             alert(error.message)
@@ -48,5 +48,5 @@ function Login(props) {
         <Link onClick={handleRegisterClick}>Register</Link>
     </Container>
 }
- 
+
 export default Login
