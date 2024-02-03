@@ -1,6 +1,8 @@
 import validate from './helpers/validate'
 import context from './context'
 
+import errors from './errors'
+
 export default function changeUserEmail(newEmail, confirmNewEmail, password, callback) {
     validate.email(newEmail, 'new email')
     validate.email(confirmNewEmail, 'new email confirm')
@@ -20,7 +22,7 @@ export default function changeUserEmail(newEmail, confirmNewEmail, password, cal
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return

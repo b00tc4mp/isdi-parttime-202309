@@ -18,7 +18,8 @@ import {
     deletePostHandler,
     deleteUserHandler,
     retrieveFavPostsHandler,
-    updatePostTextHandler
+    updatePostTextHandler,
+    commentPostHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -67,6 +68,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //UPDATE POST TEXT
         server.patch('/posts/:postId/text', jsonBodyParser, updatePostTextHandler)
+
+        //COMMENT POST
+        server.patch('/newpost/:postId/comments', jsonBodyParser, commentPostHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

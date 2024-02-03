@@ -3,10 +3,10 @@ import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './
 
 import { Post, User } from '../data/models.js'
 
-function commentPost(userId, postId, commentText) {
+function commentPost(userId, postId, comment) {
     validate.id(userId, 'user id')
     validate.id(postId, 'postId')
-    validate.text(commentText, 'text')
+    validate.text(comment, 'text')
 
     return User.findById(userId, 'name').lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -23,7 +23,7 @@ function commentPost(userId, postId, commentText) {
 
                     const comment = {
                         author: userId,
-                        text: commentText
+                        text: comment
                     }
 
                     post.comments.push(comment)

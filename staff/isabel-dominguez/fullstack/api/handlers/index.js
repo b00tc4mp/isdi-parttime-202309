@@ -11,6 +11,7 @@ import deletePostHandler from './deletePostHandler.js'
 import deleteUserHandler from './deleteUserHandler.js'
 import retrieveFavPostsHandler from './retrieveFavPostsHandler.js'
 import updatePostTextHandler from './updatePostTextHandler.js'
+import commentPostHandler from './commentPostHandler.js'
 
 
 export {
@@ -26,5 +27,6 @@ export {
     deletePostHandler,
     deleteUserHandler,
     retrieveFavPostsHandler,
-    updatePostTextHandler
+    updatePostTextHandler,
+    commentPostHandler
 }

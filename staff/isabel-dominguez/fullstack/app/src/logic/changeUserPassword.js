@@ -1,6 +1,8 @@
 import validate from './helpers/validate'
 import context from './context'
 
+import errors from './errors'
+
 export default function changeUserPassword(newPassword, confirmNewPassword, password, callback) {
     validate.password(newPassword, 'new password')
     validate.password(confirmNewPassword, 'new confirm password')
@@ -10,7 +12,7 @@ export default function changeUserPassword(newPassword, confirmNewPassword, pass
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.token}`,
+            Authorization: `Bearer ${context.sessionUserId}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ password, newPassword, confirmNewPassword })
@@ -20,7 +22,7 @@ export default function changeUserPassword(newPassword, confirmNewPassword, pass
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return

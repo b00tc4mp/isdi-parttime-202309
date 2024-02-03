@@ -42,7 +42,7 @@ class TokenError extends Error {
     constructor(message) {
         super(message)
 
-        this.name = this.contructor.name
+        this.name = this.constructor.name
     }
 }
 
@@ -54,3 +54,14 @@ export {
     CredentialsError,
     TokenError
 }
+
+const errors = {
+    NotFoundError,
+    SystemError,
+    ContentError,
+    DuplicityError,
+    CredentialsError,
+    TokenError
+}
+
+export default errors
