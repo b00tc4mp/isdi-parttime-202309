@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Post from "./Post"
 
 // these props, comes from the file home
-function Posts({ loadPost, stamp }) {
+function Posts(props) {
     console.log('Posts')
 
     // Use the hook useState to declare the posts state, 
@@ -11,9 +11,9 @@ function Posts({ loadPost, stamp }) {
 
     const refreshPosts = () => {
         try {
-            loadPost((error, posts) => {
+            props.loadPost((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -23,7 +23,7 @@ function Posts({ loadPost, stamp }) {
                 setPosts(posts)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -36,14 +36,14 @@ function Posts({ loadPost, stamp }) {
         refreshPosts()
         // The presence of [stamp] as a dependency means that this effect will run again only if the value of stamp changes between renderings.
         // If stamp does not change, the effect is not rerendered
-    }, [stamp])
+    }, [props.stamp])
 
     // This useEffect is triggered when the Posts component is initially mounted and each time the value of stamp changes
     // Changing the value of stamp triggers the reloading of posts using the refreshPosts() function, which in turn updates the posts state in the component
 
     return <div className="posts">
         {posts.map((post) => <Post key={post.id} post={post}
-            onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} />)}
+            onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} onError={props.onError} />)}
     </div>
 
 }

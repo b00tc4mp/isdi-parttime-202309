@@ -1,4 +1,5 @@
 // this code sets up a React application by importing the necessary libraries, components, and styles
+import './utils/console2'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'

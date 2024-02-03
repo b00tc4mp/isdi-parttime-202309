@@ -1,6 +1,8 @@
 import validate from './helpers/validate'
 import context from './context'
 
+import errors from './errors'
+
 function loginUser(email, password, callback) {
     validate.email(email)
     validate.password(password)
@@ -19,7 +21,7 @@ function loginUser(email, password, callback) {
             console.log('Miguel', req)
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return

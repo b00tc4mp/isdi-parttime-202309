@@ -26,7 +26,7 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -34,7 +34,7 @@ function Login(props) {
                 props.onSuccess()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
     // The handleRegisterClick function is a callback for the onClick event of the Link component

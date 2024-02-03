@@ -1,5 +1,7 @@
 import validate from './helpers/validate'
 
+import errors from './errors'
+
 function registerUser(name, email, password, callback) {
     validate.text(name, 'name')
     validate.email(email)
@@ -25,7 +27,7 @@ function registerUser(name, email, password, callback) {
                 res.json()
                     // El bloque then se encarga de manejar el cuerpo de la respuesta (body) después de que se ha parseado como JSON
                     // Se crea un nuevo objeto Error con el mensaje proporcionado en el cuerpo de la respuesta (body.message)
-                    .then(body => callback(new Error(body.message)))
+                    .then(body => callback(new errors[body.error](body.message)))
                     // Si hay algún problema al intentar analizar el cuerpo de la respuesta como JSON, se captura el error en el bloque catch
                     .catch(error => callback(error))
 

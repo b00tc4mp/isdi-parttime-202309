@@ -1,6 +1,8 @@
 import validate from './helpers/validate'
 import context from './context'
 
+import errors from './errors'
+
 function publishPost(image, text, callback) {
     validate.text(image, 'image')
     validate.text(text, 'text')
@@ -9,7 +11,7 @@ function publishPost(image, text, callback) {
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.sessionUserId}`,
+            Authorization: `Bearer ${context.token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ image, text })
@@ -25,8 +27,8 @@ function publishPost(image, text, callback) {
                 res.json()
                     // El bloque then se encarga de manejar el cuerpo de la respuesta (body) después de que se ha parseado como JSON
                     // Se crea un nuevo objeto Error con el mensaje proporcionado en el cuerpo de la respuesta (body.message)
-                    .then(body => callback(new Error(body.message)))
                     // Si hay algún problema al intentar analizar el cuerpo de la respuesta como JSON, se captura el error en el bloque catch
+                    .then(body => callback(new errors[body.error](body.message)))
                     .catch(error => callback(error))
 
                 return

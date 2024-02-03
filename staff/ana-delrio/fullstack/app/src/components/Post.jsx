@@ -3,7 +3,7 @@ import { Button, Form, Field } from "../library"
 import logic from "../logic"
 
 // Define the Post component, and these props came from the compo posts
-function Post({ post, onToggleLikeClick, onToggleFavClick, onPostTextUpdate }) {
+function Post(props) {
     console.log('Post')
 
     // State to manage the current view ('edit' or null)
@@ -11,33 +11,33 @@ function Post({ post, onToggleLikeClick, onToggleFavClick, onPostTextUpdate }) {
 
     const handleToggleLikeClick = () => {
         try {
-            logic.toggleLikePost(post.id, error => {
+            logic.toggleLikePost(props.post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
                 // Call the function provided by props to update the post after toggling like
-                onToggleLikeClick()
+                props.onToggleLikeClick()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
     const handleToggleFavClick = () => {
         try {
-            logic.toggleFavPost(post.id, error => {
+            logic.toggleFavPost(props.post.id, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
 
-                onToggleFavClick()
+                props.onToggleFavClick()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -56,38 +56,38 @@ function Post({ post, onToggleLikeClick, onToggleFavClick, onPostTextUpdate }) {
         try {
             logic.updatePostText(post.id, text, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
                 // Call the function provided by props to update the post after editing
-                onPostTextUpdate()
+                props.onPostTextUpdate()
                 // Set the view back to null to exit the editing mode
                 setView(null)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
-    return <article key={post.id} className="post">
-        <h2>{post.author.name}</h2>
+    return <article key={props.post.id} className="post">
+        <h2>{props.post.author.name}</h2>
 
-        <img className="post-image" src={post.image} />
+        <img className="post-image" src={props.post.image} />
 
-        {view === null && <p>{post.text}</p>}
+        {view === null && <p>{props.post.text}</p>}
 
         {view === 'edit' && <Form onSubmit={handleEditSubmit}>
-            <Field id="text" value={post.text} />
+            <Field id="text" value={props.post.text} />
             <Button type="submit">Save</Button>
             <Button onClick={handleEditCancelClick}>Cancel</Button>
         </Form>}
 
 
         <div className="post-actions">
-            <Button onClick={handleToggleLikeClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} likes</Button>
-            <Button onClick={handleToggleFavClick}>{post.fav ? '⭐️' : '✩'}</Button>
-            {logic.sessionUserId === post.author.id && view === null && <Button onClick={handleEditClick}>{'✏️'}</Button>}
+            <Button onClick={handleToggleLikeClick}>{props.post.liked ? '❤️' : '🤍'} {props.post.likes.length} likes</Button>
+            <Button onClick={handleToggleFavClick}>{props.post.fav ? '⭐️' : '✩'}</Button>
+            {logic.sessionUserId === props.post.author.id && view === null && <Button onClick={handleEditClick}>{'✏️'}</Button>}
         </div>
     </article>
 }

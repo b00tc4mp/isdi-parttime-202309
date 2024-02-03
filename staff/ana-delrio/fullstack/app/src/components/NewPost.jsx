@@ -3,7 +3,7 @@ import logic from "../logic"
 
 // {/* las props se pueden desglosar */ }
 // these props comes from home
-export default function NewPost({ onPublish, onCancel }) {
+export default function NewPost(props) {
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -13,17 +13,17 @@ export default function NewPost({ onPublish, onCancel }) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
                 // Call the function provided by props (onPublish) to notify that the post has been successfully published
-                onPublish()
+                props.onPublish()
 
 
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
 
     }
@@ -31,7 +31,7 @@ export default function NewPost({ onPublish, onCancel }) {
     const handleCancel = event => {
         event.preventDefault()
         // Call the function provided by props (onCancel) to cancel the post publication
-        onCancel()
+        props.onCancel()
     }
 
 
