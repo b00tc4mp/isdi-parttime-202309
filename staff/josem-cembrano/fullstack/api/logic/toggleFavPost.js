@@ -1,6 +1,6 @@
-const validate = require('./helpers/validate')
-const { User, Post } = require('../data/models')
-const { NotFoundError, SystemError } = require('./errors')
+import validate from './helpers/validate.js'
+import { User, Post } from '../data/models.js'
+import { NotFoundError, SystemError } from './errors.js'
 
 const toggleFavPost = (userId, postId, callback) => {
     validate.text(userId, 'user id')
@@ -40,4 +40,4 @@ const toggleFavPost = (userId, postId, callback) => {
         .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = toggleFavPost
+export default toggleFavPost

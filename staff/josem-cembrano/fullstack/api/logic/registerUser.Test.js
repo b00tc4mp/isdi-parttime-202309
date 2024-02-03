@@ -1,19 +1,16 @@
-const mongoose = require('mongoose')
+import dotenv from 'dotenv'
+dotenv.config()
 
-const registerUser = require('./registerUser')
+import mongoose from 'mongoose'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+import registerUser from './registerUser.js'
+
+mongoose.connect(process.env.TEST_MONGODB_URL)
     .then(() => {
         try {
-            registerUser('Pis Tacho', 'pis@tacho.com', '123123123', error => {
-                if (error) {
-                    console.error(error)
-
-                    return
-                }
-
-                console.log('user registered')
-            })
+            registerUser('Pis Tacho', 'pis@tacho.com', '123123123')
+                .then(() => console.log('user registered'))
+                .catch(error => console.error(error))
         } catch (error) {
             console.log(error)
         }

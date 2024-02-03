@@ -1,10 +1,11 @@
-require('dotenv').config()
+import dotenv from 'dotenv' //importamos y configuramos primero dotenv, para que esten las variables de entorno.
+dotenv.config()
 
-const mongoose = require('mongoose')
-const express = require('express')
-const cors = require('./utils/cors')
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
 
-const {
+import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
@@ -13,7 +14,7 @@ const {
     createPostHandler,
     toggleLikePostHandler,
     toggleFavPostHandler
-} = require('./handlers')
+} from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -23,7 +24,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         const jsonBodyParser = express.json()
 
-        server.use(cors)
+        server.use(cors())
 
         server.post('/users', jsonBodyParser, registerUserHandler)
 
@@ -41,6 +42,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         server.patch('/posts/:postId/favs', toggleFavPostHandler)
 
-        server.listen(process.env.PORT, () => console.log('server is 🆗!!'))
+        server.listen(process.env.PORT, () => console.log(`server is 🆗 on port ${process.env.PORT}!!`))
     })
     .catch(error => console.error(error))

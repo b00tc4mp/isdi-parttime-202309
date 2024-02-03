@@ -38,7 +38,7 @@ class CredentialsError extends Error {
     }
 }
 
-module.exports = {
+export {// esta manera de exportar se llama bucket
     NotFoundError,
     SystemError,
     ContentError,

@@ -1,4 +1,4 @@
-const mongodb = require('mongodb')
+import mongodb from 'mongodb'
 
 const { MongoClient, ObjectId } = mongodb
 

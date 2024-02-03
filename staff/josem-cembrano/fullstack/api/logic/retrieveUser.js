@@ -1,25 +1,21 @@
-const validate = require('./helpers/validate')
+import validate from './helpers/validate.js'
 
-const { User } = require('../data/models')
-const { SystemError, NotFoundError } = require('./errors')
+import { User } from '../data/models.js'
+import { SystemError, NotFoundError } from './errors.js'
 
-const retrieveUser = (userId, callback) => {
-    validate.function(callback, 'callback')
-    validate.id(userId, 'userId')
+function retrieveUser(userId) {
+    validate.id(userId, 'user id')
 
-    User.findById(userId, 'name').lean()
+    return User.findById(userId, 'name').lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
-            }
+            if (!user)
+                throw new NotFoundError('user not found')
 
             delete user._id
 
-            callback(null, user)
+            return user
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
-module.exports = retrieveUser
+export default retrieveUser
