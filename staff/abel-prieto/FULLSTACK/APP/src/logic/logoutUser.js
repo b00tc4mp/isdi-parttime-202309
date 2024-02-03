@@ -6,6 +6,7 @@ import session from './session'
 export default function logoutUser(callback) {
     validate.function(callback, 'callback')
 
+    session.token = null
     session.sessionUserId = null
 
     callback(null)

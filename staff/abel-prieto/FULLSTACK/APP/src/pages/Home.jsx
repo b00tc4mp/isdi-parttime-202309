@@ -5,22 +5,21 @@ import { Button, Link } from "../librery"
 
 import { useState } from "react"    // Import method useState 
 import { useEffect } from "react"   // Import method useEffect
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 // HOME
 
 function Home(props) {
     console.log('Home')
 
-    // STATE VIEWS's
-    const [view, setView] = useState(null)
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    // STATE NAME (Profile) & ID (Posts-Favs)
+    // STATE NAME (Profile) & STATE STAMP
     const [name, setName] = useState(null)
-
-    // STATE STAMP
     const [stamp, setStamp] = useState(null)
 
-    // STATE & EFFECT - NAME & ID
+    // STATE & EFFECT - NAME 
     useEffect(() => {
         console.log('Home -> Effect (NAME)')
 
@@ -58,7 +57,7 @@ function Home(props) {
     function handleProfileClick(event) {
         event.preventDefault()
 
-        setView('profile')
+        navigate('/profile')
         // Cambiamos la vista a 'profile'
     }
 
@@ -66,37 +65,30 @@ function Home(props) {
     function handleHomeClick(event) {
         event.preventDefault()
 
-        setView(null)
-        // Cambiamos la vista a 'null' - home
-
+        navigate('/')
         window.scrollTo(0, 0)
     }
 
     // LIST FAVS POSTS 
     function handleFavsPostsClick() {
-        setView('favs')
+        navigate('/favs')
     }
 
     // NEW POST BUTTON
     function handleNewPostClick() {
-        setView('new-post')
-        // Cambiamos la vista a 'new-post'
-
+        navigate('/newpost')
         window.scrollTo(0, 0)
     }
 
     // PUBLISH NEW POST
     function handleNewPostPublish() {
         setStamp(Date.now())
-        setView(null)
-
+        navigate('/')
     }
 
     // CANCEL NEW POST
     function handleCancelNewPostClick() {
-
-        setView('null')
-        // Cambiamos la vista a 'null' - home
+        navigate('/')
     }
 
     // TEMPLATE
@@ -104,27 +96,26 @@ function Home(props) {
 
         <header className="home-header">
             <h1><Link href="" onClick={handleHomeClick}>Home</Link></h1>
-
             <div>
                 <Link href="" onClick={handleProfileClick}>{name}</Link> <Button onClick={handleFavsPostsClick}>Favs</Button> <Button onClick={handleLogoutClick}>Logout ❌</Button>
             </div>
         </header>
 
         <div className="home-view">
-            {view === 'profile' && <Profile onClick={handleProfileClick} />}
-
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}
-
-            {view !== 'profile' && view !== 'favs' && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}
-
-            {view === 'favs' && <Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}
+        <Routes>
+            <Route path="/profile" element={<Profile onClick={handleProfileClick} />}></Route>
+            <Route path="/newpost" element={<NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}></Route>
+            <Route path="/" element={<Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}></Route>
+            <Route path="/favs" element={<Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}></Route>
+        </Routes>
 
             <br></br>
             <br></br>
             <br></br>
 
-            <footer className="footer">
-                {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
+            <footer className="footer"> 
+                {location.pathname !== '/profile' && location.pathname !== '/favs' && location.pathname !== '/newpost' && 
+                <Button onClick={handleNewPostClick}>+</Button>}
             </footer>
         </div>
 

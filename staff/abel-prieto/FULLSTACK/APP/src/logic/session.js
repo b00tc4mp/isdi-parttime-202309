@@ -2,7 +2,11 @@
 
 const session = {
     set sessionUserId(userId) {
-        sessionStorage.userId = userId
+        if (userId) {
+            sessionStorage.userId = userId
+        } else {
+            delete sessionStorage.userId
+        }
     },
 
     get sessionUserId() {
@@ -10,7 +14,11 @@ const session = {
     },
 
     set token(token) {
-        sessionStorage.token = token
+        if (token) {
+            sessionStorage.token = token
+        } else {
+            delete sessionStorage.token
+        }
     },
 
     get token() {
