@@ -11,7 +11,7 @@ function authenticateUser(email, password, callback) {
   User.findOne({ email })
     .then((user) => {
       if (!user) {
-        callback(new NotFoundError('user not bound'))
+        callback(new NotFoundError('user not found'))
         return
       }
 

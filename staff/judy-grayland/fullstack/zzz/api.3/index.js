@@ -1,4 +1,4 @@
-require('../api.3/node_modules/.pnpm/dotenv@16.4.1/node_modules/dotenv/lib/main').config()
+require('dotenv').config()
 
 const mongoose = require('mongoose')
 const express = require('express')
