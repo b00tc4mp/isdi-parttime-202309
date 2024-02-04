@@ -1,7 +1,10 @@
 import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
+import { useContext } from '../hooks'
 
-function NewPost({ onClick, onSuccess, onError }) {
+function NewPost({ onClick, onSuccess }) {
+
+    const context = useContext()
 
     function handleCancelNewPostClick(event) {
         event.preventDefault()
@@ -19,7 +22,7 @@ function NewPost({ onClick, onSuccess, onError }) {
             logic.createPost(image, text, error => {
                 if (error) {
                     // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -28,7 +31,7 @@ function NewPost({ onClick, onSuccess, onError }) {
             })
         } catch (error) {
             // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 

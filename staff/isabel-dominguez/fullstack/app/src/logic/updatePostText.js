@@ -1,4 +1,4 @@
-import context from './context'
+import session from './session'
 import { validate, errors } from 'com'
 
 function updatePostText(postId, text, callback) {
@@ -9,7 +9,7 @@ function updatePostText(postId, text, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.token}`,
+            Authorization: `Bearer ${session.token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ text })

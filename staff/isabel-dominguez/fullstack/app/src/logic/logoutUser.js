@@ -1,10 +1,10 @@
-import context from './context'
+import session from './session'
 import { validate } from 'com'
 
 export default function logoutUser(callback) {
     validate.function(callback, 'callback')
 
-    context.token = null
+    session.sessionUserId = null
 
     callback(null)
 }

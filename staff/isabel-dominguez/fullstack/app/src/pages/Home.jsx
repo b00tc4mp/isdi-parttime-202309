@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import logic from "../logic"
 
 import { Button, Link } from "../library"
+import { useContext } from '../hooks'
 import { NewPost, Profile, Posts } from "../components"
 
 function Home(props) {
@@ -11,12 +12,13 @@ function Home(props) {
     const [name, setName] = useState(null)
     const [stamp, setStamp] = useState(null)
 
+    const context = useContext()
+
     useEffect(() => {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    // alert(error.message)
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -25,16 +27,14 @@ function Home(props) {
             })
 
         } catch (error) {
-            // alert(error.message)
-            props.onError(error)
+            context.handleError(error)
         }
     }, [])
 
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                // alert(error.message)
-                props.onError(error)
+                context.handleError(error)
 
                 return
             }
@@ -84,13 +84,13 @@ function Home(props) {
             </div>
         </header>
 
-        {view === "profile" && <Profile onSuccess={handleHomeClick} onError={props.onError} />}
+        {view === "profile" && <Profile onSuccess={handleHomeClick} />}
 
-        {view === "new-post" && <NewPost onSuccess={handleNewPostPublish} onClick={setView} onError={props.onError} />}
+        {view === "new-post" && <NewPost onSuccess={handleNewPostPublish} onClick={setView} />}
 
-        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
+        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts} stamp={stamp} />}
 
-        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />}
+        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts} />}
 
         <footer className="footer">
             {view !== "new-post" && <Button className="footer-button" onClick={handleNewPostClick}>+</Button>}

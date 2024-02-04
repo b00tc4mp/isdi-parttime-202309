@@ -1,18 +1,21 @@
 import { useState } from "react"
 import { Button, Form, Field, Container } from "../library"
+import { useContext } from '../hooks'
 import logic from "../logic"
-import context from "../logic/context"
+import session from "../logic/session"
 
-const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment, onError }) => {
+const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment }) => {
     const [view, setView] = useState(null)
     const [comment, setComment] = useState(null)
+
+    const context = useContext()
 
     const handleLikeClick = (postId) => {
         try {
             logic.toggleLikePost(postId, error => {
                 if (error) {
                     // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -21,7 +24,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             })
         } catch (error) {
             // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -30,7 +33,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             logic.toggleFavPost(postId, error => {
                 if (error) {
                     // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -39,7 +42,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             })
         } catch (error) {
             // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -50,7 +53,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 logic.deletePost(postId, (error) => {
                     if (error) {
                         // alert(error.message)
-                        onError(error)
+                        context.handleError(error)
 
                         return
                     }
@@ -59,7 +62,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 })
             } catch (error) {
                 // alert(error.message)
-                onError(error)
+                context.handleError(error)
             }
         }
     }
@@ -76,7 +79,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             logic.updatePostText(post.id, text, (error) => {
                 if (error) {
                     // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -86,7 +89,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             })
         } catch (error) {
             // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -103,7 +106,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             logic.commentPost(post.id, comment, error => {
                 if (error) {
                     // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -114,7 +117,7 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
 
         } catch (error) {
             // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -147,8 +150,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             <div>
                 {view === null && <Button onClick={() => handleLikeClick(post.id)}>{post.liked ? "❤️" : "🤍"} {post.likes.length} </Button>}
                 {view === null && <Button onClick={() => handleFavPostClick(post.id)}>{post.fav ? "✅" : "☑️"} </Button>}
-                {post.author.id === context.sessionUserId && view === null && <Button onClick={() => handleEditClick(post.id)}>✏️</Button>}
-                {post.author.id === context.sessionUserId && view === null && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
+                {post.author.id === session.sessionUserId && view === null && <Button onClick={() => handleEditClick(post.id)}>✏️</Button>}
+                {post.author.id === session.sessionUserId && view === null && <Button onClick={() => handleDeletePostClick(post.id)}>🗑️</Button>}
                 {view === null && <Button onClick={handleCommentClick}>💭</Button>}
             </div>
         </article>

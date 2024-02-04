@@ -1,4 +1,4 @@
-import context from './context'
+import session from './session'
 import { validate, errors } from 'com'
 
 export default function deleteUser(userId, callback) {
@@ -8,7 +8,7 @@ export default function deleteUser(userId, callback) {
     const req = {
         method: 'DELETE',
         headers: {
-            Authorization: `Bearer ${context.token}`,
+            Authorization: `Bearer ${session.token}`,
             'Content-Type': 'application/json'
         }
     }

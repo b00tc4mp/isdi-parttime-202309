@@ -1,4 +1,4 @@
-import context from './context'
+import session from './session'
 import { validate, errors } from 'com'
 
 export default function loginUser(email, password, callback) {
@@ -31,8 +31,8 @@ export default function loginUser(email, password, callback) {
                     const payload = JSON.parse(payloadJson)
                     const userId = payload.sub
 
-                    context.sessionUserId = userId
-                    context.token = token
+                    session.sessionUserId = userId
+                    session.token = token
 
                     callback(null)
                 })

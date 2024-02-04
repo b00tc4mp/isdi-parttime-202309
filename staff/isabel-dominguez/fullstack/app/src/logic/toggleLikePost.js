@@ -1,4 +1,4 @@
-import context from './context'
+import session from './session'
 import { validate, errors } from 'com'
 
 export default function toggleLikePost(postId, callback) {
@@ -8,7 +8,7 @@ export default function toggleLikePost(postId, callback) {
     const req = {
         method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${session.token}`
         }
     }
 

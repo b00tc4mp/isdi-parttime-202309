@@ -1,4 +1,4 @@
-import context from './context'
+import session from './session'
 import { validate, errors } from 'com'
 
 export default function retrievePosts(callback) {
@@ -7,7 +7,7 @@ export default function retrievePosts(callback) {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${session.token}`
         }
     }
 

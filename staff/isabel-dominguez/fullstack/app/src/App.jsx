@@ -4,6 +4,8 @@ import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Feedback from './components/Feedback'
 
+import Context from './Context'
+
 import { errors } from 'com'
 const { ContentError, DuplicityError, NotFoundError } = errors
 
@@ -55,11 +57,13 @@ function App() {
 
   // Renderiza diferentes componentes según la vista actual
   return <>
-    {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
+    <Context.Provider value={{ handleError }}>
+      {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
 
-    {view === "login" && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} onError={handleError} />}
-    {view === "register" && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} onError={handleError} />}
-    {view === "home" && <Home onLogoutClick={handleLoginShow} onError={handleError} />}
+      {view === "login" && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
+      {view === "register" && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
+      {view === "home" && <Home onLogoutClick={handleLoginShow} />}
+    </Context.Provider>
   </>
 }
 

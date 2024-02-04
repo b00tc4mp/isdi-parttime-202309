@@ -1,10 +1,13 @@
 import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
-import context from "../logic/context"
+import session from "../logic/session"
+import { useContext } from '../hooks'
 
-function Profile({ onSuccess, onError }) {
+function Profile({ onSuccess }) {
 
-    const userId = context.sessionUserId
+    const userId = session.sessionUserId
+
+    const context = useContext()
 
     function handleChangeEmailSubmit(event) {
         event.preventDefault()
@@ -16,8 +19,7 @@ function Profile({ onSuccess, onError }) {
         try {
             logic.changeUserEmail(newEmail, confirmNewEmail, password, (error) => {
                 if (error) {
-                    // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -27,8 +29,7 @@ function Profile({ onSuccess, onError }) {
                 onSuccess(event)
             })
         } catch (error) {
-            // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -42,8 +43,7 @@ function Profile({ onSuccess, onError }) {
         try {
             logic.changeUserPassword(newPassword, confirmNewPassword, password, (error) => {
                 if (error) {
-                    // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -53,8 +53,7 @@ function Profile({ onSuccess, onError }) {
                 onSuccess(event)
             })
         } catch (error) {
-            // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
@@ -63,19 +62,17 @@ function Profile({ onSuccess, onError }) {
             logic.deleteUser(userId, error => {
 
                 if (error) {
-                    // alert(error.message)
-                    onError(error)
+                    context.handleError(error)
 
                     return
                 }
 
-                logic.logoutUser()
+                alert("Your account has been successfully deleted")
 
-                cancelIdleCallback(null, alert("Your account has been successfully deleted"))
+                logic.logoutUser();
             })
         } catch (error) {
-            // alert(error.message)
-            onError(error)
+            context.handleError(error)
         }
     }
 
