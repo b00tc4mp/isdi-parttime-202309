@@ -1,6 +1,4 @@
 import React from "react"
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
-
 import logic from "../logic"
 import casaIcono from "../icons/houseIcon.png"
 import lupa from "../icons/lupa.png"
@@ -11,7 +9,7 @@ import settings from "../icons/settings.png"
 
 
 import { Button, Form, Link, Field, Container } from '../library'
-import { Posts, NewPost, Profile, UserPosts } from "../components"
+import { Posts, NewPost, Profile } from "../components"
 
 import { useContext } from '../hooks'
 
@@ -25,8 +23,7 @@ function Home(props) {
     const [stamp, setStamp] = React.useState(null)
     //  const [favs, setFavs] = React.useState(null)
 
-    const navigate = useNavigate()
-    const location = useLocation()
+
 
     React.useEffect(() => {
         console.log('Home -> effect (name)')
@@ -48,17 +45,17 @@ function Home(props) {
 
     function handleHomeClick(event) {
         event.preventDefault()
-        navigate('/')
+        setView(null)
     }
 
     function handleProfileClick(event) {
         event.preventDefault()
-        navigate('/profile')
+        setView('profile')
     }
 
     function handleFavPostsClick(event) {
         event.preventDefault()
-        navigate('/favs')
+        setView('favs')
     }
 
     function handleLogoutClick() {
@@ -78,7 +75,7 @@ function Home(props) {
 
     function handleNewPostPublish() {
         setStamp(Date.now())
-        navigate('/')
+        setView(null)
         window.scrollTo(0, 0)
     }
 
@@ -115,13 +112,11 @@ function Home(props) {
 
         </header>
 
-        <Routes>
-            <Route path='/profile' element={<Profile onCancel={handleChangeProfileCancel} onChangeEmailSubmit={handleChangeEmailSubmit} onError={props.onError} onChangePasswordSubmit={handleChangePasswordSubmit} />} />
-            <Route path='favs' element={<Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />} />
-            <Route path='/users/:userId' element={<UserPosts />} />
-            <Route path='/' element={<Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} onError={props.onError} />} />
-        </Routes>
+        {view === 'profile' && <Profile onCancel={handleChangeProfileCancel} onChangeEmailSubmit={handleChangeEmailSubmit} onError={props.onError} onChangePasswordSubmit={handleChangePasswordSubmit} />}
 
+        {(view === null || view === 'new-post') && <Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} onError={props.onError} />}
+
+        {view === 'favs' && <Posts loadPosts={logic.retrieveFavPosts.bind(logic)} onError={props.onError} />}
 
         <footer className="footer">
 
