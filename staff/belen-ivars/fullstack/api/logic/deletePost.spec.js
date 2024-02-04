@@ -6,7 +6,10 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import deletePost from './deletePost.js'
-import { RelationalError, NotFoundError } from './errors.js'
+
+import { errors } from 'com'
+const { NotFoundError, RelationalError, TokenError } = errors
+
 import { User, Post } from '../data/models.js'
 
 const { ObjectId } = mongoose.Types

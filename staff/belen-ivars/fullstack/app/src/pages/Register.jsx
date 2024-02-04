@@ -2,8 +2,14 @@ import logic from "../logic"
 
 import { Button, Link, Form, Field, Container } from "../library"
 
+import { ContentError, DuplicityError } from '../logic/errors'
+
+import { useContext } from '../hooks'
+
 function Register(props) {
     console.log('Register')
+
+    const context = useContext()
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -12,26 +18,23 @@ function Register(props) {
         const email = event.target.querySelector('#email-input').value
         const password = event.target.querySelector('#password-input').value
 
-        //console.log(name, email, password)
-
         try {
             logic.registerUser(name, email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    context.handleError(error)
 
                     return
                 }
                 props.onSuccess()
             })
         } catch (error) {
-            alert(error.message)
+            context.handleError(error)
         }
     }
 
     function handleLoginClick(event) {
         event.preventDefault()
 
-        //console.log('login click')
         props.onLoginClick()
     }
 

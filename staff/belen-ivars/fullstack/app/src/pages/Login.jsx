@@ -2,11 +2,16 @@ import logic from "../logic"
 
 import { Button, Link, Form, Field, Container } from "../library"
 
+import { useContext } from "../hooks"
+
 function Login(props) {
 	console.log('Login')
 
+	const context = useContext()
+
 	function handleSubmit(event) {
 		event.preventDefault()
+
 
 		const email = event.target.querySelector('#email-input').value
 		const password = event.target.querySelector('#password-input').value
@@ -14,14 +19,15 @@ function Login(props) {
 		try {
 			logic.loginUser(email, password, error => {
 				if (error) {
-					alert(error.message)
+					context.handleError(error)
 
 					return
 				}
+				// setTimeout(() => props.onSuccess(), 2000)
 				props.onSuccess()
 			})
 		} catch (error) {
-			alert(error.message)
+			context.handleError(error)
 		}
 	}
 

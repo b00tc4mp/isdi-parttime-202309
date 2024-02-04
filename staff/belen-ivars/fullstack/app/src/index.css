@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
 /*ressets*/
 * {
   font-family: Inter;
@@ -9,19 +10,24 @@ html {
   scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   background: linear-gradient(to bottom right, #8C1B8C, #26C2C7);
   background-attachment: fixed;
 }
 
-/* variables */
-/* library */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.container--horizontal {
+  flex-direction: row;
+  justify-content: center;
 }
 
 .form {
@@ -48,6 +54,7 @@ html, body {
   font-weight: bold;
   cursor: pointer;
 }
+
 .button-menu {
   align-self: start;
 }
@@ -56,12 +63,15 @@ html, body {
   text-decoration: none;
   color: black;
 }
+
 .link:visited {
   color: black;
 }
+
 .link::before {
   content: "[ ";
 }
+
 .link::after {
   content: " ]";
 }
@@ -90,11 +100,13 @@ html, body {
   padding: 1rem;
   background-color: #F2EDF8;
 }
+
 .post-image {
   max-width: 320px;
   max-height: 320px;
   border: 1rem inset;
 }
+
 .post-actions {
   display: flex;
   justify-content: space-between;
@@ -111,12 +123,14 @@ html, body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (min-width: 1024px) {
   .posts {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 .footer {
   background-color: white;
   display: flex;
@@ -129,6 +143,7 @@ html, body {
   min-height: 3rem;
   border-block-start: 0.3rem solid black;
 }
+
 .footer-menu {
   display: flex;
   flex-direction: row;

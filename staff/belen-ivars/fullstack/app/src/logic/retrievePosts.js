@@ -1,4 +1,4 @@
-import validate from "./helpers/validate"
+import { validate, errors } from 'com'
 import context from "./context"
 
 function retrievePosts(callback) {
@@ -7,7 +7,7 @@ function retrievePosts(callback) {
 	const req = {
 		method: 'GET',
 		headers: {
-			Authorization: `Barear ${context.sessionUserId}`
+			Authorization: `Bearer ${context.token}`
 		},
 	}
 
@@ -16,7 +16,7 @@ function retrievePosts(callback) {
 			if (!res.ok) {
 
 				res.json()
-					.then(body => callback(new Error(body.message)))
+					.then(body => callback(new errors[body.error](body.message)))
 					.catch(error => callback(error))
 
 				return

@@ -1,4 +1,5 @@
-import { ContentError } from '../errors.js'
+import { ContentError } from './errors.js'
+
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const ID_REGEX = /^[0-9A-Fa-f]{24}$/
 
@@ -13,6 +14,11 @@ function email(email, explain) {
 	if (!EMAIL_REGEX.test(email)) throw new ContentError(`${explain} is not valid`)
 }
 
+function password(password, explain = 'password') {
+	text(password, explain)
+
+	if (password.length < 8) throw new RangeError(`${explain} length is lower than 8 characters`)
+}
 
 function number(number, explain) {
 	if (typeof number !== 'number') throw new TypeError(`${explain} is not a number`)
@@ -31,6 +37,7 @@ function id(id, explain) {
 const validate = {
 	text,
 	email,
+	password,
 	number,
 	funktion,
 	id

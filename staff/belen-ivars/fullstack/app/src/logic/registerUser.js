@@ -1,4 +1,5 @@
-import validate from "./helpers/validate"
+import { validate } from 'com'
+import context from './context'
 
 function registerUser(name, email, password, callback) {
 	validate.text(name, 'Name')
@@ -19,7 +20,7 @@ function registerUser(name, email, password, callback) {
 			if (!res.ok) {
 
 				res.json()
-					.then(body => callback(new Error(body.message)))
+					.then(body => callback(new errors[body.error](body.message)))
 					.catch(error => callback(error))
 
 				return

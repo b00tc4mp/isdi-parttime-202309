@@ -1,4 +1,4 @@
-import validate from "./helpers/validate"
+import { validate } from 'com'
 import context from "./context"
 
 function publishPost(image, text, callback) {
@@ -8,7 +8,7 @@ function publishPost(image, text, callback) {
 	const req = {
 		method: 'POST',
 		headers: {
-			Authorization: ` Bearer ${context.sessionUserId}`,
+			Authorization: ` Bearer ${context.token}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({ image, text })
@@ -19,7 +19,7 @@ function publishPost(image, text, callback) {
 			if (!res.ok) {
 
 				res.json()
-					.then(body => callback(new Error(body.message)))
+					.then(body => callback(new errors[body.error](body.message)))
 					.catch(error => callback(error))
 
 				return

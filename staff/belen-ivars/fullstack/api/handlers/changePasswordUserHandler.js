@@ -1,11 +1,18 @@
+import jwt from 'jsonwebtoken'
+const { JsonWebTokenError } = jwt
+
 import logic from '../logic/index.js'
-import { ContentError, NotFoundError, CredentialsError, DuplicityError } from '../logic/errors.js'
+
+import { errors } from 'com'
+const { NotFoundError, ContentError, DuplicityError, CredentialsError, TokenError } = errors
 
 export default (req, res) => {
 	try {
-		const userId = req.headers.authorization.substring(7)
+		const token = req.headers.authorization.substring(7)
 
-		const { newEmail, confirmEmail, password } = req.body
+		const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+		const { newPassword, confirmNewPassword, password } = req.body
 
 		logic.changePasswordUser(userId, password, newPassword, confirmNewPassword)
 			.then(() => res.status(200).send())
@@ -27,6 +34,12 @@ export default (req, res) => {
 
 		if (error instanceof ContentError || error instanceof TypeError)
 			status = 406
+
+		else if (error instanceof JsonWebTokenError) {
+			status = 401
+
+			error = new TokenError(error.message)
+		}
 
 		res.status(status).json({ error: error.constructor.name, message: error.message })
 	}

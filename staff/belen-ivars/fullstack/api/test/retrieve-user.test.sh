@@ -2,48 +2,17 @@ source pepetest.sh
 
 TEST "retrieve-user"
 
-CASE "success on correct user id"
+CASE "success on correct token"
 
 curl 'http://localhost:9000/users' \
--H 'Authorization: Bearer 65b6a178a4dafda88b055b9f' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFlZDBiZWUwMDVlNjQ0YTk1YWZiMmEiLCJpYXQiOjE3MDY0ODM1MTZ9.QMDxw1JCxaJjQCd4EOqKm5cKdfJx83CmLRm6DTkXE_A' \
 -v
 
-# > GET /users HTTP/1.1
-# > Host: localhost:9000
-# > User-Agent: curl/8.4.0
-# > Accept: */*
-# > Authorization: Bearer 659b348c696ad77021d9e2f8
- 
-# < HTTP/1.1 200 OK
-# < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 20
-# < ETag: W/"14-tFbXBDPH2ZWoZgr7q9FWeHBwFV0"
-# < Date: Tue, 02 Jan 2024 18:03:36 GMT
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
-
-# {"name":"Tossi Lao"}
-
-CASE "success on non-existing user id"
+CASE "fails on corrupted token"
+curl 'http://localhost:9000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFlZDBiZWUwMDVlNjQ0YTk1YWZiMmEiLCJpYXQiOjE3MDY0ODM1MTZ9.QMDxw1JCxaJjQCd4EOqKm5cKdfJx83CmLRm6DTkXE_B' \
+-v
 
 curl 'http://localhost:9000/users' \
--H 'Authorization: Bearer 5a9y1ojhbec0' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFlZDBiZWUwMDVlNjQ0YTk1YWZiMmEiLCJpYXQiOjE3MDY0ODM1MTZ9.QMDxw1JCxaJjQCd4EOqKm5cKdfJx83CmLRm6DTkXE_A' \
 -v
-
-# > GET /users HTTP/1.1
-# > Host: localhost:9000
-# > User-Agent: curl/8.4.0
-# > Accept: */*
-# > Authorization: Bearer 5a9y1ojhbec0
-
-# < HTTP/1.1 400 Bad Request
-# < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 44
-# < ETag: W/"2c-DA3KcjMxbAqH25TOBQigpuC1Bjs"
-# < Date: Tue, 02 Jan 2024 18:05:20 GMT
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
- 
-# {"error":"Error","message":"user not found"}

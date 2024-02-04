@@ -1,5 +1,5 @@
-import validate from './helpers/validate.js'
-import { SystemError, NotFoundError } from './errors.js'
+import { validate, errors } from 'com'
+const { SystemError, NotFoundError, TokenError } = errors
 
 import { User } from '../data/models.js'
 

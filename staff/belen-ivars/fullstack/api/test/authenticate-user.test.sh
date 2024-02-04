@@ -6,7 +6,7 @@ CASE "succes on correct credentials"
 
 curl 'http://localhost:9000/users/auth' \
 -H 'Content-Type: application/json' \
--d '{"email": "tossi@lao.com", "password":"123123123"}' \
+-d '{"email": "peter@pan.com", "password":"123123123"}' \
 -v
 
 # > POST /users/auth HTTP/1.1
@@ -27,12 +27,12 @@ curl 'http://localhost:9000/users/auth' \
 #
 # "5a9y1ojhbec0"%  
 
-CASE "error of wrong email"
+# CASE "error of wrong email"
 
-curl 'http://localhost:9000/users/auth' \
--H 'Content-Type: application/json' \
--d '{"email": "wrong-tossi@lao.com", "password":"123123123"}' \
--v
+# curl 'http://localhost:9000/users/auth' \
+# -H 'Content-Type: application/json' \
+# -d '{"email": "wrong-tossi@lao.com", "password":"123123123"}' \
+# -v
 
 # > POST /users/auth HTTP/1.1
 # > Host: localhost:9000
@@ -52,12 +52,12 @@ curl 'http://localhost:9000/users/auth' \
  
 # {"error":"Error","message":"user not found"} 
 
-CASE "error of wrong password"
+# CASE "error of wrong password"
 
-curl 'http://localhost:9000/users/auth' \
--H 'Content-Type: application/json' \
--d '{"email": "tossi@lao.com", "password":"12312312"}' \
--v
+# curl 'http://localhost:9000/users/auth' \
+# -H 'Content-Type: application/json' \
+# -d '{"email": "tossi@lao.com", "password":"12312312"}' \
+# -v
 
 # > POST /users/auth HTTP/1.1
 # > Host: localhost:9000

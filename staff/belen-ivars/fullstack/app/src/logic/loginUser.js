@@ -1,5 +1,5 @@
-import validate from "./helpers/validate"
-import context from "./context"
+import { validate, errors } from 'com'
+import context from './context'
 
 
 function loginUser(email, password, callback) {
@@ -20,15 +20,22 @@ function loginUser(email, password, callback) {
 			if (!res.ok) {
 
 				res.json()
-					.then(body => callback(new Error(body.message)))
+					.then(body => callback(new errors[body.error](body.message)))
 					.catch(error => callback(error))
 
 				return
 			}
 
 			res.json()
-				.then(userId => {
+				.then(token => {
+					const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
+					const payloadJson = atob(payloadB64)
+					const payload = JSON.parse(payloadJson)
+					const userId = payload.sub
+
 					context.sessionUserId = userId
+					context.token = token
+
 					callback(null)
 				})
 

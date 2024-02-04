@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react';
 
-import logic from "../logic"
+import { Button, Form, Field } from '../library'
 
-import { Button, Field, Form } from "../library"
-import { useContext } from '../hooks'
+import Context from '../Context'
+
+import logic from '../logic'
 
 function Post(props) {
-
 	console.log('Post')
+
 	const [view, setView] = useState(null)
 
-	const context = useContext()
+	const context = useContext(Context)
 
 	const handleToggleLikeClick = () => {
 		try {
@@ -30,8 +31,6 @@ function Post(props) {
 
 	const handleDeletePostClick = () => {
 		if (confirm('Are you sure you want to delete this post?')) {
-
-
 			try {
 				logic.deletePost(props.post.id, error => {
 					if (error) {
@@ -64,13 +63,11 @@ function Post(props) {
 		}
 	}
 
-	const handleEditclick = () => {
-		setView('edit')
-	}
+	const handleEditclick = () => setView('edit')
 
-	const handleEditCancelClick = () => {
-		setView(null)
-	}
+
+	const handleEditCancelClick = () => setView(null)
+
 
 	const handleEditSubmit = event => {
 		event.preventDefault()
@@ -84,7 +81,7 @@ function Post(props) {
 
 					return
 				}
-				onPostTextUpdate()
+				props.onPostTextUpdate()
 				setView(null)
 			})
 		} catch (error) {

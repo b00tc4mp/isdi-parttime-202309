@@ -1,7 +1,7 @@
-import validate from './helpers/validate.js'
-
 import { User, Post } from '../data/models.js'
-import { NotFoundError, SystemError, RelationalError } from './errors.js'
+
+import { validate, errors } from 'com'
+const { NotFoundError, SystemError, TokenError } = errors
 
 function deletePost(userId, postId) {
 	validate.id(userId, 'user id')

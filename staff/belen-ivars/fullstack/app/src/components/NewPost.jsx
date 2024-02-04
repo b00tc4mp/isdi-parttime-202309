@@ -1,7 +1,12 @@
 import { Button, Form, Field, Container } from "../library"
 import logic from "../logic"
+import { useContext } from '../hooks'
 
-function NewPost({ onPublish, onCancel }) {
+export default function NewPost(props) {
+	console.log('NewPost')
+
+	const context = useContext()
+
 	const handleSubmit = event => {
 		event.preventDefault()
 
@@ -11,22 +16,22 @@ function NewPost({ onPublish, onCancel }) {
 		try {
 			logic.publishPost(image, text, error => {
 				if (error) {
-					alert(error.message)
+					context.handleError(error)
 
 					return
 				}
 
-				onPublish()
+				props.onPublish()
 			})
 		} catch (error) {
-			alert(error.message)
+			context.handleError(error)
 		}
 	}
 
 	const handleCancel = event => {
 		event.preventDefault()
 
-		onCancel()
+		props.onCancel()
 	}
 
 	return <Container className="new-post">
@@ -42,4 +47,3 @@ function NewPost({ onPublish, onCancel }) {
 	</Container>
 }
 
-export default NewPost
