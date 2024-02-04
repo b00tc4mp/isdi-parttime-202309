@@ -17,6 +17,7 @@ import {
     retrieveFavPostHandler,
     retrievePostHandler,
     retrieveUserHandler,
+    retrieveUserPostsHandler,
     toggleFavPostHandler,
     toggleLikePostHandler,
     togglePostCommentHandler,
@@ -79,6 +80,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // TEST in browser 'PATCH' in localhost 'ADD POST COMMENT'
         server.patch('/newpost/:postId/comments', jsonBodyParser, togglePostCommentHandler)
+
+        // TEST in browser 'GET' in localhost 'RETRIEVE USER POSTS'
+        server.get('/users/:userId', retrieveUserPostsHandler)
 
         // Hacemos que el servidor se mantenga en escucha a través del puerto 8000 e imprima un console.log()
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))

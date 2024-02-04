@@ -7,6 +7,7 @@ import registerUser from './registerUser.js'
 import retrieveFavs from './retrieveFavs.js'
 import retrievePost from './retrievePost.js'
 import retrieveUser from './retrieveUser.js'
+import retrieveUserPosts from './retrieveUserPosts.js'
 import toggleFavPost from './toggleFavPost.js'
 import toggleLikePost from './toggleLikePost.js'
 import togglePostComment from './togglePostComment.js'
@@ -22,6 +23,7 @@ const logic = {
     retrieveFavs,
     retrievePost,
     retrieveUser,
+    retrieveUserPosts,
     toggleFavPost,
     toggleLikePost,
     togglePostComment,

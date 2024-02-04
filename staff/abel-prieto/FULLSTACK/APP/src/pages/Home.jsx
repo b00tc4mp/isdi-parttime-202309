@@ -1,10 +1,10 @@
-import logic from "../logic"
+import logic from '../logic'
 
-import { Profile, NewPost, Posts, } from "../components"
-import { Button, Link } from "../librery"
+import { Profile, NewPost, Posts, UserPosts} from '../components'
+import { Button, Link } from '../librery'
 
-import { useState } from "react"    // Import method useState 
-import { useEffect } from "react"   // Import method useEffect
+import { useState } from 'react'    // Import method useState 
+import { useEffect } from 'react'   // Import method useEffect
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 // HOME
@@ -107,6 +107,7 @@ function Home(props) {
             <Route path="/newpost" element={<NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} />}></Route>
             <Route path="/" element={<Posts loadPosts={logic.retrievePosts.bind(logic)} stamp={stamp} />}></Route>
             <Route path="/favs" element={<Posts loadPosts={logic.retrieveFavUserPosts.bind(logic)} />}></Route>
+            <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts.bind(logic)} />}></Route>
         </Routes>
 
             <br></br>

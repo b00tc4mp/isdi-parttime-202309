@@ -8,6 +8,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 
 import publishPost from './publishPost'
 import retrievePosts from './retrievePosts'
+import retrieveUserPosts from './retrieveUserPosts'
 import retrieveFavUserPosts from './retrieveFavUserPosts'
 import deletePost from './deletePost'
 import toggleFavPost from './toggleFavPost'
@@ -27,6 +28,7 @@ const logic = {
     publishPost,
     retrievePosts,
     retrieveFavUserPosts,
+    retrieveUserPosts,
     deletePost,
     toggleFavPost,
     toggleLikePost,

@@ -3,13 +3,16 @@ import session from '../logic/session'
 import Context from '../Context'
 
 import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Input } from '../librery'
+import { Link } from 'react-router-dom'
 
 
 function Post(props) {
     const post = props.post
 
     const { handleError } = useContext(Context)
+    const navigate = useNavigate()
 
     // STATE EDIT MODE & COMMENT TEXT
     const [editMode, setEditMode] = useState(false)
@@ -152,10 +155,17 @@ function Post(props) {
         }
     }
 
+    // LINK ON THAT USER POSTS
+    function handleUserPosts(event) {
+        event.preventDefault()
+
+        navigate(`/users/${post.author.id}`)
+    }
+
     // TEMPLATE
     return <>
         <article className="post">
-            <h2>{post.author.email}</h2>
+            <h2><Link onClick={handleUserPosts}>{post.author.name}</Link></h2>
             <img className='post-img' src={post.image} />
             <div className="buttons-edit">
                 <p>{post.text}</p>
