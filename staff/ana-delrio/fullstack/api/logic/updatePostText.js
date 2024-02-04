@@ -1,7 +1,9 @@
 
 import { User, Post } from '../data/models.js'
-import { NotFoundError, SystemError, CredentialsError } from './errors.js'
-import validate from './helpers/validate.js'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
+
+import { validate, errors } from 'com'
 
 function updatePostText(userId, postId, text, callback) {
     validate.id(userId, 'user id')

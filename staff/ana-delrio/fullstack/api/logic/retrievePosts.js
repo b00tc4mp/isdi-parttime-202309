@@ -1,7 +1,8 @@
+import { validate, errors } from 'com'
 
-import validate from './helpers/validate.js'
 import { User, Post } from '../data/models.js'
-import { SystemError, NotFoundError } from './errors.js'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
 
 
 function retrievePosts(userId) {

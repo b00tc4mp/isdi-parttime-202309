@@ -1,5 +1,5 @@
+import { validate } from 'com'
 
-import validate from './helpers/validate'
 
 
 function changeUserPassword(newPassword, newPasswordConfirm, password) {

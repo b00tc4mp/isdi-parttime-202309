@@ -1,17 +1,15 @@
-/* import logic from '../logic'
-import Button from '../library/Button'
-/* import Input from '../library/Input' 
-import Form from '../library/Form.JSX'
-/* import Label from '../library/Label' 
-import Field from '../library/Field.JSX' */
 
 import logic from '../logic'
 import { Button, Link, Form, Field, Container } from '../library'
+
+import { useContext } from '../hooks'
 
 // The Login component is one of the views rendered by the App component based on the current state (view === 'login').
 
 function Login(props) {
     console.log('Login')
+
+    const context = useContext()
 
     // The handleSubmit function is a callback for the form's onSubmit event.
     function handleSubmit(event) {
@@ -26,7 +24,7 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -34,7 +32,7 @@ function Login(props) {
                 props.onSuccess()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
     // The handleRegisterClick function is a callback for the onClick event of the Link component

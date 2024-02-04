@@ -1,9 +1,14 @@
-import { Button, Container, Field, Form } from "../library"
-import logic from "../logic"
+import { Button, Container, Field, Form } from '../library'
+import logic from '../logic'
+import { useContext } from '../hooks'
 
 // {/* las props se pueden desglosar */ }
 // these props comes from home
 export default function NewPost(props) {
+    console.log('NewPost')
+
+    const context = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -13,7 +18,7 @@ export default function NewPost(props) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -23,7 +28,7 @@ export default function NewPost(props) {
 
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
 
     }

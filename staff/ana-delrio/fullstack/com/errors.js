@@ -53,4 +53,15 @@ export {
     DuplicityError,
     CredentialsError,
     TokenError
-} 
+}
+
+const errors = {
+    NotFoundError,
+    SystemError,
+    ContentError,
+    DuplicityError,
+    CredentialsError,
+    TokenError
+}
+
+export default errors

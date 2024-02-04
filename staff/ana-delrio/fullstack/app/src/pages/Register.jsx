@@ -4,10 +4,14 @@ import logic from '../logic'
 import { Button, Link, Form, Field, Container } from '../library'
 import { ContentError, DuplicityError } from '../logic/errors'
 
+import { useContext } from '../hooks'
+
 // The Register component is one of the views rendered by the App component based on the current state (view === 'register')
 
 function Register(props) {
     console.log('Register')
+
+    const context = useContext()
 
     // The handleSubmit function is a callback for the form's onSubmit event. This event is triggered(desencadena) when the user submits the form
     function handleSubmit(event) {
@@ -26,7 +30,7 @@ function Register(props) {
         try {
             logic.registerUser(name, email, password, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -35,7 +39,7 @@ function Register(props) {
                 props.onSuccess()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

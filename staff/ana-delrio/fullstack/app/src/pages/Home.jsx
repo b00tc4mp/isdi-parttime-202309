@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react'
 import logic from '../logic'
 import { Button, Link } from '../library'
 import { Posts, Profile, NewPost } from '../components'
+import { useContext } from '../hooks'
 
 // The Home component is one of the views rendered by the App component based on the current state (view === 'home')
 
 
 function Home(props) {
     console.log('Home')
+
+    const context = useContext()
 
     // State variables (view, name, stamp) are declared using useState
     const [view, setView] = useState(null)
@@ -18,7 +21,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                props.onError(error)
+                context.handleError(error)
 
                 return
             }
@@ -36,7 +39,7 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -45,7 +48,7 @@ function Home(props) {
             })
 
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }, [])
 

@@ -1,5 +1,8 @@
 import { useState } from "react"
+
+import { useContext } from '../hooks'
 import { Button, Form, Field } from "../library"
+
 import logic from "../logic"
 
 // Define the Post component, and these props came from the compo posts
@@ -9,11 +12,13 @@ function Post(props) {
     // State to manage the current view ('edit' or null)
     const [view, setView] = useState(null)
 
+    const context = useContext()
+
     const handleToggleLikeClick = () => {
         try {
             logic.toggleLikePost(props.post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -21,7 +26,7 @@ function Post(props) {
                 props.onToggleLikeClick()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
@@ -29,7 +34,7 @@ function Post(props) {
         try {
             logic.toggleFavPost(props.post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -37,7 +42,7 @@ function Post(props) {
                 props.onToggleFavClick()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
@@ -56,7 +61,7 @@ function Post(props) {
         try {
             logic.updatePostText(post.id, text, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -66,7 +71,7 @@ function Post(props) {
                 setView(null)
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

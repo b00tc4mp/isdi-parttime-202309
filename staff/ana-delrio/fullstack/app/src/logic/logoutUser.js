@@ -1,5 +1,4 @@
-
-import validate from './helpers/validate'
+import { validate } from 'com'
 import context from './context'
 
 function logoutUser(callback) {

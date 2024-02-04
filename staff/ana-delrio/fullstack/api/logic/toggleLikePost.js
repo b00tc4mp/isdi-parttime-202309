@@ -1,5 +1,7 @@
-import validate from './helpers/validate.js'
-import { NotFoundError, SystemError } from './errors.js'
+import { validate, errors } from 'com'
+
+const { SystemError, NotFoundError, CredentialsError } = errors
+
 import { User, Post } from '../data/models.js'
 
 function toggleLikePost(userId, postId) {

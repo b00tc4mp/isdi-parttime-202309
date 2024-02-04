@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Post from "./Post"
+import { useContext } from '../hooks'
 
 // these props, comes from the file home
 function Posts(props) {
@@ -9,11 +10,13 @@ function Posts(props) {
     // which is an array that will contain the posts, and the setPosts function to update that state
     const [posts, setPosts] = useState([])
 
+    const context = useContext()
+
     const refreshPosts = () => {
         try {
             props.loadPost((error, posts) => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -23,7 +26,7 @@ function Posts(props) {
                 setPosts(posts)
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

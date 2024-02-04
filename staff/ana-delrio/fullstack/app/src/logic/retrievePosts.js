@@ -1,5 +1,5 @@
 import context from "./context"
-import validate from './helpers/validate'
+import { validate } from 'com'
 
 import errors from './errors'
 

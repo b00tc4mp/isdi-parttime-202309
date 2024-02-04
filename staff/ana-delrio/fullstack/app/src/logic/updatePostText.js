@@ -1,4 +1,4 @@
-import validate from './helpers/validate'
+import { validate } from 'com'
 
 
 function updatePostText(postId, text, callback) {
