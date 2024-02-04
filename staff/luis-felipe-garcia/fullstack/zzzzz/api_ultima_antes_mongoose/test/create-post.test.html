@@ -1,0 +1,19 @@
+<script>
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer 9nbvjt5wugo',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image: 'https://phantom-marca.unidadeditorial.es/61616361845e8bc4efeb2b3e5d5b4854/resize/660/f/webp/assets/multimedia/imagenes/2023/09/05/16939288675740.jpg', text: 'Hola, Zanahoria!' })
+    }
+
+    fetch('http://localhost:8000/posts', req)
+        .then(res => {
+            if (res.ok)
+                console.log(res.status)
+            else
+                console.error(res.status)
+        })
+        .catch(error => console.error(error))
+</script>

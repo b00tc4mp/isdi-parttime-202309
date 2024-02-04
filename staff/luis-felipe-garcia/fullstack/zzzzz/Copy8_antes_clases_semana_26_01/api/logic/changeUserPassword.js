@@ -1,0 +1,40 @@
+import { User } from '../../../../../../api/data/models.js'
+import validate from '../../../../api/logic/helpers/validate.js'
+import { SystemError, ContentError, CredentialsError, NotFoundError } from './errors.js'
+
+function changeUserPassword(userId, newPassword, newPasswordConfirm, password, callback) {
+    validate.id(userId, 'user id')
+    validate.text(newPassword, 'new email')
+    validate.text(newPasswordConfirm, 'new email confirm')
+    validate.text(password, 'password')
+    validate.function(callback, 'callback')
+
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                callback(new NotFoundError('user not found'))
+                return
+            }
+
+            if (newPassword !== newPasswordConfirm) {
+                callback(new ContentError('new passwords do not match'))
+                return
+            }
+
+            if (user.password !== password) {
+                callback(new CredentialsError('wrong credentials'))
+                return
+            }
+
+            user.password = newPassword
+            user.save()
+                .then(callback(null))
+                .catch(callback(new SystemError(error.message)))
+
+        })
+
+        .catch(error => new SystemError(error.message))
+
+}
+
+export default changeUserPassword
