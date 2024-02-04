@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import logic from '../logic'
 
 import { useContext } from '../hooks'
 
 import { Button, Form, Link, Field } from '../library'
-import { Posts, Profile, NewPost } from '../components'
+import { Posts, Profile, NewPost, UserPosts } from '../components'
 
 
 function Home(props) {
@@ -16,6 +17,9 @@ function Home(props) {
     const [stamp, setStamp] = useState(null)
 
     // están declaradas en null porque es el estado inicial
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
 
 
@@ -58,12 +62,14 @@ function Home(props) {
     function handleProfileClick(event) {
         event.preventDefault()
 
-        setView('profile')
+        //setView('profile')
+        navigate('/profile')
     }
 
     function handleHomeClick(event) {
         event.preventDefault()
-        setView(null)
+        //setView(null)
+        navigate('/')
     }
 
     function handleNewPostClick() {
@@ -78,6 +84,7 @@ function Home(props) {
     function handleNewPostPublish() {
         setStamp(Date.now())
         setView(null)
+        navigate('/')
         window.scrollTo(0, 0)
     }
 
@@ -88,8 +95,10 @@ function Home(props) {
     function handleFavPostsClick(event) {
         event.preventDefault()
 
+        navigate('/favs')
 
-        setView('favs')
+
+        //setView('favs')
 
     }
 
@@ -106,17 +115,26 @@ function Home(props) {
                 <Button onClick={handleLogoutClick}>Logout</Button>
             </div>
         </header>
-        {view === 'profile' && <Profile onSuccess={() => setView(null)} />}
 
 
-        {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />}
+        {/* {view === 'profile' && <Profile onSuccess={() => setView(null)} />} */}
+
+        <Routes>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} />
+            <Route path="/users/:userId" element={<UserPosts />} />
+            <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} />
+        </Routes>
+
+
+        {/* {(view === null || view === 'new-post') && < Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} */}
 
 
 
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
 
-
-        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />}
+        {/* 
+        {view === 'favs' && < Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} */}
 
 
 
@@ -130,7 +148,7 @@ function Home(props) {
         <footer className="footer">
 
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={context.handleError} />}
-            {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
+            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
 
         </footer>
 

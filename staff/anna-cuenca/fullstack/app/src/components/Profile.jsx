@@ -1,15 +1,23 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button, Form, Field } from '../library/index'
 import logic from '../logic'
 import { useContext } from '../hooks' //esto
 
 
-export default function Profile(props) {
+
+
+export default function Profile() {
+
+
+    const navigate = useNavigate()
+
+    const context = useContext()
 
     console.log('Profile')
 
-    const context = useContext()
+
 
 
     function handleChangePasswordSubmit(event) {
@@ -31,7 +39,8 @@ export default function Profile(props) {
                 }
                 alert("Password changed")
                 event.target.reset()
-                props.onSuccess();
+                //props.onSuccess();
+                navigate('/')
 
             })
 
@@ -60,10 +69,12 @@ export default function Profile(props) {
                     return
                 }
 
-                props.onSuccess() // quita la vista
+                //props.onSuccess() // quita la vista
+
                 alert("E-mail changed")
 
                 event.target.reset() // limpia los campos
+                navigate('/')
 
                 //quita la vista :D
 

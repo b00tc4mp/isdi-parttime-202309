@@ -30,7 +30,7 @@ function App() {
   // devuelve dos estados, el actual y una función que permite actualizar ese estado
   // el valor inicial del estado es login
 
-  const [view, setView] = React.useState('login')
+  //const [view, setView] = React.useState('login')
   const [level, setLevel] = React.useState(null)
   const [message, setMessage] = React.useState(null)
 
@@ -61,6 +61,7 @@ function App() {
   const handleError = error => {
 
     let level = 'fatal'
+    let message = error.message
 
     if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
       level = 'warn'
@@ -71,13 +72,14 @@ function App() {
 
     else if (error instanceof TokenError) {
       logic.logoutUser(() => navigate('/login'))
+      message = 'Session expired'
 
     }
 
 
 
     setLevel(level)
-    setMessage(error.message)
+    setMessage(message)
     console2.log(error.message, level)
 
   }
@@ -102,7 +104,7 @@ function App() {
       <Routes>
         <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
         <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
-        <Route path='/' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
+        <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
       </Routes>
     </Context.Provider>
   </>
