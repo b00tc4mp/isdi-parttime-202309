@@ -1,8 +1,7 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
+
 import context from './context'
 
-
-import errors from './errors'
 
 function toggleFavPost(postId, callback) {
     validate.text(postId, 'post id')
