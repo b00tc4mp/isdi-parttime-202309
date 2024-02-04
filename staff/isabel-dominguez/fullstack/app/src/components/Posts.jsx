@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import Post from './Post'
 import { Container } from "../library"
 
-const Posts = ({ loadPosts, stamp }) => {
+const Posts = (props) => {
 
     const [posts, setPosts] = useState([]) //Se pone array vacío indicando que inicialmente no hay nada que mostrar
 
     const refreshPosts = () => {
         try {
-            loadPosts((error, posts) => {
+            props.loadPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -19,18 +19,18 @@ const Posts = ({ loadPosts, stamp }) => {
                 setPosts(posts)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
     useEffect(() => {
 
         refreshPosts()
-    }, [stamp])
+    }, [props.stamp])
 
 
     return <Container className="posts">
-        {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleDeleteClick={refreshPosts} onToggleEditClick={refreshPosts} onPostComment={refreshPosts} />)}
+        {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleDeleteClick={refreshPosts} onToggleEditClick={refreshPosts} onPostComment={refreshPosts} onError={props.onError} />)}
     </Container>
 
 }

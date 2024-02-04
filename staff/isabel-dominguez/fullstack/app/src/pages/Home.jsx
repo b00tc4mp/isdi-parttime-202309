@@ -15,7 +15,8 @@ function Home(props) {
         try {
             logic.retrieveUser((error, user) => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -24,14 +25,16 @@ function Home(props) {
             })
 
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            props.onError(error)
         }
     }, [])
 
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                alert(error.message)
+                // alert(error.message)
+                props.onError(error)
 
                 return
             }
@@ -81,13 +84,13 @@ function Home(props) {
             </div>
         </header>
 
-        {view === "profile" && <Profile onSuccess={handleHomeClick} />}
+        {view === "profile" && <Profile onSuccess={handleHomeClick} onError={props.onError} />}
 
-        {view === "new-post" && <NewPost onSuccess={handleNewPostPublish} onClick={setView} />}
+        {view === "new-post" && <NewPost onSuccess={handleNewPostPublish} onClick={setView} onError={props.onError} />}
 
-        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts} stamp={stamp} />}
+        {view !== "profile" && view !== "list-fav-post" && <Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
 
-        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts} />}
+        {view === "list-fav-post" && <Posts loadPosts={logic.retrieveFavPosts} onError={props.onError} />}
 
         <footer className="footer">
             {view !== "new-post" && <Button className="footer-button" onClick={handleNewPostClick}>+</Button>}

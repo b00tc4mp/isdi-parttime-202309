@@ -4,7 +4,7 @@ import context from './context'
 export default function logoutUser(callback) {
     validate.function(callback, 'callback')
 
-    context.sessionUserId = null
+    context.token = null
 
     callback(null)
 }

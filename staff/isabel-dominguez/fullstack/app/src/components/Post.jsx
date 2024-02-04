@@ -3,7 +3,7 @@ import { Button, Form, Field, Container } from "../library"
 import logic from "../logic"
 import context from "../logic/context"
 
-const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment }) => {
+const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, onToggleEditClick, onPostComment, onError }) => {
     const [view, setView] = useState(null)
     const [comment, setComment] = useState(null)
 
@@ -11,7 +11,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         try {
             logic.toggleLikePost(postId, error => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -19,7 +20,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 onToggleLikeClick()
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
@@ -27,7 +29,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         try {
             logic.toggleFavPost(postId, error => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -35,7 +38,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 onToggleFavClick()
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
@@ -45,7 +49,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             try {
                 logic.deletePost(postId, (error) => {
                     if (error) {
-                        alert(error.message)
+                        // alert(error.message)
+                        onError(error)
 
                         return
                     }
@@ -53,7 +58,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                     onToggleDeleteClick()
                 })
             } catch (error) {
-                alert(error.message)
+                // alert(error.message)
+                onError(error)
             }
         }
     }
@@ -69,7 +75,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         try {
             logic.updatePostText(post.id, text, (error) => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -78,7 +85,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
                 setView(null)
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
@@ -88,13 +96,14 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
     const handleCommentSubmit = (event) => {
         event.preventDefault()
 
-        const newComment = event.target.text.value
+        const comment = event.target.text.value
 
         try {
 
-            logic.commentPost(post.id, newComment, error => {
+            logic.commentPost(post.id, comment, error => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -104,7 +113,8 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
             })
 
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 

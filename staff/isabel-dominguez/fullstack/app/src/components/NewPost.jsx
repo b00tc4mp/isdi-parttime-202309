@@ -1,7 +1,7 @@
 import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
 
-function NewPost({ onClick, onSuccess }) {
+function NewPost({ onClick, onSuccess, onError }) {
 
     function handleCancelNewPostClick(event) {
         event.preventDefault()
@@ -18,7 +18,8 @@ function NewPost({ onClick, onSuccess }) {
         try {
             logic.createPost(image, text, error => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -26,7 +27,8 @@ function NewPost({ onClick, onSuccess }) {
                 onSuccess(event)
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 

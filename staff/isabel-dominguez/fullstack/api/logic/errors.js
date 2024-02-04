@@ -50,7 +50,7 @@ class TokenError extends Error {
     constructor(message) {
         super(message)
 
-        this.name = this.contructor.name
+        this.name = this.constructor.name
     }
 }
 

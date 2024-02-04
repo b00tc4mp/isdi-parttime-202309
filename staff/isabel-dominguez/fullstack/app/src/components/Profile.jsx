@@ -2,7 +2,7 @@ import logic from "../logic"
 import { Button, Form, Field, Container } from "../library"
 import context from "../logic/context"
 
-function Profile({ onSuccess }) {
+function Profile({ onSuccess, onError }) {
 
     const userId = context.sessionUserId
 
@@ -16,7 +16,9 @@ function Profile({ onSuccess }) {
         try {
             logic.changeUserEmail(newEmail, confirmNewEmail, password, (error) => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
+
                     return
                 }
 
@@ -25,7 +27,8 @@ function Profile({ onSuccess }) {
                 onSuccess(event)
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
@@ -39,7 +42,9 @@ function Profile({ onSuccess }) {
         try {
             logic.changeUserPassword(newPassword, confirmNewPassword, password, (error) => {
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
+
                     return
                 }
 
@@ -48,7 +53,8 @@ function Profile({ onSuccess }) {
                 onSuccess(event)
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
@@ -57,7 +63,8 @@ function Profile({ onSuccess }) {
             logic.deleteUser(userId, error => {
 
                 if (error) {
-                    alert(error.message)
+                    // alert(error.message)
+                    onError(error)
 
                     return
                 }
@@ -67,7 +74,8 @@ function Profile({ onSuccess }) {
                 cancelIdleCallback(null, alert("Your account has been successfully deleted"))
             })
         } catch (error) {
-            alert(error.message)
+            // alert(error.message)
+            onError(error)
         }
     }
 
