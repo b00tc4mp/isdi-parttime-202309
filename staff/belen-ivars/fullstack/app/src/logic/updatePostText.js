@@ -1,8 +1,8 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 import context from "./context"
 
 function updatePostText(postId, text, callback) {
-	validate.text(postId, 'post id')
+	validate.id(postId, 'post id')
 	validate.text(text)
 	validate.funktion(callback)
 

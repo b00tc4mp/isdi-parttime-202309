@@ -2,8 +2,6 @@ import logic from "../logic"
 
 import { Button, Link, Form, Field, Container } from "../library"
 
-import { ContentError, DuplicityError } from '../logic/errors'
-
 import { useContext } from '../hooks'
 
 function Register(props) {

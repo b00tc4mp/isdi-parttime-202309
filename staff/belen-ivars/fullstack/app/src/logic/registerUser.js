@@ -1,5 +1,4 @@
-import { validate } from 'com'
-import context from './context'
+import { validate, errors } from 'com'
 
 function registerUser(name, email, password, callback) {
 	validate.text(name, 'Name')

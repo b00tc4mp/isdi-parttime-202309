@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 import context from "./context"
 
 function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
