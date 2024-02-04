@@ -15,7 +15,6 @@ import toggleFavPost from './toggleFavPost'
 import toggleLikePost from './toggleLikePost'
 import toggleEditPost from './toggleEditPost'
 import deletePost from './deletePost'
-import isUserLoggedIn from './isUserLoggedIn'
 
 const logic = {
     registerUser,
@@ -30,8 +29,7 @@ const logic = {
     toggleFavPost,
     toggleLikePost,
     toggleEditPost,
-    deletePost,
-    isUserLoggedIn
+    deletePost
 }
 
 export default logic

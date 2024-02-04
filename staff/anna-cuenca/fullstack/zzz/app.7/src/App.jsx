@@ -1,21 +1,12 @@
 import React from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
-
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
-
-
-import logic from './logic'
-
+import { ContentError, DuplicityError, NotFoundError } from './logic/errors'
 import { Button, Form, Field } from './library'
 import Feedback from './components/Feedback'
 
 import Context from './Context'
-import { errors } from 'com'
-
-const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
-
 
 
 
@@ -33,27 +24,23 @@ function App() {
   const [view, setView] = React.useState('login')
   const [level, setLevel] = React.useState(null)
   const [message, setMessage] = React.useState(null)
-
-
-  const navigate = useNavigate()
+  // setView('register')
+  // setView('login')
 
   const handleRegisterShow = () => {
-    //setView('register')
-    navigate('/register')
+    setView('register')
     setMessage(null)
     setLevel(null)
   }
 
   const handleLoginShow = () => {
-    //setView('login')
-    navigate('/login')
+    setView('login')
     setMessage(null)
     setLevel(null)
   }
 
   const handleHomeShow = () => {
-    //setView('home')
-    navigate('/')
+    setView('home')
     setMessage(null)
     setLevel(null)
   }
@@ -68,12 +55,6 @@ function App() {
     else if (error instanceof DuplicityError || error instanceof NotFoundError)
 
       level = 'error'
-
-    else if (error instanceof TokenError) {
-      logic.logoutUser(() => navigate('/login'))
-
-    }
-
 
 
     setLevel(level)
@@ -92,18 +73,12 @@ function App() {
   return <>
     <Context.Provider value={context}>
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
-      {/* {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} */}
+      {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
       {/* error es una copia de la referencia handleError */}
       {/* renderiza el componente login si el estado es login. Y le pasa dos propiedades "onRegisterLink"
        y "onSuccess" */}
-      {/* {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} */}
-      {/* {view === 'home' && <Home onLogoutClick={handleLoginShow} />} */}
-
-      <Routes>
-        <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
-        <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
-        <Route path='/' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
-      </Routes>
+      {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
+      {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
     </Context.Provider>
   </>
 }

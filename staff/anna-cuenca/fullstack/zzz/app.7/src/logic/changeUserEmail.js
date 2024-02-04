@@ -1,8 +1,8 @@
 
 
-import { validate, errors } from 'com'
+import { validate } from 'com'
 import session from './session'
-
+import errors from './errors'
 
 function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
     validate.email(newEmail)

@@ -4,7 +4,6 @@ import { validate } from "com"
 function logoutUser(callback) {
     validate.function(callback, 'callback')
 
-    session.token = null
     session.sessionUserId = null
 
     callback(null)

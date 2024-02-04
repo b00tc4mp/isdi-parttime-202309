@@ -1,7 +1,6 @@
 import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
 
-
 import { useContext } from '../hooks'
 
 function Register(props) {

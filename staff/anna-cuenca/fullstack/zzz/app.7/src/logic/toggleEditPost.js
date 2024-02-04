@@ -1,26 +1,26 @@
-
-
-import { validate, errors } from 'com'
+import { validate, errors } from "com"
 import session from './session'
 
+//cambiar el nombre por upddatePostText
 
-function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
-    validate.email(newEmail)
-    validate.email(newEmailConfirm)
-    validate.password(password)
+
+function toggleEditPost(postId, text, callback) {
+    validate.id(postId, 'post id')
+    validate.text(text, 'text')
     validate.function(callback, 'callback')
 
     const req = {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${session.token}`,
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ newEmail, newEmailConfirm, password })
-    }
-    fetch(`${import.meta.env.VITE_API_URL}/users/change-email`, req)
-        .then(res => {
 
+        },
+        body: JSON.stringify({ text })
+    }
+
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/text`, req)
+        .then(res => {
             if (!res.ok) {
                 res.json()
                     .then(body => callback(new errors[body.error](body.message)))
@@ -30,16 +30,11 @@ function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
             }
 
             callback(null)
-
         })
+        .catch(error => callback(error))
 
-
-        .catch(error => {
-
-            callback(error)
-        })
 
 
 }
-export default changeUserEmail
 
+export default toggleEditPost

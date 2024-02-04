@@ -1,24 +1,21 @@
-
-
 import { validate, errors } from 'com'
-import session from './session'
+import session from "./session"
 
+function changeUserPassword(password, newPassword, newPasswordConfirm, callback) {
+    validate.password(password, "password")
+    validate.password(newPassword, "new password")
+    validate.password(newPasswordConfirm, "new password confirm")
 
-function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
-    validate.email(newEmail)
-    validate.email(newEmailConfirm)
-    validate.password(password)
-    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${session.token}`,
+            Authorization: `Bearer ${String(session.token)}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newEmail, newEmailConfirm, password })
+        body: JSON.stringify({ password, newPassword, newPasswordConfirm })
     }
-    fetch(`${import.meta.env.VITE_API_URL}/users/change-email`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/change-password`, req)
         .then(res => {
 
             if (!res.ok) {
@@ -38,8 +35,7 @@ function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
 
             callback(error)
         })
-
-
 }
-export default changeUserEmail
 
+
+export default changeUserPassword
