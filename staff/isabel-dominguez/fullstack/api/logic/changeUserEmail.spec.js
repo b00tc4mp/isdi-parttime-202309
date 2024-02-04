@@ -3,8 +3,10 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 import changeUserEmail from './changeUserEmail.js'
 import random from './helpers/random.js'
-import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 dotenv.config()
 const { ObjectId } = Types

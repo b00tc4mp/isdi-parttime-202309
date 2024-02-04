@@ -1,7 +1,5 @@
-import validate from './helpers/validate'
 import context from './context'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function changeUserPassword(newPassword, confirmNewPassword, password, callback) {
     validate.password(newPassword, 'new password')

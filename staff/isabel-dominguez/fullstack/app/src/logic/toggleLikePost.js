@@ -1,10 +1,8 @@
-import validate from './helpers/validate'
 import context from './context'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function toggleLikePost(postId, callback) {
-    validate.text(postId, "post id")
+    validate.id(postId, "post id")
     validate.function(callback, 'callback')
 
     const req = {

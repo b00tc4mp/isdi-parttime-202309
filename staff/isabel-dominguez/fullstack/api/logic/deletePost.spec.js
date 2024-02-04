@@ -3,9 +3,11 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import deletePost from './deletePost.js'
-import { NotFoundError, RelationalError } from './errors.js'
 import { Post, User } from '../data/models.js'
 import random from './helpers/random.js'
+
+import { errors } from 'com'
+const { NotFoundError, RelationalError } = errors
 
 dotenv.config()
 const { ObjectId } = Types

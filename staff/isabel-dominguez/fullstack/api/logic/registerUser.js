@@ -1,7 +1,7 @@
-import validate from './helpers/validate.js'
-
 import { User } from '../data/models.js'
-import { SystemError, DuplicityError } from './errors.js'
+
+import { validate, errors } from 'com'
+const { SystemError, DuplicityError } = errors
 
 function registerUser(name, email, password) {
     validate.text(name, 'name')

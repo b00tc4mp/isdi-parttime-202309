@@ -2,8 +2,10 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 
 import authenticateUser from './authenticateUser.js'
-import { SystemError, NotFoundError, CredentialsError } from './errors.js'
 import { User } from '../data/models.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 describe('authenticateUser', () => {
     before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))

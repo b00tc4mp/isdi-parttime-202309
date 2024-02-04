@@ -4,9 +4,10 @@ import Register from "./pages/Register"
 import Home from "./pages/Home"
 import Feedback from './components/Feedback'
 
-import { ContentError, DuplicityError, NotFoundError } from "./logic/errors"
+import { errors } from 'com'
+const { ContentError, DuplicityError, NotFoundError } = errors
 
-const App = () => {
+function App() {
   const [view, setView] = useState('login')
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)

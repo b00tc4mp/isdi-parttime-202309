@@ -5,7 +5,9 @@ import dotenv from 'dotenv'
 import updatePostText from './updatePostText.js'
 import random from './helpers/random.js'
 import { Post, User } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 const { ObjectId } = Types
 

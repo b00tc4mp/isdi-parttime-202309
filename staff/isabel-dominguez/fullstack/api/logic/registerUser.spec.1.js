@@ -2,8 +2,10 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 
 import registerUser from './registerUser.js'
-import { SystemError, NotFoundError, CredentialsError, DuplicityError } from './errors.js'
 import { User } from '../data/models.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 describe('registerUser', () => {
     // Antes de ejecutar cualquier prueba, conectarse a la base de datos MongoDB

@@ -1,11 +1,9 @@
-import validate from './helpers/validate'
 import context from './context'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function loginUser(email, password, callback) {
-    validate.text(email)
-    validate.text(password)
+    validate.email(email)
+    validate.password(password)
     validate.function(callback, 'callback')
 
     const req = {

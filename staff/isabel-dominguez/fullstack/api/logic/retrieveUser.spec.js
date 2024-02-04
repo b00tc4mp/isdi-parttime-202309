@@ -7,7 +7,9 @@ import random from './helpers/random.js'
 
 import retrieveUser from './retrieveUser.js'
 import { User } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 const { ObjectId } = mongoose.Types
 

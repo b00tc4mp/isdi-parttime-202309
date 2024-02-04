@@ -1,6 +1,4 @@
-import validate from './helpers/validate'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function registerUser(name, email, password, callback) {
     validate.text(name, 'name')

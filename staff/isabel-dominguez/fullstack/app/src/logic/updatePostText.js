@@ -1,10 +1,8 @@
-import context from "./context"
-import validate from "./helpers/validate"
-
-import errors from './errors'
+import context from './context'
+import { validate, errors } from 'com'
 
 function updatePostText(postId, text, callback) {
-    validate.text(postId, 'post id')
+    validate.id(postId, 'post id')
     validate.text(text)
     validate.function(callback, 'callback')
 

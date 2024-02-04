@@ -1,7 +1,5 @@
-import validate from './helpers/validate'
 import context from './context'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function commentPost(userId, postId, comment, callback) {
     validate.id(userId, 'user id')

@@ -7,7 +7,9 @@ import random from './helpers/random.js'
 
 import retrieveFavPosts from './retrieveFavPosts.js'
 import { User, Post } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+
+import { errors } from 'com'
+const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
 
 const { ObjectId } = mongoose.Types
 

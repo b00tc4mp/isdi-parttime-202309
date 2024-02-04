@@ -1,10 +1,8 @@
-import validate from './helpers/validate'
 import context from './context'
-
-import errors from './errors'
+import { validate, errors } from 'com'
 
 export default function deleteUser(userId, callback) {
-    validate.text(userId, "user id")
+    validate.id(userId, "user id")
     validate.function(callback, 'callback')
 
     const req = {
