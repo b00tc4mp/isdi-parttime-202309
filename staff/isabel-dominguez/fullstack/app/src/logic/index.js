@@ -5,6 +5,7 @@ import retrieveUser from './retrieveUser'
 import changeUserEmail from './changeUserEmail'
 import changeUserPassword from './changeUserPassword'
 import deleteUser from './deleteUser'
+import isUserLoggedIn from './isUserLoggedIn'
 
 import createPost from './createPost'
 import deletePost from './deletePost'
@@ -23,6 +24,7 @@ const logic = {
     changeUserEmail,
     changeUserPassword,
     deleteUser,
+    isUserLoggedIn,
 
     createPost,
     deletePost,

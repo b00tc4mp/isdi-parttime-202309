@@ -1,51 +1,60 @@
 import { useState } from 'react'
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home"
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Home from './pages/Home'
 import Feedback from './components/Feedback'
 
 import Context from './Context'
 
 import { errors } from 'com'
-const { ContentError, DuplicityError, NotFoundError } = errors
+const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
+
+import logic from './logic'
 
 function App() {
-  const [view, setView] = useState('login')
+
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)
 
-  // Función para cambiar la vista a "register"
+  const navigate = useNavigate()
+
   const handleRegisterShow = () => {
-    setView('register')
+    navigate('/register')
     setMessage(null)
     setLevel(null)
   }
 
-  // Función para cambiar la vista a "login"
+
   const handleLoginShow = () => {
-    setView('login')
+    navigate('/login')
     setMessage(null)
     setLevel(null)
   }
 
-  // Función para cambiar la vista a "home"
+
   const handleHomeShow = () => {
-    setView('home')
+    navigate('/')
     setMessage(null)
     setLevel(null)
   }
 
   const handleError = error => {
     let level = 'fatal'
+    let message = error.message
 
     if (error instanceof TypeError || error instanceof RangeError || error instanceof ContentError)
       level = 'warn'
     else if (error instanceof DuplicityError || error instanceof NotFoundError)
       level = 'error'
+    else if (error instanceof TokenError) {
+      logic.logoutUser(() => navigate('/login'))
 
-    //   alert(error.message)
+      message = 'Session expired'
+    }
     setLevel(level)
-    setMessage(error.message)
+    setMessage(message)
 
     console2.log(error.message, level)
   }
@@ -55,16 +64,19 @@ function App() {
     setLevel(null)
   }
 
-  // Renderiza diferentes componentes según la vista actual
+  const context = { handleError }
+
   return <>
-    <Context.Provider value={{ handleError }}>
+    <Context.Provider value={context}>
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
 
-      {view === "login" && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
-      {view === "register" && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-      {view === "home" && <Home onLogoutClick={handleLoginShow} />}
+      <Routes>
+        <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
+        <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
+        <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
+      </Routes>
     </Context.Provider>
   </>
 }
 
-export default App;
+export default App
