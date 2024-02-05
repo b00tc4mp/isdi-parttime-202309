@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import context from "./context"
+import context from './context'
 
 function toggleLikePost(postId, callback) {
     validate.text(postId, 'post id')

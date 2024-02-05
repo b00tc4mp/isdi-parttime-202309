@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+
 import logic from '../logic'
+
 import { Button, Link } from '../library'
-import { Posts, Profile, NewPost } from '../components'
+import { Posts, Profile, NewPost, UserPosts } from '../components'
+
 import { useContext } from '../hooks'
 
 // The Home component is one of the views rendered by the App component based on the current state (view === 'home')
@@ -16,6 +20,9 @@ function Home(props) {
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
     const [stamp, setStamp] = useState(null)
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
     // Function to handle logout
     function handleLogoutClick() {
@@ -56,14 +63,15 @@ function Home(props) {
     function handleProfileClick(event) {
         event.preventDefault()
 
-        setView('profile')
+        navigate('/profile')
     }
 
     // Function to handle clicking on the Home link
     function handleHomeClick(event) {
         event.preventDefault()
 
-        setView(null)
+        navigate('/')
+
     }
 
     // Function to handle clicking on the New Post link
@@ -81,8 +89,8 @@ function Home(props) {
         // Date.now() returns the current time in milliseconds since 1 January 1970
         // setStamp updates the stamp status with this value, so stamp now contains the timestamp of the time the new post was published
         setStamp(Date.now())
-        // Set the 'view' state to null, changing the current view to null
         setView(null)
+        navigate('/')
 
         // Scroll the window to the top of the page
         window.scrollTo(0, 0)
@@ -93,7 +101,7 @@ function Home(props) {
     function handleFavPostsClick(event) {
         event.preventDefault()
 
-        setView('favs')
+        navigate('/favs')
     }
 
 
@@ -107,21 +115,23 @@ function Home(props) {
             </div>
         </header>
 
-        {view === 'profile' && <Profile />}
+        <Routes>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/favs" element={<Posts loadPosts={logic.retrieveFavPosts} />} />
+            <Route path="/users/:userId" element={<UserPosts />} />
+            <Route path="/" element={<Posts loadPosts={logic.retrievePosts} stamp={stamp} />} />
+        </Routes>
 
+        {/* {view === 'profile' && <Profile />}
         {/* lo que estamos enviando es la función, el logic es solo para traer el contexto */}
-        {(view === null || view === 'new-post') && <Posts loadPost={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
-
-
-        {view === 'favs' && <Posts loadPost={logic.retrieveFavPosts.bind} onError={props.onError} />}
-
-
+        {/* {(view === null || view === 'new-post') && <Posts loadPost={logic.retrievePosts} stamp={stamp} onError={props.onError} />}
+        {view === 'favs' && <Posts loadPost={logic.retrieveFavPosts.bind} onError={props.onError} />} */}
 
         <footer className="footer">
 
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleCancelNewPostClick} onError={props.onError} />}
 
-            {view !== "new-post" && <Button onClick={handleNewPostClick}>+</Button>}
+            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
         </footer>
     </div>
 }
