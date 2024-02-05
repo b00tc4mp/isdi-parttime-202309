@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
+
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
@@ -7,6 +8,8 @@ import random from './helpers/random.js'
 import retrievePosts from './retrievePosts.js'
 import { User, Post } from '../data/models.js'
 import { NotFoundError } from './errors.js'
+
+const { ObjectId } = mongoose.Types
 
 describe('retrievePosts', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
@@ -53,6 +56,15 @@ describe('retrievePosts', () => {
 
                             })
                     })
+            })
+    })
+
+    it('fails on non-existing user', () => {
+        return retrievePosts(new ObjectId().toString())
+            .then(posts => { throw new Error('should not reach this point') })
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
             })
     })
 
