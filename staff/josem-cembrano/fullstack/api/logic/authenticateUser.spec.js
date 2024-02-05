@@ -1,10 +1,9 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
 import mongoose from 'mongoose'
 import { expect } from 'chai'
-import random from './helpers/random.js'
 
+import random from './helpers/random.js'
 import authenticateUser from './authenticateUser.js'
 import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'

@@ -1,15 +1,17 @@
-import mongoose from 'mongoose'
 import dotevn from 'dotenv'
 dotevn.config()
-import { expect } from 'chai'
-const { ObjectId } = mongoose.Types
 
-import toggleFavPost from './toggleFavPost.js'
+import mongoose from 'mongoose'
+import { expect } from 'chai'
 import random from './helpers/random.js'
+
+import toggleLikePost from './toggleLikePost.js'
 import { User, Post } from '../data/models.js'
 import { NotFoundError } from './errors.js'
 
-describe('toggleFavPost', () => {
+const { ObjectId } = mongoose.Types
+
+describe('toggleLikePost', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
     beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
@@ -27,27 +29,27 @@ describe('toggleFavPost', () => {
                     Post.create({ author: user3.id, image: random.image(), text: random.text() })
                 ])
                     .then(([post1, post2, post3]) => {
-                        return toggleFavPost(user1.id, post2.id)
+                        return toggleLikePost(user1.id, post1.id)
                             .then(value => {
                                 expect(value).to.be.undefined
 
-                                return User.findById(user1.id)
-                                    .then(user1 => {
-                                        const postIdExists = user1.favs.some(postObjectId => postObjectId.toString() === post2.id)
+                                return Post.findById(post1.id)
+                                    .then(post1 => {
+                                        const userIdExists = post1.likes.some(userObjectId => userObjectId.toString() === user1.id)
 
-                                        expect(postIdExists).to.be.true
+                                        expect(userIdExists).to.be.true
                                     })
                             })
                             .then(() => {
-                                return toggleFavPost(user1.id, post2.id)
+                                return toggleLikePost(user1.id, post1.id)
                                     .then(value => {
                                         expect(value).to.be.undefined
 
-                                        return User.findById(user1.id)
-                                            .then(user1 => {
-                                                const postIdExists = user1.favs.some(postObjectId => postObjectId.toString() === post2.id)
+                                        return Post.findById(post1.id)
+                                            .then(post1 => {
+                                                const userIdExists = post1.likes.some(userObjectId => userObjectId.toString() === user1.id)
 
-                                                expect(postIdExists).to.be.false
+                                                expect(userIdExists).to.be.false
                                             })
                                     })
                             })
@@ -56,7 +58,7 @@ describe('toggleFavPost', () => {
     })
 
     it('fails on non-existing user', () => {
-        return toggleFavPost(new ObjectId().toString(), new ObjectId().toString(), new ObjectId().toString())
+        return toggleLikePost(new ObjectId().toString(), new ObjectId().toString(), new ObjectId().toString())
             .then(() => { throw new Error('should not reach this point') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -71,7 +73,7 @@ describe('toggleFavPost', () => {
             User.create({ name: random.name(), email: random.email(), password: random.password() })
         ])
             .then(([user1, user2, user3]) => {
-                return toggleFavPost(user1.id, new ObjectId().toString(), new ObjectId().toString())
+                return toggleLikePost(user1.id, new ObjectId().toString(), new ObjectId().toString())
                     .then(() => { throw new Error('should not reach this point') })
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)

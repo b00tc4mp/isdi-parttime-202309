@@ -2,25 +2,22 @@ import { NotFoundError, SystemError } from './errors.js'
 import validate from './helpers/validate.js'
 import { User, Post } from '../data/models.js'
 
-const toggleLikePost = (userId, postId, callback) => {
+const toggleLikePost = (userId, postId) => {
     validate.text(userId, 'user id')
     validate.text(postId, 'post id')
-    validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
+                { throw new NotFoundError('user not found') }
             }
 
-            Post.findById(postId)
+            return Post.findById(postId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
+                        { throw new NotFoundError('post not found') }
                     }
 
                     const index = post.likes.findIndex(userObjectId => userObjectId.toString() === userId)
@@ -29,15 +26,15 @@ const toggleLikePost = (userId, postId, callback) => {
                         post.likes.push(userId)
                     }
 
-                    else { post.likes.splice(index, 1) }
+                    else {
+                        post.likes.splice(index, 1)
+                    }
 
-                    post.save()
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
+                    return post.save()
+                        .catch(error => { throw new SystemError(error.message) })
+                        .then(() => { })
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
 export default toggleLikePost
