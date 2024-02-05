@@ -9,7 +9,7 @@ function retrievePosts(userId) {
 
 
     return User.findById(userId).lean()
-        .catch(error => callback(new SystemError(error.message)))
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
                 throw new NotFoundError('User not found')
@@ -17,7 +17,7 @@ function retrievePosts(userId) {
             }
 
             return Post.find().populate('author', 'name').lean()
-                .catch(error => callback(new SystemError(error.message)))
+                .catch(error => { throw new SystemError(error.message) })
                 //Post.find() me devuelve todos los posts en forma de array
                 //con .populate('author') le decimos llename el autor, pero si le añado 'name' solo me trae name, no las otras propiedaes como el email, contraseña...
                 .then(posts => {
@@ -25,7 +25,7 @@ function retrievePosts(userId) {
                     //usamos el lean() para que nos devuleva documentos y no se pueden manipular, como no queremos modificarlo, usamos un lean()
                     posts.forEach(post => {
                         post.id = post._id.toString() // Lo convierto a string
-                        delete post._id; // borro el _id
+                        delete post._id // borro el _id
 
                         if (post.author && post.author._id) {
                             post.author.id = post.author._id.toString();

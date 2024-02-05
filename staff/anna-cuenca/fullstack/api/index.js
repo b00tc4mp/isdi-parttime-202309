@@ -27,7 +27,8 @@ import {
     editTextPostHandler,
     retrievePostsHandler,
     retrieveFavPostsHandler,
-    deletePostHandler
+    deletePostHandler,
+    retrieveUserPostsHandler
 } from './handlers/index.js'
 
 
@@ -107,6 +108,11 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         // Retrieve posts
 
         server.get('/posts', retrievePostsHandler)
+
+
+        // Retrieve user posts
+
+        server.get('/users/:userId/posts', retrieveUserPostsHandler)
 
         // Retrieve FAV posts
 

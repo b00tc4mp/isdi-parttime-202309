@@ -10,6 +10,7 @@ import editTextPostHandler from './editTextPostHandler.js'
 import retrievePostsHandler from './retrievePostsHandler.js'
 import retrieveFavPostsHandler from './retrieveFavPostsHandler.js'
 import deletePostHandler from './deletePostHandler.js'
+import retrieveUserPostsHandler from './retrieveUserPostsHandler.js'
 
 
 export {
@@ -24,5 +25,6 @@ export {
     editTextPostHandler,
     retrievePostsHandler,
     retrieveFavPostsHandler,
-    deletePostHandler
+    deletePostHandler,
+    retrieveUserPostsHandler
 }
