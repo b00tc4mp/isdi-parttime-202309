@@ -1,10 +1,12 @@
 import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
 import { errors } from 'com'
-const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
+const { ContentError, DuplicityError } = errors
 
 function Register(props) {
     console.log('Register')
+
+    const context = useContext()
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -20,7 +22,7 @@ function Register(props) {
         try {
             logic.registerUser(name, email, password, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -28,7 +30,7 @@ function Register(props) {
                 props.onSuccess()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
