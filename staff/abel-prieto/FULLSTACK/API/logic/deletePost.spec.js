@@ -3,7 +3,8 @@ import { expect } from 'chai'
 import dotenv from 'dotenv'
 
 import deletePost from './deletePost.js'
-import { NotFoundError, RelationalError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError, RelationalError } = errors
 import { Post, User } from '../data/models.js'
 import random from './helpers/random.js'
 
@@ -62,7 +63,6 @@ describe('deletePost', () => {
                     .then(post => {
                         user.favs.push(post.id)
 
-                        debugger
                         return user.save()
                             .then(() => deletePost(user.id, post.id))
                             .then(() => { throw new Error('should not reach this point!') })

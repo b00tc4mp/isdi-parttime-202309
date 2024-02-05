@@ -5,7 +5,8 @@ import dotenv from 'dotenv'
 import toggleFavPost from './toggleFavPost.js'
 import random from './helpers/random.js'
 import { Post, User } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 
 const { ObjectId } = Types
 

@@ -4,7 +4,8 @@ import dotenv from 'dotenv'
 
 import createPosts from './createPosts.js'
 import random from './helpers/random.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 import { Post, User } from '../data/models.js'
 
 dotenv.config()

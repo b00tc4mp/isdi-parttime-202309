@@ -35,9 +35,9 @@ function UserPosts({ loadPosts }) {
         <Container>
             <h2>All posts from {params.userId}</h2>
 
-            <div>
+            <Container>
                 {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePost={refreshPosts} onEditText={refreshPosts} onSendComment={refreshPosts} />)}
-            </div>
+            </Container>
         </Container>
     </>
 }

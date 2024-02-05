@@ -5,7 +5,8 @@ import dotenv from 'dotenv'
 import retrieveFavs from './retrieveFavs.js'
 import { Post, User } from '../data/models.js'
 import random from './helpers/random.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 
 dotenv.config()
 const { ObjectId } = Types

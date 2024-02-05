@@ -5,7 +5,8 @@ import dotenv from 'dotenv'
 import toggleLikePost from './toggleLikePost.js'
 import random from './helpers/random.js'
 import { User, Post } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 
 const { ObjectId } = Types
 

@@ -4,7 +4,8 @@ import dotenv from 'dotenv'
 
 import authenticateUser from './authenticateUser.js'
 import random from './helpers/random.js'
-import { CredentialsError, NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { CredentialsError, NotFoundError } = errors
 import { User } from '../data/models.js'
 
 dotenv.config()
@@ -45,7 +46,7 @@ describe('authenticateUser', () => {
     it('fails on wrong password', () => {
         return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return authenticateUser(user.email, '1234')
+                return authenticateUser(user.email, '12345678')
                     .then(() => { throw new Error('shoul not reach this point!')})
                     .catch(error => {
                         expect(error).to.be.instanceOf(CredentialsError)     // Que SEA un error del tipo CredentialsError

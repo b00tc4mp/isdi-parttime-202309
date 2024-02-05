@@ -4,7 +4,8 @@ import dotenv from 'dotenv'
 
 import changeEmailUser from './changeEmailUser.js'
 import random from './helpers/random.js'
-import { CredentialsError, NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { CredentialsError, NotFoundError } = errors
 import { User } from '../data/models.js'
 
 dotenv.config()

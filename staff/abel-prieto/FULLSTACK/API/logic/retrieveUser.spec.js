@@ -4,7 +4,8 @@ import dotenv from 'dotenv'
 
 import retrieveUser from './retrieveUser.js'
 import random from './helpers/random.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 import { User } from '../data/models.js'
 
 const { ObjectId } = Types
