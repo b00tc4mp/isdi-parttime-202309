@@ -9,40 +9,42 @@
 
 HiInit is a `file and data upload web terminal` with the ability to register and log in users in different groups and categories.
 Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
-There will be different roles with their corresponding permissions. 
+There will be different roles with their corresponding permissions but only ADMIN user has the CRUD system (create, rewrite, update & delete).
 
-- On construting at 06/02/2024 !!
+- Last update: 06/02/2024 
 
 ## RESUME
 
-- Terminal web with local files and drive online services.
-- Personal desktop for each user.
-- Upload and download files: PDF's, text, images.
+- For HiInit v0.0:
+- [x] Terminal web with local files and drive online services.
+- [x] Personal desktop for each user.
+- [x] Upload and download files: PDFs | Text documents | Images ... (for now)
+- [x] First version to final proyect ISDI CODERS.
+
+<br>
+
+- For HiInit v1.0:
+- [ ] In construction ... ⏳ 
 
 ## USER'S TYPE
 
-- Guest: First entry without log
-- User: Regular user
-- Root: Administrator
+- Guest: First entry without log - Orange color
+- User: Regular user - Blue color
+- Root: Administrator - Red color
 
 ## USE CASES
 
-{ REGULAR USER }
+`REGULAR USER`
 
-- Manage files & folders
-- Manage permissions
-- Manage groups 
+- Create and manage own files & folders | Upload & download files 
 
-{ ADMIN }
+`ROOT - ADMIN`
 
-- Manage users (CRUD) 
-- Manage files & folders
-- Manage permissions
-- Manage groups 
+- Manage users | CRUD system | All files & folders | Permissions | Groups 
 
 ## COMMANDS
 
-## | TYPE USER: GUEST |
+## | TYPE: GUEST |
 
 - First entry on "INITIAL PAGE"
 
@@ -51,14 +53,16 @@ There will be different roles with their corresponding permissions.
 |  `register` | *Register user with `{ username, email and password }`*    |
 |   `login`   | *Log HiInit with credentials `{ email and password }`*     |
 |    `help`   | *Only **list** the commands with names & functions*        |
+|    `exit`   | *Get back on `initial page`*                               |
 
-## | TYPE USER: USER |
+## | TYPE: USER |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
-|   `logout`  | *Exit and `go back` to initial page*                       |
+|   `logout`  | *Exit and `get back` to initial page*                      |
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
+|    `pwd`    | *Show the *                              |
 |     `ls`    | *List the `files on the directory`                         |
 |   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
@@ -66,36 +70,41 @@ There will be different roles with their corresponding permissions.
 |   `clear`   | *`Clear` the command lines*                                |
 |    `help`   | *Only **list** the commands with names & functions*        |
 
-## | TYPE USER: ROOT |
+## | TYPE: ROOT - ADMIN |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
-|    `sudo`   | *Entry on `administration mode`*                           |
-|   `logout`  | *Exit and `go back` to initial page*                       |
+|    `sudo`   | *Entry on administration mode `CRUD system`*               |
+|   `logout`  | *Exit and `get back` to initial page*                      |
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
 |     `ls`    | *List the `files on the directory`*                        |
 |   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
 |   `upload`  | *`Upload` the specific file or document*                   |
-|   `delete`  | *`Delete` all files from any user*                         |
+|   `delete`  | *`Delete` files from any user or group*                    |
+|   `chmod`   | *Give `permissions` to different groups or users*          |
 |   `clear`   | *`Clear` the command lines*                                |
 |    `help`   | *Only **list** the commands with names & functions*        |
 
 ## STORIES
-** USE CASES
 
-{ FIRST ENTRY }
-- Terminal tittle & information on "INITIAL PAGE" about the proyect with first line command "enter" to entry on APP
-- When we press "enter" on the initial page, we could see a paragraph with the intrucctions and commands: "Entry login email and password or entry register to create new user with username email and password"
+`INITIAL PAGE`
+- Terminal tittle and information about the proyect on initial page with first bar command `ENTER` to entry on APP
+- When we press `ENTER` on the initial page, we could see a paragraph with the intrucctions and commands: *"Entry login or register command to switch between the different login and register components"*
+- Exit command `only on guest user` to get back on initial page
 
-{ REGISTER -> On "GUEST" }
-- register + username + email + password
-- Once we could register on web, the text will disapear and create a new command line to entry the logg in
+`REGISTER -> On "GUEST" Mode`
+- ***register username + email + password***
+- Once we could register on web, the text will disapear and create a new command bar to entry the logg in
 
-{ LOGIN -> On "GUEST" }
-- login + email + password
-- When we entry our credentials, the command line show us our username next to the category "user" with its own group color
+`LOGIN -> On "GUEST" Mode`
+- ***login email + password***
+- When we entry our credentials, the command bar show us our username next to the category "user" with its own group color
 
-
+`USER DESKTOP`
+- Only entry with logged user
+- **Username@localhost-user** on command bar
+- With `mkdir` the user would create new files from root directory: `C:\Desktop`
+- 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
