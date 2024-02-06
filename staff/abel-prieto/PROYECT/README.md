@@ -100,10 +100,10 @@ There will be different roles with their corresponding permissions but only ADMI
 
 `LOGIN -> On "GUEST" Mode`
 - ***login email + password***
-- When we entry our credentials, the command bar show us our username next to the category "user" with its own group color
+- When we entry our credentials, the command bar show us our username next to the category `user` or `admin` with its own group color
 
-`USER DESKTOP`
-- Only entry with logged user
+`DESKTOP`
+- Only entry with logged
 - **Username@localhost-user** on command bar
 - With `mkdir` the user would create new files from root directory: `C:\Desktop`
 - 
