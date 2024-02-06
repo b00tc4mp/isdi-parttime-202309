@@ -62,7 +62,7 @@ There will be different roles with their corresponding permissions but only ADMI
 |   `logout`  | *Exit and `get back` to initial page*                      |
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
-|    `pwd`    | *Show the *                              |
+|    `pwd`    | *Show the actual directory*                                |
 |     `ls`    | *List the `files on the directory`                         |
 |   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
@@ -78,6 +78,7 @@ There will be different roles with their corresponding permissions but only ADMI
 |   `logout`  | *Exit and `get back` to initial page*                      |
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
+|    `pwd`    | *Show the actual directory*                                |
 |     `ls`    | *List the `files on the directory`*                        |
 |   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
