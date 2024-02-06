@@ -7,7 +7,7 @@
      \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /   
            \/                    \/                            \/        \/     \/    
 
-HiInit is a file and data upload web terminal with the ability to register and log in users in different groups and categories.
+HiInit is a `file and data upload web terminal` with the ability to register and log in users in different groups and categories.
 Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
 There will be different roles with their corresponding permissions. 
 
@@ -48,9 +48,9 @@ There will be different roles with their corresponding permissions.
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   | 
-|    `help`   | *Only **list** the commands with names & functions*        |
 |  `register` | *Register user with `{ username, email and password }`*    |
 |   `login`   | *Log HiInit with credentials `{ email and password }`*     |
+|    `help`   | *Only **list** the commands with names & functions*        |
 
 ## | TYPE USER: USER |
 
