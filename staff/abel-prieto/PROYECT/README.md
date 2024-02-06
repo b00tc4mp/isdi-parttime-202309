@@ -35,33 +35,43 @@ There will be different roles with their corresponding permissions. On construti
 
 ## | TYPE USER: GUEST |
 
-- First entry
-- help: Only list the commands with names & functions
-- register: Register user
-- login: Login user
+- First entry on "INITIAL PAGE"
+
+|   Commands  | Function                                                   |
+|  ---------  | --------                                                   | 
+|    `help`   | *Only **list** the commands with names & functions*        |
+|  `register` | *Register user with `{ username, email and password }`*    |
+|   `login`   | *Log HiInit with credentials `{ email and password }`*     |
 
 ## | TYPE USER: USER |
 
-- logout: Exit at initial page
-- cd (. | ..): Move back or move forward around files
-- ls: List files
-- mkdir: Create directories
-- download: Download the drive files
-- clear: Cleaning the screen
-- help: Only list the commands with names & functions
+|   Commands  | Function                                                   |
+|  ---------  | --------                                                   |
+|   `logout`  | *Exit and `go back` to initial page*                       |
+|    `cd .`   | *Move `forward` between folders*                           |
+|    `cd ..`  | *Move `back` between folders*                              |
+|     `ls`    | *List the fields on the directory*                         |
+|   `mkdir`   | *Create directory on the same route*                       |
+|  `download` | *`Download` the specific file or document*                 |
+|   `upload`  | *`Upload` the specific file or document*                   |
+|   `clear`   | *`Clear` the command lines*                                |
+|    `help`   | *Only **list** the commands with names & functions*        |
 
 ## | TYPE USER: ROOT |
 
-- sudo: Administration user
-- logout: Exit at initial page
-- cd (. | ..): Move back or move forward around files
-- ls: List files
-- mkdir: Create directories
-- download: Download the drive files
-- clear: Cleaning the screen
-- help: Only list the commands with names & functions
-- upload: Upload files
-- chmod: Change permissions
+|   Commands  | Function                                                   |
+|  ---------  | --------                                                   |
+|    `sudo`   | *Entry on `administration mode`*                           |
+|   `logout`  | *Exit and `go back` to initial page*                       |
+|    `cd .`   | *Move `forward` between folders*                           |
+|    `cd ..`  | *Move `back` between folders*                              |
+|     `ls`    | *List the `files on the directory`*                        |
+|   `mkdir`   | *Create `directory` on the same route*                     |
+|  `download` | *`Download` the specific file or document*                 |
+|   `upload`  | *`Upload` the specific file or document*                   |
+|   `delete`  | *`Delete` all files from any user*                         |
+|   `clear`   | *`Clear` the command lines*                                |
+|    `help`   | *Only **list** the commands with names & functions*        |
 
 ## STORIES
 ** USE CASES
