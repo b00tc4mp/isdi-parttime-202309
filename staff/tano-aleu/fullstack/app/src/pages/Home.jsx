@@ -5,7 +5,6 @@ import logic from '../logic'
 import { Button, Link } from '../library'
 import { Posts, Profile, NewPost } from '../components'
 
-
 import { useContext } from '../hooks'
 
 

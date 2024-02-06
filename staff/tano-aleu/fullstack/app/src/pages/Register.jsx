@@ -1,7 +1,7 @@
 import { Button, Link, Form, Field, Container } from '../library'
 import logic from '../logic'
-import { errors } from 'com'
-const { ContentError, DuplicityError } = errors
+
+import { useContext } from '../hooks'
 
 function Register(props) {
     console.log('Register')
