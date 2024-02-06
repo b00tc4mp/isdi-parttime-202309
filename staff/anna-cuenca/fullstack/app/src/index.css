@@ -1,131 +1,116 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
-/* resets */
-* {
-  font-family: Inter;
-  font-size: 1rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
+@layer components {
 
-html,
-body {
-  margin: 0;
-  /* variables */
-}
+  /* library */
 
-/* library */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  paddng: 1rem;
-}
+  .form {
 
-.container--horizontal {
-  flex-direction: row;
-  justify-content: center;
-}
+    @apply flex flex-col max-w-[240px] gap-[5px];
 
-.form {
-  display: flex;
-  flex-direction: column;
-  max-width: 240px;
-  gap: 5px;
-}
-
-.label {
-  font-weight: bold;
-}
-
-.input {
-  border: 2px solid black;
-  padding: 5px;
-}
-
-.button {
-  border: 2px solid black;
-  padding: 5px;
-  background: transparent;
-  font-weight: bold;
-}
-
-.link {
-  text-decoration: none;
-}
-
-.link:visited {
-  color: black;
-}
-
-.link::before {
-  content: "[ ";
-}
-
-.link::after {
-  content: " ]";
-}
-
-/* custom compos */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-}
-
-.new-post {
-  margin-bottom: 1rem;
-}
-
-.post {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.post-image {
-  max-width: 320px;
-}
-
-.post-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.posts {
-  background-color: white;
-  margin-bottom: 3rem;
-}
-
-@media (min-width: 768px) {
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
   }
-}
 
-@media (min-width: 1024px) {
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .label {
+    @apply font-bold;
+
   }
-}
 
-.footer {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-height: 3rem;
-}
 
-/*# sourceMappingURL=index.css.map */
+  .input {
+
+    @apply border-[2px] border-solid border-black p-[5px]
+  }
+
+  .button {
+    @apply border-[2px] border-solid border-black p-[5px] bg-[transparent] font-bold;
+  }
+
+  .link {
+    @apply decoration-[none] text-black visited:text-black before:content-['[_'] after:content-['_]'];
+
+  }
+
+  .container {
+    @apply flex flex-col items-center gap-[1rem] p-[1rem];
+
+  }
+
+  .container--horizontal {
+    @apply flex-row justify-center;
+
+  }
+
+
+
+  /* custom compos */
+  .header {
+    @apply flex items-center justify-between p-[.5rem];
+
+  }
+
+  .new-post {
+    @apply mb-[1rem];
+
+  }
+
+  .post {
+    @apply flex flex-col items-center pb-[2rem];
+
+  }
+
+  .post-image {
+    @apply max-w-[220px];
+
+  }
+
+  .post-actions {
+    @apply flex justify-between gap-[.5rem] mt-[.5rem];
+
+  }
+
+  .posts {
+    @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3;
+
+  }
+
+  .footer {
+    @apply bg-white flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem];
+  }
+
+
+
+  .Feedback {
+    @apply fixed top-0 w-full box-border;
+  }
+
+  .Feedback--debug {
+    @apply bg-[yellowgreen];
+
+  }
+
+  .Feedback--info {
+    @apply bg-[dodgerblue];
+
+  }
+
+  .Feedback--warn {
+    @apply bg-[gold];
+
+  }
+
+  .Feedback--error {
+    @apply bg-[orange];
+
+  }
+
+  .Feedback--fatal {
+    @apply bg-[red] text-white;
+
+  }
+
+
+}

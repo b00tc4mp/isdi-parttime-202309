@@ -8,13 +8,13 @@ const { NotFoundError, ContentError, TokenError } = errors
 export default (req, res) => {
     try {
 
-        const { userId } = req.params // se extrae el id de los parámetros de la ruta
+        const { userId } = req.params // se extrae el id de los parámetros de la ruta // cambiarlo a targetUserId
 
         const token = req.headers.authorization.substring(7) //extraemos el token de la authorización
 
         jwt.verify(token, process.env.JWT_SECRET) //se valida el token
 
-        logic.retrieveUserPosts(userId) //llamamos a la lógica de retrieveUserPosts
+        logic.retrieveUserPosts(userId) //llamamos a la lógica de retrieveUserPosts //targetUserId
 
             .then(posts => res.json(posts)) //recuperamos los posts del usuario y se responde a la petición con los posts en formato JSON
             .catch(error => { //si hay algún error se llega aqui

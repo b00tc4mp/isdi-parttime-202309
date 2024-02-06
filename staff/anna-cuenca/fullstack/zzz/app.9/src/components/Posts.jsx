@@ -1,30 +1,17 @@
-import { useParams } from 'react-router-dom'
-import logic from "../logic"
-
 import { useEffect, useState } from 'react'
-import Post from './Post' // lo importo para renderizar un post
-import { Container } from '../library'
-
-
+import Post from './Post'
 
 import { useContext } from '../hooks'
 
-
-
-
-
-
-function UserPosts(props) {
-    console.log('UserPosts')
-
-    const params = useParams()
+function Posts(props) {
+    console.log('Posts')
     const context = useContext()
     const [posts, setPosts] = useState([])
 
 
     const refreshPosts = () => {
         try {
-            props.loadPosts(params.userId, (error, posts) => {
+            props.loadPosts((error, posts) => {
                 if (error) {
                     //alert(error.message)
                     context.handleError(error)
@@ -61,22 +48,26 @@ function UserPosts(props) {
 
 }
 
-export default UserPosts
-
-
-//con useParams recojo el id de usuario de la ruta
+export default Posts
 
 
 
-// export default function UserPosts(props) {
-//     const { userId } = useParams() //me sirve para coger el userId de la URL
-//     const [posts, setPosts] = useState([]) // inicializo el estado de posts como un array vacío
-//     const context = useContext()
+
+
+
+// import { useEffect, useState } from 'react'
+// import Post from './Post'
+
+// function Posts({ loadPosts, stamp }) {
+//     console.log('Posts')
+//     const [posts, setPosts] = useState([])
+
 
 //     const refreshPosts = () => {
 //         try {
-//             props.loadPosts(userId, (error, posts) => {
+//             loadPosts((error, posts) => {
 //                 if (error) {
+//                     //alert(error.message)
 //                     context.handleError(error)
 
 //                     return
@@ -87,6 +78,7 @@ export default UserPosts
 //                 setPosts(posts)
 //             })
 //         } catch (error) {
+//             //alert(error.message)
 //             context.handleError(error)
 //         }
 //     }
@@ -95,51 +87,20 @@ export default UserPosts
 //         console.log('Posts effect')
 
 //         refreshPosts()
-//     }, [props.stamp])
+//     }, [stamp])
 
 
 
 
-//     return <Container>
-//         <h1> This are the posts from user {userId} </h1>
-//         <div className="posts">
-//             {posts.map(post => (
-//                 <Post key={post.id}
-//                     post={post}
-//                     onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={context.handleError}
+//     return <div className="posts">
+//         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
+//         {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} />)}
+//         {/* con React necesitamos crear una Key para renderizar una lista de
+//          elementos. Esta lista de elementos se renderiza con .map, porque .map
+//          devuelve un arrays */}
+//     </div>
 
-//                 />
-//             ))}
-//         </div>
-
-//     </Container>
 // }
 
+// export default Posts
 
-
-// useEffect(() => { //lo llamo la primera vez y cada vez que userId cambie
-
-//     logic.retrieveUserPosts(userId, (error, retrievedUserPosts) => {
-//         if (error) {
-//             context.handleError(error)
-//             return
-//         }
-
-//         setPosts(retrievedUserPosts)
-
-//     })
-// }, [userId]) //se recargar cuando cambie el userId
-
-
-
-
-
-// logic.retrieveUserPosts(userId, (error, retrievedUserPosts) => {
-//     if (error) {
-//         context.handleError(error)
-//         return
-//     }
-
-//     setPosts(retrievedUserPosts)
-
-// })
