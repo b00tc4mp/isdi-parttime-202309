@@ -11,29 +11,29 @@ export default (req, res) => {
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         const userOwnerPostId = req.params
-        
+
         logic.retrieveUserPosts(userId, userOwnerPostId)
-        .then(posts => res.json(posts))
-        .catch(error => {
-            let status = 500
+            .then(posts => res.json(posts))
+            .catch(error => {
+                let status = 500
 
-            if (error instanceof NotFoundError)
-                status = 404
+                if (error instanceof NotFoundError)
+                    status = 404
 
-            res.status(status).json({ error: error.constructor.name, message: error.message })
-        })
+                res.status(status).json({ error: error.constructor.name, message: error.message })
+            })
     } catch (error) {
         let status = 500
 
-        if (error instanceof ContentError || error instanceof TypeError) 
+        if (error instanceof ContentError || error instanceof TypeError)
             status = 406
 
         if (error instanceof JsonWebTokenError) {
             status = 401
 
-            error = new TokenError(error)
+            error = new TokenError(error.message)
         }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })
-    } 
+    }
 }

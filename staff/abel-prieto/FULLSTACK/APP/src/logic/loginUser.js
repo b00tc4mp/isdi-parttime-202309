@@ -1,12 +1,12 @@
 import { validate, errors } from 'com'
 import session from './session'
+const { SystemError } = errors
 
 // LOGIN & AUTHENTICATE USER
 
-export default function loginUser(email, password, callback) {
+export default function loginUser(email, password) {
     validate.email(email)
     validate.password(password)
-    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
@@ -16,17 +16,17 @@ export default function loginUser(email, password, callback) {
         body: JSON.stringify({ email, password })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
 
-            res.json()
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(token => {
                     // Extraemos con .slice() el userId del formato B64 (base 64) del token
                     const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
@@ -39,11 +39,7 @@ export default function loginUser(email, password, callback) {
 
                     session.sessionUserId = userId
                     session.token = token
-
-                    callback(null)
                 })
-                .catch(error => callback(error))
         })
 
-        .catch(error => callback(error))
 }

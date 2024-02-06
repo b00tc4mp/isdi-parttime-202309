@@ -1,11 +1,11 @@
 import Context from '../Context'
 import Post from './Post'
+import logic from '../logic'
 
-import { Container } from '../librery'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-function UserPosts({ loadPosts }) {
+function UserPosts({ stamp }) {
     const params = useParams()
 
     // STATE ID & CONTEXT
@@ -15,30 +15,30 @@ function UserPosts({ loadPosts }) {
     // REFRESH POSTS
     const refreshPosts = () => {
         try {
-            loadPosts((error, posts) => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                posts.reverse()
-
-                setPosts(posts)
-            })
+            logic.retrieveUserPosts(params.userId)
+                .then(posts => {
+                    posts.reverse()
+                    setPosts(posts)
+                })
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
     }
 
-    return <>
-        <Container>
-            <h2>All posts from {params.userId}</h2>
+    useEffect(() => {
+        console.log('Posts from owner')
 
-            <Container>
-                {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePost={refreshPosts} onEditText={refreshPosts} onSendComment={refreshPosts} />)}
-            </Container>
-        </Container>
+        refreshPosts()
+    }, [stamp])
+
+    return <>
+
+        <h2>All posts from {params.userId}</h2>
+
+        <div className='post'>
+            {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onDeletePost={refreshPosts} onEditText={refreshPosts} onSendComment={refreshPosts} />)}
+        </div>
     </>
 }
 

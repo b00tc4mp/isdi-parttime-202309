@@ -29,18 +29,9 @@ function Register(props) {
         const password = event.target.querySelector('#password').value
 
         try {
-            logic.registerUser(name, email, password, error => {
-                if (error) {
-                    handleError(error)
-                    // Nos traemos todos los errores recogidos de los callback mediante ALERT
-
-                    return
-                }
-
-                props.onSuccess(error)
-                // Nos redirige a la vista de 'login' en APP
-            })
-
+            logic.registerUser(name, email, password)
+                .then(() => props.onSuccess(error))
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }

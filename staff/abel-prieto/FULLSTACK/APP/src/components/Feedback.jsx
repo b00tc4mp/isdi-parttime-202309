@@ -3,8 +3,6 @@ import './Feedback.css'
 
 export default function Feedback({ level, message, onAccepted }) {
 
-
-
     return <>
         <Container className={`container--horizontal Feedback--${level}`}>
             <p>{message}</p>

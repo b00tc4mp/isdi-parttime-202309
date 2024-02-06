@@ -1,12 +1,12 @@
 import { validate, errors } from 'com'
 import session from './session'
+const { SystemError } = errors
 
 // EDIT POST TEXT
 
-export default function toggleEditPostText(postId, postText, callback) {
+export default function toggleEditPostText(postId, postText) {
     validate.text(postId, 'post id')
     validate.text(postText, 'post text')
-    validate.function(callback, 'callback')
 
     const req = {
         method: 'PATCH',
@@ -17,17 +17,13 @@ export default function toggleEditPostText(postId, postText, callback) {
         body: JSON.stringify({ postText })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/edit`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/edit`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
-
-            callback(null)
         })
-        .catch(error => callback(error))
 }

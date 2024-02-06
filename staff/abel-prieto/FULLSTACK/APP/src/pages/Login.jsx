@@ -29,18 +29,9 @@ function Login(props) {
         // Usamos 'target' porque todo (event) del DOM apunta a un sitio, en este caso, al formulario del componente Login
 
         try {
-            logic.loginUser(email, password, error => {
-                if (error) {
-                    handleError(error)
-                    // Nos traemos todos los errores recogidos de los callback mediante ALERT
-
-                    return
-                }
-
-                props.onSuccess()
-                // Nos redirige a la vista de 'home' en APP
-            })
-
+            logic.loginUser(email, password)
+                .then(() => props.onSuccess())
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }

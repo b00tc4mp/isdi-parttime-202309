@@ -15,15 +15,9 @@ export default function NewPost({ onPublish, onCancel }) {
         const text = event.target.text.value
 
         try {
-            logic.publishPost(image, text, error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                onPublish()
-            })
+            logic.publishPost(image, text)
+                .then(() => onPublish())
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }

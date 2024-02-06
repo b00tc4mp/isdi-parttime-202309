@@ -24,16 +24,9 @@ function Post(props) {
     // STATE & EFFECT - NAME
     useEffect(() => {
         try {
-            logic.retrieveUser((error, user) => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                setName(user.name)
-                // Guardamos en STATE el user para usar el "NAME"
-            })
+            logic.retrieveUser()
+                .then(user => setName(user.name)) // Guardamos en STATE el user para usar el "NAME"
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -44,15 +37,9 @@ function Post(props) {
     // LIKE POST BUTTON
     function handleToggleLikeClick() {
         try {
-            logic.toggleLikePost(post.id, error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                props.onToggleLikeClick()
-            })
+            logic.toggleLikePost(post.id)
+                .then(() => props.onToggleLikeClick())
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -61,15 +48,9 @@ function Post(props) {
     // FAV POST BUTTON
     function handleToggleFavButtonClick() {
         try {
-            logic.toggleFavPost(post.id, error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                props.onToggleFavClick()
-            })
+            logic.toggleFavPost(post.id)
+                .then(() => props.onToggleFavClick())
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -79,15 +60,9 @@ function Post(props) {
     function handleToggleDeleteButtonClick(postId) {
         if (confirm('Are you sure that you want to delete this post?')) {
             try {
-                logic.deletePost(postId, error => {
-                    if (error) {
-                        handleError(error)
-
-                        return
-                    }
-
-                    props.onDeletePost()
-                })
+                logic.deletePost(postId)
+                    .then(() => props.onDeletePost())
+                    .catch(error => handleError(error))
             } catch (error) {
                 handleError(error)
             }
@@ -113,18 +88,14 @@ function Post(props) {
 
             postText = text
 
-            logic.toggleEditPostText(postId, postText, error => {
-                if (error) {
-                    handleError(error)
+            logic.toggleEditPostText(postId, postText)
+                .then(() => {
+                    // Hacemos un repintado de los posts-favs
+                    props.onEditText()
 
-                    return
-                }
-
-                props.onEditText()
-                // Hacemos un repintado de los posts-favs
-
-                setEditMode(!editMode)
-            })
+                    setEditMode(!editMode)
+                })
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -159,7 +130,7 @@ function Post(props) {
     function handleUserPosts(event) {
         event.preventDefault()
 
-        navigate(`/users/${post.author.id}`)
+        navigate(`/users/${post.author.id}/posts`)
     }
 
     // TEMPLATE

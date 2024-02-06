@@ -22,16 +22,9 @@ function Profile() {
         const password = event.target.querySelector('#password').value
 
         try {
-            logic.changeUserEmail(newEmail, againNewEmail, password, error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                alert('Email changed successfully!')
-            })
-
+            logic.changeUserEmail(newEmail, againNewEmail, password)
+                .then(() => alert('Email changed successfully!'))
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -46,16 +39,9 @@ function Profile() {
         const againNewPassword = event.target.querySelector('#again-new-password').value
 
         try {
-            logic.changeUserPassword(password, newPassword, againNewPassword, error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                alert('Password changed successfully!')
-            })
-
+            logic.changeUserPassword(password, newPassword, againNewPassword)
+                .then(() => alert('Password changed successfully!'))
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }

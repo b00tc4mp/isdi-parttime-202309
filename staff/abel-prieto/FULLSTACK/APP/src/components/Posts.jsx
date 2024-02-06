@@ -15,17 +15,12 @@ function Posts({ loadPosts, stamp }) {
     // REFRESH POSTS
     const refreshPosts = () => {
         try {
-            loadPosts((error, posts) => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                posts.reverse()
-
-                setPosts(posts)
-            })
+            loadPosts()
+                .then(posts => {
+                    posts.reverse()
+                    setPosts(posts)
+                })
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
@@ -36,15 +31,9 @@ function Posts({ loadPosts, stamp }) {
         console.log('Posts Effect')
 
         try {
-            logic.retrieveUser(error => {
-                if (error) {
-                    handleError(error)
-
-                    return
-                }
-
-                refreshPosts()
-            })
+            logic.retrieveUser()
+                .then(() => refreshPosts())
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }
