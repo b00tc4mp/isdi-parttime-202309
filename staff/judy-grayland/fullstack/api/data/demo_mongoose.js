@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const { User, Post } = require('./models')
+import { User, Post } from './models.js'
 // en la propia dirección podemos indicar la bbdd a la que queremos conectarnos - test
 mongoose
   .connect('mongodb://127.0.0.1:27017/test')

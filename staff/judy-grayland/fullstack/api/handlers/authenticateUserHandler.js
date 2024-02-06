@@ -1,11 +1,11 @@
-const logic = require('../logic')
-const {
+import logic from '../logic/index.js'
+import {
   NotFoundError,
   CredentialsError,
   ContentError,
-} = require('../logic/errors')
+} from '../logic/errors.js'
 
-module.exports = (req, res) => {
+export default (req, res) => {
   try {
     const { email, password } = req.body
 

@@ -1,4 +1,4 @@
-const changeUserEmail = require('./changeUserEmail')
+import changeUserEmail from './changeUserEmail.js'
 
 try {
   changeUserEmail('lechu@guita', 'ru@cula', 'ru@cula', '123123123', (error) => {

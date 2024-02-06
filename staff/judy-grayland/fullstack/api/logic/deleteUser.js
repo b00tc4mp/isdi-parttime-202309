@@ -1,5 +1,5 @@
-const JSON = require('../utils/JSON')
-const validate = require('./helpers/validate')
+import JSON from '../utils/JSON'
+import validate from './helpers/validate.js'
 
 function deleteUser(userId, password, callback) {
   validate.text(userId, 'user id')
@@ -43,4 +43,4 @@ function deleteUser(userId, password, callback) {
   })
 }
 
-module.exports = deleteUser
+export default deleteUser

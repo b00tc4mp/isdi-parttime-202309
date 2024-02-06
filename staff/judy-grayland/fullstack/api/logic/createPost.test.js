@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const createPost = require('./createPost')
+import createPost from './createPost.js'
 
 // catch is there to handle errors that we did not anticipate and deal with in our function
 // the callback error handler is there to deal with errors that we have contemplated.

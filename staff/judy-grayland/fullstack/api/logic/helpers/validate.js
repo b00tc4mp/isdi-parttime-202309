@@ -1,4 +1,4 @@
-const { ContentError } = require('../errors')
+import { ContentError } from '../errors.js'
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 //esto es para comprobar si el string que le pasas es un id de mongoose:
@@ -40,4 +40,4 @@ const validate = {
   id,
 }
 
-module.exports = validate
+export default validate

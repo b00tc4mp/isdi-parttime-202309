@@ -1,4 +1,4 @@
-const changeUserPassword = require('./changeUserPassword')
+import changeUserPassword from './changeUserPassword.js'
 
 try {
   changeUserPassword('cala@bacin', '123123123', '123', '123', (error) => {

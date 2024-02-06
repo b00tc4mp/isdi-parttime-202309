@@ -1,4 +1,4 @@
-const validate = require('./helpers/validate')
+import validate from './helpers/validate.js'
 
 function changeUserEmail(email, newEmail, newEmailConfirm, password, callback) {
   validate.text(email, 'email')
@@ -48,4 +48,4 @@ function changeUserEmail(email, newEmail, newEmailConfirm, password, callback) {
   // })
 }
 
-module.exports = changeUserEmail
+export default changeUserEmail

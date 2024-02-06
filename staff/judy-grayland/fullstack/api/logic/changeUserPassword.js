@@ -1,4 +1,4 @@
-const validate = require('./helpers/validate')
+import validate from './helpers/validate.js'
 
 function changeUserPassword(
   email,
@@ -55,4 +55,4 @@ function changeUserPassword(
   })
 }
 
-module.exports = changeUserPassword
+export default changeUserPassword

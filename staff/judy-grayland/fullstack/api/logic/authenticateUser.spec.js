@@ -1,16 +1,11 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import { expect } from 'chai'
 
-const authenticateUser = require('./authenticateUser')
-const { NotFoundError } = require('./errors')
+import authenticateUser from './authenticateUser.js'
+import { NotFoundError } from './errors.js'
 
 describe('authenticateUser', () => {
-  let expect
-
-  before(() =>
-    import('chai')
-      .then((chai) => (expect = chai.expect))
-      .then(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
-  )
+  before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
 
   //done es un callback que le envía jest al otro callback como parámetro para que lo utilices para marcar que ha finalizado el test. done(error) es que ha habido eror, y done() a secas para decir que ha ido bien.
   it('succeeds on correct credentials', (done) => {
@@ -20,12 +15,13 @@ describe('authenticateUser', () => {
 
         return
       }
+      try {
+        expect(userId).to.be.a('string')
+        expect(userId).to.have.lengthOf(24)
+        expect(userId).to.equal('65b0f579f9beb466beb3a8e1')
 
-      expect(userId).to.be.a('string')
-      expect(userId).to.have.lengthOf(24)
-      expect(userId).to.equal('65b0f579f9beb466beb3a8e1')
-
-      done()
+        done()
+      } catch (error) {}
     })
   })
 

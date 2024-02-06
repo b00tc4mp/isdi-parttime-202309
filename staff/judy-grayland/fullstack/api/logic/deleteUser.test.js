@@ -1,4 +1,4 @@
-const deleteUser = require('./deleteUser')
+import deleteUser from './deleteUser.js'
 
 try {
   deleteUser('25v30oei1f5s', '123', (error, userId) => {

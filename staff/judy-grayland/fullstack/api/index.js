@@ -1,11 +1,11 @@
-require('../api.3/node_modules/.pnpm/dotenv@16.4.1/node_modules/dotenv/lib/main').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
-const mongoose = require('mongoose')
-const express = require('express')
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
 
-const cors = require('./utils/cors')
-
-const {
+import {
   registerUserHandler,
   authenticateUserHandler,
   retrieveUserHandler,
@@ -14,7 +14,7 @@ const {
   createPostHandler,
   toggleLikePostHandler,
   toggleFavPostHandler,
-} = require('./handlers')
+} from './handlers/index.js'
 
 // antes de montar el server, conectamos con mongoose
 mongoose
@@ -27,7 +27,7 @@ mongoose
     const jsonBodyParser = express.json()
 
     // sacamos los headers a una función en utils
-    server.use(cors)
+    server.use(cors())
 
     // sacamos todos los endpoints a funciones en handlers
 

@@ -37,8 +37,7 @@ class CredentialsError extends Error {
     this.name = this.constructor.name
   }
 }
-
-module.exports = {
+export {
   NotFoundError,
   SystemError,
   ContentError,

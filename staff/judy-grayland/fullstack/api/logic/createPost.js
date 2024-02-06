@@ -1,7 +1,7 @@
-const validate = require('./helpers/validate')
-const { NotFoundError, SystemError } = require('./errors')
+import validate from './helpers/validate.js'
+import { NotFoundError, SystemError } from './errors.js'
 
-const { User, Post } = require('../data/models')
+import { User, Post } from '../data/models.js'
 
 // TODO use models
 // N.B. el callback que pasamos como parámetro se come los errores y el caso positivo al final (callback (null))
@@ -32,4 +32,4 @@ function createPost(userId, image, text, callback) {
     .catch((error) => callback(new SystemError(error.message)))
 }
 
-module.exports = createPost
+export default createPost
