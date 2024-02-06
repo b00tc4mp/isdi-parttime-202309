@@ -1,11 +1,13 @@
 import { validate, errors } from 'com'
 import session from './session'
 
+const { SystemError } = errors
 
 
-function toggleFavPost(postId, callback) {
+
+function toggleFavPost(postId) {
     validate.text(postId, 'post id')
-    validate.function(callback, 'callback')
+
 
 
     const req = {
@@ -15,19 +17,19 @@ function toggleFavPost(postId, callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favs`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favs`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
 
-                return
+
             }
 
-            callback(null)
+
         })
-        .catch(error => callback(error))
 }
 
 export default toggleFavPost

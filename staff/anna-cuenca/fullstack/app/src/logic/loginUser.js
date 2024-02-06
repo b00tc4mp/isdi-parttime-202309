@@ -1,9 +1,11 @@
 import { validate, errors } from 'com'
 import session from './session'
 
+const { SystemError } = errors
 
 
-function loginUser(email, password, callback) {
+
+function loginUser(email, password) {
     validate.email(email)
     validate.password(password)
 
@@ -15,21 +17,23 @@ function loginUser(email, password, callback) {
         body: JSON.stringify({ email, password })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json() //recibimos un texto de la api y lo convertimos en objeto
+                return res.json() //recibimos un texto de la api y lo convertimos en objeto
                     //esa conversión la recogemos en lo que llamamoss body
                     //como la respuesta no ha sido ok, el callback recogerá el error que tenga el body
                     // el callback recibe el body (que es un bojeto), del body extrae el propiedad message
                     // crea un objeto nuevo del tipo error y lo envía al callback
+                    .catch(error => { throw new SystemError(error.message) })
                     .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
 
-                return
+
             }
 
-            res.json()
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(token => {
 
                     //esto me da el payload en base 64
@@ -45,11 +49,9 @@ function loginUser(email, password, callback) {
                     //me guardo el token en el sessiono, para poder usarlo desde otras logicas 
                     session.token = token
 
-                    callback(null)
+
                 })
-                .catch(error => callback(error))
         })
-        .catch(error => callback(error))
 
 }
 

@@ -20,17 +20,11 @@ export default function ({ onPublish, onCancel }) {
         const text = event.target.querySelector('#text-input').value
 
         try {
-            logic.publishPost(image, text, error => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                onPublish()
+            logic.publishPost(image, text)
+                .then(() => onPublish())
+                .catch(error => context.handleError(error))
 
 
-            })
         } catch (error) {
             context.handleError(error)
         }

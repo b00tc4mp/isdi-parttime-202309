@@ -8,6 +8,8 @@ import { useContext } from '../hooks' //esto
 
 
 
+
+
 export default function Profile() {
 
 
@@ -32,20 +34,19 @@ export default function Profile() {
         const newPasswordConfirm = newPasswordConfirmInput.value
 
         try {
-            logic.changeUserPassword(password, newPassword, newPasswordConfirm, (error) => {
-                if (error) {
-                    context.handleError(error)
-                    return
-                }
-                alert("Password changed")
-                event.target.reset()
-                //props.onSuccess();
-                navigate('/')
+            logic.changeUserPassword(password, newPassword, newPasswordConfirm)
 
-            })
+                .then(() => {
 
+                    alert("Password changed")
+                    event.target.reset()
 
-            // setView(null) // tengo que cambiar estofs
+                    navigate('/')
+
+                })
+
+                .catch(error => context.handleError(error))
+
         } catch (error) {
             context.handleError(error)
         }
@@ -63,24 +64,17 @@ export default function Profile() {
         const password = passwordInput.value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
-                if (error) {
-                    context.handleError(error)
-                    return
-                }
+            logic.changeUserEmail(newEmail, newEmailConfirm, password)
+                .then(() => {
 
-                //props.onSuccess() // quita la vista
+                    alert("E-mail changed")
 
-                alert("E-mail changed")
+                    event.target.reset() // limpia los campos
+                    navigate('/')
 
-                event.target.reset() // limpia los campos
-                navigate('/')
+                })
+                .catch(error => context.handleError(error))
 
-                //quita la vista :D
-
-
-
-            })
 
         } catch (error) {
             context.handleError(error)

@@ -3,12 +3,14 @@
 import { validate, errors } from 'com'
 import session from './session'
 
+const { SystemError } = errors
 
-function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
+
+function changeUserEmail(newEmail, newEmailConfirm, password) {
     validate.email(newEmail)
     validate.email(newEmailConfirm)
     validate.password(password)
-    validate.function(callback, 'callback')
+
 
     const req = {
         method: 'POST',
@@ -18,26 +20,23 @@ function changeUserEmail(newEmail, newEmailConfirm, password, callback) {
         },
         body: JSON.stringify({ newEmail, newEmailConfirm, password })
     }
-    fetch(`${import.meta.env.VITE_API_URL}/users/change-email`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/change-email`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
 
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
 
-                return
+
             }
 
-            callback(null)
+
 
         })
 
 
-        .catch(error => {
-
-            callback(error)
-        })
 
 
 }

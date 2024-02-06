@@ -1,7 +1,8 @@
 import { validate, errors } from 'com'
 import session from "./session"
+const { SystemError } = errors
 
-function changeUserPassword(password, newPassword, newPasswordConfirm, callback) {
+function changeUserPassword(password, newPassword, newPasswordConfirm) {
     validate.password(password, "password")
     validate.password(newPassword, "new password")
     validate.password(newPasswordConfirm, "new password confirm")
@@ -15,25 +16,20 @@ function changeUserPassword(password, newPassword, newPasswordConfirm, callback)
         },
         body: JSON.stringify({ password, newPassword, newPasswordConfirm })
     }
-    fetch(`${import.meta.env.VITE_API_URL}/users/change-password`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/change-password`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
 
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
 
-                return
+
             }
 
-            callback(null)
-
-        })
 
 
-        .catch(error => {
-
-            callback(error)
         })
 }
 

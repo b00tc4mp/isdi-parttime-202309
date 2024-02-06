@@ -1,9 +1,10 @@
 import session from './session'
 import { validate, errors } from 'com'
+const { SystemError } = errors
 
-function retrieveUserPosts(userId, callback) {
+function retrieveUserPosts(userId) {
     validate.id(userId, 'userId')
-    validate.function(callback, 'callback')
+
 
     const req = {
 
@@ -14,27 +15,23 @@ function retrieveUserPosts(userId, callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/posts`, req) //hacemos la petición al servidor
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/posts`, req) //hacemos la petición al servidor
+
+        .catch(error => { throw new SystemError(error.message) })
 
         .then(res => {
             if (!res.ok) {
                 // No ha ido bien, devolvemos el error
-                return res.json().then(body => {
-                    throw new errors[body.error](body.message)
-                });
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
             // si va bien, extraemos de la respuesta los posts
-            return res.json()
-        })
-        .then(posts => {
-            // sedevuelve el callback sin error y con los datos de los posts
-            callback(null, posts)
-        })
-        .catch(error => { //se recogen posibles errores
 
-            console.error(error)
-            callback(error)
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
         })
+
 
 
 }

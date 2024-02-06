@@ -1,13 +1,33 @@
-import session from "./session"
-import { validate } from "com"
+// import session from './session'
+// import { validate, errors } from 'com'
 
-function logoutUser(callback) {
-    validate.function(callback, 'callback')
+// const { SystemError } = errors
 
-    session.token = null
-    session.sessionUserId = null
+// function logoutUser(callback) {
+//     validate.function(callback, 'callback')
 
-    callback(null)
+//     session.token = null
+//     session.sessionUserId = null
+
+//     callback(null)
+
+// }
+
+// export default logoutUser
+
+import session from './session'
+
+
+
+
+function logoutUser() {
+
+    return new Promise((resolve) => {
+        session.token = null
+        session.sessionUserId = null
+
+        resolve()
+    })
 
 }
 

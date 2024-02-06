@@ -42,14 +42,10 @@ function Home(props) {
         console.log('Home -> effect (name)')
 
         try {
-            logic.retrieveUser((error, user) => {
-                if (error) {
-                    //alert(error.message)
-                    context.handleError(error)
-                    return
-                }
-                setName(user.name)
-            })
+            logic.retrieveUser()
+                .then(user => setName(user.name))
+                .catch(error => context.handleError(error))
+
 
         } catch (error) {
             //alert(error.message)

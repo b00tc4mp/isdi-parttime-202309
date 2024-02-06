@@ -24,18 +24,16 @@ function UserPosts(props) {
 
     const refreshPosts = () => {
         try {
-            props.loadPosts(params.userId, (error, posts) => {
-                if (error) {
-                    //alert(error.message)
-                    context.handleError(error)
+            props.loadPosts(params.userId)
+                .then(posts => {
+                    posts.reverse()
 
-                    return
-                }
+                    setPosts(posts)
 
-                posts.reverse()
+                })
+                .catch(error => context.handleError(error))
 
-                setPosts(posts)
-            })
+
         } catch (error) {
             //alert(error.message)
             context.handleError(error)

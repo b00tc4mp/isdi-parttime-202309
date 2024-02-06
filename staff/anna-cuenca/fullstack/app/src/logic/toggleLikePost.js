@@ -1,12 +1,14 @@
 import { validate, errors } from "com"
 import session from "./session"
 
+const { SystemError } = errors
 
 
-function toggleLikePost(postId, callback) {
+
+function toggleLikePost(postId) {
     validate.text(postId, 'post id')
 
-    validate.function(callback, 'callback')
+
 
     const req = {
         method: 'PATCH',
@@ -15,21 +17,21 @@ function toggleLikePost(postId, callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/likes`, req)
 
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
 
-                return
+
             }
 
-            callback(null)
+
 
         })
-        .catch(error => console.error(error)) // este error es
 
 }
 

@@ -25,14 +25,10 @@ function Login(props) {
 
     // console.log(email, password)
     try {
-      logic.loginUser(email, password, error => {
-        if (error) {
-          //alert(error.message)
-          context.handleError(error)
-          return
-        }
-        props.onSuccess() // la App que está por encima, hace esto (apagar Login y encender HOme)
-      }) // el callback devuelve o bien el error o bien la ejecución del código que se le pasa. En este caso ejecuta props.OnSuccess
+      logic.loginUser(email, password)
+        .then(() => props.onSuccess())
+        .catch(error => context.handleError(error))
+      // el callback devuelve o bien el error o bien la ejecución del código que se le pasa. En este caso ejecuta props.OnSuccess
 
     } catch (error) {
       //alert(error.message)

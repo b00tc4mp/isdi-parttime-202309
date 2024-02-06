@@ -1,13 +1,14 @@
 import { validate, errors } from "com"
 import session from './session'
+const { SystemError } = errors
 
 //cambiar el nombre por upddatePostText
 
 
-function toggleEditPost(postId, text, callback) {
+function toggleEditPost(postId, text) {
     validate.id(postId, 'post id')
     validate.text(text, 'text')
-    validate.function(callback, 'callback')
+
 
     const req = {
         method: 'PATCH',
@@ -19,19 +20,19 @@ function toggleEditPost(postId, text, callback) {
         body: JSON.stringify({ text })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/text`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/text`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
 
-                return
+
             }
 
-            callback(null)
+
         })
-        .catch(error => callback(error))
 
 
 
