@@ -1,8 +1,17 @@
 ## HiInit v0.0
 
+      ___ ___  .___ .___  _______   .___ ___________     __      __        ___        
+     /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__     
+    /    ~    \|   ||   | /   |   \ |   |  |    |       \   \/\/   /_/ __ \ | __ \    
+    \    Y    /|   ||   |/    |    \|   |  |    |        \        / \  ___/ | \_\ \   
+     \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /   
+           \/                    \/                            \/        \/     \/    
+
 HiInit is a file and data upload web terminal with the ability to register and log in users in different groups and categories.
 Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
-There will be different roles with their corresponding permissions. On construting at 06/02/2024 !!
+There will be different roles with their corresponding permissions. 
+
+- On construting at 06/02/2024 !!
 
 ## RESUME
 
