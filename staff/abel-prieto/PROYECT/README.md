@@ -50,8 +50,8 @@ There will be different roles with their corresponding permissions. On construti
 |   `logout`  | *Exit and `go back` to initial page*                       |
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
-|     `ls`    | *List the fields on the directory*                         |
-|   `mkdir`   | *Create directory on the same route*                       |
+|     `ls`    | *List the `files on the directory`                         |
+|   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
 |   `upload`  | *`Upload` the specific file or document*                   |
 |   `clear`   | *`Clear` the command lines*                                |
