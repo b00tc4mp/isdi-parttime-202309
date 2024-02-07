@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { User } from '../data/models.js'
 import { validate, errors } from 'com'
 
@@ -16,19 +17,25 @@ function changePasswordUser(userId, password, newPassword, againNewPassword) {
                 throw new NotFoundError('user not found')
             }
 
-            if (password !== user.password) {
-                throw new CredentialsError('wrong credentials')
-            }
+            return bcrypt.compare(password, user.password)
+                .then(match => {
+                    if (!match) {
+                        throw new CredentialsError('wrong credentials')
+                    }
 
-            if (newPassword !== againNewPassword) {
-                throw new CredentialsError('wrong credentials with new password')
-            }
+                    if (newPassword !== againNewPassword) {
+                        throw new CredentialsError('wrong credentials with new password')
+                    }
 
-            user.password = newPassword
+                    return bcrypt.hash(newPassword, 8)
+                        .then(hash => {
+                            user.password = hash
 
-            user.save()
-                .then(user => { })
-                .catch(error => { throw new SystemError(error.message) })
+                            user.save()
+                                .catch(error => { throw new SystemError(error.message) })
+                                .then(user => { })
+                        })
+                })
         })
 }
 

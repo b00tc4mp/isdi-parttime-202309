@@ -1,6 +1,7 @@
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
 
 import changePasswordUser from './changePasswordUser.js'
 import random from './helpers/random.js'
@@ -19,13 +20,25 @@ describe('changePasswordUser', () => {
 
     // CASO POSITIVO
     it('succeeds with change user password', () => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
         const newPassword = random.password()
+        const againNewPassword = newPassword
 
-        return User.create({ name: random.name(), email: random.email(), password: random.password() })
-            .then(user => {
-                return changePasswordUser(user.id, user.password, newPassword, newPassword)
-                    .then(value => {
-                        expect(value).to.be.undefined
+        return bcrypt.hash(password, 8)
+            .then(hash => {
+                return User.create({ name, email, password: hash })
+                    .then(user => {
+                        return changePasswordUser(user.id, user.password, newPassword, againNewPassword)
+                            .then(value => {
+                                expect(value).to.be.undefined
+
+                                return bcrypt.compare(password, user.password)
+                                    .then(match => {
+                                        expect(match).to.be.true
+                                    })
+                            })
                     })
             })
     })
@@ -42,7 +55,7 @@ describe('changePasswordUser', () => {
                 expect(error.message).to.equal('user not found')
             })
     })
-        
+
     // CASO NEGATIVO - Wrong credentials
     it('fails on wrong password', () => {
         const wrongPassword = random.password()
@@ -57,9 +70,9 @@ describe('changePasswordUser', () => {
                         expect(error.message).to.equal('wrong credentials')
                     })
             })
-        
+
     })
-    
+
     // CASO NEGATIVO - Error with confirmation
     it('fails between new password and confirmation', () => {
         const newPassword = random.password()

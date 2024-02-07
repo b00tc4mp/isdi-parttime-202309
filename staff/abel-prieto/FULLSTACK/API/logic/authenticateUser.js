@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { User } from '../data/models.js'
 import { validate, errors } from 'com'
 
@@ -14,11 +15,14 @@ function authenticateUser(email, password) {
                 throw new NotFoundError('user not found')
             }
 
-            if (user.password !== password) {
-                throw new CredentialsError('wrong credentials')
-            }
+            return bcrypt.compare(password, user.password)
+                .then(match => {
+                    if (!match) {
+                        { throw new CredentialsError('wrong credentials') }
+                    }
 
-            return user.id
+                    return user.id
+                })
         })
 }
 

@@ -7,7 +7,7 @@ const { NotFoundError, ContentError, TokenError } = errors
 
 export default (req, res) => {
     try {
-        const token = req.authorization.substring(7)
+        const token = req.headers.authorization.substring(7)
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         const userOwnerPostId = req.params
