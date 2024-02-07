@@ -13,7 +13,7 @@ function changeUserEmail(newEmail, newEmailConfirm, password) {
 
 
     const req = {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${session.token}`,
             'Content-Type': 'application/json'

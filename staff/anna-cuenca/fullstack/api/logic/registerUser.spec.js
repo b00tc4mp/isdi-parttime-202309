@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 // nos traemos los expect de chai
 import { expect } from 'chai'
 
+import bcrypt from 'bcryptjs'
+
 import random from './helpers/random.js'
 
 
@@ -39,7 +41,10 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
                         expect(user).to.exist
                         expect(user.name).to.equal(name)
                         expect(user.email).to.equal(email)
-                        expect(user.password).to.equal(password)
+                        // expect(user.password).to.equal(password)
+
+                        return bcrypt.compare(password, user.password)
+                            .then(match => expect(match).to.be.true)
                     })
             })
         //si se registra bien, devuelve la promesa
@@ -57,7 +62,7 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
                     //espero que llegue al catch, que me recoja el error
                     .catch(error => {
                         expect(error).to.be.instanceOf(DuplicityError)
-                        expect(error.message).to.equal('User already exists')
+                        expect(error.message).to.equal('user already exists')
                     })
             })
     })

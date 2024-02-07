@@ -92,11 +92,11 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         // changeEmailUser
 
-        server.post('/users/change-email', jsonBodyParser, changeUserEmailHandler)
+        server.patch('/users/change-email', jsonBodyParser, changeUserEmailHandler)
 
         // changePasswordUser
 
-        server.post('/users/change-password', jsonBodyParser, changeUserPasswordHandler)
+        server.patch('/users/change-password', jsonBodyParser, changeUserPasswordHandler)
 
         // edit text post
 

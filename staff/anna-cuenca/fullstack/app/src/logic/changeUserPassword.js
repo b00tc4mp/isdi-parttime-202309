@@ -9,7 +9,7 @@ function changeUserPassword(password, newPassword, newPasswordConfirm) {
 
 
     const req = {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             Authorization: `Bearer ${String(session.token)}`,
             'Content-Type': 'application/json'

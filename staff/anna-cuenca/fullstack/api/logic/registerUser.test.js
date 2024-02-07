@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGODB_URL) //aqui lo pongo en mi api
     .then(() => {
 
         try {
-            registerUser('Patata Frita', 'patata@frita.com', '123123123')
+            registerUser('Man Darina', 'man@darina.com', '123123123')
                 .then(() => console.log('user registered'))
                 .catch(error => console.error(error))
 

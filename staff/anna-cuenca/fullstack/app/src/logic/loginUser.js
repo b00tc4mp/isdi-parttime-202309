@@ -27,7 +27,7 @@ function loginUser(email, password) {
                     // el callback recibe el body (que es un bojeto), del body extrae el propiedad message
                     // crea un objeto nuevo del tipo error y lo envía al callback
                     .catch(error => { throw new SystemError(error.message) })
-                    .then(body => callback(new errors[body.error](body.message)))
+                    .then(body => { throw new errors[body.error](body.message) })
 
 
             }

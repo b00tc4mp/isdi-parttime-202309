@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGODB_URL) //aqui lo pongo en mi api
 
         try {
 
-            authenticateUser('remo@lacha.com', '123')
+            authenticateUser('patata@frita.com', '123123123')
                 .then(userId => {
                     console.log('user authenticated', userId)
                 })

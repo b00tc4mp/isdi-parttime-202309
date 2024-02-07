@@ -1,6 +1,8 @@
 import { validate, errors } from 'com'
 
 
+import bcrypt from 'bcryptjs'
+
 import { User } from '../data/models.js'
 
 const { NotFoundError, CredentialsError, SystemError, DuplicityError } = errors
@@ -14,32 +16,38 @@ function changePasswordUser(userId, password, newPassword, repeatNewPassword) {
     validate.password(newPassword, 'password')
     validate.password(repeatNewPassword, 'password')
 
+    if (newPassword !== repeatNewPassword) {
+        throw new CredentialsError('The new email and the confirmation password do not match')
+
+    }
+
 
     return User.findById(userId)
-        .catch(error => callback(new SystemError(error.message)))
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
                 throw new NotFoundError('User not found')
 
             }
-            if (user.password !== password) {
-                throw new CredentialsError('Wrong Credentials')
 
-            }
 
-            if (password === newPassword) {
-                throw new DuplicityError('New password must be different from current one')
+            return bcrypt.compare(password, user.password)
+                .catch(error => { new SystemError(error.message) })
+                .then(match => {
+                    if (!match)
+                        throw new CredentialsError('wrong password')
 
-            }
+                    if (password === newPassword)
+                        throw new DuplicityError('New password must be different from current one')
 
-            if (newPassword !== repeatNewPassword) {
-                throw new CredentialsError('The new email and the confirmation password do not match')
 
-            }
-            user.password = newPassword
+                    return bcrypt.hash(newPassword, 8)
+                })
 
-            user.save()
                 .catch(error => { throw new SystemError(error.message) })
+                .then(hashedPassword => {
+                    return User.findByIdAndUpdate(userId, { password: hashedPassword });
+                })
 
 
         })

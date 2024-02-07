@@ -4,10 +4,10 @@ TEST "change-user-email"
 
 CASE "success on correct data"
 
-curl 'http://localhost:9000/users/65abeea7ccb29864b82b9dc4/email' \
--H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWFiZWVhN2NjYjI5ODY0YjgyYjlkYzQiLCJpYXQiOjE3MDY4NTgzOTYsImV4cCI6MTcwNjg2MTk5Nn0.Q3Weafbu65ttI7ESlC-tQs9ZDb3tNws3HVPRP7KM3Ic' \
+curl 'http://localhost:9000/users/change-email' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWMzYjEzNzU1MTVjMDEyNDVmOWU1ZjUiLCJpYXQiOjE3MDczMjYyMzIsImV4cCI6MTcwNzMyOTgzMn0.k4y4sumuopIxtWOb-YFVzmExMHxm4i9--3FW7TsV9jE' \
 -H 'Content-Type: application/json' \
--d '{ "newEmail": "patata@frita.com", "repeatNewEmail": "patata@frita.com", "password": "123123123"}' \
+-d '{ "newEmail": "ma@carra.com", "newEmailConfirm": "ma@carra.com", "password": "456456456"}' \
 -X PATCH \
 -v
 
