@@ -1,7 +1,7 @@
 import { User, Post } from '../data/models.js'
 
 import { validate, errors } from 'com'
-const { NotFoundError, SystemError, TokenError } = errors
+const { NotFoundError, SystemError, RelationalError, } = errors
 
 function deletePost(userId, postId) {
 	validate.id(userId, 'user id')

@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import context from "./context"
+import session from './session'
 
 function updatePostText(postId, text, callback) {
 	validate.id(postId, 'post id')

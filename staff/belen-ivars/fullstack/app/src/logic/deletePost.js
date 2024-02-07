@@ -1,82 +1,31 @@
 import { validate, errors } from 'com'
-import context from "./context"
+import session from './session'
 
 function deletePost(postId, callback) {
-	validate.text(postId, 'post id')
-	validate.funktion(callback)
+	validate.id(postId, 'post id')
+	validate.funktion(callback, 'callback')
 
-	// TODO call api
+	const req = {
+		method: 'DELETE',
+		headers: {
+			Authorization: `Bearer ${session.token}`
+		},
+	}
 
-	/* db.posts.findById(postId, (error, post) => {
-		if (error) {
-			callback(error)
-
-			return
-		}
-		if (!post) {
-
-			callback(new Error('post not found'))
-
-			return
-		}
-
-		db.users.getAll((error, users) => {
-			if (error) {
-				callback(error)
+	fetch(`${import.meta.env.VITE_API_URL}/users/${postId}/favs`, req)
+		.then(res => {
+			if (!res.ok) {
+				res.json()
+					.then(body => callback(new errors[body.error](body.message)))
+					.catch(error => callback(error))
 
 				return
 			}
 
-			const usersWithFav = users.filter((user) => user.favs.includes(postId))
-
-			let count = 0
-
-			if (!usersWithFav.length) {
-				db.posts.deleteById(postId, error => {
-					if (error) {
-						callback(error)
-
-						return
-					}
-
-					callback(null)
-				})
-
-				return
-			}
-
-			usersWithFav.forEach(user => {
-
-				const index = user.favs.indexOf(postId)
-
-				user.favs.splice(index, 1)
-
-				db.users.update(user, error => {
-					if (error) {
-						callback(error)
-
-						return
-					}
-
-					count++
-
-					if (count === usersWithFav.length) {
-
-						db.posts.deleteById(postId, error => { // Abel ho té diferent: (post.id, (error, post) =>)
-							if (error) {
-								callback(error)
-
-								return
-							}
-
-							callback(null)
-						})
-					}
-
-				})
-			})
+			callback(null)
 		})
-	}) */
+		.catch(error => callback(error))
+
 }
 
 export default deletePost

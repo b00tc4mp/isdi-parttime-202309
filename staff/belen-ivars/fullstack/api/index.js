@@ -13,7 +13,8 @@ import {
 	retrievePostsHandler,
 	toggleLikePostHandler,
 	toggleFavPostHandler,
-	retrieveFavPostsHandler
+	retrieveFavPostsHandler,
+	deletePostHandler
 
 } from './handlers/index.js'
 
@@ -43,6 +44,8 @@ mongoose.connect(process.env.MONGODB_URL)
 		server.patch('/posts/:postId/likes', toggleLikePostHandler)
 
 		server.patch('/posts/:postId/favs', toggleFavPostHandler)
+
+		server.delete('/users/:postId/favs', deletePostHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})

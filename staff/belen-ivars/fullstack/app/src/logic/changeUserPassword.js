@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import context from "./context"
+import session from './session'
 
 function changeUserPassword(newPassword, newPasswordConfirm, password, callback) {
 	validate.password(newPassword, 'new password')

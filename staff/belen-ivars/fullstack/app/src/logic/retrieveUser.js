@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import context from "./context"
+import session from './session'
 
 function retrieveUser(callback) {
 	validate.funktion(callback)
@@ -7,7 +7,7 @@ function retrieveUser(callback) {
 	const req = {
 		method: 'GET',
 		headers: {
-			Authorization: `Bearer ${context.token}`
+			Authorization: `Bearer ${session.token}`
 		},
 	}
 

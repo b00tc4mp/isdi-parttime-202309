@@ -6,6 +6,7 @@ import retrievePostsHandler from './retrievePostsHandler.js'
 import toggleLikePostHandler from './toggleLikePostHandler.js'
 import toggleFavPostHandler from './toggleFavPostHandler.js'
 import retrieveFavPostsHandler from './retrieveFavPostsHandler.js'
+import deletePostHandler from './deletePostHandler.js'
 
 export {
 	registerUserHandler,
@@ -15,5 +16,6 @@ export {
 	retrievePostsHandler,
 	toggleLikePostHandler,
 	toggleFavPostHandler,
-	retrieveFavPostsHandler
+	retrieveFavPostsHandler,
+	deletePostHandler
 }

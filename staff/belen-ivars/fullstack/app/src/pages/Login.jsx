@@ -39,8 +39,10 @@ function Login(props) {
 	}
 
 	return <Container>
-		<h1>Login</h1>
-
+		<h1 class='font-bold text-2xl'>What have you done today?</h1>
+		<div class='before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-red-500/50 relative inline-block'>
+			<h2 class='relative text-white text-2xl'> Show us!</h2>
+		</div>
 		<Form onSubmit={handleSubmit}>
 			<Field id="email-input" type="email" >E-mail</Field>
 			<Field id="password-input" type="password" >Password</Field>

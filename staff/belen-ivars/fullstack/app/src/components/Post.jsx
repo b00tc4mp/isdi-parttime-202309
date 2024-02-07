@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import logic from "../logic"
 
-import { Button, Field, Form } from "../library"
+import { Button, Field, Form, Link } from "../library"
 import { useContext } from '../hooks'
+
+import session from '../logic/session'
 
 function Post(props) {
 
@@ -11,6 +14,7 @@ function Post(props) {
 	const [view, setView] = useState(null)
 
 	const context = useContext()
+	const navigate = useNavigate()
 
 	const handleToggleLikeClick = () => {
 		try {
@@ -92,8 +96,14 @@ function Post(props) {
 		}
 	}
 
+	const handleUserClick = event => {
+		event.preventDefault()
+
+		navigate(`/users/${props.post.author.id}`)
+	}
+
 	return <article className="post">
-		<h2>{props.post.author.name}</h2>
+		<h2><Link onClick={handleUserClick}> {props.post.author.name}</Link></h2>
 
 		<img className="post-image" src={props.post.image} />
 
@@ -109,8 +119,8 @@ function Post(props) {
 		<div className="post-actions">
 			<Button onClick={handleToggleLikeClick}>{props.post.liked ? '❤️' : '🤍'} {props.post.likes.length}</Button>
 			<Button onClick={handleToggleFavClick}>{props.post.fav ? '⭐️' : '✩'}</Button>
-			{logic.sessionUserId === props.post.author.id && <Button onClick={handleDeletePostClick}>🗑️</Button>}
-			{logic.sessionUserId === props.post.author.id && view === null && <Button onClick={handleEditclick}>✏️</Button>}
+			{session.sessionUserId === props.post.author.id && <Button onClick={handleDeletePostClick}>🗑️</Button>}
+			{session.sessionUserId === props.post.author.id && view === null && <Button onClick={handleEditclick}>✏️</Button>}
 
 		</div>
 	</article>

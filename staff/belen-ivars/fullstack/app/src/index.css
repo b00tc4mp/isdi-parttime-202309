@@ -1,154 +1,100 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
-/*ressets*/
-* {
-  font-family: Inter;
-  font-size: 1rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
+@layer components {
 
-html,
-body {
-  margin: 0;
-  background: linear-gradient(to bottom right, #8C1B8C, #26C2C7);
-  background-attachment: fixed;
-}
+  /* library */
+  .form {
+    @apply flex flex-col max-w-[240px] gap-[5px];
+  }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-}
+  .label {
+    @apply font-bold;
+  }
 
-.container--horizontal {
-  flex-direction: row;
-  justify-content: center;
-}
+  .input {
+    @apply border-[2px] border-solid border-black p-[5px]
+  }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  max-width: 240px;
-  gap: 5px;
-}
+  .button {
+    @apply border-[1px] border-solid border-black p-[5px] bg-red-500/50 rounded-[5px] font-bold cursor-[pointer];
+  }
 
-.label {
-  font-weight: bold;
-}
+  .button-menu {
+    @apply self-start;
+  }
 
-.input {
-  border: 2px solid black;
-  padding: 5px;
-}
+  .link {
+    @apply decoration-[none] text-black visited:text-black before:content-["[_"] after:content-["_]"];
+  }
 
-.button {
-  border: 1px solid black;
-  padding: 5px;
-  background-color: silver;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
+  .container {
+    @apply flex flex-col items-center gap-[1rem] p-[1rem];
+  }
 
-.button-menu {
-  align-self: start;
-}
+  .container--horizontal {
+    @apply flex-row justify-center;
+  }
 
-.link {
-  text-decoration: none;
-  color: black;
-}
+  /* custom */
 
-.link:visited {
-  color: black;
-}
+  .header {
 
-.link::before {
-  content: "[ ";
-}
+    @apply flex items-center justify-between p-[.5rem] bg-white hover:bg-indigo-100 border-b-[.3rem] border-black;
+  }
 
-.link::after {
-  content: " ]";
-}
+  .new-post {
+    @apply p-[none] bg-purple-100;
+  }
 
-/* custom compos */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  background-color: white;
-  border-block-end: 0.3rem solid black;
-}
+  .post {
+    @apply flex flex-col items-center m-[.7rem] border-[.3rem] border-solid border-black p-[1rem] bg-[#F2EDF8] max-w-[350px] max-h-[350px];
+  }
 
-.new-post {
-  margin-bottom: 1rem;
-  background-color: white;
-}
+  .post-image {
+    @apply max-w-[220px] max-h-[220px] border-double border-[1rem] border-red-500/25
+  }
 
-.post {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0.7rem;
-  border: 0.3rem solid black;
-  padding: 1rem;
-  background-color: #F2EDF8;
-}
+  .post-actions {
+    @apply flex justify-between gap-[.5rem]
+  }
 
-.post-image {
-  max-width: 320px;
-  max-height: 320px;
-  border: 1rem inset;
-}
-
-.post-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.posts {
-  margin-bottom: 3rem;
-}
-
-@media (min-width: 768px) {
   .posts {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-r from-[#8C1B8C] to-[#26C2C7];
+  }
+
+  .footer {
+    @apply bg-white flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] border-t-[.3rem] border-solid border-black
+  }
+
+  .footer-menu {
+    @apply flex flex-row justify-around w-full
   }
 }
 
-@media (min-width: 1024px) {
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
+.Feedback {
+  @apply fixed top-0 w-full box-border;
 }
 
-.footer {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-height: 3rem;
-  border-block-start: 0.3rem solid black;
+.Feedback--debug {
+  @apply bg-[yellowgreen];
 }
 
-.footer-menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
+.Feedback--info {
+  @apply bg-[dodgerblue];
 }
 
-/*# sourceMappingURL=index.css.map */
+.Feedback--warn {
+  @apply bg-[gold];
+}
+
+.Feedback--error {
+  @apply bg-[orange];
+}
+
+.Feedback--fatal {
+  @apply bg-[red] text-white;
+}

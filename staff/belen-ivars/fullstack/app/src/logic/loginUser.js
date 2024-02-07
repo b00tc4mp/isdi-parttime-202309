@@ -1,5 +1,5 @@
 import { validate, errors } from 'com'
-import context from './context'
+import session from './session'
 
 
 function loginUser(email, password, callback) {
@@ -33,8 +33,8 @@ function loginUser(email, password, callback) {
 					const payload = JSON.parse(payloadJson)
 					const userId = payload.sub
 
-					context.sessionUserId = userId
-					context.token = token
+					session.sessionUserId = userId
+					session.token = token
 
 					callback(null)
 				})

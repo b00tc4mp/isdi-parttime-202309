@@ -37,7 +37,7 @@ function Register(props) {
     }
 
     return <Container>
-        <h1>Register</h1>
+        <h1 class='text-2xl italic underline underline-offset-auto'>Start enjoying</h1>
 
         <Form onSubmit={handleSubmit}>
             <Field id="name-input">Name</Field>
