@@ -12,9 +12,15 @@ function registerUser(name, email, password) {
     validate.text(password, 'password')
 
     return (async () => {
-        try {
-            const hash = await bcrypt.hash(password, 8)
+        let hash
 
+        try {
+            hash = await bcrypt.hash(password, 8)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        try {
             await User.create({ name, email, password: hash })
         } catch (error) {
             if (error.code === 11000)
