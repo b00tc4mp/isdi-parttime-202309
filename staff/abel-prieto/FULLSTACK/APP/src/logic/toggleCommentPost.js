@@ -1,12 +1,12 @@
 import session from './session'
 import { validate, errors } from 'com'
+const { SystemError } = errors
 
 // COMMENT TEXT POSTS
 
-export default function toggleCommentPostText(postId, postComment, callback) {
+export default function toggleCommentPostText(postId, postComment) {
     validate.text(postId, "post id")
     validate.text(postComment, "comment")
-    validate.function(callback, 'callback')
 
     const req = {
         method: 'PATCH',
@@ -17,17 +17,13 @@ export default function toggleCommentPostText(postId, postComment, callback) {
         body: JSON.stringify({ postComment })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/comments`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/newpost/${String(postId)}/comments`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
-
-            callback(null)
         })
-        .catch(error => callback(error))
 }

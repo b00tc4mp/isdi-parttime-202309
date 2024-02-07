@@ -106,21 +106,17 @@ function Post(props) {
         try {
             const postComment = document.querySelector("#text-comment").value
 
-            logic.toggleCommentPost(postId, postComment, error => {
-                if (error) {
-                    handleError(error)
+            logic.toggleCommentPost(postId, postComment)
+                .then(() => {
+                    props.onSendComment()
+                    // Hacemos un repintado de los posts-favs
 
-                    return
-                }
+                    setInputBorder('none');
+                    // Quitamos el borde del input por defecto
 
-                props.onSendComment()
-                // Hacemos un repintado de los posts-favs
-
-                setInputBorder('none');
-                // Quitamos el borde del input por defecto
-
-                setCommentText('comment')
-            })
+                    setCommentText('comment')
+                })
+                .catch(error => handleError(error))
         } catch (error) {
             handleError(error)
         }

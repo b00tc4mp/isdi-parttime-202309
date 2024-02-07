@@ -3,37 +3,31 @@ import { validate, errors } from 'com'
 
 const { SystemError, NotFoundError } = errors
 
-function togglePostComment(userId, postId, comment, callback) {
+function togglePostComment(userId, postId, comment) {
     validate.id(userId, 'user id')
     validate.id(postId, 'post id')
     validate.text(comment, 'comment')
-    validate.function(callback, 'callback')
 
-    User.findById(userId).lean()
+    return User.findById(userId).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                callback(new NotFoundError('user not found'))
-
-                return
+                throw new NotFoundError('user not found')
             }
 
-            Post.findById(postId)
+            return Post.findById(postId)
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
                     if (!post) {
-                        callback(new NotFoundError('post not found'))
-
-                        return
+                        throw new NotFoundError('post not found')
                     }
 
                     post.comments.push(comment)
 
                     post.save()
-                        .then(() => callback(null))
-                        .catch(error => callback(new SystemError(error.message)))
+                        .catch(error => { throw new SystemError(error.message) })
                 })
-                .catch(error => callback(new SystemError(error.message)))
         })
-        .catch(error => callback(new SystemError(error.message)))
 }
 
 export default togglePostComment
