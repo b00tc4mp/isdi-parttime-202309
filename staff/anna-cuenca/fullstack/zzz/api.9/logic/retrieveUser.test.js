@@ -32,16 +32,19 @@ dotenv.config()
 import mongoose from 'mongoose'
 import retrieveUser from './retrieveUser.js'
 
-(async () => {
 
-    await mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => {
 
-    try {
-        await retrieveUser('65ab846ed998b589cd22fa81')
-        user => console.log('retrieved', user)
+        try {
+            retrieveUser('65ab846ed998b589cd22fa81') // remolacha
+                .then(user => console.log('retrieved', user))
+                .catch(error => console.error(error))
 
-    } catch (error) {
-        console.error(error)
-    }
-})()
 
+        } catch (error) {
+            console.error(error)
+        }
+    })
+
+    .catch(error => console.error(error))
