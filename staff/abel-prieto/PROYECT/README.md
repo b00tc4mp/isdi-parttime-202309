@@ -1,11 +1,11 @@
-## HiInit v0.0
+## HiInit Web Terminal v0.0.1
 
-      ___ ___  .___ .___  _______   .___ ___________     __      __        ___        
-     /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__     
-    /    ~    \|   ||   | /   |   \ |   |  |    |       \   \/\/   /_/ __ \ | __ \    
-    \    Y    /|   ||   |/    |    \|   |  |    |        \        / \  ___/ | \_\ \   
-     \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /   
-           \/                    \/                            \/        \/     \/    
+      ___ ___  .___ .___  _______   .___ ___________     __      __        ___                    _______      _______        
+     /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__           ___  _\   _  \     \   _  \     
+    /    ~    \|   ||   | /   |   \ |   |  |    |       \   \/\/   /_/ __ \ | __ \          \  \/ /  /_\  \    /  /_\  \    
+    \    Y    /|   ||   |/    |    \|   |  |    |        \        / \  ___/ | \_\ \          \   /\  \_/   \   \  \_/   \   
+     \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /           \_/  \_____  / /\ \_____  /   
+           \/                    \/                            \/        \/     \/                       \/  \/       \/    
 
 HiInit is a `file and data upload web terminal` with the ability to register and log in users in different groups and categories.
 Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
@@ -15,7 +15,7 @@ There will be different roles with their corresponding permissions but only ADMI
 
 ## RESUME
 
-- For HiInit v0.0:
+`For HiInit v0.0`
 - [x] Terminal web with local files and drive online services.
 - [x] Personal desktop for each user.
 - [x] Upload and download files: PDFs | Text documents | Images ... (for now)
@@ -23,7 +23,7 @@ There will be different roles with their corresponding permissions but only ADMI
 
 <br>
 
-- For HiInit v1.0:
+`For HiInit v1.0`
 - [ ] In construction ... ⏳ 
 
 ## USER'S TYPE
