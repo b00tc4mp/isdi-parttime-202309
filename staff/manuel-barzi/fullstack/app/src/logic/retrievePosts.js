@@ -1,14 +1,12 @@
 import { validate, errors } from 'com'
 
-import context from './context'
-
-function retrievePosts(callback) {
+export default function retrievePosts(callback) {
     validate.function(callback, 'callback')
 
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${this.token}`
         }
     }
 
@@ -28,5 +26,3 @@ function retrievePosts(callback) {
         })
         .catch(error => callback(error))
 }
-
-export default retrievePosts
