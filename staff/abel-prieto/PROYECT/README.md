@@ -11,7 +11,7 @@ HiInit is a `file and data upload web terminal` with the ability to register and
 Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
 There will be different roles with their corresponding permissions but only ADMIN user has the CRUD system (create, rewrite, update & delete).
 
-- Last update: 06/02/2024 
+- Last update: 08/02/2024 
 
 ## RESUME
 
