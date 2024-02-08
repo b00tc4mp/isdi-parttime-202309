@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    @apply font-['Inter']
+  }
+
+  body {
+    @apply bg-gradient-to-r from-slate-50 to-slate-200
+  }
+
+  .container {
+    @apply flex items-center justify-center mt-[5rem] mb-[3rem] gap-[25px]
+  }
+
+  .container article {
+    @apply box-border bg-white rounded-lg w-[360px] max-w-[400px] h-[460px] mt-[40px] px-[100px] py-[70px] flex flex-col items-center gap-[10px] shadow-lg shadow-slate-200
+  }
+
+  .container article h1 {
+    @apply text-xl font-semibold mb-[1rem]
+  }
+
+  .button {
+    @apply cursor-pointer p-[5px] w-20 border-none rounded-md text-white bg-sky-400
+  }
+
+  .form {
+    @apply select-none w-[260px] flex flex-col items-center gap-[10px] relative
+  }
+
+  .form input {
+    @apply bg-slate-100 border-none rounded-md h-[30px]
+  }
+
+  .form input::placeholder {
+    @apply pl-[10px] text-xs
+  }
+
+  .form .button {
+    @apply w-[216px] h-[30px] flex justify-center items-center
+  }
+
+  .form nav {
+    @apply text-xs flex justify-center gap-4 absolute top-[190px] w-[100%]
+  }
+
+  .entrance-button {
+    @apply fixed top-[395px]
+  }
+
+  header {
+    @apply fixed top-0 bg-white h-20 flex items-center px-[20px] justify-between w-[100%] z-10
+  }
+
+  header h1 a {
+    @apply no-underline font-black text-3xl text-sky-400 after:content-['H'] after:md:content-['Home']
+  }
+
+  header nav {
+    @apply mr-[3-5rem] flex items-baseline gap-[15px]
+  }
+
+  .profile-view,
+  .posts {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center gap-[25px] mt-[5rem] mb-[3rem]
+  }
+
+  .post {
+    @apply bg-white rounded-md w-[400px] m-[20px] py-[10px] flex flex-col shadow-lg shadow-slate-200
+  }
+
+  .post img {
+    @apply w-[400px] pb-[15px]
+  }
+
+  .post h3 {
+    @apply ml-[30px] mb-[10px] text-lg font-semibold
+  }
+
+  .post aside {
+    @apply w-auto ml-[20px] mb-[10px] flex items-center gap-[15px]
+  }
+
+  .post aside button {
+    @apply bg-white text-black hover:opacity-60
+  }
+
+  .post .other-button {
+    @apply bg-sky-400 text-white
+  }
+
+  .post .comments {
+    @apply flex flex-col items-start
+  }
+
+  .comments div {
+    @apply flex items-baseline gap-[15px]
+  }
+
+  .comments h5 {
+    @apply text-sm text-slate-700
+  }
+
+  .comments h6 {
+    @apply font-thin text-xs text-slate-500 ml-[25px]
+  }
+
+  .comments div {
+    @apply flex flex-col w-full
+  }
+
+  .comments li {
+    @apply flex flex-col
+  }
+
+  .comments form {
+    @apply flex flex-row justify-between w-[95%]
+  }
+
+  .comments form input {
+    @apply w-[75%]
+  }
+
+  footer {
+    @apply bg-white flex justify-center fixed bottom-0 w-[100%] min-h-[2rem] z-10
+  }
+
+  .Feedback {
+    @apply absolute w-full pt-10 top-[30%] flex flex-col items-center bg-white rounded-lg pb-[17px] z-10 shadow-lg shadow-slate-200
+  }
+
+  .Feedback p {
+    @apply font-bold text-white
+  }
+
+  .Feedback .button {
+    @apply bg-black
+  }
+
+  .Feedback--debug {
+    @apply bg-yellow-200
+  }
+
+  .Feedback--info {
+    @apply bg-cyan-500
+  }
+
+  .Feedback--warn {
+    @apply bg-amber-500
+  }
+
+  .Feedback--error {
+    @apply bg-red-600
+  }
+
+  .Feedback--fatal {
+    @apply bg-black
+  }
+}
