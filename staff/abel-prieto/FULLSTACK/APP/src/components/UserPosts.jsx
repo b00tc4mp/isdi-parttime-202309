@@ -5,7 +5,7 @@ import logic from '../logic'
 import { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-function UserPosts({ stamp }) {
+function UserPosts({ stamp, name }) {
     const params = useParams()
 
     // STATE ID & CONTEXT
@@ -33,7 +33,6 @@ function UserPosts({ stamp }) {
     }, [stamp])
 
     return <>
-
         <h2>All posts from {params.userId}</h2>
 
         <div className='post'>
