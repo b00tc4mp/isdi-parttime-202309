@@ -31,7 +31,7 @@ function changePasswordUser(userId, password, newPassword, againNewPassword) {
                         .then(hash => {
                             user.password = hash
 
-                            user.save()
+                            return user.save()
                                 .catch(error => { throw new SystemError(error.message) })
                                 .then(user => { })
                         })
