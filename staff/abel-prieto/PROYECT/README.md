@@ -27,13 +27,13 @@ There will be different roles with their corresponding permissions but only **AD
 `For HiInit v1.0`
 - [ ] In construction ... ⏳ 
 
-## USER'S TYPE
+## TYPE OF USERS
 
 - Guest: First entry without log - Orange color
 - User: Regular user - Blue color
 - Root: Administrator - Red color
 
-## USE CASES
+## CASES - FUNCTIONS 
 
 `REGULAR USER`
 
@@ -45,7 +45,7 @@ There will be different roles with their corresponding permissions but only **AD
 
 ## COMMANDS
 
-## | TYPE: GUEST |
+## | TYPE - GUEST |
 
 - First entry on "INITIAL PAGE"
 
@@ -56,7 +56,7 @@ There will be different roles with their corresponding permissions but only **AD
 |    `help`   | *Only **list** the commands with names & functions*        |
 |    `exit`   | *Get back on `initial page`*                               |
 
-## | TYPE: USER |
+## | TYPE - USER |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
@@ -71,7 +71,7 @@ There will be different roles with their corresponding permissions but only **AD
 |   `clear`   | *`Clear` the command lines*                                |
 |    `help`   | *Only **list** the commands with names & functions*        |
 
-## | TYPE: ROOT - ADMIN |
+## | TYPE - ADMIN (ROOT) |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
@@ -92,17 +92,25 @@ There will be different roles with their corresponding permissions but only **AD
 ## STORIES
 
 `INITIAL PAGE`
-- Terminal tittle and information about the proyect on initial page with first bar command `ENTER` to entry on APP
+- **guest@localhost-guest**
+- First entry on APP with contact information: email, GitHub and Linkedin profile.
 - When we press `ENTER` on the initial page, we could see a paragraph with the intrucctions and commands: *"Entry login or register command to switch between the different login and register components"*
-- Exit command `only on guest user` to get back on initial page
+- We could write `HELP` command to show us all list guest commands
+- With `EXIT` command we could refresh the initial page **only on guest mode**
+
+<br>
 
 `REGISTER -> On "GUEST" Mode`
 - ***register username + email + password***
 - Once we could register on web, the text will disapear and create a new command bar to entry the logg in
 
+<br>
+
 `LOGIN -> On "GUEST" Mode`
 - ***login email + password***
 - When we entry our credentials, the command bar show us our username next to the category `user` or `admin` with its own group color
+
+<br>
 
 `DESKTOP`
 - Only entry with logged
