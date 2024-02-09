@@ -6,12 +6,20 @@ mongoose
   .connect('mongodb://127.0.0.1:27017/test')
   .then(() => {
     try {
-      registerUser('Pa Paya', 'pa@paya.com', '123123123')
-        // no devuelve nada si va por el happy path por eso no hay ningún parametro en el then
-        .then(() => {
+      registerUser(
+        'Tomate Cherry',
+        'tomate@cherry.com',
+        '123123123',
+        (error) => {
+          if (error) {
+            console.error(error)
+
+            return
+          }
+
           console.log('registered successfully')
-        })
-        .catch((error) => console.error(error))
+        }
+      )
     } catch (error) {
       console.error(error)
     }

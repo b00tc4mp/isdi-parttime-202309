@@ -3,42 +3,37 @@ import { expect } from 'chai'
 
 import authenticateUser from './authenticateUser.js'
 import { NotFoundError } from './errors.js'
+import { User } from '../data/models.js'
 
 describe('authenticateUser', () => {
-  before(() => mongoose.connect('mongodb://127.0.0.1:27017/test'))
+  before(() => mongoose.connect(process.env.MONGODB_URL_TEST))
 
-  //done es un callback que le envía jest al otro callback como parámetro para que lo utilices para marcar que ha finalizado el test. done(error) es que ha habido eror, y done() a secas para decir que ha ido bien.
-  it('succeeds on correct credentials', (done) => {
-    authenticateUser('agua@cate.com', 'aaa', (error, userId) => {
-      if (error) {
-        done(error)
+  beforeEach(() => User.deleteMany())
 
-        return
-      }
-      try {
+  it('succeeds on correct credentials', () => {
+    return User.create({
+      name: 'Agua Cate',
+      email: 'agua@cate.com',
+      password: 'aaa',
+    }).then((user) => {
+      return authenticateUser('agua@cate.com', 'aaa').then((userId) => {
         expect(userId).to.be.a('string')
         expect(userId).to.have.lengthOf(24)
-        expect(userId).to.equal('65b0f579f9beb466beb3a8e1')
-
-        done()
-      } catch (error) {}
+        expect(userId).to.equal(user.id)
+        // podemos eliminar el catch error handling porque si falla es un throw dentro del it y el it tiene su propio catch interno.
+      })
     })
   })
 
-  it('fails on wrong email', (done) => {
-    debugger
-    authenticateUser('agua@cate2.com', 'aaa', (error, userId) => {
-      // tenemos que poner los errores dentro de un try catch porque si falla uno de los expect, no se llega a ejecutar el done y se queda tonto
-      try {
+  it('fails on wrong email', () => {
+    return authenticateUser('agua@cate2.com', 'aaa')
+      .then(() => {
+        throw new Error('should not reach this point')
+      })
+      .catch((error) => {
         expect(error).to.be.instanceOf(NotFoundError)
         expect(error.message).to.equal('user not found')
-        expect(userId).to.be.undefined
-
-        done()
-      } catch (error) {
-        done(error)
-      }
-    })
+      })
   })
 
   after(() => mongoose.disconnect())
