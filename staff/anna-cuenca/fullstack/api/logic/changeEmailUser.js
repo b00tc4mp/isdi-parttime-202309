@@ -14,33 +14,46 @@ function changeEmailUser(userId, newEmail, newEmailConfirm, password) {
     validate.email(newEmailConfirm, 'new email confirm')
     validate.text(password, 'password')
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('user not found')
+    return (async () => {
 
-            }
-            if (newEmail !== newEmailConfirm) {
-                throw new ContentError('new email and its confirmation do not match')
-            }
-            // if (user.password !== password) {
-            //     throw new CredentialsError('wrong credentials')
-            // }
+        let user
 
-            return bcrypt.compare(password, user.password)
-                .catch(error => { new SystemError(error.message) })
-                .then(match => {
-                    if (!match)
-                        throw new CredentialsError('wrong password')
+        try {
+            user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!user)
+            throw new NotFoundError('user not found')
 
-                    user.email = newEmail
-                    return user.save()
-                })
+        if (newEmail !== newEmailConfirm)
+            throw new ContentError('new email and its confirmation do not match')
+
+        if (newEmail !== newEmailConfirm)
+            throw new ContentError('new email and its confirmation do not match')
+
+        let match
+
+        try {
+            match = await bcrypt.compare(password, user.password)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        if (!match)
+            throw new CredentialsError('wrong password')
 
 
-                .catch(error => { throw new SystemError(error.message) })
-        })
+        user.email = newEmail
+
+        try {
+            await user.save()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+
+    })()
 
 }
 export default changeEmailUser

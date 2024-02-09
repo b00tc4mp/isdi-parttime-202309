@@ -10,22 +10,27 @@ function createPost(userId, image, text) {
     validate.text(image, 'image')
     validate.text(text, 'text')
 
+    return (async () => {
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user)
-                throw new NotFoundError('User not found')
+        let user
 
+        try {
+            user = await User.findById(userId).lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-            return Post.create({ author: userId, image, text })
+        if (!user)
+            throw new NotFoundError('User not found')
 
-                .catch(error => { throw new SystemError(error.message) })
+        try {
 
+            await Post.create({ author: userId, image, text })
 
-        })
-        .then(() => { })
-
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+    })()
 
 
 }

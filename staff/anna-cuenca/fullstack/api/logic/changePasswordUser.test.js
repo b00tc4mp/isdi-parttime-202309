@@ -5,17 +5,14 @@ import mongoose from 'mongoose'
 
 import changePasswordUser from './changePasswordUser.js'
 
-mongoose.connect(process.env.MONGODB_URL)
+(async () => {
 
-    .then(() => {
-        try {
-            changePasswordUser('65b93b869f8dd89eeaaf9c28', '456456456', '123123123', '123123123')
-                .then(() => console.log('password changed'))
-                .catch(error => console.log(error))
+    await mongoose.connect(process.env.MONGODB_URL)
 
-        } catch (error) {
-            console.log(error)
-        }
-    })
-
-    .catch(error => console.error(error))
+    try {
+        await changePasswordUser('65b93b869f8dd89eeaaf9c28', '456456456', '123123123', '123123123')
+        console.log('password changed')
+    } catch (error) {
+        console.log(error)
+    }
+})()

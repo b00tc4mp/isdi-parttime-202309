@@ -13,62 +13,55 @@ const { NotFoundError } = errors
 const { ObjectId } = mongoose.Types
 
 describe('retrieveFavPosts', () => {
-    before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
+    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
 
-    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+    beforeEach(async () => await Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    it('succeed on existing user', () => {
-        return Promise.all([
+    it('succeed on existing user', async () => {
+
+        const [user1, user2] = await Promise.all([
             User.create({ name: random.name(), email: random.email(), password: random.password() }),
             User.create({ name: random.name(), email: random.email(), password: random.password() })
 
         ])
 
-            .then(([user1, user2]) => {
-                return Promise.all([
-                    Post.create({ author: user1.id, image: random.image(), text: random.text() }),
-                    Post.create({ author: user2.id, image: random.image(), text: random.text() }),
-                    Post.create({ author: user2.id, image: random.image(), text: random.text() })
-                ])
+        const [post1, post2, post3] = await Promise.all([
+            Post.create({ author: user1.id, image: random.image(), text: random.text() }),
+            Post.create({ author: user2.id, image: random.image(), text: random.text() }),
+            Post.create({ author: user2.id, image: random.image(), text: random.text() })
+        ])
 
-                    .then(([post1, post2, post3]) => {
-                        user2.favs.push(post1, post2)
+        user2.favs.push(post1, post2)
 
-                        return user2.save()
-                            .then(user2 => {
+        await user2.save()
 
-                                return retrieveFavPosts(user2.id)
-                                    .then((posts) => {
-                                        expect(posts).to.exist
-                                        expect(posts).to.be.instanceOf(Array)
-                                        expect(posts).to.have.lengthOf(2)
+        const posts = await retrieveFavPosts(user2.id)
 
-                                        const post1Exists = posts.some(post => {
-                                            return post.id === post1.id && post.image === post1.image && post.text === post1.text && post.fav
-                                        })
+        expect(posts).to.exist
+        expect(posts).to.be.instanceOf(Array)
+        expect(posts).to.have.lengthOf(2)
 
-                                        expect(post1Exists).to.be.true
+        const post1Exists = posts.some(post => post.id === post1.id && post.image === post1.image && post.text === post1.text && post.fav)
+        expect(post1Exists).to.be.true
 
-                                        const post2Exists = posts.some(post => {
-                                            return post.id === post2.id && post.image === post2.image && post.text === post2.text && post.fav
-                                        })
 
-                                        expect(post2Exists).to.be.true
-                                    })
-                            })
-                    })
+        const post2Exists = posts.some(post => post.id === post2.id && post.image === post2.image && post.text === post2.text && post.fav)
+        expect(post2Exists).to.be.true
 
-            })
     })
 
-    it('fails on non-existing user', () => {
-        return retrieveFavPosts(new ObjectId().toString())
-            .then(posts => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('User not found')
-            })
+    it('fails on non-existing user', async () => {
+
+        try {
+            await retrieveFavPosts(new ObjectId().toString())
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('User not found')
+
+        }
+
     })
 
-    after(() => mongoose.disconnect())
+    after(async () => mongoose.disconnect())
 })

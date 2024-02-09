@@ -16,41 +16,54 @@ function changePasswordUser(userId, password, newPassword, repeatNewPassword) {
     validate.password(newPassword, 'password')
     validate.password(repeatNewPassword, 'password')
 
-    if (newPassword !== repeatNewPassword) {
-        throw new CredentialsError('The new email and the confirmation password do not match')
-
-    }
+    return (async () => {
 
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found')
+        if (newPassword !== repeatNewPassword)
+            throw new CredentialsError('The new email and the confirmation password do not match')
 
-            }
+        let user
 
+        try {
+            user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-            return bcrypt.compare(password, user.password)
-                .catch(error => { new SystemError(error.message) })
-                .then(match => {
-                    if (!match)
-                        throw new CredentialsError('wrong password')
+        if (!user)
+            throw new NotFoundError('User not found')
 
-                    if (password === newPassword)
-                        throw new DuplicityError('New password must be different from current one')
+        let match
 
+        try {
+            match = await bcrypt.compare(password, user.password)
 
-                    return bcrypt.hash(newPassword, 8)
-                })
-
-                .catch(error => { throw new SystemError(error.message) })
-                .then(hashedPassword => {
-                    return User.findByIdAndUpdate(userId, { password: hashedPassword });
-                })
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
 
-        })
+        if (!match)
+            throw new CredentialsError('wrong password')
+
+        if (password === newPassword)
+            throw new DuplicityError('New password must be different from current one')
+
+        let hashedPassword
+
+        try {
+            hashedPassword = await bcrypt.hash(newPassword, 8)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+        try {
+            await User.findByIdAndUpdate(userId, { password: hashedPassword })
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+
+    })()
 
 
 }

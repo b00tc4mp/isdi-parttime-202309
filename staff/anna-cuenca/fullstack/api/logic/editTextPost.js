@@ -10,38 +10,43 @@ function editTextPost(userId, postId, text) {
     validate.text(text, 'text')
 
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found')
+    return (async () => {
 
-            }
+        let user
 
-            return Post.findById(postId)
-                .catch(error => { throw new SystemError(error.message) })
-                .then(post => {
-                    if (!post) {
-                        throw new NotFoundError('Post not found')
-                    }
+        try {
+            user = await User.findById(userId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-                    // Comprueba si el usuario es el autor del post
-                    if (userId.toString() !== post.author.toString()) {
-                        throw new CredentialsError('Wrong Credentials')
+        if (!user)
+            throw new NotFoundError('User not found')
 
-                    }
+        let post
 
-                    // Edita el texto
-                    post.text = text
+        try {
+            post = await Post.findById(postId)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-                    return post.save()
-                        .catch(error => { throw new SystemError(error.message) })
-                        .then(() => { })
+        if (!post)
+            throw new NotFoundError('Post not found')
 
+        if (userId.toString() !== post.author.toString()) {
+            throw new CredentialsError('Wrong Credentials')
 
+        }
 
-                })
-        })
+        post.text = text
+
+        try {
+            await post.save()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+    })()
 }
 
-export default editTextPost;
+export default editTextPost

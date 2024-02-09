@@ -14,10 +14,10 @@ const { NotFoundError } = errors
 const { ObjectId } = mongoose.Types
 
 describe('createPost', () => {
-    before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
-    beforeEach(() => User.deleteMany())
+    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
+    beforeEach(async () => await User.deleteMany())
 
-    it('succeeds on existing User', () => {
+    it('succeeds on existing User', async () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
@@ -25,31 +25,29 @@ describe('createPost', () => {
         const image = random.image()
         const text = random.text()
 
-        return User.create({ name, email, password })
-            .then(user => {
-                return createPost(user.id, image, text)
-                    .then(value => { //esperamos que createPost no devuelva nada
-                        expect(value).to.be.undefined
-                        return Post.findOne({ author: user.id }) //comprobamos que el post existe
+        const user = await User.create({ name, email, password })
 
-                    })
-                    .then(post => {
-                        expect(post.image).to.equal(image)
-                        expect(post.text).to.equal(text)
-                    })
-            })
+        const value = await createPost(user.id, image, text)
+        expect(value).to.be.undefined
+
+        const post = await Post.findOne({ author: user.id })
+
+        expect(post.image).to.equal(image)
+        expect(post.text).to.equal(text)
+
     })
 
-    it('fails on non existing user', () => {
+    it('fails on non existing user', async () => {
         const image = random.image()
         const text = random.text()
 
-        return createPost(new ObjectId().toString(), image, text) // le pasamos un id aleatorio, no deberia e existir
-            .then(() => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('User not found')
-            })
+        try {
+            await createPost(new ObjectId().toString(), image, text)
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('User not found')
+        }
     })
-    after(() => mongoose.disconnect())
+    after(async () => mongoose.disconnect())
 })

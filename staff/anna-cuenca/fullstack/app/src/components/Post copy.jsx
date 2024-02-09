@@ -1,11 +1,12 @@
-import { useState, useContext } from 'react'
-import { Button, Form } from '../library'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Form, Field, Link } from '../library'
 import logic from '../logic'
 import { Input } from '../library'
 import session from '../logic/session'
 
-import Context from '../Context'
-
+//import Context from '../Context'
+import { useContext } from '../hooks' //esto
 
 
 //está declarado en null, porque es el estado inicial
@@ -18,25 +19,21 @@ function Post(props) {
 
     //const { handleError } = useContext(Context)
 
-    const context = useContext(Context)
+    const context = useContext()
+    const navigate = useNavigate()
 
 
     const post = props.post
 
     function handleToggleLikePostClick() {
         try {
-            logic.toggleLikePost(post.id, error => {
-                if (error) {
-                    //alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
+            logic.toggleLikePost(post.id)
+                .then(() => {
+                    props.onToggleLikeClick()
+                })
+                .catch(error => context.handleError(error))
 
 
-                props.onToggleLikeClick()
-
-            })
         } catch (error) {
             //alert(error.message)
             context.handleError(error)
@@ -47,17 +44,16 @@ function Post(props) {
 
     function handleToggleFavPostClick() {
         try {
-            logic.toggleFavPost(post.id, error => {
-                if (error) {
-                    //alert(error.message)
-                    context.handleError(error)
+            logic.toggleFavPost(post.id)
+                .then(() => {
 
-                    return
-                }
+                    props.onToggleFavClick()
+                })
+                .catch(error => context.handleError(error))
 
 
-                props.onToggleFavClick()
-            })
+
+
         } catch (error) {
             //alert(error.message)
             context.handleError(error)
@@ -71,19 +67,18 @@ function Post(props) {
         console.log(text)
 
         try {
-            logic.toggleEditPost(post.id, text, error => {
-                if (error) {
-                    //alert(error.message)
-                    context.handleError(error)
+            logic.toggleEditPost(post.id, text)
+                .then(() => {
+                    setEditTextPost(null)
+                    props.onToggleEditClick()
 
-                    return
-                }
-                setEditTextPost(null)
-                props.onToggleEditClick()
+                })
+                .catch(error => context.handleError(error))
 
 
 
-            })
+
+
         } catch (error) {
             //alert(error.message)
             context.handleError(error)
@@ -112,18 +107,14 @@ function Post(props) {
 
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                logic.deletePost(post.id, error => {
-                    if (error) {
-                        //alert(error.message)
-                        context.handleError(error)
+                logic.deletePost(post.id)
+                    .then(() => {
+                        props.onToggleDeleteClick()
 
-                        return
-                    }
+                    })
+                    .catch(error => context.handleError(error))
 
 
-                    props.onToggleDeleteClick()
-
-                })
             } catch (error) {
                 //alert(error.message)
                 context.handleError(error)
@@ -131,14 +122,17 @@ function Post(props) {
         }
     }
 
+    const handleUserClick = event => {
+        event.preventDefault()
 
-
+        navigate(`/users/${props.post.author.id}`)
+    }
 
 
 
 
     return (<article className="post">
-        <h2>{post.author.name}</h2>
+        <h2><Link onClick={handleUserClick}>{props.post.author.name}</Link></h2>
         <img className="post-image" src={post.image} />
         <p>{post.text}</p>
 

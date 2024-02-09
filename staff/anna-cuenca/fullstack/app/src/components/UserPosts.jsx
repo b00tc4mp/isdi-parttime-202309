@@ -6,12 +6,7 @@ import Post from './Post' // lo importo para renderizar un post
 import { Container } from '../library'
 
 
-
 import { useContext } from '../hooks'
-
-
-
-
 
 
 function UserPosts(props) {
@@ -20,6 +15,7 @@ function UserPosts(props) {
     const params = useParams()
     const context = useContext()
     const [posts, setPosts] = useState([])
+
 
 
     const refreshPosts = () => {

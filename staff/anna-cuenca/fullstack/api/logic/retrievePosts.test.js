@@ -5,18 +5,21 @@ import mongoose from 'mongoose'
 
 import retrievePosts from './retrievePosts.js'
 
-mongoose.connect(process.env.MONGODB_URL)
-    .then(() => {
+(async () => {
 
-        try {
-            retrievePosts('65abeea7ccb29864b82b9dc4') //user id de patata frita
-                .then(posts => console.log('retrieved', posts))
-                .catch(error => console.log(error))
+    await mongoose.connect(process.env.MONGODB_URL)
 
-        } catch (error) {
-            console.error(error)
-        }
+    try {
+        const posts = await retrievePosts('65abeea7ccb29864b82b9dc4')
+        console.log('retrieved', posts)
 
-    })
+    } catch (error) {
+        console.error(error)
 
-    .catch(error => console.error(error))
+    }
+})()
+
+
+
+
+

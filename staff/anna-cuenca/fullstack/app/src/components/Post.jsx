@@ -30,6 +30,7 @@ function Post(props) {
             logic.toggleLikePost(post.id)
                 .then(() => {
                     props.onToggleLikeClick()
+
                 })
                 .catch(error => context.handleError(error))
 
@@ -48,6 +49,7 @@ function Post(props) {
                 .then(() => {
 
                     props.onToggleFavClick()
+
                 })
                 .catch(error => context.handleError(error))
 

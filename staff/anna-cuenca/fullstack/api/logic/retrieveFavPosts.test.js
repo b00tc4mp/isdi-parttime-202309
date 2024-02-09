@@ -5,24 +5,17 @@ import mongoose from 'mongoose'
 
 import retrieveFavPosts from './retrieveFavPosts.js'
 
-mongoose.connect(process.env.MONGODB_URL)
-    .then(() => {
+(async () => {
 
-        try {
-            retrieveFavPosts('65afe3cee4a6208ef9bf08b0')
-                .then((posts) => {
+    await mongoose.connect(process.env.MONGODB_URL)
 
-                    console.log('retrieved fav posts', posts)
-                })
-                .catch(error => {
-                    console.error(error)
-                })
+    try {
+        const posts = await retrieveFavPosts('65afe3cee4a6208ef9bf08b0')
+        console.log('retrieved fav posts', posts)
+
+    } catch (error) {
+        console.error(error)
+    }
+})()
 
 
-        } catch (error) {
-            console.error(error)
-        }
-
-    })
-
-    .catch(error => console.error(error))
