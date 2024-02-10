@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
@@ -21,7 +22,8 @@ describe('authenticateUser', () => {
         const email = random.email()
         const password = random.password()
 
-        return User.create({ name, email, password })
+        return bcrypt.hash(password, 8)
+            .then(hash => User.create({ name, email, password: hash }))
             .then(user => {
                 return authenticateUser(email, password)
                     .then(userId => {

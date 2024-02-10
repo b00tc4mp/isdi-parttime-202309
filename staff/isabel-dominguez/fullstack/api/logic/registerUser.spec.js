@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
@@ -28,7 +29,9 @@ describe('registerUser', () => {
                         expect(user).to.exist
                         expect(user.name).to.equal(name)
                         expect(user.email).to.equal(email)
-                        expect(user.password).to.equal(password)
+
+                        return bcrypt.compare(password, user.password)
+                            .then(match => expect(match).to.be.true)
                     })
             })
     })
