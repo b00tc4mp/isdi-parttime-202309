@@ -1,11 +1,16 @@
+import { errors } from 'com';
 import session from './session'
-import { validate } from 'com'
 
-export default function logoutUser(callback) {
-    validate.function(callback, 'callback')
+const { SystemError } = errors
 
-    session.token = null
-    session.sessionUserId = null
-
-    callback(null)
+export default function logoutUser() {
+    return new Promise((resolve, reject) => {
+        try {
+            session.token = null;
+            session.sessionUserId = null
+            resolve("Logout successful")
+        } catch (error) {
+            reject(new SystemError(error.message))
+        }
+    })
 }

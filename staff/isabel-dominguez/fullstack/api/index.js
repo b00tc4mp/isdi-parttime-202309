@@ -70,7 +70,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.patch('/posts/:postId/text', jsonBodyParser, updatePostTextHandler)
 
         //COMMENT POST
-        server.patch('/newpost/:postId/comments', jsonBodyParser, commentPostHandler)
+        server.patch('/post/:postId/comments', jsonBodyParser, commentPostHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

@@ -19,18 +19,11 @@ function Register(props) {
         const password = passwordInput.value
 
         try {
-            logic.registerUser(name, email, password, error => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                props.onSuccess()
-            })
+            logic.registerUser(name, email, password)
+                .then(() => props.onSuccess())
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
+
             context.handleError(error)
         }
     }

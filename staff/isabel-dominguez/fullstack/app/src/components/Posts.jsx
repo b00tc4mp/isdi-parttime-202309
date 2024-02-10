@@ -11,16 +11,12 @@ const Posts = (props) => {
 
     const refreshPosts = () => {
         try {
-            props.loadPosts((error, posts) => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                posts.reverse()
-                setPosts(posts)
-            })
+            props.loadPosts()
+                .then((posts) => {
+                    posts.reverse()
+                    setPosts(posts)
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }

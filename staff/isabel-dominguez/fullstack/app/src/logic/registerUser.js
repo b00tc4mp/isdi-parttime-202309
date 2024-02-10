@@ -1,10 +1,10 @@
 import { validate, errors } from 'com'
+const { SystemError } = errors
 
-export default function registerUser(name, email, password, callback) {
+export default function registerUser(name, email, password) {
     validate.text(name, 'name')
     validate.email(email)
-    validate.password(password)
-    validate.function(callback, 'callback')
+    validate.password(password);
 
     const req = {
         method: 'POST',
@@ -14,17 +14,13 @@ export default function registerUser(name, email, password, callback) {
         body: JSON.stringify({ name, email, password })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
-            }
-
-            callback(null)
-        })
-        .catch(error => callback(error))
-}
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) }) //Si falla la conversión de JSON, es decir el parseo (proceso de analizar una cadena)
+                    .then(body => { throw new errors[body.error](body.message) })
+            };
+        });
+};

@@ -17,17 +17,12 @@ function Profile({ onSuccess }) {
         const password = event.target.querySelector("#password-input").value
 
         try {
-            logic.changeUserEmail(newEmail, confirmNewEmail, password, (error) => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                alert("E-mail changed")
-
-                onSuccess(event)
-            })
+            logic.changeUserEmail(newEmail, confirmNewEmail, password)
+                .then(() => {
+                    onSuccess(event)
+                    alert("E-mail changed")
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }
@@ -41,17 +36,12 @@ function Profile({ onSuccess }) {
         const confirmNewPassword = event.target.querySelector("#new-password-confirm-input").value
 
         try {
-            logic.changeUserPassword(newPassword, confirmNewPassword, password, (error) => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                alert("Password changed")
-
-                onSuccess(event)
-            })
+            logic.changeUserPassword(newPassword, confirmNewPassword, password)
+                .then(() => {
+                    onSuccess(event)
+                    alert("Password changed");
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }
@@ -59,18 +49,12 @@ function Profile({ onSuccess }) {
 
     function handleDeleteAccount() {
         try {
-            logic.deleteUser(userId, error => {
-
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                alert("Your account has been successfully deleted")
-
-                logic.logoutUser();
-            })
+            logic.deleteUser(userId)
+                .then(() => {
+                    alert("Your account has been successfully deleted")
+                    logic.logoutUser();
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }

@@ -1,9 +1,10 @@
 import session from './session'
 import { validate, errors } from 'com'
 
-export default function deleteUser(userId, callback) {
-    validate.id(userId, "user id")
-    validate.function(callback, 'callback')
+const { SystemError } = errors
+
+export default function deleteUser(userId) {
+    validate.id(userId, "user id");
 
     const req = {
         method: 'DELETE',
@@ -13,17 +14,13 @@ export default function deleteUser(userId, callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/:userId`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/:userId`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
-            }
-
-            callback(null)
-        })
-        .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            };
+        });
 }

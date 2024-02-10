@@ -1,8 +1,9 @@
 import session from './session'
-import { validate, errors } from 'com'
+import { errors } from 'com'
 
-export default function retrieveFavPosts(callback) {
-    validate.function(callback, 'callback')
+const { SystemError } = errors
+
+export default function retrieveFavPosts() {
 
     const req = {
         method: 'GET',
@@ -11,19 +12,16 @@ export default function retrieveFavPosts(callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/fav-posts`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/fav-posts`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
 
-            res.json()
-                .then(favPosts => callback(null, favPosts))
-                .catch(error => callback(error))
-        })
-        .catch(error => callback(error))
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+        });
 }

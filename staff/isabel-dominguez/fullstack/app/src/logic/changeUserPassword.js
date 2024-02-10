@@ -1,11 +1,12 @@
 import session from './session'
 import { validate, errors } from 'com'
 
-export default function changeUserPassword(newPassword, confirmNewPassword, password, callback) {
+const { SystemError } = errors
+
+export default function changeUserPassword(newPassword, confirmNewPassword, password) {
     validate.password(newPassword, 'new password')
     validate.password(confirmNewPassword, 'new confirm password')
-    validate.password(password)
-    validate.function(callback, 'callback')
+    validate.password(password);
 
     const req = {
         method: 'POST',
@@ -16,17 +17,13 @@ export default function changeUserPassword(newPassword, confirmNewPassword, pass
         body: JSON.stringify({ password, newPassword, confirmNewPassword })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/password`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/password`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
-            }
-
-            callback(null)
-        })
-        .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            };
+        });
 }

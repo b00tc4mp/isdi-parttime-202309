@@ -19,19 +19,11 @@ function NewPost({ onClick, onSuccess }) {
         const text = event.target.querySelector("#text-input").value
 
         try {
-            logic.createPost(image, text, error => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                onSuccess(event)
-            })
+            logic.createPost(image, text)
+                .then(() => onSuccess(event))
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
-            context.handleError(error)
+            context.handleError(error);
         }
     }
 

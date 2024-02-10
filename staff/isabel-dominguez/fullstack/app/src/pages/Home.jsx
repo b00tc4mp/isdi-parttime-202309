@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Routes, Route } from 'react-router-dom'
+
 import logic from "../logic"
 
 import { Button, Link } from "../library"
@@ -16,15 +16,9 @@ function Home(props) {
 
     useEffect(() => {
         try {
-            logic.retrieveUser((error, user) => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                setName(user.name)
-            })
+            logic.retrieveUser()
+                .then(user => setName(user.name))
+                .catch(error => context.handleError(error))
 
         } catch (error) {
             context.handleError(error)
@@ -32,15 +26,9 @@ function Home(props) {
     }, [])
 
     function handleLogoutClick() {
-        logic.logoutUser(error => {
-            if (error) {
-                context.handleError(error)
-
-                return
-            }
-        })
-
-        props.onLogoutClick()
+        logic.logoutUser()
+            .then(() => props.onLogoutClick())
+            .catch(error => context.handleError(error))
     }
 
     function handleHomeClick(event) {

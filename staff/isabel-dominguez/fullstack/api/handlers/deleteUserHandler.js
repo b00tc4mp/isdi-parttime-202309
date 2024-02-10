@@ -13,7 +13,7 @@ export default (req, res) => {
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         logic.deleteUser(userId)
-            .them(() => res.status(200).send())
+            .then(() => res.status(200).send())
             .catch(error => {
                 let status = 500
 

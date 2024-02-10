@@ -12,36 +12,22 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
 
     const handleLikeClick = (postId) => {
         try {
-            logic.toggleLikePost(postId, error => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                onToggleLikeClick()
-            })
+            logic.toggleLikePost(postId)
+                .then(() => onToggleLikeClick())
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
+
             context.handleError(error)
         }
     }
 
     const handleFavPostClick = (postId) => {
         try {
-            logic.toggleFavPost(postId, error => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                onToggleFavClick()
-            })
+            logic.toggleFavPost(postId)
+                .then(() => onToggleFavClick())
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
+
             context.handleError(error)
         }
     }
@@ -50,18 +36,11 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         if (confirm("Are you sure you want to delete this post?")) {
 
             try {
-                logic.deletePost(postId, (error) => {
-                    if (error) {
-                        // alert(error.message)
-                        context.handleError(error)
-
-                        return
-                    }
-
-                    onToggleDeleteClick()
-                })
+                logic.deletePost(postId)
+                    .then(() => onToggleDeleteClick())
+                    .catch(error => context.handleError(error))
             } catch (error) {
-                // alert(error.message)
+
                 context.handleError(error)
             }
         }
@@ -76,19 +55,14 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
         const text = event.target.text.value
 
         try {
-            logic.updatePostText(post.id, text, (error) => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                onToggleEditClick()
-                setView(null)
-            })
+            logic.updatePostText(post.id, text)
+                .then(() => {
+                    onToggleEditClick()
+                    setView(null)
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
+
             context.handleError(error)
         }
     }
@@ -103,20 +77,14 @@ const Post = ({ post, onToggleLikeClick, onToggleFavClick, onToggleDeleteClick, 
 
         try {
 
-            logic.commentPost(post.id, comment, error => {
-                if (error) {
-                    // alert(error.message)
-                    context.handleError(error)
-
-                    return
-                }
-
-                onPostComment()
-                setComment(null)
-            })
-
+            logic.commentPost(post.id, comment)
+                .then(() => {
+                    onPostComment()
+                    setComment(null)
+                })
+                .catch(error => context.handleError(error))
         } catch (error) {
-            // alert(error.message)
+
             context.handleError(error)
         }
     }

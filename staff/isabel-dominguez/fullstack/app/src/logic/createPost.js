@@ -1,10 +1,11 @@
 import session from './session'
 import { validate, errors } from 'com'
 
-export default function createPost(image, text, callback) {
+const { SystemError } = errors
+
+export default function createPost(image, text) {
     validate.text(image, "image")
-    validate.text(text, "text")
-    validate.function(callback, 'callback')
+    validate.text(text, "text");
 
     const req = {
         method: 'POST',
@@ -15,17 +16,13 @@ export default function createPost(image, text, callback) {
         body: JSON.stringify({ image, text })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
-                res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
-            }
-
-            callback(null)
-        })
-        .catch(error => callback(error))
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            };
+        });
 }
