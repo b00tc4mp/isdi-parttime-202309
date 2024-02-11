@@ -1,87 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
-
+/* Reset de estilos */
 * {
-    font-family: Inter;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-image: url("estaSI.jpg");
+    font-family: 'Roboto', sans-serif;
+    /* Fuente moderna */
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    /* Color de fondo suave */
 }
 
-.logo {
-    position: fixed;
-    bottom: 190px;
-    left: 50%;
-    transform: translateX(-50%);
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-.logo img {
-    width: 300px;
-    height: auto;
-    border-radius: 50%;
+header {
+    background: #fff;
+    color: #333;
+    /* Cambio del color del texto para mejorar la legibilidad */
+    padding: 20px 0;
+    /* Aumento del espacio de relleno para una apariencia más espaciosa */
+    min-height: 80px;
+    /* Aumento de la altura para una apariencia más prominente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para resaltar el encabezado */
 }
 
-.home-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    /* Tamaño de fuente más grande */
+    color: #333;
+    /* Color de texto más neutro */
+    margin-left: 10px;
+    /* Margen izquierdo más pequeño */
+    line-height: 1.2;
+    /* Altura de línea ligeramente más alta */
+    letter-spacing: 2px;
+    /* Espaciado entre letras aumentado */
 }
 
-.home-link {
-    text-decoration: none;
-    color: #ad6faf;
-    font-size: 24px;
-    font-weight: bold;
-    border: 2px solid #ad6faf;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.home-link:hover {
-    background-color: #d8bad8;
-    color: #fff;
-}
-
-.view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    max-width: 240px;
-    gap: 5px;
-}
-
-input {
-    border: 2px solid #000000;
-    border-radius: 5px;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #ad6faf;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.post {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.post-image {
-    max-width: 320px;
-}
-
-.button-post {
+header nav {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 30px;
     margin-right: 10px;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+
+#hero {
+    background-image: url('cosmetica-natural.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    /* Cambio del color de texto para mejor legibilidad */
+    padding: 200px 0;
+    /* Aumento del espacio de relleno para un aspecto más impactante */
+    text-align: center;
+}
+
+#hero .btn {
+    display: inline-block;
+    background: rgb(106, 93, 158);
+    /* Cambio de color de fondo del botón */
+    color: #fff;
+    padding: 15px 30px;
+    /* Aumento del espacio de relleno para un aspecto más grande */
+    text-decoration: none;
+    border-radius: 30px;
+    /* Ajuste del radio de borde para una apariencia más redondeada */
+    margin-top: 30px;
+    transition: background 0.3s ease;
+    /* Transición suave de color de fondo */
+}
+
+#hero .btn:hover {
+    background: rgb(84, 72, 123);
+    /* Cambio de color de fondo al pasar el ratón para resaltar */
+}
+
+#productos {
+    padding: 50px 0;
+    /* Aumento del espacio de relleno para una apariencia más espaciosa */
+    background-color: #fff;
+    /* Cambio de color de fondo para un mejor contraste */
+}
+
+.product {
+    float: left;
+    width: 30%;
+    margin-right: 3%;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    /* Color de fondo para resaltar el producto */
+    padding: 20px;
+    /* Aumento del espacio de relleno para una apariencia más espaciosa */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para resaltar el producto */
+    border-radius: 10px;
+    /* Ajuste del radio de borde para una apariencia más redondeada */
+    transition: box-shadow 0.3s ease;
+    /* Transición suave de la sombra al pasar el ratón */
+}
+
+.product:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Cambio de sombra al pasar el ratón para resaltar */
+}
+
+.product img {
+    width: 200px;
+    /* Establece el ancho deseado para todas las imágenes */
+    height: 200px;
+    /* Establece la altura deseada para todas las imágenes */
+    object-fit: cover;
+    /* Ajusta la imagen para cubrir el área, recortando si es necesario */
+    border-radius: 10px;
+    /* Ajuste del radio de borde para una apariencia más redondeada */
 }

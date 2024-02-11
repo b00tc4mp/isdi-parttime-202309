@@ -1,42 +1,47 @@
-# ArtesaMías (por decidir)
+# e-Commerce
 
 ## Intro
-Una tienda online donde puedas vender tus productos artesanales. Le brinda al usuario la manera de mostrar sus creaciones al mundo.
+e-Commerce de materia prima, utensilios y envases para elaborar cosmética natural en casa.
 
-![](https://media0.giphy.com/media/sskl6JGfWn0aTiKEnZ/giphy360p.mp4?cid=ecf05e47bhk4qd9ee1o083bnici6j7e5ic38tagxegywyt4o&ep=v1_videos_search&rid=giphy360p.mp4&ct=v)
+![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGl5dXB2NGIwN2N0c2s1M2cxNW9iMmlxbzJkeWxrZXlvbWN4YXh0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UkywKrH8teJYA/giphy.gif)
 
 ## Functional Description
 
+Este proyecto es un e-commerce diseñado para la venta de productos, utensilios y envases destinados a la elaboración de cosmética natural. Además, proporcionará un apartado dedicado a compartir recetas para la creación de cosméticos caseros.
+
 ### Use Cases
 
-- search profile
-- add products to cart
-- view cart
-- add / remove items
-- checkout cart
-- view orders
-- view order status
-- Reviews and ratings system
-- Filter by category
+- Registro de Usuarios
+- Home (productos)
+- Recetas (otra vista)
+- Agregar Productos al Carrito
+- Hacer el pago
+- Gestión de Perfil
 
 ## Technical Description
+
+Será una pagina web;
+- Frontend: HTML, CSS, JavaScript (con React) 
+- Backend: Node.js y Express
+- Database: MongoDB
+- Testing: Mocha y Chai
 
 ### Data Model
 
 User
-- id
-- name
-- email
-- password
-- favs
+* id (string)
+* name (string)
+* email (string)
+* password (string)
 
-Products
-- id
-- name
-- category
-- price
-....
+Product
+* id (string)
+* name (string)
+* price (string)
 
-Cart
-- id
-- items
+Recipe
+* id (string)
+* name (string)
+
+Order
+* id (string)
