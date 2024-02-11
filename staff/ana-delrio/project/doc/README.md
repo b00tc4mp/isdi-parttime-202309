@@ -2,7 +2,8 @@
 
 ## Summary
 
-Esta aplicación web permitirá a los usuarios compartir, explorar libros y participar en clubes de lectura. Con una interfaz intuitiva, fomentará la interacción social en torno a la pasión por la lectura, creando una comunidad y facilitando el intercambio de ideas literarias.
+This web application will allow users to share, explore books and participate in book clubs. With an intuitive interface, it will encourage social interaction around a passion for reading, creating a community and facilitating the exchange of literary ideas.
+
 
 ![](https://media4.giphy.com/media/3otPonSG56cvNy9BNm/giphy.gif?cid=ecf05e47gvggq50e2f9prkuop2kzvw28umn3atjnaujhutd5&ep=v1_gifs_related&rid=giphy.gif&ct=g)
 
@@ -11,13 +12,13 @@ Esta aplicación web permitirá a los usuarios compartir, explorar libros y part
 
 ### Use Cases
 
-- search books
-- add books
-- Comments other's users comments (reviews, exchange intentions)
+- Search books
+- Add books
+- Comments other's users comments (reviews, exchange intention)
 - Make make own list (read, want to read, reading)
-- add friends
-- make like
-- publish post
+- Add friends
+- Make like
+- Publish post
 
 
 ## Views
@@ -25,33 +26,35 @@ Esta aplicación web permitirá a los usuarios compartir, explorar libros y part
 Home: 
  - Search books
  - Friends activity
- - like
- - comment
- - notification 
+ - Like
+ - Comment (reviews, exchange intentions)
+ - Add to your list
+ - Access to the view's book
+ - Access to the user's book
+ - Settings 
 
-Search: 
-- Want to read | Currently Reading | Read
-- Community Rating and reviews 
-- Comments
+My list book
+- Search Lists 
+- Lists: want to read, read, saved(favs)
+- Settings 
 
-My fav list book
-- lists: want to read, read
-- Reading challenge 
-
-More: 
-- My profile
-- Reading challenge
-- Add friends
-- Groups
-- Scan books
+Add books
+- Add books in our DDBB
+    - Scan books
+- Upload post
 - Settings
 
-Reading club
+Profile: 
+- My profile
+- Change details users (password, user name)
+- View my books
+- (...)
+
+Reading club (version II)
 - Novel
 - Hystoric
 - Clasics 
 - Science fiction / fantasy
-
 - Change books 
 
     
@@ -60,7 +63,6 @@ Reading club
 ### Data Model
 
 User
-
 - id (string)
 - name (string)
 - email (string)
@@ -72,11 +74,19 @@ Books
 - Author (string)
 - Year (number)
 - brand (string)
+- Type/Category
 
+Post
+- User
+- Name book
+- Author book
+- Likes
+- Comments
 
 Comment
 - exchange 
 - review
+
 
 
 
