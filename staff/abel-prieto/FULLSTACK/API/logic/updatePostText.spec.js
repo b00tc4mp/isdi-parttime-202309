@@ -19,53 +19,43 @@ describe('updatePostText', () => {
     beforeEach(() => Post.deleteMany())
 
     // CASO POSITIVO - Update Text
-    it('succeeds on updating post text', () => {
-        return User.create({ name: random.name(), email: random.email(), password: random.password() })
-            .then(user => {
-                return Post.create({ author: user.id, image: random.image(), text: random.text() })
-                    .then(post => {
-                        return updatePostText(user.id, post.id, 'new text')
-                            .then(() => {
-                                return Post.findOne({ image: post.image })
-                                    .then(post => {
-                                        expect(post.text).to.be.a('string')
-                                        expect(post.text).to.equal('new text')
-                                    })
-                            })
-                    })
-            })
+    it('succeeds on updating post text', async () => {
+        const user = await User.create({ name: random.name(), email: random.email(), password: random.password() })
+        const post = await Post.create({ author: user.id, image: random.image(), text: random.text() })
+        
+        await updatePostText(user.id, post.id, 'new text')
+        const post2 = await Post.findOne({ image: post.image })
+
+        expect(post2.text).to.be.a('string')
+        expect(post2.text).to.equal('new text')
     })
 
     // CASO NEGATIVO - User not found
-    it('fails on user not found', () => {
-        return User.create({ name: random.name(), email: random.email(), password: random.password() })
-            .then(user => {
-                return Post.create({ author: user.id, image: random.image(), text: random.text() })
-                    .then(post => {
-                        return updatePostText(new ObjectId().toString(), post.id, 'new text')
-                            .then(() => {throw new Error('should not reach this point!')} )
-                            .catch(error => {
-                                expect(error).to.be.instanceOf(NotFoundError)
-                                expect(error.message).to.equal('user not found')
-                            })
-                    })
-            })
+    it('fails on user not found', async () => {
+        const user = await User.create({ name: random.name(), email: random.email(), password: random.password() })
+        const post = await Post.create({ author: user.id, image: random.image(), text: random.text() })
+        
+        try {
+            await updatePostText(new ObjectId().toString(), post.id, 'new text')
+            throw new Error('should not reach this point!')
+        } catch(error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('user not found')
+        }
     })
 
     // CASO NEGATIVO - Post not found
-    it('fails on post not found', () => {
-        return User.create({ name: random.name(), email: random.email(), password: random.password() })
-            .then(user => {
-                return Post.create({ author: user.id, image: random.image(), text: random.text() })
-                    .then(post => {
-                        return updatePostText(user.id, new ObjectId().toString(), 'new text')
-                            .then(() => {throw new Error('should not reach this point!')} )
-                            .catch(error => {
-                                expect(error).to.be.instanceOf(NotFoundError)
-                                expect(error.message).to.equal('post not found')
-                            })
-                    })
-            })
+    it('fails on post not found', async () => {
+        const user = await User.create({ name: random.name(), email: random.email(), password: random.password() })
+        await Post.create({ author: user.id, image: random.image(), text: random.text() })
+        
+        try {
+            await updatePostText(user.id, new ObjectId().toString(), 'new text')
+            throw new Error('should not reach this point!')
+        } catch(error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('post not found')
+        }
     })
 
     after(() => mongoose.disconnect())

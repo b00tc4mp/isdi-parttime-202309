@@ -15,7 +15,6 @@ const { ObjectId } = Types
 
 describe('changePasswordUser', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
-
     beforeEach(() => User.deleteMany())
 
     // CASO POSITIVO
@@ -90,5 +89,4 @@ describe('changePasswordUser', () => {
     })
 
     after(() => mongoose.disconnect())
-
 })
