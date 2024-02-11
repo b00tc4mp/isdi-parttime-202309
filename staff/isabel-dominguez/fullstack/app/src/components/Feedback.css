@@ -1,0 +1,28 @@
+.Feedback {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.Feedback--debug {
+  background-color: white;
+  color: yellowgreen;
+}
+.Feedback--info {
+  background-color: white;
+  color: dodgerblue;
+}
+.Feedback--warn {
+  background-color: white;
+  color: gold;
+}
+.Feedback--error {
+  background-color: white;
+  color: orangered;
+}
+.Feedback--fatal {
+  background-color: white;
+  color: red;
+}
+
+/*# sourceMappingURL=Feedback.css.map */
