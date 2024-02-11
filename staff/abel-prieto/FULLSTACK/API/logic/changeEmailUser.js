@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { User } from '../data/models.js'
 import { validate, errors } from 'com'
 
@@ -20,16 +21,17 @@ function changeEmailUser(userId, newEmail, againNewEmail, password) {
                 throw new CredentialsError('new email and confirm are not the same')
             }
 
-            if (password !== user.password) {
-                throw new CredentialsError('wrong credentials')
-            }
+            return bcrypt.compare(password, user.password)
+                .then(match => {
+                    if (!match) {
+                        throw new CredentialsError('wrong credentials')
+                    }
 
-            user.email = newEmail
+                    user.email = newEmail
 
-            user.save()
-                .then(user => { })
-                .catch(error => { throw new SystemError(error.message) })
-
+                    user.save()
+                        .catch(error => { throw new SystemError(error.message) })
+                })
         })
 }
 

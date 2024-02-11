@@ -33,7 +33,6 @@ function changePasswordUser(userId, password, newPassword, againNewPassword) {
 
                             return user.save()
                                 .catch(error => { throw new SystemError(error.message) })
-                                .then(user => { })
                         })
                 })
         })
