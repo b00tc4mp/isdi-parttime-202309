@@ -15,7 +15,7 @@ function authenticateUser(email, password) {
       if (!user) throw new NotFoundError('user not found')
 
       if (user.password != password)
-        throw new CredentialsError('wrong credentials')
+        throw new CredentialsError('wrong password')
 
       return user.id
     })
