@@ -6,6 +6,9 @@ import retrieveFavsPostHandler from './retrieveFavsPostHandler.js'
 import createPostHandler from './createPostHandler.js'
 import toggleLikePostHandler from './toggleLikePostHandler.js'
 import toggleFavPostHandler from './toggleFavPostHandler.js'
+import deletePostHandler from './deletePostHandler.js'
+import togglePostCommentHandler from './togglePostCommentHandler.js'
+import updatePostTextHandler from './updatePostTextHandler.js'
 
 export {//es un scope, "importamos todo"
     registerUserHandler,
@@ -15,5 +18,8 @@ export {//es un scope, "importamos todo"
     retrieveFavsPostHandler,
     createPostHandler,
     toggleLikePostHandler,
-    toggleFavPostHandler
+    toggleFavPostHandler,
+    deletePostHandler,
+    togglePostCommentHandler,
+    updatePostTextHandler
 }

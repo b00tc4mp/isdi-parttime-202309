@@ -38,10 +38,19 @@ class CredentialsError extends Error {
     }
 }
 
-export {// esta manera de exportar se llama bucket
+class TokenError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+export {// esto no es un objeto (es un bloque, esta manera de exportar se llama bucket)
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
-    CredentialsError
+    CredentialsError,
+    TokenError
 }

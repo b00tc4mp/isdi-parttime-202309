@@ -17,15 +17,16 @@ function Login(props) {
         try {
             logic.loginUser(email, password, error => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
 
+                // setTimeout(() => props.onSuccess(), 2000)
                 props.onSuccess()
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 

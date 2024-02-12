@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import Post from './Post'
 
-function Posts({ loadPosts, stamp }) {
+
+function Posts(props) {
     console.log('Posts')
 
     const [posts, setPosts] = useState([])
 
     const refreshPosts = () => {
         try {
-            loadPosts((error, posts) => {
+            props.loadPosts((error, posts) => {
                 if (error) {
-                    alert(error.message)
+                    props.onError(error)
 
                     return
                 }
@@ -20,7 +21,7 @@ function Posts({ loadPosts, stamp }) {
                 setPosts(posts)
             })
         } catch (error) {
-            alert(error.message)
+            props.onError(error)
         }
     }
 
@@ -28,10 +29,10 @@ function Posts({ loadPosts, stamp }) {
         console.log('Posts effect')
 
         refreshPosts()
-    }, [stamp])
+    }, [props.stamp])
 
     return <div className="posts">
-        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} />)}
+        {posts.map(post => <Post key={post.id} post={post} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} oneError= {props.onError}/>)}
     </div>
 }
 

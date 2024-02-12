@@ -3,11 +3,13 @@ import { ContentError, DuplicityError } from '../logic/errors.js'
 
 export default (req, res) => {
     try {
-        const { name, email, password } = req.body
+        const { userId, postId } = req.body
 
-        logic.registerUser(name, email, password)
-            .then(() => res.status(201).send())
-            .catch(error => {
+        logic.deletePostHandler(userId, postId)
+            .then(() => {
+                res.status(201).send()
+            })
+            .catch((error) => {
                 let status = 500
 
                 if (error instanceof DuplicityError)
