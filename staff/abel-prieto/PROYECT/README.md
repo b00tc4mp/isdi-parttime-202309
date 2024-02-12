@@ -64,7 +64,7 @@ There will be different roles with their corresponding permissions but only **AD
 |    `cd .`   | *Move `forward` between folders*                           |
 |    `cd ..`  | *Move `back` between folders*                              |
 |    `pwd`    | *Show the actual directory*                                |
-|     `ls`    | *List the `files on the directory`                         |
+|     `ls`    | *List the `files on the directory`*                        |
 |   `mkdir`   | *Create `directory` on the same route*                     |
 |  `download` | *`Download` the specific file or document*                 |
 |   `upload`  | *`Upload` the specific file or document*                   |
@@ -92,29 +92,35 @@ There will be different roles with their corresponding permissions but only **AD
 ## STORIES
 
 `INITIAL PAGE`
-- **guest@localhost-guest**
 - First entry on APP with contact information: email, GitHub and Linkedin profile.
-- When we press `ENTER` on the initial page, we could see a paragraph with the intrucctions and commands: *"Entry login or register command to switch between the different login and register components"*
+- Format command bar: **guest@localhost-guest**
+- When we press `ENTER` on the initial page, we could entry to Login and Register page with the intrucctions: *"Entry login or register command to switch between the different login and register components"*
 - We could write `HELP` command to show us all list guest commands
 - With `EXIT` command we could refresh the initial page **only on guest mode**
+- Entry the next component -> **LOGIN | REGISTER**
 
 <br>
 
 `REGISTER -> On "GUEST" Mode`
 - ***register username + email + password***
-- Once we could register on web, the text will disapear and create a new command bar to entry the logg in
+- Once we could register on web, the text will disappear and create a new command bar to entry the logg in
 
 <br>
 
 `LOGIN -> On "GUEST" Mode`
 - ***login email + password***
 - When we entry our credentials, the command bar show us our username next to the category `user` or `admin` with its own group color
-
+- Entry the next component -> **DESKTOP**
 <br>
 
-`DESKTOP`
+`DESKTOP -> On "USER" logged`
 - Only entry with logged
-- **Username@localhost-user** on command bar
-- With `mkdir` the user would create new files from root directory: `C:\Desktop`
-- 
+- Format command bar: **Username@localhost-user** 
+- With `mkdir` the users would create new files from root directory: `C:\Desktop`
+- If we create a field, the `pwd` command will tell us the fully address
+- We can attach or upload files with `upload` command and `download` the own one
+- The **ADMIN** could `create or update GROUPS` and add users in them ("localhost" group default)
+- The `permissions` are related to the type of group established by ADMIN with `chmod` command
+- Users from the same group could `see files from each other` and `download them`
+- In all cases, we have the `logout` command to return to **INITIAL PAGE**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
