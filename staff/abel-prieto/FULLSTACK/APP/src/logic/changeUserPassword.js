@@ -12,7 +12,7 @@ export default function changeUserPassword(password, newPassword, againNewPasswo
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${String(session.sessionUserId)}`,
+            Authorization: `Bearer ${String(session.token)}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ password, newPassword, againNewPassword })
