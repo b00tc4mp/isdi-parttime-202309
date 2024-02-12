@@ -126,4 +126,42 @@ There will be different roles with their corresponding permissions but only **AD
 - The `permissions` are related to the type of group established by ADMIN with `chmod` command
 - Users from the same group could `see files from each other` and `download them`
 - In all cases, we have the `logout` command to return to **INITIAL PAGE**
+
+
+## DATA MODEL
+
+`GUEST`
+
+- username (guest default)
+- commands: {
+      - guest commands
+}
+
+`USER`
+
+- username: name
+- email
+- password 
+- group: {
+      - localhost (default)
+}
+- commands: {
+      - user commands
+}
+
+`ADMIN`
+
+- username: name
+- email
+- password
+- group: {
+      - root
+}
+- commands: {
+      - admin commands
+}
+
+
+
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 function Loading() {
 
+    // POINTER AND COMMAND STATE
     const [pointer, setPointer] = useState('█')
+    const [commandValue, setCommandValue] = useState(null)
 
+    // POINTER EFFECT
     useEffect(() => {
         const setTimeStamp = setInterval(() => {
             setPointer(prevPointer => (prevPointer === '█' ? '' : '█'));
@@ -12,19 +15,31 @@ function Loading() {
         return () => clearInterval(setTimeStamp);
     }, []);
 
-    function showCommands() {
-        const help = document.addEventListener()
+    // ESCUCHA TECLADO Y ESCRITURA 
+    function commandField(event) {
+        event.preventDefault()
+
+        const commandText = document.getElementById('command')
+
+        commandText.addEventListener('keyup', (event) => {
+            commandText = event.target.value
+            setCommandValue(commandText)
+        })
     }
 
-    function showHelpCommand() {
+    // function showCommands() {
+    //     const help = document.addEventListener()
+    // }
 
-    }
+    // function showHelpCommand() {
+
+    // }
 
     return <>
 
-        <div className="loading">
+        <div className="container">
 
-            <div className="container">
+            <div className="page">
                 <div className="tittle-logo">
                     <p>    ___ ___  .___ .___  _______   .___ ___________     __      __        ___              _______      _______       </p>
                     <p>   /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__     ___  _\   _  \     \   _  \      </p>
@@ -34,7 +49,7 @@ function Loading() {
                     <p>         \/                    \/                            \/        \/     \/                 \/  \/       \/     </p>
                 </div>
 
-                <div className="info-text">
+                <div className="text">
                     <p>Type 'help' to see the list of avaliable comands.</p>
                     <p>Please, press 'ENTRY' to log in or sign up</p>
                 </div>
@@ -65,13 +80,15 @@ function Loading() {
                 <br></br>
                 <br></br>
 
-                <div className="field-order">
-                    <span><p className="guest">guest</p></span>
+                <div className="command-bar">
+                    <span><p className="user-guest">guest</p></span>
                     <span><p>@</p></span>
-                    <span><p>local-guest</p></span>
-                    <span><p>:$ </p></span>
+                    <span><p>local</p></span>
+                    <span><p>-</p></span>
+                    <span><p>guest</p></span>
+                    <span><p>:</p></span>
                     <div id="command-form">
-                        <input id="command" className="command-input" type="text" contenteditable="true" />
+                        <input id="command" type="text" contenteditable="true" autoFocus autoComplete="off" value={commandValue} onChange={commandField} />
                     </div>
                     <p>{pointer}</p>
                 </div>
