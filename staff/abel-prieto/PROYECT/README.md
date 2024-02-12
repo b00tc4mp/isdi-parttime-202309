@@ -12,7 +12,7 @@ Files can be shared between different members of a specific group as well as nav
 
 There will be different roles with their corresponding permissions but only **ADMIN** user has the `CRUD System` (create, rewrite, update & delete).
 
-- Last update: 12/02/2024 
+- Last update: 12/02/2024
 
 ## RESUME
 
@@ -92,6 +92,9 @@ There will be different roles with their corresponding permissions but only **AD
 ## STORIES
 
 `INITIAL PAGE`
+
+![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
+
 - First entry on APP with contact information: email, GitHub and Linkedin profile.
 - Format command bar: **guest@localhost-guest**
 - When we press `ENTER` on the initial page, we could entry to Login and Register page with the intrucctions: *"Entry login or register command to switch between the different login and register components"*
