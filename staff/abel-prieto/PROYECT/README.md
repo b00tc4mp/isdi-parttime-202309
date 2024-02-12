@@ -12,7 +12,7 @@ Files can be shared between different members of a specific group as well as nav
 
 There will be different roles with their corresponding permissions but only **ADMIN** user has the `CRUD System` (create, rewrite, update & delete).
 
-- Last update: 08/02/2024 
+- Last update: 12/02/2024 
 
 ## RESUME
 
