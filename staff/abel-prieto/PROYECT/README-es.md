@@ -1,4 +1,4 @@
-| [English](./README-en.md) |
+Languajes: | [English](./README-en.md) |
 
 ## HiInit Terminal Web v0.1
 
