@@ -14,7 +14,7 @@
 > Los archivos pueden ser compartidos entre los distintos miembros de un grupo específico, navegando entre los distintos archivos de la carpeta raíz.
 > Hay diferentes roles con sus correspondientes permisos pero solo el tipo de usuario **ADMIN** tiene el `sistema CRUD` (creación, escritura, carga y eliminación).
 
-- última actualización: 13/02/2024
+- Última actualización: 13/02/2024
 
 ## RESUMEN
 
@@ -156,14 +156,14 @@
 <br>
 
 `DESKTOP -> On "USER" logged`
-- Only entry with logged
-- Format command bar: **Username@localhost-user** 
-- With `mkdir` the users would create new files from root directory: `C:\Desktop`
-- If we create a field, the `pwd` command will tell us the fully address
-- We can attach or upload files with `upload` command and `download` the own one
-- The **ADMIN** could `create or update GROUPS` and add users in them ("localhost" group default)
-- The `permissions` are related to the type of group established by ADMIN with `chmod` command
-- Users from the same group could `see files from each other` and `download them`
-- In all cases, we have the `logout` command to return to **INITIAL PAGE**
+- Solo se accede mediante logeo
+- Formato de la barra de comandos: **Username@localhost-user**
+- Con el comando `mkdir` el usuario podrá crear nuevos archivos desde la rama raíz: `C:\Desktop`
+- Si creamos un directorio, el comando `pwd` nos dirá la dirección completa
+- Podremos subir o descargar archivos con los comandos `upload` o `download`
+- El **ADMINISTRADOR** podrá `crear o modificar GRUPOS` y añadir usuarios en ellos ("localhost" es el grupo por defecto)
+- Los `permisos` estarán relacionados al tipo de grupo establecido por el ADMIN con el comando `chmod`
+- Los usuarios del mismo grupo podrán `visualizar archivos de cada uno` y `descargarlos`
+- En todos los casos, tenemos el comando `logout` para salir de la sesión y volver a la **PÁGINA INICIAL** 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
