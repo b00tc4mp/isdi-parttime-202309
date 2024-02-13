@@ -1,0 +1,169 @@
+| [English](./README-en.md) |
+
+## HiInit Terminal Web v0.1
+
+      ___ ___  .___ .___  _______   .___ ___________     __      __        ___                    _______      _______        
+     /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__           ___  _\   _  \     \   _  \     
+    /    ~    \|   ||   | /   |   \ |   |  |    |       \   \/\/   /_/ __ \ | __ \          \  \/ /  /_\  \    /  /_\  \    
+    \    Y    /|   ||   |/    |    \|   |  |    |        \        / \  ___/ | \_\ \          \   /\  \_/   \   \  \_/   \   
+     \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /           \_/  \_____  / /\ \_____  /   
+           \/                    \/                            \/        \/     \/                       \/  \/       \/    
+<br>
+
+> HiInit es un sistema de terminal web de de `creación y carga de archivos` con un sistema de registro y login de usuarios con diferentes grupos y categorías.
+> Los archivos pueden ser compartidos entre los distintos miembros de un grupo específico, navegando entre los distintos archivos de la carpeta raíz.
+> Hay diferentes roles con sus correspondientes permisos pero solo el tipo de usuario **ADMIN** tiene el `sistema CRUD` (creación, escritura, carga y eliminación).
+
+- última actualización: 13/02/2024
+
+## RESUMEN
+
+`Para HiInit v0.1`
+- [x] Terminal web con servicio de carga online de archivos.
+- [x] Escritorio o espacio personal para cada usuario.
+- [x] Subida y descarga de archivos: PDFs | Documentos | Imágenes ... (por ahora)
+- [x] Primera versión para el proyecto final de ISDI CODERS.
+
+<br>
+
+`Para HiInit v1.0`
+- [ ] En construcción ... ⏳
+
+## TIPOS DE USUARIOS
+
+- Invitado: Primera entrada sin logeo de usuario - Color naranja
+- User: Usuario estándar - Color azul
+- Root: Administrador - Color rojo
+  
+## CASOS - FUNCIONES
+
+`INVITADO`
+
+- Primera entrada | Registro o Login | Salida
+
+`USUARIO ESTÁNDAR`
+
+- Crear y manejar sus propios archivos y carpetas | Subir y descargar archivos
+
+`ROOT - ADMIN`
+
+- Manejar usuarios | Sistema CRUD | Todos los archivos y carpetas | Permisos | Grupos
+
+## MODELO DE DATOS
+
+`INVITADO`
+
+- nombre usuario (guest, por defecto)
+- comandos: {
+      - comandos tipo guest
+}
+
+`USUARIO`
+
+- nombre usuario: nombre
+- email
+- contraseña: {'bcrypt }
+- grupo: {
+      - localhost (por defecto)
+}
+- comandos: {
+      - comandos tipo usuario
+}
+
+`ADMIN`
+
+- nombre usuario: nombre
+- email
+- contraseña: {'bcrypt }
+- grupo: {
+      - root-admin
+}
+- comandos: {
+      - comandos tipo admin
+}
+
+## COMANDOS
+
+## | TIPO - INVITADO |
+
+- Primer vistazo o entrada a la "PÁGINA INICIAL"
+
+|   Comandos  | Función                                                               |
+|  ---------  | --------                                                              | 
+|  `register` | *Registro de usuario con `{ nombre usuario, email y contraseña }`*    |
+|   `login`   | *Login en HiInit con credeciales `{ email y contraseña }`*            |
+|    `help`   | *Solo **lista** de comandos con nombres y funciones*                  |
+|    `exit`   | *Vuelve a la `página inicial`*                                        |
+
+## | TYPE - USER |
+
+|   Comandos  | Función                                                    |
+|  ---------  | --------                                                   |
+|   `logout`  | *Deslogeo de sesión y `retorno` a la página inicial*       |
+|     `cd`    | *Moverse hacia `adelante` (.) o `atrás` (..) entre rutas*  |
+|    `pwd`    | *`Muestra` el directorio actual*                           |
+|     `ls`    | *Lista los `archivos del directorio`*                      |
+|   `mkdir`   | *Creación de `directorios` en la misma ruta*               |
+|  `download` | *`Descarga` de archivo específico o documento*             |
+|   `upload`  | *`Subida` de archivo específico o documento*               |
+|   `delete`  | *`Borra` el archivo del propio usuario*                    |
+|   `clear`   | *`Limpia` la pantalla de comandos*                         |
+|    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
+
+## | TYPE - ADMIN (ROOT) |
+
+|   Comandos  | Función                                                    |
+|  ---------  | --------                                                   |
+|   `logout`  | *Deslogeo de sesión y `retorno` a la página inicial*       |
+|     `cd`    | *Moverse hacia `adelante` (.) o `atrás` (..) entre rutas*  |
+|    `pwd`    | *`Muestra` el directorio actual*                           |
+|     `ls`    | *Lista los `archivos del directorio`*                      |
+|   `mkdir`   | *Creación de `directorios` en la misma ruta*               |
+|  `download` | *`Descarga` de archivo específico o documento*             |
+|   `upload`  | *`Subida` de archivo específico o documento*               |
+|    `sudo`   | *Entrar en modo administrador `sistema CRUD`*              |
+| `+ delete`  | *`Borra` archivos con sudo de cualquier grupo o usuario*   |
+|  `+ chmod`  | *Da `permisos` con sudo a diferentes grupos o usuarios*    |
+|   `clear`   | *`Limpia` la pantalla de comandos*                         |
+|    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
+
+## 
+
+`INITIAL PAGE`
+
+![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
+
+- Página de inicio a la APP con información de contacto: email, GitHub y perfil de Linkedin.
+- Formato de la barra de comandos: **guest@localhost-guest**
+- Cuando presionamos `ENTER` en la página de inicio, podemos entrar al apartado de Registro o de Login con las intrucciones:  *"Escribe el comando login o register para cambiar entre los diferentes componentes de login o registro"*
+- Podemos escribir el comando `HELP` para que nos muestre el listado de comandos
+- Con el comando `EXIT` podremos regresar a la página de inicio **solo en modo invitado**
+- Entrar al siguiente componente -> **LOGIN | REGISTRO**
+
+<br>
+
+`REGISTRO -> En modo "INVITADO"`
+- ***register nombre de usuario + email + contraseña***
+- Una vez que nos hayamos registrado, el texto desaparecerá y aparecerá una nueva barra de comandos para poder hacer el login
+
+<br>
+
+`LOGIN -> En modo "INVITADO"`
+- ***login email + contraseña***
+- Cuando ingresamos nuestras credenciales, la barra de comandos nos mostrará el nombre de usuario al lado de la categoría `user` o `admin` con su color indicativo
+- Entrar al siguiente componente -> **ESCRITORIO**
+  
+<br>
+
+`DESKTOP -> On "USER" logged`
+- Only entry with logged
+- Format command bar: **Username@localhost-user** 
+- With `mkdir` the users would create new files from root directory: `C:\Desktop`
+- If we create a field, the `pwd` command will tell us the fully address
+- We can attach or upload files with `upload` command and `download` the own one
+- The **ADMIN** could `create or update GROUPS` and add users in them ("localhost" group default)
+- The `permissions` are related to the type of group established by ADMIN with `chmod` command
+- Users from the same group could `see files from each other` and `download them`
+- In all cases, we have the `logout` command to return to **INITIAL PAGE**
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
