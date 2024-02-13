@@ -51,6 +51,9 @@ Languajes: | [Spanish](./README-es.md) |
 
 ## DATA MODEL
 
+- Group (TODO)
+- File (TODO)
+
 `GUEST`
 
 ```json
