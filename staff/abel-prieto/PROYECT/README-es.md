@@ -53,34 +53,50 @@ Languajes: | [English](./README-en.md) |
 
 `INVITADO`
 
-- nombre usuario (guest, por defecto)
-- comandos: {
-      - comandos tipo guest
+```json
+{
+  "nombre usuario": "guest (por defecto)",
+  "grupos": [
+    "guest (por defecto)",
+  ],
+  "comandos": [
+    "comandos tipo invitado"
+  ]
 }
+  ```
 
 `USUARIO`
 
-- nombre usuario: nombre
-- email
-- contraseña: {'bcrypt }
-- grupo: {
-      - localhost (por defecto)
+```json
+{
+  "nombre usuario": "nombreEjemplo",
+  "email": "email@ejemplo.com",
+  "contraseña": "bcrypt",
+  "grupos": [
+    "localhost (por defecto)",
+    "Otros"
+  ],
+  "comandos": [
+    "comandos tipo usuario"
+  ]
 }
-- comandos: {
-      - comandos tipo usuario
-}
+  ```
 
-`ADMINISTRADOR`
+`ADMIN`
 
-- nombre usuario: nombre
-- email
-- contraseña: {'bcrypt }
-- grupo: {
-      - root-administrador
+```json
+{
+  "nombre usuario": "nombreEjemplo",
+  "email": "email@ejemplo.com",
+  "contraseña": "bcrypt",
+  "grupos": [
+    "root",
+  ],
+  "comandos": [
+    "comandos tipo administrador"
+  ]
 }
-- comandos: {
-      - comandos tipo administrador
-}
+  ```
 
 ## COMANDOS
 
