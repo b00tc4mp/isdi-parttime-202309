@@ -70,16 +70,16 @@
       - comandos tipo usuario
 }
 
-`ADMIN`
+`ADMINISTRADOR`
 
 - nombre usuario: nombre
 - email
 - contraseña: {'bcrypt }
 - grupo: {
-      - root-admin
+      - root-administrador
 }
 - comandos: {
-      - comandos tipo admin
+      - comandos tipo administrador
 }
 
 ## COMANDOS
@@ -95,7 +95,7 @@
 |    `help`   | *Solo **lista** de comandos con nombres y funciones*                  |
 |    `exit`   | *Vuelve a la `página inicial`*                                        |
 
-## | TYPE - USER |
+## | TIPO - USUSARIO |
 
 |   Comandos  | Función                                                    |
 |  ---------  | --------                                                   |
@@ -110,7 +110,7 @@
 |   `clear`   | *`Limpia` la pantalla de comandos*                         |
 |    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
 
-## | TYPE - ADMIN (ROOT) |
+## | TIPO - ADMINISTRADOR (ROOT) |
 
 |   Comandos  | Función                                                    |
 |  ---------  | --------                                                   |
@@ -129,7 +129,7 @@
 
 ## 
 
-`INITIAL PAGE`
+`PÁGINA INICIAL`
 
 ![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
 
@@ -155,7 +155,7 @@
   
 <br>
 
-`DESKTOP -> On "USER" logged`
+`ESCRITORIO -> Con "USUARIO" logeado`
 - Solo se accede mediante logeo
 - Formato de la barra de comandos: **Username@localhost-user**
 - Con el comando `mkdir` el usuario podrá crear nuevos archivos desde la rama raíz: `C:\Desktop`
