@@ -62,7 +62,7 @@ Languajes: | [Spanish](./README-es.md) |
 
 - username: name
 - email
-- password 
+- password {'bcrypt }
 - group: {
       - localhost (default)
 }
