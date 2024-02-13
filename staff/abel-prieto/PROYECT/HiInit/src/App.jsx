@@ -1,12 +1,9 @@
-import Loading from "./views/Loading"
-import { useState } from "react"
+import Initial from './views/Initial'
 
 function App() {
 
-  const [view, setView] = useState(null)
-
   return <>
-    <Loading />
+    <Initial />
   </>
 
 }
