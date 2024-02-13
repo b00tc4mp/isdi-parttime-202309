@@ -1,6 +1,6 @@
 Languajes: | [English](./README-en.md) |
 
-## HiInit Terminal Web v0.1
+## HiInit Terminal Web v0.1 &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
       ___ ___  .___ .___  _______   .___ ___________     __      __        ___                    _______      _______        
      /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__           ___  _\   _  \     \   _  \     
