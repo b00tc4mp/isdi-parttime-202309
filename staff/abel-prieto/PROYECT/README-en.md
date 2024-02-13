@@ -53,34 +53,50 @@ Languajes: | [Spanish](./README-es.md) |
 
 `GUEST`
 
-- username (guest default)
-- commands: {
-      - guest commands
+```json
+{
+  "username": "guest (default)",
+  "groups": [
+    "guest (default)",
+  ],
+  "commands": [
+    "guest commands"
+  ]
 }
+  ```
 
 `USER`
 
-- username: name
-- email
-- password {'bcrypt }
-- group: {
-      - localhost (default)
+```json
+{
+  "username": "exampleName",
+  "email": "example@name.com",
+  "password": "bcrypt",
+  "groups": [
+    "localhost (default)",
+    "Others"
+  ],
+  "commands": [
+    "user commands"
+  ]
 }
-- commands: {
-      - user commands
-}
+  ```
 
 `ADMIN`
 
-- username: name
-- email
-- password {'bcrypt }
-- group: {
-      - root
+```json
+{
+  "username": "exampleName",
+  "email": "example@name.com",
+  "password": "bcrypt",
+  "groups": [
+    "root",
+  ],
+  "commands": [
+    "admin commands"
+  ]
 }
-- commands: {
-      - admin commands
-}
+  ```
 
 ## COMMANDS
 
