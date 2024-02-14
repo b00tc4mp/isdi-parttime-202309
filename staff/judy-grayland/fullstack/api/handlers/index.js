@@ -7,7 +7,7 @@ import createPostHandler from './createPostHandler.js'
 import toggleLikePostHandler from './toggleLikePostHandler.js'
 import toggleFavPostHandler from './toggleFavPostHandler.js'
 
-// no estás exportando un objeto, es un scopoe, un bloque. Esto te permite luego hace destructuring cuando lo importas en las lógicas
+// no estás exportando un objeto, es un scope, un bloque. Esto te permite luego hace destructuring cuando lo importas en las lógicas
 export {
   registerUserHandler,
   authenticateUserHandler,

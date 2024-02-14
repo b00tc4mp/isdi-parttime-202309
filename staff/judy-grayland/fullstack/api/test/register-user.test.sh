@@ -7,7 +7,7 @@ CASE "success on new user"
 
 curl 'http://localhost:8000/users' \
 -H 'Content-Type: application/json' \
--d '{ "name": "Beren Jena", "email": "beren@jena.com", "password": "123123123" }' \
+-d '{ "name": "Chili Pepper", "email": "chili@pepper.com", "password": "aaa" }' \
 -v
 
 # > POST /register HTTP/1.1

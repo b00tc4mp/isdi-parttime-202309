@@ -3,23 +3,26 @@ import validate from './helpers/validate.js'
 import { User, Post } from '../data/models.js'
 import { NotFoundError, SystemError } from './errors.js'
 
-function retrieveFavPosts(userId, callback) {
+function retrieveFavPosts(userId) {
   validate.id(userId, 'user id')
-  validate.function(callback, 'callback')
 
-  User.findById(userId)
+  return User.findById(userId)
     .lean()
+    .catch((error) => {
+      throw new SystemError(error.message)
+    })
     .then((user) => {
       if (!user) {
-        callback(new NotFoundError('user not found'))
-
-        return
+        throw new NotFoundError('user not found')
       }
-
       // con este parámetro dentro del .find buscamos únicamente los posts cuyo id estén entro del array de favs del usuario
-      Post.find({ _id: { $in: user.favs } })
+      return Post.find({ _id: { $in: user.favs } })
         .populate('author', 'name')
+        .select('-__v')
         .lean()
+        .catch((error) => {
+          throw new SystemError(error.message)
+        })
         .then((posts) => {
           posts.forEach((post) => {
             post.id = post._id.toString()
@@ -29,8 +32,6 @@ function retrieveFavPosts(userId, callback) {
               post.author.id = post.author._id.toString()
               delete post.author._id
             }
-
-            delete post.__v
 
             // saneamos los likes para que convertir todos los ObjectId que salen en likes a string
             post.likes = post.likes.map((userObjectId) =>
@@ -44,11 +45,9 @@ function retrieveFavPosts(userId, callback) {
             )
           })
 
-          callback(null, posts)
+          return posts
         })
-        .catch((error) => callback(new SystemError(error.message)))
     })
-    .catch((error) => callback(new SystemError(error.message)))
 }
 
 export default retrieveFavPosts

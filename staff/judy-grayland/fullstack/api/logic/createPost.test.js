@@ -9,18 +9,18 @@ dotenv.config()
 // the callback error handler is there to deal with errors that we have contemplated.
 mongoose
   .connect(process.env.MONGODB_URL_TEST)
-  .then(() => User.deleteMany())
-  .then(() =>
-    User.create({
-      name: 'Lima Limon',
-      email: 'lima@limon.com',
-      password: 'aaa',
-    })
-  )
+  // .then(() => User.deleteMany())
+  // .then(() =>
+  //   User.create({
+  //     name: 'Lima Limon',
+  //     email: 'lima@limon.com',
+  //     password: 'aaa',
+  //   })
+  // )
   .then((user) => {
     try {
       createPost(
-        user.id,
+        '65cbcb250597b8080de23253',
         'https://cmon-files.s3.amazonaws.com/images/product_line/hero_mobo/72/2018-july-wackyraces-smallhero-v2.jpg',
         'Good morning, wacky races!'
       )

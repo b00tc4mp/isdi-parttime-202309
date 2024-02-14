@@ -7,7 +7,7 @@
 # CASE "success on correct user id"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
+-H 'Authorization: Bearer 65cccbbe6c9e4ed81a597cec' \
 -v
 
 # > GET /users HTTP/1.1
@@ -29,9 +29,9 @@ curl 'http://localhost:8000/users' \
 
 # CASE "fails on invalid user id"
 
-curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 3kmmn4f11xe0' \
--v
+# curl 'http://localhost:8000/users' \
+# -H 'Authorization: Bearer 3kmmn4f11xe0' \
+# -v
 
 # > GET /users HTTP/1.1
 # > Host: localhost:8000

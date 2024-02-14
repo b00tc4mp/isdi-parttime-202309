@@ -7,8 +7,10 @@ export default (req, res) => {
 
     const { postId } = req.params
 
-    logic.toggleLikePost(userId, postId, (error) => {
-      if (error) {
+    logic
+      .toggleLikePost(userId, postId)
+      .then(() => res.status(204).send())
+      .catch((error) => {
         let status = 500
 
         if (error instanceof NotFoundError) {
@@ -18,9 +20,7 @@ export default (req, res) => {
         res
           .status(status)
           .json({ error: error.constructor.name, message: error.message })
-      }
-      res.status(204).send()
-    })
+      })
   } catch (error) {
     let status = 500
 

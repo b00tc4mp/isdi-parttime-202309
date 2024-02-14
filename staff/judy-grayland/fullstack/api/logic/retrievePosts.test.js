@@ -1,21 +1,19 @@
+import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
 import retrievePosts from './retrievePosts.js'
 
+dotenv.config()
+
 mongoose
-  .connect('mongodb://127.0.0.1:27017/test')
+  .connect(process.env.MONGODB_URL_TEST)
   .then(() => {
     try {
-      retrievePosts('65b0f34bf9beb466beb3a8df', (error, posts) => {
-        if (error) {
-          console.error(error)
-
-          return
-        }
-        console.log('posts retrieved', posts)
-      })
+      retrievePosts('65ca49e38e5eb0fe3f1065ad')
+        .then((posts) => console.log('posts retrieved', posts))
+        .catch((error) => console.error(error))
     } catch (error) {
       console.log(error)
     }
   })
-  .catch((error) => console.error(error))
+  .catch((error) => console.log(error))

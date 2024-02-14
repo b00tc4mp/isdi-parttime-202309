@@ -5,25 +5,27 @@ import { User, Post } from '../data/models.js'
 
 // TODO use models
 
-function toggleFavPost(userId, postId, callback) {
+function toggleFavPost(userId, postId) {
   validate.id(userId, 'user id')
   validate.text(postId, 'post id')
-  validate.function(callback, 'callback')
 
-  User.findById(userId)
+  return User.findById(userId)
+    .catch((error) => {
+      throw new SystemError(error.message)
+    })
     .then((user) => {
       if (!user) {
-        callback(new NotFoundError('user not found'))
-        return
+        throw new NotFoundError('user not found')
       }
 
-      // no ponemos .lean() cuando vamos a modificar y guardar el dato.
-      Post.findById(postId)
+      return Post.findById(postId)
         .lean()
+        .catch((error) => {
+          throw new SystemError(error.message)
+        })
         .then((post) => {
           if (!post) {
-            callback(new NotFoundError('post not found'))
-            return
+            throw new NotFoundError('post not found')
           }
 
           const index = user.favs.findIndex(
@@ -36,14 +38,14 @@ function toggleFavPost(userId, postId, callback) {
             user.favs.splice(index, 1)
           }
           // una vez hechas las modificaciones, tenemos que guardarlas en BBDD:
-          user
+          return user
             .save()
-            .then(() => callback(null))
-            .catch((error) => callback(new SystemError(error.message)))
+            .catch((error) => {
+              throw new SystemError(error.message)
+            })
+            .then(() => {})
         })
-        .catch((error) => callback(new SystemError(error.message)))
     })
-    .catch((error) => callback(new SystemError(error.message)))
 }
 
 export default toggleFavPost

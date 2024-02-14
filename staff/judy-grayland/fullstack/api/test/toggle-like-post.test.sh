@@ -4,8 +4,8 @@
 
 # CASE "success on correct data"
 
-curl 'http://localhost:8000/posts/65b541279135d27445f27aa3/likes' \
--H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
+curl 'http://localhost:8000/posts/65cce48800c5e607542ba6bd/likes' \
+-H 'Authorization: Bearer 65cccbbe6c9e4ed81a597cec' \
 -X PATCH \
 -v
 
@@ -23,9 +23,9 @@ curl 'http://localhost:8000/posts/65b541279135d27445f27aa3/likes' \
 
 # CASE "fails on incorrect post id"
 
-curl 'http://localhost:8000/posts/55b541279135d27445f27aa3/likes' \
--H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
--X PATCH \
+# curl 'http://localhost:8000/posts/55b541279135d27445f27aa3/likes' \
+# -H 'Authorization: Bearer 65b0f579f9beb466beb3a8e1' \
+# -X PATCH \
 
 # > PATCH /posts/55b541279135d27445f27aa3/likes HTTP/1.1
 # > Host: localhost:8000

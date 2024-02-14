@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import createPost from './createPost.js'
-import { DuplicityError, NotFoundError } from './errors.js'
+import { NotFoundError } from './errors.js'
 import { User, Post } from '../data/models.js'
 dotenv.config()
 
