@@ -1,51 +1,58 @@
-# !/bin/bash
+!/bin/bash
 
 # source ./pepetest.sh
 
 # TEST "retrieve-user"
 
-# CASE "success on correct user id"
+# CASE "success on correct token"
 
 curl 'http://localhost:8000/users' \
--H 'Authorization: Bearer 65cccbbe6c9e4ed81a597cec' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWM0ZjM1ZWI4NGE0MjgzODUxNjhiYjMiLCJpYXQiOjE3MDgwMTQ2MjZ9.WzRWo0CMEm8ul4yLtWOhdqUJzTdmgB-zIodg-YO99xg' \
+-v
+
+
+# > GET /users HTTP/1.1
+# > Host: localhost:8000
+# > User-Agent: curl/8.4.0
+# > Accept: */*
+# > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWM0ZjM1ZWI4NGE0MjgzODUxNjhiYjMiLCJpYXQiOjE3MDgwMTQ2MjZ9.WzRWo0CMEm8ul4yLtWOhdqUJzTdmgB-zIodg-YO99xg
+
+# < HTTP/1.1 200 OK
+# < X-Powered-By: Express
+# < Access-Control-Allow-Origin: *
+# < Content-Type: application/json; charset=utf-8
+# < Content-Length: 21
+# < ETag: W/"15-4M1c3tcAVA09sx5RqPF0Ft4r1os"
+# < Date: Thu, 15 Feb 2024 16:32:14 GMT
+# < Connection: keep-alive
+# < Keep-Alive: timeout=5  
+
+CASE "fails on corrupted token"
+
+curl 'http://localhost:8000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWNjZTk5NTAwYzVlNjA3NTQyYmE2Y2UiLCJpYXQiOjE3MDgwMTQ2MjZ9.WzRWo0CMEm8ul4yLtWOhdqUJzTdmgB-zIodg-YO99xg' \
 -v
 
 # > GET /users HTTP/1.1
 # > Host: localhost:8000
 # > User-Agent: curl/8.4.0
 # > Accept: */*
-# > Authorization: Bearer 3kmmn4f11xe0
+# > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWNjZTk5NTAwYzVlNjA3NTQyYmE2Y2UiLCJpYXQiOjE3MDgwMTQ2MjZ9.WzRWo0CMEm8ul4yLtWOhdqUJzTdmgB-zIodg-YO99xg
 
-# < HTTP/1.1 200 OK
+# < HTTP/1.1 500 Internal Server Error
 # < X-Powered-By: Express
+# < Access-Control-Allow-Origin: *
 # < Content-Type: application/json; charset=utf-8
-# < Content-Length: 22
-# < ETag: W/"16-EsstrSWjubxkB99nlYu8nRL6DKA"
-# < Date: Sat, 13 Jan 2024 13:48:50 GMT
+# < Content-Length: 55
+# < ETag: W/"37-61ditfGzo3McKN+1rnEayxAQ8YU"
+# < Date: Thu, 15 Feb 2024 16:38:29 GMT
 # < Connection: keep-alive
 # < Keep-Alive: timeout=5
+# * Connection #0 to host localhost left intact
+# {"error":"TokenError","message":"invalid signature"}%    
 
-# {"name":"Lechu Guita"}%    
+CASE "fails on expired token"
 
-# CASE "fails on invalid user id"
-
-# curl 'http://localhost:8000/users' \
-# -H 'Authorization: Bearer 3kmmn4f11xe0' \
-# -v
-
-# > GET /users HTTP/1.1
-# > Host: localhost:8000
-# > User-Agent: curl/8.4.0
-# > Accept: */*
-# > Authorization: Bearer 3wkmmn4f11xe0
-
-# < HTTP/1.1 400 Bad Request
-# < X-Powered-By: Express
-# < Content-Type: application/json; charset=utf-8
-# < Content-Length: 44
-# < ETag: W/"2c-DA3KcjMxbAqH25TOBQigpuC1Bjs"
-# < Date: Sat, 13 Jan 2024 13:52:08 GMT
-# < Connection: keep-alive
-# < Keep-Alive: timeout=5
-
-# {"error":"Error","message":"user not found"}% 
+curl 'http://localhost:8000/users' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWM0ZjM1ZWI4NGE0MjgzODUxNjhiYjMiLCJpYXQiOjE3MDgwMjAxMzQsImV4cCI6MTcwODAyMDEzNX0.8PU4Hrlug4ghtBz-KzRLVo1mTw2a4NryPrWJ-mazJOM' \
+-v

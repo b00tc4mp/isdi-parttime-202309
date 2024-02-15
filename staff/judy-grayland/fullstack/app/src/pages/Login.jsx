@@ -32,6 +32,7 @@ function Login(props) {
 
           return
         }
+        // esto lo que hace es indicar a la app que vayamos a home y al retrieveUser():
         props.onSuccess()
       })
     } catch (error) {
