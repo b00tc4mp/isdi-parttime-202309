@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs'
+
 import { validate, errors } from 'com'
 const { SystemError, DuplicityError } = errors
 
@@ -8,14 +10,19 @@ function registerUser(name, email, password) {
 	validate.email(email)
 	validate.password(password)
 
-	return User.create({ name, email, password })
-		.catch(error => {
-			if (error.code === 11000)
-				throw new DuplicityError('user already exists')
+	return bcrypt.hash(password, 8)
+		.catch(error => { throw new SystemError(error.message) })
+		.then(hash => {
+			return User.create({ name, email, password: hash })
+				.catch(error => {
+					if (error.code === 11000)
+						throw new DuplicityError('user already exists')
 
-			throw new SystemError(error.message)
+					throw new SystemError(error.message)
+				})
+				.then(user => { })
+
 		})
-		.then(user => { })
 }
 
 export default registerUser
