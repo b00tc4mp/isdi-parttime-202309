@@ -56,3 +56,22 @@ Recipes
 * complexity level (number)
 * cooking type (string)
 
+Feed type
+* Glutenfree
+* Vegetarian
+* Vegan
+* Omnivorous
+
+Cooking type
+* Steamed
+* Oven
+* Microwave
+* Grill
+* Fresh
+
+Complexity level
+* Very easy
+* Easy
+* Medium
+* Complex
+
