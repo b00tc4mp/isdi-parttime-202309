@@ -11,7 +11,7 @@ Simple recipes for non-creative people who like to cook (or have no problem to d
 This application is for people who are uncreative in the kitchen.
 How many times have you opened the fridge, have seen few ingredients, and have you thought you have nothing to cook?
 The problem is not having to cook, but not knowing what or how to do it can demotivate.
-In this application you can go up and find different recipes, simple, and made up of those ingredients that are usually at the bottom of the fridge or the dispense.
+In this application you can add and find different recipes, simple, and made up of those ingredients that are usually at the bottom of the fridge or the dispense.
 It's the kitchen basic wardrobe.
 
 ### Use Cases
@@ -55,3 +55,4 @@ Recipes
 * feed type (string)
 * complexity level (number)
 * cooking type (string)
+
