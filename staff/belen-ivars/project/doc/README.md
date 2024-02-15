@@ -26,13 +26,7 @@ It's the kitchen basic wardrobe.
 
 ## Technical description
 
-- Frontend: HTML, Tailwindcss, JavaScript (React)
-- Backend: Node & Express
-- Database : Mongo Atlas
-- Testing Mocha & Chai
-
-
-## Data Model
+### Data Model
 
 User
 * id (string)
@@ -41,37 +35,32 @@ User
 * password (string)
 * avatar profile (image)
 
-Ingredients
+Ingredient
 * id (string)
 * name (string)
 
-Recipes
+Recipe
 * id (string)
 * name (string)
 * description (string)
 * image (image)
-* ingredients (reference to Ingredient.id)
-* elaboration duration (number)
-* feed type (string)
-* complexity level (number)
-* cooking type (string)
+* ingredients (array of Ingredient.id)
+* elaborationDuration (number)
+* feedType (string, enum: glutenfree, vegetarian, vegan, omnivorous)
+* complexityLevel (number, enum: 1-very easy, 2-easy, 3-medium, 4-complex)
+* cookingType (string, enum: steamed, oven, microwave, grill, fresh)
+* date (date)
 
-Feed type
-* Glutenfree
-* Vegetarian
-* Vegan
-* Omnivorous
-
-Cooking type
-* Steamed
-* Oven
-* Microwave
-* Grill
-* Fresh
-
-Complexity level
-* Very easy
-* Easy
-* Medium
-* Complex
-
+Review
+* id (string)
+* user (User.id)
+* recipe (Recipe.id)
+* stars (number, enum: 1-4)
+* comment (string)
+* date (date) 
+  
+### Technologies
+- Frontend: HTML, CSS (Tailwind), JavaScript (React)
+- Backend: Node & Express
+- Database : MongoDB Atlas
+- Testing Mocha & Chai
