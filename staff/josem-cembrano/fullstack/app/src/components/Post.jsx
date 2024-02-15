@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Button, Form, Field } from '../library'
 
-import { useContext } from '../hooks/useContext'
+import { useContext } from '../hooks'
 
 import logic from '../logic'
 

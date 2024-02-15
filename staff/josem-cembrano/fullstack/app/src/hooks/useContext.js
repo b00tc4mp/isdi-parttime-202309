@@ -1,5 +1,5 @@
 import { useContext } from 'react'
 
-import Contex from '../Context'
+import Context from '../Context'
 
-export default () => useContext(Contex)
+export default () => useContext(Context)

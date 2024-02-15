@@ -1,35 +1,41 @@
 import { useState }from 'react'
+//Routes:Permite conjuntar rutas, Route:Crea cada ruta
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Feedback from './components/Feedback'
-import { errors } from 'com'
 
 import Context from './Context'
 
-const { ContentError, DuplicityError, NotFoundError } = errors
+import { errors } from 'com'
+const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
+
+import logic from './logic'
 
 function App() {
   console.log('App')
 
-  const [view, setView] = useState('login')
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)
 
+  const navigate = useNavigate()
+
   function handleRegisterShow() {
-    setView('register')
+    navigate('/register')
     setMessage(null)
     setLevel(null)
   }
 
   function handleLoginShow() {
-    setView('login')
+    navigate('/login')
     setMessage(null)
     setLevel(null)
   }
 
   function handleHomeShow() {
-    setView('home')
+    navigate('/')
     setMessage(null)
     setLevel(null)
   }
@@ -42,6 +48,9 @@ function App() {
     }else if(error instanceof DuplicityError || error instanceof NotFoundError) {
       level = 'error'
     }
+    else if(error instanceof TokenError) {
+      logic.logoutUser(() => navigate('./login'))
+    }
 
     setLevel(level)
     setMessage(error.message)
@@ -50,18 +59,22 @@ function App() {
 
   }
 
-  const handleFeedbackAcepted = () => {
+  function handleFeedbackAcepted () {
     setMessage(null)
     setLevel(null)
   }
 
-  return<>
-    <Context.Provider value={{ handleError }}>
-    {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAcepted}/>}
+  const context = { handleError }
 
-    {view === 'login' && <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />}
-    {view === 'register' && <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />}
-    {view === 'home' && <Home onLogoutClick={handleLoginShow} />}
+  return <>
+    <Context.Provider value={context}>
+      {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAcepted} />}
+
+      <Routes>
+        <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
+        <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
+        <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
+      </Routes>
     </Context.Provider>
   </>
 }
