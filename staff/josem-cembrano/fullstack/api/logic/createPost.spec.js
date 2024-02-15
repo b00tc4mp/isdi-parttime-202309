@@ -8,7 +8,8 @@ import random from './helpers/random.js'
 import { User, Post } from '../data/models.js'
 
 import createPost from './createPost.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 
 const { ObjectId } = mongoose.Types
 

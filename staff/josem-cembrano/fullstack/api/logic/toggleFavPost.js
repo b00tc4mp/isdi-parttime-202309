@@ -1,6 +1,6 @@
-import validate from './helpers/validate.js'
+import { validate, errors } from 'com'
+const { SystemError, NotFoundError } = errors
 import { User, Post } from '../data/models.js'
-import { NotFoundError, SystemError } from './errors.js'
 
 const toggleFavPost = (userId, postId) => {
     validate.text(userId, 'user id')

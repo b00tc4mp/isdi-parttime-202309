@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { Button, Form, Field } from '../library'
 
+import { useContext } from '../hooks/useContext'
+
 import logic from '../logic'
 
 //function Post({ post, onToggleLikeClick, onToggleFavClick, onPostTextUpdate }) {
@@ -10,11 +12,13 @@ function Post(props) {
 
     const [view, setView] = useState(null)
 
+    const context = useContext()
+
     const handleToggleLikeClick = () => {
         try {
             logic.toggleLikePost(props.post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -22,7 +26,7 @@ function Post(props) {
                 props.onToggleLikeClick()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
@@ -30,7 +34,7 @@ function Post(props) {
         try {
             logic.toggleFavPost(props.post.id, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -38,7 +42,7 @@ function Post(props) {
                 props.onToggleFavClick()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 
@@ -54,7 +58,7 @@ function Post(props) {
         try {
             logic.updatePostText(props.post.id, text, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -63,7 +67,7 @@ function Post(props) {
                 setView(null)
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

@@ -1,7 +1,6 @@
-import validate from './helpers/validate'
-import context from './context'
+import { validate, errors } from 'com'
 
-import errors from './errors'
+import context from './context'
 
 function loginUser(email, password, callback) {
     validate.email(email)

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
+
+import { useContext } from '../hooks'
 import Post from './Post'
 
 
 function Posts(props) {
     console.log('Posts')
+
+    const context = useContext()
 
     const [posts, setPosts] = useState([])
 
@@ -11,7 +15,7 @@ function Posts(props) {
         try {
             props.loadPosts((error, posts) => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -21,7 +25,7 @@ function Posts(props) {
                 setPosts(posts)
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

@@ -1,4 +1,4 @@
-import validate from './helpers/validate'
+import { validate, errors } from 'com'
 
 function changeUserPassword(newPassword, newPasswordConfirm, password) {
     validate.password(newPassword, 'new password')

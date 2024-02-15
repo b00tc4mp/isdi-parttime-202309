@@ -6,7 +6,8 @@ const { ObjectId } = mongoose.Types
 
 import retrieveFavPosts from './retrieveFavPosts.js'
 import { User, Post } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 import random from './helpers/random.js'
 
 describe('retrieveFavPost', () => {

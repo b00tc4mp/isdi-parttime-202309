@@ -1,7 +1,5 @@
-import validate from './helpers/validate'
+import { validate, errors } from 'com'
 import context from './context'
-
-import errors from './errors'
 
 function retrievePosts(callback) {
     validate.function(callback, 'callback')

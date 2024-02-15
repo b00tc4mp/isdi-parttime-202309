@@ -1,5 +1,6 @@
 import logic from '../logic/index.js'
-import { ContentError, NotFoundError } from '../logic/errors.js'
+import { errors } from 'com'
+const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
     try {

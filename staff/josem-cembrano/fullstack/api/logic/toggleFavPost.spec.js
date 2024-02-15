@@ -7,7 +7,8 @@ const { ObjectId } = mongoose.Types
 import toggleFavPost from './toggleFavPost.js'
 import random from './helpers/random.js'
 import { User, Post } from '../data/models.js'
-import { NotFoundError } from './errors.js'
+import { errors } from 'com'
+const { NotFoundError } = errors
 
 describe('toggleFavPost', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))

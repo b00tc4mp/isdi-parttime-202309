@@ -1,8 +1,13 @@
 import { Button, Container, Form, Field } from "../library"
 import logic from "../logic"
 
+import { useContext } from '../hooks'
+
 //export default function ({ onPublish, onCancel }) {
 export default function (props) {
+    console.log('NewPost')
+    const context = useContext()
+
     const handleSubmit = event => {
         event.preventDefault()
 
@@ -12,7 +17,7 @@ export default function (props) {
         try {
             logic.publishPost(image, text, error => {
                 if (error) {
-                    props.onError(error)
+                    context.handleError(error)
 
                     return
                 }
@@ -20,7 +25,7 @@ export default function (props) {
                 props.onPublish()
             })
         } catch (error) {
-            props.onError(error)
+            context.handleError(error)
         }
     }
 

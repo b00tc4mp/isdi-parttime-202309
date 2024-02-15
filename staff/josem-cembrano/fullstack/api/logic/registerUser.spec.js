@@ -6,7 +6,8 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import registerUser from './registerUser.js'
-import { DuplicityError } from './errors.js'
+import { errors } from 'com'
+const { DuplicityError } = errors
 import { User } from '../data/models.js'
 
 
