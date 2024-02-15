@@ -1,22 +1,17 @@
-import jwt from 'jsonwebtoken'
-
 import logic from '../logic/index.js'
 import { NotFoundError, ContentError } from '../logic/errors.js'
 
 export default (req, res) => {
   try {
-    // sustituimos:
-    // const userId = req.headers.authorization.substring(7)
+    const userId = req.headers.authorization.substring(7)
 
-    const token = req.headers.authorization.substring(7)
-
-    const payload = jwt.verify(token, process.env.JWT_SECRET)
-
-    const userId = payload.sub
+    const { image, text } = req.body
 
     logic
-      .retrieveUser(userId)
-      .then((user) => res.json(user))
+      .createPost(userId, image, text)
+      .then(() => {
+        res.status(201).send()
+      })
       .catch((error) => {
         let status = 500
 
@@ -27,8 +22,6 @@ export default (req, res) => {
         res
           .status(status)
           .json({ error: error.constructor.name, message: error.message })
-
-        return
       })
   } catch (error) {
     let status = 500

@@ -28,12 +28,12 @@ curl 'http://localhost:8000/users/auth' \
 #
 # "3kmmn4f11xe0"%
 
-# echo CASE error on wrong email
+echo CASE error on wrong email
 
-# curl 'http://localhost:8000/users/auth' \
-# -H 'Content-Type: application/json' \
-# -d '{ "email": "lechuwrong@guita", "password": "123123123" }' \
-# -v
+curl 'http://localhost:8000/users/auth' \
+-H 'Content-Type: application/json' \
+-d '{ "email": "lechuwrong@guita", "password": "123123123" }' \
+-v
 
 # > POST /users/auth HTTP/1.1
 # > Host: localhost:8000
@@ -53,12 +53,12 @@ curl 'http://localhost:8000/users/auth' \
 
 # {"error":"Error","message":"user not found"}%    
 
-# echo CASE error on wrong password
+echo CASE error on wrong password
 
-# curl 'http://localhost:8000/users/auth' \
-# -H 'Content-Type: application/json' \
-# -d '{ "email": "lechu@guita", "password": "wrong123123123" }' \
-# -v
+curl 'http://localhost:8000/users/auth' \
+-H 'Content-Type: application/json' \
+-d '{ "email": "lechu@guita", "password": "wrong123123123" }' \
+-v
 
 # > POST /users/auth HTTP/1.1
 # > Host: localhost:8000
