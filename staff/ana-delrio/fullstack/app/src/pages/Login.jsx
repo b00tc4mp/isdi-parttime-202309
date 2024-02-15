@@ -22,15 +22,9 @@ function Login(props) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(email, password, error => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-                // If the login is successful, the onSuccess callback (passed as a prop) is executed
-                props.onSuccess()
-            })
+            logic.loginUser(email, password)
+                .then(() => props.onSuccess())
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }

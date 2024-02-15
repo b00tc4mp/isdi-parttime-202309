@@ -44,16 +44,9 @@ function Home(props) {
         console.log('Home -> effect (name)')
 
         try {
-            logic.retrieveUser((error, user) => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                setName(user.name)
-            })
-
+            logic.retrieveUser()
+                .then(user => setName(user.name)) // Guardamos en STATE el user para usar el "NAME"
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }

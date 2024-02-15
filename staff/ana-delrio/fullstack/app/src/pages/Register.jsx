@@ -25,19 +25,10 @@ function Register(props) {
         const email = emailInput.value
         const password = passwordInput.value
 
-
-
         try {
-            logic.registerUser(name, email, password, error => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-
-                // If registration is successful, the onSuccess callback (passed as a prop) is executed
-                props.onSuccess()
-            })
+            logic.registerUser(name, email, password)
+                .then(() => props.onSuccess())
+                .catch(error => context.handleError(error))
         } catch (error) {
             context.handleError(error)
         }
