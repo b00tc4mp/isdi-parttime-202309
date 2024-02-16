@@ -31,6 +31,8 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         //usar el metodo POST para hacer el registro
         server.post('/users', jsonBodyParser, registerUserHandler)
 
+        server.post('/arduino/move', jsonBodyParser, arduinoMoveHandler)
+
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 
     })
