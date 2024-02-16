@@ -1,8 +1,7 @@
 import { validate, errors } from 'com'
 
-import context from './context'
 
-function publishPost(image, text, callback) {
+export default function publishPost(image, text, callback) {
     validate.text(image, 'image')
     validate.text(text, 'text')
 
@@ -10,7 +9,7 @@ function publishPost(image, text, callback) {
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${context.token}`,
+            Authorization: `Bearer ${this.token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ image, text })
@@ -37,7 +36,5 @@ function publishPost(image, text, callback) {
         })
         .catch(error => callback(error))
 }
-
-export default publishPost
 
 

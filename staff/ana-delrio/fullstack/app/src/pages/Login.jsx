@@ -1,18 +1,15 @@
-
 import logic from '../logic'
+
 import { Button, Link, Form, Field, Container } from '../library'
 
 import { useContext } from '../hooks'
 
-// The Login component is one of the views rendered by the App component based on the current state (view === 'login').
-
-function Login(props) {
+export default function Login(props) {
     console.log('Login')
 
     const context = useContext()
 
-    // The handleSubmit function is a callback for the form's onSubmit event.
-    function handleSubmit(event) {
+    const handleSubmit = async event => {
         event.preventDefault()
 
         const emailInput = event.target.querySelector('#email-input')
@@ -22,18 +19,17 @@ function Login(props) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(email, password)
-                .then(() => props.onSuccess())
-                .catch(error => context.handleError(error))
+            await logic.loginUser(email, password)
+
+            props.onSuccess()
         } catch (error) {
             context.handleError(error)
         }
     }
-    // The handleRegisterClick function is a callback for the onClick event of the Link component
-    function handleRegisterClick(event) {
+
+    const handleRegisterClick = event => {
         event.preventDefault()
 
-        // The onRegisterClick callback (passed as a prop) is executed, allowing the App component to handle the navigation or state change to the registration view
         props.onRegisterClick()
     }
 
@@ -50,5 +46,3 @@ function Login(props) {
         <Link onClick={handleRegisterClick}>Register</Link>
     </Container>
 }
-
-export default Login

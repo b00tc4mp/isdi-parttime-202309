@@ -1,20 +1,14 @@
-/*import { Container } from "../library"
-import Button from "../library/Button" */
-import logic from '../logic'
 import { Button, Link, Form, Field, Container } from '../library'
-import { ContentError, DuplicityError } from '../logic/errors'
+import logic from '../logic'
 
 import { useContext } from '../hooks'
-
-// The Register component is one of the views rendered by the App component based on the current state (view === 'register')
 
 function Register(props) {
     console.log('Register')
 
     const context = useContext()
 
-    // The handleSubmit function is a callback for the form's onSubmit event. This event is triggered(desencadena) when the user submits the form
-    function handleSubmit(event) {
+    const handleSubmit = async event => {
         event.preventDefault()
 
         const nameInput = event.target.querySelector('#name-input')
@@ -26,30 +20,24 @@ function Register(props) {
         const password = passwordInput.value
 
         try {
-            logic.registerUser(name, email, password)
-                .then(() => props.onSuccess())
-                .catch(error => context.handleError(error))
+            await logic.registerUser(name, email, password)
+
+            props.onSuccess()
         } catch (error) {
             context.handleError(error)
         }
     }
 
-    // The handleLoginClick function in the Register component is used to navigate back to the login view in the App component
-    // The handleLoginClick function is a callback for the onClick event of the Link componen
-    function handleLoginClick(event) {
+    const handleLoginClick = event => {
         event.preventDefault()
 
-        // console.log('login click')
-        // The onLoginClick callback (passed as a prop) is executed
-        // allowing the parent component (App) to handle the navigation or state change
         props.onLoginClick()
     }
 
     return <Container>
         <h1>Register</h1>
 
-        {/* To apply CSS classes to a component in React we use the prop className */}
-        <Form className="form" onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <Field id="name-input">Name</Field>
             <Field id="email-input" type="email">E-mail</Field>
             <Field id="password-input" type="password">Password</Field>

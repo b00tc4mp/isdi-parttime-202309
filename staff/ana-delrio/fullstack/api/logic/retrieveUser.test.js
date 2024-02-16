@@ -5,14 +5,17 @@ import mongoose from 'mongoose'
 
 import retrieveUser from './retrieveUser.js'
 
-mongoose.connect(process.env.TEST_MONGODB_URL)
-    .then(() => {
-        try {
-            retrieveUser('65b51a9739af1f9da0b26e5d')
-                .then(user => console.log('retrieved', user))
-                .catch(error => console.error(error))
-        } catch (error) {
-            console.error(error)
-        }
-    })
-    .catch(error => console.error(error))
+(async () => {
+    await mongoose.connect(process.env.TEST_MONGODB_URL)
+
+    try {
+        const user = await retrieveUser('65cf9131ea9c25642851b3a1')
+
+        console.log('retrieved', user)
+    } catch (error) {
+        console.error(error)
+    }
+})()
+
+
+

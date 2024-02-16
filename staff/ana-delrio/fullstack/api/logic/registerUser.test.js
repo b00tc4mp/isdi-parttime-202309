@@ -2,18 +2,15 @@ import mongoose from 'mongoose'
 
 import registerUser from './registerUser.js'
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then(() => {
-        try {
-            registerUser('Josefa', 'josefa@gmail.com', '123123123')
-                .then(() => console.log('user registered'))
-                .catch(error => console.error(error))
+(async () => {
+    await mongoose.connect('mongodb://127.0.0.1:27017/test')
 
-        } catch (error) {
-            console.log(error)
+    try {
+        await registerUser('Josefa', 'josefa@gmail.com', '123123123')
 
-        }
-    })
-
-    .catch(error => console.error(error))
+        console.log('user registered')
+    } catch (error) {
+        console.log(error)
+    }
+})()
 

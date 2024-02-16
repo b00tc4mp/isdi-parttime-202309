@@ -1,14 +1,13 @@
-import context from './context'
 
 import { validate, errors } from 'com'
 
-function retrieveFavPosts(callback) {
+export default function retrieveFavPosts(callback) {
     validate.function(callback, 'callback')
 
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${this.token}`
         }
     }
 
@@ -48,4 +47,3 @@ function retrieveFavPosts(callback) {
 // 401 Unauthorized: Indica que se requiere autenticación y ha fallado o no se ha proporcionado.
 
 
-export default retrieveFavPosts
