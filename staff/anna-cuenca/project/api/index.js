@@ -10,7 +10,8 @@ import cors from 'cors'
 
 import {
     registerUserHandler,
-    authenticateUserHandler
+    authenticateUserHandler,
+    retrieveUserHandler
 
 } from './handlers/index.js'
 
@@ -35,6 +36,9 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //Authenticate User
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        // Retrieve User
+        server.get('/users', retrieveUserHandler)
 
 
 
