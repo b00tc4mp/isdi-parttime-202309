@@ -17,7 +17,7 @@ function Home(props) {
   const handleLogoutClick = () => {
     logic.logoutUser((error) => {
       if (error) {
-        alert(error.message)
+        props.onError(error)
 
         return
       }
@@ -31,7 +31,7 @@ function Home(props) {
     try {
       logic.retrieveUser((error, user) => {
         if (error) {
-          alert(error.message)
+          props.onError(error)
 
           return
         }
@@ -39,7 +39,7 @@ function Home(props) {
         setName(user.name)
       })
     } catch (error) {
-      alert(error.message)
+      props.onError(error)
     }
   }, [])
 
@@ -71,7 +71,7 @@ function Home(props) {
       try {
         logic.retrievePosts((error, posts) => {
           if (error) {
-            alert(error.message)
+            props.onError(error)
 
             return
           }
@@ -81,13 +81,13 @@ function Home(props) {
           setPosts(posts)
         })
       } catch (error) {
-        alert(error.message)
+        props.onError(error)
       }
     } else if (view === 'favs') {
       try {
         logic.retrieveFavPosts((error, favs) => {
           if (error) {
-            alert(error.message)
+            props.onError(error)
 
             return
           }
@@ -97,7 +97,7 @@ function Home(props) {
           setFavs(favs)
         })
       } catch (error) {
-        alert(error.message)
+        props.onError(error)
       }
     }
   }
@@ -120,7 +120,7 @@ function Home(props) {
     try {
       logic.createPost(image, text, (error) => {
         if (error) {
-          alert(error.message)
+          props.onError(error)
 
           return
         }
@@ -128,7 +128,7 @@ function Home(props) {
         try {
           logic.retrievePosts((error, posts) => {
             if (error) {
-              alert(error.message)
+              props.onError(error)
 
               return
             }
@@ -141,11 +141,11 @@ function Home(props) {
             window.scrollTo(0, 0)
           })
         } catch (error) {
-          alert(error.message)
+          props.onError(error)
         }
       })
     } catch (error) {
-      alert(error.message)
+      props.onError(error)
     }
   }
 
@@ -166,12 +166,12 @@ function Home(props) {
     try {
       logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
         if (error) {
-          alert(error.message)
+          props.onError(error)
         }
         alert('Email changed correctly')
       })
     } catch (error) {
-      alert(error.message)
+      props.onError(error)
     }
   }
 
@@ -194,7 +194,7 @@ function Home(props) {
 
       alert('Password changed correctly')
     } catch (error) {
-      alert(error.message)
+      props.onError(error)
     }
   }
 
@@ -202,7 +202,7 @@ function Home(props) {
     try {
       logic.retrieveFavPosts((error, favs) => {
         if (error) {
-          alert(error.message)
+          props.onError(error)
 
           return
         }
@@ -213,7 +213,7 @@ function Home(props) {
         setView('favs')
       })
     } catch (error) {
-      alert(error.message)
+      props.onError(error)
     }
   }
 
@@ -240,10 +240,20 @@ function Home(props) {
       )}
 
       {(view === null || view === 'new-post') && posts !== null && (
-        <Posts posts={posts} refreshPosts={refreshPosts} />
+        <Posts
+          posts={posts}
+          refreshPosts={refreshPosts}
+          onError={props.onError}
+        />
       )}
 
-      {view === 'favs' && <Posts posts={favs} refreshPosts={refreshPosts} />}
+      {view === 'favs' && (
+        <Posts
+          posts={favs}
+          refreshPosts={refreshPosts}
+          onError={props.onError}
+        />
+      )}
 
       <footer className="footer">
         {view === 'new-post' && (

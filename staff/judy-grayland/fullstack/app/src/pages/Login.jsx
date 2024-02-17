@@ -28,15 +28,19 @@ function Login(props) {
     try {
       logic.loginUser(email, password, (error) => {
         if (error) {
-          alert(error.message)
+          // alert(error.message)
+          props.onError(error)
 
           return
         }
-        // esto lo que hace es indicar a la app que vayamos a home y al retrieveUser():
+        // el props.onSuccess() lo que hace es indicar a la app que vayamos a home y al retrieveUser():
+        // el setTimeout() nos vale para poner un delay al cargar la página y así probamos el token y su expiration
+        // setTimeout(() => props.onSuccess(), 2000)
         props.onSuccess()
       })
     } catch (error) {
-      alert(error.message)
+      // alert(error.message)
+      props.onError(error)
     }
   }
 

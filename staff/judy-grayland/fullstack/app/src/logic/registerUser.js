@@ -1,5 +1,7 @@
 import validate from './helpers/validate'
 
+import errors from './errors'
+
 function registerUser(name, email, password, callback) {
   validate.text(name, 'name')
   validate.email(email)
@@ -19,7 +21,7 @@ function registerUser(name, email, password, callback) {
       if (!res.ok) {
         res
           .json()
-          .then((body) => callback(new Error(body.message)))
+          .then((body) => callback(new errors[body.error](body.message)))
           .catch((error) => callback(error))
 
         return

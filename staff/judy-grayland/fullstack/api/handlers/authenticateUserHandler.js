@@ -14,7 +14,7 @@ export default (req, res) => {
       .authenticateUser(email, password)
       .then((userId) => {
         const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
-          expiresIn: '1s',
+          expiresIn: process.env.JWT_EXP,
         })
         res.json(token)
       })

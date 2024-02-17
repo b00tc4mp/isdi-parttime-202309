@@ -10,6 +10,7 @@ function Post({
   onToggleFavClick,
   onDeletePostClick,
   onEditPostClick,
+  onError,
 }) {
   const [editForm, setEditForm] = useState(false)
 
@@ -21,7 +22,7 @@ function Post({
     try {
       logic.toggleLikePost(post.id, (error) => {
         if (error) {
-          alert(error.message)
+          onError(error)
 
           return
         }
@@ -29,7 +30,7 @@ function Post({
         onToggleLikeClick()
       })
     } catch (error) {
-      alert(error.message)
+      onError(error)
     }
   }
 
@@ -38,7 +39,7 @@ function Post({
     try {
       logic.toggleFavPost(post.id, (error) => {
         if (error) {
-          alert(error.message)
+          onError(error)
 
           return
         }
@@ -46,7 +47,7 @@ function Post({
         onToggleFavClick()
       })
     } catch (error) {
-      alert(error.message)
+      onError(error)
     }
   }
 
@@ -56,14 +57,14 @@ function Post({
       try {
         logic.deletePost(post.id, (error) => {
           if (error) {
-            alert(error.message)
+            onError(error)
 
             return
           }
           onDeletePostClick()
         })
       } catch (error) {
-        alert(error.message)
+        onError(error)
       }
     }
   }
@@ -78,14 +79,14 @@ function Post({
     try {
       logic.updatePostText(post.id, newText, (error) => {
         if (error) {
-          alert(error.message)
+          onError(error)
           return
         }
         onEditPostClick()
         setEditForm(!editForm)
       })
     } catch (error) {
-      alert(error.message)
+      onError(error)
     }
   }
 
