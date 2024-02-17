@@ -1,11 +1,11 @@
 import { validate, errors } from 'com'
 
 import context from './context'
+const { SystemError } = errors
 
-function loginUser(email, password, callback) {
+function loginUser(email, password) {
     validate.email(email)
     validate.password(password)
-    validate.function(callback, 'callback')
 
     const req = {
         method: 'POST',
@@ -15,17 +15,17 @@ function loginUser(email, password, callback) {
         body: JSON.stringify({ email, password })
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
                 res.json()
-                    .then(body => callback(new errors[body.error](body.message)))
-                    .catch(error => callback(error))
-
-                return
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
             }
 
-            res.json()
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(token => {//extraemos la parte que nos interesa del payload (informacion del usuario comprendida entre el 1punto y 2punto)
                     const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
                     //convertimos a JSON el payload localizado.
@@ -37,12 +37,8 @@ function loginUser(email, password, callback) {
 
                     context.sessionUserId = userId
                     context.token = token
-
-                    callback(null)
                 })
-                .catch(error => callback(error))
         })
-        .catch(error => callback(error))
 }
 
 export default loginUser

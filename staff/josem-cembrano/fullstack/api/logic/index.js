@@ -4,7 +4,7 @@ import retrieveUser from './retrieveUser.js'
 // import changeUserEmail from './changeUserEmail.js'
 // import changeUserPassword from './changeUserPassword.js'
 // import retrieveUserPosts from './retrieveUserPosts.js'
-
+import retrieveUserPosts from './retrieveUserPosts.js'
 import createPost from './createPost.js'
 import retrieveFavPosts from './retrieveFavPosts.js'
 import retrievePosts from './retrievePosts.js'
@@ -18,7 +18,7 @@ const logic = {
     retrieveUser,
     // changeUserEmail,
     // changeUserPassword,
-    // retrieveUserPosts,
+    retrieveUserPosts,
 
     createPost,
     retrieveFavPosts,

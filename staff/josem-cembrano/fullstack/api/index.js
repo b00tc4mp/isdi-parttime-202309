@@ -7,13 +7,18 @@ import cors from 'cors'
 
 import {
     registerUserHandler,
+    deletePostHandler,
     authenticateUserHandler,
     retrieveUserHandler,
     retrievePostsHandler,
     retrieveFavsPostHandler,
     createPostHandler,
     toggleLikePostHandler,
-    toggleFavPostHandler
+    toggleFavPostHandler,
+    togglePostCommentHandler,
+    retrieveUserPostsHandler,
+    updatePostTextHandler
+
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -28,9 +33,13 @@ mongoose.connect(process.env.MONGODB_URL)
 
         server.post('/users', jsonBodyParser, registerUserHandler)
 
+        server.post('/posts/:postId/delete', deletePostHandler)
+
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         server.get('/users', retrieveUserHandler)
+
+        server.get('/users/:targetUserId/posts', retrieveUserPostsHandler)
 
         server.get('/posts', retrievePostsHandler)
 
@@ -41,6 +50,10 @@ mongoose.connect(process.env.MONGODB_URL)
         server.patch('/posts/:postId/likes', toggleLikePostHandler)
 
         server.patch('/posts/:postId/favs', toggleFavPostHandler)
+
+        server.patch('/posts/:postId/comment', jsonBodyParser, togglePostCommentHandler)
+
+        server.patch('/posts/:postId/text', jsonBodyParser, updatePostTextHandler)
 
         server.listen(process.env.PORT, () => console.log(`server is 🆗 on port ${process.env.PORT}!!`))
     })
