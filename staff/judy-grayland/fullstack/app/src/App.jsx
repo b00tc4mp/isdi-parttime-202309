@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
@@ -8,10 +8,9 @@ import { ContentError, DuplicityError, NotFoundError } from './logic/errors'
 function App() {
   console.log('App')
 
-  const viewState = React.useState('login') // the hook useState() always returns an array with two elements. The first one is the current state (get), which is a value, and the second is a function that allows you to update that value.
-
-  const view = viewState[0]
-  const setView = viewState[1]
+  const [view, setView] = useState('login') // the hook useState() always returns an array with two elements. The first one is the current state (get), which is a value, and the second is a function that allows you to update that value.
+  const [type, setType] = useState(null)
+  const [message, setMessage] = useState(null)
 
   function handleRegisterShow() {
     setView('register')
@@ -30,24 +29,52 @@ function App() {
   // }
 
   // centralizamos el error handling:
+  // function handleError(error) {
+  //   if (
+  //     error instanceof TypeError ||
+  //     error instanceof RangeError ||
+  //     error instanceof ContentError
+  //   )
+  //     console2.log(error.message, 'warn')
+  //   else if (error instanceof DuplicityError || error instanceof NotFoundError)
+  //     console2.log(error.message, 'error')
+  //   else console2.log(error.message, 'fatal')
+
+  //   alert(error.message)
+  // }
+
   function handleError(error) {
     if (
       error instanceof TypeError ||
       error instanceof RangeError ||
       error instanceof ContentError
     )
-      console2.log(error.message, 'warn')
+      setType('warn')
     else if (error instanceof DuplicityError || error instanceof NotFoundError)
-      console2.log(error.message, 'error')
-    else console2.log(error.message, 'fatal')
+      setType('error')
+    else setType('fatal')
 
-    // alert(error.message)
+    setMessage(error.message)
+  }
+
+  function Feedback(props) {
+    let color = 'yellowgreen'
+    let backgroundColor = 'transparent'
+
+    if (props.type === 'info') color = 'dodgerblue'
+    else if (props.type === 'warn') color = 'gold'
+    else if (props.type === 'error') color = 'tomato'
+    else if (props.type === 'fatal') {
+      color = 'white'
+      backgroundColor = 'tomato'
+    }
+
+    return <p style={{ color, backgroundColor }}>{props.message}</p>
   }
 
   return (
     <>
-      {/* {view === 'login' && 
-      Login(loginProps)} */}
+      {message && <Feedback type={type} message={message} />}
 
       {view === 'login' && (
         <Login
@@ -75,18 +102,3 @@ function App() {
 }
 
 export default App
-
-function Feedback(props) {
-  let color = 'yellowgreen'
-  let backgroundColor = 'transparent'
-
-  if (props.type === 'info') color = 'dodgerblue'
-  else if (props.type === 'warn') color = 'gold'
-  else if (props.type === 'error') color = 'tomato'
-  else if (props.type === 'fatal') {
-    color = 'white'
-    backgroundColor = 'tomato'
-  }
-
-  return <p style={{ color, backgroundColor }}>{props.message}</p>
-}
