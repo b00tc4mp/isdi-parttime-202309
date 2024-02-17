@@ -9,7 +9,9 @@ import cors from 'cors'
 
 
 import {
-    registerUserHandler
+    registerUserHandler,
+    authenticateUserHandler
+
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
@@ -30,6 +32,13 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //usar el metodo POST para hacer el registro
         server.post('/users', jsonBodyParser, registerUserHandler)
+
+        //Authenticate User
+        server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+
+
+
 
         //server.post('/arduino/move', jsonBodyParser, arduinoMoveHandler)
 

@@ -62,31 +62,31 @@ function Home(props) {
         navigate('/')
     }
 
-    function handleNewPostClick() {
-        setView('new-post')
-    }
+    // function handleNewPostClick() {
+    //     setView('new-post')
+    // }
 
-    function handleNewPostCancel() {
-        setView(null)
-    }
-
-
-    function handleNewPostPublish() {
-        setStamp(Date.now())
-        setView(null)
-        navigate('/')
-        window.scrollTo(0, 0)
-    }
+    // function handleNewPostCancel() {
+    //     setView(null)
+    // }
 
 
-    function handleFavPostsClick(event) {
-        event.preventDefault()
+    // function handleNewPostPublish() {
+    //     setStamp(Date.now())
+    //     setView(null)
+    //     navigate('/')
+    //     window.scrollTo(0, 0)
+    // }
 
-        navigate('/favs')
+
+    // function handleFavPostsClick(event) {
+    //     event.preventDefault()
+
+    //     navigate('/favs')
 
 
 
-    }
+    // }
 
     return <div>
         <header className="header">
@@ -95,7 +95,7 @@ function Home(props) {
             <div>
 
                 <Link onClick={handleProfileClick}>{name}</Link>
-                <Link onClick={handleFavPostsClick}>Favs</Link>
+
 
 
                 <Button onClick={handleLogoutClick}>Logout</Button>
@@ -106,19 +106,19 @@ function Home(props) {
 
         <Routes>
             <Route path="/profile" element={<Profile />} />
-            <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} />
+            {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
 
-            <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} />
-            <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} />
+            {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
+            {/* <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} /> */}
         </Routes>
 
-
+        {/* 
         <footer className="footer">
 
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={context.handleError} />}
             {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
 
-        </footer>
+        </footer> */}
 
     </div >
 
