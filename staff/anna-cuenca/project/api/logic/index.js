@@ -1,9 +1,9 @@
 import registerUser from './registerUser.js'
-import arduinoController from './arduinoController.js'
+//import arduinoController from './arduinoController.js'
 
 const logic = {
-    registerUser,
-    arduinoController
+    registerUser
+
 }
 
 export default logic
