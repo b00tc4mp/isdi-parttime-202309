@@ -42,6 +42,7 @@ function App() {
 
   function handleError(error) {
     let level = 'fatal'
+    let message = setMessage(error.message)
 
     if(error instanceof TypeError || error instanceof RangeError || error instanceof ContentError) {
       level = 'warn'
@@ -50,13 +51,14 @@ function App() {
     }
     else if(error instanceof TokenError) {
       logic.logoutUser(() => navigate('./login'))
+
+      message = 'session expired'
     }
 
     setLevel(level)
     setMessage(error.message)
 
-    console2.log(error.message)
-
+    console2.log(message)
   }
 
   function handleFeedbackAcepted () {

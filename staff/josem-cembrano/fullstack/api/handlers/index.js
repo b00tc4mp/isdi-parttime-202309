@@ -9,6 +9,7 @@ import toggleFavPostHandler from './toggleFavPostHandler.js'
 import deletePostHandler from './deletePostHandler.js'
 import togglePostCommentHandler from './togglePostCommentHandler.js'
 import updatePostTextHandler from './updatePostTextHandler.js'
+import retrieveUserPostsHandler from './retrieveUserPostsHandler.js'
 
 export {//es un scope, "importamos todo"
     registerUserHandler,
@@ -21,5 +22,6 @@ export {//es un scope, "importamos todo"
     toggleFavPostHandler,
     deletePostHandler,
     togglePostCommentHandler,
-    updatePostTextHandler
+    updatePostTextHandler,
+    retrieveUserPostsHandler
 }
