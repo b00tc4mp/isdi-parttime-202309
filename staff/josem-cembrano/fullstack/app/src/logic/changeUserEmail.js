@@ -1,4 +1,4 @@
-import { validate, errors } from 'com'
+import { validate } from 'com'
 
 function changeUserEmail(newEmail, newEmailConfirm, password) {
     validate.email(newEmail, 'new email')

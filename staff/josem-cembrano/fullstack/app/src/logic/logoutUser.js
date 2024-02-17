@@ -1,4 +1,4 @@
-import { validate, errors } from 'com'
+import { validate } from 'com'
 import context from "./context"
 
 function logoutUser(callback) {
