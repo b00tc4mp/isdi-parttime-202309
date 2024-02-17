@@ -1,0 +1,23 @@
+<script>
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer 5sbtm9zs8ao0',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image: 'http://image.com/123', text: 'Hola, Popeye!' })
+    }
+
+    fetch('http://localhost:8000/posts', req)
+        .then(res => {
+            // si todo va bien irá por ese camino 
+            if (res.ok)
+                console.log(res.satus)
+            // si hubiera algún error, iría por aquí
+            else
+                console.error(res.status)
+        })
+        // está ruta la tomaríamos si el servidor se cayera por ejemplo, error de conexión
+        .catch(error => console.error(error))
+
+</script>

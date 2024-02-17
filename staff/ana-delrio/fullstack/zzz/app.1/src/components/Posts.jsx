@@ -1,0 +1,42 @@
+import { useEffect, useState } from "react"
+import Post from "./Post"
+
+function Posts({ loadPost, stamp }) {
+    console.log('Posts')
+
+    const [posts, setPosts] = useState([])
+
+    const refreshPosts = () => {
+        try {
+            loadPost((error, posts) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                posts.reverse()
+
+                setPosts(posts)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    useEffect(() => {
+        console.log('Posts effect')
+
+        refreshPosts()
+    }, [stamp])
+
+
+    return <div className="posts">
+        {posts.map((post) => <Post key={post.id} post={post}
+            onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onPostTextUpdate={refreshPosts} />)}
+    </div>
+
+}
+
+export default Posts
+

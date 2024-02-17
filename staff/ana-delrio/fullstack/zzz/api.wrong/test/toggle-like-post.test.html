@@ -1,0 +1,22 @@
+<script>
+    const req = {
+        method: 'PATCH',
+        headers: {
+            Authorization: 'Bearer 5sbtm9zs8ao0'
+
+        }
+    }
+
+    fetch('http://localhost:8000/posts/4op7rg7el9y0/likes', req)
+        .then(res => {
+            // si todo va bien irá por ese camino 
+            if (res.ok)
+                console.log(res.satus)
+            // si hubiera algún error, iría por aquí
+            else
+                console.error(res.status)
+        })
+        // está ruta la tomaríamos si el servidor se cayera por ejemplo, error de conexión
+        .catch(error => console.error(error))
+
+</script>

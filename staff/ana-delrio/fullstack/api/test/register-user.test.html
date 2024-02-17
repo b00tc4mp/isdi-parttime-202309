@@ -1,0 +1,22 @@
+<script>
+    const req = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: 'Po peye', email: 'po@peye.com', password: '123123123' })
+    }
+
+    fetch('http://localhost:8000/users', req)
+        .then(res => {
+            // si todo va bien irá por ese camino 
+            if (res.ok)
+                console.log(res.satus)
+            // si hubiera algún error, iría por aquí
+            else
+                console.error(res.status)
+        })
+        // está ruta la tomaríamos si el servidor se cayera por ejemplo, error de conexión
+        .catch(error => console.error(error))
+
+</script>
