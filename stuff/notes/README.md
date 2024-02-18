@@ -109,7 +109,7 @@ Usamos la librería  <span style="color: #FFDAB9;">**bcrypt**</span>. Para insta
 
 Tenemos que convertir la carpeta  <span style="color: #FFDAB9;">**com**</span> en un paquete de node para poder compartirla entre  <span style="color: #FFDAB9;">**app**</span> y  <span style="color: #FFDAB9;">**api**</span>. Para inicializar el paquete de node, tenemos que situarnos en <span style="color: #FADADD;">/**com**</span> y ejecutar el comando <span style="color: #7FFFD4;">**npm init –yes**</span>
 
-Esto nos crea un <span style="color: #FFDAB9;">**package.json**</span> en <span style="color: #FADADD;">/**com**</span>. Añadimos el tipo. <span style="color: #FADADD;">/**api**</span>"type": "module"**</span>
+Esto nos crea un <span style="color: #FFDAB9;">**package.json**</span> en <span style="color: #FADADD;">/**com**</span>. Añadimos el tipo. <span style="color: #FDFD96;">**"type": "module"**</span>
 
 ![](images/image4.png)
 
