@@ -1,935 +1,290 @@
 ## Guia de Configuración y Desarrollo de Proyectos Node.js con Express y Mongoose
 
-**[00] PREPARAR ENTORNO**
+### **[00] PREPARAR ENTORNO**
 
-Vamos a tener 3 carpetas principales en nuestro proyecto: api / app / com . La carpeta “com” será una carpeta compartida en la que tendremos cosas que usen tanto api como app (como errors y validate). Crearemos también index.js dentro de la carpeta "com" para indexar errors y validate y hacer que sea el archivo principal de esta carpeta. 
+Vamos a tener 3 carpetas principales en nuestro proyecto: <span style="color: #FFDAB9;">**api / app / com**</span> . La carpeta <span style="color: #FFDAB9;">**com**</span> será una carpeta compartida en la que tendremos cosas que usen tanto <span style="color: #FFDAB9;">**api**</span> como <span style="color: #FFDAB9;">**app**</span> (como errors y validate). Crearemos también <span style="color: #FFDAB9;">**index.js**</span> dentro de la carpeta <span style="color: #FFDAB9;">**com**</span> para indexar errors y validate y hacer que sea el archivo principal de esta carpeta. 
 
-**[01] PREPARAR API. INSTALAR NODE Y LIBRERIAS** 
+Podemos crear las carpetas <span style="color: #FFDAB9;">**api**</span> y <span style="color: #FFDAB9;">**com**</span>, pero no crearemos <span style="color: #FFDAB9;">**app**</span> (ya que Vite nos la creará, en el apartado de configuración de App, lo veremos)
 
-Instalamos node en nuestra Api. Como ya tenemos instalado node, sólo tendremos que inicializarlo con el comando **npm init –yes** en la carpeta que queramos, en mi caso será en api.
+### **[01] PREPARAR API. INSTALAR NODE Y LIBRERIAS** 
 
-![](image1.png)
+Instalamos node en nuestra Api. Como ya tenemos instalado node, sólo tendremos que inicializarlo con el comando <span style="color: #7FFFD4;">**npm init –yes**</span> en la carpeta que queramos, en mi caso será en <span style="color: #FADADD;">/**api**</span>.
 
-<!-- **[01.01] INSTALAR EXPRESS**
+![](images/image1.png)
+
+#### <u>**[01.01] INSTALAR EXPRESS**</u>
 
 Facilita la creación de servidores web en Node.js. Permite manejar con facilidad solicitudes HTTP mediante el uso de middleware y rutas.
 
-Para instalar Express ponemos hacer **npm install express** o bien **pnpm i express** la diferencia en hacerlo de una manera o de otra es que con npm nos descargamos todas las carpetas y con pnpm la ruta a las carpetas. 
+Para instalar Express ponemos hacer <span style="color: #7FFFD4;">**npm install express**</span> o bien <span style="color: #7FFFD4;">**pnpm i express**</span> la diferencia en hacerlo de una manera o de otra es que con npm nos descargamos todas las carpetas y con pnpm la ruta a las carpetas. 
 
-Para instalar este paquete, lo tenemos que hacer a través de la consola de VSCODE y estar en la carpeta en la que queremos instalarlo. En este caso en /api
+Para instalar este paquete, lo tenemos que hacer a través de la consola de VSCODE y estar en la carpeta en la que queremos instalarlo. En este caso en <span style="color: #FADADD;">/**api**</span>
 
-**[01.02] INSTALAR MONGOOSE**
+#### <u>**[01.02] INSTALAR MONGOOSE**</u>
 
-Mongoose será nuestra base de datos. Para instalarlo repetimos el proceso anterior. Hacemos bien **pnpm i express**  en la carpeta /api.
+Mongoose será nuestra base de datos. Para instalarlo repetimos el proceso anterior. Hacemos bien <span style="color: #7FFFD4;">**pnpm i express**</span>  en la carpeta <span style="color: #FADADD;">/**api**</span>.
 
-**[01.03] INSTALAR DOTENV**
+#### <u>**[01.03] INSTALAR DOTENV**</u>
 
-Dotenv es un módulo que carga variables de entorno desde un archivo .env a process.env. que facilita la configuración del entorno. Para instalar este módulo tenemos:
+Dotenv es un módulo que carga variables de entorno desde un archivo <span style="color: #FFDAB9;">**.env**</span> a <span style="color: #FFDAB9;">**process.env**</span> que facilita la configuración del entorno. Para instalar este módulo tenemos:
 
-- Crear el archivo .env. Nos situamos en /api y usamos el comando **touch .env** esto nos creará el archivo .env. 
-- Añadir el archivo .gitignore y añadir que no ignore el archivo .env que acabamos de crear. Para eso hacemos un **touch .gitignore** desde api. Se nos crea el archivo y dentro del archivo escribimos **!.env** 
-- Añadimos al archivo .env las rutas que queramos, en mi caso:
-- MONGODB\_URL = mongodb://127.0.0.1:27017/project
-- TEST\_MONGODB\_URL = mongodb://127.0.0.1:27017/test
-- PORT = 9000
-- JWT\_SECRET = me gustan las patatas fritas
-- JWT\_EXP = 1h
+- Crear el archivo <span style="color: #FFDAB9;">**.env**</span> Nos situamos en <span style="color: #FADADD;">/**api**</span> y usamos el comando  <span style="color: #7FFFD4;">**touch .env**</span> esto nos creará el archivo <span style="color: #FFDAB9;">**.env**</span>
+
+- Añadir el archivo <span style="color: #FFDAB9;">**.gitignore**</span> y añadir que no ignore el archivo <span style="color: #FFDAB9;">**.env**</span> que acabamos de crear. Para eso hacemos un <span style="color: #7FFFD4;">**touch .gitignore**</span> desde <span style="color: #FADADD;">/**api**</span>. Se nos crea el archivo y dentro del archivo escribimos <span style="color: #FFDAB9;">**!.env**</span>
+
+- Añadimos al archivo <span style="color: #FFDAB9;">**.env**</span> las rutas que queramos, en mi caso:
+
+
+ <span style="color: #FDFD96;">**MONGODB\_URL = mongodb://127.0.0.1:27017/project**</span>
+
+  <span style="color: #FDFD96;">**TEST\_MONGODB\_URL = mongodb://127.0.0.1:27017/test**</span>
+
+  <span style="color: #FDFD96;">**PORT = 9000**</span>
+
+ <span style="color: #FDFD96;">**JWT\_SECRET = me gustan las patatas fritas**</span>
+
+ <span style="color: #FDFD96;">**JWT\_EXP = 1h**</span>
 
 Hay algunas que aún no hemos instalado (como las de jasonWebToken pero las ponemos para más adelante).
 
-**[01.04] INSTALAR MOCHA CHAI**
+#### <u>**[01.04] INSTALAR MOCHA CHAI**</u>
 
 Mocha y Chai son dos bibliotecas de JavaScript que se usan para hacer testing. Se complementan entre sí para para ofrecer una solución completa para escribir y ejecutar pruebas tanto en aplicaciones del lado del servidor como del cliente.
 
 Mocha es un test framework que se ejecuta en Node.js y en el navegador. Mocha proporciona la estructura para hacer pruebas. Chai es una biblioteca de aserciones paraNode.js y el navegador que se empareja con Mocha. Ofrece varias interfaces que permiten escribir aserciones de prueba de manera más expresiva y legible. Las interficies más comunes son ‘expect’, ‘should’ y ‘assert’.
 
-Para instalar mocha chai en nuestro proyecto, tenemos que poner **pnpm i -D mocha chai** en la terminal de vscode, tenemos que situarnos en la carpeta donde lo queramos instalar, en este caso en /api. 
+Para instalar mocha chai en nuestro proyecto, tenemos que poner <span style="color: #7FFFD4;">**pnpm i -D mocha chai**</span> en la terminal de vscode, tenemos que situarnos en la carpeta donde lo queramos instalar, en este caso en <span style="color: #FADADD;">/**api**</span>. 
 
-Tendremos que modificar el package.json de api para añadirle scripts de mocha chai
+Tendremos que modificar el <span style="color: #FFDAB9;">**package.json**</span> de <span style="color: #FADADD;">/**api**</span> para añadirle scripts de mocha chai
 
-"test-inspect": "mocha --inspect-brk logic/\*.spec.js",
+ <span style="color: #FDFD96;">**"test-inspect": "mocha --inspect-brk logic/\*.spec.js",**</span>
 
-`    `"test-coverage": "nyc --reporter=text-summary --reporter=html mocha --require esm logic/\*.spec.js"
+ <span style="color: #FDFD96;">**"test-coverage": "nyc --reporter=text-summary --reporter=html mocha --require esm logic/\*.spec.js"**</span>
 
 
 
-**[01.05] TRABAJAR CON ESM “MODULOS” IMPORTS Y EXPORTS**
+
+#### <u>**[01.05] TRABAJAR CON ESM “MODULOS” IMPORTS Y EXPORTS**</u>
 
 ESM (ECMAScript Modules) es el estándar oficial en JS para trabajar con módulos. Introduce dos operaciones principales: ‘import’ y ‘export’. Hay dos tipos principales de exportaciones: 
 
 - nombradas 
 
-*export* const *miVariable* =* 123;
+<span style="color: #FDFD96;">**export const miVariable = 123**</span>
 
-*export* function *miFuncion*() { ... }
+<span style="color: #FDFD96;">**export function miFuncion() { ... }**</span>
 
 - por defecto
 
-*export* *default* function() { ...
+<span style="color: #FDFD96;">**export default function() { ...**</span>
 
 Hay dos tipos principales de importaciones, también las nombradas y por defecto.
 
-// *Importar exportaciones nombradas*
 
-*import* { miVariable, miFuncion } *from* './miModulo.js'
 
-// *Importar una exportación por defecto*
+<span style="color: #FDFD96;">**import { miVariable, miFuncion } from './miModulo.js'**</span>
 
-*import* MiFuncionDefault *from* './miModulo.js'
 
+<span style="color: #FDFD96;">**import MiFuncionDefault from './miModulo.js'**</span>
 
-Para indicar que vamos a trabaja con ESM tenemos que ir a package.json y poner lo siguiente:
 
-"type": "module"
+Para indicar que vamos a trabaja con ESM tenemos que ir a <span style="color: #FFDAB9;">**package.json**</span> y poner lo siguiente:
 
-De manera que el package.json quedará así:
+<span style="color: #FDFD96;">**"type": "module"**</span>
 
-`  `"name": "api",
+De manera que el <span style="color: #FFDAB9;">**package.json**</span> quedará así:
 
-`  `"version": "0.0.0",
+![](images/image3.png)
 
-`  `"description": "",
 
-`  `"main": "index.js",
 
-`  `"scripts": {
+*< No está explicado pero la parte de los scripts lo añadimos manualmente como atajos. En consola en vez de poner  <span style="color: #7FFFD4;">**node –inspect-brk**</span> . si queremos debuggear, podemos poner <span style="color: #7FFFD4;">**npm run inspect**</span> y es lo mismo, pero más corto. />*
 
-`    `"start": "node .",
 
-`    `"watch": "node --watch .",
+#### <u>**[01.06] INSTALAR BCRYPT // PROTEGER CONTRASEÑAS** </u>
 
-`    `"inspect": "node --inspect-brk .",
+Usamos la librería  <span style="color: #FFDAB9;">**bcrypt**</span>. Para instalar esta librería, tenemos que estar en la carpeta donde lo queramos instalar, en mi caso <span style="color: #FADADD;">/**api**</span> y en la terminal poner  <span style="color: #7FFFD4;">**pnpm i bcryptjs**</span>
 
-`    `"test": "mocha logic/\*.spec.js",
+#### <u>**[01.07] CONVERTIR COM EN UN PAQUETE DE NODE** </u>
 
-`    `"test-inspect": "mocha --inspect-brk logic/\*.spec.js",
+Tenemos que convertir la carpeta  <span style="color: #FFDAB9;">**com**</span> en un paquete de node para poder compartirla entre  <span style="color: #FFDAB9;">**app**</span> y  <span style="color: #FFDAB9;">**api**</span>. Para inicializar el paquete de node, tenemos que situarnos en <span style="color: #FADADD;">/**com**</span> y ejecutar el comando <span style="color: #7FFFD4;">**npm init –yes**</span>
 
-`    `"test-coverage": "nyc --reporter=text-summary --reporter=html mocha --require esm logic/\*.spec.js"
+Esto nos crea un <span style="color: #FFDAB9;">**package.json**</span> en <span style="color: #FADADD;">/**com**</span>. Añadimos el tipo. <span style="color: #FADADD;">/**api**</span>"type": "module"**</span>
 
-`  `},
+![](images/image4.png)
 
-`  `"keywords": [],
 
-`  `"author": "",
 
-`  `"license": "ISC",
 
-`  `"dependencies": {
 
-`    `"bcryptjs": "^2.4.3",
+Ahora lo tenemos que instalar en <span style="color: #FFDAB9;">**api**</span> para que sea accesible desde ahí. Nos situamos en <span style="color: #FADADD;">/**api**</span> y ponemos el comando <span style="color: #7FFFD4;">**pnpm i ../com**</span> le estamos diciendo instálame el módulo de la carpeta superior.
 
-`    `"cors": "^2.8.5",
+Vemos como el <span style="color: #FFDAB9;">**package.json**</span> de <span style="color: #FADADD;">/**api**</span> se ha instalado <span style="color: #FDFD96;">**‘com’**</span> como un link
 
-`    `"dotenv": "^16.4.4",
+![](images/image5.png)
 
-`    `"express": "^4.18.2",
+![](images/image6.png)
 
-`    `"mongoose": "^8.1.2"
+#### <u>**[01.08] INSTALAR JSONWEBTOKEN** </u>
 
-`  `},
+Usamos la librería  <span style="color: #FFDAB9;">**jsonwebtoken**</span>. Para instalar esta librería, tenemos que estar en la carpeta donde lo queramos instalar, en mi caso <span style="color: #FADADD;">/**api**</span> y en la terminal poner  <span style="color: #7FFFD4;">**pnpm i jsonwebtoken**</span>
 
-`  `"devDependencies": {
+Un JWT se compone de 3 partes:
 
-`    `"chai": "^5.1.0",
+- Header: consiste en 2 partes (el tipo de token y el algortmo de firma utilizado).
 
-`    `"mocha": "^10.3.0"
+- Payload: contiene las declaraciones, que son afirmaciones sobre una entidad y dato adicionales.
 
-`  `},
+- Signature: para crear la firma, se tiene que coger el encoded header, el encoded payload, se unen con un punto y se frma con el algoritmo especificado en el header y usando la clave secreta.
 
-`  `"type": "module"
 
-}
+### **[02] COMPROBAR QUE LA API FUNCIONA**  
 
-*< No está explicado pero la parte de los scripts lo añadimos manualmente como atajos. En consola en vez de poner **node –inspect-brk** . si queremos debuggear, podemos poner **pnpm run inspect** y es lo mismo, pero más corto. />*
+Con la lógica de <span style="color: #FDFD96;">**RegisterUser**</span> vamos a comprobar que Api funciona bien. 
 
-**[01.06] INSTALAR BCRYPT // PROTEGER CONTRASEÑAS** 
 
-Usamos la librería bcrypt. Para instalar esta librería, tenemos que estar en la carpeta donde lo queramos instalar, en mi caso /api y en la terminal poner **pnpm i bcryptjs** 
+####  <u>**[02.01] LÓGICA DE REGISTERUSER / REGISTERUSER.TEST / ARCHIVOS AUXILIARES**</u>
 
-**[01.07] CONVERTIR COM EN UN PAQUETE DE NODE** 
+En <span style="color: #FFDAB9;">**api**</span> vamos a tener 2 carpetas: <span style="color: #FFDAB9;">**logic**</span> y <span style="color: #FFDAB9;">**data**</span>. Dentro de data tenemos un archivo <span style="color: #FFDAB9;">**models.js**</span> en el que tenemos lo siguiente
 
-Tenemos que convertir la carpeta com en un paquete de node para poder compartirla entre app y api. Para inicializar el paquete de node, tenemos que situarnos en com y ejecutar el comando npm init –yes
+`	`<span style="color: #FADADD;">/**api/data/models**</span>
 
-Esto nos crea un package.json en com. Añadimos el tipo. "type": "module"
 
-{
+![](images/image7.png)
 
-`  `"name": "com",
+![](images/image8.png)
 
-`  `"version": "1.0.0",
+De momento en <span style="color: #FFDAB9;">**logic**</span> tenemos el archivo <span style="color: #FFDAB9;">**registerUser.js**</span> y <span style="color: #FFDAB9;">**registerUser.test.js**</span> 
 
-`  `"description": "",
+`	`<span style="color: #FADADD;">**/api/logic/registerUser.js**</span>
 
-`  `"main": "index.js",
+![](images/image9.png)
 
-`  `"scripts": {
+![](images/image10.png)
 
-`    `"test": "echo \"Error: no test specified\" && exit 1"
 
-`  `},
 
-`  `"keywords": [],
+`	`<span style="color: #FADADD;">**/api/logic/registerUser.test.js**</span>
 
-`  `"author": "",
 
-`  `"license": "ISC",
+![](images/image11.png)
 
-`  `"type": "module"
 
-}
 
+Necesitaremos la carpeta  <span style="color: #FFDAB9;">**com**</span>  para validar e importar los errores en nuestra lógica. Dentro de esta carpeta tenemos  <span style="color: #FFDAB9;">**errors**</span> , <span style="color: #FFDAB9;">**validate**</span>  y un  <span style="color: #FFDAB9;">**index**</span>  que indexa. 
 
-Ahora lo tenemos que instalar en api para que sea accesible desde ahí. Nos situamos en api y ponemos el comando **pnpm i ../com** le estamos diciendo instálame el módulo de la carpeta superior.
 
-Vemos como el package.json de api se ha instalado ‘com’ como un link
+`	`<span style="color: #FADADD;">**/com/errors.js**</span>
 
-{
+![](images/image12.png)
 
-`  `"name": "api",
+![](images/image13.png)
 
-`  `"version": "0.0.0",
 
-`  `"description": "",
 
-`  `"main": "index.js",
 
-`  `"scripts": {
+`	`<span style="color: #FADADD;">**/com/validate.js**</span>
 
-`    `"start": "node .",
+![](images/image14.png)
 
-`    `"watch": "node --watch .",
+![](images/image15.png)
 
-`    `"inspect": "node --inspect-brk .",
 
-`    `"test": "mocha logic/\*.spec.js",
+`	`<span style="color: #FADADD;">**/com/index.js**</span>
 
-`    `"test-inspect": "mocha --inspect-brk logic/\*.spec.js",
+![](images/image16.png) 
 
-`    `"test-coverage": "nyc --reporter=text-summary --reporter=html mocha --require esm logic/\*.spec.js"
 
-`  `},
 
-`  `"keywords": [],
+####  <u>**[02.02] EJECUTAR EL TEST REGISTERUSER.TEST EN CONSOLA**</u>
 
-`  `"author": "",
+Una vez tenemos todos los archivos, ejecutamos <span style="color: #FDFD96;">**registerUser.test**</span>. Para hacer esto, tenemos que situarnos en <span style="color: #FADADD;">**/api**</span> y poner el siguiente comando:
 
-`  `"license": "ISC",
+🔥 api % <span style="color: #7FFFD4;">**node logic/registerUser.test.js**</span>
 
-`  `"dependencies": {
-
-`    `"bcryptjs": "^2.4.3",
-
-`    `"com": "link:../com",
-
-`    `"cors": "^2.8.5",
-
-`    `"dotenv": "^16.4.4",
-
-`    `"express": "^4.18.2",
-
-`    `"mongoose": "^8.1.2"
-
-`  `},
-
-`  `"devDependencies": {
-
-`    `"chai": "^5.1.0",
-
-`    `"mocha": "^10.3.0"
-
-`  `},
-
-`  `"type": "module"
-
-}
-
-
-
-
-**[02] COMPROBAR QUE LA API FUNCIONA**  
-
-Con la lógica de RegisterUser vamos a comprobar que Api funciona bien. 
-
-
-**[02.01] LÓGICA DE REGISTERUSER / REGISTERUSER.TEST / ARCHIVOS AUXILIARES**
-
-En Api vamos a tener 2 carpetas: logic y data. Dentro de data tenemos un archivo models.js en el que tenemos lo siguiente
-
-`	`**/api/data/models**
-
-*import* mongoose *from* 'mongoose'
-
-const* { *Schema*, *model*, *ObjectId* }* =* mongoose
-
-const *user* =* new *Schema*({
-
-`    `*name*:* {
-
-`        `*type*:* String,
-
-`        `*required*: *true*
-\*
-`    `},
-
-`    `*email*:* {
-
-`        `*type*:* String,
-
-`        `*required*: *true*,
-
-`        `*unique*: *true* //*crea un indice para que no deje registrar a más usuarios con el mismo email* 
-\*
-`    `},
-
-`    `*password*:* {
-
-`        `*type*:* String,
-
-`        `*required*: *true*,
-
-`        `*minlenght*:* 8
-\*
-`    `},
-
-`    `*favs*:* [{
-
-`        `*type*:* ObjectId,
-
-`        `*ref*:* 'Post'
-\*
-`    `}]
-
-})
-
-const *post* =* new *Schema*({
-
-`    `*author*:* {
-
-`        `*type*:* ObjectId,
-
-`        `*required*: *true*,
-
-`        `*ref*:* 'User'* //*le decimos que el objectId hace referencia a usuario*
-\*
-`    `},
-
-`    `*image*:* {
-
-`        `*type*:* String,
-
-`        `*required*: *true*
-\*
-`    `},
-
-`    `*text*:* {
-
-`        `*type*:* String,
-
-`        `*required*: *true*
-\*
-`    `},
-
-`    `*likes*:* [{
-
-`        `*type*:* ObjectId,
-
-`        `*ref*:* 'User'
-\*
-`    `}],
-
-`    `*comments*:* [{
-
-`        `*author*:* { *type*:* ObjectId, *ref*:* 'User'* },
-
-`        `*text*:* { *type*:* String, *required*: *true* }
-
-\*    }]
-
-})
-
-//*tenemos que usar una clase para construir usuarios*
-
-const *User* = *model*('User',* user)
-
-const *Post* = *model*('Post',* post)
-
-*export* {
-
-`    `User, Post
-
-}
-
-
-De momento en logic tenemos el archivo registerUser.js y registerUser.test.js 
-
-**/api/logic/registerUser.js**
-
-*import* bcrypt *from* 'bcryptjs'
-
-*import* { validate, errors } *from* 'com'
-
-*import* { User } *from* '../data/models.js'
-
-const* { *SystemError*, *DuplicityError* }* =* errors
-
-function *registerUser*(name, email, password) {
-
-`    `*validate.text*(name, 'name')
-
-`    `*validate.email*(email, 'email')
-
-`    `*validate.text*(password, 'password')
-
-`    `*return* (*async* () => {
-
-`        `let* hash
-
-`        `*try* {
-
-`            `hash = *await* *bcrypt.hash*(password, 8)
-
-`        `} *catch* (error) {
-
-`            `*throw* new *SystemError*(*error.*message)
-
-`        `}
-
-`        `*try* {
-
-`            `*await* *User.create*({ name, email, password: hash }) //*aqui no lo envolvemos en una constante porque no devuelve nada*
-
-`        `} *catch* (error) {
-
-`            `if (*error.*code === 11000)
-
-`                `*throw* new *DuplicityError*('user already exists')
-
-`            `*throw* new *SystemError*(*error.*message)
-
-`        `}
-
-`    `})()
-
-}
-
-*export* *default* registerUser
-
-
-`	`**/api/logic/registerUser.test.js**
-
-
-*import* dotenv *from* 'dotenv'
-
-*dotenv.config*()
-
-*import* mongoose *from* 'mongoose'
-
-*import* registerUser *from* './registerUser.js' // *el requiere es como el input*
-
-(*async* () => {
-
-`    `*await* *mongoose.connect*(*process.env.*MONGODB\_URL)
-
-`    `*try* {
-
-`        `*await* *registerUser*('Man Darina', 'man@darina.com', '123123123')
-
-`        `*console.log*('user registered')
-
-`    `} *catch* (error) {
-
-`        `*console.log*(error)
-
-`    `}
-
-})()
-
-
-Necesitaremos la carpeta com para validar e importar los errores en nuestra lógica. Dentro de esta carpeta tenemos errors, validate y un index que indexa. 
-
-
-`	`**/com/errors.js**
-
-class NotFoundError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class SystemError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class ContentError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class DuplicityError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message) // *podemos ponerle el message aqui?*
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class AuthenticateError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class CredentialsError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-class TokenError *extends* Error {
-
-`    `constructor(message) {
-
-`        `super(message)
-
-`        `this*.*name = this*.*constructor*.*name
-
-`    `}
-
-}
-
-
-
-
-*export* {  //*esto es un bucket*
-
-`    `NotFoundError,
-
-`    `SystemError,
-
-`    `ContentError,
-
-`    `DuplicityError,
-
-`    `AuthenticateError,
-
-`    `CredentialsError,
-
-`    `TokenError
-
-}
-
-const *errors* =* {* // *esto un objeto*
-\*
-`    `NotFoundError,
-\*
-`    `SystemError,
-\*
-`    `ContentError,
-\*
-`    `DuplicityError,
-\*
-`    `CredentialsError,
-\*
-`    `TokenError
-
-}
-
-*export* *default* errors
-
-
-
-
-`	`**/com/validate.js**
-
-*import* { ContentError } *from* './errors.js'
-
-const *EMAIL\_REGEX* =* /*^*(([^*<>()[\]\\.,;:\s@"*]+(*\.*[^*<>()[\]\\.,;:\s@"*]+)\*)|*.*(*".*+*"*))*@*((*\[*[*0-9*]{1,3}*\.*[*0-9*]{1,3}*\.*[*0-9*]{1,3}*\.*[*0-9*]{1,3}*\]*)|(([*a-zA-Z\-0-9*]+*\.*)+[*a-zA-Z*]{2,}))*$*/
-
-const *ID\_REGEX* =* /*^*[*0-9A-Fa-f*]{24}*$*/
-
-function *text*(text, explain) {
-
-`    `if (typeof text !== 'string') *throw* new *TypeError*(explain + ' is not string')
-
-`    `if (!*text.trim*()*.*length) *throw* new *ContentError*(explain + ' is empty')
-
-}
-
-function *email*(email, explain) {
-
-`    `*text*(email, explain)
-
-`    `if (!EMAIL\_REGEX*.test*(email)) *throw* new *ContentError*(`${explain} is not valid`)
-
-}
-
-function *password*(password, explain = 'password') {
-
-`    `*text*(password, explain)
-
-`    `if (*password.*length < 8) *throw* new *RangeError*(`${explain} length is lower than 8 characters`)
-
-}
-
-function *number*(number, explain) {
-
-`    `if (typeof number !== 'number') *throw* new *TypeError*(`${explain} is not a number`)
-
-}
-
-function *funktion*(funktion, explain) {
-
-`    `if (typeof funktion !== 'function') *throw* new *TypeError*(`${explain} is not a function`)
-
-}
-
-function *id*(id, explain) {
-
-`    `*text*(id, explain)
-
-`    `if (!ID\_REGEX*.test*(id)) *throw* new *ContentError*(`${explain} is not a valid id`)
-
-}
-
-const *validate* =* {
-\*
-`    `text,
-\*
-`    `email,
-\*
-`    `password,
-\*
-`    `number,
-
-`    `*function*:* funktion,
-\*
-`    `id
-
-}
-
-*export* *default* validate
-
-
-
-**/com/index.js**
-
-*import* validate *from* './validate.js'
-
-*import* errors *from* './errors.js'
-
-*export* {
-
-`    `validate,
-
-`    `errors
-
-}
-
-
-
-**[02.02] EJECUTAR EL TEST REGISTERUSER.TEST EN CONSOLA**
-
-Una vez tenemos todos los archivos, ejecutamos el test de register. Para hacer esto, tenemos que situarnos en api y poner el siguiente comando:
-
-🔥 api % node logic/registerUser.test.js
-
-user registered
+*user registered*
 
 Nos tiene que aparecer que el usuario se ha registrado. 
 
 
 
-**[02.03] COMPROBAR QUE LA BASE DE DATOS EN MONGO SE HA ACTUALIZADO** 
+####  <u>**[02.03] COMPROBAR QUE LA BASE DE DATOS EN MONGO SE HA ACTUALIZADO** </u>
 
-Ahora comprobamos que la base de datos de mongo se haya incorporado este usuario.
+Ahora comprobamos que la base de datos de <span style="color: #FFDAB9;">**mongo**</span>  se haya incorporado este usuario.
 
-`  `![A computer code on a black background
-
-Description automatically generated](Aspose.Words.7a9fb646-69b1-478a-9793-d848bef1ded9.002.png)
+![](images/image17.png) 
 
 
 
-**[02.04] AÑADIR EL HANDLER DE REGISTERUSER** 
+####  <u>**[02.04] AÑADIR EL HANDLER DE REGISTERUSER** </u>
 
-Creamos en la carpeta api/handlers el archivo registerUserHandler.js
+Creamos en la carpeta <span style="color: #FADADD;">**/api/handlers**</span> el archivo <span style="color: #FFDAB9;">**registerUserHandler.js**</span>
 
-**/api/handlers/registerUserHandler.js**
+<span style="color: #FADADD;">**/api/handlers/registerUserHandler.js**</span> 
 
+![](images/image18.png) 
 
-*import* logic *from* '../logic/index.js'
+####  <u>**[02.05] AÑADIR INDEX EN HANDLERS** </u>
 
-*import* { errors } *from* 'com'
+Necesitamos crear un indexador en handlers para exportar todos los handlers a la vez, a este indexador le llamamos <span style="color: #FFDAB9;">**index.js**</span>
+. De momento sólo tenemos un handler, pero a medida que vayamos haciendo más lógicas y sus tests, los incorporaremos. 
 
-const* { *DuplicityError*, *ContentError* }* =* errors
+<span style="color: #FADADD;">**/api/handlers/index.js**</span> 
 
-*export* *default* (req, res) => {
-
-`    `const* { *name*, *email*, *password* }* = *req.body* //*queremos que nos devuelva la respuesta en el body*
-
-`    `*try* {
-
-`        `*logic.registerUser*(name, email, password)
-
-`            `// *no hacemos un callback(error), le indicamos al navegador el tipo de error en forma de respuesta (res)*
-
-`            `*.then*(() => *res.status*(201)*.send*())
-
-`            `*.catch*(error => {
-
-`                `let* status* =* 500
-
-`                `if (error instanceof DuplicityError)
-
-`                    `status = 409
-
-`                `*res.status*(status)*.json*({ error: *error.*constructor*.*name, message: *error.*message })
-
-`            `}) //*todo ha ido bien, se lo indicamos al navegador*
-
-`    `} *catch* (error) {
-
-`        `let* status* =* 500
-
-`        `if (error instanceof ContentError || error instanceof TypeError)
-
-`            `status = 406
-
-`        `*res.status*(status)*.json*({ error: *error.*constructor*.*name, message: *error.*message })
-
-`    `}
-
-}
-
-
-**[02.05] AÑADIR INDEX EN HANDLERS** 
-
-Necesitamos crear un indexador en handlers para exportar todos los handlers a la vez, a este indexador le llamamos index. De momento sólo tenemos un handler, pero a medida que vayamos haciendo más lógicas y sus tests, los incorporaremos. 
-
-**/api/handlers/index.js**
-
-
-*import* registerUserHandler *from* './registerUserHandler.js'
-
-*export* {
-
-`    `registerUserHandler
-
-}
+![](images/image19.png) 
 
 
 
-**[02.06] AÑADIR INDEX EN LOGIC**
 
-Si nos fijamos en registerUserHandler, la importación de las lógicas la hacemos de la siguiente manera: 
+####  <u>**[02.06] AÑADIR INDEX EN LOGIC** </u>
 
-*import* logic *from* '../logic/index.js'
+Si nos fijamos en <span style="color: #FFDAB9;">**registerUserHandler**</span>
+, la importación de las lógicas la hacemos de la siguiente manera: 
+
+![](images/image20.png) 
 
 Esto indica que tenemos un indexador en logic, en el que importamos/exportamos todas las lógicas que vayamos creando. Vamos a hacer ese indexador. Como en otras ocasiones, se llama index
 
-**/api/logic/index.js**
+<span style="color: #FADADD;">**/api/logic/index.js**</span> 
 
-*import* registerUser *from* './registerUser.js'
+![](images/image21.png) 
 
-const *logic* =* {
-\*
-`    `registerUser
 
-}
+Como con el indexador de handler, a medida que vayamos creando lógicas, las añadiremos a este <span style="color: #FFDAB9;">**index**</span> para exportarlas y poder trabajar con ellas. 
 
-*export* *default* logic
 
 
 
-Como con el indexador de handler, a medida que vayamos creando lógicas, las añadiremos a este index para exportarlas y poder trabajar con ellas. 
+####  <u>**[02.07] CREACIÓN CARPETA TEST**</u>
 
+Crearemos una carpeta llamada <span style="color: #FFDAB9;">**test**</span> en la que tendremos archivos <span style="color: #FFDAB9;">**.sh**</span> 
 
+Los archivos de prueba .sh son opcionales. Pero como son rápidos de implementar y te permiten ver rápidamente si la conexión va bien, los usaremos. 
 
+Creamos la carpeta <span style="color: #FFDAB9;">**test**</span> en la ruta <span style="color: #FADADD;">**/api/test**</span> 
 
-**[02.07] CREACIÓN CARPETA TEST**
+Esta carpeta tendrá un archivo llamado <span style="color: #FFDAB9;">**pepetest.sh**</span> (opcional, es para dar estilo) y los archivos de prueba de las lógicas. Empezaremos por <span style="color: #FFDAB9;">**register-user.test.sh**</span>
 
-Crearemos una carpeta llamada test en la que tendremos archivos .sh 
 
-Los archivos de prueba .sh son opcionales, podemos probar la conexión con el servidor con los tests spec. Pero los .sh son más rápidos de implementar y te permiten ver rápidamente si la conexión va bien. 
+ <span style="color: #FADADD;">**/api/test/pepetest.sh**</span> 
 
-Creamos la carpeta test en la ruta api/test
+![](images/image22.png) 
 
-Esta carpeta tendrá un archivo llamado pepetest.sh (opcional, es para dar estilo) y los archivos de prueba de las lógicas. Empezaremos por register-user.test.sh
+ <span style="color: #FADADD;">**/api/test/registerUser.test.sh**</span> 
 
 
-**/api/test/pepetest.sh**
+![](images/image23.png) 
 
-*print\_in\_orange*() {
+![](images/image24.png) 
 
-`  `*echo*  "\033[1;38;5;208m$1\033[0m"
 
-}
+####  <u>**[02.08] CREACIÓN INDEX EN API**</u>
 
-*print\_in\_yellow*() {
+Necesitamos un archivo <span style="color: #FFDAB9;">**index**</span> en  <span style="color: #FADADD;">**/api**</span> . 
 
-`  `*echo* "\033[1;33m$1\033[0m"
+![](images/image25.png) 
 
-}
-
-function *TEST*() {
-
-`    `*print\_in\_yellow* "TEST $1"
-
-}
-
-function *CASE*() {
-
-`  `# *Unir todos los parámetros en un solo mensaje*
-
-`  `message="$\*"
-
-`  `*print\_in\_orange* "\n\nCASE $message"
-
-}
-
-
-**/api/test/registerUser.test.sh**
-
-*source* pepetest.sh
-
-*TEST* "register-user"
-
-*CASE* "success on new user"
-
-*curl* 'http://localhost:9000/users' \
-
--H 'Content-Type: application/json' \
-
--d '{ "name": "Gui Sante", "email": "gui@sante.com", "password": "123123123" }' \
-
--v
-
-\# *con el -v le pido que me enseñe la vuelta*
-
-\# *cen la cabecera -H le aviso que rtipo de dato le voy a enviar*
-
-\# *```sh*
-
-\# *$ curl 'http://localhost:8000/register' \*
-
-\# *-H 'Content-Type: application/json' \*
-
-\# *-d '{ "name": "Man Zana", "email": "man@zana.com", "password": "123123123" }' \*
-
-\# *-v*
-
-\# *> POST /register HTTP/1.1*
-
-\# *> Host: localhost:8000*
-
-\# *> User-Agent: curl/8.1.2*
-
-\# *> Accept: \*/\**
-
-\# *> Content-Type: application/json*
-
-\# *> Content-Length: 72*
-
-\# *< HTTP/1.1 201 Created*
-
-\# *< X-Powered-By: Express*
-
-\# *< Date: Tue, 12 Dec 2023 20:30:46 GMT*
-
-\# *< Connection: keep-alive*
-
-\# *< Keep-Alive: timeout=5*
-
-\# *< Content-Length: 0*
-
-\# *```*
-
-*CASE* "fail on already existing user"
-
-*curl* 'http://localhost:9000/users' \
-
--H 'Content-Type: application/json' \
-
--d '{ "name": "Man Darina", "email": "man@darina.com", "password": "123123123" }' \
-
--v
-
-\# *> POST /users HTTP/1.1*
-
-\# *> Host: localhost:8000*
-
-\# *> User-Agent: curl/7.79.1*
-
-\# *> Accept: \*/\**
-
-\# *> Content-Type: application/json*
-
-\# *> Content-Length: 68*
-
-\# *>* 
-
-#* 
-
-\# *< HTTP/1.1 400 Bad Request*
-
-\# *< X-Powered-By: Express*
-
-\# *< Content-Type: application/json; charset=utf-8*
-
-\# *< Content-Length: 49*
-
-\# *< ETag: W/"31-9YH7vKZZOanka1kAQTVWdLRn9j0"*
-
-\# *< Date: Sat, 16 Dec 2023 22:32:22 GMT*
-
-\# *< Connection: keep-alive*
-
-\# *< Keep-Alive: timeout=5*
-
-\# *<* 
-
-\# *{"error":"Error","message":"user already exists"}*
-
-
-**[02.08] CREACIÓN INDEX EN API**
-
-Necesitamos un archivo index en api. Qué hace este bloque de código? Configuramos y arrancamos un servidor web. 
+Qué hace este bloque de código? Configuramos y arrancamos un servidor web. 
 
 Nos conectamos a la base de datos de Mongo. 
 
@@ -937,272 +292,85 @@ Configuramos el servidor web con express.
 
 Definimos la ruta raíz 
 
-`        `*server.get*('/', (req, res) => *res.send*('Hello world'))
+![](images/image26.png) 
 
-La ruta raíz es / para el servidor y este responde con un Hello World cuando accedemos a esta ruta mediante una solicitud GET. Así verificamos que el servidor funciona bien. 
+La ruta raíz es <span style="color: #FFDAB9;">**/**</span> para el servidor y este responde con un <span style="color: #FDFD96;">Hello World</span> cuando accedemos a esta ruta mediante una <span style="color: #FFDAB9;">solicitud GET</span> . Así verificamos que el servidor funciona bien. 
 
 
-Aplicamos el middleware cors al servidor, lo que permite que nuestra api acepte solicitudes de origen cruzado.
+Aplicamos el <span style="color: #FFDAB9;">middleware cors</span> al servidor, lo que permite que nuestra <span style="color: #FFDAB9;">**api**</span> acepte solicitudes de origen cruzado.
 
-Inicializamos un middleware (jsonBodyParser) que analiza el cuerpo de las solicitudes entrantes en formato JSON, facilitando el acceso a estos datos. 
+Inicializamos un middleware (<span style="color: #FFDAB9;">**jsonBodyParser**</span>) que analiza el cuerpo de las solicitudes entrantes en formato JSON, facilitando el acceso a estos datos. 
 
 Inicializamos el servidor
 
-*server.listen*(*process.env.*PORT, () => *console.log*(`server running on port ${*process.env.*PORT}`))
+![](images/image27.png) 
 
-A medida que tengamos más lógicas, tendremos que añadirlas. De momento, sólo tenemos register. 
+A medida que tengamos más lógicas, tendremos que añadirlas. De momento, sólo tenemos  <span style="color: #FDFD96;">register</span>. 
 
+<span style="color: #FADADD;">**/api/index**</span>
 
-*import* dotenv *from* 'dotenv'
+![](images/image28.png) 
 
-*dotenv.config*()
+####  <u>**[02.09] COMPROBACIÓN DE QUE EL TEST REGISTER-USER.TEST.SH FUNCIONA**</u>
 
-// *trae la librería dotenv y config lo que hace es leer el archivo .env, lee las variables que hay*
+Para comprobar que <span style="color: #FFDAB9;">**register-user.test.sh**</span> funciona bien, necesitaremos tener 2 terminales abiertas.
 
-// *y te las pone en process.env*
+Nos situamos en <span style="color: #FADADD;">**/api**</span> y ponemos  <span style="color: #7FFFD4;">**node .**</span>
 
-*import* mongoose *from* 'mongoose'
+🔥 api % <span style="color: #7FFFD4;">**node .**</span>
 
-*import* express *from* 'express'
+*server running on port 9000*
 
-*import* cors *from* 'cors'
+Nos tiene que aparecer el mensaje de que el servidor ha arrancado bien. Ahora abrimos otra terminal, pero nos tenemos que situar en test <span style="color: #FADADD;">**/api/test**</span>  y ejecutamos <span style="color: #7FFFD4;">**./register-user.test.sh**</span>
 
-*import* {
-
-`    `registerUserHandler
-
-} *from* './handlers/index.js'
-
-*mongoose.connect*(*process.env.*MONGODB\_URL) //*hagola conexión con moongose*
-
-`    `*.then*(() => {
-
-`        `const *server* = *express*()
-
-`        `*server.get*('/', (req, res) => *res.send*('Hello world'))
-
-`        `const *jsonBodyParser* = *express.json*()
-
-`        `*server.use*(*cors*())
-
-
-
-
-
-
-
-
-`        `//*usar el metodo POST para hacer el registro*
-
-`        `*server.post*('/users', jsonBodyParser, registerUserHandler)
-
-`        `*server.listen*(*process.env.*PORT, () => *console.log*(`server running on port ${*process.env.*PORT}`))
-
-`    `})
-
-`    `*.catch*(error => *console.error*(error))
-
-
-
-**[02.09] COMPROBACIÓN DE QUE EL TEST REGISTER-USER.TEST.SH FUNCIONA**
-
-Para comprobar que register-user.test.sh funciona bien, necesitaremos tener 2 terminales abiertas.
-
-Nos situamos en **/api** y ponemos **node .**
-
-🔥 api % node .
-
-server running on port 9000
-
-Nos tiene que aparecer el mensaje de que el servidor ha arrancado bien. Ahora abrimos otra terminal, pero nos tenemos que situar en test **/api/test** y ejecutamos **./register-user.test.sh**
-
-![A screenshot of a computer program
-
-Description automatically generated](Aspose.Words.7a9fb646-69b1-478a-9793-d848bef1ded9.003.png)
+![](images/image29.png) 
 
 Parece que ha ido bien, pero tenemos que comprobar que realmente el nuevo usuario se encuentre en la base de datos de mongo.
 
-*< me ha pasado que al intentar ejecutar ./register-user.test.sh me ha salido un error de permisos, lo he solucionado con el siguiente comando **chmod +x ./register-user.test.sh** />*
 
 
-**[02.10] COMPROBACIÓN EN LA BASE DE DATOS QUE SE HA REGISTRADO BIEN EL USUARIO**
+*< me ha pasado que al intentar ejecutar <span style="color: #7FFFD4;">**./register-user.test.sh**</span> me ha salido un error de permisos, lo he solucionado con el siguiente comando <span style="color: #7FFFD4;">**chmod +x ./register-user.test.sh**</span>. />*
 
-Vamos a la terminal de mongo (nos aseguramos que estamos en la base de datos correcta, para cambiarla ponemos use project).
 
-![A computer screen with green text
+####  <u>**[02.10] COMPROBACIÓN EN LA BASE DE DATOS QUE SE HA REGISTRADO BIEN EL USUARIO**</u>
 
-Description automatically generated](Aspose.Words.7a9fb646-69b1-478a-9793-d848bef1ded9.004.png)
+Vamos a la terminal de <span style="color: #FFDAB9;">**mongo**</span> (nos aseguramos que estamos en la base de datos correcta, para cambiarla ponemos <span style="color: #7FFFD4;">**use project**</span>).
 
+![](images/image30.png) 
 
 
-**[03] TESTEAR CON SPEC** 
 
-Lo último que nos queda para comprobar que nuestra api funciona bien es hacer las pruebas con los tests más pro, los spec. Los spec los crearemos en la carpeta **api/logic** De manera que esta carpeta tendremos las lógicas y sus specs. 
+###  <u>**[03] TESTEAR CON SPEC** </u>
 
+Lo último que nos queda para comprobar que nuestra <span style="color: #FFDAB9;">**api**</span> funciona bien es hacer las pruebas con los tests más avanzados, los <span style="color: #FFDAB9;">**spec**</span>. Los spec los crearemos en la carpeta <span style="color: #FADADD;">**/api/logic**</span> De manera que esta carpeta tendremos las lógicas y sus specs. 
 
-**[03.01] CREACIÓN REGISTERUSER.SPEC**
 
-**/api/logic/registerUser.spec.js**
+####  <u>**[03.01] CREACIÓN REGISTERUSER.SPEC**</u>
 
+ <span style="color: #FADADD;">**/api/logic/registerUser.spec.js**</span> 
 
-*import* dotenv *from* 'dotenv'
+![](images/image31.png) 
+![](images/image32.png) 
 
-*dotenv.config*()
 
-// *primero nos traemos mongoose para conectar los modelos y conectar la base de datos*
+####  <u>**[03.02] CREACION CARPETA HELPERS EN LOGIC**</u>
 
-*import* mongoose *from* "mongoose";
+Si nos fijamos en el código del spec de <span style="color: #FDFD96;">**registerUser**</span>, vemos que importa un archivo <span style="color: #FFDAB9;">**random**</span> de la carpeta <span style="color: #FFDAB9;">**helpers**</span>, pero no la hemos creado. Vamos a hacerlo! Creamos una carpeta llamada <span style="color: #FFDAB9;">**helpers**</span> en la siguiente ruta:  <span style="color: #FADADD;">**/api/logic/helpers**</span> y creamos el archivo <span style="color: #FFDAB9;">**random.js**</span>
 
-// *nos traemos los expect de chai*
+`	` <span style="color: #FADADD;">**/api/logic/helpers/random.js**</span> 
 
-*import* { expect } *from* 'chai'
+![](images/image33.png) 
 
-*import* bcrypt *from* 'bcryptjs'
 
-*import* random *from* './helpers/random.js'
+####  <u>**[03.03] EJECUTAMOS REGISTERUSER.SPEC**</u>
 
-*import* registerUser *from* './registerUser.js'
+Para ejecutar el test, tenemos que situarnos en <span style="color: #FADADD;">**/api**</span> y ejecutar el comando  <span style="color: #7FFFD4;">**pnpm run test**</span> 
 
-*import* { errors } *from* 'com'
-
-*import* { User } *from* '../data/models.js'
-
-const* { *DuplicityError* }* =* errors
-
-*describe*('registerUser', () => { //*describimos el test, le ponemos un título*
-
-`    `*before*(*async* () => *await* *mongoose.connect*(*process.env.*TEST\_MONGODB\_URL)) //*es un poco redundante usar async / await aqui, porque el before ya es una promesa*
-
-`    `*beforeEach*(*async* () => *await* *User.deleteMany*())
-
-`    `*it*('succeds on new user', *async* () => {
-
-`        `const *name* = *random.name*()
-
-`        `const *email* = *random.email*()
-
-`        `const *password* = *random.password*()
-
-`        `*await* *registerUser*(name, email, password)
-
-`        `const *user* = *await User.findOne*({* email* })
-
-`        `//*comprobamos que realmente el usuario que acabmos de registrar est´en la base de dato*
-
-`        `*expect*(user)*.to.*exist
-
-`        `*expect*(*user.*name)*.to.equal*(name)
-
-`        `*expect*(*user.*email)*.to.equal*(email)
-
-`        `// *expect(user.password).to.equal(password)*
-
-`        `const *match* = *await bcrypt.compare*(password, *user.password*)
-
-`        `*expect*(match)*.to.be.*true
-
-`        `//*si se registra bien, devuelve la promesa*
-
-`    `})
-
-`    `*it*('fails on already existing user', *async* () => {
-
-`        `const *name* = *random.name*()
-
-`        `const *email* = *random.email*()
-
-`        `const *password* = *random.password*()
-
-`        `*await* *User.create*({ name, email, password })
-
-
-`        `*try* {
-
-`            `*await* *registerUser*(name, email, password)
-
-`            `*throw* new *Error*('should not reach this point')
-
-`        `} *catch* (error) {
-
-`            `*expect*(error)*.to.be.instanceOf*(DuplicityError)
-
-`            `*expect*(*error.*message)*.to.equal*('user already exists')
-
-`        `}
-
-`    `})
-
-`    `*after*(*async* () => *await* *mongoose.disconnect*()) //*así desconecta cuando terminan todos los tests* 
-
-})
-
-
-**[03.02] CREACION CARPETA HELPERS EN LOGIC**
-
-Si nos fijamos en el código del spec de registerUser, vemos que importa un archivo random de la carpeta helpers, pero no la hemos creado. Vamos a hacerlo! Creamos una carpeta llamada helpers en la siguiente ruta:  **/api/logic/helpers** y creamos el archivo random.js
-
-`	`**/api/logic/helpers/random.js**
-
-**	function *name*() {
-
-`    `*return* `name-${*Math.random*()}`
-
-}
-
-function *email*() {
-
-`    `*return* `e-${*Math.random*()}@mail.com`
-
-}
-
-function *password*() {
-
-`    `*return* `password-${*Math.random*()}`
-
-}
-
-function *image*() {
-
-`    `*return* `image-${*Math.random*()}`
-
-}
-
-function *text*() {
-
-`    `*return* `text-${*Math.random*()}`
-
-}
-
-const *random* =* {
-\*
-`    `name,
-\*
-`    `email,
-\*
-`    `password,
-\*
-`    `image,
-\*
-`    `text
-
-}
-
-*export* *default* random
-
-
-**[03.03] EJECUTAMOS REGISTERUSER.SPEC**
-
-Para ejecutar el test, tenemos que situarnos en api y ejecutar el comando **pnpm run test**
-
-![A computer screen with white text
-
-Description automatically generated](Aspose.Words.7a9fb646-69b1-478a-9793-d848bef1ded9.005.png)
+![](images/image35.png) 
 
 Sólo nos queda comprobar que se han guardado loss cambios en la base de datos. Para eso nos cambiamos a test (porque yo uso la base de dato test para los spec y project para lo demás).
 
-![A computer screen with green text
-
-Description automatically generated](Aspose.Words.7a9fb646-69b1-478a-9793-d848bef1ded9.006.png)
+![](images/image36.png) 
 
 
-Y vemos como se ha creado un usuario random y todo es random! -->
+Y vemos como se ha creado un usuario random y todo es random! 
