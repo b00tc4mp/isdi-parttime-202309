@@ -1,5 +1,7 @@
 import Credentials from './Credentials'
+import CommandBar from '../components/CommandBar'
 import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 function Initial() {
 
@@ -8,7 +10,9 @@ function Initial() {
     const [commandValue, setCommandValue] = useState(null)
 
     // VIEWS
-    const [view, setView] = useState(null)
+    // const [view, setView] = useState(null)
+    const navigate = useNavigate()
+
 
     // POINTER EFFECT
     useEffect(() => {
@@ -23,11 +27,11 @@ function Initial() {
     function commandField(event) {
         event.preventDefault()
 
-        const commandText = document.getElementById('command')
+        let commandText = document.getElementById('command')
 
         commandText.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
-                setView('credentials')
+                navigate('/credentials')
             } else {
                 commandText = event.target.value
                 setCommandValue(commandText)
@@ -36,7 +40,6 @@ function Initial() {
     }
 
     return <>
-
         <div className="container">
 
             <div className="tittle-logo">
@@ -47,6 +50,8 @@ function Initial() {
                 <p>   \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /     \_/  \_____  / /\ \_____  /    </p>
                 <p>         \/                    \/                            \/        \/     \/                 \/  \/       \/     </p>
             </div>
+
+            <br></br>
 
             <div className="text">
                 <p>Type 'help' to see the list of avaliable comands.</p>
@@ -80,12 +85,7 @@ function Initial() {
             <br></br>
 
             <div className="command-bar">
-                <span><p className="user-guest">guest</p></span>
-                <span><p>@</p></span>
-                <span><p>local</p></span>
-                <span><p>-</p></span>
-                <span><p>guest</p></span>
-                <span><p>:</p></span>
+                <CommandBar />
                 <div id="command-form">
                     <input id="command" type="text" contenteditable="true" autoFocus autoComplete="off" value={commandValue} onChange={commandField} />
                 </div>
@@ -95,7 +95,9 @@ function Initial() {
             <br></br>
             <br></br>
 
-            {view === 'credentials' && <Credentials pointer={pointer} commandField={() => commandField} />}
+            <Routes>
+                <Route path="/credentials" element={<Credentials pointer={pointer} commandField={() => commandField} />}></Route>
+            </Routes>
 
             <footer className="sign">
                 <p style={{ fontSize: 'solid', fontStyle: 'italic' }}>© Copyright by Abel Prieto | Proyect ISDI Coders School</p>

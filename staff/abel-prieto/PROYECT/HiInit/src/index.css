@@ -8,17 +8,19 @@ body {
 }
 
 p {
-  color: white;
+  color: #EBDBB2;
   margin-bottom: 0px;
 }
 
 a {
-  color: white;
+  color: #EBDBB2;
   text-decoration: none;
 }
+
 a:hover {
   color: grey;
 }
+
 a:active {
   color: orange;
 }
@@ -32,7 +34,8 @@ a:active {
   padding-left: 20px;
   padding-top: 15px;
   overflow-y: auto;
-  height: 100%;
+  min-height: 650px;
+  height: fit-content;
 }
 
 .tittle-logo {
@@ -40,6 +43,7 @@ a:active {
   font-family: monospace;
   text-align: left;
 }
+
 .tittle-logo p {
   margin: 0;
 }
@@ -54,12 +58,11 @@ a:active {
 }
 
 .command-bar {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
 .command-bar input {
-  padding-top: 18px;
   margin: 10px;
   outline: none;
   border: 0 solid;
@@ -69,14 +72,26 @@ a:active {
   caret-color: transparent;
 }
 
+.command-style--username {
+  color: #ff8037;
+}
+
+.command-style--group {
+  color: #18E3C8;
+}
+
+.command-style--user {
+  color: #ff8037;
+}
+
+.command-style--rest {
+  color: #A89984;
+}
+
 .sign {
   align-items: end;
   text-align: left;
   margin-bottom: 5px;
-}
-
-.user-guest {
-  color: #ff8037;
 }
 
 ::-webkit-scrollbar {
