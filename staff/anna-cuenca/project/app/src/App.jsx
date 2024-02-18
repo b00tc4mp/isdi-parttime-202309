@@ -80,7 +80,7 @@ function App() {
     setLevel(null)
   }
 
-  const context = { handleError }
+  const context = { handleError } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
 
   return <>
     <Context.Provider value={context}>

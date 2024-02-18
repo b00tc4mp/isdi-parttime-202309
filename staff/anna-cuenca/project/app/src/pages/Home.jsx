@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
+//son hooks de React para gestionar el estado del component y efectos secundarios, respectivamente
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+//son parte de React Router y se utilizan para la navegacion y la gestión de rutas
 import logic from '../logic'
 
 import { useContext } from '../hooks'
 
+//como en App hemos envuelto 
+
 import { Button, Form, Link, Field } from '../library'
-import { Profile } from '../components'
+import { Profile, Controller } from '../components'
 
 
 function Home(props) {
@@ -16,6 +20,7 @@ function Home(props) {
     const [name, setName] = useState(null)
     const [stamp, setStamp] = useState(null)
 
+    // permiten navegar a diferentes rutas dentro de la aplicación y acceder a la ruta actual, respectivamente
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -23,7 +28,7 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-                //alert(error.message)
+
                 context.handleError(error)
                 return
             }
@@ -43,7 +48,7 @@ function Home(props) {
 
 
         } catch (error) {
-            //alert(error.message)
+
             context.handleError(error)
         }
     }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
@@ -62,35 +67,18 @@ function Home(props) {
         navigate('/')
     }
 
-    // function handleNewPostClick() {
-    //     setView('new-post')
-    // }
+    function handleControllerClick(event) {
+        event.preventDefault()
 
-    // function handleNewPostCancel() {
-    //     setView(null)
-    // }
+        navigate('/controller')
+    }
 
 
-    // function handleNewPostPublish() {
-    //     setStamp(Date.now())
-    //     setView(null)
-    //     navigate('/')
-    //     window.scrollTo(0, 0)
-    // }
-
-
-    // function handleFavPostsClick(event) {
-    //     event.preventDefault()
-
-    //     navigate('/favs')
-
-
-
-    // }
 
     return <div>
         <header className="header">
             <h1><Link onClick={handleHomeClick}>Home</Link></h1>
+
 
             <div>
 
@@ -103,9 +91,22 @@ function Home(props) {
         </header>
 
 
+        {location.pathname === '/' && (
+            <>
+                <main>
+                    <h2>Robot App Home</h2>
+                    <Button onClick={handleControllerClick}>Connect Your Robot</Button>
+                </main>
+            </>
+        )}
+
+
+
+
 
         <Routes>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/controller" element={<Controller />} />
             {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
 
             {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
