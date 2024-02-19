@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs'
 import { User } from '../data/models.js'
 
 import { validate, errors } from 'com'
-import { SystemError } from 'com/errors.js'
-const { NotFoundError, CredentialsError } = errors
+
+const { NotFoundError, CredentialsError, SystemError } = errors
 
 function authenticateUser(email, password) {
 	validate.email(email, 'email')
