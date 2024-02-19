@@ -2,8 +2,12 @@ import logic from '../logic'
 import { Button, Link, Form, Field, Container } from '../library'
 import { ContentError, DuplicityError } from '../logic/errors'
 
+import { useContext } from '../hooks'
+
 function Register(props) {
   console.log('Register')
+
+  const context = useContext()
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -22,7 +26,7 @@ function Register(props) {
       logic.registerUser(name, email, password, (error) => {
         if (error) {
           //alert(error.message)
-          props.onError(error)
+          context.handleError(error)
 
           return
         }
@@ -31,7 +35,7 @@ function Register(props) {
       })
     } catch (error) {
       // alert(error.message)
-      props.onError(error)
+      context.handleError(error)
     }
   }
 

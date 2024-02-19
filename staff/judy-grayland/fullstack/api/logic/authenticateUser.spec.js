@@ -5,8 +5,11 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import authenticateUser from './authenticateUser.js'
-import { CredentialsError, NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError } = errors
+
 dotenv.config()
 
 describe('authenticateUser', () => {

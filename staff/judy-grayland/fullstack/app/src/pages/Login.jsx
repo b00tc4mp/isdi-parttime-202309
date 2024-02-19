@@ -2,6 +2,8 @@ import logic from '../logic'
 
 import { Button, Link, Form, Field, Container } from '../library'
 
+import { useContext } from '../hooks'
+
 // function SubmitButton(props){
 //     function handleClick(event) {
 //         if(props.clickHandler) {
@@ -16,6 +18,8 @@ import { Button, Link, Form, Field, Container } from '../library'
 function Login(props) {
   console.log('Login')
 
+  const context = useContext()
+
   function handleSubmit(event) {
     event.preventDefault()
 
@@ -29,7 +33,7 @@ function Login(props) {
       logic.loginUser(email, password, (error) => {
         if (error) {
           // alert(error.message)
-          props.onError(error)
+          context.handleError(error)
 
           return
         }
@@ -40,7 +44,7 @@ function Login(props) {
       })
     } catch (error) {
       // alert(error.message)
-      props.onError(error)
+      context.handleError(error)
     }
   }
 

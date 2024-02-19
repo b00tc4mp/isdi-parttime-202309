@@ -5,11 +5,12 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import retrieveUser from './retrieveUser.js'
-import { NotFoundError } from './errors.js'
 import { User } from '../data/models.js'
-dotenv.config()
+import { errors } from 'com'
 
+const { NotFoundError } = errors
 const { ObjectId } = mongoose.Types
+dotenv.config()
 
 describe('retrieveUser', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL_TEST))

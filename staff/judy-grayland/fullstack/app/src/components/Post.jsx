@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Button, Form, Field } from '../library'
+import { useContext } from '../hooks'
 
 import logic from '../logic'
 
@@ -10,9 +11,11 @@ function Post({
   onToggleFavClick,
   onDeletePostClick,
   onEditPostClick,
-  onError,
+  // onError,
 }) {
   const [editForm, setEditForm] = useState(false)
+
+  const context = useContext()
 
   const toggleEditForm = () => {
     setEditForm(!editForm)
@@ -22,7 +25,7 @@ function Post({
     try {
       logic.toggleLikePost(post.id, (error) => {
         if (error) {
-          onError(error)
+          context.handleError(error)
 
           return
         }
@@ -30,7 +33,7 @@ function Post({
         onToggleLikeClick()
       })
     } catch (error) {
-      onError(error)
+      context.handleError(error)
     }
   }
 
@@ -39,7 +42,7 @@ function Post({
     try {
       logic.toggleFavPost(post.id, (error) => {
         if (error) {
-          onError(error)
+          context.handleError(error)
 
           return
         }
@@ -47,7 +50,7 @@ function Post({
         onToggleFavClick()
       })
     } catch (error) {
-      onError(error)
+      context.handleError(error)
     }
   }
 
@@ -57,14 +60,14 @@ function Post({
       try {
         logic.deletePost(post.id, (error) => {
           if (error) {
-            onError(error)
+            context.handleError(error)
 
             return
           }
           onDeletePostClick()
         })
       } catch (error) {
-        onError(error)
+        context.handleError(error)
       }
     }
   }
@@ -79,14 +82,14 @@ function Post({
     try {
       logic.updatePostText(post.id, newText, (error) => {
         if (error) {
-          onError(error)
+          context.handleError(error)
           return
         }
         onEditPostClick()
         setEditForm(!editForm)
       })
     } catch (error) {
-      onError(error)
+      context.handleError(error)
     }
   }
 

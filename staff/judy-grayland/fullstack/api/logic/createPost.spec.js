@@ -5,8 +5,13 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import createPost from './createPost.js'
-import { NotFoundError } from './errors.js'
+
 import { User, Post } from '../data/models.js'
+
+import { errors } from 'com'
+
+const { NotFoundError } = errors
+
 dotenv.config()
 
 const { ObjectId } = mongoose.Types

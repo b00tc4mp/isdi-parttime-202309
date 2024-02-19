@@ -5,8 +5,12 @@ import { expect } from 'chai'
 import random from './helpers/random.js'
 
 import registerUser from './registerUser.js'
-import { DuplicityError } from './errors.js'
+
 import { User } from '../data/models.js'
+import { errors } from 'com'
+
+const { DuplicityError } = errors
+
 dotenv.config()
 
 // //tests

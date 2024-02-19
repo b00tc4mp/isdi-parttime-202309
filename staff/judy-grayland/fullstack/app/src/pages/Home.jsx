@@ -5,8 +5,12 @@ import logic from '../logic'
 import { Button, Link } from '../library'
 import { NewPost, Profile, Posts } from '../components'
 
+import { useContext } from '../hooks'
+
 function Home(props) {
   console.log('Home')
+
+  const context = useContext()
 
   const [view, setView] = useState(null)
   const [name, setName] = useState(null)
@@ -17,7 +21,7 @@ function Home(props) {
   const handleLogoutClick = () => {
     logic.logoutUser((error) => {
       if (error) {
-        props.onError(error)
+        context.handleError(error)
 
         return
       }
@@ -31,7 +35,7 @@ function Home(props) {
     try {
       logic.retrieveUser((error, user) => {
         if (error) {
-          props.onError(error)
+          context.handleError(error)
 
           return
         }
@@ -39,7 +43,7 @@ function Home(props) {
         setName(user.name)
       })
     } catch (error) {
-      props.onError(error)
+      context.handleError(error)
     }
   }, [])
 
@@ -71,7 +75,7 @@ function Home(props) {
       try {
         logic.retrievePosts((error, posts) => {
           if (error) {
-            props.onError(error)
+            context.handleError(error)
 
             return
           }
@@ -81,13 +85,13 @@ function Home(props) {
           setPosts(posts)
         })
       } catch (error) {
-        props.onError(error)
+        context.handleError(error)
       }
     } else if (view === 'favs') {
       try {
         logic.retrieveFavPosts((error, favs) => {
           if (error) {
-            props.onError(error)
+            context.handleError(error)
 
             return
           }
@@ -97,7 +101,7 @@ function Home(props) {
           setFavs(favs)
         })
       } catch (error) {
-        props.onError(error)
+        context.handleError(error)
       }
     }
   }
@@ -120,7 +124,7 @@ function Home(props) {
     try {
       logic.createPost(image, text, (error) => {
         if (error) {
-          props.onError(error)
+          context.handleError(error)
 
           return
         }
@@ -128,7 +132,7 @@ function Home(props) {
         try {
           logic.retrievePosts((error, posts) => {
             if (error) {
-              props.onError(error)
+              context.handleError(error)
 
               return
             }
@@ -141,11 +145,11 @@ function Home(props) {
             window.scrollTo(0, 0)
           })
         } catch (error) {
-          props.onError(error)
+          context.handleError(error)
         }
       })
     } catch (error) {
-      props.onError(error)
+      context.handleError(error)
     }
   }
 
@@ -166,12 +170,12 @@ function Home(props) {
     try {
       logic.changeUserEmail(newEmail, newEmailConfirm, password, (error) => {
         if (error) {
-          props.onError(error)
+          context.handleError(error)
         }
         alert('Email changed correctly')
       })
     } catch (error) {
-      props.onError(error)
+      context.handleError(error)
     }
   }
 
@@ -194,7 +198,7 @@ function Home(props) {
 
       alert('Password changed correctly')
     } catch (error) {
-      props.onError(error)
+      context.handleError(error)
     }
   }
 
@@ -202,7 +206,7 @@ function Home(props) {
     try {
       logic.retrieveFavPosts((error, favs) => {
         if (error) {
-          props.onError(error)
+          context.handleError(error)
 
           return
         }
@@ -213,7 +217,7 @@ function Home(props) {
         setView('favs')
       })
     } catch (error) {
-      props.onError(error)
+      context.handleError(error)
     }
   }
 
@@ -240,20 +244,10 @@ function Home(props) {
       )}
 
       {(view === null || view === 'new-post') && posts !== null && (
-        <Posts
-          posts={posts}
-          refreshPosts={refreshPosts}
-          onError={props.onError}
-        />
+        <Posts posts={posts} refreshPosts={refreshPosts} />
       )}
 
-      {view === 'favs' && (
-        <Posts
-          posts={favs}
-          refreshPosts={refreshPosts}
-          onError={props.onError}
-        />
-      )}
+      {view === 'favs' && <Posts posts={favs} refreshPosts={refreshPosts} />}
 
       <footer className="footer">
         {view === 'new-post' && (

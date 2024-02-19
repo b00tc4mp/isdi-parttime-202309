@@ -4,8 +4,10 @@ import { expect } from 'chai'
 
 import random from './helpers/random.js'
 import toggleLikePost from './toggleLikePost.js'
-import { NotFoundError } from './errors.js'
 import { User, Post } from '../data/models.js'
+import { errors } from 'com'
+
+const { NotFoundError } = errors
 
 const { ObjectId } = mongoose.Types
 
