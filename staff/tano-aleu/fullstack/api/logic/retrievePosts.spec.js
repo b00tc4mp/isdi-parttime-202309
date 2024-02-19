@@ -5,68 +5,44 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
 
-import retrievePosts from './retrievePosts.js'
-import { User, Post } from '../data/models.js'
+import retrieveUser from './retrieveUser.js'
+import { User } from '../data/models.js'
 import { errors } from 'com'
 
 const { NotFoundError } = errors
 
 const { ObjectId } = mongoose.Types
 
-describe('retrievePosts', () => {
-    before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
+describe('retrieveUser', () => {
+    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
 
-    //beforeEach(() => User.deleteMany().then(() => Post.deleteMany())) // in series
-    beforeEach(() => Promise.all([User.deleteMany(), Post.deleteMany()])) // in parallel
+    beforeEach(async () => await User.deleteMany())
 
-    it('succeed on existing user', () => {
-        return Promise.all([
-            User.create({ name: random.name(), email: random.email(), password: random.password() }),
-            User.create({ name: random.name(), email: random.email(), password: random.password() })
-        ])
-            .then(([user1, user2]) => {
-                return Promise.all([
-                    Post.create({ author: user1.id, image: random.image(), text: random.text() }),
-                    Post.create({ author: user1.id, image: random.image(), text: random.text() }),
-                    Post.create({ author: user2.id, image: random.image(), text: random.text() })
-                ])
-                    .then(([post1, post2, post3]) => {
-                        return retrievePosts(user1.id)
-                            .then(posts => {
-                                expect(posts).to.exist
-                                expect(posts).to.be.instanceOf(Array)
-                                expect(posts).to.have.lengthOf(3)
+    it('succeed on existing user', async () => {
+        const name = random.name()
+        const email = random.email()
+        const password = random.password()
 
-                                const post1Exists = posts.some(post => {
-                                    return post.id === post1.id && post.image === post1.image && post.text === post1.text
-                                })
+        const newUser = await User.create({ name, email, password })
 
-                                expect(post1Exists).to.be.true
+        const user = await retrieveUser(newUser.id)
 
-                                const post2Exists = posts.some(post => {
-                                    return post.id === post2.id && post.image === post2.image && post.text === post2.text
-                                })
-
-                                expect(post2Exists).to.be.true
-
-                                const post3Exists = posts.some(post => {
-                                    return post.id === post3.id && post.image === post3.image && post.text === post3.text
-                                })
-
-                                expect(post3Exists).to.be.true
-                            })
-                    })
-            })
+        expect(user.name).to.be.a('string')
+        expect(user.name).to.equal(name)
+        expect(user.id).to.be.undefined
+        expect(user.email).to.be.undefined
+        expect(user.password).to.be.undefined
     })
 
-    it('fails on non-existing user', () => {
-        return retrievePosts(new ObjectId().toString())
-            .then(posts => { throw new Error('should not reach this point') })
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
-            })
+    it('fails on non-existing user', async () => {
+        try {
+            await retrieveUser(new ObjectId().toString())
+            throw new Error('should not reach this point')
+        } catch (error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('user not found')
+        }
     })
 
-    after(() => mongoose.disconnect())
+    after(async () => await mongoose.disconnect())
 })
