@@ -22,13 +22,12 @@ describe('retrievePosts', () => {
         return Promise.all([
             User.create({ name: random.name(), email: random.email(), password: random.password() }),
             User.create({ name: random.name(), email: random.email(), password: random.password() }),
-            User.create({ name: random.name(), email: random.email(), password: random.password() })
         ])
-            .then(([user1, user2, user3]) => {
+            .then(([user1, user2]) => {
                 return Promise.all([
                     Post.create({ author: user1.id, image: random.image(), text: random.text() }),
                     Post.create({ author: user2.id, image: random.image(), text: random.text() }),
-                    Post.create({ author: user3.id, image: random.image(), text: random.text() })
+                    Post.create({ author: user1.id, image: random.image(), text: random.text() })
                 ])
                     .then(([post1, post2, post3]) => {
                         return retrievePosts(user1.id)

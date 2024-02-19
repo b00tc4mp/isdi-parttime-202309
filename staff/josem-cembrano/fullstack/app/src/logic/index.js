@@ -12,24 +12,25 @@ import toggleFavPost from './toggleFavPost'
 import toggleLikePost from './toggleLikePost'
 import updatePostText from './updatePostText'
 // import retrieveUserPosts from './retrieveUserPosts'
+import context from './context'
 
 
 const logic = {
     registerUser,
-    loginUser,
-    logoutUser,
-    retrieveUser,
-    changeUserEmail,
-    changeUserPassword,
-    isUserLoggedIn,
+    loginUser: loginUser.bind(context),
+    logoutUser: logoutUser.bind(context),
+    retrieveUser: retrieveUser.bind(context),
+    changeUserEmail: changeUserEmail.bind(context),
+    changeUserPassword: changeUserPassword.bind(context),
+    isUserLoggedIn: isUserLoggedIn.bind(context),
 
-    publishPost,
-    retrieveFavPosts,
-    retrievePosts,
-    toggleFavPost,
-    toggleLikePost,
-    updatePostText,
-    // retrieveUserPosts
+    publishPost: publishPost.bind(context),
+    retrieveFavPosts: retrieveFavPosts.bind(context),
+    retrievePosts: retrievePosts.bind(context),
+    toggleFavPost: toggleFavPost.bind(context),
+    toggleLikePost: toggleLikePost.bind(context),
+    updatePostText: updatePostText.bind(context)
+    // retrieveUserPosts: retrieveUserPosts.bind(context)
 }
 
 export default logic

@@ -3,19 +3,22 @@ const { SystemError, NotFoundError } = errors
 
 import { User } from '../data/models.js'
 
-function retrieveUser(userId) {
+export default function retrieveUser(userId) {
     validate.id(userId, 'user id')
 
-    return User.findById(userId, 'name').lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user)
-                throw new NotFoundError('user not found')
+    return (async () => {
+        let user
 
-            delete user._id
+        try {
+            user = await User.findById(userId, 'name').lean()
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        if (!user)
+            throw new NotFoundError('user not found')
 
-            return user
-        })
+        delete user._id
+
+        return user
+    })()
 }
-
-export default retrieveUser

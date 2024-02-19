@@ -1,27 +1,36 @@
 import { errors } from 'com'
-import context from "./context"
 const { SystemError } = errors
 
-function retrieveUser() {
+export default async function retrieveUser() {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${context.token}`
+            Authorization: `Bearer ${this.token}`
+        }
+    }
+    let res
+
+    try {
+        res = await fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
+
+    if (!res.ok) {
+        try {
+            const body = await res.json()
+            throw new errors[body.error](body.message)
+        } catch (error) {
+            throw new SystemError(error.message)
         }
     }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/users`, req)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(res => {
-            if (!res.ok) {
-                return res.json()
-                    .catch(error => { throw new SystemError(error.message) })
-                    .then(body => { throw new errors[body.error](body.message) })
-            }
+    try {
+        const user = await res.json()
 
-            return res.json()
-                .catch(error => { throw new SystemError(error.message) })
-        })
+        return user
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
 }
-
-export default retrieveUser

@@ -5,16 +5,31 @@ import mongoose from 'mongoose'
 
 import authenticateUser from './authenticateUser.js'
 
-mongoose.connect(process.env.TEST_MONGODB_URL)
-    .then(() => {
-        try {
-            authenticateUser('pis@tacho.com', '123123123')
-                .then(userId => {
-                    console.log('user authenticated', userId)
-                })
-                .catch(error => console.error(error))
-        } catch (error) {
-            console.log(error)
-        }
-    })
-    .catch(error => console.error(error))
+// De esta manera podemos hacer refactor y simplificar codigo:
+(async () => {
+    await mongoose.connect(process.env.TEST_MONGODB_URL)
+
+    try {
+        const userId = await authenticateUser('pis@tacho.com', '123123123')
+
+        console.log('user authenticated', userId)
+    } catch (error) {
+        console.error(error)
+    }
+})()
+
+
+// (async () => {
+//     try {
+//         await mongoose.connect(process.env.TEST_MONGODB_URL)
+//     } catch (error) {
+//         console.error(error)
+//     }
+//     try {
+//         const userId = await authenticateUser('pis@tacho.com', '123123123')
+//         console.log('user authenticated', userId)
+
+//     } catch (error) {
+//         console.error(error)
+//     }
+// })()

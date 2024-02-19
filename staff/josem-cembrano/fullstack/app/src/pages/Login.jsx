@@ -18,13 +18,15 @@ function Login(props) {
         const email = emailInput.value
         const password = passwordInput.value
 
-        try {
-            logic.loginUser(email, password)
-                .then(() => props.onSuccess())
-                .catch(error => context.handleError(error))
-        } catch (error) {
-            context.handleError(error)
-        }
+        return (async() => {
+            try {
+                await logic.loginUser(email, password)
+                
+                props.onSuccess()
+            } catch (error) {
+                context.handleError(error)
+            }
+        })()
     }
 
     function handleRegisterClick(event) {

@@ -1,31 +1,36 @@
-import bcrypt from 'bcrypt.js'
+import bcrypt from 'bcryptjs'
 
 import { validate, errors } from 'com'
 
 import { User } from '../data/models.js'
 const { SystemError, NotFoundError, CredentialsError } = errors
 
-function authenticateUser(email, password) {
+export default function authenticateUser(email, password) {
     validate.email(email, 'email')
     validate.text(password, 'password')
 
-    return User.findOne({ email })
-        .catch(error => {
+    return (async () => {
+        let user
+
+        try {
+            user = await User.findOne({ email })
+        } catch (error) {
             throw new SystemError(error.message)
-        })
-        .then(user => {
-            if (!user)
-                throw new NotFoundError('user not found')
+        }
+        //si no hemos recibido usuario con ese email "NotFoundError y nos vamos"
+        if (!user)
+            throw new NotFoundError('user not found')
+        //si hemos recibido usuario con ese email "compare/comparamos"
+        let match
+        try {
+            match = await bcrypt.compare(password, user.password)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
 
-            return bcrypt.compare(password, user.password)
-                .catch(error => { throw new SystemError(error.message) })
-                .then(match => {
-                    if (!match)
-                        throw new CredentialsError('wrong password')
+        if (!match)
+            throw new CredentialsError('wrong password')
 
-                    return user.id
-                })
-        })
+        return user.id
+    })()
 }
-
-export default authenticateUser

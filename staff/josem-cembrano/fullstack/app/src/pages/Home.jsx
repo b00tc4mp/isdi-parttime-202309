@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import {Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-
-import { useContext } from '../hooks'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 import logic from '../logic'
 
 import { Button, Link } from '../library'
 import { Posts, Profile, NewPost, UserPosts } from '../components'
+
+import { useContext } from '../hooks'
 
 
 function Home(props) {
@@ -36,13 +36,15 @@ function Home(props) {
     useEffect(() => {
         console.log('Home -> effect (name)')
 
-        try {
-            logic.retrieveUser()
-                .then(user => setName(user.name))
-                .catch(error =>  context.handleError(error))
-        } catch (error) {
-            context.handleError(error)
-        }
+            ; (async () => {
+                try {
+                    const user = await logic.retrieveUser()
+
+                    setName(user.name)
+                } catch (error) {
+                    context.handleError(error)
+                }
+            })()
     }, [])
 
     function handleProfileClick(event) {
@@ -87,17 +89,18 @@ function Home(props) {
                 <Link onClick={handleProfileClick}>{name}</Link> <Link onClick={handleFavPostsClick}>Favs</Link> <Button onClick={handleLogoutClick}>Logout</Button>
             </div>
         </header>
+
         <Routes>
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/favs' element={<Posts loadPosts={logic.retrieveFavPosts} />} />
-            <Route path='/users/:userId' element={<UserPosts />} />
-            <Route path='/' element={<Posts loadPosts={logic.retrievePosts} stamp={stamp} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/favs" element={<Posts loadPosts={logic.retrieveFavPosts} />} />
+            <Route path="/users/:userId" element={<UserPosts />} />
+            <Route path="/" element={<Posts loadPosts={logic.retrievePosts} stamp={stamp} />} />
         </Routes>
 
         <footer className="footer">
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} />}
 
-            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>📝</Button>}
+            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
         </footer>
     </div>
 }

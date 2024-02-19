@@ -1,27 +1,31 @@
-import bcrypt from 'bcrypt.js'
+import bcrypt from 'bcryptjs'
 
 import { validate, errors } from 'com'
 
 import { User } from '../data/models.js'
 const { DuplicityError, SystemError } = errors
 
-function registerUser(name, email, password) {
+export default function registerUser(name, email, password) {
     validate.text(name, 'name')
     validate.email(email, 'email')
     validate.text(password, 'password')
 
-    return bcrypt.hash(password, 8)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(hash =>
-            User.create({ name, email, password: hash })
-                .catch(error => {
-                    if (error.code === 11000)
-                        throw new DuplicityError('user already exists')
+    return (async () => {
+        let hash
 
-                    throw new SystemError(error.message)
-                })
-                .then(user => { })
-        )
+        try {
+            hash = await bcrypt.hash(password, 8)
+        } catch (error) {
+            throw new SystemError(error.message)
+        }
+        try {
+            await User.create({ name, email, password: hash })
+
+        } catch (error) {
+            if (error.code === 11000)//mongo indica el error de duplicidad con un 11000
+                throw new DuplicityError('user already exists')
+
+            throw new SystemError(error.message)
+        }
+    })()
 }
-
-export default registerUser
