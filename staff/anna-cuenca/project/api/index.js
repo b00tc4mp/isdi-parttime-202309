@@ -11,7 +11,9 @@ import cors from 'cors'
 import {
     registerUserHandler,
     authenticateUserHandler,
-    retrieveUserHandler
+    retrieveUserHandler,
+    arduinoConnectHandler,
+    arduinoLedHandler
 
 } from './handlers/index.js'
 
@@ -43,8 +45,10 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
 
 
+        // Arduino Connect
+        //server.post('/arduino/controller', jsonBodyParser, arduinoConnectHandler)
 
-        //server.post('/arduino/move', jsonBodyParser, arduinoMoveHandler)
+        server.post('/arduino/controller', jsonBodyParser, arduinoLedHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 

@@ -18,7 +18,7 @@ describe('retrieveUser', () => {
         const password = random.password()
         const newUser = await User.create({ name, email, password })
 
-        const user = await retrieveUser(user.id)
+        const user = await retrieveUser(newUser.id)
 
         expect(user.name).to.be.a('string')
         expect(user.name).to.equal(name)
