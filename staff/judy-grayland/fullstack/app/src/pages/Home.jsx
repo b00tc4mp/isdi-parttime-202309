@@ -19,7 +19,7 @@ function Home(props) {
 
   //LOG OUT
   const handleLogoutClick = () => {
-    logic.logoutUser((error) => {
+    logic.logout((error) => {
       if (error) {
         context.handleError(error)
 

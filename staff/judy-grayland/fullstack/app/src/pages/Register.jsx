@@ -1,13 +1,12 @@
 import logic from '../logic'
 import { Button, Link, Form, Field, Container } from '../library'
-import { ContentError, DuplicityError } from '../logic/errors'
 
 import { useContext } from '../hooks'
 
 function Register(props) {
   console.log('Register')
 
-  const context = useContext()
+  const context = useContext
 
   function handleSubmit(event) {
     event.preventDefault()

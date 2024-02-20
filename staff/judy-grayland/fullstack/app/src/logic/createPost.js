@@ -1,7 +1,5 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 import context from './context'
-
-import errors from './errors'
 
 function createPost(image, text, callback) {
   validate.text(image, 'image')

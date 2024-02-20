@@ -4,6 +4,7 @@ import retrieveUser from './retrieveUser'
 import changeUserEmail from './changeUserEmail'
 import changeUserPassword from './changeUserPassword'
 import logout from './logout'
+import isUserLoggedIn from './isUserLoggedIn'
 
 import retrieveFavPosts from './retrieveFavPosts'
 import retrievePosts from './retrievePosts'
@@ -20,6 +21,7 @@ const logic = {
   changeUserEmail,
   changeUserPassword,
   logout,
+  isUserLoggedIn,
 
   retrieveFavPosts,
   retrievePosts,
