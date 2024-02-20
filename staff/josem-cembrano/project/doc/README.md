@@ -1,5 +1,7 @@
 # <u>Breeding Kennel</u>
 
+![Kennel](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnM4M2dhY2pubjI3bTZkOTAzcWlpdzkxcTI2bGFnNG1taXZuNDFwbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gQ0w92ggtPypO/giphy.gif)
+
 ## <u>Introduction:</u>
 
 Creación de página web de un criadero:
@@ -50,6 +52,30 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 - Integración de mapa.
 
 - Preguntas frecuentes (FAQ) => (Respuestas a preguntas comunes).
+
+## <u>Technical Description<u/>
+
+### Data Models
+
+<u><p style="color:yellow;">USER<p/><u/>
+
+- <u style="color:white;">id :</u> _("Token")_
+- <u style="color:white;">name :</u>
+- <u style="color:white;">username :</u>
+- <u style="color:white;">email :</u>
+- <u style="color:white;">password :</u> _("hash")_
+- <u style="color:white;">nombre :</u>:
+- <u style="color:white;">rol :</u> _*Admin*_
+
+<u><p style="color:yellow;">DOG<p/><u/>
+
+- <u style="color:white;">id :</u>
+- <u style="color:white;">chip :</u>
+- <u style="color:white;">nombre :</u>
+- <u style="color:white;">nacimiento :</u>
+- <u style="color:white;">genero :</u>
+- <u style="color:white;">afijo :</u>
+- <u style="color:white;">imagen :</u>
 
 ## <u>Main Technologies:</u>
 
