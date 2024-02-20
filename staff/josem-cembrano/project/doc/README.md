@@ -53,11 +53,11 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 
 - Preguntas frecuentes (FAQ) => (Respuestas a preguntas comunes).
 
-## <u>Technical Description<u/>
+## Technical Description
 
 ### Data Models
 
-<u><p style="color:yellow;">USER<p/><u/>
+<p style="color:yellow;">USER<p/>
 
 - <u style="color:white;">id :</u> _("Token")_
 - <u style="color:white;">name :</u>
@@ -65,9 +65,9 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 - <u style="color:white;">email :</u>
 - <u style="color:white;">password :</u> _("hash")_
 - <u style="color:white;">nombre :</u>:
-- <u style="color:white;">rol :</u> _*Admin*_
+- <u style="color:white;">rol :</u> _*(Admin*)_
 
-<u><p style="color:yellow;">DOG<p/><u/>
+<p style="color:yellow;">DOG<p/>
 
 - <u style="color:white;">id :</u>
 - <u style="color:white;">chip :</u>
@@ -79,18 +79,18 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 
 ## <u>Main Technologies:</u>
 
-![JavaScript](https://img.icons8.com/?size=48&id=108784&format=png)JavaScript:
+![JavaScript](https://img.icons8.com/?size=48&id=108784&format=png)JavaScript: <p>Para gestionar las logicas de la parte de back y front.<p/>
 
-![React](https://img.icons8.com/?size=40&id=bzf0DqjXFHIW&format=png)React: Como marco de trabajo de front-end, que nos permite desarrollar componentes reutilizables.
+![React](https://img.icons8.com/?size=40&id=bzf0DqjXFHIW&format=png)React: <p>Como marco de trabajo de front-end, que nos permite desarrollar componentes reutilizables.<p/>
 
-![Tailwind](https://img.icons8.com/?size=48&id=4PiNHtUJVbLs&format=png)Tailwind CSS: Como nuestro sistema de diseño para estilizar nuestra aplicación.
+![Tailwind](https://img.icons8.com/?size=48&id=4PiNHtUJVbLs&format=png)Tailwind CSS: <p>Como nuestro sistema de diseño para estilizar nuestra aplicación.<p/>
 
-![Vite](https://img.icons8.com/?size=48&id=dJjTWMogzFzg&format=png)Vite: Como herramienta de construcción y desarrollo en tiempo real.
+![Vite](https://img.icons8.com/?size=48&id=dJjTWMogzFzg&format=png)Vite: <p>Como herramienta de construcción y desarrollo en tiempo real.<p/>
 
-![Node.js](https://img.icons8.com/?size=48&id=54087&format=png)Node.js: Como servidor back-end => (Node.js) nos facilita el entorno de ejecución de JavaScript del lado del servidor.
+![Node.js](https://img.icons8.com/?size=48&id=54087&format=png)Node.js: <p>Como servidor back-end => (Node.js) nos facilita el entorno de ejecución de JavaScript del lado del servidor.<p/>
 
 - _Express que nos simplifica la creación de API y la gestión de solicitudes HTTP._
 
-![MongoDB](https://img.icons8.com/?size=48&id=74402&format=png)MongoDB: Como nuestra base de datos NoSQL para almacenar y gestionar los datos de nuestras mascotas, usuarios y otros recursos relacionados.
+![MongoDB](https://img.icons8.com/?size=48&id=74402&format=png)MongoDB: <p>Como nuestra base de datos NoSQL para almacenar y gestionar los datos de nuestras mascotas, usuarios y otros recursos relacionados.<p/>
 
 - _Mocha y Chai:_ Como nuestras herramientas de pruebas unitarias y de integración (testeo).
