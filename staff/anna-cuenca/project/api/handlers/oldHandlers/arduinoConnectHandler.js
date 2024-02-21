@@ -1,4 +1,4 @@
-import logic from '../logic/index.js'
+import logic from '../../logic/index.js'
 
 import { errors } from 'com'
 const { BluetoothError } = errors

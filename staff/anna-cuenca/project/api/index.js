@@ -12,8 +12,10 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
-    arduinoConnectHandler,
     arduinoLedHandler
+
+
+
 
 } from './handlers/index.js'
 
@@ -46,9 +48,10 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
 
         // Arduino Connect
-        //server.post('/arduino/controller', jsonBodyParser, arduinoConnectHandler)
+        server.post('/arduino/controller/led', jsonBodyParser, arduinoLedHandler)
 
-        server.post('/arduino/controller', jsonBodyParser, arduinoLedHandler)
+
+        //server.post('/arduino/controller/colors', jsonBodyParser, arduinoRgbLedHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 

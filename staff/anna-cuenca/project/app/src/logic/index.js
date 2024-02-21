@@ -3,12 +3,11 @@ import registerUser from './registerUser'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import retrieveUser from './retrieveUser'
-import arduinoConnectApp from './arduinoConnectApp'
-import arduinoLedBuiltIn from './arduinoLedBuiltIn'
+
 
 import isUserLoggedIn from './isUserLoggedIn'
 
-
+import arduinoLed from './arduinoLed'
 
 const logic = {
     registerUser,
@@ -16,8 +15,7 @@ const logic = {
     logoutUser,
     retrieveUser,
     isUserLoggedIn,
-    arduinoConnectApp,
-    arduinoLedBuiltIn
+    arduinoLed
 }
 
 export default logic

@@ -12,7 +12,7 @@ function arduinoLedBuiltIn() {
         // No es necesario enviar un cuerpo de solicitud si la activación del LED no requiere parámetros
     };
 
-    return fetch(`${import.meta.env.VITE_API_URL}/arduino/controller`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/arduino/controller/led`, req)
         .catch(error => {
             // Manejo de errores en caso de que el servidor no responda
             throw new SystemError(error.message)
@@ -31,7 +31,7 @@ function arduinoLedBuiltIn() {
             }
             // Opcionalmente, puedes devolver una promesa resuelta con un mensaje o resultado específico
             return res.json() // Esto asume que el servidor envía una respuesta JSON
-        });
+        })
 }
 
 export default arduinoLedBuiltIn
