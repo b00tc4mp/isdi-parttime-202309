@@ -28,39 +28,40 @@ It's the kitchen basic wardrobe.
 
 ### Data Model
 
-User
+#### User
 * id (string)
 * name (string)
 * email (string)
 * password (string)
 * avatar profile (image)
+* favs (ObjectId reference to Recipe)
 
-Ingredient
+#### Ingredient
 * id (string)
 * name (string)
 
-Recipe
+#### Recipe
 * id (string)
-* name (string)
+* title (string)
 * description (string)
 * image (image)
 * ingredients (array of Ingredient.id)
 * elaborationDuration (number)
 * feedType (string, enum: glutenfree, vegetarian, vegan, omnivorous)
-* complexityLevel (number, enum: 1-very easy, 2-easy, 3-medium, 4-complex)
+* complexityLevel (number, enum: 1-very easy, 2-easy, 3-medium, 4-complex, 5-very complex)
 * cookingType (string, enum: steamed, oven, microwave, grill, fresh)
 * date (date)
 
-Review
+#### Review
 * id (string)
 * user (User.id)
 * recipe (Recipe.id)
-* stars (number, enum: 1-4)
+* stars (number, enum: 1-5)
 * comment (string)
 * date (date) 
   
 ### Technologies
 - Frontend: HTML, CSS (Tailwind), JavaScript (React)
 - Backend: Node & Express
-- Database : MongoDB Atlas
+- Database : Mongoose
 - Testing Mocha & Chai
