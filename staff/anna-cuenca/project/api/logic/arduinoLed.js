@@ -3,7 +3,7 @@ const { Board, Led } = pkg
 
 const arduinoLed = () => {
     return new Promise((resolve, reject) => {
-        const board = new Board();
+        const board = new Board()
 
         board.on("ready", () => {
             const led = new Led(13)
