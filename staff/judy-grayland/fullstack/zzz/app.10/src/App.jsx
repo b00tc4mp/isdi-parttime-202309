@@ -136,7 +136,7 @@ function App() {
             }
           />
           <Route
-            path="/*"
+            path="/"
             element={
               logic.isUserLoggedIn() ? (
                 <Home onLogoutClick={handleLoginShow} />

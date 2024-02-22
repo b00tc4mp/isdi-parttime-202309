@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 
 import logic from '../logic'
 
@@ -17,9 +16,6 @@ function Home(props) {
   const [name, setName] = useState(null)
   const [posts, setPosts] = useState(null)
   const [favs, setFavs] = useState(null)
-
-  const navigate = useNavigate()
-  const location = useLocation()
 
   //LOG OUT
   const handleLogoutClick = () => {
@@ -55,13 +51,13 @@ function Home(props) {
   const handleProfileClick = (event) => {
     event.preventDefault()
 
-    navigate('/profile')
+    setView('profile')
   }
 
   const handleHomeClick = (event) => {
     event.preventDefault()
 
-    navigate('/')
+    setView(null)
   }
 
   const handleNewPostClick = () => {
@@ -240,30 +236,16 @@ function Home(props) {
         </div>
       </header>
 
-      <Routes>
-        {/* {view === 'profile' && (
+      {view === 'profile' && (
         <Profile
           onEmailSubmit={handleChangeEmailSubmit}
           onPasswordSubmit={handleChangePasswordSubmit}
         />
-      )} */}
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              onEmailSubmit={handleChangeEmailSubmit}
-              onPasswordSubmit={handleChangePasswordSubmit}
-            />
-          }
-        />
-        {/* {(view === null || view === 'new-post') && posts !== null && (
+      )}
+
+      {(view === null || view === 'new-post') && posts !== null && (
         <Posts posts={posts} refreshPosts={refreshPosts} />
-      )} */}
-
-        <Route path="/" element={<Posts />} />
-
-        <Route path="/favs" element={<Posts />} />
-      </Routes>
+      )}
 
       {view === 'favs' && <Posts posts={favs} refreshPosts={refreshPosts} />}
 
@@ -275,11 +257,7 @@ function Home(props) {
           />
         )}
 
-        {view !== 'new-post' &&
-          location.pathname != '/profile' &&
-          location.pathname != '/favs' && (
-            <Button onClick={handleNewPostClick}>+</Button>
-          )}
+        {view !== 'new-post' && <Button onClick={handleNewPostClick}>+</Button>}
       </footer>
     </div>
   )

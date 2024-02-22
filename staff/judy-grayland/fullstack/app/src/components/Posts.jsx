@@ -1,7 +1,38 @@
+import { useEffect, useState } from 'react'
+
+import logic from '../logic'
+
 import { Post } from '.'
 
 // we get refreshPosts function from Home.jsx where it's declared
-function Posts({ posts, refreshPosts, onError }) {
+function Posts() {
+  const [posts, setPosts] = useState([])
+
+  const refreshPosts = () => {
+    try {
+      logic.retrievePosts((error, posts) => {
+        if (error) {
+          console.log(error)
+
+          return
+        }
+
+        posts.reverse()
+
+        setPosts(posts)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    refreshPosts()
+  }, [])
+
+  const onError = (error) => {
+    console.log(error)
+  }
+
   return (
     <div className="posts">
       {posts.map((post) => (
