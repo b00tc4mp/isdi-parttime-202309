@@ -1,0 +1,21 @@
+<script>
+  const req = {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer 4dw63n42c8a0',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      image:
+        'https://media.istockphoto.com/id/484594470/photo/world-map-made-form-peas.jpg?s=612x612&w=0&k=20&c=N36WYhSBSOIhHYG-tS3p7SR90lGis_7CJmJuj4NUHmM=',
+      text: 'i am on top of the world',
+    }),
+  }
+
+  fetch('http://localhost:8000/posts/', req)
+    .then((res) => {
+      if (res.ok) console.log(res.status)
+      else console.error(res.status)
+    })
+    .catch((error) => console.error(error))
+</script>

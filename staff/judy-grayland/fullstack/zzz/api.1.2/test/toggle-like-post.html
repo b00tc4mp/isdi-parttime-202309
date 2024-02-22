@@ -1,0 +1,15 @@
+<script>
+  const req = {
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Bearer 65b0f579f9beb466beb3a8e1',
+    },
+  }
+
+  fetch('http://localhost:8000/posts/65b541279135d27445f27aa3/likes', req)
+    .then((res) => {
+      if (res.ok) console.log(res.status)
+      else console.error(res.status)
+    })
+    .catch((error) => console.error(error))
+</script>
