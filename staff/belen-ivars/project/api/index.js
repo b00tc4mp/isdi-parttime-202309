@@ -6,7 +6,9 @@ import express from 'express'
 import cors from 'cors'
 
 import {
-	registerUserHandler
+	registerUserHandler,
+	authenticateUserHandler
+
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -20,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URL)
 		server.use(cors())
 
 		server.post('/users', jsonBodyParser, registerUserHandler)
+
+		server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})
