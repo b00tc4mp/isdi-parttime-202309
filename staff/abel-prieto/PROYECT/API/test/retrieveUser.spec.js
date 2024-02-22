@@ -30,7 +30,7 @@ describe('retrieveUser', () => {
             { throw new Error('should not reach this point!') }
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.be.equal('user not found')
+            expect(error.message).to.be.equal('User not found. Try again')
         }
     })
 

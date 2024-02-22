@@ -1,20 +1,5 @@
 import mongoose from 'mongoose'
-const { Schema, model, ObjectId } = mongoose
-
-// INVITADO
-const guest = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    group: [
-        {
-            type: String,
-            ref: 'Group',
-            default: 'guest'
-        }
-    ]
-})
+const { Schema, model } = mongoose
 
 // USER
 const user = new Schema({
@@ -36,64 +21,78 @@ const user = new Schema({
         {
             type: String,
             ref: 'Group',
-            default: 'localhost'
+            default: ["localhost"]
         }
-    ]
-})
-
-// ADMIN
-const admin = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 8
-    },
-    group: [
+    ],
+    role: [
         {
             type: String,
-            ref: 'Group',
-            default: 'root'
+            enum: ['guest', 'user', 'admin'],
+            default: 'user'
         }
     ]
 })
 
 // GROUP
 const group = new Schema({
-    guest: {
+    name: {
         type: String,
-        required: true,
-        unique: true,
-    },
-    localhost: {
+        default: 'localhost'
+    }
+})
+
+// COMMAND
+const command = new Schema({
+    name: {
         type: String,
-        required: true,
-        unique: true,
-    },
-    root: {
-        type: String,
-        required: true,
         unique: true
     }
 })
 
-const Guest = new model('Guest', guest)
-const User = new model('User', user)
-const Admin = new model('Admin', admin)
+// FILE
+const file = new Schema({
+    name: {
+        type: String,
+        unique: true
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    type: {
+        type: String,
+        enum: ["file", "folder"],
+        parent: {
+            ref: 'File'
+        }
+    },
+    permissions: {
+        type: Number,
+        enum: [0, 2, 3]
+    }
+})
 
+// ASSING GROUP & USER TYPE
+user.pre('save', function (next) {
+    if (!this.group || this.group.length === 0) {
+        this.group.push('localhost');
+    }
+
+    if (!this.role || this.role.length === 0) {
+        this.role.push('user');
+    }
+
+    next()
+})
+
+const User = new model('User', user)
 const Group = new model('Group', group)
+const Command = new model('Command', command)
+const File = new model('File', file)
 
 export {
-    Guest,
     User,
-    Admin,
-    Group
+    Group,
+    Command,
+    File
 }

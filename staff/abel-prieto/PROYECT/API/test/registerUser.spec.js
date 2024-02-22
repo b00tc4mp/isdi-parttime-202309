@@ -26,6 +26,8 @@ describe('registerUser', () => {
         expect(user).to.exist
         expect(user.username).to.equal(user.username)
         expect(user.email).to.equal(user.email)
+        expect(user.group[0]).to.be.equal('localhost')
+        expect(user.type[0]).to.be.equal('user')
 
         const match = await bcrypt.compare(password, user.password)
 
@@ -41,7 +43,7 @@ describe('registerUser', () => {
             { throw new Error('should not reach this point!') }
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('duplicity error')
+            expect(error.message).to.equal('Account already exist. Try again')
         }
     })
 

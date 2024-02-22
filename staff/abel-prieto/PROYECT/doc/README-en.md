@@ -51,55 +51,104 @@ Languajes: | [Spanish](./README-es.md) |
 
 ## DATA MODEL
 
-- Group (TODO)
-- File (TODO)
+### User
 
-`GUEST`
+- id
+- username
+- email
+- password
+- group (Group.id)
+- role (String, enum: guest, regular, admin)
+
+### Group
+
+- id
+- name
+
+### Command
+
+- id
+- name
+- description
+
+### File
+
+- id
+- name
+- owner (User.id)
+- type (String, enum: file, folder)
+- parent (File.id)
+- permissions (Number, enum: 0, 2, 3)
+
+
+`User`
 
 ```json
 {
-  "username": "guest (default)",
-  "groups": [
-    "guest (default)",
-  ],
-  "commands": [
-    "guest commands"
-  ]
-}
-  ```
-
-`USER`
-
-```json
-{
+  "id": "User.id",
   "username": "exampleName",
   "email": "example@name.com",
   "password": "bcrypt",
-  "groups": [
-    "localhost (default)",
-    "Others"
+  "group": [
+    ref: "Group.id"
   ],
-  "commands": [
-    "user commands"
+  "role": [
+    type: "String",
+    enum: {
+      "guest",
+      "regular",
+      "admin"
+    }
   ]
 }
   ```
 
-`ADMIN`
+`Group`
 
 ```json
 {
-  "username": "exampleName",
-  "email": "example@name.com",
-  "password": "bcrypt",
-  "groups": [
-    "root",
-  ],
-  "commands": [
-    "admin commands"
-  ]
+  "id": "Group.id",
+  "name": {
+    type: "String",
+    default: "localhost"
+  }
 }
   ```
+
+`Command`
+
+```json
+{
+  "id": "Command.id",
+  "name": {
+    type: "String"
+  }
+}
+  ```
+
+`File`
+
+```json
+{
+  "id": "File.id",
+  "name": {
+    type: "String"
+  },
+  "owner":{
+    ref: "User.id"
+  },
+  "type": {
+    type: "String",
+    enum: [ "file", "folder" ]
+  },
+  "parent": {
+    ref: "File.id"
+  },
+  "permissions": {
+    type: "Number",
+    enum: [0, 2, 3]
+  }
+}
 
 ## COMMANDS
 

@@ -1,11 +1,13 @@
 import { User } from '../data/models.js'
+import { errors } from 'com'
+const { SystemError, NotFoundError } = errors
 
 function retrieveUser(userId) {
     return User.findById(userId).lean()
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                throw new Error('user not found')
+                throw new NotFoundError('User not found. Try again')
             }
 
             delete user._id
@@ -13,6 +15,7 @@ function retrieveUser(userId) {
             delete user.email
             delete user.password
 
+            // USERNAME - GROUP - ROLE 
             return user
         })
 }

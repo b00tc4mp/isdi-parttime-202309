@@ -1,18 +1,20 @@
 import { User } from '../data/models.js'
 import bcrypt from 'bcrypt'
+import { errors } from 'com'
+const { SystemError, DuplicityError } = errors
 
 function registerUser(username, email, password) {
 
     return bcrypt.hash(password, 5)
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(hash => {
-            return User.create({ username, email, password: hash, group: 'localhost' })
+            return User.create({ username, email, password: hash })
                 .catch(error => {
                     if (error.code === 11000) {
-                        throw new Error('duplicity error')
+                        throw new DuplicityError('Account already exist. Try again')
                     }
 
-                    throw new Error(error.message)
+                    throw new SystemError(error.message)
                 })
                 .then(user => { })
         })

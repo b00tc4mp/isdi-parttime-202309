@@ -1,5 +1,5 @@
-function isUserLogged() {
+import session from './session'
 
+export default function isUserLoggedIn() {
+    return !!session.sessionUserId
 }
-
-export default isUserLogged
