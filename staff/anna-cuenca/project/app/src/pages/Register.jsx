@@ -17,15 +17,17 @@ function Register(props) {
         const nameInput = event.target.querySelector('#name-input')
         const emailInput = event.target.querySelector('#email-input')
         const passwordInput = event.target.querySelector('#password-input')
+        const robotInput = event.target.querySelector('#robot-input')
 
         const name = nameInput.value
         const email = emailInput.value
         const password = passwordInput.value
+        const robot = robotInput.value
 
         // console.log(name, email, password)
 
         try {
-            logic.registerUser(name, email, password)
+            logic.registerUser(name, email, password, robot)
                 .then(() => props.onSuccess())
                 .catch(error => context.handleError(error))
 
@@ -50,6 +52,7 @@ function Register(props) {
             <Field id="name-input">Name</Field>
             <Field id="email-input" type="email">E-mail</Field>
             <Field id="password-input" type="password">Password</Field>
+            <Field id="robot-input" type="text">Robot Model</Field>
 
             <Button type="submit">Register</Button>
         </Form>

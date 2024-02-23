@@ -16,7 +16,9 @@ describe('retrieveUser', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
-        const newUser = await User.create({ name, email, password })
+        const robot = random.robot()
+        const role = 'user'
+        const newUser = await User.create({ name, email, password, robot, role })
 
         const user = await retrieveUser(newUser.id)
 

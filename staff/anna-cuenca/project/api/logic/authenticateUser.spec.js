@@ -18,9 +18,11 @@ describe('authenticateUser', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
+        const robot = random.robot()
+        const role = 'user'
 
         const hash = await bcrypt.hash(password, 8)
-        const user = await User.create({ name, email, password: hash })
+        const user = await User.create({ name, email, password: hash, robot, role })
         const userId = await authenticateUser(email, password)
 
         expect(userId).to.be.a('string')
@@ -50,8 +52,10 @@ describe('authenticateUser', () => {
         const name = random.name()
         const email = random.email()
         const password = random.password()
+        const robot = random.robot()
+        const role = 'user'
 
-        const user = await User.create({ name, email, password })
+        const user = await User.create({ name, email, password, robot, role })
 
         try {
             await authenticateUser(email, password + '-wrong')
