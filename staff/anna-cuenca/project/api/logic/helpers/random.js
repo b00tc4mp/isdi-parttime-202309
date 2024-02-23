@@ -18,12 +18,17 @@ function text() {
     return `text-${Math.random()}`
 }
 
+function robot() {
+    return `robot-${Math.random()}`
+}
+
 const random = {
     name,
     email,
     password,
     image,
-    text
+    text,
+    robot
 }
 
 export default random

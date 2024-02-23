@@ -19,7 +19,8 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
         const name = random.name()
         const email = random.email()
         const password = random.password()
-        await registerUser(name, email, password)
+        const robot = random.robot()
+        await registerUser(name, email, password, robot)
 
         const user = await User.findOne({ email })
         //comprobamos que realmente el usuario que acabmos de registrar est´en la base de dato
@@ -27,7 +28,7 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
         expect(user).to.exist
         expect(user.name).to.equal(name)
         expect(user.email).to.equal(email)
-        // expect(user.password).to.equal(password)
+        expect(user.role).to.equal('user')
 
         const match = await bcrypt.compare(password, user.password)
         expect(match).to.be.true
@@ -40,10 +41,13 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
         const name = random.name()
         const email = random.email()
         const password = random.password()
-        await User.create({ name, email, password })
+        const robot = random.robot()
+        const role = 'user'
+
+        await User.create({ name, email, password, robot, role })
 
         try {
-            await registerUser(name, email, password)
+            await registerUser(name, email, password, robot)
             throw new Error('should not reach this point')
 
         } catch (error) {
