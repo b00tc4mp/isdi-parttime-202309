@@ -4,10 +4,11 @@ import { User } from '../data/models.js'
 
 const { SystemError, DuplicityError } = errors
 
-function registerUser(name, email, password) {
+function registerUser(name, email, password, robot, role = 'user') {
     validate.text(name, 'name')
     validate.email(email, 'email')
-    validate.text(password, 'password')
+    validate.password(password, 'password')
+    validate.text(robot, 'robot')
 
     return (async () => {
 
@@ -20,7 +21,7 @@ function registerUser(name, email, password) {
         }
 
         try {
-            await User.create({ name, email, password: hash }) //aqui no lo envolvemos en una constante porque no devuelve nada
+            await User.create({ name, email, password: hash, robot, role }) //aqui no lo envolvemos en una constante porque no devuelve nada
 
         } catch (error) {
             if (error.code === 11000)

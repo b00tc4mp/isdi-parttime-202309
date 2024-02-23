@@ -18,19 +18,37 @@ const user = new Schema({
         required: true,
         minlenght: 8
     },
+    robot: {
+        type: String,
+        required: true,
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ['admin', 'user']
+
+    },
     favs: [{
         type: ObjectId,
         ref: 'Post'
     }]
 })
 
-const post = new Schema({
+const movement = new Schema({
+    type: String,
+    order: Number,
+    enum: ['forward', 'backward', 'left', 'right']
+
+
+})
+
+const tutorial = new Schema({
     author: {
         type: ObjectId,
         required: true,
         ref: 'User' //le decimos que el objectId hace referencia a usuario
     },
-    image: {
+    title: {
         type: String,
         required: true
     },
@@ -51,8 +69,9 @@ const post = new Schema({
 
 //tenemos que usar una clase para construir usuarios
 const User = model('User', user)
-const Post = model('Post', post)
+const Tutorial = model('Tutorial', tutorial)
+const Movement = model('Movement', movement)
 
 export {
-    User, Post
+    User, Tutorial, Movement
 }

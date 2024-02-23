@@ -43,7 +43,6 @@ User
 - email (String)
 - password (String)
 - robot model (String)
-- level (String)
 - role (enum) [Admin, User] (v2)
 
 Movement
@@ -56,8 +55,8 @@ Tutorial (v2)
 - id (String)
 - title (String)
 - author (String)
-- body message (String)
-- favs (array of user.id)
+- text (String)
+- likes (array of user.id)
 
 
 Post in Forum (v2)

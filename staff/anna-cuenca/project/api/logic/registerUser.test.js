@@ -8,7 +8,7 @@ import registerUser from './registerUser.js' // el requiere es como el input
     await mongoose.connect(process.env.MONGODB_URL)
     try {
 
-        await registerUser('Man Darina', 'man@darina.com', '123123123')
+        await registerUser('Patata Frita', 'patata@frita.com', '123123123', 'humanoid', 'admin')
         console.log('user registered')
 
     } catch (error) {
