@@ -1,6 +1,6 @@
 import session from './session.js'
 
-function loginUser(email, password) {
+async function loginUser(email, password) {
     const req = {
         method: 'POST',
         headers: {
@@ -9,21 +9,20 @@ function loginUser(email, password) {
         body: JSON.stringify({ email, password })
     }
 
-    return fetch(`${import.meta.env.VITE_HIINIT_APP}users/auth`, req)
-        .catch(error => { throw new Error(error.message) })
-        .then(res => {
-            if (!res.ok) {
-                res.json()
-                    .catch(error => { throw new Error(error.message) })
-                    .then(body => { throw new Error(body.message) })
-            }
+    try {
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}users/auth`, req)
 
-            return res.json()
-                .catch(error => { throw new Error(error.message) })
-                .then(userId => {
-                    session.sessionUserId = userId
-                })
-        })
+        if (!res.ok) {
+            const body = await res.json()
+            throw new Error(body.message)
+        }
+
+        const userId = await res.json()
+
+        session.sessionUserId = userId
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 
 export default loginUser

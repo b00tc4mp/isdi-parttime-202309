@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../logic'
 import session from '../logic/session'
 
-export default function CommandBar2() {
+export default function CommandBar() {
     const [username, setUsername] = useState('')
     const [group, setGroup] = useState('')
     const [role, setRole] = useState('')
@@ -16,9 +16,7 @@ export default function CommandBar2() {
                         setGroup(user.group)
                         setRole(user.role)
                     })
-                    .catch(error => {
-                        alert(error.message)
-                    })
+                    .catch(error => alert(error.message))
             } catch (error) {
                 alert(error.message)
             }

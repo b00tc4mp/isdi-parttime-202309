@@ -30,13 +30,23 @@ function Register({ onSuccess }) {
             return logic.registerUser(username, email, password)
                 .then(() => onSuccess())
                 .catch(error => {
-                    document.querySelector('#client-error').innerText = error.message
+                    const clientError = document.querySelector('#client-error')
+
+                    clientError.innerText = error.message
+                    clientError.style.color = 'red'
 
                     return
                 })
         } catch (error) {
             alert(error.message)
         }
+
+        document.body.addEventListener('keydown', function () {
+            const clientError = document.querySelector('#client-error')
+
+            clientError.innerText = 'Create your account data: '
+            clientError.style.color = '#EBDBB2'
+        })
     }
 
     return <>

@@ -1,6 +1,6 @@
 
 // LOGIC - REGISTER USER
-function registerUser(username, email, password) {
+async function registerUser(username, email, password) {
     const req = {
         method: 'POST',
         headers: {
@@ -9,16 +9,16 @@ function registerUser(username, email, password) {
         body: JSON.stringify({ username, email, password })
     }
 
-    return fetch(`${import.meta.env.VITE_HIINIT_APP}users`, req)
-        .catch(error => { throw new Error(error.message) })
-        .then(res => {
-            if (!res.ok) {
-                return res.json()
-                    .catch(error => { throw new Error(error.message) })
-                    .then(body => { throw new Error(body.message) })
-            }
-        })
+    try {
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}users`, req)
 
+        if (!res.ok) {
+            const body = await res.json()
+            throw new Error(body.message)
+        }
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 
 export default registerUser

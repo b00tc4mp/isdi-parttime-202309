@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Routes, Route, Navigate } from 'react-router-dom'
 
-import { Register, Login, Desktop } from '../views'
-import App from '../App'
-import logic from '../logic'
-
+import { Desktop } from '../views'
+import { Login, Register } from '../components'
 import { CommandBar, Pointer } from '../utils'
 
+import logic from '../logic'
 
 function Credentials() {
 
@@ -18,30 +17,36 @@ function Credentials() {
     // VIEWS
     const navigate = useNavigate()
 
-    // ESCUCHA TECLADO Y ESCRITURA
+    // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
-        const handleKeyDown = (event) => {
+        const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
 
-            if (commandText === 'register' || commandText === 'REGISTER' && event.key === 'Enter') {
+            if ((commandText === 'register' || commandText === 'REGISTER') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/credentials/register')
-            } else if (commandText === 'login' || commandText === 'LOGIN' && event.key === 'Enter') {
+            } else if ((commandText === 'login' || commandText === 'LOGIN') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/credentials/login')
-            } else if (commandText === 'EXIT' || commandText === 'exit' && event.key === 'Enter') {
+            } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
         }
 
+        const handleKeyDown = () => {
+            setUknownCommand(false)
+        }
+
+        document.addEventListener('keypress', handleKeyPress)
         document.addEventListener('keydown', handleKeyDown)
 
         return () => {
+            document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate])
+    }, [navigate, uknownCommand])
 
     // LOGIN VIEW
     function handleLoginShow() {
@@ -87,14 +92,9 @@ function Credentials() {
             )}
 
             <Routes>
-                {/* <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
-                <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Desktop onSucess="" />}></Route>
-                <Route path="/*" element={logic.isUserLoggedIn() ? <App onLogout={handleLoginShow} /> : <Navigate to="/login" />}></Route> */}
-
-
-                <Route path="/register" element={<Register onSuccess={handleLoginShow} />}></Route>
-                <Route path="/login" element={<Login onSuccess={handleDesktopShow} />}></Route>
-                <Route path="/desktop" element={<Desktop onSucess="" />}></Route>
+                <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
+                <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Login onSuccess={handleDesktopShow} />}></Route>
+                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Desktop onLogout={handleLogout} /> : <Navigate to="/login" />}></Route>
             </Routes>
         </div>
     </>

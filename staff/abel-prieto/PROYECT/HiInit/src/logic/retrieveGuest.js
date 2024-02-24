@@ -1,10 +1,9 @@
-import session from './session.js'
 
-async function retrieveUser() {
+async function retrieveGuest() {
     const req = {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${session.sessionUserId}`
+            "Content-Type": "application/json"
         }
     }
 
@@ -16,11 +15,12 @@ async function retrieveUser() {
             throw new Error(body.message)
         }
 
-        const user = await res.json()
-        return user
+        const guest = await res.json()
+
+        return guest
     } catch (error) {
         throw new Error(error.message)
     }
 }
 
-export default retrieveUser
+export default retrieveGuest

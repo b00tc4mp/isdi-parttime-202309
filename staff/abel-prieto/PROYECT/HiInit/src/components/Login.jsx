@@ -19,16 +19,25 @@ function Login({ onSuccess }) {
 
         try {
             logic.loginUser(email, password)
+                .then(() => onSuccess())
                 .catch(error => {
-                    document.querySelector('#client-error').innerText = error.message
+                    const clientError = document.querySelector('#client-error')
+
+                    clientError.innerText = error.message
+                    clientError.style.color = 'red'
 
                     return
                 })
-                .then(() => onSuccess())
         } catch (error) {
-
+            alert(error.message)
         }
 
+        document.body.addEventListener('keydown', function () {
+            const clientError = document.querySelector('#client-error')
+
+            clientError.innerText = 'Entry your credentials: '
+            clientError.style.color = '#EBDBB2'
+        })
     }
 
     return <>
