@@ -5,7 +5,8 @@ import cors from 'cors'
 import {
     authenticateUserHandler,
     registerUserHandler,
-    retrieveUserHandler
+    retrieveUserHandler,
+    retrieveGuestHandler
 } from './handlers/index.js'
 
 dotenv.config()
@@ -28,6 +29,9 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
 
         // RETRIEVE USER
         server.get('/users', retrieveUserHandler)
+
+        // RETRIEVE GUEST
+        server.get('/users', retrieveGuestHandler)
 
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })

@@ -1,12 +1,10 @@
-import retrieveUser from '../logic/retrieveUser.js'
+import retrieveGuest from "../logic/retrieveGuest.js"
 import { errors } from 'com'
 const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
     try {
-        const userId = req.headers.authorization.substring(7)
-
-        retrieveUser(userId)
+        retrieveGuest()
             .catch(error => {
                 let status = 500
 
@@ -18,7 +16,7 @@ export default (req, res) => {
 
                 return
             })
-            .then(user => res.json(user))
+            .then(guest => res.json(guest))
     } catch (error) {
         let status = 500
 

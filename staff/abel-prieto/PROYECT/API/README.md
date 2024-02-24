@@ -9,12 +9,19 @@
 - Response (error) : 500|409|406 "Content-Type: application/json" { error, message }
 
 `Authenticate User` ✅
+
 - Request: POST /users/auth "Content-Type": application/json { email, password }
 - Response: 200 "Content-Type": application/json { userId }
 - Respone (error): 500|404|406|409 "Content-Type": application/json { error, message }
 
 `Retrieve User` ✅
+
 - Request: GET /users Authorization: Bearer '65d0e63fa0232cfaf1c8c411'
-- Response: 200 "Content-Type": application/json { username, [ group ] } 
+- Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
 
+`Retrieve Guest` ✅
+
+- Request: GET /users
+- Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
+- Response (error) : 500|404|406 "Content-Type": application/json { error, message }

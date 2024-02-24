@@ -1,10 +1,10 @@
 import mongoose, { Types } from 'mongoose'
 import dotenv from 'dotenv'
-import retrieveUser from '../logic/retrieveUser.js'
 import { expect } from 'chai'
-import { User } from '../data/models.js'
-
 const { ObjectId } = Types
+
+import retrieveUser from '../logic/retrieveUser.js'
+import { User } from '../data/models.js'
 
 dotenv.config()
 
@@ -15,7 +15,11 @@ describe('retrieveUser', () => {
 
     // POSITIVE CASE
     it('success with retrieve existed user', async () => {
-        const user = await User.create({ username: 'Ji Rafa', email: 'ji@rafa.com', password: '123123123', group: ['localhost '] })
+        const username = new ObjectId().toString()
+        const email = new ObjectId().toString()
+        const password = new ObjectId().toString()
+
+        const user = await User.create({ username, email, password, group: 'localhost', role: 'user'})
         const userRetrieved = await retrieveUser(user.id)
 
         expect(userRetrieved).to.be.an('Object')

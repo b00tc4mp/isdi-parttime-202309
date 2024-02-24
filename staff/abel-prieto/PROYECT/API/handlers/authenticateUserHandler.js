@@ -19,6 +19,8 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
+
+                return
             })
             .then(userId => res.json(userId))
     } catch (error) {

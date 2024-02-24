@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
+const { ObjectId } = Types
 
 import { User } from '../data/models.js'
 import { expect } from 'chai'
@@ -15,9 +16,9 @@ describe('registerUser', () => {
 
     // POSITIVE CASE
     it('success on register a new user type', async () => {
-        const username = 'Peter'
-        const email = 'peter@pan.com'
-        const password = '234234234'
+        const username = new ObjectId().toString()
+        const email = new ObjectId().toString()
+        const password = new ObjectId().toString()
 
         await registerUser(username, email, password)
 
@@ -27,7 +28,7 @@ describe('registerUser', () => {
         expect(user.username).to.equal(user.username)
         expect(user.email).to.equal(user.email)
         expect(user.group[0]).to.be.equal('localhost')
-        expect(user.type[0]).to.be.equal('user')
+        expect(user.role[0]).to.be.equal('user')
 
         const match = await bcrypt.compare(password, user.password)
 
@@ -36,7 +37,7 @@ describe('registerUser', () => {
 
     // NEGATIVE CASE - Duplicity user
     it('fails on user already exist', async () => {
-        const user = await User.create({ username: 'Aniki', email: 'drop@hotmail.com', password: '123123123', group: ['localhost'] })
+        await User.create({ username: 'Aniki', email: 'drop@hotmail.com', password: '123123123', group: 'localhost', role: 'user' })
 
         try {
             await registerUser('Aniki', 'drop@hotmail.com', '123123123')

@@ -12,7 +12,7 @@ dotenv.config()
 describe('authenticateUser', () => {
     before(() => mongoose.connect(process.env.URL_MONGODB_TEST))
 
-    // beforeEach(() => User.deleteMany())
+    beforeEach(() => User.deleteMany())
 
     // POSITIVE CASE
     it('success on authenticate user', async () => {
@@ -21,9 +21,7 @@ describe('authenticateUser', () => {
         const password = new ObjectId().toString()
 
         const hash = await bcrypt.hash(password, 5)
-
-        const user = await User.create({ username, email, password: hash, group: ['default'] })
-
+        const user = await User.create({ username, email, password: hash, group: 'localhost', role: 'user' })
         const userId = await authenticateUser(email, password)
 
         expect(userId.toString()).to.be.a('String')
@@ -34,6 +32,7 @@ describe('authenticateUser', () => {
     it('fails on user not found', async () => {
         const email = new ObjectId().toString()
         const password = new ObjectId().toString()
+
         try {
             await authenticateUser(email, password)
             { throw new Error('should not reach this point!') }
@@ -50,7 +49,7 @@ describe('authenticateUser', () => {
         const password = new ObjectId().toString()
 
         const hash = await bcrypt.hash(password, 5)
-        const user = await User.create({ username, email, password: hash, group: ['default'] })
+        await User.create({ username, email, password: hash, group: 'localhost', role: 'user' })
 
         try {
             await authenticateUser(email, '234234234')
