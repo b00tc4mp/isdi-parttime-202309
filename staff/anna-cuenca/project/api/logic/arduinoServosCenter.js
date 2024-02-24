@@ -1,13 +1,13 @@
 import pkg from 'johnny-five'
-const { Board, Servo } = pkg
+const { Board, Servos } = pkg
 
-const arduinoServo = () => {
+const arduinoServosCenter = () => {
 
     return new Promise((resolve, reject) => {
         const board = new Board()
 
         board.on("ready", () => {
-            const servo = new Servo(3)
+            const servos = new Servos([2, 3, 4, 5]);
 
             // Servo alternate constructor with options
             /*
@@ -25,7 +25,7 @@ const arduinoServo = () => {
 
             // Add servo to REPL (optional)
             board.repl.inject({
-                servo
+                servos
             })
 
 
@@ -63,10 +63,10 @@ const arduinoServo = () => {
             //
             // eg. array.step( -20 );
 
-            servo.sweep()
-            //servo.to(90) //volver a la posicion actual
+            //servo.sweep()
+            servos.center()
 
-            resolve(servo)
+            resolve(servos)
         })
 
         board.on("error", error => {
@@ -79,4 +79,4 @@ const arduinoServo = () => {
 
 }
 
-export default arduinoServo
+export default arduinoServosCenter
