@@ -1,19 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
-import { Routes, Route, useNavigate, Link } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import RawMaterial from '../components/RawMaterial'
 import Packings from '../components/Packings'
 import Utensils from '../components/Utensils'
 import Login from '../components/Login'
-import Register from '../components/Register'
 
 
 export default function Home() {
 
+    const [view, setView] = useState('raw-material')
     const [name, setName] = useState(null)
-
-    const navigate = useNavigate()
 
     const handleLogout = () => {
 
@@ -23,25 +21,25 @@ export default function Home() {
     const handleHomeClick = (event) => {
         event.preventDefault()
 
-        navigate('/raw-material')
+        setView('raw-material')
     }
 
     const handleClickRawMaterial = (event) => {
         event.preventDefault()
 
-        navigate('/raw-material')
+        // setView('raw-material') cambio a navigate
     }
 
     const handleClickPackings = (event) => {
         event.preventDefault()
 
-        navigate('/packings')
+        setView('packings')
     }
 
     const handleClickUtensils = (event) => {
         event.preventDefault()
 
-        navigate('/utensils')
+        setView('utensils')
     }
 
     const handleClickRecipes = (event) => {
@@ -53,7 +51,7 @@ export default function Home() {
     const handleClickUserIcon = (event) => {
         event.preventDefault()
 
-        navigate('/user-icon')
+        setView('user-icon')
     }
 
     const handleClickHeartIcon = (event) => {
@@ -72,7 +70,7 @@ export default function Home() {
         <>
             <header>
                 <div className="home-header">
-                    <h1><Link className="home-link" onClick={handleHomeClick}>Maketics</Link></h1>
+                    <h1><a className="home-link" href="" onClick={handleHomeClick}>Maketics</a></h1>
                     <div className="search-container">
                         <input className="search-input" type="text" placeholder="Buscar..." />
                         <button className="search-button" type="submit">Buscar</button>
@@ -82,19 +80,19 @@ export default function Home() {
 
             <section>
                 <div className="first-section">
-                    <h2><Link className="raw-material" onClick={handleClickRawMaterial}>MATERIA PRIMA</Link></h2>
-                    <h2><Link className="packings" onClick={handleClickPackings}>ENVASES</Link></h2>
-                    <h2><Link className="utensils" onClick={handleClickUtensils}>UTENSILIOS</Link></h2>
-                    <h2><Link className="recipes" onClick={handleClickRecipes}>RECETAS</Link></h2>
+                    <h2><a className="raw-material" href="#" onClick={handleClickRawMaterial}>MATERIA PRIMA</a></h2>
+                    <h2><a className="packings" href="#" onClick={handleClickPackings}>ENVASES</a></h2>
+                    <h2><a className="utensils" href="#" onClick={handleClickUtensils}>UTENSILIOS</a></h2>
+                    <h2><a className="recipes" href="#" onClick={handleClickRecipes}>RECETAS</a></h2>
 
                     <div className="welcome-user">
                         {name ? (<div>Bienvenido, {name}! <button onClick={handleLogout}>Cerrar sesión</button></div>) : (<div>Accede | Regístrate 👉</div>)}
                     </div>
 
                     <div className="icons">
-                        <Link className="user-icon" onClick={handleClickUserIcon}><img src="images/icons8-user-64.png" /></Link>
-                        <Link className="heart-icon" onClick={handleClickHeartIcon}><img src="images/icons8-heart-50.png" /></Link>
-                        <Link className="cart-icon" onClick={handleClickCartIcon}><img src="images/icons8-shopping-trolley-64.png" /></Link>
+                        <button className="user-icon" onClick={handleClickUserIcon}><img src="images/icons8-user-64.png" /></button>
+                        <button className="heart-icon" onClick={handleClickHeartIcon}><img src="images/icons8-heart-50.png" /></button>
+                        <button className="cart-icon" onClick={handleClickCartIcon}><img src="images/icons8-shopping-trolley-64.png" /></button>
                     </div>
                 </div>
             </section>
@@ -105,13 +103,10 @@ export default function Home() {
                 </div>
             </section>
 
-            <Routes>
-                <Route path="/raw-material" element={<RawMaterial />} />
-                <Route path="/packings" element={<Packings />} />
-                <Route path="/utensils" element={<Utensils />} />
-                <Route path="/user-icon" element={<Login />} />
-                <Route path="/user-icon/register" element={<Register />} />
-            </Routes>
+            {view === 'raw-material' && <RawMaterial />}
+            {view === 'packings' && <Packings />}
+            {view === 'utensils' && <Utensils />}
+            {view === 'user-icon' && <Login />}
         </>
     )
 }

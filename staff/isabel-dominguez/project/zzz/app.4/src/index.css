@@ -100,7 +100,7 @@ header {
   margin-left: 20px;
 }
 
-.icons a {
+.icons button {
   margin-right: 20px;
   background-color: transparent;
   border: none;
@@ -108,7 +108,7 @@ header {
   cursor: pointer;
 }
 
-.icons a {
+.icons button {
   background-color: transparent;
   border: none;
   padding: 0;

@@ -1,17 +1,16 @@
 import React from "react"
-
-import { Routes, Route, useNavigate, Link } from 'react-router-dom'
+import { useState } from "react"
 
 import Login from "./Login"
 
 export default function Register() {
 
-    const navigate = useNavigate()
+    const [view, setView] = useState(null)
 
     const handleLoginClick = (event) => {
         event.preventDefault()
 
-        navigate('/user-icon')
+        setView('login-link')
     }
 
 
@@ -38,11 +37,9 @@ export default function Register() {
                 <button type="submit">Registrar</button>
             </form>
 
-            <p>Vuelve a <Link className="login-link" onClick={handleLoginClick}>Acceder a tu cuenta</Link></p>
+            <p>Vuelve a <a href="" className="login-link" onClick={handleLoginClick}>Acceder a tu cuenta</a></p>
         </div>
 
-        <Routes>
-            <Route path="/user-icon" element={<Login />} ></Route>
-        </Routes>
+        {view === 'login-link' && <Login />}
     </>
 }
