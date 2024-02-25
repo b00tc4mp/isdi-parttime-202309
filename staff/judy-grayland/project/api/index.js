@@ -1,17 +1,9 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
+import { Category } from './data/models.js'
 
 dotenv.config()
-
-const resourceCategorySchema = new mongoose.Schema({
-  name: String,
-})
-
-const Category = mongoose.model('Category', resourceCategorySchema)
-
-const taller = new Category({ name: 'Taller' })
-// console.log(taller)
 
 mongoose
   .connect(process.env.MONGODB_URL_TEST)

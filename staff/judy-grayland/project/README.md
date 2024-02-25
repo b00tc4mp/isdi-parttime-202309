@@ -37,7 +37,7 @@ The idea behind this app is to bring all available resources together in one pla
 - email (string)
 - password (string)
 - saved resources (resource.id[])
-- organised activities (resource.id[])
+- scheduled activities (resource.id[])
 
 #### Resource (event, book, special date)
 

@@ -1,4 +1,4 @@
-## Vocab
+## Terminology
 
 Hit an endpoint = send a request to an endpoint
 Start and stop the server
