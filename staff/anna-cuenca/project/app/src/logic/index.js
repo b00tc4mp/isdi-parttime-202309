@@ -8,9 +8,9 @@ import retrieveUserInfo from './retrieveUserInfo'
 
 import isUserLoggedIn from './isUserLoggedIn'
 
-import arduinoLed from './arduinoLed'
 
-import ottoWalkForward from './ottoWalkForward'
+
+import ottoController from './ottoControler'
 
 const logic = {
     registerUser,
@@ -18,9 +18,10 @@ const logic = {
     logoutUser,
     retrieveUser,
     isUserLoggedIn,
-    arduinoLed,
+
     retrieveUserInfo,
-    ottoWalkForward
+
+    ottoController
 }
 
 export default logic

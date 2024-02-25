@@ -22,7 +22,7 @@ export class Otto {
 
     home() {
         this.oscillators.forEach(oscillator => {
-            oscillator.setParameters({ amplitude: 15, period: 1000, phase: 0, offset: 90 })
+            oscillator.setParameters({ amplitude: 15, period: 500, phase: 0, offset: 90 })
             oscillator.start()
         })
         this.isOttoResting = true
@@ -45,6 +45,10 @@ export class Otto {
             oscillator.stop()
         })
         this.isOttoResting = true
+    }
+
+    restartOscillators() {
+        this.oscillators.forEach(oscillator => oscillator.restart())
     }
 
 

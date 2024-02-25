@@ -7,6 +7,8 @@ import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 
+import logic from './logic/index.js'
+
 
 import {
     registerUserHandler,
@@ -14,7 +16,9 @@ import {
     retrieveUserHandler,
     arduinoLedHandler,
     retrieveUserInfoHandler,
-    ottoWalkForwardHandler
+    ottoWalkForwardHandler,
+    ottoServosStopHandler,
+    ottoControllerHandler
 
 
 
@@ -30,6 +34,8 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         const jsonBodyParser = express.json()
 
         server.use(cors())
+
+
 
 
 
@@ -57,6 +63,10 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         server.post('/arduino/controller/led', jsonBodyParser, arduinoLedHandler)
 
         server.post('/arduino/controller/ottoForward', jsonBodyParser, ottoWalkForwardHandler)
+
+        server.post('/arduino/controller/ottoStop', jsonBodyParser, ottoServosStopHandler)
+
+        server.post('/arduino/controller/ottoController', jsonBodyParser, ottoControllerHandler)
 
 
         //server.post('/arduino/controller/colors', jsonBodyParser, arduinoRgbLedHandler)

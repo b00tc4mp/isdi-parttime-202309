@@ -1,4 +1,4 @@
-import logic from '../logic/index.js'
+import logic from '../../logic/index.js'
 
 import { errors } from 'com'
 const { ContentError } = errors
@@ -6,7 +6,7 @@ const { ContentError } = errors
 export default (req, res) => {
 
     try {
-        logic.ottoWalkForward()
+        logic.arduinoLed()
             .then(() => res.status(200).send())
             .catch(error => {
 
@@ -21,3 +21,7 @@ export default (req, res) => {
         res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 }
+
+
+
+
