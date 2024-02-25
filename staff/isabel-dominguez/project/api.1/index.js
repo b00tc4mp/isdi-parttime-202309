@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
         const server = express()
 
-        const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware. Analiza el cuerpo de las solicitudes entrantes en formato JSON, facilitando el acceso a estos datos.
+        const jsonBodyParser = express.json() //Te permite convertir cualquier petición que le enviemos al servidor con un cuerpo json lo convierte a objeto en la propiedad body de la request(req). Es un middleware.
 
         server.use(cors())
 

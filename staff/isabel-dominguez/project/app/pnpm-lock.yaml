@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  com:
+    specifier: link:..\com
+    version: link:../com
   react:
     specifier: ^18.2.0
     version: 18.2.0

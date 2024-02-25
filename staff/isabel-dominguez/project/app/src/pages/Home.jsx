@@ -1,7 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 
+import logic from '../logic'
 import RawMaterial from '../components/RawMaterial'
 import Packings from '../components/Packings'
 import Utensils from '../components/Utensils'
@@ -10,14 +11,33 @@ import Register from '../components/Register'
 
 
 export default function Home() {
+    console.log('El componente Home se está renderizando.')
 
     const [name, setName] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const navigate = useNavigate()
 
-    const handleLogout = () => {
+    useEffect(() => {
+        if (isLoggedIn) {
+            console.log('isLoggedIn is true')
+            try {
+                logic.retrieveUser()
+                    .then(user => {
+                        console.log('Userr:', user)
+                        setName(user.name)
+                    })
+                    .catch(error => console.error(error))
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }, [isLoggedIn])
 
-        setName(null)
+    function handleLogout() {
+        logic.logoutUser()
+            .then(() => { setName(null) })
+            .catch(error => alert(error.message))
     }
 
     const handleHomeClick = (event) => {
@@ -110,7 +130,7 @@ export default function Home() {
                 <Route path="/packings" element={<Packings />} />
                 <Route path="/utensils" element={<Utensils />} />
                 <Route path="/user-icon" element={<Login />} />
-                <Route path="/user-icon/register" element={<Register />} />
+                <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
             </Routes>
         </>
     )

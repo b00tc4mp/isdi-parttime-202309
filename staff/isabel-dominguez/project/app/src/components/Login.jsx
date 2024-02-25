@@ -1,11 +1,15 @@
 import React from "react"
-import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 
+import { useState } from "react"
+import { Routes, Route, useNavigate, Link } from 'react-router-dom'
+import logic from '../logic'
 import Register from "./Register"
 
 export default function Login() {
 
     const navigate = useNavigate()
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -15,6 +19,17 @@ export default function Login() {
 
         const email = emailInput.value
         const password = passwordInput.value
+
+        try {
+            logic.loginUser(email, password)
+                .then(() => {
+                    setIsLoggedIn(true)
+                    navigate('/raw-material')
+                })
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error.message)
+        }
 
     }
 
@@ -49,5 +64,4 @@ export default function Login() {
             <Route path="/user-icon/register" element={<Register />} />
         </Routes>
     </>
-
-}
+};
