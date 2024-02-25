@@ -63,8 +63,8 @@ const arduinoServo = () => {
             //
             // eg. array.step( -20 );
 
-            servo.sweep()
-            //servo.to(90) //volver a la posicion actual
+            //servo.sweep()
+            servo.to(90) //volver a la posicion actual
 
             resolve(servo)
         })

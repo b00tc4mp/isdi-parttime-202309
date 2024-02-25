@@ -1,9 +1,10 @@
 
-import Profile from './Profile'
-import Controller from './Controller'
+
+
+import Feedback from './Feedback'
 
 
 export {
-    Profile,
-    Controller
+
+    Feedback
 }

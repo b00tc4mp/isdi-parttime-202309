@@ -9,7 +9,9 @@ import { useContext } from '../hooks'
 //como en App hemos envuelto 
 
 import { Button, Form, Link, Field } from '../library'
-import { Profile, Controller } from '../components'
+
+import Profile from './Profile'
+import Controller from './Controller'
 
 
 function Home(props) {
