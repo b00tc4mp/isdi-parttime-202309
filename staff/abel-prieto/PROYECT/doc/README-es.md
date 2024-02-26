@@ -14,13 +14,14 @@ Languajes: | [English](./README-en.md) |
 > Los archivos pueden ser compartidos entre los distintos miembros de un grupo específico, navegando entre los distintos archivos de la carpeta raíz.
 > Hay diferentes roles con sus correspondientes permisos pero solo el tipo de usuario **ADMIN** tiene el `sistema CRUD` (creación, escritura, carga y eliminación).
 
-- Última actualización: 13/02/2024
+- Última actualización: 26/02/2024
 
 ## RESUMEN
 
 `Para HiInit v0.1`
 - [x] Terminal web con servicio de carga online de archivos.
 - [x] Escritorio o espacio personal para cada usuario.
+- [x] Usar la librería `MULTER` y el paquete `PATH` de NodeJS en API para subir archivos mediante petición HTTP y guardarlos en disco `npm i multer`
 - [x] Subida y descarga de archivos: PDFs | Documentos | Imágenes ... (por ahora)
 - [x] Primera versión para el proyecto final de ISDI CODERS.
 
@@ -51,52 +52,34 @@ Languajes: | [English](./README-en.md) |
 
 ## MODELO DE DATOS
 
-`INVITADO`
-
-```json
-{
-  "nombre usuario": "guest (por defecto)",
-  "grupos": [
-    "guest (por defecto)",
-  ],
-  "comandos": [
-    "comandos tipo invitado"
-  ]
-}
-  ```
-
 `USUARIO`
 
-```json
-{
-  "nombre usuario": "nombreEjemplo",
-  "email": "email@ejemplo.com",
-  "contraseña": "bcrypt",
-  "grupos": [
-    "localhost (por defecto)",
-    "Otros"
-  ],
-  "comandos": [
-    "comandos tipo usuario"
-  ]
-}
-  ```
+- id
+- nombre usuario
+- email
+- contraseña
+- grupo (ref: Grupo.id)
+- rol (tipo: String, enum: [ invitado, regular, admin ])
 
-`ADMIN`
+`GRUPO`
 
-```json
-{
-  "nombre usuario": "nombreEjemplo",
-  "email": "email@ejemplo.com",
-  "contraseña": "bcrypt",
-  "grupos": [
-    "root",
-  ],
-  "comandos": [
-    "comandos tipo administrador"
-  ]
-}
-  ```
+- id
+- nombre
+
+`COMANDO`
+
+- id
+- nombre
+- descripción
+
+`ARCHIVO`
+
+- id
+- nombre
+- dueño (ref: Usuario.id)
+- tipo (tipo: String, enum: [ archivo, carpeta ])
+- padre (ref: Archivo.id)
+- permisos (tipo: Number, enum: [ 0, 2, 3 ])
 
 ## COMANDOS
 
@@ -150,7 +133,7 @@ Languajes: | [English](./README-en.md) |
 ![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
 
 - Página de inicio a la APP con información de contacto: email, GitHub y perfil de Linkedin.
-- Formato de la barra de comandos: **guest@localhost-guest**
+- Formato de la barra de comandos: **guest@hiinit-guest**
 - Cuando presionamos `ENTER` en la página de inicio, podemos entrar al apartado de Registro o de Login con las intrucciones:  *"Escribe el comando login o register para cambiar entre los diferentes componentes de login o registro"*
 - Podemos escribir el comando `HELP` para que nos muestre el listado de comandos
 - Con el comando `EXIT` podremos regresar a la página de inicio **solo en modo invitado**
@@ -159,21 +142,31 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `REGISTRO -> En modo "INVITADO"`
-- ***register nombre de usuario + email + contraseña***
+![register](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/1bd3f05b-4c85-4631-a373-a78382226744)
+
+- ***register => nombre de usuario + email + contraseña***
 - Una vez que nos hayamos registrado, el texto desaparecerá y aparecerá una nueva barra de comandos para poder hacer el login
+- Interfaz de errores: manejamos errores del tipo usuario en pantalla mediante elementos HTML
+- Entry the next component -> **LOGIN**
 
 <br>
 
 `LOGIN -> En modo "INVITADO"`
-- ***login email + contraseña***
+![login](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/8b469735-f66b-4101-a0ae-4bf5f20ca2d9)
+
+- ***login => email + contraseña***
 - Cuando ingresamos nuestras credenciales, la barra de comandos nos mostrará el nombre de usuario al lado de la categoría `user` o `admin` con su color indicativo
+- Interfaz de errores: manejamos errores del tipo usuario en pantalla mediante elementos HTML
 - Entrar al siguiente componente -> **ESCRITORIO**
   
 <br>
 
 `ESCRITORIO -> Con "USUARIO" logeado`
+![desktop](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/f525a6f5-fcd3-4c07-a7f0-da5a36d5220f)
+
 - Solo se accede mediante logeo
-- Formato de la barra de comandos: **Username@localhost-user**
+- Grupo `localhost` por defecto
+- Formato de la barra de comandos: **usuario@grupo-rol**
 - Con el comando `mkdir` el usuario podrá crear nuevos archivos desde la rama raíz: `C:\Desktop`
 - Si creamos un directorio, el comando `pwd` nos dirá la dirección completa
 - Podremos subir o descargar archivos con los comandos `upload` o `download`
