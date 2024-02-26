@@ -1,4 +1,4 @@
-# Coles diversos e inclusivos
+# Coles + diversos e inclusivos
 
 ## Problem statement
 
@@ -65,8 +65,8 @@ The idea behind this app is to bring all available resources together in one pla
 - user (user.id)
 - resource (resource.id)
 - date (string)
-- title
-- description
+- title (string)
+- description (string)
 
 ### Technologies
 
