@@ -1,6 +1,8 @@
 import { Pointer, CommandBar } from '../utils'
 import { useState, useEffect } from 'react'
-import { Router, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+import logic from '../logic'
 
 function Desktop({ onLogout }) {
     const [commandText, setCommandText] = useState('')
@@ -15,8 +17,9 @@ function Desktop({ onLogout }) {
             let commandText = document.getElementById('command').value
 
             if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
-                onLogout()
+                handleLogout()
             } else if ((commandText === 'UPLOAD' || commandText === 'upload') && event.key === 'Enter') {
+                setUknownCommand(false)
                 navigate('/upload')
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
@@ -35,6 +38,17 @@ function Desktop({ onLogout }) {
             document.removeEventListener('keydown', handleKeyDown)
         }
     }, [navigate, uknownCommand])
+
+    // LOGOUT VIEW
+    function handleLogout() {
+        logic.logoutUser(error => {
+            if (error) {
+                throw new Error(error)
+            }
+
+            navigate('/')
+        })
+    }
 
     return <>
         <div className="container">

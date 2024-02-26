@@ -10,7 +10,7 @@ async function registerUser(username, email, password) {
     }
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}users`, req)
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users`, req)
 
         if (!res.ok) {
             const body = await res.json()

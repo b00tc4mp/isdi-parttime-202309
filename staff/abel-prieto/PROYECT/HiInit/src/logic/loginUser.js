@@ -10,7 +10,7 @@ async function loginUser(email, password) {
     }
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}users/auth`, req)
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users/auth`, req)
 
         if (!res.ok) {
             const body = await res.json()

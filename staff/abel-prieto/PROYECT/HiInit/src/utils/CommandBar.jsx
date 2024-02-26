@@ -22,9 +22,23 @@ export default function CommandBar() {
             }
         } else {
             setUsername('guest')
-            setGroup('hiinit')
+            setGroup('hiinit.com')
             setRole('guest')
         }
+
+        // if (session.sessionUserId === null) {
+        //     try {
+        //         logic.retrieveGuest()
+        //             .then(guest => {
+        //                 setUsername(guest.username)
+        //                 setGroup(guest.group)
+        //                 setRole(guest.role)
+        //             })
+        //             .catch(error => alert(error.message))
+        //     } catch (error) {
+        //         alert(error.message)
+        //     }
+        // }
     }, [])
 
     return <>

@@ -1,26 +1,24 @@
-import session from './session.js'
+import session from './session'
 
-async function retrieveUser() {
+async function uploadFile() {
     const req = {
-        method: 'GET',
+        method: 'POST',
         headers: {
             Authorization: `Bearer ${session.sessionUserId}`
         }
     }
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users`, req)
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/upload`, req)
 
         if (!res.ok) {
             const body = await res.json()
             throw new Error(body.message)
         }
 
-        const user = await res.json()
-        return user
     } catch (error) {
         throw new Error(error.message)
     }
 }
 
-export default retrieveUser
+export default uploadFile

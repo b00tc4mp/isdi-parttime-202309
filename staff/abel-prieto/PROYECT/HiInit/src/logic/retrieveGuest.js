@@ -1,14 +1,11 @@
 
 async function retrieveGuest() {
     const req = {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json"
-        }
+        method: 'GET'
     }
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}users`, req)
+        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users`, req)
 
         if (!res.ok) {
             const body = await res.json()

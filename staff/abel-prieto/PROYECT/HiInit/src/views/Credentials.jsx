@@ -94,7 +94,7 @@ function Credentials() {
             <Routes>
                 <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
                 <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Login onSuccess={handleDesktopShow} />}></Route>
-                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Desktop onLogout={handleLogout} /> : <Navigate to="/login" />}></Route>
+                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Desktop onLogout={handleLogout} />}></Route>
             </Routes>
         </div>
     </>

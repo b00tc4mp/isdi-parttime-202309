@@ -4,6 +4,7 @@ import retrieveUser from './retrieveUser.js'
 import retrieveGuest from './retrieveGuest.js'
 import logoutUser from './logoutUser.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
+import uploadFile from './uploadFile.js'
 
 export {
     loginUser,
@@ -11,7 +12,8 @@ export {
     retrieveUser,
     retrieveGuest,
     logoutUser,
-    isUserLoggedIn
+    isUserLoggedIn,
+    uploadFile
 }
 
 const logic = {
@@ -20,7 +22,8 @@ const logic = {
     retrieveUser,
     retrieveGuest,
     logoutUser,
-    isUserLoggedIn
+    isUserLoggedIn,
+    uploadFile
 }
 
 export default logic

@@ -1,15 +1,35 @@
-import { useState } from 'react'
-import { CommandBar, Pointer } from '../utils'
+import { CommandBar } from '../utils'
+import logic from '../logic'
 
 function Upload() {
-    const [commandText, setCommandText] = useState('')
-    const [upload, setUpload] = useState(true)
-    const { pointer } = Pointer()
+
+    // UPLOAD FILE
+    function handleUploadFile(event) {
+        event.preventDefault()
+
+        logic.uploadFile()
+            .then(() => {
+                const succesUpload = document.querySelector('#client-error')
+
+                succesUpload.innerText = 'File succesfully upload!'
+                succesUpload.style.color = 'green'
+
+                return
+            })
+            .catch(error => {
+                const clientError = document.querySelector('#client-error')
+
+                clientError.innerText = error.message
+                clientError.style.color = 'red'
+
+                return
+            })
+    }
 
     return <>
         <div className="container">
             <p>~$</p>
-            <p>Select the files and upload them: </p>
+            <p id="client-error">Select the files and upload them: </p>
 
             <br />
 
@@ -17,17 +37,12 @@ function Upload() {
                 <CommandBar />
 
                 <div id="command-form">
-                    <input id="command" type="text" contentEditable="true" autoFocus autoComplete="off" value={commandText} onChange={(event) => setCommandText(event.target.value)}
-                        style={{ width: `${Math.max(10, commandText.length * 8)}px` }} />
+                    <form action="/upload" method="POST" encType="multipart/form-data" onSubmit={handleUploadFile}>
+                        <input type="file" name="file" />
+                        <button type="submit" className='button-form'>Upload</button>
+                    </form>
                 </div>
 
-                {uknownCommand && (
-                    <span>
-                        <p>shell: command not found: '{commandText}'. Entry login or register</p>
-                    </span>
-                )}
-
-                <p>{pointer}</p>
             </div>
         </div>
     </>
