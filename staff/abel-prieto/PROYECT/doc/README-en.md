@@ -77,7 +77,7 @@ Languajes: | [Spanish](./README-es.md) |
 - id
 - name
 - owner (ref: User.id)
-- type (type: String, enum: file, folder)
+- type (type: String, enum: [ file, folder ])
 - parent (ref: File.id)
 - permissions (type: Number, enum: [ 0, 2, 3 ])
 
