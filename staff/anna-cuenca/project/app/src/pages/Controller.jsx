@@ -6,20 +6,36 @@ import logic from '../logic'
 
 export default function Controller() {
     const handleAction = (action) => {
-        // Llamada a la función ottoController dentro del objeto logic con la acción deseada
+
         logic.ottoController(action).then(() => {
-            alert(`Otto ${action === 'walkForward' ? 'walked forward' : 'stopped'} successfully!`)
+            let message = "successfully!"
+            switch (action) {
+                case 'walkForward':
+                    message = "Otto walked forward successfully!"
+                    break
+                case 'walkBackward':
+                    message = "Otto walked backward successfully!"
+                    break
+                case 'stop':
+                    message = "Otto stopped successfully!"
+                    break
+                default:
+                    message = "Action was successful!"
+                    break
+            }
+            alert(message)
         }).catch(error => {
             alert(`Error: ${error.message}`)
-        });
-    };
+        })
+    }
 
     return (
         <div className="container">
             <h2>Controller</h2>
             <Button onClick={() => handleAction('walkForward')}>Forward</Button>
-            <Button onClick={() => handleAction('stop')} style={{ backgroundColor: 'red' }}>Stop</Button>
-            {/* Implementa botones adicionales y manejadores para otras acciones aquí */}
+            <Button onClick={() => handleAction('walkBackward')}>Backward</Button>
+            <Button onClick={() => handleAction('stop')}>Stop</Button>
+
         </div>
     )
 }

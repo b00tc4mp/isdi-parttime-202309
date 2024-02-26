@@ -1,4 +1,3 @@
-# Definición de funciones para imprimir en colores
 print_in_orange() {
   echo -e "\033[1;38;5;208m$1\033[0m"
 }
@@ -23,6 +22,11 @@ walk_forward() {
     echo "Command to walk forward sent."
 }
 
+walk_backward() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"walkBackward"}'
+    echo "Command to walk backward sent."
+}
+
 stop() {
     curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"stop"}'
     echo "Command to stop sent."
@@ -35,11 +39,15 @@ CASE "success on otto controller"
 
 # Bucle para leer la entrada del usuario
 while true; do
-    read -p "Press 'w' to walk forward, 's' to stop, 'q' to quit: " input
+    read -p "Press 'w' to walk forward, 'b' to walk backward, 's' to stop, 'q' to quit: " input
     case $input in
         [wW])
             echo "Walking forward..."
             walk_forward
+            ;;
+        [bB])
+            echo "Walking backward..."
+            walk_backward
             ;;
         [sS])
             echo "Stopping..."

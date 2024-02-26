@@ -43,6 +43,22 @@ class OttoController {
         })
     }
 
+    walkBackward() {
+        return new Promise((resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return
+            }
+            this.otto.walkBackward(4, 2000, BACKWARD).then(() => {
+                console.log('Otto walked backward!')
+                resolve()
+            }).catch(error => {
+                console.error('Otto failed to walk backward:', error)
+                reject(error)
+            })
+        })
+    }
+
     stop() {
         return new Promise((resolve, reject) => {
             if (!this.otto) {

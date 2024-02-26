@@ -14,7 +14,7 @@ dotenv.config();
 
     // Esperar a que la placa esté lista
     ottoController.board.on("ready", async () => {
-        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener.")
+        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás.")
 
         process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
         process.stdin.resume()
@@ -32,6 +32,13 @@ dotenv.config();
                 console.log("Deteniendo...")
                 try {
                     await ottoController.stop()
+                } catch (error) {
+                    console.error(error)
+                }
+            } else if (key === 'B' || key === 'b') {
+                console.log("Caminando hacia atrás...")
+                try {
+                    await ottoController.walkBackward()
                 } catch (error) {
                     console.error(error)
                 }
