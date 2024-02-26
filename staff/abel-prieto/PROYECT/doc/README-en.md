@@ -133,7 +133,7 @@ Languajes: | [Spanish](./README-es.md) |
 ![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
 
 - First entry on APP with contact information: email, GitHub and Linkedin profile.
-- Format command bar: **guest@localhost-guest**
+- Format command bar: **guest@hiinit-guest**
 - When we press `ENTER` on the initial page, we could entry to Login and Register page with the intrucctions: *"Entry login or register command to switch between the different login and register components"*
 - We could write `HELP` command to show us all list guest commands
 - With `EXIT` command we could refresh the initial page **only on guest mode**
