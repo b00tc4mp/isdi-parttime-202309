@@ -1,10 +1,10 @@
 import { User } from "../data/models.js"
 import { errors } from "com"
-const { SystemError, NotFoundError} = errors
+const { SystemError, NotFoundError } = errors
 
 function retrieveGuest() {
     return User.findOne({ email: 'guest@hiinit.com' }).lean()
-        .catch(error => { throw new SystemError(error.message)})
+        .catch(error => { throw new SystemError(error.message) })
         .then(guest => {
             if (!guest) {
                 throw new NotFoundError('Guest not found. Try again')

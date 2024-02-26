@@ -61,10 +61,7 @@ const file = new Schema({
     },
     type: {
         type: String,
-        enum: ["file", "folder"],
-        parent: {
-            ref: 'File'
-        }
+        enum: ["file", "folder"]
     },
     permissions: {
         type: Number,

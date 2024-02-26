@@ -16,7 +16,7 @@
 
 `Retrieve User` ✅
 
-- Request: GET /users Authorization: Bearer '65d0e63fa0232cfaf1c8c411'
+- Request: GET /users Authorization: Bearer ${session.sessionUserId}
 - Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
 
@@ -25,3 +25,9 @@
 - Request: GET /users
 - Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
+
+`Upload Files` ⚠️
+
+- Request: POST /upload Authorization: Bearer ${session.sessionUserId}
+- Response: 201
+- Response (error) : 500 "Content-Type": application/json { error, message }
