@@ -32,8 +32,8 @@ class OttoController {
                 reject(new Error("Otto is not initialized"))
                 return
             }
-            this.otto.restartOscillators();
-            this.otto.walk(4, 1000, FORWARD).then(() => {
+            this.otto.restartOscillators()
+            this.otto.walk(4, 2000, FORWARD).then(() => {
                 console.log('Otto walked!')
                 resolve()
             }).catch(error => {

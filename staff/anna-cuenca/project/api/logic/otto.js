@@ -22,7 +22,7 @@ export class Otto {
 
     home() {
         this.oscillators.forEach(oscillator => {
-            oscillator.setParameters({ amplitude: 15, period: 500, phase: 0, offset: 90 })
+            oscillator.setParameters({ amplitude: 32, period: 900, phase: 0, offset: 90 })
             oscillator.start()
         })
         this.isOttoResting = true

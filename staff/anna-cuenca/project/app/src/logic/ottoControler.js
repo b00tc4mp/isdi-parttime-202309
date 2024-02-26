@@ -1,6 +1,6 @@
-import { errors } from 'com';
+import { errors } from 'com'
 
-const { SystemError } = errors;
+const { SystemError } = errors
 
 function ottoController(action) {
     // Configurar la solicitud al servidor, incluyendo la acción en el cuerpo de la solicitud
@@ -22,16 +22,16 @@ function ottoController(action) {
                 // Manejo de errores basado en la respuesta del servidor
                 return res.json()
                     .catch(error => {
-                        throw new SystemError(error.message);
+                        throw new SystemError(error.message)
                     })
                     .then(body => {
                         // Lanzar un error específico basado en la respuesta del servidor
-                        throw new errors[body.error](body.message);
-                    });
+                        throw new errors[body.error](body.message)
+                    })
             }
             // Opcionalmente, puedes devolver una promesa resuelta con un mensaje o resultado específico
-            return res.json(); // Esto asume que el servidor envía una respuesta JSON
-        });
+            return res.json() // Esto asume que el servidor envía una respuesta JSON
+        })
 }
 
-export default ottoController;
+export default ottoController
