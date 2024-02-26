@@ -14,13 +14,14 @@ Languajes: | [Spanish](./README-es.md) |
 > Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
 > There will be different roles with their corresponding permissions but only **ADMIN** user has the `CRUD System` (create, rewrite, update & delete).
 
-- Last update: 13/02/2024
+- Last update: 26/02/2024
 
 ## RESUME
 
 `For HiInit v0.1`
 - [x] Terminal web with local files and drive online services.
 - [x] Personal desktop for each user.
+- [x] Use `MULTER` librery and `PATH` package from NodeJS on API to upload files with HTTP request and save files on disk storage `npm i multer`
 - [x] Upload and download files: PDFs | Text documents | Images ... (for now)
 - [x] First version to final proyect ISDI CODERS.
 
@@ -43,7 +44,7 @@ Languajes: | [Spanish](./README-es.md) |
 
 `REGULAR USER`
 
-- Create and manage own files & folders | Upload & download files 
+- Create and manage own files & folders | Upload & download files
 
 `ROOT - ADMIN`
 
@@ -51,104 +52,34 @@ Languajes: | [Spanish](./README-es.md) |
 
 ## DATA MODEL
 
-### User
+`USER`
 
 - id
 - username
 - email
 - password
-- group (Group.id)
-- role (String, enum: guest, regular, admin)
+- group (ref: Group.id)
+- role (type: String, enum: [ guest, regular, admin ])
 
-### Group
+`GROUP`
 
 - id
 - name
 
-### Command
+`COMMAND`
 
 - id
 - name
 - description
 
-### File
+`FILE`
 
 - id
 - name
-- owner (User.id)
-- type (String, enum: file, folder)
-- parent (File.id)
-- permissions (Number, enum: 0, 2, 3)
-
-
-`User`
-
-```json
-{
-  "id": "User.id",
-  "username": "exampleName",
-  "email": "example@name.com",
-  "password": "bcrypt",
-  "group": [
-    ref: "Group.id"
-  ],
-  "role": [
-    type: "String",
-    enum: {
-      "guest",
-      "regular",
-      "admin"
-    }
-  ]
-}
-  ```
-
-`Group`
-
-```json
-{
-  "id": "Group.id",
-  "name": {
-    type: "String",
-    default: "localhost"
-  }
-}
-  ```
-
-`Command`
-
-```json
-{
-  "id": "Command.id",
-  "name": {
-    type: "String"
-  }
-}
-  ```
-
-`File`
-
-```json
-{
-  "id": "File.id",
-  "name": {
-    type: "String"
-  },
-  "owner":{
-    ref: "User.id"
-  },
-  "type": {
-    type: "String",
-    enum: [ "file", "folder" ]
-  },
-  "parent": {
-    ref: "File.id"
-  },
-  "permissions": {
-    type: "Number",
-    enum: [0, 2, 3]
-  }
-}
+- owner (ref: User.id)
+- type (type: String, enum: file, folder)
+- parent (ref: File.id)
+- permissions (type: Number, enum: [ 0, 2, 3 ])
 
 ## COMMANDS
 
@@ -211,26 +142,37 @@ Languajes: | [Spanish](./README-es.md) |
 <br>
 
 `REGISTER -> On "GUEST" Mode`
-- ***register username + email + password***
-- Once we could register on web, the text will disappear and create a new command bar to entry the logg in
+![register](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/1bd3f05b-4c85-4631-a373-a78382226744)
 
+- ***register => username + email + password***
+- Once we could register on web, the text will disappear and create a new command bar to entry the logg in
+- Interface error system: showing errors through screen elements (HTML)
+- Entry the next component -> **LOGIN**
+  
 <br>
 
 `LOGIN -> On "GUEST" Mode`
-- ***login email + password***
+![login](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/8b469735-f66b-4101-a0ae-4bf5f20ca2d9)
+
+- ***login => email + password***
 - When we entry our credentials, the command bar show us our username next to the category `user` or `admin` with its own group color
+- Interface error system: showing errors through screen elements (HTML) & shell command message 'not found'
 - Entry the next component -> **DESKTOP**
+  
 <br>
 
 `DESKTOP -> On "USER" logged`
+![desktop](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/f525a6f5-fcd3-4c07-a7f0-da5a36d5220f)
+
 - Only entry with logged
-- Format command bar: **Username@localhost-user** 
+- Group `localhost` by default
+- Format command bar: **username@group-role** 
 - With `mkdir` the users would create new files from root directory: `C:\Desktop`
 - If we create a field, the `pwd` command will tell us the fully address
 - We can attach or upload files with `upload` command and `download` the own one
 - The **ADMIN** could `create or update GROUPS` and add users in them ("localhost" group default)
 - The `permissions` are related to the type of group established by ADMIN with `chmod` command
 - Users from the same group could `see files from each other` and `download them`
-- In all cases, we have the `logout` command to return to **INITIAL PAGE**
+- In all cases, we have the `exit` command to return to **INITIAL PAGE**
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
