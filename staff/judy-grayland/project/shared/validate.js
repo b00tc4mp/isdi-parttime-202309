@@ -20,7 +20,7 @@ function email(email, explain) {
   text(email, explain)
 
   if (!EMAIL_REGEX.test(email))
-    throw new ContentError(`The ${explain} provided is not a valid address`)
+    throw new ContentError(`The ${explain} provided is not valid`)
 }
 
 function number(number, explain) {
