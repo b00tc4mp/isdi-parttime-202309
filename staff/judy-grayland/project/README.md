@@ -14,16 +14,19 @@ The idea behind this app is to bring all available resources together in one pla
 ### Use Cases
 
 - Look for resources by categories (talks, books, special dates)
-- Look for resources by type of diversity or theme (bullying, functional, LGBT+)
+- Look for resources by type of diversity or theme (bullying, functional diversity, LGBT+, gender equality) - tags
 - See upcoming special dates
-- Save an activity/event/special date to your favourites
+- Save an activity/book/special date to your favourites
 - See what you've stored in your favourites
 - Add an activity/event to your calendar once you've set a date for it
 - Check in the calendar what is happening on a certain date
-- See details of a specific resource (cost of book, target audience of talk, duration of seminar)
+- See details of a specific resource (cost of book, target audience of talk, duration of seminar) - + read more, latest modified date
 - Add, modify and delete resource (Admin)
-- Propose new resource
-- Propose modification of an existing resource
+
+### Nice to have
+
+- Propose new resource (all users)
+- Propose modification of an existing resource (all users)
 
 ## Technical Description
 
@@ -36,25 +39,37 @@ The idea behind this app is to bring all available resources together in one pla
 - role (string)
 - email (string)
 - password (string)
-- saved resources (resource.id[])
-- scheduled activities (resource.id[])
+- saved resources ([Resource.id])
+- scheduled activities ([Resource.id])
 
-#### Resource (event, book, special date)
+#### SpecialDate
+
+- id (string)
+- date (date)
+- title (date)
+- description (string)
+- image (string)
+- tags ([Tag.id])
+
+#### Book
+
+- id (string)
+- title (string)
+- author (string)
+- description (string)
+- ageRange ([number])
+- image (string)
+- tags ([Tag.id])
+
+#### Activity
 
 - id (string)
 - title (string)
 - description (string)
-- organiser (string)
-- contact information (string)
-- category (category.id[])
-- type of diversity or theme (theme.id[])
+- image (string)
+- tags ([Tag.id])
 
-#### Category of resource
-
-- id (string)
-- title (string)
-
-#### Type of diversity or theme
+#### Tag (xenofobia, bullying, dislexia)
 
 - id (string)
 - title (string)
@@ -62,11 +77,12 @@ The idea behind this app is to bring all available resources together in one pla
 #### Events calendar
 
 - id (string)
-- user (user.id)
-- resource (resource.id)
+- author (User.id)
+- activity (Activity.id)
 - date (string)
 - title (string)
 - description (string)
+- location (string)
 
 ### Technologies
 
