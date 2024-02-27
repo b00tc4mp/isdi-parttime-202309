@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
-import express from 'express'
+import express, { json } from 'express'
 import mongoose from 'mongoose'
-import { Category } from './data/models.js'
+import cors from 'cors'
+
+import { registerUserHandler } from './handlers/index.js'
 
 dotenv.config()
 
@@ -15,18 +17,24 @@ mongoose
       res.send('Hello World!')
     })
 
+    const jsonBodyParser = express.json()
+
+    server.use(cors())
+
+    server.post('/users', jsonBodyParser, registerUserHandler)
+
     // declaring endpoint for categories path
-    server.get('/categories', (req, res) => {
-      Category.find()
-        .then((categories) => {
-          console.log(categories)
-          res.json(categories)
-        })
-        .catch((error) => {
-          console.log('Error retrieving data from MongoDB', error)
-          res.status(500).json({ error: 'Internal server error' })
-        })
-    })
+    // server.get('/categories', (req, res) => {
+    //   Category.find()
+    //     .then((categories) => {
+    //       console.log(categories)
+    //       res.json(categories)
+    //     })
+    //     .catch((error) => {
+    //       console.log('Error retrieving data from MongoDB', error)
+    //       res.status(500).json({ error: 'Internal server error' })
+    //     })
+    // })
 
     server.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${process.env.PORT}`)
