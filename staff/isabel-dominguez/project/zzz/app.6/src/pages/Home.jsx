@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Link } from 'react-router-dom'
-import { useUser } from "../hooks/UserContext"
 
 import logic from '../logic'
 import RawMaterial from '../components/RawMaterial'
@@ -15,18 +14,19 @@ export default function Home() {
     console.log('El componente Home se está renderizando.')
 
     const [name, setName] = useState(null)
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const navigate = useNavigate()
 
-    const { isLoggedIn, setIsLoggedIn } = useUser()
-
     useEffect(() => {
         if (isLoggedIn) {
-
+            console.log('isLoggedIn is true')
             try {
                 logic.retrieveUser()
-                    .then(user => { setName(user.name) })
+                    .then(user => {
+                        console.log('Userr:', user)
+                        setName(user.name)
+                    })
                     .catch(error => console.error(error))
             } catch (error) {
                 console.error(error)
@@ -36,11 +36,7 @@ export default function Home() {
 
     function handleLogout() {
         logic.logoutUser()
-            .then(() => {
-                sessionStorage.clear()
-                setName(null)
-                setIsLoggedIn(false)
-            })
+            .then(() => { setName(null) })
             .catch(error => alert(error.message))
     }
 
@@ -112,7 +108,7 @@ export default function Home() {
                     <h2><Link className="recipes" onClick={handleClickRecipes}>RECETAS</Link></h2>
 
                     <div className="welcome-user">
-                        {name ? (<div>Bienvenido, <i>{name}!</i> <button className='logout-button' onClick={handleLogout}>Cerrar sesión</button></div>) : (<div>Accede | Regístrate 👉</div>)}
+                        {name ? (<div>Bienvenido, {name}! <button onClick={handleLogout}>Cerrar sesión</button></div>) : (<div>Accede | Regístrate 👉</div>)}
                     </div>
 
                     <div className="icons">

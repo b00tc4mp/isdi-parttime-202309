@@ -1,6 +1,6 @@
 import React from "react"
 
-import { useUser } from "../hooks/UserContext"
+import { useState } from "react"
 import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import logic from '../logic'
 import Register from "./Register"
@@ -9,7 +9,7 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-    const { setIsLoggedIn } = useUser()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault()

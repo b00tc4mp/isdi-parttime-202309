@@ -1,49 +1,50 @@
 import React from "react"
-
-import { useUser } from "../hooks/UserContext"
-import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import logic from '../logic'
-import Register from "./Register"
 
-export default function Login() {
+import { Routes, Route, useNavigate, Link } from 'react-router-dom'
+
+import Login from "./Login"
+
+export default function Register(props) {
 
     const navigate = useNavigate()
-
-    const { setIsLoggedIn } = useUser()
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
+        const nameInput = event.target.querySelector("#name-input")
         const emailInput = event.target.querySelector("#email-input")
         const passwordInput = event.target.querySelector("#password-input")
 
+        const name = nameInput.value
         const email = emailInput.value
         const password = passwordInput.value
 
         try {
-            logic.loginUser(email, password)
-                .then(() => {
-                    setIsLoggedIn(true)
-                    navigate('/raw-material')
-                })
+            logic.registerUser(name, email, password)
+                .then(() => navigate('/user-icon'))
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
-
     }
 
-    const handleRegisterClick = (event) => {
+    const handleLoginClick = (event) => {
         event.preventDefault()
 
-        navigate("/user-icon/register")
+        navigate('/user-icon')
     }
 
     return <>
-        <div className="login-view">
-            <h1>ACCEDE A TU CUENTA</h1>
+        <div className="register-view">
+            <h1>REGÍSTRATE</h1>
 
             <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="name-input">Nombre</label>
+                    <input id="name-input" type="text" />
+                </div>
+
                 <div>
                     <label htmlFor="email-input">Correo electrónico</label>
                     <input id="email-input" type="email" />
@@ -54,14 +55,14 @@ export default function Login() {
                     <input id="password-input" type="password" />
                 </div>
 
-                <button type="submit">Acceder</button>
+                <button type="submit">Registrar</button>
             </form>
 
-            <p>¿Necesitas una cuenta? 👉 <Link className="register" onClick={handleRegisterClick}>Registrar</Link></p>
+            <p>Vuelve a <Link className="login-link" onClick={handleLoginClick}>Acceder a tu cuenta</Link></p>
         </div>
 
         <Routes>
-            <Route path="/user-icon/register" element={<Register />} />
+            <Route path="/user-icon" element={<Login />} ></Route>
         </Routes>
     </>
-};
+}

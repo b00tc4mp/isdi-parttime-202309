@@ -100,16 +100,6 @@ header {
   margin-left: 20px;
 }
 
-.logout-button {
-  background-color: #b4c6d8;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
 .icons a {
   margin-right: 20px;
   background-color: transparent;
