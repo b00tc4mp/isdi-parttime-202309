@@ -60,8 +60,11 @@ const file = new Schema({
         ref: 'User'
     },
     type: {
-        type: String,
-        enum: ["file", "folder"]
+        type: String
+    },
+    parent: {
+        type: Schema.Types.ObjectId,
+        ref: 'File'
     },
     permissions: {
         type: Number,

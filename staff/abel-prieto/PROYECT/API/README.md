@@ -30,4 +30,4 @@
 
 - Request: POST /upload Authorization: Bearer ${session.sessionUserId}
 - Response: 201
-- Response (error) : 500 "Content-Type": application/json { error, message }
+- Response (error) : 500 "Content-Type": multipart/form-data { error, message }

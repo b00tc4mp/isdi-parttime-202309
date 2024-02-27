@@ -1,11 +1,15 @@
 import session from './session'
 
-async function uploadFile() {
+async function uploadFile(file) {
+    const formData = new FormData()
+    formData.append('file', file)
+
     const req = {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${session.sessionUserId}`
-        }
+        },
+        body: formData
     }
 
     try {

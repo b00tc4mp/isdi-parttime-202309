@@ -71,6 +71,7 @@ function Credentials() {
 
     return <>
         <div className="container">
+
             <p>~$</p>
             <p>Please, entry login or register command to switch different components. Entry EXIT to return initial page</p>
 
@@ -83,6 +84,12 @@ function Credentials() {
                 <p>{pointer}</p>
             </div>
 
+            <Routes>
+                <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
+                <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Login onSuccess={handleDesktopShow} />}></Route>
+                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Desktop onLogout={handleLogout} />}></Route>
+            </Routes>
+
             {uknownCommand && (
                 <>
                     <span>
@@ -90,12 +97,6 @@ function Credentials() {
                     </span>
                 </>
             )}
-
-            <Routes>
-                <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
-                <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Login onSuccess={handleDesktopShow} />}></Route>
-                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Desktop onLogout={handleLogout} />}></Route>
-            </Routes>
         </div>
     </>
 }

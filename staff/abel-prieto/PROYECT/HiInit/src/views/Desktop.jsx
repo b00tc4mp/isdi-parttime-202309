@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import logic from '../logic'
 
-function Desktop({ onLogout }) {
+function Desktop() {
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const { pointer } = Pointer()
@@ -21,6 +21,9 @@ function Desktop({ onLogout }) {
             } else if ((commandText === 'UPLOAD' || commandText === 'upload') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/upload')
+            } else if ((commandText === 'PROFILE' || commandText === 'profile') && event.key === 'Enter') {
+                setUknownCommand(false)
+                navigate('/profile')
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
