@@ -1,4 +1,4 @@
-import { ContentError } from '/errors.js'
+import { ContentError } from './errors.js'
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -23,6 +23,12 @@ function email(email, explain) {
     throw new ContentError(`The ${explain} provided is not valid`)
 }
 
+function password(password, explain = 'password') {
+  text(password, explain)
+  if (password.length < 8)
+    throw new RangeError(`The ${explain} must be at least 8 characters long`)
+}
+
 function number(number, explain) {
   if (typeof number !== 'number')
     throw new TypeError(`${explain} is not a number`)
@@ -37,6 +43,7 @@ const validate = {
   text,
   id,
   email,
+  password,
   number,
   function: funktion,
 }
