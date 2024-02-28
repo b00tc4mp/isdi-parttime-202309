@@ -3,7 +3,10 @@ import express, { json } from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors' // the Cors package is a middleware for Express.js, that enables CORS in our API
 
-import { registerUserHandler } from './handlers/index.js'
+import {
+  authenticateUserHandler,
+  registerUserHandler,
+} from './handlers/index.js'
 
 dotenv.config()
 
@@ -12,7 +15,7 @@ mongoose
   .then(() => {
     const server = express()
 
-    // declaring endpoint for the root path. We tell it what it should do when a request of type get is made to this path: should send the response Hello World! (to the browser, to the terminal with curl, to our app with fetch)
+    // declaring endpoint for the root path. We tell it what it should do when a request of type get is made to this path: it should send the response Hello World! (to the browser, to the terminal with curl, to our app with fetch)
     server.get('/', (req, res) => {
       res.send('Hello World!')
     })
@@ -22,6 +25,8 @@ mongoose
     server.use(cors())
 
     server.post('/users', jsonBodyParser, registerUserHandler)
+
+    server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
     // declaring endpoint for categories path
     // server.get('/categories', (req, res) => {
