@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import express, { json } from 'express'
 import mongoose from 'mongoose'
-import cors from 'cors'
+import cors from 'cors' // the Cors package is a middleware for Express.js, that enables CORS in our API
 
 import { registerUserHandler } from './handlers/index.js'
 

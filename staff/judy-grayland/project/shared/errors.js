@@ -30,6 +30,14 @@ class DuplicityError extends Error {
   }
 }
 
+class RangeError extends Error {
+  constructor(message) {
+    super(message)
+
+    this.name = this.constructor.name
+  }
+}
+
 class CredentialsError extends Error {
   constructor(message) {
     super(message)
@@ -50,6 +58,7 @@ export {
   NotFoundError,
   SystemError,
   ContentError,
+  RangeError,
   DuplicityError,
   CredentialsError,
   TokenError,
@@ -59,6 +68,7 @@ const errors = {
   NotFoundError,
   SystemError,
   ContentError,
+  RangeError,
   DuplicityError,
   CredentialsError,
   TokenError,
