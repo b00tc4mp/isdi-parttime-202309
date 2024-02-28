@@ -8,7 +8,7 @@ import retrieveUserInfo from './retrieveUserInfo'
 
 import isUserLoggedIn from './isUserLoggedIn'
 
-
+import arduinoLCD from './arduinoLCD'
 
 import ottoController from './ottoControler'
 
@@ -21,7 +21,8 @@ const logic = {
 
     retrieveUserInfo,
 
-    ottoController
+    ottoController,
+    arduinoLCD
 }
 
 export default logic

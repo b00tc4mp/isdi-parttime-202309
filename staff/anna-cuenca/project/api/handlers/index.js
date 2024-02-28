@@ -5,6 +5,8 @@ import retrieveUserHandler from './retrieveUserHandler.js'
 
 import retrieveUserInfoHandler from './retrieveUserInfoHandler.js'
 
+import arduinoLCDHandler from './arduinoLCDHandler.js'
+
 
 import ottoControllerHandler from './ottoControllerHandler.js'
 
@@ -13,6 +15,7 @@ export {
     authenticateUserHandler,
     retrieveUserHandler,
     retrieveUserInfoHandler,
-    ottoControllerHandler
+    ottoControllerHandler,
+    arduinoLCDHandler
 
 }

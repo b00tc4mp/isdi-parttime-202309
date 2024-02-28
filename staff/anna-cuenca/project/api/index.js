@@ -15,7 +15,8 @@ import {
     authenticateUserHandler,
     retrieveUserHandler,
     retrieveUserInfoHandler,
-    ottoControllerHandler
+    ottoControllerHandler,
+    arduinoLCDHandler
 
 
 
@@ -60,6 +61,8 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
 
         server.post('/arduino/controller/ottoController', jsonBodyParser, ottoControllerHandler)
+
+        server.post('/arduino/controller/lcd', jsonBodyParser, arduinoLCDHandler)
 
 
         //server.post('/arduino/controller/colors', jsonBodyParser, arduinoRgbLedHandler)

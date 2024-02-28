@@ -1,10 +1,10 @@
 import pkg from 'johnny-five'
-const { Board, Servo } = pkg
+const { Board, Servo, LCD } = pkg
 
 import { Oscillator } from './oscillator.js'
 
 export class Otto {
-    constructor({ leftLegPin, rightLegPin, leftFootPin, rightFootPin, board }) {
+    constructor({ leftLegPin, rightLegPin, leftFootPin, rightFootPin, board, lcd }) {
         this.board = board;
         this.oscillators = [
             new Oscillator({ pin: leftLegPin, board: this.board }),

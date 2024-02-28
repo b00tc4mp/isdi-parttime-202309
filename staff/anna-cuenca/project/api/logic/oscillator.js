@@ -52,6 +52,8 @@ export class Oscillator {
         const angle = this.amplitude * Math.sin(phaseProgress + this.phase) + this.offset
         //console.log(angle)
         //console.log(phaseProgress)
+
+
         this.servo.to(angle)
 
         // Planifica el próximo update
