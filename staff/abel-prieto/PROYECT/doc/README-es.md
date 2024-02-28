@@ -28,6 +28,8 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `Para HiInit v1.0`
+- [x] Utilización de AWS para el alojamiento en nube o remoto de archivos 
+- [x] Uso de MongoDB Atlas para almacenar base de datos en Cloud
 - [ ] En construcción ... ⏳
 
 ## TIPOS DE USUARIOS
