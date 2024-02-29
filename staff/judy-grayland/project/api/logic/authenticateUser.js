@@ -1,10 +1,9 @@
 import bcrypt from 'bcryptjs'
 import validate from '../../shared/validate.js'
-import errors from '../../shared/errors.js'
+import { errors } from 'shared'
 const { NotFoundError, CredentialsError, SystemError } = errors
 
 import { User } from '../data/models.js'
-import { expect } from 'chai'
 
 function authenticateUser(email, password) {
   validate.email(email, 'email')

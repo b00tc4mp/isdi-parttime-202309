@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import bcrypt from 'bcryptjs'
 import random from './helpers/random.js'
 import { errors } from 'shared'
-const { NotFoundError, ContentError, CredentialsError } = errors
+const { NotFoundError, CredentialsError } = errors
 
 import { User } from '../data/models.js'
 import authenticateUser from './authenticateUser.js'

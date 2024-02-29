@@ -50,6 +50,7 @@ describe('registerUser', () => {
         })
     })
   })
+
   // it('fails on too short password', () => {
   //   const name = random.name()
   //   const email = random.email()

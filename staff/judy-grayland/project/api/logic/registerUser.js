@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs'
-import validate from '../../shared/validate.js'
-import errors from '../../shared/errors.js'
+import { validate, errors } from 'shared'
 const { DuplicityError, SystemError } = errors
 
 import { User } from '../data/models.js'
