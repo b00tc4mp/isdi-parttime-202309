@@ -9,7 +9,6 @@ import Packings from '../components/Packings'
 import Utensils from '../components/Utensils'
 import Login from '../components/Login'
 import Register from '../components/Register'
-import Recipes from '../components/Recipes'
 
 
 export default function Home() {
@@ -72,7 +71,7 @@ export default function Home() {
     const handleClickRecipes = (event) => {
         event.preventDefault()
 
-        navigate('/recipes')
+        console.log('Se hizo clic en el apartado RECETAS')
     }
 
     const handleClickUserIcon = (event) => {
@@ -134,7 +133,6 @@ export default function Home() {
                 <Route path="/raw-material" element={<RawMaterial />} />
                 <Route path="/packings" element={<Packings />} />
                 <Route path="/utensils" element={<Utensils />} />
-                <Route path="/recipes" element={<Recipes />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
             </Routes>
