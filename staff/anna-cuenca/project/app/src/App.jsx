@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -26,11 +27,11 @@ function App() {
 
   const [level, setLevel] = React.useState(null)
   const [message, setMessage] = React.useState(null)
-  const [user, setUser] = React.useState(null)
-  const [robot, setRobot] = React.useState(null)
+
 
 
   const navigate = useNavigate()
+
 
   const handleRegisterShow = () => {
 

@@ -21,12 +21,12 @@ export default function Profile() {
     useEffect(() => {
         logic.retrieveUserInfo()
             .then(data => {
-                setUserData(data);
+                setUserData(data)
             })
             .catch(error => {
-                context.handleError(error); // Manejar el error según tu lógica o contexto global
-            });
-    }, []); // El array vacío ase
+                context.handleError(error) // Manejar el error según tu lógica o contexto global
+            })
+    }, []) // El array vacío hace que no se pinte más
 
     const [showChangePassword, setShowChangePassword] = useState(null)
     const [showChangeEmail, setShowChangeEmail] = useState(null)
@@ -138,5 +138,5 @@ export default function Profile() {
                 </Form>
             </div>
         )}
-    </div>;
+    </div>
 }

@@ -32,6 +32,16 @@ stop() {
     echo "Command to stop sent."
 }
 
+say_hi() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"sayHi", "message":"¡Hola, soy Otto!"}'
+    echo "Command to say hi sent."
+}
+
+clear_lcd() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"clearLCD"}'
+    echo "Command to clear LCD sent."
+}
+
 # Inicio del script de test
 TEST "otto-controller"
 
@@ -39,7 +49,7 @@ CASE "success on otto controller"
 
 # Bucle para leer la entrada del usuario
 while true; do
-    read -p "Press 'w' to walk forward, 'b' to walk backward, 's' to stop, 'q' to quit: " input
+    read -p "Press 'w' to walk forward, 'b' to walk backward, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'q' to quit: " input
     case $input in
         [wW])
             echo "Walking forward..."
@@ -52,6 +62,14 @@ while true; do
         [sS])
             echo "Stopping..."
             stop
+            ;;
+        [hH])
+            echo "Saying hi..."
+            say_hi
+            ;;
+        [cC])
+            echo "Clearing LCD..."
+            clear_lcd
             ;;
         [qQ])
             echo "Quitting..."

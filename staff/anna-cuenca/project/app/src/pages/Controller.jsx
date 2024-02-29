@@ -10,81 +10,63 @@ import { useContext } from '../hooks'
 
 
 
-
-export default function MonitorController() {
-
+export default function Controller() {
     const context = useContext()
-
-    const [userData, setUserData] = useState({ name: '', robot: '' });
-
+    const [userData, setUserData] = useState({ name: '', robot: '' })
 
     useEffect(() => {
         logic.retrieveUserInfo()
             .then(user => {
-                // Suponiendo que la respuesta incluye el nombre del usuario y el nombre del robot
-                setUserData({ name: user.name, robot: user.robot });
+                setUserData({ name: user.name, robot: user.robot })
             })
             .catch(error => {
-                context.handleError(error); // Maneja el error a través del contexto global
-            });
-    }, []);
-
-    const sendMessageToLCD = () => {
-        // Mensaje personalizado con el nombre del usuario y el nombre del robot
-        const message = `Hola ${userData.name}, soy tu robot ${userData.robot}`;
-
-        console.log(message)
-        logic.arduinoLCD(message)
-            .then(() => {
-                alert("Mensaje enviado exitosamente!");
+                context.handleError(error)
             })
-            .catch(error => {
-                context.handleError(error); // Maneja el error a través del contexto global
-            });
-    };
+    }, [])
+
+    const handleAction = async (action) => {
+        if (action === 'sayHi') {
+            const messagePart1 = `Hola ${userData.name}`
+            const messagePart2 = `Soy ${userData.robot}`
+
+            try {
+                // Mensaje parte 1
+                await logic.ottoController(action, messagePart1)
+
+                setTimeout(async () => {
+                    // Limpiar la pantalla
+                    await logic.ottoController('clearLCD', '')
+
+                    //Mensaje parte 2
+
+                    setTimeout(async () => {
+                        await logic.ottoController(action, messagePart2)
+                    }, 1000)
+                }, 2000)
+            } catch (error) {
+                console.error(`Error executing ${action} action:`, error)
+                context.handleError(error)
+            }
+        } else {
+            // De momento no necesito la pantalla
+            try {
+                await logic.ottoController(action)
+                console.log(`${action} action executed successfully`)
+            } catch (error) {
+                console.error(`Error executing ${action} action:`, error)
+                context.handleError(error)
+            }
+        }
+    }
 
     return (
         <div className="container">
-            <h2>Controlador del LCD de Arduino</h2>
-            <Button onClick={sendMessageToLCD}>Enviar Mensaje</Button>
+            <h2>Controller</h2>
+            <Button onClick={() => handleAction('walkForward')}>Forward</Button>
+            <Button onClick={() => handleAction('walkBackward')}>Backward</Button>
+            <Button onClick={() => handleAction('stop')}>Stop</Button>
+            <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
+            <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>
         </div>
-    );
+    )
 }
-
-// COMENTADO PARA PROBAR EL MONITOR 
-
-// export default function Controller() {
-//     const handleAction = (action) => {
-
-//         logic.ottoController(action).then(() => {
-//             let message = "successfully!"
-//             switch (action) {
-//                 case 'walkForward':
-//                     message = "Otto walked forward successfully!"
-//                     break
-//                 case 'walkBackward':
-//                     message = "Otto walked backward successfully!"
-//                     break
-//                 case 'stop':
-//                     message = "Otto stopped successfully!"
-//                     break
-//                 default:
-//                     message = "Action was successful!"
-//                     break
-//             }
-//             alert(message)
-//         }).catch(error => {
-//             alert(`Error: ${error.message}`)
-//         })
-//     }
-
-//     return (
-//         <div className="container">
-//             <h2>Controller</h2>
-//             <Button onClick={() => handleAction('walkForward')}>Forward</Button>
-//             <Button onClick={() => handleAction('walkBackward')}>Backward</Button>
-//             <Button onClick={() => handleAction('stop')}>Stop</Button>
-
-//         </div>
-//     )
-// }

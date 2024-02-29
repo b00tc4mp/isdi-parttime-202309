@@ -1,6 +1,6 @@
 import pkg from 'johnny-five'
 const { Board, Proximity } = pkg
-import { Otto } from './otto.js'
+import { Otto } from '../otto.js'
 
 const board = new Board();
 

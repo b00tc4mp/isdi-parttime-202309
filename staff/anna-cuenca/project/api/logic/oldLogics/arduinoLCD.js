@@ -34,7 +34,7 @@ const arduinoLCD = async (message) => {
                 // Mostramos el mensaje con desplazamiento
                 scroll.line(0, message)
 
-                // Esperamos 5 segundos y luego borramos el LCD
+                // No funciona :()
                 setTimeout(() => {
                     lcd.clear();
                     console.log("LCD cleared")

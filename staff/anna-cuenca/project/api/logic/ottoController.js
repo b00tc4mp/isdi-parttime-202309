@@ -8,11 +8,15 @@ const LEFT = 1
 const RIGHT = -1
 
 
+
+
 class OttoController {
     constructor() {
         this.board = new Board()
 
         this.lcd = null
+
+        this.lcdState = 'clear' // Esto
 
 
         this.otto = null
@@ -71,61 +75,121 @@ class OttoController {
 
     // }
 
-    async sayHi(message) {
-        // Verificar si el LCD está inicializado
-        if (!this.lcd) {
-            console.error('LCD no está inicializado.')
-            throw new Error('LCD no está inicializado.')
-        }
+    /// ESTA VERSION FUNCIONA BIEN PERO NO SE QUEDA BORRADA
 
-        try {
-            this.lcd.clear() // Limpiar el LCD
+    // async sayHi(message) {
+    //     // Verificar si el LCD está inicializado
+    //     if (!this.lcd) {
+    //         console.error('LCD no está inicializado.')
+    //         throw new Error('LCD no está inicializado.')
+    //     }
+
+    //     try {
+    //         this.lcd.clear() // Limpiar el LCD
+
+    //         // Importar el módulo lcd-scrolling dinámicamente
+    //         const scrollModule = await import('lcd-scrolling')
+    //         const scroll = scrollModule.default;
+
+    //         // Configurar lcd-scrolling con el objeto LCD
+    //         scroll.setup({
+    //             lcd: this.lcd,
+    //             debug: false,
+    //             char_length: 16,
+    //             row: 2,
+    //             firstCharPauseDuration: 4000,
+    //             lastCharPauseDuration: 1000,
+    //             scrollingDuration: 300,
+    //             full: true
+    //         })
+
+    //         // Mostrar el mensaje con desplazamiento en la primera línea
+    //         scroll.line(0, message)
+
+    //         // Opcional: Resolver la promesa después de un tiempo específico si es necesario
+    //         // Por ahora, simplemente mostramos un mensaje en consola después de mostrar el mensaje con desplazamiento
+    //         console.log('Message displayed with scrolling')
+
+    //         // Si quieres limpiar el LCD después de un tiempo, puedes descomentar lo siguiente:
+    //         /*
+    //         setTimeout(() => {
+    //             this.lcd.clear();
+    //             console.log('LCD cleared after displaying the message.');
+    //         }, 5000); // Ajusta este tiempo según necesites
+    //         */
+    //     } catch (error) {
+    //         console.error("Error al importar o usar lcd-scrolling:", error)
+    //         throw error; // Lanza el error para que pueda ser manejado por quien llame a sayHi
+    //     }
+    // }
+
+    sayHi(message) {
+        return new Promise((resolve, reject) => {
+            // Verificar si el LCD está inicializado
+            if (!this.lcd) {
+                console.error('LCD no está inicializado.')
+                reject(new Error('LCD no está inicializado.'))
+                return;
+            }
+
+            this.lcd.clear(); // Limpiar el LCD
 
             // Importar el módulo lcd-scrolling dinámicamente
-            const scrollModule = await import('lcd-scrolling')
-            const scroll = scrollModule.default;
+            import('lcd-scrolling').then(scrollModule => {
+                const scroll = scrollModule.default
 
-            // Configurar lcd-scrolling con el objeto LCD
-            scroll.setup({
-                lcd: this.lcd,
-                debug: false,
-                char_length: 16,
-                row: 2,
-                firstCharPauseDuration: 4000,
-                lastCharPauseDuration: 1000,
-                scrollingDuration: 300,
-                full: true
+                // Configurar lcd-scrolling con el objeto LCD
+                scroll.setup({
+                    lcd: this.lcd,
+                    debug: false,
+                    char_length: 16,
+                    row: 2,
+                    firstCharPauseDuration: 4000,
+                    lastCharPauseDuration: 1000,
+                    scrollingDuration: 300,
+                    full: true
+                })
+
+
+                scroll.line(0, message)
+
+
+                console.log('Message displayed with scrolling')
+                resolve()
+
+
+                setTimeout(() => {
+                    this.lcd.clear()
+                    console.log('LCD cleared after displaying the message.')
+                    resolve()
+                }, 5000)
+
+
+            }).catch(error => {
+                console.error("Error al importar o usar lcd-scrolling:", error)
+                reject(error)
             })
-
-            // Mostrar el mensaje con desplazamiento en la primera línea
-            scroll.line(0, message)
-
-            // Opcional: Resolver la promesa después de un tiempo específico si es necesario
-            // Por ahora, simplemente mostramos un mensaje en consola después de mostrar el mensaje con desplazamiento
-            console.log('Message displayed with scrolling')
-
-            // Si quieres limpiar el LCD después de un tiempo, puedes descomentar lo siguiente:
-            /*
-            setTimeout(() => {
-                this.lcd.clear();
-                console.log('LCD cleared after displaying the message.');
-            }, 5000); // Ajusta este tiempo según necesites
-            */
-        } catch (error) {
-            console.error("Error al importar o usar lcd-scrolling:", error)
-            throw error; // Lanza el error para que pueda ser manejado por quien llame a sayHi
-        }
+        })
     }
+
+
 
     clearLCD() {
         return new Promise((resolve, reject) => {
+            if (!this.lcd) {
+                console.error('LCD no está inicializado.')
+                reject(new Error('LCD no está inicializado.'))
+                return;
+            }
+
             try {
-                this.lcd.clear() // Llama al método clear() del objeto LCD
-                console.log('LCD cleared')
-                resolve() // Resuelve la promesa indicando que la operación fue exitosa
+                this.lcd.clear()
+                //this.lcd.print("Esperando..")
+                console.log('LCD cleared and "Esperando.." displayed')
+                resolve()
             } catch (error) {
-                console.error('Error clearing LCD:', error)
-                reject(error) // Rechaza la promesa si hay un error
+                console.error('Error clearing LCD or displaying message:', error)
+                reject(error)
             }
         })
     }

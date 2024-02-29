@@ -46,9 +46,9 @@ export class Otto {
         return new Promise((resolve, reject) => {
             console.log(`Intentando caminar ${steps} pasos hacia atrás con un periodo de ${period}`)
 
-            // Asumiendo que necesitamos ajustar el equilibrio entre los osciladores
+
             this.oscillators.forEach((oscillator, index) => {
-                // Ajustes para el equilibrio, pueden requerir ser personalizados
+
                 const isLeg = index < 2  //ajuste piernas
                 const adjustment = isLeg ? 0 : 5 //ajuste pies
                 const phaseAdjustment = Math.PI + (isLeg ? 0 : Math.PI / 4) // Ajustar fase para pies diferente que para piernas

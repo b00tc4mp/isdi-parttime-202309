@@ -48,7 +48,7 @@ dotenv.config();
                         console.error(error)
                     }
                     break;
-                case 'r': // Nuevo caso para girar a la derecha y caminar
+                case 'r': // girar a la derecha y caminar
                     console.log("Girando a la derecha y caminando...")
                     try {
                         await ottoController.turnRight()
@@ -64,7 +64,7 @@ dotenv.config();
                         console.error('Error al intentar saltar:', error)
                     }
                     break;
-                case 'h': // Caso nuevo para activar el LCD
+                case 'h': // activar el LCD
                     console.log("Diciendo hola...")
                     try {
                         await ottoController.sayHi("¡Hola, soy Otto!")
@@ -72,7 +72,7 @@ dotenv.config();
                         console.error('Error al intentar mostrar mensaje en el LCD:', error)
                     }
                     break;
-                case 'c': // Caso nuevo para limpiar el LCD
+                case 'c': // limpiar el LCD
                     console.log("Limpiando pantalla")
                     try {
                         await ottoController.clearLCD()
