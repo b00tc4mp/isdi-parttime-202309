@@ -49,13 +49,22 @@ class UknownCommandError extends Error {
     }
 }
 
+class TokenError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
 export {
     ContentError,
     CredentialsError,
     DuplicityError,
     NotFoundError,
     SystemError,
-    UknownCommandError
+    UknownCommandError,
+    TokenError
 }
 
 const errors = {
@@ -64,7 +73,8 @@ const errors = {
     DuplicityError,
     NotFoundError,
     SystemError,
-    UknownCommandError
+    UknownCommandError,
+    TokenError
 }
 
 export default errors

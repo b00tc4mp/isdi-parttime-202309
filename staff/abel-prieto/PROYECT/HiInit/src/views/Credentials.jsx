@@ -58,6 +58,12 @@ function Credentials() {
         navigate('/desktop')
     }
 
+    // EXIT SESSION
+    function ProtectedRoute({ element }) {
+        return logic.isUserLoggedIn() ? element : <Navigate to="/" />;
+    }
+
+
     // LOGOUT VIEW
     function handleLogout() {
         logic.logoutUser(error => {
@@ -87,7 +93,7 @@ function Credentials() {
             <Routes>
                 <Route path="/register" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Register onSuccess={handleLoginShow} />}></Route>
                 <Route path="/login" element={logic.isUserLoggedIn() ? <Navigate to="/desktop" /> : <Login onSuccess={handleDesktopShow} />}></Route>
-                <Route path="/desktop" element={logic.isUserLoggedIn() ? <Navigate to="/login" /> : <Desktop onLogout={handleLogout} />}></Route>
+                <Route path="/desktop" element={<ProtectedRoute element={<Desktop onLogout={handleLogout} />} />} />
             </Routes>
 
             {uknownCommand && (

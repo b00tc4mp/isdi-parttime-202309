@@ -1,6 +1,12 @@
 import session from './session.js'
+import { validate } from 'com'
+import { errors } from 'com'
+const { SystemError } = errors
 
 async function loginUser(email, password) {
+    validate.email(email, 'Email')
+    validate.password(password, 'Password')
+
     const req = {
         method: 'POST',
         headers: {
@@ -14,14 +20,19 @@ async function loginUser(email, password) {
 
         if (!res.ok) {
             const body = await res.json()
-            throw new Error(body.message)
+            throw new errors[body.error](body.message)
         }
 
-        const userId = await res.json()
+        const token = await res.json()
+        const payloadB64 = await token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
+        const payloadJson = atob(payloadB64)
+        const payload = await JSON.parse(payloadJson)
+        const userId = await payload.sub
 
         session.sessionUserId = userId
+        session.token = token
     } catch (error) {
-        throw new Error(error.message)
+        throw new SystemError(error.message)
     }
 }
 

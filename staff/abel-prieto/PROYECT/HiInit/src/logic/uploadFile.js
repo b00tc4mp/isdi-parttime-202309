@@ -1,4 +1,6 @@
 import session from './session'
+import { errors } from 'com'
+const { SystemError } = errors
 
 async function uploadFile(file) {
     const formData = new FormData()
@@ -7,7 +9,7 @@ async function uploadFile(file) {
     const req = {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${session.sessionUserId}`
+            Authorization: `Bearer ${session.token}`
         },
         body: formData
     }
@@ -17,11 +19,11 @@ async function uploadFile(file) {
 
         if (!res.ok) {
             const body = await res.json()
-            throw new Error(body.message)
+            throw new errors[body.error](body.message)
         }
 
     } catch (error) {
-        throw new Error(error.message)
+        throw new SystemError(error.message)
     }
 }
 

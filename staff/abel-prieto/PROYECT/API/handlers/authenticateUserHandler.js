@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import authenticateUser from '../logic/authenticateUser.js'
 import { errors } from 'com'
 const { NotFoundError, CredentialsError, ContentError } = errors
@@ -22,7 +23,11 @@ export default (req, res) => {
 
                 return
             })
-            .then(userId => res.json(userId))
+            .then(userId => {
+                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE })
+
+                res.json(token)
+            })
     } catch (error) {
         let status = 500
 

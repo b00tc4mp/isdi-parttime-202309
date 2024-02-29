@@ -1,6 +1,13 @@
+import { errors } from 'com'
+import { validate } from 'com'
+const { SystemError } = errors
 
 // LOGIC - REGISTER USER
 async function registerUser(username, email, password) {
+    validate.text(username, 'Username')
+    validate.email(email, 'Email')
+    validate.password(password, 'Password')
+
     const req = {
         method: 'POST',
         headers: {
@@ -14,10 +21,10 @@ async function registerUser(username, email, password) {
 
         if (!res.ok) {
             const body = await res.json()
-            throw new Error(body.message)
+            throw new errors[body.error](body.message)
         }
     } catch (error) {
-        throw new Error(error.message)
+        throw new SystemError(error.message)
     }
 }
 

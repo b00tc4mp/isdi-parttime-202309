@@ -8,7 +8,7 @@ export default function CommandBar() {
     const [role, setRole] = useState('')
 
     useEffect(() => {
-        if (session.sessionUserId) {
+        if (session.token) {
             try {
                 logic.retrieveUser()
                     .then(user => {

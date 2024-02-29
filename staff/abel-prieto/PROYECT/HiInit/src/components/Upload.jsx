@@ -71,11 +71,6 @@ function Upload() {
 
                 return
             })
-
-        // document.querySelector('#client-error').addEventListener('click', () => {
-        //     clientError.innerText = 'Select upload files or press Reload to refresh: '
-        //     clientError.style.color = EBDBB2
-        // })
     }
 
     // REFRESH PAGE

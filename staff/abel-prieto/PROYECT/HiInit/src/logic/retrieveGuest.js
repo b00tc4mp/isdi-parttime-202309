@@ -1,3 +1,5 @@
+import { errors } from 'com'
+const { SystemError } = errors
 
 async function retrieveGuest() {
     const req = {
@@ -9,14 +11,14 @@ async function retrieveGuest() {
 
         if (!res.ok) {
             const body = await res.json()
-            throw new Error(body.message)
+            throw new errors[body.error](body.message)
         }
 
         const guest = await res.json()
 
         return guest
     } catch (error) {
-        throw new Error(error.message)
+        throw new SystemError(error.message)
     }
 }
 
