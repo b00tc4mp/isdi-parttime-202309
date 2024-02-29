@@ -8,7 +8,7 @@ mongoose
   .connect(process.env.MONGODB_URL_TEST)
   .then(() => {
     try {
-      registerUser('Bluey School', 'bluey@school.com', '123456789')
+      registerUser('Bingo School', 'bingo@school.com', '123456789')
         .then(() => {
           console.log('registered successfully')
         })

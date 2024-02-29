@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs'
 import validate from '../../shared/validate.js'
 import errors from '../../shared/errors.js'
 const { DuplicityError, SystemError } = errors
@@ -9,14 +10,22 @@ function registerUser(name, email, password) {
   validate.email(email, 'email')
   validate.password(password, 'password')
 
-  return User.create({ name, email, password })
+  // in the brackets after password we had a number that represents the salt we're adding
+  return bcrypt
+    .hash(password, 8)
     .catch((error) => {
-      if (error.code === 11000) {
-        throw new DuplicityError('user already exists')
-      }
       throw new SystemError(error.message)
     })
-    .then((user) => {})
+    .then((hash) => {
+      return User.create({ name, email, password: hash })
+        .catch((error) => {
+          if (error.code === 11000) {
+            throw new DuplicityError('user already exists')
+          }
+          throw new SystemError(error.message)
+        })
+        .then((user) => {})
+    })
 }
 
 export default registerUser

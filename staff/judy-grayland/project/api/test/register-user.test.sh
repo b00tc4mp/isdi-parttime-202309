@@ -1,6 +1,6 @@
 TEST 'register-user'
 
-CASE 'success on new user registered'
+CASE 'passes for new user registered'
 
 curl 'http://localhost:9000/users' \
 -H 'Content-Type: application/json' \

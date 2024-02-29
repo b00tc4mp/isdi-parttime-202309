@@ -4,8 +4,8 @@ import mongoose from 'mongoose'
 import cors from 'cors' // the Cors package is a middleware for Express.js, that enables CORS in our API
 
 import {
-  authenticateUserHandler,
   registerUserHandler,
+  authenticateUserHandler,
 } from './handlers/index.js'
 
 dotenv.config()
