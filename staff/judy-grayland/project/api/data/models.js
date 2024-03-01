@@ -1,8 +1,7 @@
 import mongoose from 'mongoose'
 const { Schema, model, ObjectId } = mongoose
 
-// Models: User, Resource, Category, Theme, Calendar
-
+// School / AFA
 const user = new Schema({
   name: {
     type: String,
@@ -35,7 +34,8 @@ const user = new Schema({
   ],
 })
 
-const resource = new Schema({
+// Resources
+const activity = new Schema({
   title: {
     type: String,
     required: true,
@@ -47,13 +47,36 @@ const resource = new Schema({
   organiser: {
     type: String,
   },
-  contact: {
+  category: [
+    {
+      type: ObjectId,
+      ref: 'Category',
+    },
+  ],
+  topic: [
+    {
+      type: ObjectId,
+      ref: 'Theme',
+    },
+  ],
+})
+const book = new Schema({
+  title: {
     type: String,
+    required: true,
+  },
+  author: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
   },
   ageRange: {
-    type: String,
+    type: Number,
   },
-  language: {
+  url: {
     type: String,
   },
   category: [
@@ -62,7 +85,7 @@ const resource = new Schema({
       ref: 'Category',
     },
   ],
-  theme: [
+  topic: [
     {
       type: ObjectId,
       ref: 'Theme',
@@ -70,6 +93,33 @@ const resource = new Schema({
   ],
 })
 
+const specialDate = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: date,
+    required: true,
+  },
+  url: {
+    type: String,
+  },
+  category: [
+    {
+      type: ObjectId,
+      ref: 'Category',
+    },
+  ],
+  topic: [
+    {
+      type: ObjectId,
+      ref: 'Theme',
+    },
+  ],
+})
+
+// Labels
 const category = new Schema({
   name: {
     type: String,
@@ -77,7 +127,7 @@ const category = new Schema({
   },
 })
 
-const theme = new Schema({
+const topic = new Schema({
   name: {
     type: String,
     required: true,
@@ -91,17 +141,19 @@ const eventsCalendar = new Schema({
 })
 
 const User = model('User', user)
-const Resource = model('Resource', resource)
+const Activity = model('Activity', activity)
+const Book = model('Book', book)
+const SpecialDate = model('SpecialDate', specialDate)
 const Category = model('Category', category)
-const Theme = model('Theme', theme)
+const Topic = model('Topic', topic)
 const EventsCalendar = model('EventsCalendar', eventsCalendar)
 
 /*
 eg. const colegio123 = new User({ name: 'Colegio 123' })
 eg. const clubDeLosRaros = new Resource( { title: 'El club de los raros', description: 'Lo “normal” es ser “raro”. Todos lo somos. Por eso, lo más importante es aprender a reírse de uno mismo.', ageRange: '8-10' })
-eg. const diversidadFuncional = new Theme({ name: 'Diversidad Funcional' })
+eg. const diversidadFuncional = new Topic({ name: 'Diversidad Funcional' })
 eg. const book = new Category({ name: 'Libro' })
 
 */
 
-export { User, Resource, Category, Theme, EventsCalendar }
+export { User, Activity, Book, SpecialDate, Category, Topic, EventsCalendar }
