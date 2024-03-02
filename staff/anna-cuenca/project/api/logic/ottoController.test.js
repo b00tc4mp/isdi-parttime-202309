@@ -19,7 +19,7 @@ dotenv.config();
 
     // Esperar a que la placa esté lista
     ottoController.board.on("ready", async () => {
-        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha y caminar, 'J' para saltar, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
+        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
 
         process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
         process.stdin.resume()
@@ -52,13 +52,22 @@ dotenv.config();
                     }
                     break;
                 case 'r': // girar a la derecha y caminar
-                    console.log("Girando a la derecha ")
+                    console.log("Girando a la derecha")
                     try {
                         await ottoController.turn(7, 2000, RIGHT)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
                     break;
+                case 'l': // girar a la derecha y caminar
+                    console.log("Girando a la izquierda")
+                    try {
+                        await ottoController.turn(7, 2000, LEFT)
+                    } catch (error) {
+                        console.error('Error al intentar girar a la izquierda y caminar:', error)
+                    }
+                    break;
+
                 case 'j': // saltar
                     console.log("Saltando")
                     try {
