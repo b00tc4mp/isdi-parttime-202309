@@ -70,7 +70,7 @@ function Desktop() {
 
                 {uknownCommand && (
                     <span>
-                        <p>shell: command not found: '{commandText}'. Entry login or register</p>
+                        <p>shell: command not found: '{commandText}'. Press 'help' to list commands</p>
                     </span>
                 )}
 

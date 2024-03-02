@@ -10,14 +10,19 @@ function Email() {
         setShowPassword(true)
     }
 
+    function showInputRepeatPassword() {
+        setShowRepeatPass(true)
+    }
+
     function handleSubmit(event) {
         event.preventDefault()
 
-        const email = event.target.querySelector('#email').value
+        const newEmail = event.target.querySelector('#new-email').value
         const password = event.target.querySelector('#password').value
+        const repeatPassword = event.target.querySelector('#repeat-password')
 
         try {
-            logic.loginUser(email, password)
+            logic.loginUser(newEmail, password, repeatPassword)
                 .then(() => onSuccess())
                 .catch(error => {
                     const clientError = document.querySelector('#client-error')
@@ -34,7 +39,7 @@ function Email() {
         document.body.addEventListener('keydown', function () {
             const clientError = document.querySelector('#client-error')
 
-            clientError.innerText = 'Entry your credentials: '
+            clientError.innerText = 'Change Email - Entry your data account: '
             clientError.style.color = '#EBDBB2'
         })
     }
@@ -44,27 +49,27 @@ function Email() {
             <p>~$</p>
 
             <span>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <p id="client-error">Entry your data account: </p>
+                <form onSubmit={handleSubmit}>
+                    <p id="client-error">Change Email - Entry your data account: </p>
 
                     {showNewEmail && (
                         <div className="fields">
-                            <label htmlFor="email"><p style={{ color: '#18E3C8' }}>New Email: </p></label>
-                            <input type="text" id="email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
+                            <label htmlFor="new-email"><p style={{ color: '#18E3C8' }}>New Email: </p></label>
+                            <input type="text" id="new-email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
                         </div>
                     )}
 
                     {showPassword && (
                         <div className="fields">
                             <label htmlFor="password"><p style={{ color: '#18E3C8' }}>Password: </p></label>
-                            <input type="password" id="password" contentEditable="true" autoComplete="off" />
+                            <input type="password" id="password" contentEditable="true" autoComplete="off" onChange={showInputRepeatPassword} />
                         </div>
                     )}
 
                     {showRepeatPass && (
                         <div className="fields">
-                            <label htmlFor="password"><p style={{ color: '#18E3C8' }}>Repeat password: </p></label>
-                            <input type="password" id="password" contentEditable="true" autoComplete="off" />
+                            <label htmlFor="repeat-password"><p style={{ color: '#18E3C8' }}>Repeat password: </p></label>
+                            <input type="password" id="repeat-password" contentEditable="true" autoComplete="off" />
                         </div>
                     )}
 

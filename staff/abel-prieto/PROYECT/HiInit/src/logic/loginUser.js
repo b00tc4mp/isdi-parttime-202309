@@ -1,6 +1,5 @@
 import session from './session.js'
-import { validate } from 'com'
-import { errors } from 'com'
+import { validate, errors } from 'com'
 const { SystemError } = errors
 
 async function loginUser(email, password) {
