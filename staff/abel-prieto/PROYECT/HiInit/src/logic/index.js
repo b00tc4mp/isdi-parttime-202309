@@ -4,6 +4,9 @@ import retrieveUser from './retrieveUser.js'
 import retrieveGuest from './retrieveGuest.js'
 import logoutUser from './logoutUser.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
+import changeUserEmail from './changeUserEmail.js'
+import changeUserPassword from './changeUserPassword.js'
+
 import uploadFile from './uploadFile.js'
 
 export {
@@ -13,6 +16,8 @@ export {
     retrieveGuest,
     logoutUser,
     isUserLoggedIn,
+    changeUserEmail,
+    changeUserPassword,
     uploadFile
 }
 
@@ -23,6 +28,8 @@ const logic = {
     retrieveGuest,
     logoutUser,
     isUserLoggedIn,
+    changeUserEmail,
+    changeUserPassword,
     uploadFile
 }
 

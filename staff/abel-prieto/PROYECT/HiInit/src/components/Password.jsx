@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logic from '../logic'
 
 function Password() {
     // FIELDS STATE
@@ -19,13 +20,18 @@ function Password() {
 
         const password = event.target.querySelector('#password').value
         const newPassword = event.target.querySelector('#new-password').value
-        const repeatNewPassword = event.target.querySelector('#repeat-new-password').value
+        const againNewPassword = event.target.querySelector('#repeat-new-password').value
 
         try {
-            logic.loginUser(password, newPassword, repeatNewPassword)
-                .then(() => onSuccess())
+            logic.changeUserPassword(password, newPassword, againNewPassword)
+                .then(() => {
+                    const clientError = document.querySelector('#client-error-password')
+
+                    clientError.innerText = 'Password successfully changed ✅'
+                    clientError.style.color = 'green'
+                })
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error')
+                    const clientError = document.querySelector('#client-error-password')
 
                     clientError.innerText = error.message
                     clientError.style.color = 'red'
@@ -37,10 +43,12 @@ function Password() {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error')
+            const clientError = document.querySelector('#client-error-password')
 
             clientError.innerText = 'Change Password - Entry your data account: '
             clientError.style.color = '#EBDBB2'
+
+            document.getElementById("password-form").reset()
         })
     }
 
@@ -49,8 +57,8 @@ function Password() {
             <p>~$</p>
 
             <span>
-                <form onSubmit={handleSubmit}>
-                    <p id="client-error">Change Password - Entry your data account: </p>
+                <form id="password-form" onSubmit={handleSubmit}>
+                    <p id="client-error-password">Change Password - Entry your data account: </p>
 
                     {showPassword && (
                         <div className="fields">

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logic from '../logic'
 
 function Email() {
     // FIELDS STATE
@@ -19,13 +20,18 @@ function Email() {
 
         const newEmail = event.target.querySelector('#new-email').value
         const password = event.target.querySelector('#password').value
-        const repeatPassword = event.target.querySelector('#repeat-password')
+        const againPassword = event.target.querySelector('#repeat-password').value
 
         try {
-            logic.loginUser(newEmail, password, repeatPassword)
-                .then(() => onSuccess())
+            logic.changeUserEmail(newEmail, password, againPassword)
+                .then(() => {
+                    const clientError = document.querySelector('#client-error-email')
+
+                    clientError.innerText = 'Email successfully changed ✅'
+                    clientError.style.color = 'green'
+                })
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error')
+                    const clientError = document.querySelector('#client-error-email')
 
                     clientError.innerText = error.message
                     clientError.style.color = 'red'
@@ -37,10 +43,12 @@ function Email() {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error')
+            const clientError = document.querySelector('#client-error-email')
 
             clientError.innerText = 'Change Email - Entry your data account: '
             clientError.style.color = '#EBDBB2'
+
+            document.getElementById("email-form").reset()
         })
     }
 
@@ -49,8 +57,8 @@ function Email() {
             <p>~$</p>
 
             <span>
-                <form onSubmit={handleSubmit}>
-                    <p id="client-error">Change Email - Entry your data account: </p>
+                <form id="email-form" onSubmit={handleSubmit}>
+                    <p id="client-error-email">Change Email - Entry your data account: </p>
 
                     {showNewEmail && (
                         <div className="fields">

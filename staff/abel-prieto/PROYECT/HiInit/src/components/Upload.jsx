@@ -60,10 +60,8 @@ function Upload() {
 
         logic.uploadFile(file)
             .then(() => {
-                clientError.innerText = 'File succesfully upload ✅'
+                clientError.innerText = 'File successfully upload ✅'
                 clientError.style.color = 'green'
-
-                return
             })
             .catch(error => {
                 clientError.innerText = `${error.message} ❌`
