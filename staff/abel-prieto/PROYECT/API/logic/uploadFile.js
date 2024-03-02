@@ -19,11 +19,6 @@ async function uploadFile(userId, originalname, mimetype) {
 
         const file = await File.create({ name: originalname, owner: userId, type: mimetype, permissions: 3 })
 
-        delete file._id
-        delete file.owner
-        delete file.permissions
-        delete file.__v
-
         return { user, file }
     } catch (error) {
         if (error.code === 11000) {

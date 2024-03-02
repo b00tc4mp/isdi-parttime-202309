@@ -1,11 +1,11 @@
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
-const { ObjectId } = Types
 
 import { User } from '../data/models.js'
 import { expect } from 'chai'
 import registerUser from '../logic/registerUser.js'
+import random from './helpers/random.js'
 
 dotenv.config()
 
@@ -16,9 +16,9 @@ describe('registerUser', () => {
 
     // POSITIVE CASE
     it('success on register a new user type', async () => {
-        const username = new ObjectId().toString()
-        const email = 'email@email.com'
-        const password = new ObjectId().toString()
+        const username = random.username()
+        const email = random.email()
+        const password = random.password()
 
         await registerUser(username, email, password)
 
@@ -37,10 +37,10 @@ describe('registerUser', () => {
 
     // NEGATIVE CASE - Duplicity user
     it('fails on user already exist', async () => {
-        await User.create({ username: 'Aniki', email: 'drop@hotmail.com', password: '123123123', group: 'localhost', role: 'user' })
+        const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
 
         try {
-            await registerUser('Aniki', 'drop@hotmail.com', '123123123')
+            await registerUser(user.username, user.email, user.password)
             { throw new Error('should not reach this point!') }
         } catch (error) {
             expect(error).to.be.instanceOf(Error)

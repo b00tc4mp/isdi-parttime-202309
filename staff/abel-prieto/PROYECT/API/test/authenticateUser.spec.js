@@ -1,11 +1,10 @@
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
+import random from './helpers/random.js'
 import authenticateUser from '../logic/authenticateUser.js'
 import { expect } from 'chai'
 import { User } from '../data/models.js'
-
-const { ObjectId } = Types
 
 dotenv.config()
 
@@ -16,13 +15,11 @@ describe('authenticateUser', () => {
 
     // POSITIVE CASE
     it('success on authenticate user', async () => {
-        const username = new ObjectId().toString()
-        const email = 'email@email.com'
-        const password = new ObjectId().toString()
+        const password = random.password()
 
         const hash = await bcrypt.hash(password, 5)
-        const user = await User.create({ username, email, password: hash, group: 'localhost', role: 'user' })
-        const userId = await authenticateUser(email, password)
+        const user = await User.create({ username: random.username(), email: random.email(), password: hash, group: 'localhost', role: 'user' })
+        const userId = await authenticateUser(user.email, password)
 
         expect(userId.toString()).to.be.a('String')
         expect(userId.toString()).to.equal(user._id.toString())
@@ -30,8 +27,8 @@ describe('authenticateUser', () => {
 
     // NEGATIVE CASE - User not found
     it('fails on user not found', async () => {
-        const email = 'email@email.com'
-        const password = new ObjectId().toString()
+        const email = random.email()
+        const password = random.password()
 
         try {
             await authenticateUser(email, password)
@@ -44,15 +41,13 @@ describe('authenticateUser', () => {
 
     // NEGATIVE CASE - Wrong credentials
     it('fails on wrong credentials with password', async () => {
-        const username = new ObjectId().toString()
-        const email = 'email@email.com'
-        const password = new ObjectId().toString()
+        const password = random.password()
 
         const hash = await bcrypt.hash(password, 5)
-        await User.create({ username, email, password: hash, group: 'localhost', role: 'user' })
+        const user = await User.create({ username: random.username(), email: random.email(), password: hash, group: 'localhost', role: 'user' })
 
         try {
-            await authenticateUser(email, '234234234')
+            await authenticateUser(user.email, '234234234')
             { throw new Error('should not reach this point!') }
         } catch (error) {
             expect(error).to.be.instanceOf(Error)

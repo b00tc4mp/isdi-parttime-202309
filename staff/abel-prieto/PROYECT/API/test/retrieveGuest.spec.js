@@ -1,9 +1,9 @@
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { expect } from 'chai'
-const { ObjectId } = Types
 
 import retrieveGuest from '../logic/retrieveGuest.js'
+import random from './helpers/random.js'
 import { errors } from 'com'
 import { User } from '../data/models.js'
 const { NotFoundError } = errors
@@ -17,11 +17,7 @@ describe('retrieveGuest', () => {
 
     // POSSITIVE CASE
     it('success with retrieve user type -guest-', async () => {
-        const username = new ObjectId().toString()
-        const email = 'guest@hiinit.com'
-        const password = new ObjectId().toString()
-
-        const user = await User.create({ username, email, password, group: 'hiinit', role: 'guest' })
+        const user = await User.create({ username: random.username(), email: 'guest@hiinit.com', password: random.password(), group: 'hiinit', role: 'guest' })
         const guest = await retrieveGuest()
 
         expect(guest).to.be.an('Object')
@@ -34,7 +30,7 @@ describe('retrieveGuest', () => {
         try {
             await retrieveGuest()
             throw new Error('should not reach this point!')
-        } catch(error) {
+        } catch (error) {
             expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.be.equal('Guest not found. Try again')
         }

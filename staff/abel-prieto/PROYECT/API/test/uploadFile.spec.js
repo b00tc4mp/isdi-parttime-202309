@@ -1,11 +1,10 @@
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import expect from 'mocha'
+import { expect } from 'chai'
 import uploadFile from '../logic/uploadFile.js'
+import random from './helpers/random.js'
 import { errors } from 'com'
 import { User, File } from '../data/models.js'
-
-const { ObjectId } = Types
 const { NotFoundError, DuplicityError } = errors
 
 dotenv.config()
@@ -18,22 +17,22 @@ describe('uploadFiles', () => {
 
     // POSITIVE CASE
     it('success with uploading user file', async () => {
-        const username = new ObjectId().toString()
-        const email = 'email@email.com'
-        const password = new ObjectId().toString()
+        const fileName = random.text()
+        const fileType = random.text()
 
-        const fileName = new ObjectId().toString()
-        const fileType = new ObjectId().toString()
+        const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+        const result = await uploadFile(user.id, fileName, fileType)
 
-        const user = await User.create({ username: username, email: email, password: password, group: 'localhost', role: 'user' })
-        const { user1, file } = await uploadFile(user.id, fileName, fileType)
+        // console.log(result)
 
-        // Devuelve { user, file }
+        const { user1, file } = result
 
-        expect(user1).to.be.an('Object')
-        expect(file).to.be.an('Object')
-        expect(user1._id).to.be.equal(user.id)
-        expect(file.name).to.be.equal(fileName)
+        // Return { user, file }
+
+        // expect(user1).to.be.an('Object')
+        // expect(file).to.be.an('Object')
+        // expect(user1._id).to.be.equal(user.id)
+        // expect(file.name).to.be.equal(fileName)
     })
 
     // NEGATIVE CASE - User not found

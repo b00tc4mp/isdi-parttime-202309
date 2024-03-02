@@ -4,6 +4,7 @@ import { expect } from 'chai'
 const { ObjectId } = Types
 
 import retrieveUser from '../logic/retrieveUser.js'
+import random from './helpers/random.js'
 import { User } from '../data/models.js'
 
 dotenv.config()
@@ -15,11 +16,7 @@ describe('retrieveUser', () => {
 
     // POSITIVE CASE
     it('success with retrieve existed user', async () => {
-        const username = new ObjectId().toString()
-        const email = new ObjectId().toString()
-        const password = new ObjectId().toString()
-
-        const user = await User.create({ username, email, password, group: 'localhost', role: 'user'})
+        const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
         const userRetrieved = await retrieveUser(user.id)
 
         expect(userRetrieved).to.be.an('Object')

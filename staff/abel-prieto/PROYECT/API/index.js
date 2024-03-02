@@ -8,6 +8,8 @@ import {
     registerUserHandler,
     retrieveUserHandler,
     retrieveGuestHandler,
+    changeUserEmailHandler,
+    changeUserPasswordHandler,
     uploadFileHandler
 } from './handlers/index.js'
 
@@ -38,10 +40,10 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         server.get('/users', retrieveGuestHandler)
 
         // CHANGE USER EMAIL
-        server.patch('users/email', jsonBodyParser, changeUserEmailHandler)
+        server.patch('/users/email', jsonBodyParser, changeUserEmailHandler)
 
         // CHANGE USER PASSWORD
-        server.patch('users/password', jsonBodyParser, changeUserPasswordHandler)
+        server.patch('/users/password', jsonBodyParser, changeUserPasswordHandler)
 
         // UPLOAD FILE
         server.post('/upload', upload.single('file'), uploadFileHandler)

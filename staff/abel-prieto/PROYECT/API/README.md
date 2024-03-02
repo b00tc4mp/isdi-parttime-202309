@@ -32,12 +32,12 @@
 - Response: 201
 - Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
 
-`Change Email`
+`Change Email` ✅
 - Request: PATCH /users/email
 - Response: 200
 - Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
 
-`Change Password`
+`Change Password` ✅
 - Request: PATCH /users/password
 - Response: 200
 - Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
