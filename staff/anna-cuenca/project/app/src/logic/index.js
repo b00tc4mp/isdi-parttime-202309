@@ -4,6 +4,7 @@ import loginUser from './loginUser'
 import logoutUser from './logoutUser'
 import retrieveUser from './retrieveUser'
 import retrieveUserInfo from './retrieveUserInfo'
+import retrieveTutorials from './retrieveTutorials'
 
 
 import isUserLoggedIn from './isUserLoggedIn'
@@ -18,8 +19,10 @@ const logic = {
     logoutUser,
     retrieveUser,
     isUserLoggedIn,
+    retrieveTutorials,
 
     retrieveUserInfo,
+
 
     ottoController,
     arduinoLCD

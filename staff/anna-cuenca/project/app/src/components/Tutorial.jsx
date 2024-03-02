@@ -12,7 +12,7 @@ function Tutorial(props) {
     //const { handleError } = useContext(Context)
     const context = useContext()
     const navigate = useNavigate()
-    const post = props.post
+    const tutorial = props.tutorial
 
     function handleToggleLikePostClick() {
         // try {
@@ -90,14 +90,14 @@ function Tutorial(props) {
 
     return (<article className="tutorial">
         {/* <h2><Link onClick={handleUserClick}>{props.post.author.name}</Link></h2> */}
-        <h2>Tutorial</h2>
+        <p>{tutorial.author.name}</p>
         <p>{tutorial.title}</p>
         <p>{tutorial.text}</p>
-        <div className="post-actions">
-            <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
-            <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>
-            {tutorial.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
-            {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>}
+        <div className="tutorial-actions">
+            {/* <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
+            <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button> */}
+            {/* {tutorial.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
+            {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>} */}
             {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
          de like, {post.liked ? '❤️' : '🤍'} {post.likes.length}  eso son los children */}
         </div>
@@ -111,4 +111,4 @@ function Tutorial(props) {
     </article>
     )
 }
-export default Post
+export default Tutorial

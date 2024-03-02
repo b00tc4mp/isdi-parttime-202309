@@ -12,6 +12,7 @@ import { Button, Form, Link, Field } from '../library'
 
 import Profile from './Profile'
 import Controller from './Controller'
+import Tutorials from './Tutorials'
 
 
 function Home(props) {
@@ -63,6 +64,12 @@ function Home(props) {
         navigate('/profile')
     }
 
+    function handleTutorialClick(event) {
+        event.preventDefault()
+
+        navigate('/tutorials')
+    }
+
     function handleHomeClick(event) {
         event.preventDefault()
 
@@ -98,6 +105,7 @@ function Home(props) {
                 <main>
                     <h2>Robot App Home</h2>
                     <Button onClick={handleControllerClick}>Connect Your Robot</Button>
+                    <Button onClick={handleTutorialClick}>Tutorials</Button>
                 </main>
             </>
         )}
@@ -109,6 +117,7 @@ function Home(props) {
         <Routes>
             <Route path="/profile" element={<Profile />} />
             <Route path="/controller" element={<Controller />} />
+            <Route path="/tutorials" element={<Tutorials loadTutorials={logic.retrieveTutorials} stamp={stamp} />} />
             {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
 
             {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
