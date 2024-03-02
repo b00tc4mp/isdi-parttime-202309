@@ -44,22 +44,21 @@ const activity = new Schema({
     type: String,
     required: true,
   },
-  organiser: {
+  link: {
     type: String,
   },
-  category: [
-    {
-      type: ObjectId,
-      ref: 'Category',
-    },
-  ],
-  topic: [
+  image: {
+    type: String,
+  },
+
+  tag: [
     {
       type: ObjectId,
       ref: 'Theme',
     },
   ],
 })
+
 const book = new Schema({
   title: {
     type: String,
@@ -76,16 +75,8 @@ const book = new Schema({
   ageRange: {
     type: Number,
   },
-  url: {
-    type: String,
-  },
-  category: [
-    {
-      type: ObjectId,
-      ref: 'Category',
-    },
-  ],
-  topic: [
+
+  tag: [
     {
       type: ObjectId,
       ref: 'Theme',
@@ -94,24 +85,22 @@ const book = new Schema({
 })
 
 const specialDate = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
   },
-  date: {
-    type: date,
-    required: true,
-  },
-  url: {
+  link: {
     type: String,
   },
-  category: [
-    {
-      type: ObjectId,
-      ref: 'Category',
-    },
-  ],
-  topic: [
+  image: {
+    type: String,
+  },
+
+  tag: [
     {
       type: ObjectId,
       ref: 'Theme',
@@ -120,14 +109,8 @@ const specialDate = new Schema({
 })
 
 // Labels
-const category = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-})
 
-const topic = new Schema({
+const tag = new Schema({
   name: {
     type: String,
     required: true,
@@ -144,8 +127,7 @@ const User = model('User', user)
 const Activity = model('Activity', activity)
 const Book = model('Book', book)
 const SpecialDate = model('SpecialDate', specialDate)
-const Category = model('Category', category)
-const Topic = model('Topic', topic)
+const Tag = model('Tag', tag)
 const EventsCalendar = model('EventsCalendar', eventsCalendar)
 
 /*
@@ -156,4 +138,4 @@ eg. const book = new Category({ name: 'Libro' })
 
 */
 
-export { User, Activity, Book, SpecialDate, Category, Topic, EventsCalendar }
+export { User, Activity, Book, SpecialDate, Tag, EventsCalendar }

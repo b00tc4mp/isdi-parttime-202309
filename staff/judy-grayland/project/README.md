@@ -42,12 +42,12 @@ The idea behind this app is to bring all available resources together in one pla
 - saved resources ([Resource.id])
 - scheduled activities ([Resource.id])
 
-#### SpecialDate
+#### Activity
 
 - id (string)
-- date (date)
-- title (date)
+- title (string)
 - description (string)
+- link (string)
 - image (string)
 - tags ([Tag.id])
 
@@ -57,24 +57,26 @@ The idea behind this app is to bring all available resources together in one pla
 - title (string)
 - author (string)
 - description (string)
-- ageRange ([number])
+- ageRange ([number, number])
 - image (string)
 - tags ([Tag.id])
 
-#### Activity
+#### SpecialDate
 
 - id (string)
+- date (date)
 - title (string)
 - description (string)
+- link (string)
 - image (string)
 - tags ([Tag.id])
 
-#### Tag (xenofobia, bullying, dislexia)
+#### Tag -topic- (xenofobia, bullying, dislexia)
 
 - id (string)
 - title (string)
 
-#### Events calendar
+#### EventsCalendar
 
 - id (string)
 - author (User.id)
