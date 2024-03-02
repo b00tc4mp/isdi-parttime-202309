@@ -5,7 +5,7 @@ import retrieveUserHandler from './retrieveUserHandler.js'
 
 import retrieveUserInfoHandler from './retrieveUserInfoHandler.js'
 
-
+import createTutorialHandler from './createTutorialHandler.js'
 
 
 import ottoControllerHandler from './ottoControllerHandler.js'
@@ -15,7 +15,8 @@ export {
     authenticateUserHandler,
     retrieveUserHandler,
     retrieveUserInfoHandler,
-    ottoControllerHandler
+    ottoControllerHandler,
+    createTutorialHandler
 
 
 }

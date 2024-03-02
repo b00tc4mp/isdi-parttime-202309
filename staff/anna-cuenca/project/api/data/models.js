@@ -30,7 +30,7 @@ const user = new Schema({
     },
     favs: [{
         type: ObjectId,
-        ref: 'Post'
+        ref: 'Tutorial'
     }]
 })
 

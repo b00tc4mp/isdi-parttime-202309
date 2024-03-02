@@ -58,7 +58,7 @@ class TokenError extends Error {
     }
 }
 
-class BluetoothError extends Error {
+class PermissionError extends Error {
     constructor(message) {
         super(message);
         this.name = this.constructor.name;
@@ -75,7 +75,7 @@ export {  //esto es un bucket
     AuthenticateError,
     CredentialsError,
     TokenError,
-    BluetoothError
+    PermissionError
 }
 
 const errors = { // esto un objeto
@@ -85,7 +85,7 @@ const errors = { // esto un objeto
     DuplicityError,
     CredentialsError,
     TokenError,
-    BluetoothError
+    PermissionError
 }
 
 export default errors
