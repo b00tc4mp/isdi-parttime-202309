@@ -64,6 +64,7 @@ export default function Controller() {
             <h2>Controller</h2>
             <Button onClick={() => handleAction('walkForward')}>Forward</Button>
             <Button onClick={() => handleAction('walkBackward')}>Backward</Button>
+            <Button onClick={() => handleAction('turnRight')}>Turn Right</Button>
             <Button onClick={() => handleAction('stop')}>Stop</Button>
             <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
             <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>

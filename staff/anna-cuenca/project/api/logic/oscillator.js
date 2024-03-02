@@ -31,7 +31,7 @@ export class Oscillator {
     }
 
     start() {
-        this.reset();
+        this.reset()
         this.isRunning = true
         this.lastUpdateTime = Date.now()
         this.update()

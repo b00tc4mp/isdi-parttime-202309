@@ -38,90 +38,8 @@ class OttoController {
         })
     }
 
-    // sayHi(message) {
-    //     return new Promise((resolve, reject) => {
-    //         this.lcd.clear() // Asume que `this.lcd` ya está inicializado
+    ////// PANTALLA //////
 
-    //         // Importación dinámica de lcd-scrolling
-    //         import('lcd-scrolling').then(scrollModule => {
-    //             const scroll = scrollModule.default
-
-    //             // Configuración inicial de lcd-scrolling con tu objeto LCD
-    //             scroll.setup({
-    //                 lcd: this.lcd,
-    //                 debug: false,
-    //                 char_length: 16,
-    //                 row: 2,
-    //                 firstCharPauseDuration: 4000,
-    //                 lastCharPauseDuration: 1000,
-    //                 scrollingDuration: 300,
-    //                 full: true
-    //             })
-
-    //             // Usar scroll.line para mostrar texto en líneas específicas con desplazamiento
-    //             scroll.line(0, message)
-
-
-    //             setTimeout(() => {
-    //                 console.log('Message displayed with scrolling')
-    //                 resolve()
-    //             }, 5000); // esto luego lo quitaré
-    //         }).catch(error => {
-    //             console.error("Error al importar lcd-scrolling:", error)
-    //             reject(error)
-    //         })
-    //     })
-
-
-    // }
-
-    /// ESTA VERSION FUNCIONA BIEN PERO NO SE QUEDA BORRADA
-
-    // async sayHi(message) {
-    //     // Verificar si el LCD está inicializado
-    //     if (!this.lcd) {
-    //         console.error('LCD no está inicializado.')
-    //         throw new Error('LCD no está inicializado.')
-    //     }
-
-    //     try {
-    //         this.lcd.clear() // Limpiar el LCD
-
-    //         // Importar el módulo lcd-scrolling dinámicamente
-    //         const scrollModule = await import('lcd-scrolling')
-    //         const scroll = scrollModule.default;
-
-    //         // Configurar lcd-scrolling con el objeto LCD
-    //         scroll.setup({
-    //             lcd: this.lcd,
-    //             debug: false,
-    //             char_length: 16,
-    //             row: 2,
-    //             firstCharPauseDuration: 4000,
-    //             lastCharPauseDuration: 1000,
-    //             scrollingDuration: 300,
-    //             full: true
-    //         })
-
-    //         // Mostrar el mensaje con desplazamiento en la primera línea
-    //         scroll.line(0, message)
-
-    //         // Opcional: Resolver la promesa después de un tiempo específico si es necesario
-    //         // Por ahora, simplemente mostramos un mensaje en consola después de mostrar el mensaje con desplazamiento
-    //         console.log('Message displayed with scrolling')
-
-    //         // Si quieres limpiar el LCD después de un tiempo, puedes descomentar lo siguiente:
-    //         /*
-    //         setTimeout(() => {
-    //             this.lcd.clear();
-    //             console.log('LCD cleared after displaying the message.');
-    //         }, 5000); // Ajusta este tiempo según necesites
-    //         */
-    //     } catch (error) {
-    //         console.error("Error al importar o usar lcd-scrolling:", error)
-    //         throw error; // Lanza el error para que pueda ser manejado por quien llame a sayHi
-    //     }
-    // }
 
     sayHi(message) {
         return new Promise((resolve, reject) => {
@@ -195,6 +113,8 @@ class OttoController {
     }
 
 
+    //// SERVOS //// 
+
     walkForward() {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
@@ -211,6 +131,25 @@ class OttoController {
             })
         })
     }
+
+    walkBackward() {
+        return new Promise((resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return
+            }
+            this.otto.restartOscillators()
+            this.otto.walkBackward(4, 2000).then(() => {
+                console.log('Otto walked!')
+                resolve()
+            }).catch(error => {
+                console.error('Otto failed to walk:', error)
+                reject(error)
+            })
+        })
+    }
+
+
 
     //BAILE DE SERPIENTE -- GUARDAR ES DIVERTIDO //
 
@@ -315,6 +254,56 @@ class OttoController {
     //     });
     // }
 
+    turn(steps, period, direction) {
+        return new Promise((resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return;
+            }
+            this.otto.restartOscillators();
+
+            // Convertir dirección a multiplicador para el ajuste de fase
+            const dirMultiplier = direction === LEFT ? 1 : -1
+
+            // Configurar los parámetros de los osciladores para girar
+            const legAmplitude = 30 // Amplitud para las piernas, igual para ambos lados
+            const footAmplitude = 30 // Amplitud para los pies, igual para ambos lados
+            const hipAmplitudeDiff = 30 // Diferencia de amplitud entre las caderas para girar
+            const phaseDiffFoot = Math.PI / 2 // Los pies se mueven con una fase desfasada
+
+            // Ajustar la amplitud de las caderas basado en la dirección
+            const leftHipAmplitude = direction === LEFT ? legAmplitude : legAmplitude - hipAmplitudeDiff
+            const rightHipAmplitude = direction === LEFT ? legAmplitude - hipAmplitudeDiff : legAmplitude
+
+            // Configurar los osciladores para simular el giro
+            this.otto.oscillators.forEach((oscillator, index) => {
+                let amplitude = legAmplitude
+                if (index === 0) { // Pierna izquierda
+                    amplitude = leftHipAmplitude
+                } else if (index === 1) { // Pierna derecha
+                    amplitude = rightHipAmplitude
+                } else { // Pies
+                    amplitude = footAmplitude
+                }
+
+                oscillator.setParameters({
+                    amplitude: amplitude,
+                    period: period,
+                    phase: index < 2 ? 0 : phaseDiffFoot * dirMultiplier,
+                    offset: 90 // Offset neutral
+                })
+                oscillator.start()
+            })
+
+            // Detener el giro después de la duración calculada
+            setTimeout(() => {
+                this.otto.stopServos() // Detiene y coloca en posición neutral todos los osciladores
+                resolve()
+            }, steps * period)
+        })
+    }
+
+
     jump() {
 
         return new Promise((resolve, reject) => {
@@ -400,22 +389,40 @@ class OttoController {
     //     });
     // }
 
+    //se devía a la izquierda //// ESTAAAAAA FUNCIONA MAS O MENOS
+    // walkBackward() {
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.otto) {
+    //             reject(new Error("Otto is not initialized"))
+    //             return
+    //         }
+    //         this.otto.walkBackward(4, 2000, BACKWARD).then(() => {
+    //             console.log('Otto walked backward!')
+    //             resolve()
+    //         }).catch(error => {
+    //             console.error('Otto failed to walk backward:', error)
+    //             reject(error)
+    //         })
+    //     })
+    // }
+
+
     //se devía a la izquierda
-    walkBackward() {
-        return new Promise((resolve, reject) => {
-            if (!this.otto) {
-                reject(new Error("Otto is not initialized"))
-                return
-            }
-            this.otto.walkBackward(4, 2000, BACKWARD).then(() => {
-                console.log('Otto walked backward!')
-                resolve()
-            }).catch(error => {
-                console.error('Otto failed to walk backward:', error)
-                reject(error)
-            })
-        })
-    }
+    // walkBackward() {
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.otto) {
+    //             reject(new Error("Otto is not initialized"))
+    //             return
+    //         }
+    //         this.otto.walk(4, 2000, BACKWARD).then(() => {
+    //             console.log('Otto walked backward!')
+    //             resolve()
+    //         }).catch(error => {
+    //             console.error('Otto failed to walk backward:', error)
+    //             reject(error)
+    //         })
+    //     })
+    // }
 
 
 

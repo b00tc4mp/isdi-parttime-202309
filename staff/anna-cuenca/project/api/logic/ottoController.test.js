@@ -3,7 +3,10 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import OttoController from './ottoController.js'
 
-
+const FORWARD = 1
+const BACKWARD = -1
+const LEFT = 1
+const RIGHT = -1
 
 dotenv.config();
 
@@ -49,9 +52,9 @@ dotenv.config();
                     }
                     break;
                 case 'r': // girar a la derecha y caminar
-                    console.log("Girando a la derecha y caminando...")
+                    console.log("Girando a la derecha ")
                     try {
-                        await ottoController.turnRight()
+                        await ottoController.turn(7, 2000, RIGHT)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
