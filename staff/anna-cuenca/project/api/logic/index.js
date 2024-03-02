@@ -2,6 +2,7 @@ import registerUser from './registerUser.js'
 import authenticateUser from './authenticateUser.js'
 import retrieveUser from './retrieveUser.js'
 import createTutorial from './createTutorial.js'
+import retrieveTutorials from './retrieveTutorials.js'
 
 
 
@@ -27,6 +28,7 @@ const logic = {
     authenticateUser,
     retrieveUser,
     createTutorial,
+    retrieveTutorials,
 
     retrieveUserInfo,
 
