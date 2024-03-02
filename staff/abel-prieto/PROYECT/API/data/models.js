@@ -72,7 +72,7 @@ const file = new Schema({
     }
 })
 
-// ASSING GROUP & USER TYPE
+// ASIGN GROUP & USER TYPE
 user.pre('save', function (next) {
     if (!this.group || this.group.length === 0) {
         this.group.push('localhost');

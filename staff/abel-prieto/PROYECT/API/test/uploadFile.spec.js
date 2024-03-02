@@ -19,7 +19,7 @@ describe('uploadFiles', () => {
     // POSITIVE CASE
     it('success with uploading user file', async () => {
         const username = new ObjectId().toString()
-        const email = new ObjectId().toString()
+        const email = 'email@email.com'
         const password = new ObjectId().toString()
 
         const fileName = new ObjectId().toString()

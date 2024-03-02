@@ -17,7 +17,7 @@ describe('authenticateUser', () => {
     // POSITIVE CASE
     it('success on authenticate user', async () => {
         const username = new ObjectId().toString()
-        const email = new ObjectId().toString()
+        const email = 'email@email.com'
         const password = new ObjectId().toString()
 
         const hash = await bcrypt.hash(password, 5)
@@ -30,7 +30,7 @@ describe('authenticateUser', () => {
 
     // NEGATIVE CASE - User not found
     it('fails on user not found', async () => {
-        const email = new ObjectId().toString()
+        const email = 'email@email.com'
         const password = new ObjectId().toString()
 
         try {
@@ -45,7 +45,7 @@ describe('authenticateUser', () => {
     // NEGATIVE CASE - Wrong credentials
     it('fails on wrong credentials with password', async () => {
         const username = new ObjectId().toString()
-        const email = new ObjectId().toString()
+        const email = 'email@email.com'
         const password = new ObjectId().toString()
 
         const hash = await bcrypt.hash(password, 5)

@@ -17,7 +17,7 @@ describe('registerUser', () => {
     // POSITIVE CASE
     it('success on register a new user type', async () => {
         const username = new ObjectId().toString()
-        const email = new ObjectId().toString()
+        const email = 'email@email.com'
         const password = new ObjectId().toString()
 
         await registerUser(username, email, password)

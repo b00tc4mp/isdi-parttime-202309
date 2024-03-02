@@ -16,7 +16,7 @@
 
 `Retrieve User` ✅
 
-- Request: GET /users Authorization: Bearer ${session.sessionUserId}
+- Request: GET /users Authorization: Bearer ${session.token}
 - Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
 
@@ -26,8 +26,18 @@
 - Response: 200 "Content-Type": application/json { username, [ group ], [ role ] }
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
 
-`Upload Files` ⚠️
+`Upload Files` ✅
 
-- Request: POST /upload Authorization: Bearer ${session.sessionUserId}
+- Request: POST /upload Authorization: Bearer ${session.token}
 - Response: 201
-- Response (error) : 500 "Content-Type": multipart/form-data { error, message }
+- Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
+
+`Change Email`
+- Request: PATCH /users/email
+- Response: 200
+- Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
+
+`Change Password`
+- Request: PATCH /users/password
+- Response: 200
+- Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
