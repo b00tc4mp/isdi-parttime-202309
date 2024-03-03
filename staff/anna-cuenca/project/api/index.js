@@ -17,7 +17,8 @@ import {
     retrieveUserInfoHandler,
     ottoControllerHandler,
     createTutorialHandler,
-    retrieveTutorialHandler
+    retrieveTutorialHandler,
+    toggleLikeTutorialHandler
 
 
 
@@ -60,6 +61,9 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //Retrieve Tutorials
         server.get('/tutorials', retrieveTutorialHandler)
+
+        //Toggle Like Tutorials
+        server.patch('/tutorials/:tutorialId/likes', jsonBodyParser, toggleLikeTutorialHandler)
 
 
 

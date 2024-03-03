@@ -3,6 +3,7 @@ import authenticateUser from './authenticateUser.js'
 import retrieveUser from './retrieveUser.js'
 import createTutorial from './createTutorial.js'
 import retrieveTutorials from './retrieveTutorials.js'
+import toggleLikeTutorial from './toggleLikeTutorial.js'
 
 
 
@@ -29,6 +30,7 @@ const logic = {
     retrieveUser,
     createTutorial,
     retrieveTutorials,
+    toggleLikeTutorial,
 
     retrieveUserInfo,
 
