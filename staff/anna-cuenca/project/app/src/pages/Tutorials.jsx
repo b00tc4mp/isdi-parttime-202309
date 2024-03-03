@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import Tutorial from '../components/Tutorial'
+import NewTutorial from '../components/NewTutorial'
+import { Button, Form, Link, Field } from '../library'
 
 import { useContext } from '../hooks'
 
 function Tutorials(props) {
     console.log('Tutorials')
     const context = useContext()
+    const [view, setView] = useState(null)
     const [tutorials, setTutorials] = useState([])
 
 
@@ -36,6 +39,26 @@ function Tutorials(props) {
         refreshTutorials()
     }, [props.stamp])
 
+    function handleNewTutorialClick() {
+        setView('new-tutorial')
+    }
+
+    function handleNewTutorialPublish() {
+        setView(null)
+        // Asumiendo que tienes navigate definido y listo para usar
+        // navigate('/');
+        window.scrollTo(0, 0)
+        refreshTutorials()
+    }
+
+    function handleNewTutorialCancel() {
+        setView(null)
+    }
+
+
+
+
+
 
 
 
@@ -46,6 +69,14 @@ function Tutorials(props) {
         {/* con React necesitamos crear una Key para renderizar una lista de
          elementos. Esta lista de elementos se renderiza con .map, porque .map
          devuelve un arrays */}
+
+
+        <footer className="footer">
+
+            {view === 'new-tutorial' && <NewTutorial onPublish={handleNewTutorialPublish} onCancel={handleNewTutorialCancel} onError={context.handleError} />}
+            {<Button onClick={handleNewTutorialClick}>+</Button>}
+
+        </footer>
     </div>
 
 }

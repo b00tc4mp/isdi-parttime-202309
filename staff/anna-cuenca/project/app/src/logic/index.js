@@ -5,6 +5,7 @@ import logoutUser from './logoutUser'
 import retrieveUser from './retrieveUser'
 import retrieveUserInfo from './retrieveUserInfo'
 import retrieveTutorials from './retrieveTutorials'
+import publishTutorial from './publishTutorial'
 
 
 import isUserLoggedIn from './isUserLoggedIn'
@@ -20,6 +21,7 @@ const logic = {
     retrieveUser,
     isUserLoggedIn,
     retrieveTutorials,
+    publishTutorial,
 
     retrieveUserInfo,
 
