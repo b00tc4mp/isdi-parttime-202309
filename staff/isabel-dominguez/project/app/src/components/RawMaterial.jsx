@@ -1,20 +1,20 @@
 import React from 'react'
 import Product from './Product'
 
-export default function RawMaterial() {
+export default function RawMaterial({ products }) { //donde tengo que enviar esta prop?
 
+    const rawMaterialProducts = products.filter(product => product.type === 'RawMaterial')
 
     return (
         <section className="products">
-            <Product image="../images/producto1.png" productName="Aceite de árnica BIO" price="10.99" />
-            <Product image="../images/producto1.png" productName="Aceite de avellana virgen BIO" price="15.99" />
-            <Product image="../images/producto3.png" productName="Aceite de Camelia Virgen BIO" price="20.99" />
-            <Product image="../images/producto1.png" productName="Aceite de árnica BIO" price="10.99" />
-            <Product image="../images/producto1.png" productName="Aceite de avellana virgen BIO" price="15.99" />
-            <Product image="../images/producto3.png" productName="Aceite de Camelia Virgen BIO" price="20.99" />
-            <Product image="../images/producto1.png" productName="Aceite de árnica BIO" price="10.99" />
-            <Product image="../images/producto1.png" productName="Aceite de avellana virgen BIO" price="15.99" />
-            <Product image="../images/producto3.png" productName="Aceite de Camelia Virgen BIO" price="20.99" />
+            {rawMaterialProducts.map(product => (
+                <Product
+                    key={product.id}
+                    image={product.image}
+                    productName={product.name}
+                    price={product.price}
+                />
+            ))}
         </section>
     )
 }

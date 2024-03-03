@@ -19,13 +19,38 @@ const user = new Schema({
     },
     favs: [{
         type: ObjectId,
-        ref: 'Post'
+        ref: 'Product'
     }]
 })
 
-
 const User = model('User', user)
 
+
+const product = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ['RawMaterial', 'Utensils', 'Packings'],
+        required: true
+    }
+})
+
+const Product = model('Product', product)
+
+
+
 export {
-    User
+    User,
+    Product
 }

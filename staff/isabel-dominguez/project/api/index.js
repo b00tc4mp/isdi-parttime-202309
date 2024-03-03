@@ -8,7 +8,8 @@ import cors from 'cors'
 import {
     registerUserHandler,
     authenticateUserHandler,
-    retrieveUserHandler
+    retrieveUserHandler,
+    createProductHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -27,6 +28,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //RETRIEVE USER
         server.get('/users', retrieveUserHandler)
+
+        //CREATE PRODUCT
+        server.post('/products', jsonBodyParser, createProductHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })
