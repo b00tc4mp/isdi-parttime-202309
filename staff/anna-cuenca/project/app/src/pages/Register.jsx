@@ -45,7 +45,7 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <Container>
+    return <div className="custom-background"> <Container>
         <h1>Register</h1>
 
         <Form onSubmit={handleSubmit}>
@@ -59,6 +59,7 @@ function Register(props) {
 
         <Link onClick={handleLoginClick}>Login</Link>
     </Container>
+    </div>
 }
 
 

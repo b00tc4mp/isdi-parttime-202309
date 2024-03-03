@@ -1,32 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-
+/* Considera añadir una segunda fuente para títulos si lo deseas */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
-  /* library */
 
+
+  .custom-background {
+    @apply bg-[url('/wallpaperGreen.png')] h-screen bg-cover bg-center;
+  }
+
+  /* Base modifications for a robot-themed app */
   .form {
     @apply flex flex-col max-w-[240px] gap-[5px];
   }
 
   .label {
-    @apply font-bold;
+    @apply font-bold text-green-700;
   }
 
   .input {
-    @apply border-[2px] border-solid border-black p-[5px];
+    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300;
   }
 
   .button {
-    @apply border-[2px] border-solid border-black p-[5px] bg-[transparent] font-bold;
+    @apply border-[2px] border-solid border-green-500 p-[5px] bg-green-500 text-white font-bold hover:bg-green-600;
   }
 
   .link {
-    @apply decoration-[none] text-black visited:text-black before:content-['[_'] after:content-['_]'];
+    @apply decoration-[none] text-green-700 hover:text-green-800 before:content-['[_'] after:content-['_]'];
   }
 
   .container {
@@ -37,18 +42,17 @@
     @apply flex-row justify-center;
   }
 
-  /* custom */
-
   .header {
-    @apply flex items-center justify-between p-[.5rem];
+    @apply flex items-center justify-between p-[.5rem] bg-green-500 text-white;
   }
 
-  .new-post {
-    @apply mb-[1rem];
+  .new-post,
+  .tutorial {
+    @apply mb-[1rem] bg-green-50 border border-green-200;
   }
 
   .post {
-    @apply flex flex-col items-center pb-[2rem];
+    @apply flex flex-col items-center pb-[2rem] bg-green-50;
   }
 
   .post-image {
@@ -60,38 +64,39 @@
   }
 
   .posts {
-    @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3;
+    @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 gap-[1rem];
   }
 
   .footer {
-    @apply bg-white flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem];
+    @apply bg-green-500 flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] text-white;
   }
 
+  /* Feedback modifications for a cohesive look */
   .Feedback {
-    @apply fixed top-0 w-full box-border;
+    @apply fixed top-0 w-full box-border text-white;
   }
 
   .Feedback--debug {
-    @apply bg-[yellowgreen];
+    @apply bg-green-700;
   }
 
   .Feedback--info {
-    @apply bg-[dodgerblue];
+    @apply bg-green-500;
   }
 
   .Feedback--warn {
-    @apply bg-[gold];
+    @apply bg-yellow-400;
   }
 
   .Feedback--error {
-    @apply bg-[orange];
+    @apply bg-orange-500;
   }
 
   .Feedback--fatal {
-    @apply bg-[red] text-white;
+    @apply bg-red-700;
   }
 
   .tutorial {
-    @apply border-2 border-solid border-gray-300 rounded-lg shadow-md p-4 mb-4;
+    @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
   }
 }
