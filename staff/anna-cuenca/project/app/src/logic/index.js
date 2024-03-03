@@ -6,6 +6,7 @@ import retrieveUser from './retrieveUser'
 import retrieveUserInfo from './retrieveUserInfo'
 import retrieveTutorials from './retrieveTutorials'
 import publishTutorial from './publishTutorial'
+import toggleLikeTutorial from './toggleLikeTutorial'
 
 
 import isUserLoggedIn from './isUserLoggedIn'
@@ -22,6 +23,7 @@ const logic = {
     isUserLoggedIn,
     retrieveTutorials,
     publishTutorial,
+    toggleLikeTutorial,
 
     retrieveUserInfo,
 

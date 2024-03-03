@@ -16,18 +16,18 @@ function Tutorial(props) {
     const tutorial = props.tutorial
 
     function handleToggleLikePostClick() {
-        // try {
-        //     logic.toggleLikePost(post.id)
-        //         .then(() => {
-        //             props.onToggleLikeClick()
+        try {
+            logic.toggleLikeTutorial(tutorial.id)
+                .then(() => {
+                    props.onToggleLikeClick()
 
-        //         })
-        //         .catch(error => context.handleError(error))
+                })
+                .catch(error => context.handleError(error))
 
-        // } catch (error) {
-        //     //alert(error.message)
-        //     context.handleError(error)
-        // }
+        } catch (error) {
+            //alert(error.message)
+            context.handleError(error)
+        }
     }
     function handleToggleFavPostClick() {
         // try {
@@ -97,8 +97,8 @@ function Tutorial(props) {
         <p>{tutorial.title}</p>
         <p>{tutorial.text}</p>
         <div className="tutorial-actions">
-            {/* <Button onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} {post.likes.length} </Button>
-            <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button> */}
+            <Button onClick={handleToggleLikePostClick}>{tutorial.liked ? '🤖' : '🤍'} {tutorial.likes.length} </Button>
+            {/* <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>  */}
             {/* {tutorial.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
             {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>} */}
             {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
