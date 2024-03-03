@@ -90,4 +90,8 @@
   .Feedback--fatal {
     @apply bg-[red] text-white;
   }
+
+  .tutorial {
+    @apply border-2 border-solid border-gray-300 rounded-lg shadow-md p-4 mb-4;
+  }
 }

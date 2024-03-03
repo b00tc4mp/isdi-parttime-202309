@@ -21,7 +21,7 @@ function retrieveTutorials(userId) {
         let tutorials
 
         try {
-            tutorials = await Tutorial.find().populate('author', 'title').lean()
+            tutorials = await Tutorial.find().populate('author', 'name').lean()
         } catch (error) {
 
             throw new SystemError(error.message)

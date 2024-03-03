@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Form, Field, Link } from '../library'
+import { Button, Form, Field, Link, Container } from '../library'
 import logic from '../logic'
 import { Input } from '../library'
 import session from '../logic/session'
@@ -8,6 +8,7 @@ import session from '../logic/session'
 import { useContext } from '../hooks'
 
 function Tutorial(props) {
+    console.log(props.tutorial)
     const [editTextPost, setEditTextPost] = useState(null)
     //const { handleError } = useContext(Context)
     const context = useContext()
@@ -90,7 +91,9 @@ function Tutorial(props) {
 
     return (<article className="tutorial">
         {/* <h2><Link onClick={handleUserClick}>{props.post.author.name}</Link></h2> */}
-        <p>{tutorial.author.name}</p>
+        {/* <p>{tutorial.author.id}</p> */}
+        <p>{props.tutorial.author.name}</p>
+
         <p>{tutorial.title}</p>
         <p>{tutorial.text}</p>
         <div className="tutorial-actions">
