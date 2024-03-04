@@ -9,7 +9,7 @@ function retrieveUser(userId) {
         let user
 
         try {
-            user = await User.findById(userId, 'name').lean()
+            user = await User.findById(userId, 'name role').lean()
             //user = await User.findById(userId)
         } catch (error) {
             throw new SystemError(error.message)

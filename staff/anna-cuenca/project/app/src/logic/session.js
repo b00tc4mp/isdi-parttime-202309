@@ -24,6 +24,9 @@ const session = {
     get token() {
         return sessionStorage.token ? sessionStorage.token : null
     }
+
+
+
 }
 
 export default session

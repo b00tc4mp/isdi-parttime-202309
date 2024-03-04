@@ -64,7 +64,7 @@ function Tutorials(props) {
 
     return <div className="tutorials">
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
-        {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshTutorials} />)}
+        {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshTutorials} onToggleDeleteClick={refreshTutorials} />)}
         {/* {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={context.handleError} />)} */}
         {/* con React necesitamos crear una Key para renderizar una lista de
          elementos. Esta lista de elementos se renderiza con .map, porque .map

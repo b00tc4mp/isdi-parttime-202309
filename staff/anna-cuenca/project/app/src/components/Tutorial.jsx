@@ -7,13 +7,20 @@ import session from '../logic/session'
 
 import { useContext } from '../hooks'
 
+
+
+
+
 function Tutorial(props) {
     console.log(props.tutorial)
-    const [editTextPost, setEditTextPost] = useState(null)
+    //const [editTextPost, setEditTextPost] = useState(null)
+
     //const { handleError } = useContext(Context)
     const context = useContext()
     const navigate = useNavigate()
     const tutorial = props.tutorial
+
+
 
     function handleToggleLikePostClick() {
         try {
@@ -29,21 +36,7 @@ function Tutorial(props) {
             context.handleError(error)
         }
     }
-    function handleToggleFavPostClick() {
-        // try {
-        //     logic.toggleFavPost(post.id)
-        //         .then(() => {
 
-        //             props.onToggleFavClick()
-
-        //         })
-        //         .catch(error => context.handleError(error))
-
-        // } catch (error) {
-        //     //alert(error.message)
-        //     context.handleError(error)
-        // }
-    }
     function handleEditSubmit(event) {
         event.preventDefault()
         // const text = event.target.querySelector("#text").value
@@ -70,19 +63,19 @@ function Tutorial(props) {
     function handleCancelEdit() {
         //setEditTextPost(null)
     }
-    function handleToggleDeletePostClick() {
-        // if (confirm('Are you sure you want to delete this post?')) {
-        //     try {
-        //         logic.deletePost(post.id)
-        //             .then(() => {
-        //                 props.onToggleDeleteClick()
-        //             })
-        //             .catch(error => context.handleError(error))
-        //     } catch (error) {
-        //         //alert(error.message)
-        //         context.handleError(error)
-        //     }
-        // }
+    function handleToggleDeleteTutorialClick() {
+        if (confirm('Are you sure you want to delete this tutorial?')) {
+            try {
+                logic.deleteTutorial(tutorial.id)
+                    .then(() => {
+                        props.onToggleDeleteClick()
+                    })
+                    .catch(error => context.handleError(error))
+            } catch (error) {
+                //alert(error.message)
+                context.handleError(error)
+            }
+        }
     }
     const handleUserClick = event => {
         event.preventDefault()
@@ -93,23 +86,25 @@ function Tutorial(props) {
         {/* <h2><Link onClick={handleUserClick}>{props.post.author.name}</Link></h2> */}
         {/* <p>{tutorial.author.id}</p> */}
         <p>{props.tutorial.author.name}</p>
+        <p>{props.tutorial.author.role}</p>
 
         <p>{tutorial.title}</p>
         <p>{tutorial.text}</p>
         <div className="tutorial-actions">
             <Button onClick={handleToggleLikePostClick}>{tutorial.liked ? '🤖' : '🤍'} {tutorial.likes.length} </Button>
-            {/* <Button onClick={handleToggleFavPostClick}>{post.fav ? '⭐️' : '✩'}</Button>  */}
-            {/* {tutorial.author.id === session.sessionUserId && (<Button onClick={() => handleToggleDeletePostClick(post.id)}>🗑</Button>)}
-            {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>} */}
+
+            {/* {tutorial.author.role === 'admin' && (<Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>)} */}
+            {context.userRole === 'admin' && (<Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>)}
+            {/* {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>} 
             {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
          de like, {post.liked ? '❤️' : '🤍'} {post.likes.length}  eso son los children */}
         </div>
         <div>
-            {editTextPost === 'edit-text-post' && <Form onSubmit={handleEditSubmit}>
+            {/* {editTextPost === 'edit-text-post' && <Form onSubmit={handleEditSubmit}>
                 <Input id="text"></Input>
                 <Button type='onSubmit'>Save</Button>
                 <Button onClick={handleCancelEdit}>Cancel</Button>
-            </Form>}
+            </Form>} */}
         </div>
     </article>
     )

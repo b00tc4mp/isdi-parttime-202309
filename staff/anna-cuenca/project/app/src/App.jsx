@@ -15,6 +15,7 @@ import { Button, Form, Field } from './library'
 import Feedback from './components/Feedback'
 
 import Context from './Context'
+
 import { errors } from 'com'
 
 const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
@@ -84,8 +85,11 @@ function App() {
     setLevel(null)
   }
 
-  const context = { handleError } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
+  let userRole = 'user'
 
+  const context = { handleError, userRole } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
+
+  console.log(context)
   return <>
     <Context.Provider value={context}>
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}

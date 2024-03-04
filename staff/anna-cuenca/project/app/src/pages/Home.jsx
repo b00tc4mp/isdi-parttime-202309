@@ -6,6 +6,7 @@ import logic from '../logic'
 
 import { useContext } from '../hooks'
 
+
 //como en App hemos envuelto 
 
 import { Button, Form, Link, Field } from '../library'
@@ -21,6 +22,7 @@ function Home(props) {
 
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
+
     const [stamp, setStamp] = useState(null)
 
     // permiten navegar a diferentes rutas dentro de la aplicación y acceder a la ruta actual, respectivamente
@@ -46,7 +48,14 @@ function Home(props) {
 
         try {
             logic.retrieveUser()
-                .then(user => setName(user.name))
+                .then(user => {
+                    setName(user.name)
+                    console.log(user)
+                    context.userRole = user.role
+                    console.log(context)
+
+
+                })
                 .catch(error => context.handleError(error))
 
 
@@ -57,6 +66,8 @@ function Home(props) {
     }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
     // para que el efecto secundario se vuelva a ejecutar. Si el array está vacío [] significa
     // que sólo se ejecutará una vez.
+
+
 
     function handleProfileClick(event) {
         event.preventDefault()
