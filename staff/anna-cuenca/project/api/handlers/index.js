@@ -8,6 +8,7 @@ import retrieveUserInfoHandler from './retrieveUserInfoHandler.js'
 import createTutorialHandler from './createTutorialHandler.js'
 import retrieveTutorialHandler from './retrieveTutorialHandler.js'
 import toggleLikeTutorialHandler from './toggleLikeTutorialHandler.js'
+import deleteTutorialHandler from './deleteTutorialHandler.js'
 
 
 import ottoControllerHandler from './ottoControllerHandler.js'
@@ -20,7 +21,8 @@ export {
     ottoControllerHandler,
     createTutorialHandler,
     retrieveTutorialHandler,
-    toggleLikeTutorialHandler
+    toggleLikeTutorialHandler,
+    deleteTutorialHandler
 
 
 }

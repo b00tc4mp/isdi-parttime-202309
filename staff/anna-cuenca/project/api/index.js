@@ -18,7 +18,8 @@ import {
     ottoControllerHandler,
     createTutorialHandler,
     retrieveTutorialHandler,
-    toggleLikeTutorialHandler
+    toggleLikeTutorialHandler,
+    deleteTutorialHandler
 
 
 
@@ -64,6 +65,9 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //Toggle Like Tutorials
         server.patch('/tutorials/:tutorialId/likes', jsonBodyParser, toggleLikeTutorialHandler)
+
+        //Delete Tutorials
+        server.delete('/tutorials/:tutorialId', deleteTutorialHandler)
 
 
 
