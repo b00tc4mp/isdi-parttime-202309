@@ -4,12 +4,7 @@ import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import { useUser } from "../hooks/UserContext"
 
 import logic from '../logic'
-import RawMaterial from '../components/RawMaterial'
-import Packings from '../components/Packings'
-import Utensils from '../components/Utensils'
-import Login from '../components/Login'
-import Register from '../components/Register'
-import Recipes from '../components/Recipes'
+import { Login, Packings, RawMaterial, Register, Utensils, Recipes } from '../components'
 
 
 export default function Home() {

@@ -3,9 +3,9 @@ import createProduct from './createProduct.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/project')
     .then(() => {
-        const price = parseFloat('4.68')
+        const price = parseFloat('7.50')
 
-        createProduct('Aceite de Abisinia', '../images/producto1.png', price, 'RawMaterial')
+        createProduct('Extracto de Bayas de Goji', 'https://www.cremas-caseras.es/6980-medium_default/extracto-de-bayas-de-goji.jpg', price, 'RawMaterial')
             .then(() => {
                 console.log('Producto creado exitosamente')
                 mongoose.disconnect()

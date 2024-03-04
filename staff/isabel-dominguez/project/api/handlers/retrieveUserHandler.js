@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 const { JsonWebTokenError } = jwt
-
 import logic from '../logic/index.js'
 
 import { errors } from 'com'
