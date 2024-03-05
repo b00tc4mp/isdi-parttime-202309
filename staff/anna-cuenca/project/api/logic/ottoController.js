@@ -369,7 +369,7 @@ class OttoController {
                         newSequence.save()
                             .then(savedSequence => {
                                 console.log('new sequence saved', savedSequence)
-                                resolve(savedSequence);
+                                resolve(savedSequence)
                             })
                             .catch(error => {
                                 console.error('Error trying to create sequence', error)
@@ -395,6 +395,48 @@ class OttoController {
                 })
 
         })
+    }
+
+
+
+    ////// LOGICA DE SECUENCIAS ///////
+
+
+    async executeMovement(movement) {
+        // Mapear el nombre del movimiento a un método
+        switch (movement.type) {
+            case 'jump':
+                await this.jump()
+                break;
+            case 'stop':
+                await this.stop()
+                break;
+            // Aquí añadiré más cuando tenga más cosas
+            default:
+                console.log(`Movement ${movement.type} not found`)
+        }
+    }
+
+    async executeSequenceById(sequenceId) {
+        try {
+            // Buscar la secuencia por ID
+            const sequence = await SequenceMovement.findById(sequenceId)
+            if (!sequence) {
+                console.log('not sequence found')
+                return
+            }
+
+            // Iterar sobre cada movimiento en la secuencia
+            for (const movement of sequence.movements) {
+                console.log(`Executing ${movement.name}`)
+                // Ejecutar el movimiento correspondiente
+                await this.executeMovement(movement)
+            }
+
+            console.log('all movements of the sequence have been executed')
+        } catch (error) {
+            console.error('error executing the sequence', error)
+        }
     }
 }
 

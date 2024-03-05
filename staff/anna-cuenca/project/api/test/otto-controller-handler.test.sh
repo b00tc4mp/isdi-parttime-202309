@@ -42,6 +42,11 @@ endSequence() {
     echo "Command to endSequence sent."
 }
 
+executeSequenceById() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"executeSequenceById",  "sequenceId":"65e779b95ca9de5f2e0d0b44"}'
+    echo "Command to executeSequenceById sent."
+}
+
 jump() {
     curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"jump"}'
     echo "Command to jump sent."
@@ -77,6 +82,11 @@ while true; do
         [eE])
             echo "Saving sequence..."
             endSequence
+            ;;
+
+        [aA])
+            echo "Reproducing sequence..."
+            executeSequenceById
             ;;
         [rR])
             echo "Turning Right..."

@@ -19,11 +19,13 @@ dotenv.config();
 
     // Esperar a que la placa esté lista
     ottoController.board.on("ready", async () => {
-        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
+        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
 
         process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
         process.stdin.resume()
         process.stdin.setEncoding('utf8')
+
+        // executeSequenceById
 
         process.stdin.on('data', async (key) => {
             switch (key.toLowerCase()) {
@@ -31,6 +33,15 @@ dotenv.config();
                     console.log("Caminando hacia adelante...")
                     try {
                         await ottoController.walkForward()
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
+
+                case 'a':
+                    console.log("Ejecutando secuencia..")
+                    try {
+                        await ottoController.executeSequenceById('65e779b95ca9de5f2e0d0b44')
                     } catch (error) {
                         console.error(error)
                     }

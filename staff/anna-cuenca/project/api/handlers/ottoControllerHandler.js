@@ -9,43 +9,10 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
-// export default (req, res) => {
-//     try {
-//         const action = req.body.action
-
-//         if (action === 'walkForward') {
-//             logic.ottoController.walkForward().then(() => {
-//                 res.status(200).json({ message: 'otto is walking' })
-//             }).catch(error => {
-//                 res.status(500).json({ error: error.constructor.name, message: error.message })
-//             })
-//         } else if (action === 'walkBackward') {
-//             logic.ottoController.walkBackward().then(() => {
-//                 res.status(200).json({ message: 'Otto is walking backward' })
-//             }).catch(error => {
-//                 res.status(500).json({ error: error.constructor.name, message: error.message })
-//             })
-//         } else if (action === 'stop') {
-//             logic.ottoController.stop().then(() => {
-//                 res.status(200).json({ message: 'Otto has stopped' })
-//             }).catch(error => {
-//                 res.status(500).json({ error: error.constructor.name, message: error.message })
-//             })
-//         } else {
-//             res.status(400).json({ message: 'Invalid action' })
-//         }
-//     } catch (error) {
-//         let status = 500
-//         if (error instanceof ContentError || error instanceof TypeError) {
-//             status = 406
-//         }
-//         res.status(status).json({ error: error.constructor.name, message: error.message })
-//     }
-// }
 
 export default (req, res) => {
     try {
-        const { action, message } = req.body; // Asume que para 'sayHi' se enviará también un mensaje en el cuerpo de la petición
+        const { action, message, sequenceId } = req.body;
 
         switch (action) {
             case 'walkForward':
@@ -58,6 +25,14 @@ export default (req, res) => {
             case 'walkBackward':
                 logic.ottoController.walkBackward().then(() => {
                     res.status(200).json({ message: 'Otto is walking backward' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                });
+                break;
+
+            case 'executeSequenceById':
+                logic.ottoController.executeSequenceById(sequenceId).then(() => {
+                    res.status(200).json({ message: 'Otto is reproducing the sequence' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 });
@@ -94,7 +69,7 @@ export default (req, res) => {
                 });
                 break;
             case 'sayHi':
-                if (message) { // Asegúrate de validar que el mensaje se haya enviado para la acción 'sayHi'
+                if (message) {
                     logic.ottoController.sayHi(message).then(() => {
                         res.status(200).json({ message: `Message displayed: ${message}` })
                     }).catch(error => {
