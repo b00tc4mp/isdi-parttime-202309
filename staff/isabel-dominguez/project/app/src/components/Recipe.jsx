@@ -1,33 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-export default function Recipe({ title, image, ingredients, instructions }) {
-    const [showDetails, setShowDetails] = useState(false)
+export default function Recipe({ name, description, image, products, type }) {
+    const [showDetails, setShowDetails] = useState(false);
 
     const toggleDetails = () => {
-        setShowDetails(!showDetails)
-    }
+        setShowDetails(!showDetails);
+    };
 
     return (
         <div className="recipe-compo">
-            <h2>{title}</h2>
-            <img src={image} alt={title} />
+            <h2>{name}</h2>
+            <img src={image} alt={name} />
             {!showDetails && (
                 <button onClick={toggleDetails}>Ver detalles</button>
             )}
             {showDetails && (
                 <div>
-                    <h3>Ingredientes:</h3>
+                    <h3>Descripción:</h3>
+                    <p>{description}</p>
+                    <h3>Productos:</h3>
                     <ul>
-                        {ingredients.map((ingredient, index) => (
-                            <li key={index}>{ingredient}</li>
+                        {products.map((product, index) => (
+                            <li key={index}>{product}</li>
                         ))}
                     </ul>
-                    <h3>Instrucciones de preparación:</h3>
-                    <ol>
-                        {instructions.map((instruction, index) => (
-                            <li key={index}>{instruction}</li>
-                        ))}
-                    </ol>
+                    <h3>Tipo:</h3>
+                    <p>{type}</p>
                     <button onClick={toggleDetails}>Ocultar detalles</button>
                 </div>
             )}

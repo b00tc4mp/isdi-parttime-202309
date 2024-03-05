@@ -83,7 +83,12 @@ const recipe = new Schema({
     products: [{
         type: ObjectId,
         ref: 'Product'
-    }]
+    }],
+    type: {
+        type: String,
+        enum: ['Hair', 'Body', 'Make-up', 'Fragrance', 'Treatment'],
+        required: true
+    }
 })
 
 const Recipe = model('Recipe', recipe)

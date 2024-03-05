@@ -34,13 +34,20 @@ function id(id, explain) {
     if (!ID_REGEX.test(id)) throw new ContentError(`${explain} is not a valid id`)
 }
 
+function array(value, explain) {
+    if (!Array.isArray(value)) throw new TypeError(`${explain} is not an array`);
+    if (value.length === 0) throw new ContentError(`${explain} is empty`);
+}
+
+
 const validate = {
     text,
     email,
     password,
     number,
     function: funktion,
-    id
+    id,
+    array
 }
 
 export default validate

@@ -10,7 +10,9 @@ import {
     authenticateUserHandler,
     retrieveUserHandler,
     createProductHandler,
-    retrieveProductsHandler
+    retrieveProductsHandler,
+    createRecipeHandler,
+    retrieveRecipesHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -35,6 +37,12 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // RETRIEVE PRODUCTS
         server.get('/products', retrieveProductsHandler)
+
+        //CREATE RECIPE
+        server.post('/recipes', jsonBodyParser, createRecipeHandler)
+
+        // RETRIEVE RECIPE
+        server.get('/recipes', retrieveRecipesHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

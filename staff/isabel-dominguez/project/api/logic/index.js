@@ -3,6 +3,8 @@ import authenticateUser from './authenticateUser.js'
 import retrieveUser from './retrieveUser.js'
 import createProduct from './createProduct.js'
 import retrieveProducts from './retrieveProducts.js'
+import createRecipe from './createRecipe.js'
+import retrieveRecipes from './retrieveRecipes.js'
 
 
 const logic = {
@@ -10,7 +12,9 @@ const logic = {
     authenticateUser,
     retrieveUser,
     createProduct,
-    retrieveProducts
+    retrieveProducts,
+    createRecipe,
+    retrieveRecipes
 }
 
 export default logic
