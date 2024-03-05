@@ -5,9 +5,9 @@ const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
     try {
-        const { name, image, price, type } = req.body
+        const { name, description, image, price, type } = req.body
 
-        logic.createProduct(name, image, price, type)
+        logic.createProduct(name, description, image, price, type)
             .then(() => res.status(201).send())
             .catch(error => {
                 let status = 500

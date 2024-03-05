@@ -108,7 +108,7 @@ export default function Home() {
                     <h2><Link className="recipes" onClick={handleClickRecipes}>RECETAS</Link></h2>
 
                     <div className="welcome-user">
-                        {name ? (<div>Bienvenido, <i>{name}!</i> <button className='logout-button' onClick={handleLogout}>Cerrar sesión</button></div>) : (<div>Accede | Regístrate 👉</div>)}
+                        {name ? (<div>Bienvenido, <i>{name}!</i> <button className='logout-button' onClick={handleLogout}>✖️</button></div>) : (<div>Accede | Regístrate 👉</div>)}
                     </div>
 
                     <div className="icons">

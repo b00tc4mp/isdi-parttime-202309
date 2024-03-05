@@ -26,8 +26,26 @@ const user = new Schema({
 const User = model('User', user)
 
 
+const order = new Schema({
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    products: [{
+        type: ObjectId,
+        ref: 'Product'
+    }]
+})
+
+const Order = model('Order', order)
+
+
 const product = new Schema({
     name: {
+        type: String,
+        required: true
+    },
+    description: {
         type: String,
         required: true
     },
@@ -49,8 +67,31 @@ const product = new Schema({
 const Product = model('Product', product)
 
 
+const recipe = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    products: [{
+        type: ObjectId,
+        ref: 'Product'
+    }]
+})
+
+const Recipe = model('Recipe', recipe)
+
 
 export {
     User,
-    Product
+    Product,
+    Order,
+    Recipe
 }

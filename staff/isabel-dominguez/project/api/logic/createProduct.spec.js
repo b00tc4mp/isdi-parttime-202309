@@ -16,13 +16,15 @@ describe('createProduct', () => {
     it('succeeds on creating a product', () => {
         const image = random.image()
         const productName = random.productName()
+        const productDescription = random.productDescription()
         const productType = random.productType()
         const price = random.price(1, 20)
 
-        return createProduct(productName, image, price, productType)
+        return createProduct(productName, productDescription, image, price, productType)
             .then(createdProduct => {
                 expect(createdProduct).to.exist
                 expect(createdProduct.name).to.equal(productName)
+                expect(createdProduct.description).to.equal(productDescription)
                 expect(createdProduct.image).to.equal(image)
                 expect(createdProduct.price).to.equal(price)
                 expect(createdProduct.type).to.equal(productType)
@@ -32,6 +34,7 @@ describe('createProduct', () => {
             .then(product => {
                 expect(product).to.exist
                 expect(product.name).to.equal(productName)
+                expect(product.description).to.equal(productDescription)
                 expect(product.image).to.equal(image)
                 expect(product.price).to.equal(price)
                 expect(product.type).to.equal(productType)

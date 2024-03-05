@@ -18,6 +18,10 @@ function productName() {
     return `text-${Math.random()}`
 }
 
+function productDescription() {
+    return `text-${Math.random()}`
+}
+
 function price(min, max) {
     return Math.random() * (max - min) + min
 }
@@ -35,7 +39,8 @@ const random = {
     productName,
     productType,
     image,
-    price
+    price,
+    productDescription
 }
 
 export default random

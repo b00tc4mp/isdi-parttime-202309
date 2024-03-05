@@ -1,8 +1,9 @@
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
-export default function createProduct(name, image, price, type) {
+export default function createProduct(name, description, image, price, type) {
     validate.text(name, 'name')
+    validate.text(description, 'description')
     validate.text(image, 'image')
     validate.number(price, 'price')
     validate.text(type, 'type')
@@ -12,7 +13,7 @@ export default function createProduct(name, image, price, type) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, image, price, type })
+        body: JSON.stringify({ name, description, image, price, type })
     }
 
     return fetch(`${import.meta.env.VITE_API_URL}/products`, req)

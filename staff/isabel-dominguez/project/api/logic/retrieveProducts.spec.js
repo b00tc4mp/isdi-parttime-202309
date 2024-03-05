@@ -24,11 +24,13 @@ describe('retrieveProducts', () => {
         for (let i = 0; i < numProducts; i++) {
             const image = random.image()
             const productName = random.productName()
+            const productDescription = random.productDescription()
             const productType = random.productType()
             const price = random.price(1, 20)
 
             const newProduct = new Product({
                 name: productName,
+                description: productDescription,
                 image: image,
                 price: price,
                 type: productType
