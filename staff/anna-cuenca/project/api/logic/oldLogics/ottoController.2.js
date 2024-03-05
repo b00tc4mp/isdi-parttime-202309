@@ -1,7 +1,7 @@
 import pkg from 'johnny-five'
 const { Board, Servo, LCD } = pkg
-import { Otto } from './otto.js'
-import { Movement, SequenceMovement } from '../data/models.js'
+import { Otto } from '../otto.js'
+import { Movement, SequenceMovement } from '../../data/models.js'
 
 const FORWARD = 1
 const BACKWARD = -1
@@ -116,7 +116,7 @@ class OttoController {
             if (!this.lcd) {
                 console.error('LCD no está inicializado.')
                 reject(new Error('LCD no está inicializado.'))
-                return;
+                return
             }
 
             try {
@@ -261,10 +261,58 @@ class OttoController {
         })
     }
 
+    // JUMP sin guardar el movimiento
+
+    // jump() {
+
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.otto) {
+    //             reject(new Error("Otto is not initialized"))
+    //             return
+    //         }
+
+    //         // Asumiendo que has inicializado correctamente los servos en alguna parte de tu código
+    //         const servoLeftLeg = new Servo(2) // Ejemplo, necesitas asegurarte de que esto se hace en el contexto adecuado
+    //         const servoRightLeg = new Servo(3)
+    //         const servoLeftFoot = new Servo(4) // Comentado por simplicidad, añade según sea necesario
+    //         const servoRightFoot = new Servo(5)
+
+    //         servoLeftLeg.to(90)
+    //         servoRightLeg.to(90)
+    //         servoLeftFoot.to(150) // Posición elevada para el pie izquierdo
+    //         servoRightFoot.to(30)
+
+    //         // Esperar un momento para completar el giro
+    //         setTimeout(() => {
+    //             // Asegúrate de devolver los servos a una posición neutral antes de caminar
+    //             // Posiciones para "saltar"
+    //             servoLeftLeg.to(90) // Mantener las piernas rectas
+    //             servoRightLeg.to(90)
+    //             servoLeftFoot.to(90) // Volver a la posición neutral para simular el salto
+    //             servoRightFoot.to(90)
+
+    //             console.log("Otto has jumped")
+    //             resolve()
+
+    //             // // Espera un poco antes de empezar a caminar para asegurar que los servos están en posición neutral
+    //             // setTimeout(() => {
+    //             //     // Llama a walkForward después de que el giro se ha completado
+    //             //     servoLeftLeg.to(90);
+    //             //     servoRightLeg.to(90);
+    //             //     servoLeftFoot.to(90);
+    //             //     servoRightFoot.to(90);
+    //             //     console.log("Otto has jumped");
+    //             //     resolve();
+    //             // }, 2000); // Tiempo de espera para que los servos vuelvan a la posición neutral
+    //         }, 2000) // Tiempo de espera para completar el giro, ajusta según sea necesario
+    //     })
+
+    // }
+
     jump() {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
-                reject(new Error("Otto is not initialized"));
+                reject(new Error("Otto is not initialized"))
                 return;
             }
 
@@ -331,6 +379,21 @@ class OttoController {
             }, 2000) // el salto dura 2 seg
         })
     }
+
+    /// STOP SIN GUARDAR EN SECUENCIA
+
+    // stop() {
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.otto) {
+    //             reject(new Error("Otto is not initialized"))
+    //             return
+    //         }
+
+    //         this.otto.stopServos()
+    //         resolve()
+    //     })
+    // }
+
 
 
     stop() {

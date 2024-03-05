@@ -104,7 +104,7 @@ export default function Profile() {
     }
 
     return <div className="container">
-        <h2>Profile Information</h2>
+        <h2> {userData.name}'s Profile</h2>
         {userData && (
             <div>
                 <div>Name: {userData.name}</div>

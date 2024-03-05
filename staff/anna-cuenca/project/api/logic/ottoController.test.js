@@ -43,6 +43,14 @@ dotenv.config();
                         console.error(error)
                     }
                     break;
+                case 'e':
+                    console.log("Guardando secuencia")
+                    try {
+                        await ottoController.endSequence()
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
                 case 'b':
                     console.log("Caminando hacia atrás...")
                     try {

@@ -87,6 +87,7 @@ function App() {
 
   let userRole = 'user'
 
+
   const context = { handleError, userRole } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
 
   console.log(context)

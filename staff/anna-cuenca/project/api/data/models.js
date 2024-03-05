@@ -36,11 +36,19 @@ const user = new Schema({
 
 const movement = new Schema({
     type: String,
-    order: Number,
-    enum: ['forward', 'backward', 'left', 'right']
 
+    enum: ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop']
 
 })
+
+const sequenceMovement = new Schema({
+    movements: [movement],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+})
+
 
 const tutorial = new Schema({
     author: {
@@ -71,7 +79,8 @@ const tutorial = new Schema({
 const User = model('User', user)
 const Tutorial = model('Tutorial', tutorial)
 const Movement = model('Movement', movement)
+const SequenceMovement = model('SequenceMovement', sequenceMovement)
 
 export {
-    User, Tutorial, Movement
+    User, Tutorial, Movement, SequenceMovement
 }

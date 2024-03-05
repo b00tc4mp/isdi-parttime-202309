@@ -52,6 +52,7 @@ function Home(props) {
                     setName(user.name)
                     console.log(user)
                     context.userRole = user.role
+
                     console.log(context)
 
 
@@ -114,7 +115,7 @@ function Home(props) {
         {location.pathname === '/' && (
             <>
                 <main>
-                    <h2>Robot App Home</h2>
+                    <h2>Welcome back, {name} </h2>
                     <Button onClick={handleControllerClick}>Connect Your Robot</Button>
                     <Button onClick={handleTutorialClick}>Tutorials</Button>
                 </main>

@@ -1,6 +1,6 @@
 import pkg from 'johnny-five'
 const { Board, Servo, LCD } = pkg
-import { Otto } from './otto.js'
+import { Otto } from '../otto.js'
 
 const FORWARD = 1
 const BACKWARD = -1
