@@ -35,9 +35,19 @@ const user = new Schema({
 })
 
 const movement = new Schema({
-    type: String,
-
-    enum: ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop']
+    name: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop']
+    },
+    ordinal: {
+        type: Number,
+        required: true
+    }
 
 })
 

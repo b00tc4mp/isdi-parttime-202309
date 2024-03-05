@@ -37,6 +37,16 @@ stop() {
     echo "Command to stop sent."
 }
 
+endSequence() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"endSequence"}'
+    echo "Command to endSequence sent."
+}
+
+jump() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"jump"}'
+    echo "Command to jump sent."
+}
+
 say_hi() {
     curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"sayHi", "message":"¡Hola, soy Otto!"}'
     echo "Command to say hi sent."
@@ -54,7 +64,7 @@ CASE "success on otto controller"
 
 # Bucle para leer la entrada del usuario
 while true; do
-    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to turn right, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'q' to quit: " input
+    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to turn right, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'e' to clear LCD, 'q' to quit: " input
     case $input in
         [wW])
             echo "Walking forward..."
@@ -64,9 +74,17 @@ while true; do
             echo "Walking backward..."
             walk_backward
             ;;
+        [eE])
+            echo "Saving sequence..."
+            endSequence
+            ;;
         [rR])
             echo "Turning Right..."
             turn_right
+            ;;
+        [jJ])
+            echo "Jumping..."
+            jump
             ;;
         [sS])
             echo "Stopping..."

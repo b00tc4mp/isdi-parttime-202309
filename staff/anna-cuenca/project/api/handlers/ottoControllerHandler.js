@@ -63,9 +63,25 @@ export default (req, res) => {
                 });
                 break;
 
+            case 'endSequence':
+                logic.ottoController.endSequence().then(() => {
+                    res.status(200).json({ message: 'Sequence has stopped' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                });
+                break;
+
             case 'turnRight':
                 logic.ottoController.turn(7, 2000, RIGHT).then(() => {
                     res.status(200).json({ message: 'Otto is turning right' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                });
+                break;
+
+            case 'jump':
+                logic.ottoController.jump().then(() => {
+                    res.status(200).json({ message: 'Otto is jumping' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 });

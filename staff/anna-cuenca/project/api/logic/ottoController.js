@@ -289,11 +289,16 @@ class OttoController {
                 console.log("Otto has jumped")
 
                 // Crear un registro de movimiento 
-                const jumpMovement = { type: 'jump' }
+                const jumpMovement = {
+                    type: 'jump',
+                    name: 'Jump'
+                }
 
                 // comprobar si hay una secuencia ya creada o no
                 SequenceMovement.findOne({}).sort({ createdAt: -1 }) // Encuentra la última secuencia 
                     .then(sequence => {
+                        const ordinal = sequence ? sequence.movements.length : 0 // calculo el ordinal basado en la longitud
+                        jumpMovement.ordinal = ordinal // asigno l valor del ordinal al movmiento
                         if (!sequence) {
                             // Si no hay secuencias, crea una nueva
                             const newSequence = new SequenceMovement({
@@ -344,11 +349,16 @@ class OttoController {
             this.otto.stopServos()
 
             // Crear un objeto de movimiento para "stop"
-            const stopMovement = { type: 'stop' }
+            const stopMovement = {
+                type: 'stop',
+                name: 'Stop'
+            }
 
             // Guardar el movimiento en la última secuencia
             SequenceMovement.findOne({}).sort({ createdAt: -1 })
                 .then(sequence => {
+                    const ordinal = sequence ? sequence.movements.length : 0 // calculo el ordinal basado en la longitud
+                    stopMovement.ordinal = ordinal
                     if (!sequence) {
                         // Si no hay secuencias, crea una nueva
                         const newSequence = new SequenceMovement({
