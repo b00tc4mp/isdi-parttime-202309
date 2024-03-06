@@ -8,6 +8,8 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
+
+
 dotenv.config();
 
 (async () => {
@@ -49,7 +51,7 @@ dotenv.config();
                 case 's':
                     console.log("Deteniendo...")
                     try {
-                        await ottoController.stop('65df64c91b58c18d63b7d95a')
+                        await ottoController.stop('65d8e3c8e5c7a46a05f53b0c')
                     } catch (error) {
                         console.error(error)
                     }
@@ -57,7 +59,7 @@ dotenv.config();
                 case 'e':
                     console.log("Guardando secuencia")
                     try {
-                        await ottoController.endSequence('65df64c91b58c18d63b7d95a')
+                        await ottoController.endSequence('65d8e3c8e5c7a46a05f53b0c')
                     } catch (error) {
                         console.error(error)
                     }
@@ -90,7 +92,7 @@ dotenv.config();
                 case 'j': // saltar
                     console.log("Saltando")
                     try {
-                        await ottoController.jump('65df64c91b58c18d63b7d95a')
+                        await ottoController.jump('65d8e3c8e5c7a46a05f53b0c')
                     } catch (error) {
                         console.error('Error al intentar saltar:', error)
                     }

@@ -7,7 +7,7 @@ import retrieveTutorials from './retrieveTutorials.js'
 import toggleLikeTutorial from './toggleLikeTutorial.js'
 import deleteTutorial from './deleteTutorial.js'
 
-
+import retrieveSequence from './retrieveSequence.js'
 
 
 import retrieveUserInfo from './retrieveUserInfo.js'
@@ -36,6 +36,7 @@ const logic = {
     deleteTutorial,
 
     retrieveUserInfo,
+    retrieveSequence,
 
     ottoController
 
