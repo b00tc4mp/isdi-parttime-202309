@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Recipe from './Recipe'
 import logic from '../logic'
 
-export default function Recipes() {
-    const [recipes, setRecipes] = useState([]);
+export default function Recipes(props) {
+    const [recipes, setRecipes] = useState([])
 
     useEffect(() => {
-        logic.retrieveRecipes()
-            .then(data => setRecipes(data))
-            .catch(error => alert(error.message))
-    }, [])
+        if (!props.type) {
+            logic.retrieveRecipesByType('Make-up')
+                .then(data => setRecipes(data))
+                .catch(error => alert(error.message))
+        } else {
+            logic.retrieveRecipesByType(props.type)
+                .then(data => setRecipes(data))
+                .catch(error => alert(error.message))
+        }
+    }, [props.type])
 
     return (
         <div className="recipes-compo">
+            <div className='recipes-type' >
+                <Link to="/recipes/make-up"><button>Maquillaje</button></Link>
+                <Link to="/recipes/treatment"><button>Tratamientos</button></Link>
+                <Link to="/recipes/hair"><button>Cabello</button></Link>
+                <Link to="/recipes/body"><button>Cuerpo</button></Link>
+                <Link to="/recipes/fragrance"><button>Perfumes</button></Link>
+            </div>
+
             {recipes.map(recipe => (
                 <Recipe
                     key={recipe.id}
@@ -25,7 +40,4 @@ export default function Recipes() {
             ))}
         </div>
     )
-}
-
-
-//este compo se va y hago un compo para cada tipo de receta (por filtrado)
+};

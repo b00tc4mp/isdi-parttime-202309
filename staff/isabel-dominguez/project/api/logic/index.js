@@ -4,7 +4,7 @@ import retrieveUser from './retrieveUser.js'
 import createProduct from './createProduct.js'
 import retrieveProductsByType from './retrieveProductsByType.js'
 import createRecipe from './createRecipe.js'
-import retrieveRecipes from './retrieveRecipes.js'
+import retrieveRecipesByType from './retrieveRecipesByType.js'
 
 
 const logic = {
@@ -14,7 +14,7 @@ const logic = {
     createProduct,
     retrieveProductsByType,
     createRecipe,
-    retrieveRecipes
+    retrieveRecipesByType
 }
 
 export default logic

@@ -1,6 +1,6 @@
 echo "TEST: Retrieve Products By Type"
 
-echo "CASE: Success on retrieving products RawMaterial"
+echo "CASE: Success on retrieving products RawMaterial type"
 
 curl 'http://localhost:9000/products/RawMaterial' \
 -v

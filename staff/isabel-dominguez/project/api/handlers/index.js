@@ -4,7 +4,7 @@ import retrieveUserHandler from './retrieveUserHandler.js'
 import createProductHandler from './createProductHandler.js'
 import retrieveProductsByTypeHandler from './retrieveProductsByTypeHandler.js'
 import createRecipeHandler from './createRecipeHandler.js'
-import retrieveRecipesHandler from './retrieveRecipesHandler.js'
+import retrieveRecipesByTypeHandler from './retrieveRecipesByTypeHandler.js'
 
 
 export {
@@ -14,5 +14,5 @@ export {
     createProductHandler,
     retrieveProductsByTypeHandler,
     createRecipeHandler,
-    retrieveRecipesHandler
+    retrieveRecipesByTypeHandler
 }

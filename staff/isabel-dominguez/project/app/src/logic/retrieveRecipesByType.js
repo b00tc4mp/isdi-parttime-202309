@@ -1,9 +1,9 @@
 import { errors } from 'com'
 const { SystemError } = errors
 
-export default function retrieveRecipes() {
+export default function retrieveRecipesByType(type) {
 
-    return fetch(`${import.meta.env.VITE_API_URL}/recipes`)
+    return fetch(`${import.meta.env.VITE_API_URL}/recipes/${type}`)
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
@@ -11,6 +11,7 @@ export default function retrieveRecipes() {
                     .catch(error => { throw new SystemError(error.message) })
                     .then(body => { throw new errors[body.error](body.message) })
             }
+
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
         })

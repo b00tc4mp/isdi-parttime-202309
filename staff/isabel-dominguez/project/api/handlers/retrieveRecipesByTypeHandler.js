@@ -4,9 +4,10 @@ import { errors } from 'com'
 const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
+    const { type } = req.params
 
     try {
-        logic.retrieveRecipes()
+        logic.retrieveRecipesByType(type)
             .then(recipes => res.json(recipes))
             .catch(error => {
                 let status = 500

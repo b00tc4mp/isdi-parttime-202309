@@ -367,6 +367,32 @@ header {
 }
 
 
+/* RECIPES TYPES*/
+.recipes-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.recipes-type button {
+  background-color: transparent;
+  color: black;
+  text-decoration: none;
+  border: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.recipes-type button:hover {
+  color: rosybrown;
+}
+
+
 /* LOGIN*/
 .login-view {
   max-width: 400px;

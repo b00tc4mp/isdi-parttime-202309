@@ -130,9 +130,17 @@ export default function Home() {
                 <Route path="/packings" element={<Packings />} />
                 <Route path="/utensils" element={<Utensils />} />
                 <Route path="/recipes" element={<Recipes />} />
+                <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
+                <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
+                <Route path="/recipes/hair" element={<Recipes type='Hair' />} />
+                <Route path="/recipes/body" element={<Recipes type='Body' />} />
+                <Route path="/recipes/fragrance" element={<Recipes type='Fragrance' />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
             </Routes>
         </>
     )
 }
+
+
+// Lo mismo que con las turas de recetas, los detalles de cada producto.

@@ -12,7 +12,7 @@ import {
     createProductHandler,
     retrieveProductsByTypeHandler,
     createRecipeHandler,
-    retrieveRecipesHandler
+    retrieveRecipesByTypeHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -41,8 +41,8 @@ mongoose.connect(process.env.MONGODB_URL)
         //CREATE RECIPE
         server.post('/recipes', jsonBodyParser, createRecipeHandler)
 
-        // RETRIEVE RECIPE
-        server.get('/recipes', retrieveRecipesHandler)
+        // RETRIEVE RECIPE BY TYPE
+        server.get('/recipes/:type', retrieveRecipesByTypeHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

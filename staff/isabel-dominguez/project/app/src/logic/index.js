@@ -6,7 +6,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 import createProduct from './createProduct'
 import retrieveProductsByType from './retrieveProductsByType'
 import createRecipe from './createRecipe'
-import retrieveRecipes from './retrieveRecipes'
+import retrieveRecipesByType from './retrieveRecipesByType'
 
 const logic = {
     registerUser,
@@ -17,7 +17,7 @@ const logic = {
     createProduct,
     retrieveProductsByType,
     createRecipe,
-    retrieveRecipes
+    retrieveRecipesByType
 }
 
 export default logic
