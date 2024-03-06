@@ -49,7 +49,7 @@ dotenv.config();
                 case 's':
                     console.log("Deteniendo...")
                     try {
-                        await ottoController.stop()
+                        await ottoController.stop('65df64c91b58c18d63b7d95a')
                     } catch (error) {
                         console.error(error)
                     }
@@ -57,7 +57,7 @@ dotenv.config();
                 case 'e':
                     console.log("Guardando secuencia")
                     try {
-                        await ottoController.endSequence()
+                        await ottoController.endSequence('65df64c91b58c18d63b7d95a')
                     } catch (error) {
                         console.error(error)
                     }
@@ -90,7 +90,7 @@ dotenv.config();
                 case 'j': // saltar
                     console.log("Saltando")
                     try {
-                        await ottoController.jump()
+                        await ottoController.jump('65df64c91b58c18d63b7d95a')
                     } catch (error) {
                         console.error('Error al intentar saltar:', error)
                     }

@@ -1,7 +1,7 @@
 import pkg from 'johnny-five'
 const { Board, Servo, LCD } = pkg
-import { Otto } from './otto.js'
-import { Movement, SequenceMovement } from '../data/models.js'
+import { Otto } from '../otto.js'
+import { Movement, SequenceMovement } from '../../data/models.js'
 
 const FORWARD = 1
 const BACKWARD = -1
@@ -41,24 +41,14 @@ class OttoController {
 
     ////////////// END SEQUENCE ////////////
 
-    endSequence(userId) {
+    endSequence() {
         return new Promise((resolve, reject) => {
 
-            if (!userId) {
-                console.error('Error: userId is required to end a sequence.')
-                reject(new Error('userId is required to end a sequence.'))
-                return;
-            }
-
-
-            const newSequence = new SequenceMovement({
-                userId,
-                movements: []
-            })
-
+            // Al finalizar la secuencia, creamos una nueva
+            const newSequence = new SequenceMovement({ movements: [] })
             newSequence.save()
                 .then(() => {
-                    console.log('New sequence created for userId:', userId)
+                    console.log('New sequence created')
                     resolve(newSequence)
                 })
                 .catch(error => {
@@ -271,7 +261,7 @@ class OttoController {
         })
     }
 
-    jump(userId) {
+    jump() {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
                 reject(new Error("Otto is not initialized"));
@@ -305,19 +295,16 @@ class OttoController {
                 }
 
                 // comprobar si hay una secuencia ya creada o no
-                SequenceMovement.findOne({ userId }).sort({ createdAt: -1 }) // Encuentra la última secuencia 
+                SequenceMovement.findOne({}).sort({ createdAt: -1 }) // Encuentra la última secuencia 
                     .then(sequence => {
                         const ordinal = sequence ? sequence.movements.length : 0 // calculo el ordinal basado en la longitud
                         jumpMovement.ordinal = ordinal // asigno l valor del ordinal al movmiento
                         if (!sequence) {
                             // Si no hay secuencias, crea una nueva
                             const newSequence = new SequenceMovement({
-                                userId: userId,
                                 movements: [jumpMovement],
                                 createdAt: new Date()
                             })
-
-                            console.log(userId)
 
                             newSequence.save()
                                 .then(savedSequence => {
@@ -351,7 +338,7 @@ class OttoController {
     }
 
 
-    stop(userId) {
+    stop() {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
                 reject(new Error("Otto is not initialized"))
@@ -368,14 +355,13 @@ class OttoController {
             }
 
             // Guardar el movimiento en la última secuencia
-            SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+            SequenceMovement.findOne({}).sort({ createdAt: -1 })
                 .then(sequence => {
                     const ordinal = sequence ? sequence.movements.length : 0 // calculo el ordinal basado en la longitud
                     stopMovement.ordinal = ordinal
                     if (!sequence) {
                         // Si no hay secuencias, crea una nueva
                         const newSequence = new SequenceMovement({
-                            userId: userId,
                             movements: [stopMovement],
                             createdAt: new Date()
                         })
