@@ -26,3 +26,6 @@ export default function Recipes() {
         </div>
     )
 }
+
+
+//este compo se va y hago un compo para cada tipo de receta (por filtrado)

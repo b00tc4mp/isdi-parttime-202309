@@ -3,9 +3,9 @@ import createProduct from './createProduct.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/project')
     .then(() => {
-        const price = parseFloat('4.95')
+        const price = parseFloat('4.91')
 
-        createProduct('Aceite de Ricino', 'El aceite de ricino es un remedio muy conocido en el cuidado de la piel, manteniéndola hidratada. En el cuidado del cabello cabe mencionar que tiene propiedades antialopécicas con lo que podemos controlar la caída del cabello. Al mismo tiempo tiene nutriente que harán nuestro pelo suave al tacto al mismo tiempo que lo nutre. Las propiedades antibacterianas del aceite de ricino hace que sea indicado para el tratamiento de caspa. Con su uso se pueden tratar escamas, cicatrices y manchas de la piel. Asimismo, gracias a su acción espumante se pueden hacer jabones corporales y especialmente jabones para tratar el acné, debido a sus propiedades antimicrobianas. Además, el aceite de ricino se usa en el tratamiento de eczemas, dermatitis, inflamación de la piel, irritación o picazón gracias a su contenido en ácido ricinoleico. Contiene tocoferoles y vitamina E que favorecen su acción antioxidante.', 'https://www.cremas-caseras.es/6410-medium_default/aceite-de-ricino.jpg', price, 'RawMaterial')
+        createProduct('Envase tubo de cartón stick labial', 'Envase para crear barras de labios de color y bálsamo labial ¡sin plásticos! El envase al ser de cartón es fácilmente reciclable y permite crear un producto acabado totalmente sostenible. El envase es cilíndrico y con forma de tubo. Fácil de usar, se compone de la base y una tapadera, al igual que un stick labial convencional. Se debe tener en cuenta que el sistema que utiliza es push up, por lo que no incorpora ningún elemento giratorio, pulsando en la parte de abajo de la base se puede hacer uso del producto acabado. Se aconseja durante el envasado tener mucha precaución a la hora de tocar el envase con las manos manchadas o con algún producto graso ya que quedará manchado. El envase admite hasta 12 ml, utilizando la base hasta su tope.', 'https://hellokitchen.com.au/wp-content/uploads/2021/09/C320800.jpg', price, 'Packings')
             .then(() => {
                 console.log('Successfully created product')
                 mongoose.disconnect()

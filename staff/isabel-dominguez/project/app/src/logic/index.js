@@ -4,7 +4,7 @@ import logoutUser from './logoutUser'
 import retrieveUser from './retrieveUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import createProduct from './createProduct'
-import retrieveProducts from './retrieveProducts'
+import retrieveProductsByType from './retrieveProductsByType'
 import createRecipe from './createRecipe'
 import retrieveRecipes from './retrieveRecipes'
 
@@ -15,7 +15,7 @@ const logic = {
     retrieveUser,
     isUserLoggedIn,
     createProduct,
-    retrieveProducts,
+    retrieveProductsByType,
     createRecipe,
     retrieveRecipes
 }

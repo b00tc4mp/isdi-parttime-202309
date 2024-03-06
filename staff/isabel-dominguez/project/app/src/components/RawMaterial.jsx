@@ -7,16 +7,16 @@ export default function RawMaterial() {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        logic.retrieveProducts()
+        logic.retrieveProductsByType('RawMaterial')
             .then(data => setProducts(data))
             .catch(error => alert(error.message))
     }, [])
 
-    const rawMaterialProducts = products.filter(product => product.type === 'RawMaterial');
+
 
     return (
         <div>
-            <div className="products">{rawMaterialProducts.map(product => (<Product key={product.id} {...product} />))}</div>
+            <div className="products">{products.map(product => (<Product key={product.id} {...product} />))}</div>
         </div>
     )
 }

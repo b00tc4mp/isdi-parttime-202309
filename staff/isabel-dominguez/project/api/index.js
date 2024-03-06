@@ -10,7 +10,7 @@ import {
     authenticateUserHandler,
     retrieveUserHandler,
     createProductHandler,
-    retrieveProductsHandler,
+    retrieveProductsByTypeHandler,
     createRecipeHandler,
     retrieveRecipesHandler
 } from './handlers/index.js'
@@ -35,8 +35,8 @@ mongoose.connect(process.env.MONGODB_URL)
         //CREATE PRODUCT
         server.post('/products', jsonBodyParser, createProductHandler)
 
-        // RETRIEVE PRODUCTS
-        server.get('/products', retrieveProductsHandler)
+        // RETRIEVE PRODUCTS BY TYPE
+        server.get('/products/:type', retrieveProductsByTypeHandler)
 
         //CREATE RECIPE
         server.post('/recipes', jsonBodyParser, createRecipeHandler)

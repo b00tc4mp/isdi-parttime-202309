@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 
-import retrieveProducts from './retrieveProducts.js'
+import retrieveProductsByType from './retrieveProductsByType.js'
 
 mongoose.connect('mongodb://127.0.0.1:27017/project')
     .then(() => {
 
-        retrieveProducts('')
+        retrieveProductsByType('Packings')
             .then(product => {
                 console.log('retrieved product', product)
                 mongoose.disconnect()

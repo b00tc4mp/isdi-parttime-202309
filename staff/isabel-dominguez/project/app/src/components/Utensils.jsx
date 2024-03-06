@@ -7,16 +7,16 @@ export default function Utensils() {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        logic.retrieveProducts()
+        logic.retrieveProductsByType('Utensils')
             .then(data => setProducts(data))
             .catch(error => alert(error.message))
     }, [])
 
-    const utensilsProducts = products.filter(product => product.type === 'Utensils')
+
 
     return (
         <div>
-            <div className="products">{utensilsProducts.map(product => (<Product key={product.id} {...product} />))}</div>
+            <div className="products">{products.map(product => (<Product key={product.id} {...product} />))}</div>
         </div>
     )
 }

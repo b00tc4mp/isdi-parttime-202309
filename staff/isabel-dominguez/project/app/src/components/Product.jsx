@@ -15,7 +15,7 @@ export default function Product({ name, image, price, description }) {
     return (
         <div className="product">
             <h2>{name}</h2>
-            <img src={image} alt={name} />
+            <img className='product-image' src={image} alt={name} />
             <p>Precio: {price}</p>
             <button className="cart-button" onClick={handleClickAddToCart}>🛒</button>
             <button className="details-button" onClick={handleDetailsClick}>Ver detalles</button>

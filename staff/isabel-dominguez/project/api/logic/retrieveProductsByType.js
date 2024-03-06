@@ -3,14 +3,13 @@ import { Product } from '../data/models.js'
 
 const { NotFoundError, SystemError } = errors
 
-function retrieveProducts() {
+function retrieveProductsByType(type) {
 
-    return Product.find().lean()
+    return Product.find({ type }).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(products => {
             if (!products || products.length === 0)
-                throw new NotFoundError('Products not found')
-
+                throw new NotFoundError(`Products of type ${type} not found`)
 
             products.forEach(product => {
                 product.id = product._id.toString()
@@ -20,4 +19,4 @@ function retrieveProducts() {
         })
 }
 
-export default retrieveProducts
+export default retrieveProductsByType

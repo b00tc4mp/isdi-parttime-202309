@@ -1,12 +1,13 @@
 import logic from '../logic/index.js'
-
 import { errors } from 'com'
+
 const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
+    const { type } = req.params
 
     try {
-        logic.retrieveProducts()
+        logic.retrieveProductsByType(type)
             .then(products => res.json(products))
             .catch(error => {
                 let status = 500
