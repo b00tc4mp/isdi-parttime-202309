@@ -41,7 +41,7 @@ class SystemError extends Error {
     }
 }
 
-class UknownCommandError extends Error {
+class AuthorizationError extends Error {
     constructor(message) {
         super(message)
 
@@ -63,7 +63,7 @@ export {
     DuplicityError,
     NotFoundError,
     SystemError,
-    UknownCommandError,
+    AuthorizationError,
     TokenError
 }
 
@@ -73,7 +73,7 @@ const errors = {
     DuplicityError,
     NotFoundError,
     SystemError,
-    UknownCommandError,
+    AuthorizationError,
     TokenError
 }
 
