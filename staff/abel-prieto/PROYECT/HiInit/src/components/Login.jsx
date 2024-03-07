@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useState, useContext } from 'react'
 import logic from '../logic'
+import Context from '../Context'
 
 function Login({ onSuccess }) {
 
     // FIELDS STATE
     const [showEmail, setShowEmail] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
+
+    const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     function showInputPassword() {
         setShowPassword(true)
@@ -21,21 +26,28 @@ function Login({ onSuccess }) {
             logic.loginUser(email, password)
                 .then(() => onSuccess())
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error')
+                    const clientError = document.querySelector('#client-error-login')
 
                     clientError.innerText = error.message
-                    clientError.style.color = 'red'
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
 
                     return
                 })
         } catch (error) {
-            alert(error.message)
+            const clientError = document.querySelector('#client-error-login')
+
+            clientError.innerText = error.message
+            clientError.style.color = 'tomato'
+
+            handleError(error, navigate)
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error')
+            const clientError = document.querySelector('#client-error-login')
 
-            clientError.innerText = 'Entry your credentials: '
+            clientError.innerText = 'Login - Entry your credentials: '
             clientError.style.color = '#EBDBB2'
         })
     }
@@ -43,10 +55,9 @@ function Login({ onSuccess }) {
     return <>
         <div>
             <p>~$</p>
-
             <span>
                 <form className="login-form" onSubmit={handleSubmit}>
-                    <p id="client-error">Entry your credentials: </p>
+                    <p id="client-error-login">Login - Entry your credentials: </p>
 
                     {showEmail && (
                         <div className="fields">

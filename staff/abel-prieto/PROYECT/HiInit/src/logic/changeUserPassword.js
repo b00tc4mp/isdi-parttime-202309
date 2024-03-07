@@ -2,7 +2,7 @@ import session from './session.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
-async function changeUserPassword(password, newPassword, againNewPassword) {
+function changeUserPassword(password, newPassword, againNewPassword) {
     validate.password(password, 'Password')
     validate.password(newPassword, 'New password')
     validate.password(againNewPassword, 'Repeat new password')
@@ -16,16 +16,15 @@ async function changeUserPassword(password, newPassword, againNewPassword) {
         body: JSON.stringify({ password, newPassword, againNewPassword })
     }
 
-    const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users/password`, req)
-
-    try {
-        if (!res.ok) {
-            const body = await res.json()
-            throw new errors[body.error](body.message)
-        }
-    } catch (error) {
-        throw new SystemError(error.message)
-    }
+    return fetch(`${import.meta.env.VITE_HIINIT_APP}/users/password`, req)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (!res.ok) {
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            }
+        })
 }
 
 export default changeUserPassword

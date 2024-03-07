@@ -2,7 +2,7 @@ import session from './session.js'
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
-async function loginUser(email, password) {
+function loginUser(email, password) {
     validate.email(email, 'Email')
     validate.password(password, 'Password')
 
@@ -14,25 +14,27 @@ async function loginUser(email, password) {
         body: JSON.stringify({ email, password })
     }
 
-    try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/users/auth`, req)
+    return fetch(`${import.meta.env.VITE_HIINIT_APP}/users/auth`, req)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (!res.ok) {
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            }
 
-        if (!res.ok) {
-            const body = await res.json()
-            throw new errors[body.error](body.message)
-        }
+            return res.json()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(token => {
+                    const payloadB64 = token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
+                    const payloadJson = atob(payloadB64)
+                    const payload = JSON.parse(payloadJson)
+                    const userId = payload.sub
 
-        const token = await res.json()
-        const payloadB64 = await token.slice(token.indexOf('.') + 1, token.lastIndexOf('.'))
-        const payloadJson = atob(payloadB64)
-        const payload = await JSON.parse(payloadJson)
-        const userId = await payload.sub
-
-        session.sessionUserId = userId
-        session.token = token
-    } catch (error) {
-        throw new SystemError(error.message)
-    }
+                    session.sessionUserId = userId
+                    session.token = token
+                })
+        })
 }
 
 export default loginUser

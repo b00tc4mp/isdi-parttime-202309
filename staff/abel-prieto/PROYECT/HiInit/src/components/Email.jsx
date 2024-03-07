@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import logic from '../logic'
+import Context from '../Context'
 
 function Email() {
     // FIELDS STATE
     const [showNewEmail, setShowNewEmail] = useState(true)
     const [showPassword, setShowPassword] = useState(false)
     const [showRepeatPass, setShowRepeatPass] = useState(false)
+
+    const { handleError } = useContext(Context)
+    const navigate = useNavigate()
 
     function showInputPassword() {
         setShowPassword(true)
@@ -34,12 +39,19 @@ function Email() {
                     const clientError = document.querySelector('#client-error-email')
 
                     clientError.innerText = error.message
-                    clientError.style.color = 'red'
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
 
                     return
                 })
         } catch (error) {
-            alert(error.message)
+            const clientError = document.querySelector('#client-error-email')
+
+            clientError.innerText = error.message
+            clientError.style.color = 'tomato'
+
+            handleError(error, navigate)
         }
 
         document.body.addEventListener('keydown', function () {

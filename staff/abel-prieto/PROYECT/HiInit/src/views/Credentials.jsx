@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Routes, Route, Navigate } from 'react-router-dom'
 
 import { Desktop } from '../views'
@@ -6,16 +6,18 @@ import { Login, Register } from '../components'
 import { CommandBar, Pointer } from '../utils'
 
 import logic from '../logic'
+import Context from '../Context'
 
 function Credentials() {
 
     // POINTER, UKNOWN COMMAND & POINTER STATE
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
+    const [help, setHelp] = useState(false)
     const { pointer } = Pointer()
 
-    // VIEWS
     const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
@@ -30,6 +32,8 @@ function Credentials() {
                 navigate('/credentials/login')
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
+            } else if ((commandText === 'HELP' || commandText === 'help') && event.key === 'Enter') {
+                setHelp(!help)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -37,6 +41,7 @@ function Credentials() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setHelp(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -46,7 +51,7 @@ function Credentials() {
             document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate, uknownCommand])
+    }, [navigate, uknownCommand, help])
 
     // LOGIN VIEW
     function handleLoginShow() {
@@ -68,7 +73,7 @@ function Credentials() {
     function handleLogout() {
         logic.logoutUser(error => {
             if (error) {
-                throw new Error(error)
+                handleError(error, navigate)
             }
 
             navigate('/')
@@ -77,9 +82,8 @@ function Credentials() {
 
     return <>
         <div className="container">
-
             <p>~$</p>
-            <p>Please, entry login or register command to switch different components. Entry EXIT to return initial page</p>
+            <p>Please, entry login or register command to switch different components. Entry 'HELP' to see all commands</p>
 
             <div className="command-bar">
                 <CommandBar />
@@ -96,12 +100,21 @@ function Credentials() {
                 <Route path="/desktop" element={<ProtectedRoute element={<Desktop onLogout={handleLogout} />} />} />
             </Routes>
 
+            <br />
+
             {uknownCommand && (
-                <>
-                    <span>
-                        <p>shell: command not found: '{commandText}'. Entry login or register</p>
-                    </span>
-                </>
+                <span>
+                    <p>shell: command not found: '{commandText}'. Entry login or register, help or exit</p>
+                </span>
+            )}
+
+            {help && (
+                <ul>
+                    <li><p>help: <em>list user commands</em></p></li>
+                    <li><p>exit: <em>get back to initial page</em></p></li>
+                    <li><p>login: <em>entry your credentials</em></p></li>
+                    <li><p>register: <em>create an account</em></p></li>
+                </ul>
             )}
         </div>
     </>

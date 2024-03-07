@@ -3,7 +3,7 @@ import session from './session.js'
 import { errors } from 'com'
 const { SystemError } = errors
 
-async function uploadFile(file) {
+function uploadFile(file) {
     const formData = new FormData()
     formData.append('file', file)
 
@@ -15,17 +15,15 @@ async function uploadFile(file) {
         body: formData
     }
 
-    try {
-        const res = await fetch(`${import.meta.env.VITE_HIINIT_APP}/upload`, req)
-
-        if (!res.ok) {
-            const body = await res.json()
-            throw new errors[body.error](body.message)
-        }
-
-    } catch (error) {
-        throw new SystemError(error.message)
-    }
+    return fetch(`${import.meta.env.VITE_HIINIT_APP}/upload`, req)
+        .catch(error => { throw new SystemError(error.message) })
+        .then(res => {
+            if (!res.ok) {
+                return res.json()
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(body => { throw new errors[body.error](body.message) })
+            }
+        })
 }
 
 export default uploadFile

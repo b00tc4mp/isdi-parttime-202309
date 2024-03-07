@@ -1,11 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
 import logic from '../logic'
 import session from '../logic/session'
+import Context from '../Context'
 
 export default function CommandBar() {
     const [username, setUsername] = useState('')
     const [group, setGroup] = useState('')
     const [role, setRole] = useState('')
+
+    const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     useEffect(() => {
         if (session.token) {
@@ -16,29 +21,27 @@ export default function CommandBar() {
                         setGroup(user.group)
                         setRole(user.role)
                     })
-                    .catch(error => alert(error.message))
+                    .catch(error => {
+                        handleError(error, navigate)
+                    })
             } catch (error) {
-                alert(error.message)
+                handleError(error, navigate)
             }
         } else {
-            setUsername('guest')
-            setGroup('hiinit.com')
-            setRole('guest')
+            try {
+                logic.retrieveGuest()
+                    .then(guest => {
+                        setUsername(guest.username)
+                        setGroup(guest.group)
+                        setRole(guest.role)
+                    })
+                    .catch(error => {
+                        handleError(error, navigate)
+                    })
+            } catch (error) {
+                handleError(error, navigate)
+            }
         }
-
-        // if (session.sessionUserId === null) {
-        //     try {
-        //         logic.retrieveGuest()
-        //             .then(guest => {
-        //                 setUsername(guest.username)
-        //                 setGroup(guest.group)
-        //                 setRole(guest.role)
-        //             })
-        //             .catch(error => alert(error.message))
-        //     } catch (error) {
-        //         alert(error.message)
-        //     }
-        // }
     }, [])
 
     return <>

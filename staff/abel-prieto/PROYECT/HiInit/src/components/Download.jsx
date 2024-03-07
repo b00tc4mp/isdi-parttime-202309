@@ -1,17 +1,16 @@
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Routes, Route } from 'react-router-dom'
+import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import Context from "../Context"
+import { CommandBar, Pointer } from "../utils"
 
-import { Pointer, CommandBar } from '../utils'
-import { Email, Password } from '../components'
+function Download() {
 
-import Context from '../Context'
-import logic from '../logic'
-
-function Profile() {
+    // POINTER, UKNOWN COMMAND & POINTER STATE
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const { pointer } = Pointer()
 
+    // VIEWS
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
 
@@ -20,17 +19,11 @@ function Profile() {
         const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
 
-            if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
-                handleLogout()
-            } else if ((commandText === 'EMAIL' || commandText === 'email') && event.key === 'Enter') {
-                setUknownCommand(false)
-                navigate('/profile/change-email')
-            } else if ((commandText === 'PASSWORD' || commandText === 'password') && event.key === 'Enter') {
-                setUknownCommand(false)
-                navigate('/profile/change-password')
-            } else if ((commandText === 'DESKTOP' || commandText === 'desktop') && event.key === 'Enter') {
+            if ((commandText === 'desktop' || commandText === 'DESKTOP') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/desktop')
+            } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
+                handleLogout()
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -49,27 +42,16 @@ function Profile() {
         }
     }, [navigate, uknownCommand])
 
-    // LOGOUT VIEW
-    function handleLogout() {
-        logic.logoutUser(error => {
-            if (error) {
-                handleError(error, navigate)
-            }
-
-            navigate('/')
-        })
-    }
-
     return <>
         <div className="container">
+
             <p>~$</p>
-            <p>Please, entry email or password command to change different settings. Entry EXIT or DESTKOP to return </p>
+            <p id="client-error-upload">Entry 'ls' command to list all your save files:  </p>
 
             <br />
 
             <div className="command-bar">
                 <CommandBar />
-
                 <div id="command-form">
                     <input id="command" type="text" contentEditable="true" autoFocus autoComplete="off" value={commandText} onChange={(event) => setCommandText(event.target.value)}
                         style={{ width: `${Math.max(10, commandText.length * 8)}px` }} />
@@ -77,20 +59,17 @@ function Profile() {
                 <p>{pointer}</p>
             </div>
 
-            <Routes>
-                <Route path="/change-email" element={<Email />} />
-                <Route path="/change-password" element={<Password />} />
-            </Routes>
-
             <br />
 
             {uknownCommand && (
-                <span>
-                    <p>shell: command not found: '{commandText}'. Entry email or password</p>
-                </span>
+                <>
+                    <span>
+                        <p>shell: command not found: '{commandText}'. Entry desktop, ls or exit</p>
+                    </span>
+                </>
             )}
         </div>
     </>
 }
 
-export default Profile
+export default Download

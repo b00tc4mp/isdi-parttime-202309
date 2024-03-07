@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import logic from '../logic'
+import Context from '../Context'
 
 function Password() {
     // FIELDS STATE
     const [showPassword, setShowPassword] = useState(true)
     const [showNewPassword, setShowNewPassword] = useState(false)
     const [showRepeatNewPass, setShowRepeatNewPass] = useState(false)
+
+    const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     function showInputNewPassword() {
         setShowNewPassword(true)
@@ -34,12 +39,19 @@ function Password() {
                     const clientError = document.querySelector('#client-error-password')
 
                     clientError.innerText = error.message
-                    clientError.style.color = 'red'
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
 
                     return
                 })
         } catch (error) {
-            alert(error.message)
+            const clientError = document.querySelector('#client-error-password')
+
+            clientError.innerText = error.message
+            clientError.style.color = 'tomato'
+
+            handleError(error, navigate)
         }
 
         document.body.addEventListener('keydown', function () {

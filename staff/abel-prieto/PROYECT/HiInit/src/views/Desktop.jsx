@@ -1,15 +1,19 @@
-import { Pointer, CommandBar } from '../utils'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import Context from '../Context'
+import { Pointer, CommandBar } from '../utils'
 
 import logic from '../logic'
 
 function Desktop() {
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
+    const [help, setHelp] = useState(false)
     const { pointer } = Pointer()
 
     const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
@@ -21,9 +25,14 @@ function Desktop() {
             } else if ((commandText === 'UPLOAD' || commandText === 'upload') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/upload')
+            } else if ((commandText === 'DOWNLOAD' || commandText === 'download') && event.key === 'Enter') {
+                setUknownCommand(false)
+                navigate('/download')
             } else if ((commandText === 'PROFILE' || commandText === 'profile') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/profile')
+            } else if ((commandText === 'HELP' || commandText === 'help') && event.key === 'Enter') {
+                setHelp(!help)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -31,6 +40,7 @@ function Desktop() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setHelp(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -40,13 +50,13 @@ function Desktop() {
             document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate, uknownCommand])
+    }, [navigate, uknownCommand, help])
 
     // LOGOUT VIEW
     function handleLogout() {
         logic.logoutUser(error => {
             if (error) {
-                throw new Error(error)
+                handleError(error, navigate)
             }
 
             navigate('/')
@@ -67,15 +77,25 @@ function Desktop() {
                     <input id="command" type="text" contentEditable="true" autoFocus autoComplete="off" value={commandText} onChange={(event) => setCommandText(event.target.value)}
                         style={{ width: `${Math.max(10, commandText.length * 8)}px` }} />
                 </div>
-
-                {uknownCommand && (
-                    <span>
-                        <p>shell: command not found: '{commandText}'. Press 'help' to list commands</p>
-                    </span>
-                )}
-
                 <p>{pointer}</p>
             </div>
+
+            {uknownCommand && (
+                <span>
+                    <p>shell: command not found: '{commandText}'. Press 'help' to list commands</p>
+                </span>
+            )}
+
+            {help && (
+                <ul>
+                    <li><p>help: <em>list user commands</em></p></li>
+                    <li><p>desktop: <em>get back to your main field</em></p></li>
+                    <li><p>profile: <em>settings account</em></p></li>
+                    <li><p>upload: <em>save files on storage</em></p></li>
+                    <li><p>download: <em>recover files from drive</em></p></li>
+                    <li><p>exit: <em>get back to initial page</em></p></li>
+                </ul>
+            )}
         </div>
     </>
 }

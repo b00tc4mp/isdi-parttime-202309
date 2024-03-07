@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { CommandBar, Pointer } from '../utils'
 
+import Context from '../Context'
 import logic from '../logic'
 
 function Upload() {
@@ -14,6 +15,7 @@ function Upload() {
 
     // VIEWS
     const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
@@ -50,7 +52,7 @@ function Upload() {
         const fileInput = document.querySelector('input[type="file"]')
         const file = fileInput.files[0]
 
-        const clientError = document.querySelector('#client-error')
+        const clientError = document.querySelector('#client-error-upload')
 
         if (file === undefined) {
             clientError.innerText = `File is empty. Please, try again ♻`
@@ -65,7 +67,9 @@ function Upload() {
             })
             .catch(error => {
                 clientError.innerText = `${error.message} ❌`
-                clientError.style.color = 'red'
+                clientError.style.color = 'tomato'
+
+                handleError(error, navigate)
 
                 return
             })
@@ -82,7 +86,7 @@ function Upload() {
     function handleLogout() {
         logic.logoutUser(error => {
             if (error) {
-                throw new Error(error)
+                handleError(error, navigate)
             }
 
             navigate('/')
@@ -92,17 +96,9 @@ function Upload() {
     return <>
         <div className="container">
             <p>~$</p>
-            <p id="client-error">Select upload files or press Reload to refresh: </p>
+            <p id="client-error-upload">Select upload files or press Reload to refresh: </p>
 
             <br />
-
-            {uknownCommand && (
-                <>
-                    <span>
-                        <p>shell: command not found: '{commandText}'. Entry desktop or exit</p>
-                    </span>
-                </>
-            )}
 
             <div className="command-bar">
                 <CommandBar />
@@ -120,6 +116,15 @@ function Upload() {
                     <button onClick={reRender} className='button-form'>Reload</button>
                 </form>
             </div>
+
+            <br />
+            {uknownCommand && (
+                <>
+                    <span>
+                        <p>shell: command not found: '{commandText}'. Entry desktop or exit</p>
+                    </span>
+                </>
+            )}
         </div>
     </>
 }

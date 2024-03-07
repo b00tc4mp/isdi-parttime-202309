@@ -16,9 +16,11 @@ a {
   color: #EBDBB2;
   text-decoration: none;
 }
+
 a:hover {
   color: grey;
 }
+
 a:active {
   color: orange;
 }
@@ -41,6 +43,7 @@ a:active {
   font-family: monospace;
   text-align: left;
 }
+
 .tittle-logo p {
   margin: 0;
 }
@@ -57,6 +60,7 @@ a:active {
 .fields {
   display: flex;
 }
+
 .fields input {
   padding: 0;
   font-size: 100%;
@@ -88,6 +92,7 @@ a:active {
   display: inline-flex;
   align-items: center;
 }
+
 .command-bar input {
   margin: 10px;
   outline: none;
@@ -97,6 +102,7 @@ a:active {
   flex-grow: 1;
   caret-color: transparent;
 }
+
 .command-bar p {
   margin-top: -4px;
 }
@@ -104,12 +110,15 @@ a:active {
 .command-style--username {
   color: #ff8037;
 }
+
 .command-style--group {
   color: #18E3C8;
 }
+
 .command-style--user {
   color: #ff8037;
 }
+
 .command-style--rest {
   color: #A89984;
 }
@@ -118,6 +127,18 @@ a:active {
   align-items: end;
   text-align: left;
   margin-bottom: 5px;
+}
+
+.swal2-html-container,
+.swal2-title {
+  color: tomato !important;
+  background-color: white;
+  font-weight: bold;
+}
+
+.swal2-x-mark,
+.swal2-actions {
+  background-color: transparent !important;
 }
 
 ::-webkit-scrollbar {

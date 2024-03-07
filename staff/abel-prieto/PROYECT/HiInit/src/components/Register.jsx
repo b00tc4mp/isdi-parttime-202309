@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import logic from '../logic'
+import Context from '../Context'
 
 function Register({ onSuccess }) {
 
@@ -7,6 +9,9 @@ function Register({ onSuccess }) {
     const [showUsername, setShowUsername] = useState(true)
     const [showEmail, setShowEmail] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+
+    const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
     // SHOW EMAIL INPUT
     function showInputEmail() {
@@ -30,31 +35,39 @@ function Register({ onSuccess }) {
             return logic.registerUser(username, email, password)
                 .then(() => onSuccess())
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error')
+                    const clientError = document.querySelector('#client-error-register')
 
                     clientError.innerText = error.message
-                    clientError.style.color = 'red'
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
 
                     return
                 })
         } catch (error) {
-            alert(error.message)
+            const clientError = document.querySelector('#client-error-register')
+
+            clientError.innerText = error.message
+            clientError.style.color = 'tomato'
+
+            handleError(error, navigate)
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error')
+            const clientError = document.querySelector('#client-error-register')
 
-            clientError.innerText = 'Create your account data: '
+            clientError.innerText = 'Register - Create your account data: '
             clientError.style.color = '#EBDBB2'
         })
     }
+
 
     return <>
         <div>
             <p>~$</p>
             <span>
                 <form className="register-form" onSubmit={handleSubmit}>
-                    <p id="client-error">Create your account data: </p>
+                    <p id="client-error-register">Register - Create your account data: </p>
 
                     <div className="space-between">
                         {showUsername && (
