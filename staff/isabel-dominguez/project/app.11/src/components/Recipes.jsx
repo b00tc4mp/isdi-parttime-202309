@@ -19,7 +19,7 @@ export default function Recipes(props) {
     }, [props.type])
 
     return (
-        <div>
+        <div className="recipes-compo">
             <div className='recipes-type' >
                 <Link to="/recipes/make-up"><button>Maquillaje</button></Link>
                 <Link to="/recipes/treatment"><button>Tratamientos</button></Link>
@@ -28,18 +28,16 @@ export default function Recipes(props) {
                 <Link to="/recipes/fragrance"><button>Perfumes</button></Link>
             </div>
 
-            <div className="recipes-compo">
-                {recipes.map(recipe => (
-                    <Recipe
-                        key={recipe.id}
-                        name={recipe.name}
-                        description={recipe.description}
-                        image={recipe.image}
-                        products={recipe.products}
-                        type={recipe.type}
-                    />
-                ))}
-            </div>
+            {recipes.map(recipe => (
+                <Recipe
+                    key={recipe.id}
+                    name={recipe.name}
+                    description={recipe.description}
+                    image={recipe.image}
+                    products={recipe.products}
+                    type={recipe.type}
+                />
+            ))}
         </div>
     )
 };

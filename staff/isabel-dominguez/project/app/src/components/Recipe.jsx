@@ -1,32 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-export default function Recipe({ name, description, image, products, type }) {
-    const [showDetails, setShowDetails] = useState(false);
+export default function Recipe({ name, description, image, products }) {
+    const [showDetails, setShowDetails] = useState(false)
 
-    const toggleDetails = () => {
-        setShowDetails(!showDetails);
-    };
+    const handleDetailsClick = () => {
+        setShowDetails(!showDetails)
+    }
 
     return (
         <div className="recipe-compo">
             <h2>{name}</h2>
-            <img src={image} alt={name} />
-            {!showDetails && (
-                <button onClick={toggleDetails}>Ver detalles</button>
-            )}
+            <img className="product-image" src={image} alt={name} />
+            <button className="details-button" onClick={handleDetailsClick}>Ver preparación</button>
             {showDetails && (
-                <div>
-                    <h3>Descripción:</h3>
-                    <p>{description}</p>
-                    <h3>Productos:</h3>
-                    <ul>
-                        {products.map((product, index) => (
-                            <li key={index}>{product}</li>
-                        ))}
-                    </ul>
-                    <h3>Tipo:</h3>
-                    <p>{type}</p>
-                    <button onClick={toggleDetails}>Ocultar detalles</button>
+                <div className="details-overlay">
+                    <div className="details-content">
+                        <h2>{name}</h2>
+                        <h3>Productos:</h3>
+                        <ul>
+                            {products.map(product => (
+                                <li key={product._id}>{product.name}</li>
+                            ))}
+                        </ul>
+                        <h3>Descripción:</h3>
+                        <ul>
+                            {description.split('\n').map((line, index) => (
+                                <li key={index}>{line}</li>
+                            ))}
+                        </ul>
+                        <button className="close-button" onClick={handleDetailsClick}>Cerrar</button>
+                    </div>
                 </div>
             )}
         </div>

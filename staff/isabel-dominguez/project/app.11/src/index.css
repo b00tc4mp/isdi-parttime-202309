@@ -14,7 +14,7 @@ body {
 
 /* HEADER */
 header {
-  background-color: #fff;
+  background-color: #b4c6d8;
   color: #333;
   padding: 20px 0;
   min-height: 80px;
@@ -32,8 +32,7 @@ header {
 .home-link {
   font-family: "Sofia", sans-serif;
   font-size: 48px;
-  color: #8987ed;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+  color: rosybrown;
   margin-left: 10px;
   text-decoration: none;
 }
@@ -45,7 +44,7 @@ header {
 
 .search-button {
   color: #fff;
-  background-color: #8987ed;
+  background-color: rosybrown;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -65,13 +64,12 @@ header {
 }
 
 .search-input:focus {
-  border-color: #8987ed;
+  border-color: rosybrown;
 }
 
 
 /* FIRST SECTION H2*/
 .first-section {
-  background-color: #f4faff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,7 +91,7 @@ header {
 }
 
 .first-section h2 a:hover {
-  color: #8987ed;
+  color: #b4c6d8;
 }
 
 
@@ -103,8 +101,7 @@ header {
 }
 
 .logout-button {
-  background-color: #f4faff;
-  margin-left: 8px;
+  background-color: #b4c6d8;
   border: none;
   padding: 8px 8px;
   border-radius: 11px;
@@ -142,10 +139,8 @@ header {
 }
 
 .second-section h2 {
-  color: #a8a7eb;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+  color: rosybrown;
   font-family: "Sofia", sans-serif;
-  font-size: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,7 +182,6 @@ header {
   width: 400px;
   height: 380px;
   margin-bottom: 20px;
-  margin-top: 36px;
 }
 
 .product h2 {
@@ -205,33 +199,19 @@ header {
 
 .cart-button {
   position: absolute;
-  background-color: #fff;
-  bottom: 10px;
+  bottom: 15px;
   right: 15px;
+  color: #fff;
   border: none;
-  padding: 12px 24px;
-  font-size: 32px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.favs-button {
-  position: absolute;
-  background-color: #fff;
-  bottom: 10px;
-  left: 15px;
-  border: none;
-  padding: 12px 24px;
-  font-size: 32px;
+  padding: 8px 16px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .details-button {
-  background-color: #8987ed;
-  color: #f9f9f9;
+  background-color: #b4c6d8;
+  color: #fff;
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -240,7 +220,7 @@ header {
 }
 
 .details-button:hover {
-  background-color: #5a58a7;
+  background-color: #818d9a;
 }
 
 @media (min-width: 768px) {
@@ -360,35 +340,47 @@ header {
   font-size: 24px;
   font-weight: bold;
   color: #333;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .recipe-compo img {
-  width: 400px;
-  height: 380px;
-  margin-bottom: 20px;
-  margin-top: 50px;
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.recipe-compo button {
+  background-color: #b4c6d8;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.recipe-compo button:hover {
+  background-color: #8f9caa;
 }
 
 
 /* RECIPES TYPES*/
 .recipes-type {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   font-family: 'Poppins', sans-serif;
   width: 100%;
   padding: 10px 0;
-}
-
-.recipes-type>* {
-  margin: 0 15px;
 }
 
 .recipes-type button {
   background-color: transparent;
   color: black;
   text-decoration: none;
-  font-size: 20px;
   border: none;
   transition: color 0.3s ease;
   cursor: pointer;
@@ -397,7 +389,7 @@ header {
 }
 
 .recipes-type button:hover {
-  color: #8987ed;
+  color: rosybrown;
 }
 
 
@@ -407,8 +399,8 @@ header {
   margin: 20px auto;
   padding: 20px;
   border-radius: 5px;
-  background-color: #b7b6e3;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #b4c6d8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-view h1 {
@@ -441,7 +433,7 @@ header {
 .login-view button {
   width: 100%;
   padding: 10px;
-  background-color: #040109;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -450,7 +442,7 @@ header {
 }
 
 .login-view button:hover {
-  background-color: #6820ee;
+  background-color: #003e80;
 }
 
 .login-view p {
@@ -464,7 +456,7 @@ header {
 }
 
 .login-view p a:hover {
-  color: #6820ee;
+  color: #003e80;
   text-decoration: none;
 }
 
@@ -475,8 +467,8 @@ header {
   margin: 20px auto;
   padding: 20px;
   border-radius: 5px;
-  background-color: #b7b6e3;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #b4c6d8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .register-view h1 {
@@ -509,7 +501,7 @@ header {
 .register-view button {
   width: 100%;
   padding: 10px;
-  background-color: #040109;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -518,7 +510,7 @@ header {
 }
 
 .register-view button:hover {
-  background-color: #6820ee;
+  background-color: #003e80;
 }
 
 .register-view p {
@@ -532,6 +524,6 @@ header {
 }
 
 .register-view p a:hover {
-  color: #6820ee;
+  color: #003e80;
   text-decoration: none;
 }

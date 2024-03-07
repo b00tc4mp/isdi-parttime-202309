@@ -92,7 +92,7 @@ export default function Home() {
         <>
             <header>
                 <div className="home-header">
-                    <h1><Link className="home-link" onClick={handleHomeClick}>Maketics Shop</Link></h1>
+                    <h1><Link className="home-link" onClick={handleHomeClick}>Maketics</Link></h1>
                     <div className="search-container">
                         <input className="search-input" type="text" placeholder="Buscar..." />
                         <button className="search-button" type="submit">Buscar</button>
