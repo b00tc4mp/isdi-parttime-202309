@@ -5,8 +5,6 @@ import createProductHandler from './createProductHandler.js'
 import retrieveProductsByTypeHandler from './retrieveProductsByTypeHandler.js'
 import createRecipeHandler from './createRecipeHandler.js'
 import retrieveRecipesByTypeHandler from './retrieveRecipesByTypeHandler.js'
-import toggleFavProductHandler from './toggleFavProductHandler.js'
-import retrieveFavsHandler from './retrieveFavsHandler.js'
 
 
 export {
@@ -16,7 +14,5 @@ export {
     createProductHandler,
     retrieveProductsByTypeHandler,
     createRecipeHandler,
-    retrieveRecipesByTypeHandler,
-    toggleFavProductHandler,
-    retrieveFavsHandler
+    retrieveRecipesByTypeHandler
 }

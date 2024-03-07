@@ -12,9 +12,7 @@ import {
     createProductHandler,
     retrieveProductsByTypeHandler,
     createRecipeHandler,
-    retrieveRecipesByTypeHandler,
-    toggleFavProductHandler,
-    retrieveFavsHandler
+    retrieveRecipesByTypeHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -45,12 +43,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // RETRIEVE RECIPE BY TYPE
         server.get('/recipes/:type', retrieveRecipesByTypeHandler)
-
-        // TOGGLE FAV PRODUCTS
-        server.patch('/products/:productId/favs', toggleFavProductHandler)
-
-        // RETRIEVE FAVS
-        server.get('/fav-products', retrieveFavsHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

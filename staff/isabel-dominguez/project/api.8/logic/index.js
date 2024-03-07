@@ -5,8 +5,6 @@ import createProduct from './createProduct.js'
 import retrieveProductsByType from './retrieveProductsByType.js'
 import createRecipe from './createRecipe.js'
 import retrieveRecipesByType from './retrieveRecipesByType.js'
-import toggleFavProduct from './toggleFavProduct.js'
-import retrieveFavs from './retrieveFavs.js'
 
 
 const logic = {
@@ -16,9 +14,7 @@ const logic = {
     createProduct,
     retrieveProductsByType,
     createRecipe,
-    retrieveRecipesByType,
-    toggleFavProduct,
-    retrieveFavs
+    retrieveRecipesByType
 }
 
 export default logic
