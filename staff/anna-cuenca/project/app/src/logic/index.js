@@ -15,6 +15,7 @@ import isUserLoggedIn from './isUserLoggedIn'
 import arduinoLCD from './arduinoLCD'
 
 import ottoController from './ottoControler'
+import retrieveSequence from './retrieveSequence'
 
 const logic = {
     registerUser,
@@ -28,6 +29,7 @@ const logic = {
     deleteTutorial,
 
     retrieveUserInfo,
+    retrieveSequence,
 
 
     ottoController,
