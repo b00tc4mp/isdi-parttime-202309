@@ -54,7 +54,7 @@ const movement = new Schema({
 const sequenceMovement = new Schema({
     userId: {
         type: ObjectId,
-        //required: true,
+        required: true,
         ref: 'User'
     },
     movements: [movement],

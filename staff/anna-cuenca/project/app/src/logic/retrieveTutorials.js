@@ -4,7 +4,7 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 function retrieveTutorials() {
-    //la función toma un callback como argumento 
+
 
     //declaramos la constante req (es un objeto representando la solicitud HTTP que se enviará)
     const req = {
