@@ -25,17 +25,13 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             })
     } catch (error) {
         let status = 500
 
         if (error instanceof TypeError || error instanceof ContentError) {
             status = 409
-        }
-
-        if (error instanceof JsonWebTokenError) {
+        } else if (error instanceof JsonWebTokenError) {
             status = 401
             error = new TokenError(error.message)
         }

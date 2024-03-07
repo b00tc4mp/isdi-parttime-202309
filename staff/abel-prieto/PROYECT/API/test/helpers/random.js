@@ -1,3 +1,6 @@
+import { Types } from 'mongoose'
+const { ObjectId } = Types
+
 function username() {
     return `name-${Math.random()}`
 }
@@ -14,11 +17,16 @@ function text() {
     return `text-${Math.random()}`
 }
 
+function id() {
+    return new ObjectId().toString()
+}
+
 const random = {
     username,
     email,
     password,
-    text
+    text,
+    id
 }
 
 export default random

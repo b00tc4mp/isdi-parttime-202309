@@ -1,30 +1,40 @@
+import fs from 'fs/promises'
 import { User, File } from '../data/models.js'
-import { errors } from 'com'
-const { SystemError, NotFoundError, DuplicityError } = errors
+import { errors, validate } from 'com'
 
-async function uploadFile(userId, originalname, mimetype) {
+const { SystemError, NotFoundError } = errors
+
+async function saveFile(path, newPath) {
+    try {
+        return fs.rename(path, newPath)
+    } catch (error) {
+        throw new SystemError(`Failed to save file: ${error.message}`)
+    }
+}
+
+async function uploadFile(userId, originalname, mimetype, oldPath) {
+    validate.id(userId, 'ID user')
+    validate.text(originalname, 'File name')
+    validate.text(mimetype, 'File type')
+
     try {
         const user = await User.findById(userId).lean()
-
         if (!user) {
-            throw new NotFoundError('User not found. Try again')
+            throw new NotFoundError('User not found')
         }
 
-        delete user.__v
-        delete user.username
-        delete user.email
-        delete user.password
-        delete user.group
-        delete user.role
+        const file = await File.create({
+            name: originalname,
+            owner: userId,
+            type: mimetype,
+            permissions: 3
+        })
 
-        const file = await File.create({ name: originalname, owner: userId, type: mimetype, permissions: 3 })
+        const newPath = `./uploads/${file._id.toString()}`
+        await saveFile(oldPath, newPath)
 
-        return { user, file }
+        return newPath
     } catch (error) {
-        if (error.code === 11000) {
-            throw new DuplicityError('Error: file already saved... Try again')
-        }
-
         throw new SystemError(error.message)
     }
 }

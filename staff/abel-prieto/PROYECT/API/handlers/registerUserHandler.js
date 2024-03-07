@@ -16,8 +16,6 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             })
     } catch (error) {
         let status = 500

@@ -1,8 +1,10 @@
 import { User } from '../data/models.js'
-import { errors } from 'com'
+import { errors, validate } from 'com'
 const { SystemError, NotFoundError } = errors
 
 function retrieveUser(userId) {
+    validate.id(userId, 'ID user')
+
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {

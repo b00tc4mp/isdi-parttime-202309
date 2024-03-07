@@ -5,6 +5,7 @@ const { NotFoundError, ContentError } = errors
 export default (req, res) => {
     try {
         retrieveGuest()
+            .then(guest => res.json(guest))
             .catch(error => {
                 let status = 500
 
@@ -13,10 +14,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             })
-            .then(guest => res.json(guest))
     } catch (error) {
         let status = 500
 

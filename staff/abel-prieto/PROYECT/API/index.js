@@ -10,7 +10,8 @@ import {
     retrieveGuestHandler,
     changeUserEmailHandler,
     changeUserPasswordHandler,
-    uploadFileHandler
+    uploadFileHandler,
+    uploadFileBBHandler
 } from './handlers/index.js'
 
 dotenv.config()
@@ -37,7 +38,7 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         server.get('/users', retrieveUserHandler)
 
         // RETRIEVE GUEST
-        server.get('/users', retrieveGuestHandler)
+        server.get('/guest', retrieveGuestHandler)
 
         // CHANGE USER EMAIL
         server.patch('/users/email', jsonBodyParser, changeUserEmailHandler)
@@ -47,6 +48,7 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
 
         // UPLOAD FILE
         server.post('/upload', upload.single('file'), uploadFileHandler)
+        // server.post('/upload', uploadFileBBHandler)
 
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })

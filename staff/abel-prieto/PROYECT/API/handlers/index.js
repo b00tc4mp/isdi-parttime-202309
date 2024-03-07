@@ -6,6 +6,7 @@ import changeUserEmailHandler from './changeUserEmailHandler.js'
 import changeUserPasswordHandler from './changeUserPasswordHandler.js'
 
 import uploadFileHandler from './uploadFileHandler.js'
+import uploadFileBBHandler from './uploadFileBBHandler.js'
 
 export {
     authenticateUserHandler,
@@ -14,5 +15,7 @@ export {
     retrieveGuestHandler,
     changeUserEmailHandler,
     changeUserPasswordHandler,
-    uploadFileHandler
+
+    uploadFileHandler,
+    uploadFileBBHandler
 }

@@ -10,6 +10,7 @@ export default (req, res) => {
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         retrieveUser(userId)
+            .then(user => res.json(user))
             .catch(error => {
                 let status = 500
 
@@ -18,10 +19,7 @@ export default (req, res) => {
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-
-                return
             })
-            .then(user => res.json(user))
     } catch (error) {
         let status = 500
 

@@ -4,6 +4,7 @@ import { validate, errors } from 'com'
 const { SystemError, NotFoundError, CredentialsError } = errors
 
 function changeUserPassword(userId, password, newPassword, againNewPassword) {
+    validate.id(userId, 'ID user')
     validate.password(password, 'Password')
     validate.password(newPassword, 'New password')
     validate.password(againNewPassword, 'Repeat new password')

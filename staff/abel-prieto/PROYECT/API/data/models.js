@@ -37,8 +37,13 @@ const user = new Schema({
 const group = new Schema({
     name: {
         type: String,
+        unique: true,
         default: 'localhost'
-    }
+    },
+    members: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 // COMMAND
@@ -70,19 +75,6 @@ const file = new Schema({
         type: Number,
         enum: [0, 2, 3]
     }
-})
-
-// ASIGN GROUP & USER TYPE
-user.pre('save', function (next) {
-    if (!this.group || this.group.length === 0) {
-        this.group.push('localhost');
-    }
-
-    if (!this.role || this.role.length === 0) {
-        this.role.push('user');
-    }
-
-    next()
 })
 
 const User = new model('User', user)

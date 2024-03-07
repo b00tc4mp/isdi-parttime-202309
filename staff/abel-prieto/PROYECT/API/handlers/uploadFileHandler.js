@@ -4,30 +4,17 @@ const { JsonWebTokenError } = jwt
 import uploadFile from '../logic/uploadFile.js'
 import { errors } from 'com'
 
-const { SystemError, DuplicityError, NotFoundError, ContentError, TokenError } = errors
-
-async function saveFile(file) {
-    const newPath = `./uploads/${file.originalname}`
-
-    try {
-        await fs.renameSync(file.path, newPath)
-        return newPath
-    } catch (error) {
-        throw new SystemError(`Failed to save file: ${error.message}`)
-    }
-}
+const { NotFoundError, ContentError, TokenError } = errors
 
 export default async (req, res) => {
     const token = req.headers.authorization.substring(7)
     const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-    const { originalname, mimetype } = req.file
-
+    const { originalname, mimetype, path } = req.file
+    const oldPath = path
     try {
-        await saveFile(req.file)
-        const result = await uploadFile(userId, originalname, mimetype)
-
-        res.json({ user: result.user, file: result.file })
+        await uploadFile(userId, originalname, mimetype, oldPath)
+        res.status(200).send()
 
     } catch (error) {
         let status = 500
@@ -37,10 +24,6 @@ export default async (req, res) => {
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
-        }
-
-        if (error instanceof DuplicityError) {
-            status = 409
         }
 
         if (error instanceof JsonWebTokenError) {
