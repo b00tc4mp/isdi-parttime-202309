@@ -17,7 +17,7 @@ class OttoController {
 
         this.lcd = null
 
-        this.lcdState = 'clear' // Esto
+        this.lcdState = 'clear'
 
 
         this.otto = null
@@ -31,6 +31,7 @@ class OttoController {
                 rightLegPin: 3,
                 leftFootPin: 4,
                 rightFootPin: 5,
+
                 board: this.board
             })
 

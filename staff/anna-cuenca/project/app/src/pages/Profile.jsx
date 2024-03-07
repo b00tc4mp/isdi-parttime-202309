@@ -103,40 +103,43 @@ export default function Profile() {
 
     }
 
-    return <div className="container">
-        <h2> {userData.name}'s Profile</h2>
-        {userData && (
-            <div>
-                <div>Name: {userData.name}</div>
-                <div>Email: {userData.email}</div>
-                <div>Robot: {userData.robot}</div>
-                <div>Role: {userData.role}</div>
-            </div>
-        )}
-        <Button onClick={toggleChangeEmail}>Change E-mail</Button>
-        {showChangeEmail && (
-            <div>
-                <h2>Update e-mail</h2>
-                <Form onSubmit={handleChangeEmailSubmit}>
-                    <Field id="new-email-input" type="email">New e-mail</Field>
-                    <Field id="new-email-confirm-input" type="email">Confirm new e-mail</Field>
-                    <Field id="email-password-input" type="password">Password</Field>
-                    <Button type="submit">Update e-mail</Button>
-                </Form>
-            </div>
-        )}
+    if (!userData) {
+        return <div>Loading...</div>; // Mostrar un spinner o mensaje mientras los datos se cargan
+    }
 
-        <Button onClick={toggleChangePassword}>Change Password</Button>
-        {showChangePassword && (
+    return (
+        <div className="container">
+            <h2>Profile</h2>
             <div>
-                <h2>Update password</h2>
-                <Form onSubmit={handleChangePasswordSubmit}>
-                    <Field id="current-password-input" type="password">Current password</Field>
-                    <Field id="new-password-input" type="password">New password</Field>
-                    <Field id="new-password-confirm-input" type="password">Confirm new password</Field>
-                    <Button type="submit">Update password</Button>
-                </Form>
+                <p>Name: {userData.name}</p>
+                <p>Email: {userData.email}</p>
+                <p>Robot: {userData.robot}</p>
+                <p>Role: {userData.role}</p>
             </div>
-        )}
-    </div>
+            <Button onClick={toggleChangeEmail}>Change E-mail</Button>
+            {showChangeEmail && (
+                <div>
+                    <h3>Update e-mail</h3>
+                    <Form onSubmit={handleChangeEmailSubmit}>
+                        <Field id="new-email-input" type="email" label="New e-mail" />
+                        <Field id="new-email-confirm-input" type="email" label="Confirm new e-mail" />
+                        <Field id="email-password-input" type="password" label="Password" />
+                        <Button type="submit">Update e-mail</Button>
+                    </Form>
+                </div>
+            )}
+            <Button onClick={toggleChangePassword}>Change Password</Button>
+            {showChangePassword && (
+                <div>
+                    <h3>Update password</h3>
+                    <Form onSubmit={handleChangePasswordSubmit}>
+                        <Field id="current-password-input" type="password" label="Current password" />
+                        <Field id="new-password-input" type="password" label="New password" />
+                        <Field id="new-password-confirm-input" type="password" label="Confirm new password" />
+                        <Button type="submit">Update password</Button>
+                    </Form>
+                </div>
+            )}
+        </div>
+    );
 }
