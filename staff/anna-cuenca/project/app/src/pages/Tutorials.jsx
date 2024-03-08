@@ -63,6 +63,7 @@ function Tutorials(props) {
 
 
     return <div className="tutorials">
+        <h2>Tutorials</h2>
         {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
         {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshTutorials} onToggleDeleteClick={refreshTutorials} />)}
         {/* {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={context.handleError} />)} */}

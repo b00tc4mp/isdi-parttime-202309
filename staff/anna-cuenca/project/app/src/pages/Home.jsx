@@ -116,7 +116,7 @@ function Home(props) {
             <>
                 <main>
                     <h2>Welcome back, {name} </h2>
-                    <Button onClick={handleControllerClick}>Connect Your Robot</Button>
+                    <Button onClick={handleControllerClick}>Connect</Button>
                     <Button onClick={handleTutorialClick}>Tutorials</Button>
                 </main>
             </>

@@ -15,6 +15,7 @@ export default function Controller() {
     const [userData, setUserData] = useState({ name: '', robot: '' })
     const [sequences, setSequences] = useState([])
     const [showSequences, setShowSequences] = useState(false)
+    const [reloadSequences, setReloadSequences] = useState(false)
 
     useEffect(() => {
         logic.retrieveUserInfo()
@@ -32,7 +33,7 @@ export default function Controller() {
             .catch(error => {
                 context.handleError(error);
             })
-    }, [])
+    }, [reloadSequences])
 
     const toggleSequencesVisibility = () => setShowSequences(!showSequences)
     // cuando le da al botón actulizamos el estado de setShowSequences
@@ -89,7 +90,17 @@ export default function Controller() {
 
     //// FALTA POR HACER ////
 
-    function handleDeleteSequence() {
+    function handleDeleteSequence(sequenceId) {
+
+        logic.deleteSequence(sequenceId)
+            .then(response => {
+                console.log('Sequence deleted')
+                setReloadSequences(prev => !prev)
+            })
+            .catch(error => {
+                console.error('Error al ejecutar la secuencia:', error)
+                context.handleError(error)
+            })
 
     }
 

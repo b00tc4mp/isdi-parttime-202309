@@ -16,6 +16,7 @@ import arduinoLCD from './arduinoLCD'
 
 import ottoController from './ottoControler'
 import retrieveSequence from './retrieveSequence'
+import deleteSequence from './deleteSequence'
 
 const logic = {
     registerUser,
@@ -30,6 +31,7 @@ const logic = {
 
     retrieveUserInfo,
     retrieveSequence,
+    deleteSequence,
 
 
     ottoController,

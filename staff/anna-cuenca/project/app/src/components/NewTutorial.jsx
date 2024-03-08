@@ -15,7 +15,7 @@ export default function ({ onPublish, onCancel }) {
     const handleSubmit = event => {
         event.preventDefault()
 
-        const title = event.target.querySelector('#text-input').value
+        const title = event.target.querySelector('#title-input').value
         // comole hemos puesto un id, también se podría hacer: const image = event.target['image-input'].value
         // si no tuviera un guion, que solo se llamara image, podríamos hacer; const image = event.target.image.value
         const text = event.target.querySelector('#text-input').value

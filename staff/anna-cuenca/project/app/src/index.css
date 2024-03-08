@@ -22,8 +22,9 @@
     @apply font-bold text-green-700;
   }
 
-  .input {
-    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300;
+  .input,
+  input {
+    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
   }
 
   .button {
