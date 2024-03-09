@@ -8,8 +8,15 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
-
-
+function delay(ms) {
+    return new Promise(resolve => {
+        console.log(`Waiting ${ms} milliseconds...`)
+        setTimeout(() => {
+            console.log("Wait over, continuing with the next action.")
+            resolve()
+        }, ms)
+    })
+}
 
 class OttoController {
     constructor() {
@@ -40,7 +47,15 @@ class OttoController {
         })
     }
 
+
+
+
+
+
+
     ////////////// END SEQUENCE ////////////
+
+
 
     endSequence(userId) {
         return new Promise((resolve, reject) => {
@@ -218,7 +233,7 @@ class OttoController {
             setTimeout(() => {
                 console.log('Otto has turned right')
                 resolve()
-            }, 600) // Ajusta este tiempo según la duración del giro que observes en pruebas
+            }, 600)
         })
     }
 
@@ -437,7 +452,7 @@ class OttoController {
             // Buscar la secuencia por ID
             const sequence = await SequenceMovement.findById(sequenceId)
             if (!sequence) {
-                console.log('not sequence found')
+                console.log('Sequence not found')
                 return
             }
 
@@ -446,13 +461,16 @@ class OttoController {
                 console.log(`Executing ${movement.name}`)
                 // Ejecutar el movimiento correspondiente
                 await this.executeMovement(movement)
+                // Espera 2 segundos antes de proceder al siguiente movimiento
+                await delay(2000)
             }
 
-            console.log('all movements of the sequence have been executed')
+            console.log('All movements of the sequence have been executed')
         } catch (error) {
-            console.error('error executing the sequence', error)
+            console.error('Error executing the sequence', error)
         }
     }
+
 }
 
 export default OttoController

@@ -12,7 +12,7 @@ const RIGHT = -1
 
 export default (req, res) => {
     try {
-        const { action, message, sequenceId } = req.body;
+        const { action, message, sequenceId, userId } = req.body;
 
         switch (action) {
             case 'walkForward':
@@ -39,7 +39,12 @@ export default (req, res) => {
                 break;
 
             case 'endSequence':
-                logic.ottoController.endSequence().then(() => {
+                //const { userId } = req.body; // Extraer el userId del cuerpo de la petición
+
+                if (!userId) {
+                    return res.status(400).json({ message: 'userId is required to end a sequence.' });
+                }
+                logic.ottoController.endSequence(userId).then(() => {
                     res.status(200).json({ message: 'Sequence has stopped' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
@@ -55,14 +60,14 @@ export default (req, res) => {
                 break;
 
             case 'jump':
-                logic.ottoController.jump().then(() => {
+                logic.ottoController.jump(userId).then(() => {
                     res.status(200).json({ message: 'Otto is jumping' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 });
                 break;
             case 'stop':
-                logic.ottoController.stop().then(() => {
+                logic.ottoController.stop(userId).then(() => {
                     res.status(200).json({ message: 'Otto has stopped' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })

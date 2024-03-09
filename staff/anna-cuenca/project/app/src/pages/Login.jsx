@@ -12,6 +12,8 @@ function Login(props) {
 
     const context = useContext()
 
+    let userIdSession = ''
+
     function handleSubmit(event) {
         event.preventDefault()
 
@@ -23,8 +25,14 @@ function Login(props) {
 
 
         try {
+
             logic.loginUser(email, password)
-                .then(() => props.onSuccess())
+                .then(() => {
+
+                    const userId = sessionStorage.getItem('userId')
+                    console.log(userId) // Deberías ver el userId correcto
+                    props.onSuccess()// Realiza cualquier acción posterior necesaria, como navegar a otra página
+                })
                 .catch(error => context.handleError(error))
 
 

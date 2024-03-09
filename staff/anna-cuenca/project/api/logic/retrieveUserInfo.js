@@ -17,7 +17,7 @@ function retrieveUserInfo(userId) {
 
         if (!user)
             throw new NotFoundError('User not found')
-        delete user._id
+        //delete user._id
 
 
         return user

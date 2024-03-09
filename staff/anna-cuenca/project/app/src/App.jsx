@@ -28,7 +28,11 @@ function App() {
 
   const [level, setLevel] = React.useState(null)
   const [message, setMessage] = React.useState(null)
+  // const [sessionUserId, setSessionUserId] = useState('')
 
+  // const updateSessionUserId = (userId) => {
+  //   setSessionUserId(userId)
+  // }
 
 
   const navigate = useNavigate()
@@ -87,8 +91,14 @@ function App() {
 
   let userRole = 'user'
 
+  const context = {
+    handleError,
+    userRole
+  }
 
-  const context = { handleError, userRole } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
+
+
+  //const context = { handleError, userRole, sessionUserId } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
 
   console.log(context)
   return <>

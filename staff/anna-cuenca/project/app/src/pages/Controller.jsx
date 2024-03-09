@@ -7,7 +7,10 @@ import logic from '../logic'
 
 
 import { useContext } from '../hooks'
+import session from '../logic/session'
 
+let userId = session.sessionUserId
+console.log(userId)
 
 
 export default function Controller() {
@@ -20,7 +23,10 @@ export default function Controller() {
     useEffect(() => {
         logic.retrieveUserInfo()
             .then(user => {
+                console.log(user)
                 setUserData({ name: user.name, robot: user.robot })
+
+
             })
             .catch(error => {
                 context.handleError(error)
@@ -36,42 +42,53 @@ export default function Controller() {
     }, [reloadSequences])
 
     const toggleSequencesVisibility = () => setShowSequences(!showSequences)
-    // cuando le da al botón actulizamos el estado de setShowSequences
+
 
     const handleAction = async (action) => {
-        if (action === 'sayHi') {
-            const messagePart1 = `Hola ${userData.name}`
-            const messagePart2 = `Soy ${userData.robot}`
 
-            try {
+        const userId = session.sessionUserId;
+        console.log(userId)
+
+        if (!userId) {
+            console.error('No userId found');
+            return;
+        }
+        try {
+
+
+            if (action === 'sayHi') {
+                const messagePart1 = `Hola ${userData.name}`
+                const messagePart2 = `Soy ${userData.robot}`
+
                 // Mensaje parte 1
-                await logic.ottoController(action, messagePart1)
+                await logic.ottoController(action, messagePart1, null, userId)
 
                 setTimeout(async () => {
                     // Limpiar la pantalla
-                    await logic.ottoController('clearLCD', '')
+                    await logic.ottoController('clearLCD', '', null, userId)
 
-                    //Mensaje parte 2
-
+                    // Mensaje parte 2
                     setTimeout(async () => {
-                        await logic.ottoController(action, messagePart2)
+                        await logic.ottoController(action, messagePart2, null, userId)
                     }, 1000)
                 }, 2000)
-            } catch (error) {
-                console.error(`Error executing ${action} action:`, error)
-                context.handleError(error)
-            }
-        } else {
-            // De momento no necesito la pantalla
-            try {
-                await logic.ottoController(action)
+            } else if (action === 'endSequence') {
+                // Aquí se asume que endSequence necesita el userId, que ya verificamos
+                await logic.ottoController(action, '', null, userId)
                 console.log(`${action} action executed successfully`)
-            } catch (error) {
-                console.error(`Error executing ${action} action:`, error)
-                context.handleError(error)
+
+                // Actualizar el estado para recargar o actualizar la UI según sea necesario
+                setReloadSequences(prev => !prev)
+            } else {
+                // Para todas las demás acciones que no requieren un mensaje específico
+                await logic.ottoController(action, '', null, userId)
+                console.log(`${action} action executed successfully`)
             }
+        } catch (error) {
+            console.error(`Error executing ${action} action:`, error)
+            context.handleError(error)
         }
-    }
+    };
 
 
 
@@ -88,7 +105,7 @@ export default function Controller() {
 
     }
 
-    //// FALTA POR HACER ////
+
 
     function handleDeleteSequence(sequenceId) {
 
@@ -103,6 +120,8 @@ export default function Controller() {
             })
 
     }
+
+    //// TO DO ////
 
     function handleEditSequence() {
 
@@ -124,6 +143,8 @@ export default function Controller() {
                 <Button onClick={() => handleAction('stop')}>Stop</Button>
                 <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
                 <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>
+                <Button onClick={() => handleAction('jump')}>Jump</Button>
+                <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
             </div>
 
 
