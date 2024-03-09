@@ -19,11 +19,15 @@ import Tutorials from './Tutorials'
 function Home(props) {
     console.log('Home')
     const context = useContext()
+    const { setUserRole } = context
 
     const [view, setView] = useState(null)
     const [name, setName] = useState(null)
 
+    const [role, setRole] = useState(null)
     const [stamp, setStamp] = useState(null)
+
+
 
     // permiten navegar a diferentes rutas dentro de la aplicación y acceder a la ruta actual, respectivamente
     const navigate = useNavigate()
@@ -51,7 +55,9 @@ function Home(props) {
                 .then(user => {
                     setName(user.name)
                     console.log(user)
-                    context.userRole = user.role
+                    setRole(user.role) // Suponiendo que también quieras mantener este estado local
+                    context.setUserRole(user.role)
+                    //context.userRole = user.role
 
 
                     console.log(context)

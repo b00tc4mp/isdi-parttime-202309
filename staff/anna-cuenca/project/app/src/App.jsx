@@ -28,11 +28,7 @@ function App() {
 
   const [level, setLevel] = React.useState(null)
   const [message, setMessage] = React.useState(null)
-  // const [sessionUserId, setSessionUserId] = useState('')
-
-  // const updateSessionUserId = (userId) => {
-  //   setSessionUserId(userId)
-  // }
+  const [userRole, setUserRole] = React.useState(null)
 
 
   const navigate = useNavigate()
@@ -89,16 +85,20 @@ function App() {
     setLevel(null)
   }
 
-  let userRole = 'user'
-
-  const context = {
-    handleError,
-    userRole
+  const setUserRoleInContext = (role) => {
+    setUserRole(role) // Función para actualizar el role en el contexto
   }
 
 
 
-  //const context = { handleError, userRole, sessionUserId } //aquí paso handleError a contexto, que será accesible para las rutas ya que luego pongo <Context.Provider value={context}>
+  const context = {
+    handleError,
+    userRole,
+    setUserRole: setUserRoleInContext
+  }
+
+
+
 
   console.log(context)
   return <>

@@ -8,6 +8,8 @@ import { useContext } from '../hooks'
 function Tutorials(props) {
     console.log('Tutorials')
     const context = useContext()
+    const { userRole } = context
+    console.log(userRole)
     const [view, setView] = useState(null)
     const [tutorials, setTutorials] = useState([])
 
@@ -28,7 +30,7 @@ function Tutorials(props) {
 
 
         } catch (error) {
-            //alert(error.message)
+
             context.handleError(error)
         }
     }
@@ -45,8 +47,7 @@ function Tutorials(props) {
 
     function handleNewTutorialPublish() {
         setView(null)
-        // Asumiendo que tienes navigate definido y listo para usar
-        // navigate('/');
+
         window.scrollTo(0, 0)
         refreshTutorials()
     }
@@ -75,7 +76,7 @@ function Tutorials(props) {
         <footer className="footer">
 
             {view === 'new-tutorial' && <NewTutorial onPublish={handleNewTutorialPublish} onCancel={handleNewTutorialCancel} onError={context.handleError} />}
-            {<Button onClick={handleNewTutorialClick}>+</Button>}
+            {userRole === 'admin' && <Button onClick={handleNewTutorialClick}>+</Button>}
 
         </footer>
     </div>
