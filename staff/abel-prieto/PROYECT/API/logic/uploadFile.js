@@ -33,8 +33,11 @@ async function uploadFile(userId, originalname, mimetype, oldPath) {
         const newPath = `./uploads/${file._id.toString()}`
         await saveFile(oldPath, newPath)
 
-        return newPath
+        return { newPath, file }
     } catch (error) {
+        if (error instanceof NotFoundError) {
+            throw error
+        }
         throw new SystemError(error.message)
     }
 }

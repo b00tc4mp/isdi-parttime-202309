@@ -25,17 +25,32 @@
 - Response (error) : 500|404|406 "Content-Type": application/json { error, message }
 
 `Change Email` ✅
-- Request: PATCH /users/email
+- Request: PATCH /users/email Authorization: Bearer ${session.token}
 - Response: 200
 - Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
 
 `Change Password` ✅
-- Request: PATCH /users/password
+- Request: PATCH /users/password Authorization: Bearer ${session.token}
 - Response: 200
 - Response (error) : 500|404|406|409 "Content-Type": application/json { error, message }
 
 `Upload Files` ✅
-- Request: POST /upload Authorization: Bearer ${session.token}
+- Request: POST /upload "Contet-Type": multipart/form-data Authorization: Bearer ${session.token}
+- Response: 201
+- Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
+
+`Retrieve Files` ✅
+- Request: GET /download Authorization: Bearer ${session.token}
+- Response: 200 "Content-Type": application/json { filename, filetype }
+- Respose (error): 500 "Content-Type": application/json { error, message }
+
+`Download Files` 
+- Request: GET /download/:fileId Authorization: Bearer ${session.token}
+- Response: 201
+- Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
+
+`Delete Files` ✅
+- Request: GET /download/delete/:fileId Authorization: Bearer ${session.token}
 - Response: 201
 - Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
 
@@ -52,6 +67,6 @@
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
 
 `Delete User` 
-- Request: DELETE /users Authorization: Bearer ${session.token}
+- Request: DELETE /users/:userId Authorization: Bearer ${session.token}
 - Response: 200 
 - Response (error): 500|404|406|401 "Content-Type": application/json { error, message }

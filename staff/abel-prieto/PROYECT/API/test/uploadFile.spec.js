@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { expect } from 'chai'
@@ -19,30 +21,30 @@ describe('uploadFiles', () => {
     it('success with uploading user file', async () => {
         const fileName = random.text()
         const fileType = random.text()
+        const oldPath = random.text()
 
         const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
-        const result = await uploadFile(user.id, fileName, fileType)
+        const { newPath, file } = await uploadFile(user.id, fileName, fileType, oldPath)
 
-        // console.log(result)
-
-        const { user1, file } = result
-
-        // Return { user, file }
-
-        // expect(user1).to.be.an('Object')
-        // expect(file).to.be.an('Object')
-        // expect(user1._id).to.be.equal(user.id)
-        // expect(file.name).to.be.equal(fileName)
+        expect(file).to.be.an('Object')
+        expect(file.owner).to.be.equal(user.id)
+        expect(newPath).to.be.equal(`./uploads/${file._id.toString()}`)
     })
 
     // NEGATIVE CASE - User not found
     it('fails on user not found', async () => {
+        const userId = random.id()
+        const fileName = random.text()
+        const fileType = random.text()
+        const oldPath = random.text()
 
-    })
-
-    // NEGATIVE CASE - File already exist
-    it('fails on file alredy exist on data base', async () => {
-
+        try {
+            await uploadFile(userId, fileName, fileType, oldPath)
+            throw new Error('should not reach this point!')
+        } catch (error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.be.equal('User not found')
+        }
     })
 
     after(() => mongoose.disconnect())

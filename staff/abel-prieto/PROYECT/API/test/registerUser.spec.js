@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 
-import { User } from '../data/models.js'
+import { User, Group } from '../data/models.js'
 import { expect } from 'chai'
 import registerUser from '../logic/registerUser.js'
 import random from './helpers/random.js'
@@ -20,6 +20,7 @@ describe('registerUser', () => {
         const email = random.email()
         const password = random.password()
 
+        await Group.create({ name: 'localhost', members: [] })
         await registerUser(username, email, password)
 
         const user = await User.findOne({ email })

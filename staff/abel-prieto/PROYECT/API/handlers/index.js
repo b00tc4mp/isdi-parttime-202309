@@ -5,8 +5,10 @@ import retrieveGuestHandler from './retrieveGuestHandler.js'
 import changeUserEmailHandler from './changeUserEmailHandler.js'
 import changeUserPasswordHandler from './changeUserPasswordHandler.js'
 
+import retrieveFilesHandler from './retrieveFilesHandler.js'
 import uploadFileHandler from './uploadFileHandler.js'
-import uploadFileBBHandler from './uploadFileBBHandler.js'
+import downloadFileHandler from './downloadFileHandler.js'
+import deleteFileHandler from './deleteFileHandler.js'
 
 export {
     authenticateUserHandler,
@@ -16,6 +18,8 @@ export {
     changeUserEmailHandler,
     changeUserPasswordHandler,
 
+    retrieveFilesHandler,
     uploadFileHandler,
-    uploadFileBBHandler
+    downloadFileHandler,
+    deleteFileHandler
 }

@@ -1,0 +1,21 @@
+<script>
+    const req = {
+        method: 'DELETE',
+        headers: {
+            Authorization: 'Bearer userId'
+        }
+    }
+
+    fetch('http://localhost:9001/download/delete/postid', req)
+        .catch(error => console.error(error))
+        .then(res => {
+            if (res.ok) {
+                res.json()
+                    .catch(error => console.log(error))
+                    .then(body => console.log(res.status, body))
+            } else {
+                console.error(res.status)
+            }
+        })
+
+</script>
