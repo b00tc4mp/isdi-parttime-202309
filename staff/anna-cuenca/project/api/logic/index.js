@@ -9,11 +9,13 @@ import deleteTutorial from './deleteTutorial.js'
 
 import retrieveSequence from './retrieveSequence.js'
 import deleteSequence from './deleteSequence.js'
+import editSequence from './editSequence.js'
 
 
 import retrieveUserInfo from './retrieveUserInfo.js'
 
 import OttoController from './ottoController.js' // DESCOMENTAR CON OTTO
+//import editSequence from './editSequence.js'
 
 
 
@@ -39,6 +41,7 @@ const logic = {
     retrieveUserInfo,
     retrieveSequence,
     deleteSequence,
+    editSequence,
 
     ottoController
 

@@ -12,7 +12,7 @@ const RIGHT = -1
 
 export default (req, res) => {
     try {
-        const { action, message, sequenceId, userId } = req.body;
+        const { action, message, sequenceId, userId } = req.body
 
         switch (action) {
             case 'walkForward':
@@ -20,14 +20,14 @@ export default (req, res) => {
                     res.status(200).json({ message: 'Otto is walking' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
             case 'walkBackward':
                 logic.ottoController.walkBackward().then(() => {
                     res.status(200).json({ message: 'Otto is walking backward' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
 
             case 'executeSequenceById':
@@ -35,20 +35,20 @@ export default (req, res) => {
                     res.status(200).json({ message: 'Otto is reproducing the sequence' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
 
             case 'endSequence':
                 //const { userId } = req.body; // Extraer el userId del cuerpo de la petición
 
                 if (!userId) {
-                    return res.status(400).json({ message: 'userId is required to end a sequence.' });
+                    return res.status(400).json({ message: 'userId is required to end a sequence.' })
                 }
                 logic.ottoController.endSequence(userId).then(() => {
                     res.status(200).json({ message: 'Sequence has stopped' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
 
             case 'turnRight':
@@ -56,7 +56,7 @@ export default (req, res) => {
                     res.status(200).json({ message: 'Otto is turning right' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
 
             case 'jump':
@@ -64,14 +64,14 @@ export default (req, res) => {
                     res.status(200).json({ message: 'Otto is jumping' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
             case 'stop':
                 logic.ottoController.stop(userId).then(() => {
                     res.status(200).json({ message: 'Otto has stopped' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
             case 'sayHi':
                 if (message) {
@@ -79,7 +79,7 @@ export default (req, res) => {
                         res.status(200).json({ message: `Message displayed: ${message}` })
                     }).catch(error => {
                         res.status(500).json({ error: error.constructor.name, message: error.message })
-                    });
+                    })
                 } else {
                     res.status(400).json({ message: 'Message is required for sayHi action' })
                 }
@@ -89,17 +89,17 @@ export default (req, res) => {
                     res.status(200).json({ message: 'LCD cleared' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
-                });
+                })
                 break;
             default:
                 res.status(400).json({ message: 'Invalid action' })
                 break;
         }
     } catch (error) {
-        let status = 500;
+        let status = 500
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406;
+            status = 406
         }
-        res.status(status).json({ error: error.constructor.name, message: error.message });
+        res.status(status).json({ error: error.constructor.name, message: error.message })
     }
 }

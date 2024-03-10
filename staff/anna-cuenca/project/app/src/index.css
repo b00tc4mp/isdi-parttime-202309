@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-/* Considera añadir una segunda fuente para títulos si lo deseas */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +8,7 @@
 
 
   .custom-background {
-    @apply bg-[url('/wallpaperGreen.png')] h-screen bg-cover bg-center;
+    @apply bg-[url('/fondoApp3.webp')] h-screen bg-cover bg-center;
   }
 
   /* Base modifications for a robot-themed app */

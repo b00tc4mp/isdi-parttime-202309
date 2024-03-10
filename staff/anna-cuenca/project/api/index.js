@@ -21,7 +21,8 @@ import {
     toggleLikeTutorialHandler,
     deleteTutorialHandler,
     retrieveSequenceHandler,
-    deleteSequenceHandler
+    deleteSequenceHandler,
+    editSequenceHandler
 
 
 
@@ -76,6 +77,10 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //Delete Sequence
         server.delete('/arduino/controller/ottoController/:sequenceId', deleteSequenceHandler)
+
+        //Edit Sequence
+        server.patch('/arduino/controller/ottoController/:sequenceId', jsonBodyParser, editSequenceHandler)
+
 
 
 

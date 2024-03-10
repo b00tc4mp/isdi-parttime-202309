@@ -12,6 +12,8 @@ import deleteTutorialHandler from './deleteTutorialHandler.js'
 
 import retrieveSequenceHandler from './retrieveSequenceHandler.js'
 import deleteSequenceHandler from './deleteSequenceHandler.js'
+import editSequenceHandler from './editSequenceHandler.js'
+
 
 import ottoControllerHandler from './ottoControllerHandler.js'
 
@@ -26,7 +28,8 @@ export {
     toggleLikeTutorialHandler,
     deleteTutorialHandler,
     retrieveSequenceHandler,
-    deleteSequenceHandler
+    deleteSequenceHandler,
+    editSequenceHandler
 
 
 }
