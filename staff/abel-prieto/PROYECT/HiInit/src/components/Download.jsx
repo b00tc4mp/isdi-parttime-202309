@@ -1,13 +1,18 @@
 import { useState, useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Context from "../Context"
+import logic from "../logic"
 import { CommandBar, Pointer } from "../utils"
+
+import Files from "./Files"
 
 function Download() {
 
     // POINTER, UKNOWN COMMAND & POINTER STATE
+    const [files, setFiles] = useState([])
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
+    const [list, setList] = useState(false)
     const { pointer } = Pointer()
 
     // VIEWS
@@ -19,9 +24,11 @@ function Download() {
         const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
 
-            if ((commandText === 'desktop' || commandText === 'DESKTOP') && event.key === 'Enter') {
+            if ((commandText === 'DESKTOP' || commandText === 'desktop') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/desktop')
+            } else if ((commandText === 'LS' || commandText === 'ls') && event.key === 'Enter') {
+                setList(true)
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
             } else if (event.key === 'Enter') {
@@ -31,6 +38,7 @@ function Download() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            // setList(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -40,13 +48,28 @@ function Download() {
             document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate, uknownCommand])
+    }, [navigate, uknownCommand, setList])
+
+    // FILES
+    useEffect(() => {
+        try {
+            logic.retrieveFiles()
+                .then(files => {
+                    setFiles(files)
+                })
+                .catch(error => {
+                    handleError(error)
+                })
+        } catch (error) {
+            handleError(error)
+        }
+    }, [files])
 
     return <>
         <div className="container">
 
             <p>~$</p>
-            <p id="client-error-upload">Entry 'ls' command to list all your save files:  </p>
+            <p id="client-error-download">Entry 'ls' command to list all your save files:  </p>
 
             <br />
 
@@ -68,6 +91,8 @@ function Download() {
                     </span>
                 </>
             )}
+
+            {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}
         </div>
     </>
 }

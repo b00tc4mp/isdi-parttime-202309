@@ -110,10 +110,13 @@ function Credentials() {
 
             {help && (
                 <ul>
+                    <p>GUEST ~$ Command types</p>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
                     <li><p>help: <em>list user commands</em></p></li>
                     <li><p>exit: <em>get back to initial page</em></p></li>
                     <li><p>login: <em>entry your credentials</em></p></li>
                     <li><p>register: <em>create an account</em></p></li>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
                 </ul>
             )}
         </div>

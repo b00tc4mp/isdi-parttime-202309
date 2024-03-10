@@ -88,12 +88,15 @@ function Desktop() {
 
             {help && (
                 <ul>
+                    <p>USER ~$ Command types </p>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
                     <li><p>help: <em>list user commands</em></p></li>
                     <li><p>desktop: <em>get back to your main field</em></p></li>
                     <li><p>profile: <em>settings account</em></p></li>
                     <li><p>upload: <em>save files on storage</em></p></li>
                     <li><p>download: <em>recover files from drive</em></p></li>
                     <li><p>exit: <em>get back to initial page</em></p></li>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
                 </ul>
             )}
         </div>

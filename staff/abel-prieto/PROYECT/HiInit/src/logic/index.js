@@ -7,7 +7,9 @@ import isUserLoggedIn from './isUserLoggedIn.js'
 import changeUserEmail from './changeUserEmail.js'
 import changeUserPassword from './changeUserPassword.js'
 
+import retrieveFiles from './retrieveFiles.js'
 import uploadFile from './uploadFile.js'
+import deleteFile from './deleteFile.js'
 
 export {
     loginUser,
@@ -18,7 +20,10 @@ export {
     isUserLoggedIn,
     changeUserEmail,
     changeUserPassword,
-    uploadFile
+
+    retrieveFiles,
+    uploadFile,
+    deleteFile
 }
 
 const logic = {
@@ -30,7 +35,10 @@ const logic = {
     isUserLoggedIn,
     changeUserEmail,
     changeUserPassword,
-    uploadFile
+
+    retrieveFiles,
+    uploadFile,
+    deleteFile
 }
 
 export default logic

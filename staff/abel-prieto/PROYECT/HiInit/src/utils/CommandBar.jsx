@@ -8,6 +8,7 @@ export default function CommandBar() {
     const [username, setUsername] = useState('')
     const [group, setGroup] = useState('')
     const [role, setRole] = useState('')
+    const [roleColor, setRoleColor] = useState('')
 
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
@@ -20,6 +21,12 @@ export default function CommandBar() {
                         setUsername(user.username)
                         setGroup(user.group)
                         setRole(user.role)
+
+                        if (user.role[0] === 'user') {
+                            setRoleColor('#306ed3')
+                        } else if (user.role[0] === 'admin') {
+                            setRoleColor('red')
+                        }
                     })
                     .catch(error => {
                         handleError(error, navigate)
@@ -34,6 +41,11 @@ export default function CommandBar() {
                         setUsername(guest.username)
                         setGroup(guest.group)
                         setRole(guest.role)
+
+                        if (guest.role[0] === 'guest') {
+                            setRoleColor('#ff8037')
+                        }
+
                     })
                     .catch(error => {
                         handleError(error, navigate)
@@ -50,7 +62,7 @@ export default function CommandBar() {
             <span className="command-style--rest">@</span>
             <span className="command-style--group">{group}</span>
             <span className="command-style--rest">-</span>
-            <span className="command-style--user">{role}</span>
+            <span style={{ color: roleColor }}>{role}</span>
             <span className="command-style--rest">:$</span>
         </div>
     </>

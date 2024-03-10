@@ -36,6 +36,7 @@ a:active {
   overflow-y: auto;
   height: 100%;
   min-height: 650px;
+  max-height: 650px;
 }
 
 .tittle-logo {
@@ -115,10 +116,6 @@ a:active {
   color: #18E3C8;
 }
 
-.command-style--user {
-  color: #ff8037;
-}
-
 .command-style--rest {
   color: #A89984;
 }
@@ -139,6 +136,17 @@ a:active {
 .swal2-x-mark,
 .swal2-actions {
   background-color: transparent !important;
+}
+
+article ul {
+  display: flex;
+  align-items: center;
+  /* Esto centrará verticalmente los elementos en el contenedor */
+}
+
+article button {
+  margin-left: 10px;
+  /* Esto agrega un espacio a la izquierda de los botones para separarlos del párrafo */
 }
 
 ::-webkit-scrollbar {
