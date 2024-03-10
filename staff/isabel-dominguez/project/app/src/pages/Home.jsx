@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import { useUser } from "../hooks/UserContext"
 
 import logic from '../logic'
-import { Login, Packings, RawMaterial, Register, Utensils, Recipes } from '../components'
+import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites } from '../components'
 
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
     function handleLogout() {
         logic.logoutUser()
             .then(() => {
-                sessionStorage.clear()
+                // sessionStorage.clear()
                 setName(null)
                 setIsLoggedIn(false)
             })
@@ -79,7 +79,7 @@ export default function Home() {
     const handleClickHeartIcon = (event) => {
         event.preventDefault()
 
-        console.log('Se hizo clic en el botón de corazón')
+        navigate('/favorites')
     }
 
     const handleClickCartIcon = (event) => {
@@ -137,6 +137,7 @@ export default function Home() {
                 <Route path="/recipes/fragrance" element={<Recipes type='Fragrance' />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
+                <Route path="/favorites" element={<Favorites />} />
             </Routes>
         </>
     )

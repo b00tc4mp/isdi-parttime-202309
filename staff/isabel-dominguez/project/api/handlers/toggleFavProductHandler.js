@@ -23,7 +23,7 @@ export default (req, res) => {
                     status = 404
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
-            });
+            })
     } catch (error) {
         let status = 500
 

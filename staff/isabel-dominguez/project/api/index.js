@@ -50,7 +50,7 @@ mongoose.connect(process.env.MONGODB_URL)
         server.patch('/products/:productId/favs', toggleFavProductHandler)
 
         // RETRIEVE FAVS
-        server.get('/fav-products', retrieveFavsHandler)
+        server.get('/products/favs', retrieveFavsHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

@@ -6,6 +6,7 @@ import Recipe from './Recipe'
 import Recipes from './Recipes'
 import Register from './Register'
 import Utensils from './Utensils'
+import Favorites from './Favorites'
 
 
 export {
@@ -16,5 +17,6 @@ export {
     Recipe,
     Recipes,
     Register,
-    Utensils
+    Utensils,
+    Favorites
 }
