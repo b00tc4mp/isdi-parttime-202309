@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
 
         try {
-            toggleFavProduct('65ec420eebb00faf474ec373', '65e866d4034b90d5cbbb8488')
+            toggleFavProduct('65ec420eebb00faf474ec373', '65e708dbcdf01598022fe0ad')
                 .then(() => {
                     console.log('product fav toggled')
                 })

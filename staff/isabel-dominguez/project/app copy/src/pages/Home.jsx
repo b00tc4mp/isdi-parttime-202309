@@ -11,7 +11,6 @@ export default function Home() {
     console.log('El componente Home se está renderizando.')
 
     const [name, setName] = useState(null)
-    // const [stamp, setStamp] = useState(null)
 
 
     const navigate = useNavigate()
@@ -34,7 +33,7 @@ export default function Home() {
     function handleLogout() {
         logic.logoutUser()
             .then(() => {
-                sessionStorage.clear()
+                // sessionStorage.clear()
                 setName(null)
                 setIsLoggedIn(false)
             })
@@ -127,9 +126,9 @@ export default function Home() {
             </section>
 
             <Routes>
-                <Route path="/raw-material" element={<RawMaterial loadProducts={() => logic.retrieveProductsByType('RawMaterial')} />} />
-                <Route path="/packings" element={<Packings loadProducts={() => logic.retrieveProductsByType('Packings')} />} />
-                <Route path="/utensils" element={<Utensils loadProducts={() => logic.retrieveProductsByType('Utensils')} />} />
+                <Route path="/raw-material" element={<RawMaterial />} />
+                <Route path="/packings" element={<Packings />} />
+                <Route path="/utensils" element={<Utensils />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
                 <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
