@@ -1,5 +1,5 @@
 import pkg from 'johnny-five'
-const { Board, Servo, LCD } = pkg
+const { Board, Servo, LCD, Pin } = pkg
 import { Otto } from './otto.js'
 import { Movement, SequenceMovement } from '../data/models.js'
 
@@ -7,6 +7,8 @@ const FORWARD = 1
 const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
+
+
 
 function delay(ms) {
     return new Promise(resolve => {
@@ -38,6 +40,13 @@ class OttoController {
                 rightLegPin: 3,
                 leftFootPin: 4,
                 rightFootPin: 5,
+
+
+                // OTTO GRANDE
+                // leftLegPin: 'A3',
+                // rightLegPin: 'A1',
+                // leftFootPin: 'A2',
+                // rightFootPin: 'A0',
 
                 board: this.board
             })
@@ -299,6 +308,12 @@ class OttoController {
             const servoRightLeg = new Servo(3)
             const servoLeftFoot = new Servo(4)
             const servoRightFoot = new Servo(5)
+
+            // OTTO GRANDE
+            // const servoLeftLeg = new Servo('A3')
+            // const servoRightLeg = new Servo('A1')
+            // const servoLeftFoot = new Servo('A2')
+            // const servoRightFoot = new Servo('A0')
 
             servoLeftLeg.to(90)
             servoRightLeg.to(90)

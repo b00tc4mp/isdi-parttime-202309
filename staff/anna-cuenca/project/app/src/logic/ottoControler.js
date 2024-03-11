@@ -21,7 +21,7 @@ function ottoController(action, message = '', sequenceId = null, userId) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyData),
-    };
+    }
 
     return fetch(`${import.meta.env.VITE_API_URL}/arduino/controller/ottoController`, req)
         .catch(error => {

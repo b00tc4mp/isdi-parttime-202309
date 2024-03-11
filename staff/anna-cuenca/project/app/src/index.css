@@ -8,7 +8,7 @@
 
 
   .custom-background {
-    @apply bg-[url('/fondoApp3.webp')] h-screen bg-cover bg-center;
+    @apply bg-[url('/wallpaperGreen.png')] h-screen bg-cover bg-center;
   }
 
   /* Base modifications for a robot-themed app */
