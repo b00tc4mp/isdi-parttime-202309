@@ -18,6 +18,7 @@ import ottoController from './ottoControler'
 import retrieveSequence from './retrieveSequence'
 import deleteSequence from './deleteSequence'
 import editSequence from './editSequence'
+import retrieveMovements from './retrieveMovements'
 
 
 const logic = {
@@ -35,6 +36,7 @@ const logic = {
     retrieveSequence,
     deleteSequence,
     editSequence,
+    retrieveMovements,
 
 
     ottoController,

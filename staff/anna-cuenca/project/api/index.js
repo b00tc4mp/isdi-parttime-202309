@@ -82,7 +82,10 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         //Edit Sequence
         server.patch('/arduino/controller/ottoController/:sequenceId', jsonBodyParser, editSequenceHandler)
 
-        server.get('/arduino/controller/ottoController/:sequenceId/movements', retrieveMovementsHandler)
+        //Retrieve Movements
+        server.get('/arduino/controller/ottoController/:sequenceId', retrieveMovementsHandler)
+
+
 
 
 

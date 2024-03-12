@@ -13,12 +13,17 @@ let userId = session.sessionUserId
 console.log(userId)
 
 
+
+
 export default function Controller() {
     const context = useContext()
     const [userData, setUserData] = useState({ name: '', robot: '' })
     const [sequences, setSequences] = useState([])
     const [showSequences, setShowSequences] = useState(false)
     const [reloadSequences, setReloadSequences] = useState(false)
+
+    const [editingSequenceId, setEditingSequenceId] = useState(null)
+
 
     useEffect(() => {
         logic.retrieveUserInfo()
@@ -31,27 +36,24 @@ export default function Controller() {
             .catch(error => {
                 context.handleError(error)
             })
-
         logic.retrieveSequence()
             .then(sequences => {
-                setSequences(sequences);
+                setSequences(sequences)
             })
             .catch(error => {
-                context.handleError(error);
+                context.handleError(error)
             })
     }, [reloadSequences])
 
     const toggleSequencesVisibility = () => setShowSequences(!showSequences)
 
-
     const handleAction = async (action) => {
-
-        const userId = session.sessionUserId;
+        const userId = session.sessionUserId
         console.log(userId)
 
         if (!userId) {
-            console.error('No userId found');
-            return;
+            console.error('No userId found')
+            return
         }
         try {
 
@@ -59,8 +61,6 @@ export default function Controller() {
             if (action === 'sayHi') {
                 const messagePart1 = `Hola ${userData.name}`
                 const messagePart2 = `Soy ${userData.robot}`
-
-                // Mensaje parte 1
                 await logic.ottoController(action, messagePart1, null, userId)
 
                 setTimeout(async () => {
@@ -72,6 +72,7 @@ export default function Controller() {
                         await logic.ottoController(action, messagePart2, null, userId)
                     }, 1000)
                 }, 2000)
+
             } else if (action === 'endSequence') {
                 // Aquí se asume que endSequence necesita el userId, que ya verificamos
                 await logic.ottoController(action, '', null, userId)
@@ -105,8 +106,6 @@ export default function Controller() {
 
     }
 
-
-
     function handleDeleteSequence(sequenceId) {
 
         logic.deleteSequence(sequenceId)
@@ -121,10 +120,30 @@ export default function Controller() {
 
     }
 
-    //// TO DO ////
 
-    function handleEditSequence() {
 
+    function handleEditSequence(sequenceId) {
+
+        if (editingSequenceId === sequenceId) {
+            //si el usuario vuelve a darle al boton, se desactiva
+            setEditingSequenceId(null)
+        } else {
+            //sino activa la edicion
+            setEditingSequenceId(sequenceId)
+
+        }
+    }
+
+    function handleEditMovement(sequenceId, movementId, action) {
+        logic.editSequence(sequenceId, movementId, action)
+            .then(() => {
+                // recargamos las secuencias
+                setReloadSequences(prev => !prev)
+            })
+            .catch(error => {
+                console.error('Error editing movement:', error)
+                context.handleError(error)
+            })
     }
 
 
@@ -133,7 +152,7 @@ export default function Controller() {
         <div className="container">
             <h2>Controller</h2>
 
-
+            {/* Sección de acciones */}
             <div>
                 <h3>Actions</h3>
                 <Button onClick={() => handleAction('walkForward')}>Forward</Button>
@@ -147,41 +166,52 @@ export default function Controller() {
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
             </div>
 
-
+            {/* Sección para mostrar/ocultar secuencias */}
             <Button onClick={toggleSequencesVisibility}>
                 {showSequences ? 'Hide' : 'Show'} Sequences
             </Button>
 
-            {/* si el boton de showSequences está activo, haz lo siguiente */}
+            {/* Sección de secuencias */}
             {showSequences && (
                 <div>
                     <h3>Sequences</h3>
+
+
                     {sequences.length > 0 ? sequences.map(sequence => (
                         <div key={sequence.id} style={{ marginBottom: '20px' }}>
                             <h4>Sequence ID: {sequence.id}</h4>
                             <p>Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
-                            {/* compruebo si la secuencia tiene movimientos o está vacia */}
-                            {sequence.movements.length > 0 ? (
-                                <div>
-                                    <h5>Movements:</h5>
-                                    <ul>
-                                        {sequence.movements.map(movement => (
-                                            <li key={movement.id}>{`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`}</li>
-                                            // convierte un objeto Date a una cadena de texto
-                                        ))}
-                                    </ul>
-                                </div>
-                            ) : <p>No movements in this sequence.</p>}
-                            {/* Botones de acción para cada secuencia */}
+                            <h5>Movements:</h5>
+                            <ul>
+                                {sequence.movements.map((movement, index) => (
+                                    <li key={movement.id}>
+                                        {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`}
+                                        <p>Index: {index}</p>
+                                        {editingSequenceId === sequence.id && (
+                                            <>
+                                                <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'delete')}>❌</Button>
+                                                {index !== 0 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveUp')}>⬆️</Button>}
+                                                {index !== sequence.movements.length - 1 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveDown')}>⬇️</Button>}
+                                            </>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
                             <div>
                                 <Button onClick={() => handlePlaySequence(sequence.id)}>Play</Button>
                                 <Button onClick={() => handleDeleteSequence(sequence.id)}>Delete</Button>
-                                <Button onClick={() => handleEditSequence(sequence.id)}>Edit</Button>
+                                <Button onClick={() => handleEditSequence(sequence.id)}>{editingSequenceId === sequence.id ? 'Finish Edit' : 'Edit'}</Button>
                             </div>
                         </div>
                     )) : <p>No sequences found.</p>}
+
                 </div>
             )}
+
+
         </div>
     )
+
+
 }
+
