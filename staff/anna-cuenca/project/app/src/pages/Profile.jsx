@@ -77,7 +77,7 @@ export default function Profile() {
         const password = passwordInput.value
 
         try {
-            logic.changeUserEmail(newEmail, newEmailConfirm, password)
+            logic.changeEmail(newEmail, newEmailConfirm, password)
                 .then(() => {
 
                     alert("E-mail changed")
@@ -121,9 +121,11 @@ export default function Profile() {
                 <div>
                     <h3>Update e-mail</h3>
                     <Form onSubmit={handleChangeEmailSubmit}>
-                        <Field id="new-email-input" type="email" label="New e-mail" />
-                        <Field id="new-email-confirm-input" type="email" label="Confirm new e-mail" />
-                        <Field id="email-password-input" type="password" label="Password" />
+                        <Field id="new-email-input" type="email">New e-mail</Field>
+                        <Field id="new-email-confirm-input" type="email">Confirm new e-mail</Field>
+                        <Field id="password-input" type="password">Password</Field>
+
+
                         <Button type="submit">Update e-mail</Button>
                     </Form>
                 </div>
@@ -133,13 +135,15 @@ export default function Profile() {
                 <div>
                     <h3>Update password</h3>
                     <Form onSubmit={handleChangePasswordSubmit}>
-                        <Field id="current-password-input" type="password" label="Current password" />
-                        <Field id="new-password-input" type="password" label="New password" />
-                        <Field id="new-password-confirm-input" type="password" label="Confirm new password" />
+                        <Field id="password-input" type="password">Current password</Field>
+                        <Field id="new-password-input" type="password">New password</Field>
+                        <Field id="new-password-confirm-input" type="password">Confirm new password</Field>
+
+
                         <Button type="submit">Update password</Button>
                     </Form>
                 </div>
             )}
         </div>
-    );
+    )
 }

@@ -23,7 +23,8 @@ import {
     retrieveSequenceHandler,
     deleteSequenceHandler,
     editSequenceHandler,
-    retrieveMovementsHandler
+    retrieveMovementsHandler,
+    changeEmailHandler
 
 
 
@@ -61,6 +62,9 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         // Retrieve User Info / Profile
         server.get('/users/me', retrieveUserInfoHandler)
 
+        //change password User
+        server.patch('/users/me/change-email', jsonBodyParser, changeEmailHandler)
+
         //Create Tutorial
         server.post('/tutorials', jsonBodyParser, createTutorialHandler)
 
@@ -84,6 +88,9 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         //Retrieve Movements
         server.get('/arduino/controller/ottoController/:sequenceId', retrieveMovementsHandler)
+
+
+
 
 
 

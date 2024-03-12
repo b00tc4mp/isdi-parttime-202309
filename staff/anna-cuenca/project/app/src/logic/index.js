@@ -20,6 +20,8 @@ import deleteSequence from './deleteSequence'
 import editSequence from './editSequence'
 import retrieveMovements from './retrieveMovements'
 
+import changeEmail from './changeEmail'
+
 
 const logic = {
     registerUser,
@@ -37,6 +39,8 @@ const logic = {
     deleteSequence,
     editSequence,
     retrieveMovements,
+
+    changeEmail,
 
 
     ottoController,

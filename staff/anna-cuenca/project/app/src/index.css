@@ -6,11 +6,6 @@
 
 @layer components {
 
-
-  .custom-background {
-    @apply bg-[url('/wallpaperGreen.png')] h-screen bg-cover bg-center;
-  }
-
   /* Base modifications for a robot-themed app */
   .form {
     @apply flex flex-col max-w-[240px] gap-[5px];
@@ -99,21 +94,20 @@
     @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
   }
 
-  @layer components {
-    .popup-container {
-      @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10;
-    }
+  /* Estilos para el popup */
+  .popup-container {
+    @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10;
+  }
 
-    .popup {
-      @apply bg-green-500 p-4 rounded-lg shadow-lg text-white max-w-sm mx-auto;
-    }
+  .popup {
+    @apply bg-green-500 p-4 rounded-lg shadow-lg text-white max-w-sm mx-auto;
+  }
 
-    .popup ul {
-      @apply list-none p-0;
-    }
+  .popup ul {
+    @apply list-none p-0;
+  }
 
-    .popup li {
-      @apply border-2 border-black p-2 rounded-md mb-2;
-    }
+  .popup li {
+    @apply border-2 border-black p-2 rounded-md mb-2;
   }
 }

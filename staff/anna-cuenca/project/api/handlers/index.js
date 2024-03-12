@@ -15,6 +15,8 @@ import deleteSequenceHandler from './deleteSequenceHandler.js'
 import editSequenceHandler from './editSequenceHandler.js'
 import retrieveMovementsHandler from './retrieveMovementsHandler.js'
 
+import changeEmailHandler from './changeEmailHandler.js'
+
 
 import ottoControllerHandler from './ottoControllerHandler.js'
 
@@ -31,7 +33,8 @@ export {
     retrieveSequenceHandler,
     deleteSequenceHandler,
     editSequenceHandler,
-    retrieveMovementsHandler
+    retrieveMovementsHandler,
+    changeEmailHandler
 
 
 }
