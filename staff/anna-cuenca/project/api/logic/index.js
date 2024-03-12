@@ -19,6 +19,7 @@ import OttoController from './ottoController.js' // DESCOMENTAR CON OTTO
 //import editSequence from './editSequence.js'
 
 import changeEmailUser from './changeEmailUser.js'
+import changePassword from './changePassword.js'
 
 ///// LO COMENTO PARA PROBAR LA LÓGICA DE LA PANTALLA /// 
 
@@ -46,6 +47,7 @@ const logic = {
     retrieveMovements,
 
     changeEmailUser,
+    changePassword,
 
 
     ottoController

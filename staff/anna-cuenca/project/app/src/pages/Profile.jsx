@@ -40,14 +40,14 @@ export default function Profile() {
 
         const passwordInput = event.target.querySelector("#password-input")
         const newPasswordInput = event.target.querySelector("#new-password-input")
-        const newPasswordConfirmInput = event.target.querySelector("#new-password-confirm-input")
+        const repeatNewPasswordInput = event.target.querySelector("#repeat-new-password-input")
 
         const password = passwordInput.value
         const newPassword = newPasswordInput.value
-        const newPasswordConfirm = newPasswordConfirmInput.value
+        const repeatNewPassword = repeatNewPasswordInput.value
 
         try {
-            logic.changeUserPassword(password, newPassword, newPasswordConfirm)
+            logic.changePassword(password, newPassword, repeatNewPassword)
 
                 .then(() => {
 
@@ -137,7 +137,7 @@ export default function Profile() {
                     <Form onSubmit={handleChangePasswordSubmit}>
                         <Field id="password-input" type="password">Current password</Field>
                         <Field id="new-password-input" type="password">New password</Field>
-                        <Field id="new-password-confirm-input" type="password">Confirm new password</Field>
+                        <Field id="repeat-new-password-input" type="password">Repit new password</Field>
 
 
                         <Button type="submit">Update password</Button>

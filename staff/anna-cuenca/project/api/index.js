@@ -24,7 +24,8 @@ import {
     deleteSequenceHandler,
     editSequenceHandler,
     retrieveMovementsHandler,
-    changeEmailHandler
+    changeEmailHandler,
+    changePasswordHandler
 
 
 
@@ -62,8 +63,11 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
         // Retrieve User Info / Profile
         server.get('/users/me', retrieveUserInfoHandler)
 
-        //change password User
+        //change email User
         server.patch('/users/me/change-email', jsonBodyParser, changeEmailHandler)
+
+        //change password User
+        server.patch('/users/me/change-password', jsonBodyParser, changePasswordHandler)
 
         //Create Tutorial
         server.post('/tutorials', jsonBodyParser, createTutorialHandler)
