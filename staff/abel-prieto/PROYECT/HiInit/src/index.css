@@ -134,7 +134,9 @@ a:active {
 }
 
 .swal2-x-mark,
-.swal2-actions {
+.swal2-actions,
+.swal2-success-ring,
+.swal2-icon-content {
   background-color: transparent !important;
 }
 

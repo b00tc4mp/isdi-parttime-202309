@@ -53,11 +53,38 @@ function Files(props) {
         })
     }
 
+    // DOWNLOAD FILE
+    function handleDownloadFile(event) {
+        event.preventDefault()
+
+        const clientError = document.querySelector(props.clientError)
+
+        try {
+            logic.downloadFile(file.id)
+                .then(() => {
+                    clientError.innerText = 'File successfully download ✅'
+                    clientError.style.color = 'green'
+                })
+                .catch(error => {
+                    handleError(error, navigate)
+                })
+        } catch (error) {
+            handleError(error, navigate)
+        }
+
+        document.body.addEventListener('keydown', function () {
+            const clientError = document.querySelector(props.clientError)
+
+            clientError.innerText = 'Entry ls command to list all your save files: '
+            clientError.style.color = '#EBDBB2'
+        })
+    }
+
     return <>
         <article>
             <ul>
                 <p>{file.name}</p>
-                <button id="download-file" className='button-form'>Download</button>
+                <button id="download-file" className='button-form' onClick={handleDownloadFile}>Download</button>
                 <button id="delete-file" className='button-form' onClick={handleDeleteFile}>Delete</button>
             </ul>
         </article>

@@ -1,35 +1,36 @@
-import { useState, useEffect, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import Context from "../Context"
-import logic from "../logic"
-import { CommandBar, Pointer } from "../utils"
-
-import Files from "./Files"
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Context from '../Context'
+import logic from '../logic'
+import { CommandBar, Pointer } from '../utils'
+import Files from './Files'
 
 function Download() {
-
-    // POINTER, UKNOWN COMMAND & POINTER STATE
     const [files, setFiles] = useState([])
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const [list, setList] = useState(false)
-    const { pointer } = Pointer()
+    const [clientError, setClientError] = useState({
+        message: 'Entry ls command to list all your save files:',
+        color: '#EBDBB2'
+    })
 
-    // VIEWS
+    const { pointer } = Pointer()
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
 
-    // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
         const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
 
             if ((commandText === 'DESKTOP' || commandText === 'desktop') && event.key === 'Enter') {
                 setUknownCommand(false)
+                setList(false)
                 navigate('/desktop')
             } else if ((commandText === 'LS' || commandText === 'ls') && event.key === 'Enter') {
                 setList(true)
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
+                setList(false)
                 handleLogout()
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
@@ -38,7 +39,6 @@ function Download() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
-            // setList(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -50,26 +50,40 @@ function Download() {
         }
     }, [navigate, uknownCommand, setList])
 
-    // FILES
     useEffect(() => {
-        try {
-            logic.retrieveFiles()
-                .then(files => {
-                    setFiles(files)
-                })
-                .catch(error => {
-                    handleError(error)
-                })
-        } catch (error) {
-            handleError(error)
+        const fetchData = async () => {
+            try {
+                const result = await logic.retrieveFiles()
+                setFiles(result)
+
+                if (result.length === 0) {
+                    setClientError({
+                        message: "You don't have any files.",
+                        color: 'yellow'
+                    })
+                } else {
+                    setClientError({
+                        message: 'Entry ls command to list all your save files:',
+                        color: '#EBDBB2'
+                    })
+                }
+            } catch (error) {
+                handleError(error, navigate)
+            }
         }
-    }, [files])
 
-    return <>
+        if (list) {
+            fetchData()
+        }
+
+    }, [navigate, list])
+
+    return (
         <div className="container">
-
             <p>~$</p>
-            <p id="client-error-download">Entry 'ls' command to list all your save files:  </p>
+            <p id="client-error-download" style={{ color: clientError.color }}>
+                {clientError.message}
+            </p>
 
             <br />
 
@@ -92,9 +106,11 @@ function Download() {
                 </>
             )}
 
-            {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}
+            {list && files.map((file) => (
+                <Files key={file.id} file={file} clientError={'#client-error-download'} />
+            ))}
         </div>
-    </>
+    )
 }
 
 export default Download
