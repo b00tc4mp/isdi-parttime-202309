@@ -1,6 +1,4 @@
 import jwt from 'jsonwebtoken'
-import fs from 'fs'
-import path from 'path'
 import downloadFile from '../logic/downloadFile.js'
 import { errors } from 'com'
 
@@ -16,7 +14,7 @@ export default async (req, res) => {
     try {
         const file = await downloadFile(userId, fileId)
 
-        res.download(file)
+        res.download(file.path)
     } catch (error) {
         let status = 500
 
