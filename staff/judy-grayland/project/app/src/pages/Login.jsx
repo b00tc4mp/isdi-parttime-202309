@@ -1,7 +1,8 @@
 export default function Login() {
+  const title = 'You are doing great, Judy'
   return (
     <div>
-      <h3>Login</h3>
+      <h3>{title}</h3>
     </div>
   )
 }
