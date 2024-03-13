@@ -13,7 +13,9 @@ import { useContext } from '../hooks'
 
 function Tutorial(props) {
     console.log(props.tutorial)
-    //const [editTextPost, setEditTextPost] = useState(null)
+    const [editTextTutorial, setEditTextTutorial] = useState(null)
+    const [title, setTitle] = useState(props.tutorial.title)
+    const [text, setText] = useState(props.tutorial.text)
 
     //const { handleError } = useContext(Context)
     const context = useContext()
@@ -39,29 +41,30 @@ function Tutorial(props) {
 
     function handleEditSubmit(event) {
         event.preventDefault()
-        // const text = event.target.querySelector("#text").value
-        // console.log(text)
-        // try {
-        //     logic.toggleEditPost(post.id, text)
-        //         .then(() => {
-        //             setEditTextPost(null)
-        //             props.onToggleEditClick()
-        //         })
-        //         .catch(error => context.handleError(error))
-        // } catch (error) {
-        //     //alert(error.message)
-        //     context.handleError(error)
-        // }
+        const title = event.target.querySelector("#title").value
+        const text = event.target.querySelector("#text").value
+        console.log(text)
+        try {
+            logic.editTutorial(props.tutorial.id, { title, text })
+                .then(() => {
+                    setEditTextTutorial(null)
+                    props.onUpdate()
+                })
+                .catch(error => context.handleError(error))
+        } catch (error) {
+            //alert(error.message)
+            context.handleError(error)
+        }
     }
     function handleEditClick() {
-        // if (editTextPost === null) {
-        //     setEditTextPost('edit-text-post')
-        //     // } else {
-        //     //     setEditTextPost(null)
-        // }
+        if (editTextTutorial === null) {
+            setEditTextTutorial('edit-text-tutorial')
+        } else {
+            setEditTextTutorial(null)
+        }
     }
     function handleCancelEdit() {
-        //setEditTextPost(null)
+        setEditTextTutorial(null)
     }
     function handleToggleDeleteTutorialClick() {
         if (confirm('Are you sure you want to delete this tutorial?')) {
@@ -82,31 +85,40 @@ function Tutorial(props) {
         //navigate(`/users/${props.post.author.id}`)
     }
 
-    return (<article className="tutorial">
-        {/* <h2><Link onClick={handleUserClick}>{props.post.author.name}</Link></h2> */}
-        {/* <p>{tutorial.author.id}</p> */}
-        <p>{props.tutorial.author.name}</p>
-        <p>{props.tutorial.author.role}</p>
+    return (
+        <article className="tutorial">
+            <p><strong>{props.tutorial.author.name}</strong></p>
+            <p><strong>{props.tutorial.author.role}</strong></p>
 
-        <p>{tutorial.title}</p>
-        <p>{tutorial.text}</p>
-        <div className="tutorial-actions">
-            <Button onClick={handleToggleLikePostClick}>{tutorial.liked ? '🤖' : '🤍'} {tutorial.likes.length} </Button>
+            {/* Solo muestra el título y el texto si no estamos en modo edición */}
+            {editTextTutorial !== 'edit-text-tutorial' && (
+                <>
+                    <p><strong>{tutorial.title}</strong></p>
+                    <p>{tutorial.text}</p>
+                </>
+            )}
 
-            {/* {tutorial.author.role === 'admin' && (<Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>)} */}
-            {context.userRole === 'admin' && (<Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>)}
-            {/* {tutorial.author.id === session.sessionUserId && editTextPost === null && <Button onClick={handleEditClick}> 🖍</Button>} 
-            {/* Lo que envuelve al elemento, por ejemplo un botón se llaman children, en el caso del botón
-         de like, {post.liked ? '❤️' : '🤍'} {post.likes.length}  eso son los children */}
-        </div>
-        <div>
-            {/* {editTextPost === 'edit-text-post' && <Form onSubmit={handleEditSubmit}>
-                <Input id="text"></Input>
-                <Button type='onSubmit'>Save</Button>
-                <Button onClick={handleCancelEdit}>Cancel</Button>
-            </Form>} */}
-        </div>
-    </article>
+            <div className="tutorial-actions">
+                <Button onClick={handleToggleLikePostClick}>{tutorial.liked ? '🤖' : '🤍'} {tutorial.likes.length} </Button>
+                {context.userRole === 'admin' && (
+                    <>
+                        <Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>
+                        <Button onClick={handleEditClick}>{editTextTutorial === 'edit-text-tutorial' ? 'Cancel Edit' : '🖍 Edit'}</Button>
+                    </>
+                )}
+            </div>
+
+            {/* Muestra el formulario de edición si estamos en modo edición */}
+            {editTextTutorial === 'edit-text-tutorial' && (
+                <Form onSubmit={handleEditSubmit}>
+                    <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
+                    <Field id="text" type="text" value={text} onChange={(e) => setText(e.target.value)} label="Text" />
+                    <Button type='submit'>Save</Button>
+                    <Button onClick={handleCancelEdit}>Cancel</Button>
+                </Form>
+            )}
+        </article>
     )
+
 }
 export default Tutorial

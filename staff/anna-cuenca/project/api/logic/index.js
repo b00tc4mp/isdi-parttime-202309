@@ -6,6 +6,7 @@ import createTutorial from './createTutorial.js'
 import retrieveTutorials from './retrieveTutorials.js'
 import toggleLikeTutorial from './toggleLikeTutorial.js'
 import deleteTutorial from './deleteTutorial.js'
+import editTutorial from './editTutorial.js'
 
 import retrieveSequence from './retrieveSequence.js'
 import deleteSequence from './deleteSequence.js'
@@ -39,6 +40,7 @@ const logic = {
     retrieveTutorials,
     toggleLikeTutorial,
     deleteTutorial,
+    editTutorial,
 
     retrieveUserInfo,
     retrieveSequence,

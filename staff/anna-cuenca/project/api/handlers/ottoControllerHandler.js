@@ -9,7 +9,6 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
-
 export default (req, res) => {
     try {
         const { action, message, sequenceId, userId } = req.body
@@ -24,6 +23,14 @@ export default (req, res) => {
                 break;
             case 'walkBackward':
                 logic.ottoController.walkBackward().then(() => {
+                    res.status(200).json({ message: 'Otto is walking backward' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
+            case 'snake':
+                logic.ottoController.snakeMove().then(() => {
                     res.status(200).json({ message: 'Otto is walking backward' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })

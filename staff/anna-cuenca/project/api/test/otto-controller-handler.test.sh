@@ -27,8 +27,8 @@ walk_backward() {
     echo "Command to walk backward sent."
 }
 
-turn_right() {
-    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"turnRight"}'
+snake_move() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"snake"}'
     echo "Command to turn right sent."
 }
 
@@ -69,7 +69,7 @@ CASE "success on otto controller"
 
 # Bucle para leer la entrada del usuario
 while true; do
-    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to turn right, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'e' to clear LCD, 'q' to quit: " input
+    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to snake move, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'e' to clear LCD, 'q' to quit: " input
     case $input in
         [wW])
             echo "Walking forward..."
@@ -89,8 +89,8 @@ while true; do
             executeSequenceById
             ;;
         [rR])
-            echo "Turning Right..."
-            turn_right
+            echo "Snake move..."
+            snake_move
             ;;
         [jJ])
             echo "Jumping..."

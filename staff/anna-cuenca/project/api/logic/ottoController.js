@@ -176,6 +176,7 @@ class OttoController {
                 return
             }
             this.otto.restartOscillators()
+            this.otto.home()
             this.otto.walk(4, 2000, FORWARD).then(() => {
                 console.log('Otto walked!')
                 resolve()
@@ -204,47 +205,6 @@ class OttoController {
     }
 
 
-
-    // BAILE DE SERPIENTE -- GUARDAR ES DIVERTIDO //
-
-    turnRight() {
-        return new Promise((resolve, reject) => {
-            console.log(`Turning right`)
-
-            if (!this.otto) {
-                reject(new Error("Otto is not initialized"))
-                return
-            }
-
-
-            this.otto.oscillators.forEach((oscillator, index) => {
-                if (index < 2) { // Solo ajustamos las piernas para el giro
-                    const isRightLeg = index % 2 !== 0 // Identifica si es la pierna derecha
-                    oscillator.setParameters({
-                        amplitude: isRightLeg ? 20 : 40, // Reducir la amplitud para la pierna derecha
-                        period: 600, // Un periodo más rápido para un giro ágil
-                        phase: isRightLeg ? Math.PI / 2 : 0, // Fase desfasada para pierna derecha
-                        offset: 90 // Offset neutral, ajustar si es necesario
-                    })
-                } else {
-                    // Para los pies, podrías querer mantenerlos en una posición neutral o ajustar ligeramente
-                    oscillator.setParameters({
-                        amplitude: 0, // Los pies no se mueven o se mueven muy poco
-                        period: 600,
-                        phase: 0,
-                        offset: 90
-                    })
-                }
-                oscillator.start()
-            })
-
-            // Damos tiempo al robot para completar el giro antes de resolver la promesa
-            setTimeout(() => {
-                console.log('Otto has turned right')
-                resolve()
-            }, 600)
-        })
-    }
 
 
     turn(steps, period, direction) {
@@ -380,6 +340,54 @@ class OttoController {
             }, 2000) // el salto dura 2 seg
         })
     }
+
+
+    // BAILE DE SERPIENTE -- GUARDAR ES DIVERTIDO //
+
+    snakeMove() {
+        return new Promise((resolve, reject) => {
+            console.log(`Turning right`)
+
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return;
+            }
+
+            this.otto.oscillators.forEach((oscillator, index) => {
+                if (index < 2) { // Solo ajustamos las piernas para el giro
+                    const isRightLeg = index % 2 !== 0; // Identifica si es la pierna derecha
+                    oscillator.setParameters({
+                        amplitude: isRightLeg ? 20 : 40, // Reducir la amplitud para la pierna derecha
+                        period: 600, // Un periodo más rápido para un giro ágil
+                        phase: isRightLeg ? Math.PI / 2 : 0, // Fase desfasada para pierna derecha
+                        offset: 90 // Offset neutral, ajustar si es necesario
+                    });
+                } else {
+                    // Para los pies, podrías querer mantenerlos en una posición neutral o ajustar ligeramente
+                    oscillator.setParameters({
+                        amplitude: 0, // Los pies no se mueven o se mueven muy poco
+                        period: 600,
+                        phase: 0,
+                        offset: 90
+                    });
+                }
+                oscillator.start()
+            });
+
+            // Damos tiempo al robot para completar el giro antes de resolver la promesa
+            setTimeout(() => {
+                console.log('Otto has completed the snake move')
+
+                // Detener todos los osciladores para finalizar el movimiento
+                this.otto.oscillators.forEach((oscillator) => {
+                    oscillator.stop()
+                })
+
+                resolve()
+            }, 2000) // Ajusta a 2000 para 2 segundos
+        })
+    }
+
 
 
     stop(userId) {

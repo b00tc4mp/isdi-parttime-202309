@@ -9,6 +9,7 @@ import createTutorialHandler from './createTutorialHandler.js'
 import retrieveTutorialHandler from './retrieveTutorialHandler.js'
 import toggleLikeTutorialHandler from './toggleLikeTutorialHandler.js'
 import deleteTutorialHandler from './deleteTutorialHandler.js'
+import editTutorialHandler from './editTutorialHandler.js'
 
 import retrieveSequenceHandler from './retrieveSequenceHandler.js'
 import deleteSequenceHandler from './deleteSequenceHandler.js'
@@ -36,7 +37,8 @@ export {
     editSequenceHandler,
     retrieveMovementsHandler,
     changeEmailHandler,
-    changePasswordHandler
+    changePasswordHandler,
+    editTutorialHandler
 
 
 }

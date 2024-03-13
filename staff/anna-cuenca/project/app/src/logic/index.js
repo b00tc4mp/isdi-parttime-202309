@@ -8,6 +8,7 @@ import retrieveTutorials from './retrieveTutorials'
 import publishTutorial from './publishTutorial'
 import toggleLikeTutorial from './toggleLikeTutorial'
 import deleteTutorial from './deleteTutorial'
+import editTutorial from './editTutorial'
 
 
 import isUserLoggedIn from './isUserLoggedIn'
@@ -34,6 +35,8 @@ const logic = {
     publishTutorial,
     toggleLikeTutorial,
     deleteTutorial,
+    editTutorial,
+
 
     retrieveUserInfo,
     retrieveSequence,
