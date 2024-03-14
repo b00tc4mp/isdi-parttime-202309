@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^4.3.2",
     "classnames": "^2.5.1",
     "com": "link:../com",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.1"
+    "react-router-dom": "^6.22.1",
+    "tinymce": "^6.8.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

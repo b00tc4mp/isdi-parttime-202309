@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form, Field, Link, Container } from '../library'
 import logic from '../logic'
+
+import { Editor } from '@tinymce/tinymce-react'
+
 import { Input } from '../library'
 import session from '../logic/session'
 
@@ -16,6 +19,8 @@ function Tutorial(props) {
     const [editTextTutorial, setEditTextTutorial] = useState(null)
     const [title, setTitle] = useState(props.tutorial.title)
     const [text, setText] = useState(props.tutorial.text)
+
+    const editorRef = useRef(null)
 
     //const { handleError } = useContext(Context)
     const context = useContext()
@@ -39,23 +44,25 @@ function Tutorial(props) {
         }
     }
 
+
     function handleEditSubmit(event) {
         event.preventDefault()
-        const title = event.target.querySelector("#title").value
-        const text = event.target.querySelector("#text").value
-        console.log(text)
+        const newTitle = title
+        const newText = editorRef.current.getContent() // Obtengo el contenido del editor
+        setText(newText)
         try {
-            logic.editTutorial(props.tutorial.id, { title, text })
+            logic.editTutorial(props.tutorial.id, { title: newTitle, text: newText })
                 .then(() => {
-                    setEditTextTutorial(null)
+                    setEditTextTutorial(false)
                     props.onUpdate()
                 })
                 .catch(error => context.handleError(error))
         } catch (error) {
-            //alert(error.message)
             context.handleError(error)
         }
     }
+
+
     function handleEditClick() {
         if (editTextTutorial === null) {
             setEditTextTutorial('edit-text-tutorial')
@@ -85,40 +92,58 @@ function Tutorial(props) {
         //navigate(`/users/${props.post.author.id}`)
     }
 
+
     return (
         <article className="tutorial">
-            <p><strong>{props.tutorial.author.name}</strong></p>
-            <p><strong>{props.tutorial.author.role}</strong></p>
+            <strong><p>{props.tutorial.author.name}</p></strong>
+            <strong><p>{props.tutorial.author.role}</p></strong>
 
-            {/* Solo muestra el título y el texto si no estamos en modo edición */}
-            {editTextTutorial !== 'edit-text-tutorial' && (
+            {editTextTutorial ? (
+                <Form onSubmit={handleEditSubmit}>
+                    <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
+                    <Editor
+                        apiKey='3p5p5ls0lyowdf5ebluhjpkb69g44e0negw77zeywyb409pj'
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        initialValue={text}
+                        init={{
+                            height: 200,
+                            menubar: false,
+                            plugins: [
+                                'advlist autolink lists link image charmap print preview anchor',
+                                'searchreplace visualblocks code fullscreen',
+                                'insertdatetime media table paste code help wordcount'
+                            ],
+                            toolbar: 'undo redo | formatselect | ' +
+                                'bold italic backcolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | help'
+                        }}
+                    />
+                    <Button type="submit">Save</Button>
+                    <Button onClick={handleCancelEdit}>Cancel</Button>
+                </Form>
+            ) : (
                 <>
-                    <p><strong>{tutorial.title}</strong></p>
-                    <p>{tutorial.text}</p>
+                    <strong><p>{title}</p></strong>
+                    <p dangerouslySetInnerHTML={{ __html: text }}></p>
                 </>
             )}
 
             <div className="tutorial-actions">
-                <Button onClick={handleToggleLikePostClick}>{tutorial.liked ? '🤖' : '🤍'} {tutorial.likes.length} </Button>
+                <Button onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</Button>
                 {context.userRole === 'admin' && (
                     <>
-                        <Button onClick={() => handleToggleDeleteTutorialClick(tutorial.id)}>🗑</Button>
-                        <Button onClick={handleEditClick}>{editTextTutorial === 'edit-text-tutorial' ? 'Cancel Edit' : '🖍 Edit'}</Button>
+                        <Button onClick={handleToggleDeleteTutorialClick}>🗑 Delete</Button>
+                        <Button onClick={handleEditClick}>{editTextTutorial ? 'Cancel Edit' : '🖍 Edit'}</Button>
                     </>
                 )}
             </div>
-
-            {/* Muestra el formulario de edición si estamos en modo edición */}
-            {editTextTutorial === 'edit-text-tutorial' && (
-                <Form onSubmit={handleEditSubmit}>
-                    <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
-                    <Field id="text" type="text" value={text} onChange={(e) => setText(e.target.value)} label="Text" />
-                    <Button type='submit'>Save</Button>
-                    <Button onClick={handleCancelEdit}>Cancel</Button>
-                </Form>
-            )}
         </article>
     )
+
+
+
+
 
 }
 export default Tutorial
