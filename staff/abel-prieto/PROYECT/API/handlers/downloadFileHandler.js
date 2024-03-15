@@ -5,7 +5,7 @@ import { errors } from 'com'
 const { JsonWebTokenError } = jwt
 const { NotFoundError, ContentError, TokenError, AuthorizationError } = errors
 
-export default async (req, res) => {
+export default async (req, res, next) => {
     const token = req.headers.authorization.substring(7)
     const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
@@ -13,8 +13,9 @@ export default async (req, res) => {
 
     try {
         const file = await downloadFile(userId, fileId)
+        const { path, originalName } = file
 
-        res.download(file.path)
+        res.download(path, originalName)
     } catch (error) {
         let status = 500
 

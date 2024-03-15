@@ -2,7 +2,7 @@ import fs from 'fs/promises'
 import { User, File } from '../data/models.js'
 import { errors, validate } from 'com'
 
-const { SystemError, NotFoundError } = errors
+const { SystemError, NotFoundError, DuplicityError } = errors
 
 async function saveFile(path, newPath) {
     try {
@@ -35,9 +35,14 @@ async function uploadFile(userId, originalname, mimetype, oldPath) {
 
         return { newPath, file }
     } catch (error) {
+        if (error.code === 11000) {
+            throw new DuplicityError('Cant upload: file already saved with that name... Try again')
+        }
+
         if (error instanceof NotFoundError) {
             throw error
         }
+
         throw new SystemError(error.message)
     }
 }

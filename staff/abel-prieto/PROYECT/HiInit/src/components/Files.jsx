@@ -44,13 +44,6 @@ function Files(props) {
                     })
             }
         })
-
-        document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector(props.clientError)
-
-            clientError.innerText = 'Entry ls command to list all your save files: '
-            clientError.style.color = '#EBDBB2'
-        })
     }
 
     // DOWNLOAD FILE
@@ -71,13 +64,6 @@ function Files(props) {
         } catch (error) {
             handleError(error, navigate)
         }
-
-        document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector(props.clientError)
-
-            clientError.innerText = 'Entry ls command to list all your save files: '
-            clientError.style.color = '#EBDBB2'
-        })
     }
 
     return <>

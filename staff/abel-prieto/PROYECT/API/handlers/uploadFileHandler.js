@@ -4,7 +4,7 @@ const { JsonWebTokenError } = jwt
 import uploadFile from '../logic/uploadFile.js'
 import { errors } from 'com'
 
-const { NotFoundError, ContentError, TokenError } = errors
+const { NotFoundError, ContentError, TokenError, DuplicityError } = errors
 
 export default async (req, res) => {
     const token = req.headers.authorization.substring(7)
@@ -24,6 +24,10 @@ export default async (req, res) => {
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 406
+        }
+
+        if (error instanceof DuplicityError) {
+            status = 409
         }
 
         if (error instanceof JsonWebTokenError) {

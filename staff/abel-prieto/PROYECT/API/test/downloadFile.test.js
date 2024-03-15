@@ -4,7 +4,8 @@ import downloadFile from '../logic/downloadFile.js'
 mongoose.connect('mongodb://127.0.0.1/hiinit')
     .then(() => {
         try {
-            downloadFile('65e8bd456728f7c2d66bd330', '65eb3695de39ba551ad01d77')
+            debugger
+            downloadFile('65e8c8c89653e312c3490947', '65f0ba1cc5e0a76949692773')
                 .then(() => console.log('file successfully download!'))
                 .catch(error => console.error(error))
         } catch (error) {

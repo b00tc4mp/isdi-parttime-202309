@@ -34,7 +34,7 @@ function Credentials() {
                 handleLogout()
             } else if ((commandText === 'HELP' || commandText === 'help') && event.key === 'Enter') {
                 setHelp(!help)
-            } else if (event.key === 'Enter') {
+            } else if (event.key === 'Enter' && commandText.trim() !== '') {
                 setUknownCommand(!uknownCommand)
             }
         }

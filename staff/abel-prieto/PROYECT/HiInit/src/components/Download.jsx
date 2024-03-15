@@ -14,6 +14,7 @@ function Download() {
         message: 'Entry ls command to list all your save files:',
         color: '#EBDBB2'
     })
+    const [fetchingFiles, setFetchingFiles] = useState(false) // Controlador bucle retrieveFiles
 
     const { pointer } = Pointer()
     const navigate = useNavigate()
@@ -31,7 +32,6 @@ function Download() {
                 setList(true)
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 setList(false)
-                handleLogout()
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -39,6 +39,10 @@ function Download() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setClientError({
+                message: 'Entry ls command to list all your save files:',
+                color: '#EBDBB2'
+            })
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -51,39 +55,33 @@ function Download() {
     }, [navigate, uknownCommand, setList])
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await logic.retrieveFiles()
-                setFiles(result)
+        if (fetchingFiles || list) {
+            const fetchData = async () => {
+                try {
+                    const result = await logic.retrieveFiles()
+                    setFiles(result)
+                    setFetchingFiles(false)
 
-                if (result.length === 0) {
+                } catch (error) {
                     setClientError({
-                        message: "You don't have any files.",
-                        color: 'yellow'
+                        message: "You don't have any files in your storage...",
+                        color: 'tomato'
                     })
-                } else {
-                    setClientError({
-                        message: 'Entry ls command to list all your save files:',
-                        color: '#EBDBB2'
-                    })
+
+                    handleError(error, navigate)
+                    setFetchingFiles(false)
                 }
-            } catch (error) {
-                handleError(error, navigate)
             }
-        }
 
-        if (list) {
             fetchData()
         }
 
-    }, [navigate, list])
+    }, [fetchingFiles, list, handleError, navigate])
 
     return (
         <div className="container">
             <p>~$</p>
-            <p id="client-error-download" style={{ color: clientError.color }}>
-                {clientError.message}
-            </p>
+            <p id="client-error-download">{clientError.message}</p>
 
             <br />
 
@@ -106,9 +104,7 @@ function Download() {
                 </>
             )}
 
-            {list && files.map((file) => (
-                <Files key={file.id} file={file} clientError={'#client-error-download'} />
-            ))}
+            {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}
         </div>
     )
 }
