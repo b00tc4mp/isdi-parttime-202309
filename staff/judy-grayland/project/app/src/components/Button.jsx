@@ -1,10 +1,6 @@
 function Button(props) {
   return (
-    <button
-      onMouseEnter={props.handleOnMouseEnter}
-      onMouseLeave={props.handleOnMouseLeave}
-      onClick={props.handleOnClick}
-    >
+    <button type={props.type ?? 'button'} onClick={props.onClick}>
       {props.children}
     </button>
   )
