@@ -6,29 +6,22 @@ const { SystemError, NotFoundError } = errors
 function retrieveFavs(userId) {
     validate.id(userId, 'user id')
 
-    return User.findById(userId).lean()
-        .catch(error => {
-            throw new SystemError(error.message)
-        })
+    return User.findById(userId)
+        .lean()
         .then(user => {
             if (!user)
                 throw new NotFoundError('User not found')
 
-            const favoriteProductIds = user.favs.map(fav => fav.toString())
-
-            return Product.find({ _id: { $in: favoriteProductIds } }).lean()
+            return Product.find({ _id: { $in: user.favs } }).select('-__v').lean()
+                .then(products => {
+                    return products.map(product => {
+                        product.id = product._id.toString()
+                        product.fav = user.favs.some(productObjectId => productObjectId.toString() === product.id)
+                        return product;
+                    });
+                })
                 .catch(error => {
                     throw new SystemError(error.message)
-                })
-                .then(products => {
-                    products.forEach(product => {
-                        product.id = product._id.toString()
-                        delete product._id;
-
-                        product.isFavorite = true
-                    })
-
-                    return products
                 })
         })
 }
@@ -37,3 +30,4 @@ export default retrieveFavs
 
 
 // Lo de los detalles lo haré igual que los recetas ruta/rawMaterial/id del producto
+

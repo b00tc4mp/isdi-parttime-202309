@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Product from './Product'
 import logic from '../logic'
 
-export default function Utensils(props) {
+export default function Utensils({ loadProducts, favProducts }) {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function Utensils(props) {
 
     const refreshProducts = () => {
         try {
-            props.loadProducts()
+            loadProducts()
                 .then(products => setProducts(products))
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -25,7 +25,7 @@ export default function Utensils(props) {
 
     return (
         <div>
-            <div className="products">{products.map(product => (<Product key={product.id} {...product} onFavSuccess={refreshProducts} />))}</div>
+            <div className="products">{products.map(product => (<Product key={product.id} {...product} onFavSuccess={refreshProducts} favProducts={favProducts} />))}</div>
         </div>
     )
 }

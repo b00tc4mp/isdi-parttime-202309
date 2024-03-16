@@ -12,7 +12,7 @@ export default function retrieveFavs() {
         }
     }
 
-    return fetch(`${import.meta.env.VITE_API_URL}/products/favs`, req)
+    return fetch(`${import.meta.env.VITE_API_URL}/favorites`, req)
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {

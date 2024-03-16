@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logic from '../logic'
 
-export default function Product({ id, name, image, price, description, onFavSuccess }) {
+
+export default function Product({ id, name, image, price, description, onFavSuccess, favProducts }) {
+
     const [showDetails, setShowDetails] = useState(false)
-    const [isFav, setIsFav] = useState(false)
+    const [isProductFav, setIsProductFav] = useState(false)
+
+
+    useEffect(() => {
+        const idFavs = favProducts.filter(_product => {
+            return _product._id === id
+        })
+
+        idFavs.length > 0 ? setIsProductFav(true) : setIsProductFav(false)
+
+    }, [favProducts])
 
 
     const handleClickAddToCart = () => {
@@ -20,7 +32,6 @@ export default function Product({ id, name, image, price, description, onFavSucc
             logic.toggleFavProduct(id)
                 .then(() => {
                     onFavSuccess()
-                    setIsFav(!isFav)
                 })
                 .catch(error => alert(error.message))
         } catch (error) {
@@ -35,7 +46,7 @@ export default function Product({ id, name, image, price, description, onFavSucc
             <p>Precio: {price}</p>
             <button className="cart-button" onClick={handleClickAddToCart}>🛍️</button>
             <button className="details-button" onClick={handleDetailsClick}>Ver detalles</button>
-            <button className="favs-button" onClick={handleToggleFavClick}>{isFav ? "🩷" : "💟"}</button>
+            <button className="favs-button" onClick={handleToggleFavClick}>{isProductFav ? "🩷" : "💟"}</button>
             {showDetails && (
                 <div className="details-overlay">
                     <div className="details-content">

@@ -1,40 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useUser } from '../hooks/UserContext'
 import Product from './Product'
-import logic from '../logic'
 
-function Favorites() {
-    const { user, IsLoggedIn } = useUser()
-    const [products, setProducts] = useState([])
 
-    useEffect(() => {
-        logic.retrieveFavs(user.id)
-            .then(favProducts => {
-                setProducts(favProducts)
-            })
-            .catch(error => {
-                alert(error.message)
-            })
-    }, [IsLoggedIn])
+
+export default function Favorites({ favProducts }) {
+    const { isLoggedIn } = useUser()
+
 
     return (
         <div>
-            <h2>Tienes los siguientes productos en tu lista de deseos:</h2>
-            <ul>
-                {products.map((product, index) => (
-                    <li key={index}>
-                        <Product
-                            productId={product.productId}
-                            name={product.name}
-                            image={product.image}
-                            price={product.price}
-                            description={product.description}
-                        />
-                    </li>
-                ))}
-            </ul>
+            {isLoggedIn ? (
+                <div>
+                    <h2>Tu lista de favoritos 👇</h2>
+                    <div className="products">{favProducts.map(product => (<Product key={product.id} {...product} favProducts={favProducts} />))}</div>
+                </div>
+            ) : (
+                <h1>Inicia sesión para ver tus favoritos</h1>
+            )}
         </div>
     )
 }
 
-export default Favorites

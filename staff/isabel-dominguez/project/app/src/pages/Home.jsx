@@ -8,15 +8,16 @@ import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites } 
 
 
 export default function Home() {
-    console.log('El componente Home se está renderizando.')
 
     const [name, setName] = useState(null)
     // const [stamp, setStamp] = useState(null)
+    const [favProducts, setFavProducts] = useState([])
 
 
     const navigate = useNavigate()
 
     const { isLoggedIn, setIsLoggedIn } = useUser()
+
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -28,8 +29,17 @@ export default function Home() {
             } catch (error) {
                 console.error(error)
             }
+
+            try {
+                logic.retrieveFavs()
+                    .then((favs) => { setFavProducts(favs) })
+                    .catch(error => { alert(error.message) })
+            } catch (error) {
+                console.error(error)
+            }
         }
     }, [isLoggedIn])
+
 
     function handleLogout() {
         logic.logoutUser()
@@ -37,6 +47,7 @@ export default function Home() {
                 sessionStorage.clear()
                 setName(null)
                 setIsLoggedIn(false)
+                setFavProducts([])
             })
             .catch(error => alert(error.message))
     }
@@ -127,9 +138,9 @@ export default function Home() {
             </section>
 
             <Routes>
-                <Route path="/raw-material" element={<RawMaterial loadProducts={() => logic.retrieveProductsByType('RawMaterial')} />} />
-                <Route path="/packings" element={<Packings loadProducts={() => logic.retrieveProductsByType('Packings')} />} />
-                <Route path="/utensils" element={<Utensils loadProducts={() => logic.retrieveProductsByType('Utensils')} />} />
+                <Route path="/raw-material" element={<RawMaterial loadProducts={() => logic.retrieveProductsByType('RawMaterial')} favProducts={favProducts} />} />
+                <Route path="/packings" element={<Packings loadProducts={() => logic.retrieveProductsByType('Packings')} favProducts={favProducts} />} />
+                <Route path="/utensils" element={<Utensils loadProducts={() => logic.retrieveProductsByType('Utensils')} favProducts={favProducts} />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
                 <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
@@ -138,11 +149,11 @@ export default function Home() {
                 <Route path="/recipes/fragrance" element={<Recipes type='Fragrance' />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
-                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/favorites" element={<Favorites favProducts={favProducts} />} />
             </Routes>
         </>
     )
 }
 
 
-// Lo mismo que con las turas de recetas, los detalles de cada producto.
+// Lo mismo que con las turas de recetas, los detalles de cada producto. recipes/fragances/recipeId

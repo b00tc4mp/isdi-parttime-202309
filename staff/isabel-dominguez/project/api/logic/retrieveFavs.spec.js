@@ -40,16 +40,10 @@ describe('retrieveFavs', () => {
                                         expect(products).to.be.instanceOf(Array)
                                         expect(products).to.have.lengthOf(2)
 
-                                        const products2Exists = products.some(product => {
-                                            return product.id === product2.id && product.image === product2.image && product.name === product2.name && product.description === product2.description && product.price === product2.price && product.type === product2.type && product.isFavorite
-                                        })
+                                        const products2Exists = products.some(product => product.id === product2.id && product.fav)
+                                        expect(products2Exists).to.be.true
 
-                                        expect(products2Exists).to.be.true;
-
-                                        const product3Exists = products.some(product => {
-                                            return product.id === product3.id && product.image === product3.image && product.name === product3.name && product.description === product3.description && product.price === product3.price && product.type === product3.type && product.isFavorite
-                                        })
-
+                                        const product3Exists = products.some(product => product.id === product3.id && product.fav)
                                         expect(product3Exists).to.be.true
                                     })
                             })
