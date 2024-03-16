@@ -19,17 +19,28 @@ function Register(props) {
       data[key] = val
     }
 
-    console.log(data)
+    // try {
+    //   logic.registerUser(data.name, data.email, data.password, (error) => {
+    //     if (error) {
+    //       console.error(error)
+
+    //       return
+    //     }
+    //     props.onSuccess()
+    //   })
+    // } catch (error) {
+    //   console.error(error)
+    // }
 
     try {
-      logic.registerUser(data.name, data.email, data.password, (error) => {
-        if (error) {
+      logic
+        .registerUser(data.name, data.email, data.password)
+        .then(() => {
+          props.onSuccess()
+        })
+        .catch((error) => {
           console.error(error)
-
-          return
-        }
-        props.onSuccess()
-      })
+        })
     } catch (error) {
       console.error(error)
     }

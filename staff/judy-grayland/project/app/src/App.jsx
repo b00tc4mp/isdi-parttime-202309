@@ -1,4 +1,5 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom'
+
 // pages
 import Profile from './pages/Profile'
 import Home from './pages/Home'
@@ -8,6 +9,11 @@ import Topic from './pages/Topic'
 import Register from './pages/Register'
 
 function App() {
+  const navigate = useNavigate()
+  function handleRegisterSuccess() {
+    navigate('/login')
+    console.log('user successfully registered')
+  }
   return (
     <>
       <header>
@@ -19,7 +25,10 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route
+          path="register"
+          element={<Register onSuccess={handleRegisterSuccess} />}
+        />
         <Route path="profile" element={<Profile />} />
         <Route path="topic" element={<Topic />} />
         <Route path="resource" element={<Resource />} />
