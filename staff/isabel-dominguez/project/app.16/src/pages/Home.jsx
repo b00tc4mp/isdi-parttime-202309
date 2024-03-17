@@ -7,32 +7,17 @@ import logic from '../logic'
 import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites } from '../components'
 
 
-export default function Home({ loadProducts }) {
+export default function Home() {
 
     const [name, setName] = useState(null)
+    // const [stamp, setStamp] = useState(null)
     const [favProducts, setFavProducts] = useState([])
 
+
     const navigate = useNavigate()
+
     const { isLoggedIn, setIsLoggedIn } = useUser()
 
-
-    const refreshProducts = () => {
-        try {
-            Promise.all([
-                logic.retrieveProductsByType('RawMaterial'),
-                logic.retrieveProductsByType('Packings'),
-                logic.retrieveProductsByType('Utensils')
-            ])
-                .then(() => {
-                    logic.retrieveFavs()
-                        .then((favs) => { setFavProducts(favs) })
-                        .catch(error => { alert(error.message) })
-                })
-                .catch(error => alert(error.message));
-        } catch (error) {
-            alert(error.message);
-        }
-    }
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -153,9 +138,9 @@ export default function Home({ loadProducts }) {
             </section>
 
             <Routes>
-                <Route path="/raw-material" element={<RawMaterial favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/packings" element={<Packings favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/utensils" element={<Utensils favProducts={favProducts} onFavSuccess={refreshProducts} />} />
+                <Route path="/raw-material" element={<RawMaterial loadProducts={() => logic.retrieveProductsByType('RawMaterial')} favProducts={favProducts} />} />
+                <Route path="/packings" element={<Packings loadProducts={() => logic.retrieveProductsByType('Packings')} favProducts={favProducts} />} />
+                <Route path="/utensils" element={<Utensils loadProducts={() => logic.retrieveProductsByType('Utensils')} favProducts={favProducts} />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
                 <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
@@ -164,7 +149,7 @@ export default function Home({ loadProducts }) {
                 <Route path="/recipes/fragrance" element={<Recipes type='Fragrance' />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
-                <Route path="/favorites" element={<Favorites favProducts={favProducts} onFavSuccess={refreshProducts} />} />
+                <Route path="/favorites" element={<Favorites favProducts={favProducts} />} />
             </Routes>
         </>
     )

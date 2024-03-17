@@ -4,7 +4,7 @@ import Product from './Product'
 
 
 
-export default function Favorites({ favProducts }) {
+export default function Favorites({ favProducts, onFavSuccess }) {
     const { isLoggedIn } = useUser()
 
 
@@ -12,11 +12,11 @@ export default function Favorites({ favProducts }) {
         <div>
             {isLoggedIn ? (
                 <div>
-                    <h2>Tu lista de favoritos 👇</h2>
-                    <div className="products">{favProducts.map(product => (<Product key={product.id} {...product} favProducts={favProducts} />))}</div>
+                    <h2 className='fav-title'>Productos guardados</h2>
+                    <div className="products">{favProducts.map(product => (<Product key={product.id} {...product} favProducts={favProducts} onFavSuccess={onFavSuccess} />))}</div>
                 </div>
             ) : (
-                <h1>Inicia sesión para ver tus favoritos</h1>
+                <h1 className='fav-title'>Inicia sesión para ver tus productos guardados</h1>
             )}
         </div>
     )

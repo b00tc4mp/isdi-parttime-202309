@@ -535,24 +535,3 @@ header {
   color: #6820ee;
   text-decoration: none;
 }
-
-
-/*FAVORITES COMPONENT*/
-.fav-title {
-  text-align: center;
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 30px;
-  color: #444;
-  position: relative;
-}
-
-.fav-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 100%;
-  height: 2px;
-  background-color: #8987ed;
-}
