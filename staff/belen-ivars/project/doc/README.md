@@ -48,7 +48,7 @@ It's the kitchen basic wardrobe.
 * ingredients (array of Ingredient.id)
 * elaborationDuration (number)
 * feedType (string, enum: glutenfree, vegetarian, vegan, omnivorous)
-* complexityLevel (number, enum: 1-very easy, 2-easy, 3-medium, 4-complex, 5-very complex)
+* complexityLevel (string, enum: very easy, easy, medium, complex, very complex)
 * cookingType (string, enum: steamed, oven, microwave, grill, fresh)
 * date (date)
 

@@ -1,0 +1,91 @@
+.form {
+  @apply flex flex-col max-w-[240px] gap-[5px];
+}
+
+.label {
+  @apply font-bold;
+}
+
+.input {
+  @apply border-[2px] border-solid border-black p-[5px]
+}
+
+.button {
+  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
+}
+
+.button-menu {
+  @apply self-start;
+}
+
+.link {
+  @apply decoration-[none] text-black visited:text-black before:content-["[_"] after:content-["_]"];
+}
+
+.container {
+  @apply flex flex-col items-center gap-[1rem] p-[1rem];
+}
+
+.container--horizontal {
+  @apply flex-row justify-center;
+}
+
+/* custom */
+
+.header {
+
+  @apply flex items-center justify-between p-[.5rem] bg-white hover:bg-indigo-100 border-b-[.3rem] border-black;
+}
+
+.new-post {
+  @apply p-[none] bg-purple-100;
+}
+
+.post {
+  @apply flex flex-col items-center m-[.7rem] border-[.3rem] border-solid border-black p-[1rem] bg-[#F2EDF8] max-w-[350px] max-h-[350px];
+}
+
+.post-image {
+  @apply max-w-[220px] max-h-[220px] border-double border-[1rem] border-red-500/25
+}
+
+.post-actions {
+  @apply flex justify-between gap-[.5rem]
+}
+
+.posts {
+  @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-r from-[#8C1B8C] to-[#26C2C7];
+}
+
+.footer {
+  @apply bg-white flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] border-t-[.3rem] border-solid border-black
+}
+
+.footer-menu {
+  @apply flex flex-row justify-around w-full
+}
+
+
+.Feedback {
+@apply fixed top-0 w-full box-border;
+}
+
+.Feedback--debug {
+@apply bg-[yellowgreen];
+}
+
+.Feedback--info {
+@apply bg-[dodgerblue];
+}
+
+.Feedback--warn {
+@apply bg-[gold];
+}
+
+.Feedback--error {
+@apply bg-[orange];
+}
+
+.Feedback--fatal {
+@apply bg-[red] text-white;
+}
