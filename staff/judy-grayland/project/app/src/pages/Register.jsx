@@ -1,8 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import logic from '../logic'
-import Button from '../components/Button'
-import Form from '../components/Form'
-import Field from '../components/Field'
+import { Button, Form, Field } from '../components'
 
 // function handleOnClick() {
 //   console.log('mooo')
@@ -61,7 +59,7 @@ function Register(props) {
         </Field>
         <Button type="submit">Send</Button>
       </Form>
-      Already registered?<NavLink to="login"> Log in</NavLink>
+      ¿Ya estás registrado?<NavLink to="/login"> Accede a la cuenta</NavLink>
     </>
   )
 }
