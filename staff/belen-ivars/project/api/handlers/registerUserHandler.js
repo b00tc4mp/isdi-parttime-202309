@@ -2,24 +2,21 @@ import logic from '../logic/index.js'
 import { errors } from 'com'
 const { DuplicityError, ContentError } = errors
 
-export default (req, res) => {
+export default async (req, res) => {
 	const { name, email, password } = req.body
 
 	try {
-		logic.registerUser(name, email, password)
+		await logic.registerUser(name, email, password)
 
-			.then(() => res.status(201).send())
-			.catch(error => {
-
-				let status = 500
-				if (error instanceof DuplicityError)
-					status = 409
-				res.status(status).json({ error: error.constructor.name, message: error.message })
-			})
+		res.status(201).send()
 
 	} catch (error) {
 		let status = 500
 		if (error instanceof ContentError || error instanceof TypeError)
-			res.status(status).json({ error: error.constructor.name, message: error.message })
+			status = 500
+		if (error instanceof DuplicityError)
+			status = 409
+
+		res.status(status).json({ error: error.constructor.name, message: error.message })
 	}
 }
