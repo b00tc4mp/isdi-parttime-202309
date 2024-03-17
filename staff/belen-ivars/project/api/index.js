@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
 		server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-		server.get('/users/:id', jsonBodyParser, retrieveUserHandler)
+		server.get('/users/:id', retrieveUserHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})
