@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { Schema, model } = mongoose
+const { Schema, model, ObjectId } = mongoose
 
 const user = new Schema({
 
@@ -17,9 +17,37 @@ const user = new Schema({
         type: String,
         required: true,
         minlength: 8
-    }
+    },
+
+    favSamples: [{
+        type: ObjectId,
+        ref: 'Sample'
+    }]
 
 })
+
+const metronomo = new Schema({
+
+    name: {
+        type: String,
+        required: true
+    },
+    filePath: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String, // Ejemplo: 'metronomo'
+    },
+    bpm: {
+        type: Number,
+    },
+    duration: {
+        type: Number
+    }
+    //  añadir más campos según si es necesario
+}, { collection: 'metronomes' });
+
 
 const sample = new Schema({
 
@@ -41,13 +69,18 @@ const sample = new Schema({
         type: Number
     }
     //  añadir más campos según si es necesario
-});
+}, { collection: 'samples' });
 
 const User = model('User', user)
 
+const Metronomo = model('Metronomo', metronomo)
+
 const Sample = model('Sample', sample)
+
+
 
 export {
     User,
-    Sample
+    Sample,
+    Metronomo
 }
