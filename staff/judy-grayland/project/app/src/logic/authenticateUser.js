@@ -1,4 +1,4 @@
-import { validate, errors } from '.././..shared'
+import { validate, errors } from '../../../shared'
 import { SystemError } from '../../../shared/errors'
 
 function authenticateUser(email, password) {
@@ -13,7 +13,7 @@ function authenticateUser(email, password) {
     body: JSON.stringify({ email, password }),
   }
 
-  return fetch(`${import.meta.env.VIT_API_URL}/users`, req)
+  return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, req)
     .catch((error) => {
       throw new SystemError(error.message)
     })
@@ -30,3 +30,5 @@ function authenticateUser(email, password) {
       }
     })
 }
+
+export default authenticateUser

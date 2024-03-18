@@ -1,8 +1,14 @@
 import logic from '../logic'
 import { Button, Form, Field } from '../components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function Login(props) {
+  const navigate = useNavigate()
+  function authenticateUserSuccess() {
+    console.log('user logged in successfuly')
+    navigate('/')
+  }
+
   function authenticateUser(event) {
     event.preventDefault()
 
@@ -14,9 +20,10 @@ function Login(props) {
     }
     try {
       logic
-        .authenticateUser(email, password)
-        .then(() => {
-          props.onSuccess()
+        .authenticateUser(data.email, data.password)
+        .then((data) => {
+          console.log(data)
+          authenticateUserSuccess()
         })
         .catch((error) => {
           console.error(error)
@@ -32,7 +39,7 @@ function Login(props) {
       <Form onSubmit={authenticateUser}>
         <Field name="email" inputId="email-input"></Field>
         <Field name="password" inputId="password-input"></Field>
-        <Button type="submit">Log in</Button>
+        <Button type="submit">Iniciar sesión</Button>
       </Form>
       <NavLink to="/register">Regístrate</NavLink>
     </>

@@ -13,7 +13,8 @@ export default (req, res) => {
         const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXP,
         })
-        res.json(token)
+        res.json({ token })
+        res.send()
       })
       .catch((error) => {
         let status = 500
