@@ -6,8 +6,8 @@ export default function TopProfileImage({ name, email }) {
 
 	function handleProfileClick(event) {
 		event.preventDefault()
-
-		useNavigate('/profile')
+		const navigate = useNavigate()
+		navigate('/profile')
 	}
 
 	return <Link onClick={handleProfileClick}>
