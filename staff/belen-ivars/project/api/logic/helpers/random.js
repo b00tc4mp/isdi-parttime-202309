@@ -17,13 +17,17 @@ function image() {
 function text() {
 	return `text-${Math.random()}`
 }
+function id() {
+	return `id-${Math.random()}`
+}
 
 const random = {
 	name,
 	email,
 	password,
 	image,
-	text
+	text,
+	id
 }
 
 export default random
