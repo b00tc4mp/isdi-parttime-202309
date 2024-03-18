@@ -4,6 +4,9 @@ import logoutUser from './logoutUser'
 import retrieveUser from './retrieveUser'
 import getSamples from './getSamples'
 import isUserLoggedIn from './isUserLoggedIn'
+import getMetronomo from './getMetronomo'
+import toggleFavSample from './toggleFavSample'
+import retrieveFavSamples from './retrieveFavSamples'
 
 
 const logic = {
@@ -12,7 +15,11 @@ const logic = {
     logoutUser,
     retrieveUser,
     isUserLoggedIn,
-    getSamples
+    getSamples,
+    getMetronomo,
+    toggleFavSample,
+    retrieveFavSamples
+
 
 }
 

@@ -5,9 +5,9 @@ import mongoose from 'mongoose'
 import registerUser from './registerUser.js'
 
 (async () => {
-    await mongoose.connect(process.env.MONGODB_URL)
+    await mongoose.connect('mongodb://127.0.0.1:27017/test')
     try {
-        await registerUser('Hera Son', 'hera@son.com', '123123123')
+        await registerUser('Gon Zo', 'gon@zo.com', '123123123')
         console.log('user registered')
 
     } catch (error) {
