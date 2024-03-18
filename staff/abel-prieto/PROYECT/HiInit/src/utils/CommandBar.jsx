@@ -28,9 +28,6 @@ export default function CommandBar() {
                             setRoleColor('red')
                         }
                     })
-                    .catch(error => {
-                        handleError(error, navigate)
-                    })
             } catch (error) {
                 handleError(error, navigate)
             }
@@ -46,9 +43,6 @@ export default function CommandBar() {
                             setRoleColor('#ff8037')
                         }
 
-                    })
-                    .catch(error => {
-                        handleError(error, navigate)
                     })
             } catch (error) {
                 handleError(error, navigate)

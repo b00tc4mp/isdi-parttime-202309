@@ -19,8 +19,8 @@ export default async function deleteFile(userId, fileId) {
             throw new NotFoundError('File not found')
         }
 
-        if (file.owner[0] === user.id || user.role[0] === 'admin') {
-            const filePath = `./uploads/${file._id.toString()}`
+        if (file.owner === user.id || user.role[0] === 'admin') {
+            const filePath = path.join('./uploads', file._id.toString())
 
             await fs.unlink(filePath)
             await File.findByIdAndDelete(fileId)

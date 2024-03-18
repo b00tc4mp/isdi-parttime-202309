@@ -44,7 +44,7 @@
 - Response: 200 "Content-Type": application/json { filename, filetype }
 - Respose (error): 500 "Content-Type": application/json { error, message }
 
-`Download Files` 
+`Download Files` ✅
 - Request: GET /download/:fileId Authorization: Bearer ${session.token}
 - Response: 201
 - Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
@@ -55,18 +55,28 @@
 - Response (error) : 500|404|406|409 "Content-Type": multipart/form-data { error, message }
 
 `Retrieve Commands` ✅
-- Request: GET /* Authorization: Bearer ${session.token}
+- Request: GET /commands Authorization: Bearer ${session.token}
 - Response: 200 "Content-Type": application/json { command_NAME }
 - Respose (error): 500 "Content-Type": application/json { error, message }
 
 ## ADMIN
 
-`Register Admin` 
-- Request: POST /admin "Content-Type": application/json { name, email, password, group: 'root', role: 'admin' }
+`Register Admin` ✅
+- Request: POST /admin Authorization: Bearer ${session.token}
 - Response: 201
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
 
-`Delete User` 
+`Delete User` ✅
 - Request: DELETE /users/:userId Authorization: Bearer ${session.token}
 - Response: 200 
 - Response (error): 500|404|406|401 "Content-Type": application/json { error, message }
+
+`Create Commands` ✅
+- Request: POST /admin/commands Authorization: Bearer ${session.token}
+- Response: 201
+- Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
+
+`Create Groups` ✅
+- Request: POST /admin/groups Authorization: Bearer ${session.token}
+- Response: 201
+- Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 

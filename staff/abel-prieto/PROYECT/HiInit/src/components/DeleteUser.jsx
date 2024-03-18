@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import Context from '../Context'
 import logic from '../logic'
 import { CommandBar, Pointer } from '../utils'
-import Files from './Files'
+import ListUsers from './ListUsers'
 
-function Download() {
-    const [files, setFiles] = useState([])
+function DeleteUsers() {
+    const [users, setUsers] = useState([])
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const [list, setList] = useState(false)
     const [clientError, setClientError] = useState({
-        message: 'Entry ls command to list all your save files:',
+        message: 'Entry ls command to list all registered users:',
         color: '#EBDBB2'
     })
-    const [fetchingFiles, setFetchingFiles] = useState(false) // Controlador bucle retrieveFiles
+    const [fetchingUsers, setFetchingUsers] = useState(false) // Controlador bucle retrieveUsers
 
     const { pointer } = Pointer()
     const navigate = useNavigate()
@@ -40,7 +40,7 @@ function Download() {
         const handleKeyDown = () => {
             setUknownCommand(false)
             setClientError({
-                message: 'Entry ls command to list all your save files:',
+                message: 'Entry ls command to list all registered users:',
                 color: '#EBDBB2'
             })
         }
@@ -55,27 +55,27 @@ function Download() {
     }, [navigate, uknownCommand, setList])
 
     useEffect(() => {
-        if (fetchingFiles || list) {
-            const fetchData = async () => {
+        if (fetchingUsers || list) {
+            const fetchDeleted = async () => {
                 try {
-                    const result = await logic.retrieveFiles()
-                    setFiles(result)
-                    setFetchingFiles(false)
+                    const result = await logic.retrieveUser()
+                    setUsers(result)
+                    setFetchingUsers(false)
 
                 } catch (error) {
                     setClientError({
-                        message: "You don't have any files in your storage...",
+                        message: "There is no users registered on APP yet...",
                         color: 'tomato'
                     })
 
                     handleError(error, navigate)
-                    setFetchingFiles(false)
+                    setFetchingUsers(false)
                 }
             }
 
-            fetchData()
+            fetchDeleted()
         }
-    }, [fetchingFiles, list, handleError, navigate])
+    }, [fetchingUsers, list, handleError, navigate])
 
     return (
         <div className="container">
@@ -103,9 +103,9 @@ function Download() {
                 </>
             )}
 
-            {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}
+            {list && users.map(user => <ListUsers key={user.id} file={user} clientError={'#client-error-download'} />)}
         </div>
     )
 }
 
-export default Download
+export default DeleteUsers

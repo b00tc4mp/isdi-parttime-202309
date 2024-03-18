@@ -25,6 +25,10 @@ a:active {
   color: orange;
 }
 
+ol {
+  color: orange;
+}
+
 .container {
   display: block;
   background-color: #1e252e;

@@ -9,7 +9,7 @@ function retrieveCommands(userId) {
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) {
-                return Command.find({ name: { $in: ['help', 'exit', 'login', 'register'] } }).lean().distinct('name');
+                return Command.find({ name: { $in: ['help', 'exit', 'login', 'register'] } }).lean().distinct('name')
             }
 
             return Command.find().lean().distinct('name')

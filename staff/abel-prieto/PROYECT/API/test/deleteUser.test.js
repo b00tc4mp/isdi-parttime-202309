@@ -4,8 +4,8 @@ import deleteUser from '../logic/deleteUsers.js'
 mongoose.connect('mongodb://127.0.0.1/hiinit')
     .then(() => {
         try {
-            deleteUser('65d8a618cabfbe51d07de55f', '65e3c59b16e9d4ba324101cf')
-                .then(() => console.log('user deleted!'))
+            deleteUser('65e8c15ef35504a2bcecf912', '65f482e677556bf704f13122')
+                .then(() => console.log('user successfully deleted!'))
                 .catch(error => console.error(error))
         } catch (error) {
             console.log(error)

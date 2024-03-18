@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs/promises'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { expect } from 'chai'
@@ -19,16 +18,23 @@ describe('uploadFiles', () => {
 
     // POSITIVE CASE
     it('success with uploading user file', async () => {
-        const fileName = random.text()
-        const fileType = random.text()
-        const oldPath = random.text()
-
         const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
-        const { newPath, file } = await uploadFile(user.id, fileName, fileType, oldPath)
 
-        expect(file).to.be.an('Object')
-        expect(file.owner).to.be.equal(user.id)
-        expect(newPath).to.be.equal(`./uploads/${file._id.toString()}`)
+        const oldPath = `../test-drive`
+        await fs.writeFile(oldPath, 'Subida de archivo de prueba')
+
+        const succesUploadFile = await uploadFile(user.id, random.text(), random.text(), oldPath)
+        const { newPath } = succesUploadFile
+
+        let fileExist = true
+
+        try {
+            await fs.access(newPath)
+        } catch (error) {
+            fileExist = false
+        }
+
+        expect(fileExist).to.be.true
     })
 
     // NEGATIVE CASE - User not found
@@ -44,6 +50,23 @@ describe('uploadFiles', () => {
         } catch (error) {
             expect(error).to.be.instanceOf(NotFoundError)
             expect(error.message).to.be.equal('User not found')
+        }
+    })
+
+    // NEGATIVE CASE - Duplicity on file name
+    it('fails on trying to upload a file that already exist', async () => {
+        const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+        const file = await File.create({ name: random.text(), owner: user.id, type: random.text(), permissions: 3 })
+
+        const oldPath = `../test-drive`
+        await fs.writeFile(oldPath, 'Subida de archivo de prueba')
+
+        try {
+            await uploadFile(user.id, file.name, file.type, oldPath)
+            throw new Error('should not reach this point!')
+        } catch (error) {
+            expect(error).to.be.instanceOf(DuplicityError)
+            expect(error.message).to.be.equal('Cant upload: file already saved with that name... Try again')
         }
     })
 

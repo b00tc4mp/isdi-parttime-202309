@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Context from './Context.jsx'
 import App from './App.jsx'
-import { Credentials, Desktop, Profile } from './views'
-import { Login, Register, Upload, Download } from './components'
+import { Credentials, Desktop, Profile, Sudo } from './views'
+import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup } from './components'
 import handleError from './utils/handleError.js'
 
 import './index.css'
@@ -23,6 +23,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/upload" element={<Upload />} />
           <Route path="/download" element={<Download />} />
           <Route path="/profile/*" element={<Profile />} />
+          <Route path="/administrator" element={<Sudo />} />
+          <Route path="/create-admin" element={<RegisterAdmin />} />
+          <Route path="/delete-user" element={<DeleteUser />} />
+          <Route path="/create-group" element={<CreateGroup />} />
         </Routes>
       </Context.Provider>
     </Router>

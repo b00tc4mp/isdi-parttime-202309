@@ -68,7 +68,6 @@ function Credentials() {
         return logic.isUserLoggedIn() ? element : <Navigate to="/" />;
     }
 
-
     // LOGOUT VIEW
     function handleLogout() {
         logic.logoutUser(error => {

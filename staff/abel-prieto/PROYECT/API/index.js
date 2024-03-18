@@ -62,6 +62,18 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         // DELETE FILE
         server.delete('/download/delete/:fileId', deleteFileHandler)
 
+        // REGISTER ADMIN
+        // server.post('/admin', registerAdminHandler)
+
+        // CREATE COMMANDS
+        // server.post('/admin/commands', createCommandHandler)
+
+        // CREATE GROUPS
+        // server.post('/admin/groups', createGroupHandler)
+
+        // DELETE USERS
+        // server.delete('/users/:userId', deleteUserHandler)
+
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })
     .catch(error => console.error(error))

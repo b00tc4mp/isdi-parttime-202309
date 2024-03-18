@@ -10,15 +10,42 @@ function Desktop() {
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const [help, setHelp] = useState(false)
+    const [role, setRole] = useState([])
     const { pointer } = Pointer()
+
+    const [fetchingUser, setFetchingUser] = useState(true) // Controlador bucle retrieveUser
 
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
+
+    // RETRIEVE ROLE
+    useEffect(() => {
+        if (fetchingUser || role.length === 0) {
+            const fetchUser = async () => {
+                try {
+                    const user = await logic.retrieveUser()
+                    setRole(user.role)
+                    setFetchingUser(false)
+                } catch (error) {
+                    handleError(error, navigate)
+                    setFetchingUser(false)
+                }
+            }
+
+            fetchUser()
+        }
+    }, [role, handleError, navigate])
+
+    // useEffect(() => {
+    //    setFetchingUser(true)
+    // }, [])
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
         const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
+
+            console.log(role)
 
             if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
@@ -31,6 +58,9 @@ function Desktop() {
             } else if ((commandText === 'PROFILE' || commandText === 'profile') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/profile')
+            } else if (role.includes('admin') && (commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
+                setUknownCommand(false)
+                navigate('/administrator')
             } else if ((commandText === 'HELP' || commandText === 'help') && event.key === 'Enter') {
                 setHelp(!help)
             } else if (event.key === 'Enter') {
@@ -86,10 +116,23 @@ function Desktop() {
                 </span>
             )}
 
-            {help && (
+            {role.includes('user') && help && (
                 <ul>
                     <p>USER ~$ Command types </p>
                     <p>- - - - - - - - - - - - - - - - - - - </p>
+                    <li><p>help: <em>list user commands</em></p></li>
+                    <li><p>desktop: <em>get back to your main field</em></p></li>
+                    <li><p>profile: <em>settings account</em></p></li>
+                    <li><p>upload: <em>save files on storage</em></p></li>
+                    <li><p>download: <em>recover files from drive</em></p></li>
+                    <li><p>exit: <em>get back to initial page</em></p></li>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
+                </ul>
+            ) || role.includes('admin') && help && (
+                <ul>
+                    <p>ADMIN ~$ Command types </p>
+                    <p>- - - - - - - - - - - - - - - - - - - </p>
+                    <li><p>sudo: <em>entry on ADMIN mode</em></p></li>
                     <li><p>help: <em>list user commands</em></p></li>
                     <li><p>desktop: <em>get back to your main field</em></p></li>
                     <li><p>profile: <em>settings account</em></p></li>
