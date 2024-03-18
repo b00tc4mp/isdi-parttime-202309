@@ -1,12 +1,29 @@
-import logic from '../logic/index.js'; // Asegúrate de que la ruta sea correcta
+// En el archivo del handler, por ejemplo, getSamplesHandler.js
+import jwt from 'jsonwebtoken';
+import logic from '../logic/index.js';
+
+
+
 
 export default (req, res) => {
-    logic.getSamples()
-        .then(samples => res.json(samples))
-        .catch(error => {
-            let status = 500;
+    try {
+        const token = req.headers.authorization.substring(7);
+        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("UserId from token:", userId); // Agrega esta línea para imprimir el userId
 
-            res.status(status).json({ error: error.constructor.name, message: error.message });
-        });
+        logic.getSamples(userId)
+            .then(samples => res.json(samples))
+            .catch(error => {
+                console.error("Error in getSamplesHandler:", error); // Agrega esta línea para imprimir el error
+                let status = 500;
+                if (error instanceof NotFoundError) status = 404;
+                res.status(status).json({ error: error.constructor.name, message: error.message });
+            });
+    } catch (error) {
+        console.error("Error verifying token:", error); // Agrega esta línea para imprimir el error de verificación de token
+        let status = 500;
+        if (error instanceof JsonWebTokenError) status = 401;
+        res.status(status).json({ error: error.constructor.name, message: error.message });
+    }
 };
- 
+

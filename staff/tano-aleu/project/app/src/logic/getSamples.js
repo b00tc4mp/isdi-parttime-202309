@@ -1,16 +1,22 @@
-import { validate, errors } from 'com';
-const { SystemError } = errors;
 
-export default function getSamples() {
+import { SystemError } from "com/errors";
+import session from "./session";
+
+export default function getSamples(token) {
     return (async () => {
         const req = {
             method: 'GET',
-            headers: {}
+            headers: {
+                'Authorization': `Bearer ${session.token}` // Asegúrate de incluir el token de autenticación aquí
+            }
         };
 
         let res;
 
+
+
         try {
+            console.log("Sending token:", session.token);
             res = await fetch(`${import.meta.env.VITE_API_URL}/samples`, req);
         } catch (error) {
             throw new SystemError(error.message);
@@ -30,7 +36,6 @@ export default function getSamples() {
 
         try {
             const samples = await res.json();
-
             return samples;
         } catch (error) {
             throw new SystemError(error.message);
