@@ -4,13 +4,20 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 //son parte de React Router y se utilizan para la navegacion y la gestion de rutas
 
-import { Profile, Metronome } from '../components'
+import { Profile, Synqple, SamplesFolder, Settings } from '../components'
 
 import logic from '../logic'
 
-import { Button, Form, Link, Field } from '../library'
+import { Form, Button, Field } from '../library'
 
 import { useContext } from "../hooks";
+
+import synqpleLogo from "../assets/footer_buttons/synqpleLogo.png"
+import folder from "../assets/footer_buttons/folder.png"
+import settings from "../assets/footer_buttons/settings.png"
+import logout from "../assets/footer_buttons/logout.png"
+
+
 
 
 
@@ -18,11 +25,10 @@ import { useContext } from "../hooks";
 function Home(props) {
     console.log('Home')
 
-    const session = useContext()
+    const session = useContext();
+    const [name, setName] = useState(null);
+    const navigate = useNavigate();
 
-    const [name, setName] = useState(null)
-    //permiten navegar a diferentes rutas dentro de la aplicacion y acceder a la ruta actual, respectivamente
-    const navigate = useNavigate()
 
 
 
@@ -64,16 +70,19 @@ function Home(props) {
         navigate('/profile')
     }
 
-    function handleHomeClick(event) {
+
+    function handleSynqpleClick(event) {
         event.preventDefault()
 
-        navigate('/')
+        navigate('/synqple')
     }
 
-    function handleSamplesClick(event) {
+
+
+    function handleSamplesFolderClick(event) {
         event.preventDefault()
 
-        navigate('/samples')
+        navigate('/samplesfolder')
     }
 
     function handleMetronomeClick(event) {
@@ -82,28 +91,36 @@ function Home(props) {
         navigate('/')
     }
 
+
     return <div>
+
+
+        {/* Rutas */}
+        <Routes>
+
+            <Route path="/profile" element={<Settings />} />
+
+            <Route path="/samplesfolder" element={<SamplesFolder />} />
+
+            <Route path="/" element={<Synqple />} />
+
+        </Routes>
+
 
         <footer className="footer">
 
-            <h1><Link onClick={handleMetronomeClick}>Synqple app</Link></h1>
+            <Button className="button" onClick={handleMetronomeClick}>
+                <img src={synqpleLogo} alt="App" />
+            </Button>
 
-            <Link>Samples</Link>
+            <Button className="button" onClick={handleSamplesFolderClick}><img src={folder} alt="Samples" /></Button>
 
-            <Link onClick={handleProfileClick}>Settings</Link>
+            <Button className="button" onClick={handleProfileClick}><img src={settings} alt="Settings" /></Button>
 
-            <Button className="button" onClick={handleLogoutClick}>Logout</Button>
+            <Button className="button" onClick={handleLogoutClick}><img src={logout} alt="Logout" /></Button>
 
         </footer>
 
-
-        <Routes>
-
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/" element={<Metronome />} />
-
-
-        </Routes>
 
     </div>
 
@@ -111,6 +128,6 @@ function Home(props) {
 
 export default Home
 
-
-// <Link onClick={handleSampleClick}>Samples</Link>
+//  <Route path="/" />
+// <Button onClick={handleSampleClick}>Samples</Button>
 //<Route path="/samples" element={<Samples />} />

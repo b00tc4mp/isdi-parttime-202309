@@ -13,13 +13,27 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 
 #### Example:
 
-1. Una canción está sonando, un musico o una banda está tocando y Synqple te permitirá:  
+- Una canción está sonando, un musico o una banda está tocando y Synqple te permitirá:  
 
-2. Sincronizar un metronomo manualmente.
+1. Sincronizar un metronomo manualmente.
 
-3. Una vez sincronizado el metronomo, podrás silenciarlo y lanzar samples/loops que irán a la misma velocidad que el metronomo (samples/loops -> drums/synth/vocals..) desde tu smartphone o desde otro dispositivo. 
+2. Una vez sincronizado el metronomo, podrás silenciarlo y lanzar samples/loops que irán a la misma velocidad que el metronomo (samples/loops -> drums/synth/vocals..) desde tu smartphone o desde otro dispositivo. 
 
-4. Posibilidad de reproduccion de audio desde un sistema de sonido paralelo al que suena la cancion, musico o banda o desde el mismo sistema de sonido, eso dependerá de la posibilidad de conexion de audio.
+3. Posibilidad de reproduccion de audio desde un sistema de sonido paralelo al que suena la cancion, musico o banda o desde el mismo sistema de sonido, eso dependerá de la posibilidad de conexion de audio.
+
+#### Another Example: 
+
+- Synqple se puede utilizar como un reproductor de CD o cualquier otro tipo de reproductor para Deejay: 
+
+1. Conecta 2 dispositivos a un DJ Mixer via audio (cable auxiliar)
+
+2. Prepara tu lista de canciones a reproducir en tu dispositivo y dale accesibilidad a Synqple.
+
+3. Ahora puedes reproducir tus canciones desde tu dispositivo o desde otro dispositivo.
+
+4. Puedes proceder a utilizarlo como cualquier reproductor de audio Deejay, ya que tiene pitch, beat nudge y control de reproduccion, permitiendote mezclar 2 canciones o cuantas quieras (con 2 dipositivos o mas conectados de forma analogica a un djmixer con suficientes canales)
+
+
 
 
 ## Functional Description
@@ -27,38 +41,35 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 ### Use Cases
 
 
-- Login/Register (required to use the app)
+- Login/Register/Retrieve User (required to use the app)
+
+- Play metronome audio and Samples/loops, through audio control (play/stop "global", mute and volume).
+
+- BPM Control of metronome and samples/loops (BPM)
+
+- BPM display in (BPM).
 
 - Manual velocity tapping.
 
-- Play metronome audio and Samples/loops, through audio control (play/stop and volume).
+- Beat Nudge for Metronome and samples/loops (rhythm position control).
 
-- Speed control of metronome and samples/loops (BPM)
+- Samples/loops folder display.
 
-- Metronome and samples/loops rhythm position control.
-
-- Speed display in (BPM).
-
-- Samples/loops folder display on screen.
-
-- Manage samples lists
+- Manage samples lists. (Favs)
 
 
-----
-
---- spanish version ---
-
-----
 
 
-#### User
+#### Pages UI
 
 #### Login/Register
 
 - Login
 - Register
 
-#### Profile
+#### Settings
+
+1. Profile
 
 - Change Email
 - Change Password
@@ -66,21 +77,29 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 - User Samples/Loops folder (Upload/Delete)
 - Delete Profile
 
+2. Audio Settings
+
+3. Logout
+
+
 #### Folder
 
-- Samples/Loops (user)
+- Samples/Loops 
+- Favs
 
 #### Home
 
-- Reproduccion de metronomo (botones play/stop/mute)
-- Control de volumen de metronomo (scroll)
+- Reproduccion de metronomo y samples (botones play/stop/mute)
+- Control de volumen de metronomo (input range)
 - TAP para marcar el tempo (boton TAP)
-- Display para visualizar BPM 
-- Control de ajuste de BPM (botones +/-)
+- Display para visualizar BPM (input number)
+- Control de ajuste de BPM (botones +/- / input range)
 - Control del sincronismo del metronomo y/o Samples/Loops (botones <||| / |||>)
-- Reproduccion de Samples/Loops (boton activar, desactivar)
-- Control de volumen de Samples/Loops (scroll)
+- Control de volumen de Samples/Loops (input range)
 - Visualizacion mediante display de carpeta de samples/loops y posibilidad de navegacion en modo lista 
+
+
+
 
 #### Use Description
 
@@ -95,14 +114,16 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 - 5. Control de volumen del metrónomo y de los samples
 
 
-## Technical Description
 
+
+## Technical Description
 
 
 ### Data Model
 
 ### User
 
+v.1
 - id (string)
 - name (string)
 - email (string)
@@ -110,26 +131,41 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 - favorites Sample/Loop folder (array id.Samples/Loops)
 
 
-### Sample
+### Metronome/Samples
 
+v.1
 - id (string)
 - name (string)
-- description (string)
+- URL (string)
+- description/type (string)
+- tempo ´bpm´ (number)
 - length ´secs´ (number)
+
+v.2
 - compases ´4x4´ (1, 2, 4, 8, 16, 32, 64) (number)
 - genre (latin, rock, electronic...) (string)
-- tempo ´bpm´ (number)
-
-
 - otros metadatos (arrays..)
+
 
 
 ### Filter
 
+v.1
 - id (string)
 - user (User.id)
 - title (string)
 - samples (array Sample.id)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -194,9 +230,6 @@ Valoraciones y comentarios
 - Posibilidad de hacer 4 o 5 muestras en canciones en 4 pistas, para reproduccion en 4 dispositivos separados.
 
 - Posibildad de interconexion API moises.ai con synqple?
-
-
-
 
 
 

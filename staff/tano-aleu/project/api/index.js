@@ -11,7 +11,10 @@ import {
     registerUserHandler,
     authenticateUserHandler,
     retrieveUserHandler,
-    getSamplesHandler
+    getSamplesHandler,
+    getMetronomoHandler,
+    toggleFavSampleHandler,
+    retrieveFavSamplesHandler
 
 
 } from './handlers/index.js'
@@ -34,6 +37,12 @@ mongoose.connect(process.env.MONGODB_URL) //conexion con moogose
         server.get('/users', retrieveUserHandler)
 
         server.get('/samples', getSamplesHandler)
+
+        server.get('/metronomo', getMetronomoHandler)
+
+        server.patch('/samples/:sampleId/favSamples', toggleFavSampleHandler)
+
+        server.get('/users/favSamples', retrieveFavSamplesHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 

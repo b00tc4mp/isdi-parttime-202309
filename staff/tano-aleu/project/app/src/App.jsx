@@ -1,3 +1,5 @@
+
+
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
@@ -68,6 +70,8 @@ function App() {
   const context = { handleError }
 
   return <>
+
+
     <Context.Provider value={context}>
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
 
@@ -77,6 +81,8 @@ function App() {
         <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
       </Routes>
     </Context.Provider>
+
+
   </>
 }
 
