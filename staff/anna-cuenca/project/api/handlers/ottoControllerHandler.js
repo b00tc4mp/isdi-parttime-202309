@@ -29,9 +29,9 @@ export default (req, res) => {
                 })
                 break;
 
-            case 'snake':
-                logic.ottoController.snakeMove().then(() => {
-                    res.status(200).json({ message: 'Otto is walking backward' })
+            case 'snakeMove':
+                logic.ottoController.snakeMove(userId).then(() => {
+                    res.status(200).json({ message: 'Otto is snaking' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 })

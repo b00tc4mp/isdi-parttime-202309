@@ -84,6 +84,7 @@ export default function Controller() {
                 // Para todas las demás acciones que no requieren un mensaje específico
                 await logic.ottoController(action, '', null, userId)
                 console.log(`${action} action executed successfully`)
+                setReloadSequences(prev => !prev)
             }
         } catch (error) {
             console.error(`Error executing ${action} action:`, error)
@@ -163,6 +164,7 @@ export default function Controller() {
                 <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
                 <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>
                 <Button onClick={() => handleAction('jump')}>Jump</Button>
+                <Button onClick={() => handleAction('snakeMove')}>Snake</Button>
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
             </div>
 

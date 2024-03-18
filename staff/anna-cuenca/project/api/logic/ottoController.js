@@ -78,7 +78,8 @@ class OttoController {
 
             const newSequence = new SequenceMovement({
                 userId,
-                movements: []
+                movements: [],
+                createdAt: new Date()
             })
 
             newSequence.save()
@@ -292,12 +293,14 @@ class OttoController {
                 // Crear un registro de movimiento 
                 const jumpMovement = {
                     type: 'jump',
-                    name: 'Jump'
+                    name: 'Jump',
+                    ordinal: 0
                 }
 
                 // comprobar si hay una secuencia ya creada o no
                 SequenceMovement.findOne({ userId }).sort({ createdAt: -1 }) // Encuentra la última secuencia 
                     .then(sequence => {
+                        console.log("La secuencia recuperada es:", sequence)
                         const ordinal = sequence ? sequence.movements.length : 0 // calculo el ordinal basado en la longitud
                         jumpMovement.ordinal = ordinal // asigno l valor del ordinal al movmiento
                         if (!sequence) {
@@ -344,7 +347,7 @@ class OttoController {
 
     // BAILE DE SERPIENTE -- GUARDAR ES DIVERTIDO //
 
-    snakeMove() {
+    snakeMove(userId) {
         return new Promise((resolve, reject) => {
             console.log(`Turning right`)
 
@@ -361,7 +364,7 @@ class OttoController {
                         period: 600, // Un periodo más rápido para un giro ágil
                         phase: isRightLeg ? Math.PI / 2 : 0, // Fase desfasada para pierna derecha
                         offset: 90 // Offset neutral, ajustar si es necesario
-                    });
+                    })
                 } else {
                     // Para los pies, podrías querer mantenerlos en una posición neutral o ajustar ligeramente
                     oscillator.setParameters({
@@ -369,21 +372,61 @@ class OttoController {
                         period: 600,
                         phase: 0,
                         offset: 90
-                    });
+                    })
                 }
                 oscillator.start()
-            });
+            })
 
-            // Damos tiempo al robot para completar el giro antes de resolver la promesa
             setTimeout(() => {
                 console.log('Otto has completed the snake move')
-
                 // Detener todos los osciladores para finalizar el movimiento
                 this.otto.oscillators.forEach((oscillator) => {
                     oscillator.stop()
                 })
 
-                resolve()
+                // Crear un registro de movimiento para snakeMove
+                const snakeMove = {
+                    type: 'snakeMove',
+                    name: 'Snake Move'
+                }
+
+                // Guardar el movimiento en la base de datos, siguiendo el mismo patrón que jump
+                SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+                    .then(sequence => {
+                        const ordinal = sequence ? sequence.movements.length : 0
+                        snakeMove.ordinal = ordinal
+                        if (!sequence) {
+                            const newSequence = new SequenceMovement({
+                                userId: userId,
+                                movements: [snakeMove],
+                                createdAt: new Date()
+                            })
+                            newSequence.save()
+                                .then(savedSequence => {
+                                    console.log('new sequence saved', savedSequence)
+                                    resolve(savedSequence)
+                                })
+                                .catch(error => {
+                                    console.error('Error trying to create sequence', error)
+                                    reject(error)
+                                })
+                        } else {
+                            sequence.movements.push(snakeMove)
+                            sequence.save()
+                                .then(updatedSequence => {
+                                    console.log('Movement added to last sequence', updatedSequence)
+                                    resolve(updatedSequence)
+                                })
+                                .catch(error => {
+                                    console.error('Error trying to add movement to last sequence', error)
+                                    reject(error)
+                                })
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error trying to find SequenceMovement', error)
+                        reject(error)
+                    })
             }, 2000) // Ajusta a 2000 para 2 segundos
         })
     }
@@ -464,6 +507,10 @@ class OttoController {
             case 'stop':
                 await this.stop()
                 break;
+            case 'snakeMove':
+                await this.snakeMove()
+                break;
+
             // Aquí añadiré más cuando tenga más cosas
             default:
                 console.log(`Movement ${movement.type} not found`)

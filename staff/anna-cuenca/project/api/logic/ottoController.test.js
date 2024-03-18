@@ -21,7 +21,7 @@ dotenv.config();
 
     // Esperar a que la placa esté lista
     ottoController.board.on("ready", async () => {
-        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
+        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'M' para snakeMove,  'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
 
         process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
         process.stdin.resume()
@@ -59,7 +59,7 @@ dotenv.config();
                 case 'e':
                     console.log("Guardando secuencia")
                     try {
-                        await ottoController.endSequence('65ec9061d954084ce4ead91a')
+                        await ottoController.endSequence('65d8d9dffdfc051c2e6c1e96')
                     } catch (error) {
                         console.error(error)
                     }
@@ -93,6 +93,15 @@ dotenv.config();
                     console.log("Saltando")
                     try {
                         await ottoController.jump('65d8d9dffdfc051c2e6c1e96')
+                    } catch (error) {
+                        console.error('Error al intentar saltar:', error)
+                    }
+                    break;
+
+                case 'm': // snakeMove
+                    console.log("Movimiento Snake")
+                    try {
+                        await ottoController.snakeMove('65d8d9dffdfc051c2e6c1e96')
                     } catch (error) {
                         console.error('Error al intentar saltar:', error)
                     }

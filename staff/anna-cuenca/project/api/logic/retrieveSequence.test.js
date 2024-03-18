@@ -9,7 +9,7 @@ import retrieveSequence from './retrieveSequence.js'
     await mongoose.connect(process.env.MONGODB_URL)
 
     try {
-        const sequences = await retrieveSequence('65d8e3c8e5c7a46a05f53b0c')
+        const sequences = await retrieveSequence('65f87c2308a1e799bf76409f')
         console.log('retrieves user sequences', sequences)
     } catch (error) {
         console.error(error)

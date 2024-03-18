@@ -28,7 +28,7 @@ walk_backward() {
 }
 
 snake_move() {
-    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"snake"}'
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"snakeMove"}'
     echo "Command to turn right sent."
 }
 
