@@ -6,7 +6,7 @@ async function retrieveUser(id) {
 	const user = await User.findById(id)
 
 	if (!user) {
-		throw new NotFoundError("No user found :cry:")
+		throw new NotFoundError("No user found")
 	}
 
 	return user

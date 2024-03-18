@@ -13,7 +13,7 @@ export default function registerUser(name, email, password) {
 		const req = {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'applications/json'
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ name, email, password })
 		}
