@@ -1,5 +1,6 @@
 import { validate, errors } from '../../../shared'
 import { SystemError } from '../../../shared/errors'
+import context from './context'
 
 function authenticateUser(email, password) {
   validate.email(email, 'email')
@@ -28,6 +29,25 @@ function authenticateUser(email, password) {
             throw new errors[body.error](body.message)
           })
       }
+
+      res
+        .json()
+        .then((token) => {
+          const payloadB64 = token.slice(
+            token.indexOf('.') + 1,
+            token.lastIndexOf('.')
+          )
+
+          const payloadJson = atob(payloadB64)
+          const payload = JSON.parse(payloadJson)
+          const userId = payload.sub
+
+          context.sessionUserId = userId
+          context.token = token
+        })
+        .catch((error) => {
+          throw new SystemError(error)
+        })
     })
 }
 
