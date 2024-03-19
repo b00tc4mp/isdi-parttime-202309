@@ -152,7 +152,7 @@ class OttoController {
             if (!this.lcd) {
                 console.error('LCD no está inicializado.')
                 reject(new Error('LCD no está inicializado.'))
-                return;
+                return
             }
 
             try {
@@ -169,6 +169,80 @@ class OttoController {
 
 
     //// SERVOS //// 
+
+    swing(steps, T, h) {
+        return new Promise((resolve) => {
+            console.log(`Swinging for ${steps} steps with period ${T} and height ${h}`)
+
+            // Inicializar los servos directamente
+            const servoLeftFoot = new Servo(4)
+            const servoRightFoot = new Servo(5)
+
+            // Cálculo de los ángulos basado en la altura 'h'
+            const angleUp = 90 + h
+            const angleDown = 90 - h
+
+            // Crear un loop para simular el swing
+            let currentStep = 0
+            const intervalId = setInterval(() => {
+                if (currentStep % 2 === 0) {
+                    // Mover hacia un lado
+                    servoLeftFoot.to(angleUp)
+                    //servoRightFoot.to(angleDown)
+                    servoRightFoot.to(angleUp)
+                } else {
+                    // Mover hacia el otro lado
+                    servoLeftFoot.to(angleDown)
+                    //servoRightFoot.to(angleUp)
+                    servoRightFoot.to(angleDown)
+                }
+                currentStep++
+
+                if (currentStep >= steps) {
+                    clearInterval(intervalId)
+                    // volver a poner servos en la posición normal
+                    servoLeftFoot.to(90)
+                    servoRightFoot.to(90)
+
+                    console.log("Swing completed")
+                    resolve()
+                }
+            }, T / steps)
+        })
+    }
+
+
+
+    shakeLeg(steps, T, dir) {
+        return new Promise((resolve) => {
+            console.log(`Shaking leg ${dir === LEFT ? 'left' : 'right'} for ${steps} steps with period ${T}`)
+
+            // Determinar cuáles osciladores corresponden a la pierna y el pie que se van a sacudir
+            const legIndex = dir === LEFT ? 0 : 1
+            const footIndex = dir === LEFT ? 2 : 3
+
+            const legOscillator = this.otto.oscillators[legIndex]
+            const footOscillator = this.otto.oscillators[footIndex]
+
+            // Iniciar el movimiento de sacudida
+            for (let i = 0; i < steps; i++) {
+                setTimeout(() => {
+                    const phaseProgress = (i / steps) * 2 * Math.PI
+                    const angle = 30 * Math.sin(phaseProgress) + 90 // Ejemplo con amplitud de 30 y offset de 90
+                    legOscillator.servo.to(angle)
+                    footOscillator.servo.to(angle)
+
+                    if (i === steps - 1) {
+                        setTimeout(() => {
+                            legOscillator.servo.to(90) // Regresa a posición central/neutra
+                            footOscillator.servo.to(90) // Regresa a posición central/neutra
+                            resolve()
+                        }, T / steps)
+                    }
+                }, (T / steps) * i)
+            }
+        })
+    }
 
     walkForward() {
         return new Promise((resolve, reject) => {
@@ -270,11 +344,7 @@ class OttoController {
             const servoLeftFoot = new Servo(4)
             const servoRightFoot = new Servo(5)
 
-            // OTTO GRANDE
-            // const servoLeftLeg = new Servo('A3')
-            // const servoRightLeg = new Servo('A1')
-            // const servoLeftFoot = new Servo('A2')
-            // const servoRightFoot = new Servo('A0')
+
 
             servoLeftLeg.to(90)
             servoRightLeg.to(90)
@@ -345,7 +415,7 @@ class OttoController {
     }
 
 
-    // BAILE DE SERPIENTE -- GUARDAR ES DIVERTIDO //
+    // BAILE DE SERPIENTE //
 
     snakeMove(userId) {
         return new Promise((resolve, reject) => {

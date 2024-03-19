@@ -21,7 +21,7 @@ dotenv.config();
 
     // Esperar a que la placa esté lista
     ottoController.board.on("ready", async () => {
-        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'M' para snakeMove,  'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
+        console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'H' para shake leg, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'M' para snakeMove,  'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
 
         process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
         process.stdin.resume()
@@ -72,6 +72,36 @@ dotenv.config();
                         console.error(error)
                     }
                     break;
+
+
+
+                case 'x': //hacer shake leg con la derecha
+                    console.log("Swing")
+                    try {
+                        await ottoController.swing(3, 2000, 40)
+                    } catch (error) {
+                        console.error('Error al intentar girar a la derecha y caminar:', error)
+                    }
+                    break;
+
+                case 'h': //hacer shake leg con la derecha
+                    console.log("Shake leg")
+                    try {
+                        await ottoController.shakeLeg(3, 1000, RIGHT)
+                    } catch (error) {
+                        console.error('Error al intentar girar a la derecha y caminar:', error)
+                    }
+                    break;
+
+                case 'i': //hacer shake leg con la derecha
+                    console.log("Shake leg")
+                    try {
+                        await ottoController.shakeLeg(3, 1000, LEFT)
+                    } catch (error) {
+                        console.error('Error al intentar girar a la derecha y caminar:', error)
+                    }
+                    break;
+
                 case 'r': // girar a la derecha y caminar
                     console.log("Girando a la derecha")
                     try {
