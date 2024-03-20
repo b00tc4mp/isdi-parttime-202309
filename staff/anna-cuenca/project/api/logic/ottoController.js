@@ -170,6 +170,81 @@ class OttoController {
 
     //// SERVOS //// 
 
+    crusaito(steps, T, h, dir) {
+        return new Promise((resolve) => {
+            console.log(`Crusaito for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
+
+            // Inicializar los servos de los pies directamente
+            const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
+            const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
+
+            let currentStep = 0;
+            const angleIncrement = h / 2 // Cálculo del incremento basado en la altura
+            const baseAngle = 90 // Ángulo base para el movimiento
+
+            const intervalId = setInterval(() => {
+                const angleOffset = (currentStep % 2 === 0) ? angleIncrement : -angleIncrement;
+                const leftFootAngle = dir === LEFT ? baseAngle - angleOffset : baseAngle + angleOffset;
+                const rightFootAngle = dir === LEFT ? baseAngle + angleOffset : baseAngle - angleOffset;
+
+                // Movimiento de los pies
+                servoLeftFoot.to(leftFootAngle)
+                //servoRightFoot.to(rightFootAngle);
+                servoRightFoot.to(leftFootAngle)
+
+                currentStep++
+                if (currentStep >= steps) {
+                    clearInterval(intervalId)
+                    // Regresar los servos a la posición central
+                    servoLeftFoot.to(90)
+                    servoRightFoot.to(90)
+
+                    console.log("Crusaito completed")
+                    resolve()
+                }
+            }, T / steps)
+        })
+    }
+
+    moonwalker(steps, T, h, dir) {
+        return new Promise((resolve) => {
+            console.log(`Moonwalking for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
+
+            // Inicializar los servos de los pies directamente
+            const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
+            const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
+
+            // Definir la amplitud y los ángulos iniciales basados en la dirección
+            const angleStartLeft = dir === LEFT ? 90 - h : 90 + h
+            const angleStartRight = dir === LEFT ? 90 + h : 90 - h
+            const angleEndLeft = dir === LEFT ? 90 + h / 2 : 90 - h / 2
+            const angleEndRight = dir === LEFT ? 90 - h / 2 : 90 + h / 2
+
+            // Crear un loop para simular el moonwalking
+            let currentStep = 0
+            const intervalId = setInterval(() => {
+                if (currentStep % 2 === 0) {
+                    servoLeftFoot.to(angleStartLeft)
+                    servoRightFoot.to(angleStartRight)
+                } else {
+                    servoLeftFoot.to(angleEndLeft)
+                    servoRightFoot.to(angleEndRight)
+                }
+                currentStep++
+
+                if (currentStep >= steps) {
+                    clearInterval(intervalId)
+                    // Regresar los servos a la posición central
+                    servoLeftFoot.to(90)
+                    servoRightFoot.to(90)
+
+                    console.log("Moonwalk completed")
+                    resolve()
+                }
+            }, T / steps)
+        })
+    }
+
     swing(steps, T, h) {
         return new Promise((resolve) => {
             console.log(`Swinging for ${steps} steps with period ${T} and height ${h}`)

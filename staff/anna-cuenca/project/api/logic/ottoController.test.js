@@ -40,6 +40,25 @@ dotenv.config();
                     }
                     break;
 
+
+                case 'o':
+                    console.log("Haciendo Moonwalker..")
+                    try {
+                        await ottoController.moonwalker(8, 1000, 30, 1)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
+
+                case 'u':
+                    console.log("Haciendo crusaito..")
+                    try {
+                        await ottoController.crusaito(10, 2000, 70, 1)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
+
                 case 'a':
                     console.log("Ejecutando secuencia..")
                     try {
@@ -78,7 +97,7 @@ dotenv.config();
                 case 'x': //hacer shake leg con la derecha
                     console.log("Swing")
                     try {
-                        await ottoController.swing(3, 2000, 40)
+                        await ottoController.swing(4, 1000, 40)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
@@ -96,7 +115,7 @@ dotenv.config();
                 case 'i': //hacer shake leg con la derecha
                     console.log("Shake leg")
                     try {
-                        await ottoController.shakeLeg(3, 1000, LEFT)
+                        await ottoController.shakeLeg(4, 1000, LEFT)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
@@ -136,7 +155,7 @@ dotenv.config();
                         console.error('Error al intentar saltar:', error)
                     }
                     break;
-                case 'h': // activar el LCD
+                case 'z': // activar el LCD
                     console.log("Diciendo hola...")
                     try {
                         await ottoController.sayHi("¡Hola, soy Otto!")
