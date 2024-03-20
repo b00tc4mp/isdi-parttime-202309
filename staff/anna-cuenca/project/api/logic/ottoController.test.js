@@ -106,7 +106,7 @@ dotenv.config();
                 case 'h': //hacer shake leg con la derecha
                     console.log("Shake leg")
                     try {
-                        await ottoController.shakeLeg(3, 1000, RIGHT)
+                        await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 3, 1000, RIGHT)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
@@ -115,7 +115,7 @@ dotenv.config();
                 case 'i': //hacer shake leg con la derecha
                     console.log("Shake leg")
                     try {
-                        await ottoController.shakeLeg(4, 1000, LEFT)
+                        await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 4, 1000, LEFT)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
