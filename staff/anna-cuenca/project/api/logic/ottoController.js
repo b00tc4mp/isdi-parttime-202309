@@ -170,75 +170,40 @@ class OttoController {
 
     //// SERVOS //// 
 
-    // crusaito(steps, T, h, dir) {
-    //     return new Promise((resolve) => {
-    //         console.log(`Crusaito for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
-
-    //         // Inicializar los servos de los pies directamente
-    //         const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
-    //         const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
-
-    //         let currentStep = 0;
-    //         const angleIncrement = h / 2 // Cálculo del incremento basado en la altura
-    //         const baseAngle = 90 // Ángulo base para el movimiento
-
-    //         const intervalId = setInterval(() => {
-    //             const angleOffset = (currentStep % 2 === 0) ? angleIncrement : -angleIncrement;
-    //             const leftFootAngle = dir === LEFT ? baseAngle - angleOffset : baseAngle + angleOffset;
-    //             const rightFootAngle = dir === LEFT ? baseAngle + angleOffset : baseAngle - angleOffset;
-
-    //             // Movimiento de los pies
-    //             servoLeftFoot.to(leftFootAngle)
-    //             //servoRightFoot.to(rightFootAngle);
-    //             servoRightFoot.to(leftFootAngle)
-
-    //             currentStep++
-    //             if (currentStep >= steps) {
-    //                 clearInterval(intervalId)
-    //                 // Regresar los servos a la posición central
-    //                 servoLeftFoot.to(90)
-    //                 servoRightFoot.to(90)
-
-    //                 console.log("Crusaito completed")
-    //                 resolve()
-    //             }
-    //         }, T / steps)
-    //     })
-    // }
 
     crusaito(userId, steps, T, h, dir) {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
-                reject(new Error("Otto is not initialized"));
-                return;
+                reject(new Error("Otto is not initialized"))
+                return
             }
-            console.log(`Crusaito for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
+            console.log(`Crusaito for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`)
 
             // Inicializar los servos de los pies directamente
-            const servoLeftFoot = new Servo(4); // o 'A2' para OTTO GRANDE
-            const servoRightFoot = new Servo(5); // o 'A0' para OTTO GRANDE
+            const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
+            const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
 
-            let currentStep = 0;
-            const angleIncrement = h / 2; // Cálculo del incremento basado en la altura
-            const baseAngle = 90; // Ángulo base para el movimiento
+            let currentStep = 0
+            const angleIncrement = h / 2 // Cálculo del incremento basado en la altura
+            const baseAngle = 90 // Ángulo base para el movimiento
 
             const intervalId = setInterval(() => {
-                const angleOffset = (currentStep % 2 === 0) ? angleIncrement : -angleIncrement;
-                const leftFootAngle = dir === LEFT ? baseAngle - angleOffset : baseAngle + angleOffset;
-                const rightFootAngle = dir === LEFT ? baseAngle + angleOffset : baseAngle - angleOffset;
+                const angleOffset = (currentStep % 2 === 0) ? angleIncrement : -angleIncrement
+                const leftFootAngle = dir === LEFT ? baseAngle - angleOffset : baseAngle + angleOffset
+                const rightFootAngle = dir === LEFT ? baseAngle + angleOffset : baseAngle - angleOffset
 
                 // Movimiento de los pies
-                servoLeftFoot.to(leftFootAngle);
-                servoRightFoot.to(rightFootAngle);
+                servoLeftFoot.to(leftFootAngle)
+                servoRightFoot.to(rightFootAngle)
 
                 currentStep++;
                 if (currentStep >= steps) {
-                    clearInterval(intervalId);
+                    clearInterval(intervalId)
                     // Regresar los servos a la posición central
-                    servoLeftFoot.to(90);
-                    servoRightFoot.to(90);
+                    servoLeftFoot.to(90)
+                    servoRightFoot.to(90)
 
-                    console.log("Crusaito completed");
+                    console.log("Crusaito completed")
 
                     // Guardar el movimiento en la base de datos
                     const crusaitoMovement = {
@@ -258,7 +223,89 @@ class OttoController {
                                     createdAt: new Date()
                                 });
                                 newSequence.save().then(savedSequence => {
-                                    console.log('New sequence saved with Crusaito', savedSequence);
+                                    console.log('New sequence saved with Crusaito', savedSequence)
+                                    resolve(savedSequence)
+                                }).catch(error => {
+                                    console.error('Error saving new sequence', error)
+                                    reject(error)
+                                });
+                            } else {
+                                // Añadir el movimiento a la secuencia existente
+                                sequence.movements.push(crusaitoMovement)
+                                sequence.save().then(updatedSequence => {
+                                    console.log('Crusaito added to the last sequence', updatedSequence)
+                                    resolve(updatedSequence)
+                                }).catch(error => {
+                                    console.error('Error adding Crusaito to the last sequence', error)
+                                    reject(error)
+                                });
+                            }
+                        }).catch(error => {
+                            console.error('Error finding the last sequence', error)
+                            reject(error)
+                        })
+                }
+            }, T / steps)
+        })
+    }
+
+    moonwalker(userId, steps, T, h, dir) {
+        return new Promise((resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"));
+                return;
+            }
+
+            console.log(`Moonwalking for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
+
+            // Inicializar los servos de los pies directamente
+            const servoLeftFoot = new Servo(4); // o 'A2' para OTTO GRANDE
+            const servoRightFoot = new Servo(5); // o 'A0' para OTTO GRANDE
+
+            // Definir la amplitud y los ángulos iniciales basados en la dirección
+            const angleStartLeft = dir === LEFT ? 90 - h : 90 + h;
+            const angleStartRight = dir === LEFT ? 90 + h : 90 - h;
+            const angleEndLeft = dir === LEFT ? 90 + h / 2 : 90 - h / 2;
+            const angleEndRight = dir === LEFT ? 90 - h / 2 : 90 + h / 2;
+
+            let currentStep = 0;
+            const intervalId = setInterval(() => {
+                if (currentStep % 2 === 0) {
+                    servoLeftFoot.to(angleStartLeft);
+                    servoRightFoot.to(angleStartRight);
+                } else {
+                    servoLeftFoot.to(angleEndLeft);
+                    servoRightFoot.to(angleEndRight);
+                }
+                currentStep++;
+
+                if (currentStep >= steps) {
+                    clearInterval(intervalId);
+                    // Regresar los servos a la posición central
+                    servoLeftFoot.to(90);
+                    servoRightFoot.to(90);
+
+                    console.log("Moonwalk completed");
+
+                    // Guardar el movimiento en la base de datos
+                    const moonwalkMovement = {
+                        type: 'moonwalker',
+                        name: 'Moonwalker',
+                        ordinal: 0
+                    };
+
+                    // Buscar la última secuencia del usuario y agregar el movimiento
+                    SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+                        .then(sequence => {
+                            if (!sequence) {
+                                // Si no hay secuencias, crea una nueva
+                                const newSequence = new SequenceMovement({
+                                    userId: userId,
+                                    movements: [moonwalkMovement],
+                                    createdAt: new Date()
+                                });
+                                newSequence.save().then(savedSequence => {
+                                    console.log('New sequence saved with Moonwalker', savedSequence);
                                     resolve(savedSequence);
                                 }).catch(error => {
                                     console.error('Error saving new sequence', error);
@@ -266,12 +313,12 @@ class OttoController {
                                 });
                             } else {
                                 // Añadir el movimiento a la secuencia existente
-                                sequence.movements.push(crusaitoMovement);
+                                sequence.movements.push(moonwalkMovement);
                                 sequence.save().then(updatedSequence => {
-                                    console.log('Crusaito added to the last sequence', updatedSequence);
+                                    console.log('Moonwalker added to the last sequence', updatedSequence);
                                     resolve(updatedSequence);
                                 }).catch(error => {
-                                    console.error('Error adding Crusaito to the last sequence', error);
+                                    console.error('Error adding Moonwalker to the last sequence', error);
                                     reject(error);
                                 });
                             }
@@ -285,44 +332,45 @@ class OttoController {
     }
 
 
-    moonwalker(steps, T, h, dir) {
-        return new Promise((resolve) => {
-            console.log(`Moonwalking for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
 
-            // Inicializar los servos de los pies directamente
-            const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
-            const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
+    // moonwalker(steps, T, h, dir) {
+    //     return new Promise((resolve) => {
+    //         console.log(`Moonwalking for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`);
 
-            // Definir la amplitud y los ángulos iniciales basados en la dirección
-            const angleStartLeft = dir === LEFT ? 90 - h : 90 + h
-            const angleStartRight = dir === LEFT ? 90 + h : 90 - h
-            const angleEndLeft = dir === LEFT ? 90 + h / 2 : 90 - h / 2
-            const angleEndRight = dir === LEFT ? 90 - h / 2 : 90 + h / 2
+    //         // Inicializar los servos de los pies directamente
+    //         const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
+    //         const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
 
-            // Crear un loop para simular el moonwalking
-            let currentStep = 0
-            const intervalId = setInterval(() => {
-                if (currentStep % 2 === 0) {
-                    servoLeftFoot.to(angleStartLeft)
-                    servoRightFoot.to(angleStartRight)
-                } else {
-                    servoLeftFoot.to(angleEndLeft)
-                    servoRightFoot.to(angleEndRight)
-                }
-                currentStep++
+    //         // Definir la amplitud y los ángulos iniciales basados en la dirección
+    //         const angleStartLeft = dir === LEFT ? 90 - h : 90 + h
+    //         const angleStartRight = dir === LEFT ? 90 + h : 90 - h
+    //         const angleEndLeft = dir === LEFT ? 90 + h / 2 : 90 - h / 2
+    //         const angleEndRight = dir === LEFT ? 90 - h / 2 : 90 + h / 2
 
-                if (currentStep >= steps) {
-                    clearInterval(intervalId)
-                    // Regresar los servos a la posición central
-                    servoLeftFoot.to(90)
-                    servoRightFoot.to(90)
+    //         // Crear un loop para simular el moonwalking
+    //         let currentStep = 0
+    //         const intervalId = setInterval(() => {
+    //             if (currentStep % 2 === 0) {
+    //                 servoLeftFoot.to(angleStartLeft)
+    //                 servoRightFoot.to(angleStartRight)
+    //             } else {
+    //                 servoLeftFoot.to(angleEndLeft)
+    //                 servoRightFoot.to(angleEndRight)
+    //             }
+    //             currentStep++
 
-                    console.log("Moonwalk completed")
-                    resolve()
-                }
-            }, T / steps)
-        })
-    }
+    //             if (currentStep >= steps) {
+    //                 clearInterval(intervalId)
+    //                 // Regresar los servos a la posición central
+    //                 servoLeftFoot.to(90)
+    //                 servoRightFoot.to(90)
+
+    //                 console.log("Moonwalk completed")
+    //                 resolve()
+    //             }
+    //         }, T / steps)
+    //     })
+    // }
 
     swing(steps, T, h) {
         return new Promise((resolve) => {

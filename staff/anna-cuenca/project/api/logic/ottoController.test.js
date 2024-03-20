@@ -44,7 +44,7 @@ dotenv.config();
                 case 'o':
                     console.log("Haciendo Moonwalker..")
                     try {
-                        await ottoController.moonwalker(8, 1000, 30, 1)
+                        await ottoController.moonwalker('65d8d9dffdfc051c2e6c1e96', 8, 1000, 30, 1)
                     } catch (error) {
                         console.error(error)
                     }

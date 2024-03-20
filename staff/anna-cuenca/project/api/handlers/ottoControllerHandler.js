@@ -46,7 +46,7 @@ export default (req, res) => {
                 break;
 
             case 'moonwalker':
-                logic.ottoController.moonwalker(8, 1000, 30, 1).then(() => {
+                logic.ottoController.moonwalker(userId, 8, 1000, 30, 1).then(() => {
                     res.status(200).json({ message: 'Otto is doing crusaito' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
