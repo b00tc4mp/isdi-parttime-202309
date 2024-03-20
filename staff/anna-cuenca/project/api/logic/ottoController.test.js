@@ -97,7 +97,7 @@ dotenv.config();
                 case 'x': //hacer shake leg con la derecha
                     console.log("Swing")
                     try {
-                        await ottoController.swing(4, 1000, 40)
+                        await ottoController.swing('65d8d9dffdfc051c2e6c1e96', 4, 1000, 40)
                     } catch (error) {
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }

@@ -169,6 +169,7 @@ export default function Controller() {
                 <Button onClick={() => handleAction('snakeMove')}>Snake</Button>
                 <Button onClick={() => handleAction('moonwalker')}>Moonwalker</Button>
                 <Button onClick={() => handleAction('crusaito')}>Crusaito</Button>
+                <Button onClick={() => handleAction('swing')}>Swing</Button>
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
             </div>
 
