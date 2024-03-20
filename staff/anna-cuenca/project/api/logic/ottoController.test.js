@@ -53,7 +53,7 @@ dotenv.config();
                 case 'u':
                     console.log("Haciendo crusaito..")
                     try {
-                        await ottoController.crusaito(10, 2000, 70, 1)
+                        await ottoController.crusaito('65d8d9dffdfc051c2e6c1e96', 10, 2000, 70, 1)
                     } catch (error) {
                         console.error(error)
                     }

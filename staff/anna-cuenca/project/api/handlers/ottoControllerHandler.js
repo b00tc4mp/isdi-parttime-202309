@@ -38,7 +38,7 @@ export default (req, res) => {
                 break;
 
             case 'crusaito':
-                logic.ottoController.crusaito(10, 2000, 70, 1).then(() => {
+                logic.ottoController.crusaito(userId, 10, 2000, 70, 1).then(() => {
                     res.status(200).json({ message: 'Otto is doing crusaito' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
