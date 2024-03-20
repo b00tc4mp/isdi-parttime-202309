@@ -17,6 +17,19 @@ a {
   text-decoration: none;
 }
 
+.anchor-button {
+  color: rgb(96, 170, 96);
+  font-weight: 600;
+  border-radius: 5px;
+  background-color: #1e252e;
+  border: solid;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 15px;
+  padding: 1px 6px;
+  margin-left: 15px;
+}
+
 a:hover {
   color: grey;
 }
@@ -88,10 +101,22 @@ ol {
 
 .button-form {
   color: white;
+  border-color: white;
   font-weight: 800;
   margin-top: 15px;
   border-radius: 5px;
+  cursor: pointer;
 }
+
+.button-delete {
+  color: rgb(255, 255, 255);
+  border-color: rgb(194, 77, 77);
+  font-weight: 800;
+  margin-top: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 
 .command-bar {
   display: inline-flex;

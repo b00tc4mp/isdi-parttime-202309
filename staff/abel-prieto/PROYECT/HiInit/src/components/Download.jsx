@@ -32,6 +32,7 @@ function Download() {
                 setList(true)
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 setList(false)
+                handleLogout()
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -76,6 +77,17 @@ function Download() {
             fetchData()
         }
     }, [fetchingFiles, list, handleError, navigate])
+
+    // LOGOUT VIEW
+    function handleLogout() {
+        logic.logoutUser(error => {
+            if (error) {
+                handleError(error, navigate)
+            }
+
+            navigate('/')
+        })
+    }
 
     return (
         <div className="container">

@@ -20,6 +20,8 @@ function downloadFile(fileId) {
                     .catch(error => { throw new SystemError(error.message) })
                     .then(body => { throw new errors[body.error](body.message) })
             }
+
+            return res.blob()
         })
 }
 

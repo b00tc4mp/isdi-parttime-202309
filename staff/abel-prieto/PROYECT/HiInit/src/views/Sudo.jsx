@@ -40,10 +40,6 @@ export default function Sudo() {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/create-group')
-            } else if ((commandText === '4') && event.key === 'Enter') {
-                setUknownCommand(false)
-                setMenu(false)
-                navigate('/desktop')
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -60,7 +56,7 @@ export default function Sudo() {
             document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate, uknownCommand])
+    }, [navigate, uknownCommand, menu])
 
     // LOGOUT VIEW
     function handleLogout() {
@@ -103,7 +99,7 @@ export default function Sudo() {
                     <li><p><strong>Create new ADMIN</strong></p></li>
                     <li><p><strong>Delete Users</strong></p></li>
                     <li><p><strong>Create new Group</strong></p></li>
-                    <li><p><strong>Create new Command</strong></p></li>
+                    <li><p><strong>Create new Command - In construction... ⌛</strong></p></li>
                 </ol>
             )}
 

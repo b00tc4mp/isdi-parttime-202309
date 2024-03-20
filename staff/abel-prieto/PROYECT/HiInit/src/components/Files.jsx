@@ -39,8 +39,6 @@ function Files(props) {
                         clientError.style.color = 'tomato'
 
                         handleError(error, navigate)
-
-                        return
                     })
             }
         })
@@ -54,14 +52,23 @@ function Files(props) {
 
         try {
             logic.downloadFile(file.id)
-                .then(() => {
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob)
+
+                    const anchor = document.createElement('a')
+                    anchor.href = url
+                    anchor.download = file.name
+                    anchor.click()
+
+                    window.URL.revokeObjectURL(url)
+
                     clientError.innerText = 'File successfully download ✅'
                     clientError.style.color = 'green'
                 })
-                .catch(error => {
-                    handleError(error, navigate)
-                })
         } catch (error) {
+            clientError.innerText = `${error.message} ❌`
+            clientError.style.color = 'tomato'
+
             handleError(error, navigate)
         }
     }
@@ -70,8 +77,8 @@ function Files(props) {
         <article>
             <ul>
                 <p>{file.name}</p>
-                <button id="download-file" className='button-form' onClick={handleDownloadFile}>Download</button>
-                <button id="delete-file" className='button-form' onClick={handleDeleteFile}>Delete</button>
+                <button className='anchor-button' onClick={handleDownloadFile}>Download</button>
+                <button id="delete-file" className='button-delete' onClick={handleDeleteFile}>Delete</button>
             </ul>
         </article>
     </>

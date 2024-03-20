@@ -20,32 +20,26 @@ function Desktop() {
 
     // RETRIEVE ROLE
     useEffect(() => {
-        if (fetchingUser || role.length === 0) {
+        if (fetchingUser) {
             const fetchUser = async () => {
                 try {
                     const user = await logic.retrieveUser()
                     setRole(user.role)
-                    setFetchingUser(false)
+                    setFetchingUser(!fetchingUser)
                 } catch (error) {
                     handleError(error, navigate)
-                    setFetchingUser(false)
+                    setFetchingUser(!fetchingUser)
                 }
             }
 
             fetchUser()
         }
-    }, [role, handleError, navigate])
-
-    // useEffect(() => {
-    //    setFetchingUser(true)
-    // }, [])
+    }, [fetchingUser, role, handleError, navigate])
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
         const handleKeyPress = (event) => {
             let commandText = document.getElementById('command').value
-
-            console.log(role)
 
             if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
@@ -60,6 +54,7 @@ function Desktop() {
                 navigate('/profile')
             } else if (role.includes('admin') && (commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
+                setFetchingUser(!fetchingUser)
                 navigate('/administrator')
             } else if ((commandText === 'HELP' || commandText === 'help') && event.key === 'Enter') {
                 setHelp(!help)
@@ -71,6 +66,7 @@ function Desktop() {
         const handleKeyDown = () => {
             setUknownCommand(false)
             setHelp(false)
+            setFetchingUser(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -80,7 +76,7 @@ function Desktop() {
             document.removeEventListener('keypress', handleKeyPress)
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [navigate, uknownCommand, help])
+    }, [navigate, uknownCommand, help, fetchingUser])
 
     // LOGOUT VIEW
     function handleLogout() {
