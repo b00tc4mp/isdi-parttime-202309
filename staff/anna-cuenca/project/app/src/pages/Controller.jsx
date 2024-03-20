@@ -161,10 +161,14 @@ export default function Controller() {
                 <Button onClick={() => handleAction('turnRight')}>Turn Right</Button>
                 <Button onClick={() => handleAction('turnLeft')}>Turn Left</Button>
                 <Button onClick={() => handleAction('stop')}>Stop</Button>
+                <h3>Comunication</h3>
                 <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
                 <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>
+                <h3>Movements</h3>
                 <Button onClick={() => handleAction('jump')}>Jump</Button>
                 <Button onClick={() => handleAction('snakeMove')}>Snake</Button>
+                <Button onClick={() => handleAction('moonwalker')}>Moonwalker</Button>
+                <Button onClick={() => handleAction('crusaito')}>Crusaito</Button>
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
             </div>
 

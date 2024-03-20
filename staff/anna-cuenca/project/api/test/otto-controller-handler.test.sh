@@ -32,6 +32,16 @@ snake_move() {
     echo "Command to turn right sent."
 }
 
+crusaito() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"crusaito"}'
+    echo "Command to crusaito sent."
+}
+
+moonwalker() {
+    curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"moonwalker"}'
+    echo "Command to moonwalker sent."
+}
+
 stop() {
     curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"stop"}'
     echo "Command to stop sent."
@@ -69,7 +79,7 @@ CASE "success on otto controller"
 
 # Bucle para leer la entrada del usuario
 while true; do
-    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to snake move, 's' to stop, 'h' to say hi, 'c' to clear LCD, 'e' to clear LCD, 'q' to quit: " input
+    read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to snake move, 's' to stop, 't' to crusaito, 'h' to say hi, 'c' to clear LCD,  'm' to moonwalk, 'e' to end sequence, 'q' to quit: " input
     case $input in
         [wW])
             echo "Walking forward..."
@@ -96,6 +106,16 @@ while true; do
             echo "Jumping..."
             jump
             ;;
+        [mM])
+            echo "Moonwalk..."
+            moonwalker
+            ;;
+
+        [tT])
+            echo "Crusaito..."
+            crusaito
+            ;;
+
         [sS])
             echo "Stopping..."
             stop

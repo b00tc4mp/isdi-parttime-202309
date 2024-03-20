@@ -37,6 +37,22 @@ export default (req, res) => {
                 })
                 break;
 
+            case 'crusaito':
+                logic.ottoController.crusaito(10, 2000, 70, 1).then(() => {
+                    res.status(200).json({ message: 'Otto is doing crusaito' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
+            case 'moonwalker':
+                logic.ottoController.moonwalker(8, 1000, 30, 1).then(() => {
+                    res.status(200).json({ message: 'Otto is doing crusaito' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
             case 'executeSequenceById':
                 logic.ottoController.executeSequenceById(sequenceId).then(() => {
                     res.status(200).json({ message: 'Otto is reproducing the sequence' })
