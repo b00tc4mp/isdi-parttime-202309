@@ -10,11 +10,11 @@ Languajes: | [English](./README-en.md) |
            \/                    \/                            \/        \/     \/                       \/  \/       \/    
 <br>
 
-> HiInit es un sistema de terminal web de de `creación y carga de archivos` con un sistema de registro y login de usuarios con diferentes grupos y categorías.
+> HiInit es un sistema de terminal web de `creación y carga de archivos` con un sistema de registro y login de usuarios con diferentes grupos y categorías.
 > Los archivos pueden ser compartidos entre los distintos miembros de un grupo específico, navegando entre los distintos archivos de la carpeta raíz.
 > Hay diferentes roles con sus correspondientes permisos pero solo el tipo de usuario **ADMIN** tiene el `sistema CRUD` (creación, escritura, carga y eliminación).
 
-- Última actualización: 26/02/2024
+- Última actualización: 21/03/2024
 
 ## RESUMEN
 
@@ -22,7 +22,7 @@ Languajes: | [English](./README-en.md) |
 - [x] Terminal web con servicio de carga online de archivos.
 - [x] Escritorio o espacio personal para cada usuario.
 - [x] Empleo de `MULTER` y el paquete `PATH` de NodeJS en API para subir archivos mediante petición HTTP y guardarlos en disco `npm i multer`
-- [x] Subida y descarga de archivos: PDFs | Documentos | Imágenes ... (por ahora)
+- [x] Subida y descarga de archivos.
 - [x] Primera versión para el proyecto final de ISDI CODERS.
 
 <br>
@@ -30,6 +30,8 @@ Languajes: | [English](./README-en.md) |
 `Para HiInit v1.0`
 - [x] Utilización de AWS para el alojamiento en nube o remoto de archivos 
 - [x] Uso de MongoDB Atlas para almacenar base de datos en Cloud
+- [x] Organización y creación de carpetas
+- [x] Añadir más comandos
 - [ ] En construcción ... ⏳
 
 ## TIPOS DE USUARIOS
@@ -42,15 +44,15 @@ Languajes: | [English](./README-en.md) |
 
 `INVITADO`
 
-- Primera entrada | Registro o Login | Salida
+- Primera entrada | Registro o Login | Salida | Help 
 
 `USUARIO ESTÁNDAR`
 
-- Crear y manejar sus propios archivos y carpetas | Subir y descargar archivos
+- Crear y manejar sus propios archivos | Subir y descargar archivos | Modificación de datos | Help
 
 `ROOT - ADMIN`
 
-- Manejar usuarios | Sistema CRUD | Todos los archivos y carpetas | Permisos | Grupos
+- Manejo de usuarios | Sistema CRUD | Todos los archivos y carpetas | Permisos | Grupos | Help
 
 ## MODELO DE DATOS
 
@@ -100,33 +102,29 @@ Languajes: | [English](./README-en.md) |
 
 |   Comandos  | Función                                                    |
 |  ---------  | --------                                                   |
-|   `logout`  | *Deslogeo de sesión y `retorno` a la página inicial*       |
-|     `cd`    | *Moverse hacia `adelante` (.) o `atrás` (..) entre rutas*  |
 |    `pwd`    | *`Muestra` el directorio actual*                           |
 |     `ls`    | *Lista los `archivos del directorio`*                      |
-|   `mkdir`   | *Creación de `directorios` en la misma ruta*               |
+|  `desktop`  | *Redirige al usuario a su carpeta `Escritorio`*            |
 |  `download` | *`Descarga` de archivo específico o documento*             |
 |   `upload`  | *`Subida` de archivo específico o documento*               |
 |   `delete`  | *`Borra` el archivo del propio usuario*                    |
-|   `clear`   | *`Limpia` la pantalla de comandos*                         |
 |    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
+|    `exit`   | *Deslogeo de sesión y `retorno` a la página inicial*       |
+
 
 ## | TIPO - ADMINISTRADOR (ROOT) |
 
 |   Comandos  | Función                                                    |
 |  ---------  | --------                                                   |
-|   `logout`  | *Deslogeo de sesión y `retorno` a la página inicial*       |
-|     `cd`    | *Moverse hacia `adelante` (.) o `atrás` (..) entre rutas*  |
+|    `sudo`   | *Entrar en modo `ADMINISTRADOR`*                           |
 |    `pwd`    | *`Muestra` el directorio actual*                           |
 |     `ls`    | *Lista los `archivos del directorio`*                      |
-|   `mkdir`   | *Creación de `directorios` en la misma ruta*               |
+|  `desktop`  | *Redirige al usuario a su carpeta `Escritorio`*            |
 |  `download` | *`Descarga` de archivo específico o documento*             |
 |   `upload`  | *`Subida` de archivo específico o documento*               |
-|    `sudo`   | *Entrar en modo administrador `sistema CRUD`*              |
-| `+ delete`  | *`Borra` archivos con sudo de cualquier grupo o usuario*   |
-|  `+ chmod`  | *Da `permisos` con sudo a diferentes grupos o usuarios*    |
-|   `clear`   | *`Limpia` la pantalla de comandos*                         |
+|   `delete`  | *`Borra` el archivo del propio usuario*                    |
 |    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
+|    `exit`   | *Deslogeo de sesión y `retorno` a la página inicial*       |
 
 ## 
 
