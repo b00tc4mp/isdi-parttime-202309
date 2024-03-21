@@ -56,13 +56,17 @@ const Synqple = () => {
         getSamples().then(samples => {
             setSamplesList(samples);
             samplePlayers = samples.map(sample => { // Usar el arreglo correctamente
-                const player = new Tone.Player({
+                const player = new Tone.GrainPlayer({
                     url: sample.filePath,
                     loop: true,
+                    grainSize: 0.1, // Ejemplo de configuración de tamaño del grano en segundos
+                    overlap: 0.10, // Ejemplo de configuración de solapamiento en segundos
+                    playbackRate: 1, // Velocidad de reproducción normal
+                    detune: 0, // Sin desafinación
                     duration: sample.duration,
                     bpm: sample.bpm
                 }).toDestination();
-                return player; // Ahora sí retornamos el player correctamente
+                return player;
             });
             setSamplePlayers(samplePlayers); // Establecemos todos los players
         });

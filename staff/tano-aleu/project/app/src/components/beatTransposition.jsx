@@ -18,6 +18,7 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
         onBPMChange(originalBPM.current); // Restablece al BPM original
     };
 
+
     return (
         <div>
 
