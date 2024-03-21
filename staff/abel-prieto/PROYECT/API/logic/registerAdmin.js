@@ -2,25 +2,32 @@ import { User, Group } from '../data/models.js'
 import { validate, errors } from 'com'
 const { SystemError, NotFoundError, AuthorizationError } = errors
 
-async function registerAdmin(userId) {
-    validate.id(userId)
+async function registerAdmin(userId, username, email, password) {
+    validate.id(userId, 'ID Admin')
+    validate.text(username, 'New ADMIN username')
+    validate.email(email, 'New ADMIN email')
+    validate.password(password, 'New ADMIN password')
 
     try {
-        const user = await User.findById(userId)
+        const requestAdmin = await User.findById(userId).lean()
 
-        if (!user)
+        if (!requestAdmin)
             throw new NotFoundError('User not found')
 
-        if (user.role[0] !== 'admin')
+        if (requestAdmin.role[0] !== 'admin')
             throw new AuthorizationError('Authorization denied. Only ADMIN mode')
 
-        const admin = await User.create({ username: user.username, email: user.email, password: user.password, group: 'root', role: 'admin' })
+        const admin = await User.create({ username: username, email: email, password: password, group: 'root', role: 'admin' })
         const group = await Group.findOne({ name: 'root' });
 
         group.members.push(admin._id)
         await group.save()
 
     } catch (error) {
+        if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            throw error
+        }
+
         throw new SystemError(error.message)
     }
 }

@@ -13,9 +13,14 @@ async function retrieveAllUsers(userId) {
         }
 
         if (admin.role[0] === 'admin') {
-            const users = await User.find().distinct('username')
+            const users = await User.find({ 'role': { $ne: 'admin' } }).lean()
 
-            return users
+            const usersArray = users.map(user => ({
+                id: user._id.toString(),
+                username: user.username
+            }))
+
+            return usersArray
         } else {
             throw new AuthorizationError('Authorization denied. Only ADMIN user')
         }

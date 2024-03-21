@@ -10,8 +10,8 @@ const { SystemError, NotFoundError, AuthorizationError } = errors
 // FINAL: Eliminar usuario
 
 async function deleteUser(userId, userIdDeleted) {
-    validate.id(userId, 'ID User')
-    validate.id(userIdDeleted, 'ID Deleted user')
+    validate.text(userId, 'ID User')
+    validate.text(userIdDeleted, 'ID Deleted user')
 
     try {
         //BUSCAR ADMIN

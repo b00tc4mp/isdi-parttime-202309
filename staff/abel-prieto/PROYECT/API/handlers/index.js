@@ -10,6 +10,10 @@ import uploadFileHandler from './uploadFileHandler.js'
 import downloadFileHandler from './downloadFileHandler.js'
 import deleteFileHandler from './deleteFileHandler.js'
 
+import retrieveAllUsersHandler from './retrieveAllUsersHandler.js'
+import deleteUsersHandler from './deleteUsersHandler.js'
+import registerAdminHandler from './registerAdminHandler.js'
+
 export {
     authenticateUserHandler,
     registerUserHandler,
@@ -21,5 +25,9 @@ export {
     retrieveFilesHandler,
     uploadFileHandler,
     downloadFileHandler,
-    deleteFileHandler
+    deleteFileHandler,
+
+    retrieveAllUsersHandler,
+    deleteUsersHandler,
+    registerAdminHandler
 }

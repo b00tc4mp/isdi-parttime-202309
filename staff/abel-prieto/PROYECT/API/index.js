@@ -13,7 +13,11 @@ import {
     uploadFileHandler,
     downloadFileHandler,
     deleteFileHandler,
-    retrieveFilesHandler
+    retrieveFilesHandler,
+
+    deleteUsersHandler,
+    retrieveAllUsersHandler,
+    registerAdminHandler
 } from './handlers/index.js'
 
 dotenv.config()
@@ -63,7 +67,7 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         server.delete('/download/delete/:fileId', deleteFileHandler)
 
         // REGISTER ADMIN
-        // server.post('/admin', registerAdminHandler)
+        server.post('/admin', registerAdminHandler)
 
         // CREATE COMMANDS
         // server.post('/admin/commands', createCommandHandler)
@@ -72,7 +76,10 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         // server.post('/admin/groups', createGroupHandler)
 
         // DELETE USERS
-        // server.delete('/users/:userId', deleteUserHandler)
+        server.delete('/users/delete/:userId', deleteUsersHandler)
+
+        // RETRIEVE ALL USERS
+        server.get('/users/all', retrieveAllUsersHandler)
 
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })
