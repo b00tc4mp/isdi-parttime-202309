@@ -29,6 +29,9 @@ const Synqple = () => {
     const [prevMetronomeVolume, setPrevMetronomeVolume] = useState(0); // Guarda el volumen previo al mute
     const [prevSampleVolume, setPrevSampleVolume] = useState(0); // Guarda el volumen previo al mute
 
+    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
+
 
     //RENDERIZACION DE METRONOMO Y SAMPLES
 
@@ -225,29 +228,39 @@ const Synqple = () => {
 
 
     return (
-        <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-4 overflow-auto">
+        <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-1 overflow-auto">
             {/* LP-HP Filter */}
-            {/* FilterControl */}
             {
                 samplePlayers.length > 0 && currentSampleIndex >= 0 &&
                 <FilterControl currentSamplePlayer={samplePlayers[currentSampleIndex]} />
             }
 
             {/* Sample Selection with Scroll */}
-            <div className="relative w-full max-h-[200px] overflow-y-auto bg-purple-600 rounded shadow">
-                {samplesList.map((sample, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleSampleSelect(index)}
-                        className="block w-full px-4 py-2 text-left hover:bg-purple-500"
-                    >
-                        {sample.name}
-                    </button>
-                ))}
+            <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)} className="mb-4 bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
+                {showFavoritesOnly ? "Mostrar Todos" : "Mostrar Favoritos"}
+            </button>
+            <div className="relative w-full max-h-[120px] min-h-[120px] overflow-y-auto bg-purple-600 rounded shadow">
+                {samplesList
+                    .filter(sample => !showFavoritesOnly || sample.fav)
+                    .length > 0 ? (
+                    samplesList
+                        .filter(sample => !showFavoritesOnly || sample.fav)
+                        .map((sample, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleSampleSelect(index)}
+                                className="block w-full px-4 py-2 text-left hover:bg-purple-500"
+                            >
+                                {sample.name}
+                            </button>
+                        ))
+                ) : (
+                    <div className="text-center p-4">No hay samples favoritos.</div>
+                )}
             </div>
-
             {/* Sample Volume Control and Mute Button */}
             <div>
+                <div className=' flex justify-center'>Volumen Metronomo</div>
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
                 <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
@@ -255,6 +268,7 @@ const Synqple = () => {
             </div>
 
             {/* Loop Length Buttons */}
+            <div className=' flex justify-center'>Loop Length</div>
             <div className="flex justify-between">
                 {['1/8', '1/4', '1/2', '1', '2', '4', '8'].map((value) => (
                     <button
@@ -273,8 +287,10 @@ const Synqple = () => {
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
 
-            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */}
-            <div className="flex items-center justify-between space-x-4">
+            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Sync | Metronome Controls </div>
+
+            <div className="flex items-center justify-between space-x-2">
+
 
                 <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={handlePlayToggle}>
                     {isPlaying ? 'Stop' : 'Play'}
@@ -288,7 +304,7 @@ const Synqple = () => {
 
 
             </div>
-
+            <div className=' flex justify-center'>Volumen Metronomo</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
         </div>
     );

@@ -42,7 +42,7 @@ const FilterControl = ({ currentSamplePlayer }) => {
 
     return (
         <div>
-            <h4 className="text-center text-white mb-4">Filter Control</h4>
+            <div className="text-center text-white ">Filter Control</div>
             <input
                 className="w-full cursor-pointer"
                 type="range"
