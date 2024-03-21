@@ -6,6 +6,7 @@ import BeatTransposition from './beatTransposition'
 import SamplesFolder from './SamplesFolder'
 import SampleItem from './SampleItem'
 import Settings from './Settings'
+import FilterControl from './FilterControl'
 
 // import SampleList from './sampleList'
 // import PlayPauseGlobal from './playPauseGlobal'
@@ -19,7 +20,8 @@ export {
     BeatTransposition,
     SamplesFolder,
     SampleItem,
-    Settings
+    Settings,
+    FilterControl
     // SampleList,
     // PlayPauseGlobal
 }

@@ -8,7 +8,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Feedback from './components/Feedback'
 
-import Context from './Context'
+import Context from './contexts/Context'
 
 import { errors } from 'com'
 const { ContentError, DuplicityError, NotFoundError, TokenError } = errors

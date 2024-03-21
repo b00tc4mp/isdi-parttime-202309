@@ -4,57 +4,81 @@ import getMetronomo from '../logic/getMetronomo';
 import getSamples from '../logic/getSamples';
 import BpmControl from './bpmControl';
 import TapTempo from './tapTempo';
-import BeatTransposition from './beatTransposition'; // Asegúrate que la ruta de importación es correcta
-
-
-
-
+import BeatTransposition from './beatTransposition'; // 
+import FilterControl from './FilterControl';
 
 const Synqple = () => {
+
     const [bpm, setBpm] = useState(120); // Estado inicial de BPM, ajustable por BpmControl
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
+
+
     const [metronomePlayer, setMetronomePlayer] = useState(null);
-    const [samplesList, setSamplesList] = useState([]);
-    const [currentSampleIndex, setCurrentSampleIndex] = useState(-1); // Usamos -1 para indicar que no hay selección inicial
     const [samplePlayers, setSamplePlayers] = useState([]);
-    const [isSampleMuted, setIsSampleMuted] = useState(false);
+
+    const [samplesList, setSamplesList] = useState([]);
+    const [currentSampleIndex, setCurrentSampleIndex] = useState(0); // Usamos -1 para indicar que no hay selección inicial
+
+    const [isSampleMuted, setIsSampleMuted] = useState(true);
+    const [isMetronomeMuted, setIsMetronomeMuted] = useState(false);
+
     const [metronomeVolume, setMetronomeVolume] = useState(0); // Volumen inicial del metrónomo
     const [sampleVolume, setSampleVolume] = useState(0); // Volumen inicial de los samples
+
+
     const [prevMetronomeVolume, setPrevMetronomeVolume] = useState(0); // Guarda el volumen previo al mute
     const [prevSampleVolume, setPrevSampleVolume] = useState(0); // Guarda el volumen previo al mute
 
 
-
-
+    //RENDERIZACION DE METRONOMO Y SAMPLES
 
 
     useEffect(() => {
+
+        let metronomePlayer;
+        let samplePlayers = [];
+
+
         getMetronomo().then(metronomo => {
             const metronomeSample = metronomo.find(m => m.name === 'Metronomo');
             if (metronomeSample) {
-                const player = new Tone.Player({
+                metronomePlayer = new Tone.Player({
                     url: metronomeSample.filePath,
                     loop: true,
                 }).toDestination();
-                setMetronomePlayer(player);
+                setMetronomePlayer(metronomePlayer);
             }
         });
 
         getSamples().then(samples => {
             setSamplesList(samples);
-            const players = samples.map(sample => {
+            samplePlayers = samples.map(sample => { // Usar el arreglo correctamente
                 const player = new Tone.Player({
                     url: sample.filePath,
                     loop: true,
+                    duration: sample.duration,
+                    bpm: sample.bpm
                 }).toDestination();
-                player.volume.value = -Infinity; // Inicialmente silenciados
-                return player;
+                return player; // Ahora sí retornamos el player correctamente
             });
-            setSamplePlayers(players);
+            setSamplePlayers(samplePlayers); // Establecemos todos los players
         });
+
+        // Función de limpieza
+        return () => {
+            // Detener metrónomo si existe
+            if (metronomePlayer) {
+                metronomePlayer.stop();
+            }
+
+            // Detener todos los sample players
+            samplePlayers.forEach(player => player.stop());
+        };
+
     }, []);
 
+
+    // CONTROL DE REPRODUCCION DE METRONOMO Y SAMPLES POR INDICE
     useEffect(() => {
         // Control de la reproducción basada en isPlaying, independiente del estado de silencio
         if (isPlaying) {
@@ -70,10 +94,11 @@ const Synqple = () => {
     }, [isPlaying, metronomePlayer, samplePlayers, currentSampleIndex]);
 
 
+    //CONTROL DE VOLUMEN DEL METRONOMO Y LOS SAMPLES
     useEffect(() => {
         // Asegurarse de que metronomePlayer ha sido inicializado antes de intentar modificar su volumen.
         if (metronomePlayer) {
-            metronomePlayer.volume.value = isMuted ? -Infinity : 0;
+            metronomePlayer.volume.value = isMetronomeMuted ? -Infinity : 0;
         }
         // Asegurarse de que cada player en samplePlayers ha sido inicializado antes de modificar su volumen.
         samplePlayers.forEach((player, index) => {
@@ -81,8 +106,10 @@ const Synqple = () => {
                 player.volume.value = isSampleMuted ? -Infinity : 0;
             }
         });
-    }, [isMuted, isSampleMuted, metronomePlayer, samplePlayers, currentSampleIndex]);
+    }, [isMetronomeMuted, isSampleMuted, metronomePlayer, samplePlayers, currentSampleIndex]);
 
+
+    //SINCRONIA DE LOS SAMPLES CON EL METRONOMO
     useEffect(() => {
         if (metronomePlayer) {
             metronomePlayer.playbackRate = bpm / 120; // Asumiendo 120 como el BPM original de tu sample del metrónomo
@@ -93,9 +120,7 @@ const Synqple = () => {
     }, [bpm, metronomePlayer, samplePlayers]);
 
 
-
-
-
+    //MANEJO DEL PLAY/STOP PARA METRONOMO Y SAMPLES
     const handlePlayToggle = () => setIsPlaying(!isPlaying);
 
     const handleSampleSelect = index => {
@@ -115,17 +140,15 @@ const Synqple = () => {
         }
     };
 
-
-
-
+    //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
     // Ajusta el manejador de muteo del metrónomo
     const toggleMuteMetronome = () => {
-        if (!isMuted) {
+        if (!isMetronomeMuted) {
             setPrevMetronomeVolume(metronomeVolume); // Guarda el volumen actual antes de mutear
         } else {
             setMetronomeVolume(prevMetronomeVolume); // Restaura el volumen al valor previo al mute
         }
-        setIsMuted(!isMuted);
+        setIsMetronomeMuted(!isMetronomeMuted);
     };
 
     // Ajusta el manejador de muteo del sample
@@ -138,13 +161,12 @@ const Synqple = () => {
         setIsSampleMuted(!isSampleMuted);
     };
 
-
     // Efecto para manejar el silencio del metrónomo
     useEffect(() => {
         if (metronomePlayer) {
-            metronomePlayer.volume.value = isMuted ? -Infinity : metronomeVolume;
+            metronomePlayer.volume.value = isMetronomeMuted ? -Infinity : metronomeVolume;
         }
-    }, [isMuted, metronomeVolume, metronomePlayer]);
+    }, [isMetronomeMuted, metronomeVolume, metronomePlayer]);
 
     // Efecto para manejar el silencio de los samples
     useEffect(() => {
@@ -152,9 +174,6 @@ const Synqple = () => {
             samplePlayers[currentSampleIndex].volume.value = isSampleMuted ? -Infinity : sampleVolume;
         }
     }, [isSampleMuted, sampleVolume, currentSampleIndex, samplePlayers]);
-
-
-
 
 
     // Manejadores para cambios de volumen
@@ -169,22 +188,50 @@ const Synqple = () => {
     };
 
 
-
-
     const handleChangeBpm = (newBpm) => {
         setBpm(newBpm); // Actualiza el estado del BPM
         // Aquí podrías añadir cualquier otra lógica necesaria cuando el BPM cambia
     };
 
+    const handleLoopLengthChange = (loopFraction) => {
+        let multiplier;
+
+        if (loopFraction.includes('/')) {
+            const [numerator, denominator] = loopFraction.split('/').map(Number);
+            // Para "1/8", esto debería resultar en un valor mucho menor, correcto para 1/8 de un compás
+            multiplier = numerator / (denominator * 16); // 32 porque hay 32 octavos en 8 compases de 4/4
+        } else {
+            multiplier = Number(loopFraction) / 8; // Convertir a fracción de la duración total de 8 compases
+        }
+
+        samplePlayers.forEach((player, index) => {
+            const sample = samplesList[index];
+            if (!sample || !player.loaded) return;
+
+            // Asumiendo 4 beats por compás, calcula la duración del loop en segundos
+            const beatsPerSecond = sample.bpm / 60;
+            // 32 octavos en la totalidad de los 8 compases (8 compases * 4 beats cada uno)
+            const totalBeats = 4 * 2; // 8 compases de 4 beats cada uno
+            const totalDuration = totalBeats / beatsPerSecond; // Duración total en segundos
+
+            // Ajustar loopEnd basado en el multiplicador de longitud de loop
+            player.loopEnd = totalDuration * multiplier;
+        });
+
+        console.log(`Loop length set to ${loopFraction} of a compás`);
+    };
+
+
+
+
     return (
         <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-4 overflow-auto">
             {/* LP-HP Filter */}
-            <div>
-                <input
-                    type="range"
-                    className="w-full p-3 rounded bg-purple-800 placeholder-gray-300"
-                />
-            </div>
+            {/* FilterControl */}
+            {
+                samplePlayers.length > 0 && currentSampleIndex >= 0 &&
+                <FilterControl currentSamplePlayer={samplePlayers[currentSampleIndex]} />
+            }
 
             {/* Sample Selection with Scroll */}
             <div className="relative w-full max-h-[200px] overflow-y-auto bg-purple-600 rounded shadow">
@@ -209,15 +256,17 @@ const Synqple = () => {
 
             {/* Loop Length Buttons */}
             <div className="flex justify-between">
-                {['1', '2', '4', '8', '16', '32', '64'].map((value) => (
+                {['1/8', '1/4', '1/2', '1', '2', '4', '8'].map((value) => (
                     <button
                         key={value}
+                        onClick={() => handleLoopLengthChange(value)}
                         className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded"
                     >
                         {value}
                     </button>
                 ))}
             </div>
+
 
             {/* BPM Control & Beat Transposition */}
             <BpmControl bpm={bpm} onChangeBpm={setBpm} />
@@ -234,7 +283,7 @@ const Synqple = () => {
                 <TapTempo onBPMChange={setBpm} />
 
                 <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={toggleMuteMetronome}>
-                    {isMuted ? 'Off' : 'On'}
+                    {isMetronomeMuted ? 'Off' : 'On'}
                 </button>
 
 
