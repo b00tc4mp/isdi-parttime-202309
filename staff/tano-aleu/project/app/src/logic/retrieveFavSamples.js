@@ -11,7 +11,7 @@ function retrieveFavSamples(callback) {
         }
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/samples/favSamples`, req)
+    fetch(`${import.meta.env.VITE_API_URL}/users/favSamples`, req)
         .then(res => {
             if (!res.ok) {
                 res.json()

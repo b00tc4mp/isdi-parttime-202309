@@ -6,6 +6,7 @@ import BpmControl from './bpmControl';
 import TapTempo from './tapTempo';
 import BeatTransposition from './beatTransposition'; // 
 import FilterControl from './FilterControl';
+import retrieveFavSamples from '../logic/retrieveFavSamples';
 
 const Synqple = () => {
 
@@ -17,6 +18,8 @@ const Synqple = () => {
     const [samplePlayers, setSamplePlayers] = useState([]);
 
     const [samplesList, setSamplesList] = useState([]);
+
+
     const [currentSampleIndex, setCurrentSampleIndex] = useState(0); // Usamos -1 para indicar que no hay selección inicial
 
     const [isSampleMuted, setIsSampleMuted] = useState(true);
@@ -30,6 +33,8 @@ const Synqple = () => {
     const [prevSampleVolume, setPrevSampleVolume] = useState(0); // Guarda el volumen previo al mute
 
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
+    const [favoritesList, setFavoritesList] = useState([]); // Solo los favoritos
 
 
 
@@ -231,6 +236,43 @@ const Synqple = () => {
 
 
 
+    function retrieveFavSamplesPromise() {
+        return new Promise((resolve, reject) => {
+            retrieveFavSamples((error, samples) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(samples);
+                }
+            });
+        });
+    }
+
+    // Obtener todos los samples al iniciar
+    useEffect(() => {
+        getSamples().then(samples => {
+            setSamplesList(samples);
+        });
+    }, []);
+
+    // Obtener los samples favoritos cuando showFavoritesOnly cambie
+    useEffect(() => {
+        if (showFavoritesOnly) {
+            retrieveFavSamplesPromise()
+                .then(favSamples => {
+                    setFavoritesList(favSamples); // Establece los favoritos obtenidos
+                })
+                .catch(error => console.error("Error retrieving favorite samples:", error));
+        }
+    }, [showFavoritesOnly]);
+
+    // Decide qué lista mostrar
+    const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
+
+
+
+
+
     return (
         <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-1 overflow-auto">
             {/* LP-HP Filter */}
@@ -239,29 +281,31 @@ const Synqple = () => {
                 <FilterControl currentSamplePlayer={samplePlayers[currentSampleIndex]} />
             }
 
+
+
             {/* Sample Selection with Scroll */}
             <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)} className="mb-4 bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
                 {showFavoritesOnly ? "Mostrar Todos" : "Mostrar Favoritos"}
             </button>
             <div className="relative w-full max-h-[120px] min-h-[120px] overflow-y-auto bg-purple-600 rounded shadow">
-                {samplesList
-                    .filter(sample => !showFavoritesOnly || sample.fav)
-                    .length > 0 ? (
-                    samplesList
-                        .filter(sample => !showFavoritesOnly || sample.fav)
-                        .map((sample, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleSampleSelect(index)}
-                                className="block w-full px-4 py-2 text-left hover:bg-purple-500"
-                            >
-                                {sample.name}
-                            </button>
-                        ))
+                {displayedSamples.length > 0 ? (
+                    displayedSamples.map((sample, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleSampleSelect(index)}
+                            className="block w-full px-4 py-2 text-left hover:bg-purple-500"
+                        >
+                            {sample.name}
+                        </button>
+                    ))
                 ) : (
                     <div className="text-center p-4">No hay samples favoritos.</div>
                 )}
             </div>
+
+
+
+
             {/* Sample Volume Control and Mute Button */}
             <div>
                 <div className=' flex justify-center'>Volumen Metronomo</div>
