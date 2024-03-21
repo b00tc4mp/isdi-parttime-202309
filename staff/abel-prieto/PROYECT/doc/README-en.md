@@ -14,7 +14,7 @@ Languajes: | [Spanish](./README-es.md) |
 > Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
 > There will be different roles with their corresponding permissions but only **ADMIN** user has the `CRUD System` (create, rewrite, update & delete).
 
-- Last update: 26/02/2024
+- Last update: 21/03/2024
 
 ## RESUME
 
@@ -22,12 +22,16 @@ Languajes: | [Spanish](./README-es.md) |
 - [x] Terminal web with local files and drive online services.
 - [x] Personal desktop for each user.
 - [x] Use `MULTER` librery and `PATH` package from NodeJS on API to upload files with HTTP request and save files on disk storage `npm i multer`
-- [x] Upload and download files: PDFs | Text documents | Images ... (for now)
+- [x] Upload and download files.
 - [x] First version to final proyect ISDI CODERS.
 
 <br>
 
 `For HiInit v1.0`
+- [x] Using AWS for cloud or remote file hosting
+- [x] Use MongoDB ATLAS to store BBD in the cloud
+- [x] Organization and creation of folders
+- [x] Add more commands
 - [ ] In construction ... ⏳
 
 ## TYPE OF USERS
@@ -40,15 +44,15 @@ Languajes: | [Spanish](./README-es.md) |
 
 `GUEST`
 
-- First view | Register or Login | Exit
+- First view | Register or Login | Exit | Help
 
 `REGULAR USER`
 
-- Create and manage own files & folders | Upload & download files
+- Create and manage own files & folders | Upload & download files | Modify your data | Help
 
 `ROOT - ADMIN`
 
-- Manage users | CRUD system | All files & folders | Permissions | Groups
+- Manage users | CRUD system | All files & folders | Permissions | Groups | Help
 
 ## DATA MODEL
 
@@ -98,33 +102,29 @@ Languajes: | [Spanish](./README-es.md) |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
-|   `logout`  | *Exit and `get back` to initial page*                      |
-|     `cd`    | *Move `forward` (.) or `back` (..) between folders*        |
 |    `pwd`    | *`Show` the actual directory*                              |
 |     `ls`    | *List the `files on the directory`*                        |
-|   `mkdir`   | *Create `directory` on the same route*                     |
+|  `desktop`  | *Redirects user to their `Desktop' folder`*                |
 |  `download` | *`Download` the specific file or document*                 |
 |   `upload`  | *`Upload` the specific file or document*                   |
 |   `delete`  | *`Delete` their own files*                                 |
-|   `clear`   | *`Clear` the command lines*                                |
 |    `help`   | *Only **list** the commands with names & functions*        |
+|    `exit`   | *Exit and `get back` to initial page*                      |
+
 
 ## | TYPE - ADMIN (ROOT) |
 
 |   Commands  | Function                                                   |
 |  ---------  | --------                                                   |
-|   `logout`  | *Exit and `get back` to initial page*                      |
-|     `cd`    | *Move `forward` (.) or `back` (..) between folders*        |
-|    `pwd`    | *Show the actual directory*                                |
+|    `sudo`   | *Entry on `ADMINISTRATOR` mode*                            |
+|    `pwd`    | *`Show` the actual directory*                              |
 |     `ls`    | *List the `files on the directory`*                        |
-|   `mkdir`   | *Create `directory` on the same route*                     |
+|  `desktop`  | *Redirects user to their `Desktop' folder`*                |
 |  `download` | *`Download` the specific file or document*                 |
 |   `upload`  | *`Upload` the specific file or document*                   |
-|    `sudo`   | *Entry on administration mode `CRUD system`*               |
-| `+ delete`  | *`Delete` files with sudo from any user or group*          |
-|  `+ chmod`  | *Give `permissions` with sudo to different groups or users*|
-|   `clear`   | *`Clear` the command lines*                                |
+|   `delete`  | *`Delete` their own files*                                 |
 |    `help`   | *Only **list** the commands with names & functions*        |
+|    `exit`   | *Exit and `get back` to initial page*                      |
 
 ## STORIES
 
