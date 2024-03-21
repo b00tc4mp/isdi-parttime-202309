@@ -31,7 +31,7 @@ export default function Sudo() {
             } else if ((commandText === '1') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
-                navigate('/create-admin')
+                navigate('/administrator/create-admin')
             } else if ((commandText === '2') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
@@ -39,7 +39,11 @@ export default function Sudo() {
             } else if ((commandText === '3') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
-                navigate('/create-group')
+                navigate('/administrator/create-group')
+            } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
+                setUknownCommand(false)
+                setMenu(true)
+                navigate('/administrator')
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -72,7 +76,7 @@ export default function Sudo() {
     return <>
         <div className="container">
             <p>~$</p>
-            <p>ADMINISTRATOR: Select one of all different options. Entry DESKTOP or EXIT to return </p>
+            <p>ADMINISTRATOR. Please, choose an option. Entry DESKTOP, SUDO or EXIT to return </p>
 
             <br />
 
@@ -88,7 +92,6 @@ export default function Sudo() {
 
             <Routes>
                 <Route path="/create-admin" element={<RegisterAdmin />} />
-                <Route path="/delete-user" element={<DeleteUser />} />
                 <Route path="/create-group" element={<CreateGroup />} />
             </Routes>
 
@@ -107,7 +110,7 @@ export default function Sudo() {
 
             {uknownCommand && (
                 <span>
-                    <p>shell: command not found: '{commandText}'. Entry DESKTOP or EXIT</p>
+                    <p>shell: command not found: '{commandText}'. Entry SUDO, DESKTOP or EXIT</p>
                 </span>
             )}
         </div>

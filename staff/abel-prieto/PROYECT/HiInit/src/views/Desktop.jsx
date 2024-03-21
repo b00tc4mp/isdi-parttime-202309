@@ -27,8 +27,8 @@ function Desktop() {
                     setRole(user.role)
                     setFetchingUser(!fetchingUser)
                 } catch (error) {
-                    handleError(error, navigate)
                     setFetchingUser(!fetchingUser)
+                    handleError(error, navigate)
                 }
             }
 

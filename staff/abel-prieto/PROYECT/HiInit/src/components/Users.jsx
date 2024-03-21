@@ -16,7 +16,7 @@ function Users(props) {
 
         Swal.fire({
             title: "Are you want to delete it?",
-            text: "This action will delete this user from BBD...",
+            text: "This action will delete this user, files...",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -25,7 +25,7 @@ function Users(props) {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                logic.deleteFile(file.id)
+                logic.deleteUser(user.id)
                     .then(() => {
                         Swal.fire({
                             title: "Deleted!",
@@ -48,10 +48,10 @@ function Users(props) {
     }
 
     return <>
-        <article>
+        <article key={user._id}>
             <ul>
                 <p>{user.username}</p>
-                <button id="delete-file" className='button-form' onClick={handleDeleteUser}>Delete</button>
+                <button id="delete-file" className='button-delete' onClick={handleDeleteUser}>Delete</button>
             </ul>
         </article>
     </>

@@ -8,7 +8,7 @@ import Password from './Password'
 import RegisterAdmin from './RegisterAdmin'
 import DeleteUser from './DeleteUser'
 import CreateGroup from './CreateGroup'
-import ListUsers from './ListUsers'
+import Users from './Users'
 
 export {
     Login,
@@ -21,5 +21,5 @@ export {
     RegisterAdmin,
     DeleteUser,
     CreateGroup,
-    ListUsers
+    Users
 }

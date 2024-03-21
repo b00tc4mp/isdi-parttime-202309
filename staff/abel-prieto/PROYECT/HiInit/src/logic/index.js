@@ -12,6 +12,9 @@ import uploadFile from './uploadFile.js'
 import deleteFile from './deleteFile.js'
 import downloadFile from './downloadFile.js'
 
+import deleteUser from './deleteUser.js'
+import retrieveAllUsers from './retrieveAllUsers.js'
+
 export {
     loginUser,
     registerUser,
@@ -25,7 +28,10 @@ export {
     retrieveFiles,
     uploadFile,
     deleteFile,
-    downloadFile
+    downloadFile,
+
+    retrieveAllUsers,
+    deleteUser
 }
 
 const logic = {
@@ -41,7 +47,10 @@ const logic = {
     retrieveFiles,
     uploadFile,
     deleteFile,
-    downloadFile
+    downloadFile,
+
+    retrieveAllUsers,
+    deleteUser
 }
 
 export default logic

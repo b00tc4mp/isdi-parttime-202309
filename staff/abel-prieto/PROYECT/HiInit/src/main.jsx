@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/upload" element={<Upload />} />
           <Route path="/download" element={<Download />} />
           <Route path="/profile/*" element={<Profile />} />
-          <Route path="/administrator" element={<Sudo />} />
+          <Route path="/administrator/*" element={<Sudo />} />
           <Route path="/create-admin" element={<RegisterAdmin />} />
           <Route path="/delete-user" element={<DeleteUser />} />
           <Route path="/create-group" element={<CreateGroup />} />

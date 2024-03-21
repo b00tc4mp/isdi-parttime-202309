@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Context from '../Context'
 import logic from '../logic'
 import { CommandBar, Pointer } from '../utils'
-import ListUsers from './ListUsers'
+import Users from './Users'
 
 function DeleteUsers() {
     const [users, setUsers] = useState([])
@@ -32,6 +32,10 @@ function DeleteUsers() {
                 setList(true)
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 setList(false)
+                handleLogout()
+            } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
+                setList(false)
+                navigate('/administrator')
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -58,7 +62,7 @@ function DeleteUsers() {
         if (fetchingUsers || list) {
             const fetchDeleted = async () => {
                 try {
-                    const result = await logic.retrieveUser()
+                    const result = await logic.retrieveAllUsers()
                     setUsers(result)
                     setFetchingUsers(false)
 
@@ -68,14 +72,25 @@ function DeleteUsers() {
                         color: 'tomato'
                     })
 
-                    handleError(error, navigate)
                     setFetchingUsers(false)
+                    handleError(error, navigate)
                 }
             }
 
             fetchDeleted()
         }
     }, [fetchingUsers, list, handleError, navigate])
+
+    // LOGOUT VIEW
+    function handleLogout() {
+        logic.logoutUser(error => {
+            if (error) {
+                handleError(error, navigate)
+            }
+
+            navigate('/')
+        })
+    }
 
     return (
         <div className="container">
@@ -103,7 +118,7 @@ function DeleteUsers() {
                 </>
             )}
 
-            {list && users.map(user => <ListUsers key={user.id} file={user} clientError={'#client-error-download'} />)}
+            {list && users.map(user => <Users key={user.id} user={user} clientError={'#client-error-download'} />)}
         </div>
     )
 }
