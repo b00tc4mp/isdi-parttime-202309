@@ -16,6 +16,16 @@ Languajes: | [English](./README-en.md) |
 
 - Última actualización: 21/03/2024
 
+## ÍNDICE
+
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#resumen">Resumen</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#tipos-de-usuarios">Tipos de Usuarios</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#casos---funciones">Casos - Funciones</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#modelo-de-datos">Modelo de Datos</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#comandos">Comandos</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#componentes">Componentes</a>
+
+
 ## RESUMEN
 
 `Para HiInit v0.1`
@@ -126,7 +136,7 @@ Languajes: | [English](./README-en.md) |
 |    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
 |    `exit`   | *Deslogeo de sesión y `retorno` a la página inicial*       |
 
-## 
+## COMPONENTES
 
 `PÁGINA INICIAL`
 
