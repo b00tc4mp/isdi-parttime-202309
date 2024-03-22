@@ -16,6 +16,15 @@ Languajes: | [Spanish](./README-es.md) |
 
 - Last update: 21/03/2024
 
+## INDEX
+
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Resume</a>
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Types of User</a>
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Cases - Functions</a>
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Data Model</a>
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Commands</a>
+- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Stories</a>
+
 ## RESUME
 
 `For HiInit v0.1`
