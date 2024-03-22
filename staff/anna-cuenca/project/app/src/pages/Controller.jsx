@@ -171,6 +171,7 @@ export default function Controller() {
                 <Button onClick={() => handleAction('crusaito')}>Crusaito</Button>
                 <Button onClick={() => handleAction('swing')}>Swing</Button>
                 <Button onClick={() => handleAction('upDown')}>upDown</Button>
+                <Button onClick={() => handleAction('kickLeft')}>kickLeft</Button>
                 <Button onClick={() => handleAction('shakeLegRight')}>Shake Leg Right</Button>
                 <Button onClick={() => handleAction('shakeLegLeft')}>Shake Leg Left</Button>
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
