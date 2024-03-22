@@ -2,31 +2,34 @@ import { User, Group } from '../data/models.js'
 import { validate, errors } from 'com'
 const { SystemError, NotFoundError, AuthorizationError, DuplicityError } = errors
 
-function createGroup(userId, groupName) {
+export default async function createGroup(userId, groupName) {
     validate.id(userId, 'ID user')
     validate.text(groupName, 'Group name')
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found')
-            }
+    try {
+        const user = await User.findById(userId).lean()
 
-            if (user.role[0] !== 'admin') {
-                throw new AuthorizationError('Authorization denied. Only ADMIN user')
-            }
+        if (!user) {
+            throw new NotFoundError('User not found')
+        }
 
-            return Group.create({ name: groupName })
-                .catch(error => {
-                    if (error.code === 11000) {
-                        throw new DuplicityError('Group already exist. Try again')
-                    }
+        if (user.role[0] !== 'admin') {
+            throw new AuthorizationError('Authorization denied. Only ADMIN user')
+        }
 
-                    throw new SystemError(error.message)
-                })
-                .then(group => { return group })
-        })
+        const group = await Group.create({ name: groupName })
+
+        return group
+
+    } catch (error) {
+        if (error.code === 11000) {
+            throw new DuplicityError('Group already exist. Try again')
+        }
+
+        if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            throw error
+        }
+
+        throw new SystemError(error.message)
+    }
 }
-
-export default createGroup

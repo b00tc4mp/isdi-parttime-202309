@@ -2,6 +2,7 @@ import session from './session.js'
 import { errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - RETRIEVE ALL USERS (ONLY ADMIN)
 function retrieveAllUsers() {
     const req = {
         method: 'GET',

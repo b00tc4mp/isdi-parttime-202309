@@ -75,7 +75,7 @@ function Email() {
                     {showNewEmail && (
                         <div className="fields">
                             <label htmlFor="new-email"><p style={{ color: '#18E3C8' }}>New Email: </p></label>
-                            <input type="text" id="new-email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
+                            <input type="email" id="new-email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
                         </div>
                     )}
 

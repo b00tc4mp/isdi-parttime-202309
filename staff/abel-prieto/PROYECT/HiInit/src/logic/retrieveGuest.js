@@ -1,6 +1,7 @@
 import { errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - RETRIEVE GUEST 
 function retrieveGuest() {
     const req = {
         method: 'GET'

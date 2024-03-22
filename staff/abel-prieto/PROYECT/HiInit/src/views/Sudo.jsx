@@ -3,12 +3,13 @@ import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 
 import { Pointer, CommandBar } from '../utils'
-import { RegisterAdmin, DeleteUser, CreateGroup } from '../components'
+import { RegisterAdmin, CreateGroup, AssignGroup } from '../components'
 
 import Context from '../Context'
 import logic from '../logic'
 
 export default function Sudo() {
+    const [pwd, setPwd] = useState(false)
     const [commandText, setCommandText] = useState('')
     const [menu, setMenu] = useState(true)
     const [uknownCommand, setUknownCommand] = useState(false)
@@ -40,10 +41,16 @@ export default function Sudo() {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/create-group')
+            } else if ((commandText === '4') && event.key === 'Enter') {
+                setUknownCommand(false)
+                setMenu(false)
+                navigate('/administrator/assign-group')
             } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(true)
                 navigate('/administrator')
+            } else if ((commandText === 'PWD' || commandText === 'pwd') && event.key === 'Enter') {
+                setPwd(true)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -51,6 +58,7 @@ export default function Sudo() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setPwd(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -93,6 +101,7 @@ export default function Sudo() {
             <Routes>
                 <Route path="/create-admin" element={<RegisterAdmin />} />
                 <Route path="/create-group" element={<CreateGroup />} />
+                <Route path="/assign-group" element={<AssignGroup />} />
             </Routes>
 
             <br />
@@ -102,7 +111,7 @@ export default function Sudo() {
                     <li><p><strong>Create new ADMIN</strong></p></li>
                     <li><p><strong>Delete Users</strong></p></li>
                     <li><p><strong>Create new Group</strong></p></li>
-                    <li><p><strong>Create new Command - In construction... ⌛</strong></p></li>
+                    <li><p><strong>Assign groups to users</strong></p></li>
                 </ol>
             )}
 
@@ -111,6 +120,12 @@ export default function Sudo() {
             {uknownCommand && (
                 <span>
                     <p>shell: command not found: '{commandText}'. Entry SUDO, DESKTOP or EXIT</p>
+                </span>
+            )}
+
+            {pwd && (
+                <span>
+                    <p>You are on ~ C:\Desktop\Administrator</p>
                 </span>
             )}
         </div>

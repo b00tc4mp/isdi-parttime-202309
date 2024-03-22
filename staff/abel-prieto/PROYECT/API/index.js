@@ -67,7 +67,7 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         server.delete('/download/delete/:fileId', deleteFileHandler)
 
         // REGISTER ADMIN
-        server.post('/admin', registerAdminHandler)
+        server.post('/admin', jsonBodyParser, registerAdminHandler)
 
         // CREATE COMMANDS
         // server.post('/admin/commands', createCommandHandler)

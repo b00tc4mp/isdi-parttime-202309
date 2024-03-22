@@ -117,6 +117,7 @@ function Desktop() {
                     <p>USER ~$ Command types </p>
                     <p>- - - - - - - - - - - - - - - - - - - </p>
                     <li><p>help: <em>list user commands</em></p></li>
+                    <li><p>pwd: <em>show your current directory</em></p></li>
                     <li><p>desktop: <em>get back to your main field</em></p></li>
                     <li><p>profile: <em>settings account</em></p></li>
                     <li><p>upload: <em>save files on storage</em></p></li>
@@ -130,6 +131,7 @@ function Desktop() {
                     <p>- - - - - - - - - - - - - - - - - - - </p>
                     <li><p>sudo: <em>entry on ADMIN mode</em></p></li>
                     <li><p>help: <em>list user commands</em></p></li>
+                    <li><p>pwd: <em>show your current directory</em></p></li>
                     <li><p>desktop: <em>get back to your main field</em></p></li>
                     <li><p>profile: <em>settings account</em></p></li>
                     <li><p>upload: <em>save files on storage</em></p></li>

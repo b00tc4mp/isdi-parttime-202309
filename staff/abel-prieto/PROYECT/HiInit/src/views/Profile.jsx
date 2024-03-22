@@ -10,6 +10,7 @@ import logic from '../logic'
 function Profile() {
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
+    const [pwd, setPwd] = useState(false)
     const { pointer } = Pointer()
 
     const navigate = useNavigate()
@@ -31,6 +32,8 @@ function Profile() {
             } else if ((commandText === 'DESKTOP' || commandText === 'desktop') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/desktop')
+            } else if ((commandText === 'PWD' || commandText === 'pwd') && event.key === 'Enter') {
+                setPwd(true)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -38,6 +41,7 @@ function Profile() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setPwd(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -87,6 +91,12 @@ function Profile() {
             {uknownCommand && (
                 <span>
                     <p>shell: command not found: '{commandText}'. Entry email or password</p>
+                </span>
+            )}
+
+            {pwd && (
+                <span>
+                    <p>You are on ~ C:\Desktop\Profile</p>
                 </span>
             )}
         </div>

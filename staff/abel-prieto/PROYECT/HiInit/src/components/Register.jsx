@@ -80,7 +80,7 @@ function Register({ onSuccess }) {
                         {showEmail && (
                             <div className="fields">
                                 <label htmlFor="email"><p style={{ color: '#18E3C8' }}>Email: </p></label>
-                                <input type="text" id="email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
+                                <input type="email" id="email" contentEditable="true" autoComplete="off" onChange={showInputPassword} />
                             </div>
                         )}
 

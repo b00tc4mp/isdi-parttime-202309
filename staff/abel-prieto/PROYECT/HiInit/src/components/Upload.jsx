@@ -7,8 +7,7 @@ import Context from '../Context'
 import logic from '../logic'
 
 function Upload() {
-
-    // POINTER, UKNOWN COMMAND & POINTER STATE
+    const [pwd, setPwd] = useState(false)
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const { pointer } = Pointer()
@@ -27,6 +26,8 @@ function Upload() {
                 navigate('/desktop')
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 handleLogout()
+            } else if ((commandText === 'PWD' || commandText === 'pwd') && event.key === 'Enter') {
+                setPwd(true)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -34,6 +35,7 @@ function Upload() {
 
         const handleKeyDown = () => {
             setUknownCommand(false)
+            setPwd(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -124,6 +126,12 @@ function Upload() {
                         <p>shell: command not found: '{commandText}'. Entry desktop or exit</p>
                     </span>
                 </>
+            )}
+
+            {pwd && (
+                <span>
+                    <p>You are on ~ C:\Desktop\Upload</p>
+                </span>
             )}
         </div>
     </>

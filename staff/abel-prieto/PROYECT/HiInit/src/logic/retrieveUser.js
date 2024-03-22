@@ -2,6 +2,7 @@ import session from './session.js'
 import { errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - RETRIEVE USER
 function retrieveUser() {
     const req = {
         method: 'GET',

@@ -2,6 +2,7 @@ import session from './session.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
+// LOGIC - CHANGE USER PASSWORD
 function changeUserPassword(password, newPassword, againNewPassword) {
     validate.password(password, 'Password')
     validate.password(newPassword, 'New password')

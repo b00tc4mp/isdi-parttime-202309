@@ -2,6 +2,7 @@ import session from './session.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
+// LOGIC - DELETE FILE
 function deleteFile(fileId) {
     validate.id(fileId, 'ID File')
 

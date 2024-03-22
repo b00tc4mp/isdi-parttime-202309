@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Context from './Context.jsx'
 import App from './App.jsx'
 import { Credentials, Desktop, Profile, Sudo } from './views'
-import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup } from './components'
+import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup, AssignGroup } from './components'
 import handleError from './utils/handleError.js'
 
 import './index.css'
@@ -27,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/create-admin" element={<RegisterAdmin />} />
           <Route path="/delete-user" element={<DeleteUser />} />
           <Route path="/create-group" element={<CreateGroup />} />
+          <Route path="/assign-group" element={<AssignGroup />} />
         </Routes>
       </Context.Provider>
     </Router>

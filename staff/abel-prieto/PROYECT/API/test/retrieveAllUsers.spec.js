@@ -25,11 +25,10 @@ describe('retrieveAllUsers', () => {
 
         const allUsers = await retrieveAllUsers(admin.id)
 
+        const usernames = allUsers.map(user => user.username)
+
         expect(allUsers).to.be.an('Array').that.has.lengthOf(4)
-        expect(allUsers).to.includes(user1.username)
-        expect(allUsers).to.includes(user2.username)
-        expect(allUsers).to.includes(user3.username)
-        expect(allUsers).to.includes(user4.username)
+        expect(usernames).to.include.members([user1.username, user2.username, user3.username, user4.username])
     })
 
     // NEGATIVE CASE - Admin not found

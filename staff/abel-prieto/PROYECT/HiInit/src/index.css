@@ -117,6 +117,13 @@ ol {
   cursor: pointer;
 }
 
+.show-list-items select {
+  border-radius: 2px;
+  padding: 5px;
+  color: white !important;
+  font-weight: bold !important;
+  min-width: 200px
+}
 
 .command-bar {
   display: inline-flex;

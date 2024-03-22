@@ -2,6 +2,7 @@ import session from './session.js'
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - LOGIN USER
 function loginUser(email, password) {
     validate.email(email, 'Email')
     validate.password(password, 'Password')

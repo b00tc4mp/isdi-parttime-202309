@@ -47,7 +47,7 @@ function RegisterAdmin() {
         }
 
         document.body.addEventListener('keydown', function () {
-            clientError.innerText = 'Register - Create ADMIN account: '
+            clientError.innerText = 'ADMIN - Create a new ADMINISTRATOR account: '
             clientError.style.color = '#EBDBB2'
         })
     }
@@ -58,7 +58,7 @@ function RegisterAdmin() {
             <p>~$</p>
             <span>
                 <form className="register-form" onSubmit={handleSubmit}>
-                    <p id="client-error-register">Register - Create ADMIN account: </p>
+                    <p id="client-error-register">ADMIN - Create a new ADMINISTRATOR account: </p>
 
                     <div className="space-between">
                         {showUsername && (

@@ -1,8 +1,8 @@
 import session from './session.js'
-
 import { errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - UPLOAD FILE
 function uploadFile(file) {
     const formData = new FormData()
     formData.append('file', file)

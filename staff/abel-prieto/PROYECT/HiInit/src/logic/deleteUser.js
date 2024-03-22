@@ -2,6 +2,7 @@ import session from './session.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
+// LOGIC - DELETE USERS (ONLY ADMIN)
 function deleteUser(userId) {
     validate.id(userId, 'ID User')
 

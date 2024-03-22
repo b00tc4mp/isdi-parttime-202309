@@ -14,6 +14,7 @@ import downloadFile from './downloadFile.js'
 
 import deleteUser from './deleteUser.js'
 import retrieveAllUsers from './retrieveAllUsers.js'
+import registerAdmin from './registerAdmin.js'
 
 export {
     loginUser,
@@ -31,7 +32,8 @@ export {
     downloadFile,
 
     retrieveAllUsers,
-    deleteUser
+    deleteUser,
+    registerAdmin
 }
 
 const logic = {
@@ -50,7 +52,8 @@ const logic = {
     downloadFile,
 
     retrieveAllUsers,
-    deleteUser
+    deleteUser,
+    registerAdmin
 }
 
 export default logic

@@ -6,6 +6,7 @@ import { CommandBar, Pointer } from '../utils'
 import Files from './Files'
 
 function Download() {
+    const [pwd, setPwd] = useState(false)
     const [files, setFiles] = useState([])
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
@@ -33,6 +34,8 @@ function Download() {
             } else if ((commandText === 'EXIT' || commandText === 'exit') && event.key === 'Enter') {
                 setList(false)
                 handleLogout()
+            } else if ((commandText === 'PWD' || commandText === 'pwd') && event.key === 'Enter') {
+                setPwd(true)
             } else if (event.key === 'Enter') {
                 setUknownCommand(!uknownCommand)
             }
@@ -44,6 +47,7 @@ function Download() {
                 message: 'Entry ls command to list all your save files:',
                 color: '#EBDBB2'
             })
+            setPwd(false)
         }
 
         document.addEventListener('keypress', handleKeyPress)
@@ -113,6 +117,12 @@ function Download() {
                         <p>shell: command not found: '{commandText}'. Entry desktop, ls or exit</p>
                     </span>
                 </>
+            )}
+
+            {pwd && (
+                <span>
+                    <p>You are on ~ C:\Desktop\Downloads</p>
+                </span>
             )}
 
             {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}

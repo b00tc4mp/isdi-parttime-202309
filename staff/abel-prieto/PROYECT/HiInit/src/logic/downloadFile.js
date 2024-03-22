@@ -2,6 +2,7 @@ import session from './session'
 import { validate, errors } from 'com'
 const { SystemError } = errors
 
+// LOGIC - DOWNLOAD FILE
 function downloadFile(fileId) {
     validate.id(fileId)
 

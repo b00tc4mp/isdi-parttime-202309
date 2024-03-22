@@ -13,7 +13,7 @@ export default async (req, res) => {
 
     try {
         await registerAdmin(userId, username, email, password)
-        res.status(200).send()
+        res.status(201).send()
 
     } catch (error) {
         let status = 500
