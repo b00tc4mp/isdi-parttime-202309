@@ -18,12 +18,12 @@ Languajes: | [Spanish](./README-es.md) |
 
 ## INDEX
 
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Resume</a>
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Types of User</a>
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Cases - Functions</a>
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Data Model</a>
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Commands</a>
-- <a href="https://drive.google.com/file/d/1kVwztNSqgXkHPtwj9_xezMryZDqs807s/view?usp=sharing">Stories</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#resume">Resume</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#type-of-users">Types of User</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#type-of-users">Cases - Functions</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#data-model">Data Model</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#commands">Commands</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#stories">Stories</a>
 
 ## RESUME
 
