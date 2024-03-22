@@ -37,6 +37,14 @@ export default (req, res) => {
                 })
                 break;
 
+            case 'upDown':
+                logic.ottoController.upDown(userId, 4, 1000).then(() => {
+                    res.status(200).json({ message: 'Otto is snaking' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
             case 'swing':
                 logic.ottoController.swing(userId, 4, 1000, 40).then(() => {
                     res.status(200).json({ message: 'Otto is snaking' })

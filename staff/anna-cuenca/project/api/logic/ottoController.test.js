@@ -146,6 +146,23 @@ dotenv.config();
                         console.error('Error al intentar saltar:', error)
                     }
                     break;
+                case 'g': // saltar
+                    console.log("Gravity")
+                    try {
+                        await ottoController.noGravity('65d8d9dffdfc051c2e6c1e96')
+                    } catch (error) {
+                        console.error('Error al intentar saltar:', error)
+                    }
+                    break;
+
+                case 'k': // kickleft
+                    console.log("Kickleft")
+                    try {
+                        await ottoController.kickLeft('65d8d9dffdfc051c2e6c1e96', 1000)
+                    } catch (error) {
+                        console.error('Error al intentar kickLeft:', error)
+                    }
+                    break;
 
                 case 'm': // snakeMove
                     console.log("Movimiento Snake")
@@ -163,6 +180,16 @@ dotenv.config();
                         console.error('Error al intentar mostrar mensaje en el LCD:', error)
                     }
                     break;
+
+                case 'p': // activar el LCD
+                    console.log("upDown")
+                    try {
+                        await ottoController.upDown('65d8d9dffdfc051c2e6c1e96', 4, 1000)
+                    } catch (error) {
+                        console.error('Error al intentar upDown:', error)
+                    }
+                    break;
+
                 case 'c': // limpiar el LCD
                     console.log("Limpiando pantalla")
                     try {

@@ -3,6 +3,8 @@ const { Board, Servo, LCD, Pin } = pkg
 import { Otto } from './otto.js'
 import { Movement, SequenceMovement } from '../data/models.js'
 
+import movement from './ottoMovements/index.js'
+
 const FORWARD = 1
 const BACKWARD = -1
 const LEFT = 1
@@ -210,7 +212,7 @@ class OttoController {
                         type: 'crusaito',
                         name: 'Crusaito',
                         ordinal: 0
-                    };
+                    }
 
                     // Buscar la última secuencia del usuario y agregar el movimiento
                     SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
@@ -221,14 +223,14 @@ class OttoController {
                                     userId: userId,
                                     movements: [crusaitoMovement],
                                     createdAt: new Date()
-                                });
+                                })
                                 newSequence.save().then(savedSequence => {
                                     console.log('New sequence saved with Crusaito', savedSequence)
                                     resolve(savedSequence)
                                 }).catch(error => {
                                     console.error('Error saving new sequence', error)
                                     reject(error)
-                                });
+                                })
                             } else {
                                 // Añadir el movimiento a la secuencia existente
                                 sequence.movements.push(crusaitoMovement)
@@ -238,7 +240,7 @@ class OttoController {
                                 }).catch(error => {
                                     console.error('Error adding Crusaito to the last sequence', error)
                                     reject(error)
-                                });
+                                })
                             }
                         }).catch(error => {
                             console.error('Error finding the last sequence', error)
@@ -246,6 +248,256 @@ class OttoController {
                         })
                 }
             }, T / steps)
+        })
+    }
+
+    async upDown(userId, steps, T) {
+        if (!this.otto) {
+            throw new Error("Otto is not initialized");
+        }
+        await movement.upDown(this.otto, userId, steps, T) // Uso del movimiento upDown
+    }
+
+    // upDown(userId, steps, T) {
+    //     return new Promise((resolve, reject) => {
+    //         if (!this.otto) {
+    //             reject(new Error("Otto is not initialized"))
+    //             return
+    //         }
+
+    //         console.log(`UpDown movement for ${steps} steps with period ${T}`)
+
+    //         // Servos de los pies
+    //         const servoLeftFoot = new Servo(4) // Asumiendo que el pin 4 es para el pie izquierdo
+    //         const servoRightFoot = new Servo(5) // Asumiendo que el pin 5 es para el pie derecho
+
+    //         let currentStep = 0
+    //         const intervalId = setInterval(() => {
+    //             // Alternar entre la posición elevada y neutral para los pies
+    //             // Aquí se ajusta para que el pie izquierdo haga lo contrario al pie derecho
+    //             if (currentStep % 2 === 0) {
+    //                 servoLeftFoot.to(0) // Vuelve a la posición neutral para el pie izquierdo
+    //                 servoRightFoot.to(180) // Eleva el pie derecho al máximo
+    //             } else {
+    //                 servoLeftFoot.to(0) // Eleva el pie izquierdo al máximo
+    //                 servoRightFoot.to(180) // Vuelve a la posición neutral para el pie derecho
+    //             }
+    //             currentStep++
+
+    //             if (currentStep >= steps) {
+    //                 clearInterval(intervalId)
+    //                 // Volver a la posición neutral al terminar
+    //                 servoLeftFoot.to(90)
+    //                 servoRightFoot.to(90)
+
+    //                 console.log("UpDown movement completed")
+
+    //                 // Guardar el movimiento en la base de datos
+    //                 const upDownMovement = {
+    //                     type: 'upDown',
+    //                     name: 'UpDown',
+    //                     ordinal: 0
+    //                 }
+
+    //                 // Buscar la última secuencia del usuario y agregar el movimiento
+    //                 SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+    //                     .then(sequence => {
+    //                         const ordinal = sequence ? sequence.movements.length : 0 // Determina el nuevo ordinal
+    //                         upDownMovement.ordinal = ordinal
+
+    //                         if (!sequence) {
+    //                             // Si no hay secuencias, crea una nueva
+    //                             const newSequence = new SequenceMovement({
+    //                                 userId: userId,
+    //                                 movements: [upDownMovement],
+    //                                 createdAt: new Date()
+    //                             })
+    //                             newSequence.save().then(savedSequence => {
+    //                                 console.log('New sequence saved with upDownMovement', savedSequence)
+    //                                 resolve(savedSequence)
+    //                             }).catch(error => {
+    //                                 console.error('Error saving new sequence', error)
+    //                                 reject(error)
+    //                             })
+    //                         } else {
+    //                             // Añadir el movimiento a la secuencia existente
+    //                             sequence.movements.push(upDownMovement)
+    //                             sequence.save().then(updatedSequence => {
+    //                                 console.log('upDownMovement added to the last sequence', updatedSequence)
+    //                                 resolve(updatedSequence)
+    //                             }).catch(error => {
+    //                                 console.error('Error adding upDownMovement to the last sequence', error)
+    //                                 reject(error)
+    //                             })
+    //                         }
+    //                     }).catch(error => {
+    //                         console.error('Error finding the last sequence', error)
+    //                         reject(error)
+    //                     })
+
+    //                 resolve()
+    //             }
+    //         }, T / steps)
+    //     })
+    // }
+
+
+
+    kickLeft(userId, tempo) {
+        return new Promise(async (resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return
+            }
+
+            console.log(`Executing kickLeft with tempo ${tempo}`)
+
+            // Inicializa los servos
+            const servoRightLeg = new Servo(3) // Asumiendo pie derecho en pin 3
+            const servoLeftLeg = new Servo(2)  // Asumiendo pie izquierdo en pin 2
+
+            // Colocar ambos pies en posición neutral al inicio
+            servoRightLeg.to(90)
+            servoLeftLeg.to(90)
+            await delay(tempo)
+
+            // Secuencia de movimientos para simular la patada
+            let movements = [
+                { right: 50, left: 70 },
+                { right: 80, left: 70 },
+                { right: 30, left: 70 },
+                { right: 80, left: 70 },
+                { right: 30, left: 70 },
+                { right: 80, left: 70 }
+            ]
+
+            // Ejecutar cada movimiento en la secuencia
+            for (let movement of movements) {
+                servoRightLeg.to(movement.right)
+                servoLeftLeg.to(movement.left)
+                await delay(tempo / 4) // Ajustar el tiempo según sea necesario
+            }
+
+            console.log("kickLeft completed")
+
+            // Aquí va el código para guardar el movimiento en la base de datos, similar a los ejemplos anteriores
+            const kickLeftMovement = {
+                type: 'kickLeft',
+                name: 'Kick Left',
+                ordinal: 0
+            }
+
+            // Añadir el código para guardar el movimiento en la secuencia del usuario aquí
+            SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+                .then(sequence => {
+                    if (!sequence) {
+                        // Si no hay secuencias, crea una nueva
+                        const newSequence = new SequenceMovement({
+                            userId: userId,
+                            movements: [kickLeftMovement],
+                            createdAt: new Date()
+                        })
+                        newSequence.save().then(savedSequence => {
+                            console.log('New sequence saved with kickLeftMovement', savedSequence)
+                            resolve(savedSequence)
+                        }).catch(error => {
+                            console.error('Error saving new sequence', error)
+                            reject(error)
+                        })
+                    } else {
+                        // Añadir el movimiento a la secuencia existente
+                        sequence.movements.push(kickLeftMovement)
+                        sequence.save().then(updatedSequence => {
+                            console.log('kickLeftMovement added to the last sequence', updatedSequence)
+                            resolve(updatedSequence)
+                        }).catch(error => {
+                            console.error('Error adding kickLeftMovement to the last sequence', error)
+                            reject(error)
+                        })
+                    }
+                }).catch(error => {
+                    console.error('Error finding the last sequence', error)
+                    reject(error)
+                })
+
+            resolve() // Resolver la promesa al finalizar
+        })
+    }
+
+
+    noGravity(userId) {
+        return new Promise(async (resolve, reject) => {
+            if (!this.otto) {
+                reject(new Error("Otto is not initialized"))
+                return
+            }
+
+            console.log(`Executing noGravity`)
+
+            // Posiciones predeterminadas para simular el movimiento
+            const positions = [
+                { leftFoot: 120, rightFoot: 140 }, // move1
+                { leftFoot: 140, rightFoot: 140 }, // move2
+                { leftFoot: 120, rightFoot: 140 }, // move3
+                { leftFoot: 90, rightFoot: 90 }    // move4
+            ]
+
+            const tempo = 2000 // Duración en milisegundos de cada movimiento
+
+            // Iterar sobre cada conjunto de posiciones
+            for (const position of positions) {
+                // Mover cada pie a su posición objetivo
+                const servoLeftFoot = new Servo(4) // Asumiendo pines correctos
+                const servoRightFoot = new Servo(5)
+                servoLeftFoot.to(position.leftFoot)
+                servoRightFoot.to(position.rightFoot)
+
+                // Esperar la duración antes de pasar al siguiente conjunto de posiciones
+                await delay(tempo)
+            }
+
+            console.log("noGravity completed")
+
+            // Crear y guardar el movimiento en la base de datos como en los ejemplos anteriores
+            const noGravityMovement = {
+                type: 'noGravity',
+                name: 'No Gravity',
+                ordinal: 0
+            }
+
+            SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
+                .then(sequence => {
+                    if (!sequence) {
+                        // Si no hay secuencias, crea una nueva
+                        const newSequence = new SequenceMovement({
+                            userId: userId,
+                            movements: [noGravityMovement],
+                            createdAt: new Date()
+                        })
+                        newSequence.save().then(savedSequence => {
+                            console.log('New sequence saved with noGravityMovement', savedSequence)
+                            resolve(savedSequence)
+                        }).catch(error => {
+                            console.error('Error saving new sequence', error)
+                            reject(error)
+                        })
+                    } else {
+                        // Añadir el movimiento a la secuencia existente
+                        sequence.movements.push(noGravityMovement)
+                        sequence.save().then(updatedSequence => {
+                            console.log('noGravityMovement added to the last sequence', updatedSequence)
+                            resolve(updatedSequence)
+                        }).catch(error => {
+                            console.error('Error adding noGravityMovement to the last sequence', error)
+                            reject(error)
+                        })
+                    }
+                }).catch(error => {
+                    console.error('Error finding the last sequence', error)
+                    reject(error)
+                })
+
+            resolve() // Asegúrate de resolver la promesa al final
         })
     }
 
@@ -285,14 +537,14 @@ class OttoController {
                     servoLeftFoot.to(90)
                     servoRightFoot.to(90)
 
-                    console.log("Moonwalk completed");
+                    console.log("Moonwalk completed")
 
                     // Guardar el movimiento en la base de datos
                     const moonwalkMovement = {
                         type: 'moonwalker',
                         name: 'Moonwalker',
                         ordinal: 0
-                    };
+                    }
 
                     // Buscar la última secuencia del usuario y agregar el movimiento
                     SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
@@ -418,75 +670,44 @@ class OttoController {
 
 
 
-    // shakeLeg(steps, T, dir) {
-    //     return new Promise((resolve) => {
-    //         console.log(`Shaking leg ${dir === LEFT ? 'left' : 'right'} for ${steps} steps with period ${T}`)
-
-    //         // Determinar cuáles osciladores corresponden a la pierna y el pie que se van a sacudir
-    //         const legIndex = dir === LEFT ? 0 : 1
-    //         const footIndex = dir === LEFT ? 2 : 3
-
-    //         const legOscillator = this.otto.oscillators[legIndex]
-    //         const footOscillator = this.otto.oscillators[footIndex]
-
-    //         // Iniciar el movimiento de sacudida
-    //         for (let i = 0; i < steps; i++) {
-    //             setTimeout(() => {
-    //                 const phaseProgress = (i / steps) * 2 * Math.PI
-    //                 const angle = 30 * Math.sin(phaseProgress) + 90 // Ejemplo con amplitud de 30 y offset de 90
-    //                 legOscillator.servo.to(angle)
-    //                 footOscillator.servo.to(angle)
-
-    //                 if (i === steps - 1) {
-    //                     setTimeout(() => {
-    //                         legOscillator.servo.to(90) // Regresa a posición central/neutra
-    //                         footOscillator.servo.to(90) // Regresa a posición central/neutra
-    //                         resolve()
-    //                     }, T / steps)
-    //                 }
-    //             }, (T / steps) * i)
-    //         }
-    //     })
-    // }
-
     shakeLeg(userId, steps, T, dir) {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
-                reject(new Error("Otto is not initialized"));
-                return;
+                reject(new Error("Otto is not initialized"))
+                return
             }
 
-            console.log(`Shaking leg ${dir === LEFT ? 'left' : 'right'} for ${steps} steps with period ${T}`);
+            console.log(`Shaking leg ${dir === LEFT ? 'left' : 'right'} for ${steps} steps with period ${T}`)
 
             // Determinar cuáles servos corresponden a la pierna y el pie que se van a sacudir
-            const legPin = dir === LEFT ? 2 : 3; // Asumiendo pines para la pierna izquierda y derecha
-            const footPin = dir === LEFT ? 4 : 5; // Asumiendo pines para el pie izquierdo y derecho
+            const legPin = dir === LEFT ? 2 : 3 // Asumiendo pines para la pierna izquierda y derecha
+            const footPin = dir === LEFT ? 4 : 5 // Asumiendo pines para el pie izquierdo y derecho
 
             // Inicializar los servos directamente
-            const legServo = new Servo(legPin);
-            const footServo = new Servo(footPin);
+            const legServo = new Servo(legPin)
+            const footServo = new Servo(footPin)
 
             // Iniciar el movimiento de sacudida
             for (let i = 0; i < steps; i++) {
                 setTimeout(() => {
-                    const phaseProgress = (i / steps) * 2 * Math.PI;
-                    const angle = 30 * Math.sin(phaseProgress) + 90; // Ejemplo con amplitud de 30 y offset de 90
-                    legServo.to(angle);
-                    footServo.to(angle);
+                    const phaseProgress = (i / steps) * 2 * Math.PI
+                    const angle = 30 * Math.sin(phaseProgress) + 90 // Ejemplo con amplitud de 30 y offset de 90
+                    legServo.to(angle)
+                    footServo.to(angle)
 
                     if (i === steps - 1) {
                         setTimeout(() => {
-                            legServo.to(90); // Regresa a posición central/neutra
-                            footServo.to(90); // Regresa a posición central/neutra
+                            legServo.to(90) // Regresa a posición central/neutra
+                            footServo.to(90) // Regresa a posición central/neutra
 
-                            console.log("ShakeLeg completed");
+                            console.log("ShakeLeg completed")
 
                             // Guardar el movimiento en la base de datos
                             const shakeLegMovement = {
                                 type: 'shakeLeg',
                                 name: 'Shake Leg',
                                 ordinal: 0
-                            };
+                            }
 
                             // Buscar la última secuencia del usuario y agregar el movimiento
                             SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })
@@ -497,35 +718,35 @@ class OttoController {
                                             userId: userId,
                                             movements: [shakeLegMovement],
                                             createdAt: new Date()
-                                        });
+                                        })
                                         newSequence.save().then(savedSequence => {
-                                            console.log('New sequence saved with Shake Leg', savedSequence);
-                                            resolve(savedSequence);
+                                            console.log('New sequence saved with Shake Leg', savedSequence)
+                                            resolve(savedSequence)
                                         }).catch(error => {
-                                            console.error('Error saving new sequence', error);
-                                            reject(error);
-                                        });
+                                            console.error('Error saving new sequence', error)
+                                            reject(error)
+                                        })
                                     } else {
                                         // Añadir el movimiento a la secuencia existente
-                                        sequence.movements.push(shakeLegMovement);
+                                        sequence.movements.push(shakeLegMovement)
                                         sequence.save().then(updatedSequence => {
-                                            console.log('Shake Leg added to the last sequence', updatedSequence);
-                                            resolve(updatedSequence);
+                                            console.log('Shake Leg added to the last sequence', updatedSequence)
+                                            resolve(updatedSequence)
                                         }).catch(error => {
-                                            console.error('Error adding Shake Leg to the last sequence', error);
-                                            reject(error);
-                                        });
+                                            console.error('Error adding Shake Leg to the last sequence', error)
+                                            reject(error)
+                                        })
                                     }
                                 }).catch(error => {
-                                    console.error('Error finding the last sequence', error);
-                                    reject(error);
-                                });
+                                    console.error('Error finding the last sequence', error)
+                                    reject(error)
+                                })
 
-                        }, T / steps);
+                        }, T / steps)
                     }
-                }, (T / steps) * i);
+                }, (T / steps) * i)
             }
-        });
+        })
     }
 
 
@@ -619,7 +840,7 @@ class OttoController {
     jump(userId) {
         return new Promise((resolve, reject) => {
             if (!this.otto) {
-                reject(new Error("Otto is not initialized"));
+                reject(new Error("Otto is not initialized"))
                 return;
             }
 
@@ -708,12 +929,12 @@ class OttoController {
 
             if (!this.otto) {
                 reject(new Error("Otto is not initialized"))
-                return;
+                return
             }
 
             this.otto.oscillators.forEach((oscillator, index) => {
                 if (index < 2) { // Solo ajustamos las piernas para el giro
-                    const isRightLeg = index % 2 !== 0; // Identifica si es la pierna derecha
+                    const isRightLeg = index % 2 !== 0 // Identifica si es la pierna derecha
                     oscillator.setParameters({
                         amplitude: isRightLeg ? 20 : 40, // Reducir la amplitud para la pierna derecha
                         period: 600, // Un periodo más rápido para un giro ágil
