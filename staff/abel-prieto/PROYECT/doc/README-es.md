@@ -18,12 +18,12 @@ Languajes: | [English](./README-en.md) |
 
 ## ÍNDICE
 
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#resumen">Resumen</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#tipos-de-usuarios">Tipos de Usuarios</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#casos---funciones">Casos - Funciones</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#modelo-de-datos">Modelo de Datos</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#comandos">Comandos</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#componentes">Componentes</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#resumen">Resumen</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#tipos-de-usuarios">Tipos de Usuarios</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#casos---funciones">Casos - Funciones</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#modelo-de-datos">Modelo de Datos</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#comandos">Comandos</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#componentes">Componentes</a>
 
 
 ## RESUMEN
