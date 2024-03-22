@@ -39,7 +39,7 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    return <Container>
+    return <Container >
 
         <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
 
