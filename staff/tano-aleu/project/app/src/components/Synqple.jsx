@@ -274,7 +274,8 @@ const Synqple = () => {
 
 
     return (
-        <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-1 overflow-auto">
+        <div class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
+
             {/* LP-HP Filter */}
             {
                 samplePlayers.length > 0 && currentSampleIndex >= 0 &&
