@@ -39,7 +39,7 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    return <Container >
+    return <Container class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
 
         <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
 
@@ -59,7 +59,7 @@ function Login(props) {
 
         <footer className=" text-white text-center py-0 mt-10 ">
 
-            <img src={logo} alt="Logo" className="w-40 h-auto mt-40" />
+            <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
 
         </footer>
 
