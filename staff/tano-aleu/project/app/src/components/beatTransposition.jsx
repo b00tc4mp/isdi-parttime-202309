@@ -22,15 +22,19 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
 
     // Manejador de evento para iniciar el cambio de BPM y prevenir acciones predeterminadas
     const handleTouchStart = (tempoChange) => (e) => {
-        e.preventDefault(); // Previene la acción predeterminada del navegador
+        document.addEventListener('contextmenu', preventContextMenu);
         startChangeTempo(tempoChange);
     };
 
-    // Manejador de evento para detener el cambio de BPM y prevenir acciones predeterminadas
     const handleTouchEnd = (e) => {
-        e.preventDefault(); // Previene la acción predeterminada del navegador
+        document.removeEventListener('contextmenu', preventContextMenu);
         stopChangeTempo();
     };
+
+    const preventContextMenu = (e) => {
+        e.preventDefault();
+    };
+
 
 
 
