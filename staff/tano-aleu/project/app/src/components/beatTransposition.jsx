@@ -43,22 +43,24 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
 
             <h3 className="flex justify-around">Beat Transposition</h3>
             <div onContextMenu={(e) => e.preventDefault()} className="flex justify-around">
-                <h4>Nudge -</h4>
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu focus:outline-none focus:ring-0 active:bg-purple-800" onMouseDown={() => startChangeTempo(-5)}
+
+                <button onMouseDown={() => startChangeTempo(-5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(-5)}
                     onTouchEnd={handleTouchEnd}
                     onContextMenu={(e) => e.preventDefault()}>
+                    <div className="w-0 h-0 border-t-[15px] border-t-transparent border-r-[30px] border-r-purple-800 border-b-[15px] border-b-transparent"></div>
 
                 </button>
 
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu focus:outline-none focus:ring-0 active:bg-purple-800" onMouseDown={() => startChangeTempo(5)}
+                <button onMouseDown={() => startChangeTempo(5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(5)}
                     onTouchEnd={handleTouchEnd}
                     onContextMenu={(e) => e.preventDefault()}>
+                    <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[30px] border-l-purple-800 border-b-[15px] border-b-transparent"></div>
                 </button>
-                <h4>Nudge +</h4>
+
 
             </div>
         </div>
