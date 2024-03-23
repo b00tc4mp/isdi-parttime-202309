@@ -8,21 +8,25 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
-const walkBackward = (ottoInstance) => {
-    return new Promise((resolve, reject) => {
-        if (!ottoInstance) {
-            reject(new Error("Otto is not initialized"))
-            return
-        }
-        ottoInstance.restartOscillators()
-        ottoInstance.walkBackward(4, 2000).then(() => {
-            console.log('Otto walked!')
-            resolve()
-        }).catch(error => {
-            console.error('Otto failed to walk:', error)
-            reject(error)
-        })
-    })
+async function walkBackward(ottoInstance) {
+    if (!ottoInstance) {
+        throw new Error("Otto is not initialized")
+    }
+
+    try {
+
+        await ottoInstance.restartOscillators()
+        await ottoInstance.walkBackward(4, 2000)
+        console.log('Otto walked backward!')
+    } catch (error) {
+        console.error('Otto failed to walk backward:', error)
+        throw error
+    }
 }
 
+
+
 export default walkBackward
+
+
+

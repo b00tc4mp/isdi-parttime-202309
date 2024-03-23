@@ -90,7 +90,7 @@ export default function Controller() {
             console.error(`Error executing ${action} action:`, error)
             context.handleError(error)
         }
-    };
+    }
 
 
 

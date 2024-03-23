@@ -4,7 +4,8 @@ import kickLeft from './kickLeft.js'
 import noGravity from './noGravity.js'
 import moonwalker from './moonwalker.js'
 import swing from './swing.js'
-import shakeLeg from './shakeLeg.js'
+import shakeLegRight from './shakeLegRight.js'
+import shakeLegLeft from './shakeLegLeft.js'
 import turn from './turn.js'
 import jump from './jump.js'
 import snakeMove from './snakeMove.js'
@@ -20,7 +21,8 @@ const movement = {
     noGravity,
     moonwalker,
     swing,
-    shakeLeg,
+    shakeLegRight,
+    shakeLegLeft,
     turn,
     jump,
     snakeMove,

@@ -117,7 +117,7 @@ export class Otto {
                     period: period, // Periodo para controlar la velocidad de caminata
                     phase: phaseAdjustment, // Ajuste de fase para coordinación entre piernas y pies
                     offset: 90 // Offset neutro, punto de partida medio para el movimiento
-                });
+                })
                 oscillator.start()
             })
 

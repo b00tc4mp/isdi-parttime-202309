@@ -71,16 +71,16 @@ export default (req, res) => {
                 break;
 
             case 'shakeLegRight':
-                logic.ottoController.shakeLeg(userId, 3, 1000, RIGHT).then(() => {
-                    res.status(200).json({ message: 'Otto is shaking right' })
+                logic.ottoController.shakeLegRight(userId, 3, 1000).then(() => { // Asegúrate de que esta función exista y esté implementada correctamente
+                    res.status(200).json({ message: 'Otto is shaking right leg' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 })
                 break;
 
             case 'shakeLegLeft':
-                logic.ottoController.shakeLeg(userId, 4, 1000, LEFT).then(() => {
-                    res.status(200).json({ message: 'Otto is shaking right' })
+                logic.ottoController.shakeLegLeft(userId, 4, 1000).then(() => { // Asegúrate de que esta función exista y esté implementada correctamente
+                    res.status(200).json({ message: 'Otto is shaking left leg' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
                 })

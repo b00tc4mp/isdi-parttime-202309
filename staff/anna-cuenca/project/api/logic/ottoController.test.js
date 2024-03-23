@@ -62,7 +62,7 @@ dotenv.config();
                 case 'a':
                     console.log("Ejecutando secuencia..")
                     try {
-                        await ottoController.executeSequenceById('65e779b95ca9de5f2e0d0b44')
+                        await ottoController.executeSequenceById('65fe87e995bd04c9a34de82c')
                     } catch (error) {
                         console.error(error)
                     }
@@ -103,23 +103,23 @@ dotenv.config();
                     }
                     break;
 
-                case 'h': //hacer shake leg con la derecha
-                    console.log("Shake leg")
-                    try {
-                        await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 3, 1000, RIGHT)
-                    } catch (error) {
-                        console.error('Error al intentar girar a la derecha y caminar:', error)
-                    }
-                    break;
+                // case 'h': //hacer shake leg con la derecha
+                //     console.log("Shake leg")
+                //     try {
+                //         await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 3, 1000, RIGHT)
+                //     } catch (error) {
+                //         console.error('Error al intentar girar a la derecha y caminar:', error)
+                //     }
+                //     break;
 
-                case 'i': //hacer shake leg con la derecha
-                    console.log("Shake leg")
-                    try {
-                        await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 4, 1000, LEFT)
-                    } catch (error) {
-                        console.error('Error al intentar girar a la derecha y caminar:', error)
-                    }
-                    break;
+                // case 'i': //hacer shake leg con la derecha
+                //     console.log("Shake leg")
+                //     try {
+                //         await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 4, 1000, LEFT)
+                //     } catch (error) {
+                //         console.error('Error al intentar girar a la derecha y caminar:', error)
+                //     }
+                //     break;
 
                 case 'r': // girar a la derecha y caminar
                     console.log("Girando a la derecha")

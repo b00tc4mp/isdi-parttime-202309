@@ -42,12 +42,18 @@ const movement = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop', 'snakeMove', 'crusaito', 'moonwalker', 'swing', 'shakeLeg', 'noGravity', 'kickLeft', 'upDown']
+        enum: ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop', 'snakeMove', 'crusaito', 'moonwalker', 'swing', 'shakeLegLeft', 'shakeLegRight', 'noGravity', 'kickLeft', 'upDown']
     },
     ordinal: {
         type: Number,
         required: true
-    }
+    },
+    steps: Number,
+    T: Number,
+    h: Number,
+    dir: String,
+    tempo: Number
+
 
 })
 
