@@ -20,6 +20,19 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
         onBPMChange(originalBPM.current); // Restablece al BPM original
     };
 
+    // Manejador de evento para iniciar el cambio de BPM y prevenir acciones predeterminadas
+    const handleTouchStart = (tempoChange) => (e) => {
+        e.preventDefault(); // Previene la acción predeterminada del navegador
+        startChangeTempo(tempoChange);
+    };
+
+    // Manejador de evento para detener el cambio de BPM y prevenir acciones predeterminadas
+    const handleTouchEnd = (e) => {
+        e.preventDefault(); // Previene la acción predeterminada del navegador
+        stopChangeTempo();
+    };
+
+
 
     return (
         <div>
