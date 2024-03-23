@@ -39,20 +39,22 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
 
             <h3 className="flex justify-around">Beat Transposition</h3>
             <div onContextMenu={(e) => e.preventDefault()} className="flex justify-around">
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu" onMouseDown={() => startChangeTempo(-5)}
+                <h4>Nudge -</h4>
+                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu focus:outline-none focus:ring-0 active:bg-purple-800" onMouseDown={() => startChangeTempo(-5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(-5)}
                     onTouchEnd={handleTouchEnd}
                     onContextMenu={(e) => e.preventDefault()}>
-                    <img src={decreaseTempoImg} alt="Decrease Tempo" className="w-6 h-6 no-pointer-events" />
+
                 </button>
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu" onMouseDown={() => startChangeTempo(5)}
+
+                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu focus:outline-none focus:ring-0 active:bg-purple-800" onMouseDown={() => startChangeTempo(5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(5)}
                     onTouchEnd={handleTouchEnd}
                     onContextMenu={(e) => e.preventDefault()}>
-                    <img src={increaseTempoImg} alt="Increase Tempo" className="w-6 h-6 no-pointer-events" />
                 </button>
+                <h4>Nudge +</h4>
 
             </div>
         </div>
