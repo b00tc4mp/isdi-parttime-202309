@@ -4,10 +4,10 @@ import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import { useUser } from "../hooks/UserContext"
 
 import logic from '../logic'
-import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites } from '../components'
+import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites, Cart } from '../components'
 
 
-export default function Home({ loadProducts }) {
+export default function Home() {
 
     const [name, setName] = useState(null)
     const [favProducts, setFavProducts] = useState([])
@@ -112,7 +112,7 @@ export default function Home({ loadProducts }) {
     const handleClickCartIcon = (event) => {
         event.preventDefault()
 
-        console.log('Se hizo clic en el botón del carrito')
+        navigate('/cart')
     }
 
     return (
@@ -165,6 +165,7 @@ export default function Home({ loadProducts }) {
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
                 <Route path="/favorites" element={<Favorites favProducts={favProducts} onFavSuccess={refreshProducts} />} />
+                <Route path="/cart" element={<Cart />} />
             </Routes>
         </>
     )

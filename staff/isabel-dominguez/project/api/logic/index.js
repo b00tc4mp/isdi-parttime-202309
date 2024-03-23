@@ -7,6 +7,10 @@ import createRecipe from './createRecipe.js'
 import retrieveRecipesByType from './retrieveRecipesByType.js'
 import toggleFavProduct from './toggleFavProduct.js'
 import retrieveFavs from './retrieveFavs.js'
+import addToCart from './addToCart.js'
+import deleteOrder from './deleteOrder.js'
+import updateCartItemQuantity from './updateCartItemQuantity.js'
+import retrieveUserOrder from './retrieveUserOrder.js'
 
 
 const logic = {
@@ -18,7 +22,11 @@ const logic = {
     createRecipe,
     retrieveRecipesByType,
     toggleFavProduct,
-    retrieveFavs
+    retrieveFavs,
+    addToCart,
+    deleteOrder,
+    updateCartItemQuantity,
+    retrieveUserOrder
 }
 
 export default logic

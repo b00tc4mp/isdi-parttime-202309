@@ -27,14 +27,30 @@ const User = model('User', user)
 
 
 const order = new Schema({
-    date: {
-        type: Date,
-        default: Date.now
+    user: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
     },
     products: [{
-        type: ObjectId,
-        ref: 'Product'
-    }]
+        product: {
+            type: ObjectId,
+            ref: 'Product'
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        }
+    }],
+    status: {
+        type: String,
+        enum: ['active', 'completed', 'cancelled'],
+        default: 'active'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const Order = model('Order', order)
