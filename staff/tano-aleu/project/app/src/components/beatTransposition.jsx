@@ -38,15 +38,15 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
         <div>
 
             <h3 className="flex justify-around">Beat Transposition</h3>
-            <div className="flex justify-around">
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow" onMouseDown={() => startChangeTempo(-5)}
+            <div onContextMenu={(e) => e.preventDefault()} className="flex justify-around">
+                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu" onMouseDown={() => startChangeTempo(-5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(-5)}
                     onTouchEnd={handleTouchEnd}
                     onContextMenu={(e) => e.preventDefault()}>
                     <img src={decreaseTempoImg} alt="Decrease Tempo" className="w-6 h-6 no-pointer-events" />
                 </button>
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow" onMouseDown={() => startChangeTempo(5)}
+                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow noContextMenu" onMouseDown={() => startChangeTempo(5)}
                     onMouseUp={stopChangeTempo}
                     onTouchStart={handleTouchStart(5)}
                     onTouchEnd={handleTouchEnd}
