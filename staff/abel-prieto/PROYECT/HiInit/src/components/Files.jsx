@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Context from '../Context'
+import session from '../logic/session'
 import logic from '../logic'
 import Swal from 'sweetalert2'
 
@@ -8,7 +9,6 @@ function Files(props) {
     const { handleError } = useContext(Context)
     const navigate = useNavigate()
     const file = props.file
-    // const updateFiles = props.onDelete()
 
     // DELETE FILES
     function handleDeleteFile(event) {
@@ -82,7 +82,12 @@ function Files(props) {
             <ul>
                 <p>{file.name}</p>
                 <button className='anchor-button' onClick={handleDownloadFile}>Download</button>
-                <button id="delete-file" className='button-delete' onClick={handleDeleteFile}>Delete</button>
+                {session.sessionUserId === file.owner && (
+                    <button id="delete-file" className='button-delete' onClick={handleDeleteFile}>Delete</button>
+                )}
+                {session.role === 'admin' && (
+                    <button id="delete-file" className='button-delete' onClick={handleDeleteFile}>Delete</button>
+                )}
             </ul>
         </article>
     </>

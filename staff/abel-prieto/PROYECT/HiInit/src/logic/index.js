@@ -18,6 +18,7 @@ import retrieveAllGroups from './retrieveAllGroups.js'
 import registerAdmin from './registerAdmin.js'
 import createGroup from './createGroup.js'
 import assignGroups from './assignGroups.js'
+import deleteGroup from './deleteGroup.js'
 
 export {
     loginUser,
@@ -39,7 +40,8 @@ export {
     registerAdmin,
     createGroup,
     retrieveAllGroups,
-    assignGroups
+    assignGroups,
+    deleteGroup
 }
 
 const logic = {
@@ -62,7 +64,8 @@ const logic = {
     registerAdmin,
     createGroup,
     retrieveAllGroups,
-    assignGroups
+    assignGroups,
+    deleteGroup
 }
 
 export default logic

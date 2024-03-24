@@ -27,7 +27,7 @@ function RegisterAdmin() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        const clientError = document.querySelector('#client-error-register')
+        const clientError = document.querySelector('#client-error-register-admin')
 
         const username = event.target.querySelector('#username').value
         const email = event.target.querySelector('#email').value
@@ -62,8 +62,8 @@ function RegisterAdmin() {
         <div>
             <p>~$</p>
             <span>
-                <form className="register-form" onSubmit={handleSubmit}>
-                    <p id="client-error-register">ADMIN - Create a new ADMINISTRATOR account: </p>
+                <form className="register-admin-form" onSubmit={handleSubmit}>
+                    <p id="client-error-register-admin">ADMIN - Create a new ADMINISTRATOR account: </p>
 
                     <div className="space-between">
                         {showUsername && (

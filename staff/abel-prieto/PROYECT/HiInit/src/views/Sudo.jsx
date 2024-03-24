@@ -45,10 +45,10 @@ export default function Sudo() {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/assign-group')
-                // } else if ((commandText === 'sudo --5') && event.key === 'Enter') {
-                // setUknownCommand(false)
-                // setMenu(false)
-                // navigate('/administrator/assign-group')
+            } else if ((commandText === 'sudo --5') && event.key === 'Enter') {
+                setUknownCommand(false)
+                setMenu(false)
+                navigate('/delete-group')
             } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(true)
@@ -116,7 +116,7 @@ export default function Sudo() {
                     <li><p><strong>Delete Users</strong></p></li>
                     <li><p><strong>Create New Group</strong></p></li>
                     <li><p><strong>Assign Groups to Users</strong></p></li>
-                    <li><p><strong>Delete Groups - In Contruction</strong></p></li>
+                    <li><p><strong>Delete Groups</strong></p></li>
                 </ol>
             )}
 

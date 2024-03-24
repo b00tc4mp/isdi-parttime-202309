@@ -5,36 +5,36 @@ import Context from '../Context'
 import logic from '../logic'
 import Swal from 'sweetalert2'
 
-function Users(props) {
+function Groups(props) {
     const { handleError } = useContext(Context)
     const navigate = useNavigate()
-    const user = props.user
+    const group = props.group
 
     // DELETE FILES
-    function handleDeleteUser(event) {
+    function handleDeleteGroup(event) {
         event.preventDefault()
 
         Swal.fire({
             title: "Are you want to delete it?",
-            text: "This action will delete this user, files...",
+            text: "This action will transfer all users to default group",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete user"
+            confirmButtonText: "Yes, delete group"
         }).then((result) => {
             if (result.isConfirmed) {
 
-                logic.deleteUser(user.id)
+                logic.deleteGroup(group.id)
                     .then(() => {
                         Swal.fire({
                             title: "Deleted!",
-                            text: "User has been deleted",
+                            text: "Group has been deleted",
                             icon: "success"
                         })
 
-                        // UPDATE USERS
-                        props.updateUserList(prevUsers => prevUsers.filter(u => u.id !== user.id))
+                        // UPDATE GROUPS
+                        props.updateGroupList(prevGroups => prevGroups.filter(g => g.id !== group.id))
                     })
                     .catch(error => {
                         const clientError = document.querySelector(props.clientError)
@@ -43,21 +43,19 @@ function Users(props) {
                         clientError.style.color = 'tomato'
 
                         handleError(error, navigate)
-
-                        return
                     })
             }
         })
     }
 
     return <>
-        <article key={user._id}>
+        <article key={group._id}>
             <ul>
-                <p>{user.username}</p>
-                <button id="delete-user" className='button-delete' onClick={handleDeleteUser}>Delete</button>
+                <p>{group.name}</p>
+                <button id="delete-group" className='button-delete' onClick={handleDeleteGroup}>Delete</button>
             </ul>
         </article>
     </>
 }
 
-export default Users
+export default Groups

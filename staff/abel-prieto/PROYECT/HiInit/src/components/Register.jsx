@@ -50,8 +50,6 @@ function Register({ onSuccess }) {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error-register')
-
             clientError.innerText = 'Register - Create your account data: '
             clientError.style.color = '#EBDBB2'
         })

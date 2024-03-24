@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import Context from '../Context'
 import logic from '../logic'
 import { CommandBar, Pointer } from '../utils'
-import Users from './Users'
+import Groups from './Groups'
 
-function DeleteUsers() {
-    const [users, setUsers] = useState([])
+function DeleteGroup() {
+    const [groups, setGroups] = useState([])
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const [list, setList] = useState(false)
     const [clientError, setClientError] = useState({
-        message: 'Entry ls command to list all registered users:',
+        message: 'Entry ls command to list all created groups:',
         color: '#EBDBB2'
     })
-    const [fetchingUsers, setFetchingUsers] = useState(false) // Controlador bucle retrieveUsers
+    const [fetchingGroups, setFetchingGroups] = useState(false) // Controlador bucle retrieveGroups
 
     const { pointer } = Pointer()
     const navigate = useNavigate()
@@ -44,7 +44,7 @@ function DeleteUsers() {
         const handleKeyDown = () => {
             setUknownCommand(false)
             setClientError({
-                message: 'Entry ls command to list all registered users:',
+                message: 'Entry ls command to list all created groups:',
                 color: '#EBDBB2'
             })
         }
@@ -59,27 +59,28 @@ function DeleteUsers() {
     }, [navigate, uknownCommand, setList])
 
     useEffect(() => {
-        if (fetchingUsers || list) {
+        if (fetchingGroups || list) {
             const fetchDeleted = async () => {
                 try {
-                    const result = await logic.retrieveAllUsers()
-                    setUsers(result)
-                    setFetchingUsers(false)
+                    const result = await logic.retrieveAllGroups()
+                    setGroups(result)
+                    setFetchingGroups(false)
 
                 } catch (error) {
                     setClientError({
-                        message: "There is no users registered on APP yet...",
+                        // message: "There is no groups created on APP yet...",
+                        message: error.message,
                         color: 'tomato'
                     })
 
-                    setFetchingUsers(false)
+                    setFetchingGroups(false)
                     handleError(error, navigate)
                 }
             }
 
             fetchDeleted()
         }
-    }, [fetchingUsers, list, handleError, navigate])
+    }, [fetchingGroups, list, handleError, navigate])
 
     // LOGOUT VIEW
     function handleLogout() {
@@ -95,7 +96,7 @@ function DeleteUsers() {
     return (
         <div className="container">
             <p>~$</p>
-            <p id="client-error-delete-user">{clientError.message}</p>
+            <p id="client-error-delete-group">{clientError.message}</p>
 
             <br />
 
@@ -118,9 +119,9 @@ function DeleteUsers() {
                 </>
             )}
 
-            {list && users.map(user => <Users key={user.id} user={user} updateUserList={setUsers} clientError={'#client-error-delete-user'} />)}
+            {list && groups.map(group => <Groups key={group.id} group={group} updateGroupList={setGroups} clientError={'#client-error-delete-group'} />)}
         </div>
     )
 }
 
-export default DeleteUsers
+export default DeleteGroup

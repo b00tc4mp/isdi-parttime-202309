@@ -41,8 +41,6 @@ function Login({ onSuccess }) {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error-login')
-
             clientError.innerText = 'Login - Entry your credentials: '
             clientError.style.color = '#EBDBB2'
         })

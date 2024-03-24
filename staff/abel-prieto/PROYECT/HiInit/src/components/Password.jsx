@@ -23,7 +23,7 @@ function Password() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        const clientError = document.querySelector('#client-error-password')
+        const clientError = document.querySelector('#client-error-new-password')
 
         const password = event.target.querySelector('#password').value
         const newPassword = event.target.querySelector('#new-password').value
@@ -42,8 +42,6 @@ function Password() {
                     handleError(error, navigate)
                 })
         } catch (error) {
-            const clientError = document.querySelector('#client-error-password')
-
             clientError.innerText = error.message
             clientError.style.color = 'tomato'
 
@@ -51,12 +49,10 @@ function Password() {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error-password')
-
             clientError.innerText = 'Change Password - Entry your data account: '
             clientError.style.color = '#EBDBB2'
 
-            document.getElementById("password-form").reset()
+            document.getElementById("new-password-form").reset()
         })
     }
 
@@ -65,8 +61,8 @@ function Password() {
             <p>~$</p>
 
             <span>
-                <form id="password-form" onSubmit={handleSubmit}>
-                    <p id="client-error-password">Change Password - Entry your data account: </p>
+                <form id="new-password-form" onSubmit={handleSubmit}>
+                    <p id="client-error-new-password">Change Password - Entry your data account: </p>
 
                     {showPassword && (
                         <div className="fields">

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Context from './Context.jsx'
 import { Credentials, Desktop, Profile, Sudo, Initial } from './views'
-import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup, AssignGroup } from './components'
+import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup, AssignGroup, DeleteGroup } from './components'
 import handleError from './utils/handleError.js'
 import session from './logic/session.js'
 
@@ -28,6 +28,7 @@ function App() {
           <Route path="/delete-user" element={<DeleteUser />} />
           <Route path="/create-group" element={<CreateGroup />} />
           <Route path="/assign-group" element={<AssignGroup />} />
+          <Route path="/delete-group" element={<DeleteGroup />} />
 
           {/*session.role === 'admin' && (
             <>

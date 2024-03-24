@@ -23,7 +23,7 @@ function Email() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        const clientError = document.querySelector('#client-error-email')
+        const clientError = document.querySelector('#client-error-new-email')
 
         const newEmail = event.target.querySelector('#new-email').value
         const password = event.target.querySelector('#password').value
@@ -42,8 +42,6 @@ function Email() {
                     handleError(error, navigate)
                 })
         } catch (error) {
-            const clientError = document.querySelector('#client-error-email')
-
             clientError.innerText = error.message
             clientError.style.color = 'tomato'
 
@@ -51,12 +49,10 @@ function Email() {
         }
 
         document.body.addEventListener('keydown', function () {
-            const clientError = document.querySelector('#client-error-email')
-
             clientError.innerText = 'Change Email - Entry your data account: '
             clientError.style.color = '#EBDBB2'
 
-            document.getElementById("email-form").reset()
+            document.getElementById("new-email-form").reset()
         })
     }
 
@@ -65,8 +61,8 @@ function Email() {
             <p>~$</p>
 
             <span>
-                <form id="email-form" onSubmit={handleSubmit}>
-                    <p id="client-error-email">Change Email - Entry your data account: </p>
+                <form id="new-email-form" onSubmit={handleSubmit}>
+                    <p id="client-error-new-email">Change Email - Entry your data account: </p>
 
                     {showNewEmail && (
                         <div className="fields">
