@@ -30,7 +30,8 @@ export default (req, res) => {
         let status = 500
 
         if (error instanceof TypeError || error instanceof ContentError) {
-            status = 409
+            statusss = 409
+            s
         } else if (error instanceof JsonWebTokenError) {
             status = 401
             error = new TokenError(error.message)

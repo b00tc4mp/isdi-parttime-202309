@@ -13,6 +13,9 @@ import deleteFileHandler from './deleteFileHandler.js'
 import retrieveAllUsersHandler from './retrieveAllUsersHandler.js'
 import deleteUsersHandler from './deleteUsersHandler.js'
 import registerAdminHandler from './registerAdminHandler.js'
+import createGroupHandler from './createGroupHandler.js'
+import retrieveAllGroupsHandler from './retrieveAllGroupsHandler.js'
+import assignGroupsHandler from './assignGroupsHandler.js'
 
 export {
     authenticateUserHandler,
@@ -29,5 +32,8 @@ export {
 
     retrieveAllUsersHandler,
     deleteUsersHandler,
-    registerAdminHandler
+    registerAdminHandler,
+    createGroupHandler,
+    retrieveAllGroupsHandler,
+    assignGroupsHandler
 }

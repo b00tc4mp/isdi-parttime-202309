@@ -24,7 +24,7 @@ export default async (req, res, next) => {
         }
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         if (error instanceof AuthorizationError) {

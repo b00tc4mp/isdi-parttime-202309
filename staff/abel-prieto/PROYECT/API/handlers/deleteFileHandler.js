@@ -25,7 +25,7 @@ export default async (req, res) => {
         }
 
         if (error instanceof TypeError || error instanceof ContentError) {
-            status = 406
+            status = 409
         }
 
         if (error instanceof JsonWebTokenError) {

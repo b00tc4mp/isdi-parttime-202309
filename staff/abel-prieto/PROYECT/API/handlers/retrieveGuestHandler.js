@@ -19,7 +19,7 @@ export default (req, res) => {
         let status = 500
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })

@@ -22,8 +22,7 @@ describe('createGroup', () => {
         const admin = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'root', role: 'admin' })
         const group = await createGroup(admin.id, name)
 
-        expect(group).to.be.an('Object')
-        expect(group.name).to.be.equal(name)
+        expect(group).to.be.undefined
     })
 
     // NEGATIVE CASE - User not found

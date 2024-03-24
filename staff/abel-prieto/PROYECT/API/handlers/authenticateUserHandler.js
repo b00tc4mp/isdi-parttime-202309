@@ -22,7 +22,7 @@ export default (req, res) => {
                 }
 
                 if (error instanceof CredentialsError) {
-                    status = 401
+                    status = 406
                 }
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
@@ -31,7 +31,8 @@ export default (req, res) => {
         let status = 500
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
+
         } else if (error instanceof JsonWebTokenError) {
             status = 401
             error = new TokenError(error.message)

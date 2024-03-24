@@ -1,17 +1,17 @@
 import jwt from 'jsonwebtoken'
-import retrieveFiles from '../logic/retrieveFiles.js'
+import retrieveAllGroups from '../logic/retrieveAllGroups.js'
 import { errors } from 'com'
 
 const { JsonWebTokenError } = jwt
-const { NotFoundError, ContentError, TokenError } = errors
+const { NotFoundError, AuthorizationError, TokenError, ContentError } = errors
 
 export default async (req, res) => {
     const token = req.headers.authorization.substring(7)
     const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
     try {
-        const files = await retrieveFiles(userId)
-        res.json(files)
+        const allGroups = await retrieveAllGroups(userId)
+        res.json(allGroups)
 
     } catch (error) {
         let status = 500
@@ -22,6 +22,10 @@ export default async (req, res) => {
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 409
+        }
+
+        if (error instanceof AuthorizationError) {
+            status = 401
         }
 
         if (error instanceof JsonWebTokenError) {

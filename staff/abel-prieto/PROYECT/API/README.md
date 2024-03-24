@@ -63,20 +63,40 @@
 
 `Register Admin` ✅
 - Request: POST /admin Authorization: Bearer ${session.token}
-- Response: 201
+- Response: 201 "Content-Type": application/json { username, email, password }
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
 
+`Retrieve All User` ✅
+- Request: GET /admin/users/all Authorization: Bearer ${session.token}
+- Response: 200 
+- Response (error) : 500|404|406 "Content-Type": application/json { error, message }
+
+`Retrieve All Groups` ✅
+- Request: GET /admin/groups/all Authorization: Bearer ${session.token}
+- Response: 200 
+- Response (error) : 500|404|406 "Content-Type": application/json { error, message }
+
 `Delete User` ✅
-- Request: DELETE /users/:userId Authorization: Bearer ${session.token}
+- Request: DELETE /admin/users/:userId Authorization: Bearer ${session.token}
 - Response: 200 
 - Response (error): 500|404|406|401 "Content-Type": application/json { error, message }
 
-`Create Commands` ✅
+`Create Commands` ✅ (PENDING v1.0)
 - Request: POST /admin/commands Authorization: Bearer ${session.token}
-- Response: 201
+- Response: 201 "Content-Type": application/json { command_name }
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
 
 `Create Groups` ✅
 - Request: POST /admin/groups Authorization: Bearer ${session.token}
-- Response: 201
+- Response: 201 "Content-Type": application/json { group_name }
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
+
+`Assign Groups` ✅
+- Request: PATCH /admin/groups/edit Authorization: Bearer ${session.token}
+- Response: 200
+- Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
+
+`Delete Groups` 
+- Request: DELETE /admin/groups/delete/:groupId Authorization: Bearer ${session.token}
+- Response: 200
+- Response (error) : 500|409|406|401 "Content-Type": application/json { error, message }

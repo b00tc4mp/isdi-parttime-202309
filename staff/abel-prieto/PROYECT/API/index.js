@@ -17,7 +17,10 @@ import {
 
     deleteUsersHandler,
     retrieveAllUsersHandler,
-    registerAdminHandler
+    registerAdminHandler,
+    createGroupHandler,
+    retrieveAllGroupsHandler,
+    assignGroupsHandler
 } from './handlers/index.js'
 
 dotenv.config()
@@ -69,17 +72,26 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         // REGISTER ADMIN
         server.post('/admin', jsonBodyParser, registerAdminHandler)
 
-        // CREATE COMMANDS
-        // server.post('/admin/commands', createCommandHandler)
-
-        // CREATE GROUPS
-        // server.post('/admin/groups', createGroupHandler)
+        // RETRIEVE ALL USERS
+        server.get('/admin/users/all', retrieveAllUsersHandler)
 
         // DELETE USERS
-        server.delete('/users/delete/:userId', deleteUsersHandler)
+        server.delete('/admin/users/delete/:deleteUser', deleteUsersHandler)
 
-        // RETRIEVE ALL USERS
-        server.get('/users/all', retrieveAllUsersHandler)
+        // CREATE GROUPS
+        server.post('/admin/groups', jsonBodyParser, createGroupHandler)
+
+        // RETRIEVE ALL GROUPS
+        server.get('/admin/groups/all', retrieveAllGroupsHandler)
+
+        // ASSIGN GROUPS
+        server.patch('/admin/groups/edit', jsonBodyParser, assignGroupsHandler)
+
+        // DELETE GROUPS
+        // server.delete('/admin/groups/delete/:groupId', createGroupHandler)
+
+        // CREATE COMMANDS
+        // server.post('/admin/commands', createCommandHandler)
 
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })

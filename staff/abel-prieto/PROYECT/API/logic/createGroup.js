@@ -17,10 +17,7 @@ export default async function createGroup(userId, groupName) {
             throw new AuthorizationError('Authorization denied. Only ADMIN user')
         }
 
-        const group = await Group.create({ name: groupName })
-
-        return group
-
+        await Group.create({ name: groupName })
     } catch (error) {
         if (error.code === 11000) {
             throw new DuplicityError('Group already exist. Try again')

@@ -23,11 +23,11 @@ export default async (req, res) => {
             status = 404
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         if (error instanceof DuplicityError) {
-            status = 409
+            status = 406
         }
 
         if (error instanceof JsonWebTokenError) {

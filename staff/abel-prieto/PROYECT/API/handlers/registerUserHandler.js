@@ -3,9 +3,9 @@ import { errors } from 'com'
 const { DuplicityError, ContentError } = errors
 
 export default (req, res) => {
-    try {
-        const { username, email, password } = req.body
+    const { username, email, password } = req.body
 
+    try {
         registerUser(username, email, password)
             .then(() => res.status(201).send())
             .catch(error => {
@@ -21,7 +21,7 @@ export default (req, res) => {
         let status = 500
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         res.status(status).json({ error: error.constructor.name, message: error.message })

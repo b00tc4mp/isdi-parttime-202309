@@ -10,10 +10,10 @@ export default async (req, res) => {
     const token = req.headers.authorization.substring(7)
     const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-    const { userToDelete } = req.params
+    const { deleteUser } = req.params
 
     try {
-        await deleteUsers(userId, userToDelete)
+        await deleteUsers(userId, deleteUser)
         res.status(201).send()
 
     } catch (error) {
@@ -24,11 +24,11 @@ export default async (req, res) => {
         }
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         if (error instanceof AuthorizationError) {
-            status = 409
+            status = 401
         }
 
         if (error instanceof JsonWebTokenError) {

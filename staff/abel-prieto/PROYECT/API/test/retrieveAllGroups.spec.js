@@ -1,34 +1,34 @@
 import mongoose from 'mongoose'
-import random from './helpers/random.js'
 import dotenv from 'dotenv'
-import retrieveAllUsers from '../logic/retrieveAllUsers.js'
-import { User } from '../data/models.js'
+import retrieveAllGroups from '../logic/retrieveAllGroups.js'
+import random from './helpers/random.js'
 import { expect } from 'chai'
+import { User, Group } from '../data/models.js'
 import { errors } from 'com'
 const { NotFoundError, AuthorizationError } = errors
 
 dotenv.config()
 
-describe('retrieveAllUsers', () => {
+describe('retrieveAllGroups', () => {
     before(() => mongoose.connect(process.env.URL_MONGODB_TEST))
 
     beforeEach(() => User.deleteMany())
+    beforeEach(() => Group.deleteMany())
 
     // POSITIVE CASE
-    it('success with retrieve ALL users', async () => {
+    it('success with retrieve ALL groups', async () => {
         const admin = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'root', role: 'admin' })
 
-        const user1 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
-        const user2 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
-        const user3 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
-        const user4 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+        const group1 = await Group.create({ name: random.text() })
+        const group2 = await Group.create({ name: random.text() })
+        const group3 = await Group.create({ name: random.text() })
 
-        const allUsers = await retrieveAllUsers(admin.id)
+        const allGroups = await retrieveAllGroups(admin.id)
 
-        const usernames = allUsers.map(user => user.username)
+        const groups = await allGroups.map(group => group.name)
 
-        expect(allUsers).to.be.an('Array').that.has.lengthOf(4)
-        expect(usernames).to.include.members([user1.username, user2.username, user3.username, user4.username])
+        expect(allGroups).to.be.an('Array').that.has.lengthOf(3)
+        expect(groups).to.include.members([group1.name, group2.name, group3.name])
     })
 
     // NEGATIVE CASE - Admin not found
@@ -36,7 +36,7 @@ describe('retrieveAllUsers', () => {
         const userRequest = random.id()
 
         try {
-            await retrieveAllUsers(userRequest)
+            await retrieveAllGroups(userRequest)
             throw new Error('should not reach this point!')
         } catch (error) {
             expect(error).to.be.instanceOf(NotFoundError)
@@ -49,7 +49,7 @@ describe('retrieveAllUsers', () => {
         const userRequest = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
 
         try {
-            await retrieveAllUsers(userRequest.id)
+            await retrieveAllGroups(userRequest.id)
             throw new Error('should not reach this point!')
         } catch (error) {
             expect(error).to.be.instanceOf(AuthorizationError)

@@ -22,11 +22,11 @@ export default async (req, res) => {
         }
 
         if (error instanceof ContentError || error instanceof TypeError) {
-            status = 406
+            status = 409
         }
 
         if (error instanceof AuthorizationError) {
-            status = 409
+            status = 401
         }
 
         if (error instanceof JsonWebTokenError) {
