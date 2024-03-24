@@ -46,22 +46,20 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
             <h3 className="flex justify-around">Beat Transposition</h3>
             <div onContextMenu={preventContextMenu} className="flex justify-around">
                 <div className="select-none touch-none">
-                    <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow" onMouseDown={() => startChangeTempo(-5)}
+                    <button className="w-0 h-0 border-t-[30px] border-t-transparent border-r-[60px] border-r-purple-800 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(-5)}
                         onMouseUp={stopChangeTempo}
                         onTouchStart={handleTouchStart(-5)}
                         onTouchEnd={handleTouchEnd}
                         onContextMenu={preventContextMenu}>
-                        <img src={decreaseTempoImg} alt="Decrease Tempo" className="w-6 h-6 no-pointer-events" />
                     </button>
                 </div>
 
                 <div className="select-none touch-none">
-                    <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded shadow" onMouseDown={() => startChangeTempo(5)}
+                    <button className="w-6 h-6 border-t-[30px] border-t-transparent border-l-[60px] border-l-purple-800 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(5)}
                         onMouseUp={stopChangeTempo}
                         onTouchStart={handleTouchStart(5)}
                         onTouchEnd={handleTouchEnd}
                         onContextMenu={preventContextMenu}>
-                        <img src={increaseTempoImg} alt="Increase Tempo" className="w-6 h-6 no-pointer-events" />
                     </button>
                 </div>
 
