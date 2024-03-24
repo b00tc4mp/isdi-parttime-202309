@@ -58,6 +58,7 @@ function SamplesFolder() {
                         {index === 5 && <h2 className="text-center bg-purple-400 text-white py-2">Piano</h2>}
                         {index === 8 && <h2 className="text-center bg-purple-400 text-white py-2">Synth</h2>}
                         {index === 11 && <h2 className="text-center bg-purple-400 text-white py-2">Percs</h2>}
+                        {index === 14 && <h2 className="text-center bg-purple-400 text-white py-2">Vocals</h2>}
                     </>
                 ))}
             </div>

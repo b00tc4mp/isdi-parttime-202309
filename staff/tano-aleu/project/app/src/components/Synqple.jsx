@@ -309,7 +309,7 @@ const Synqple = () => {
 
             {/* Sample Volume Control and Mute Button */}
             <div>
-                <div className=' flex justify-center'>Volumen Metronomo</div>
+                <div className=' flex justify-center'>Volumen Samples</div>
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
                 <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
