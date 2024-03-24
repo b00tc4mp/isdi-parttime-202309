@@ -39,6 +39,12 @@ function RegisterAdmin() {
                     clientError.innerText = 'Admin succesfully created! ✅'
                     clientError.style.color = 'green'
                 })
+                .catch(error => {
+                    clientError.innerText = error.message
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
+                })
         } catch (error) {
             clientError.innerText = error.message
             clientError.style.color = 'tomato'
@@ -51,7 +57,6 @@ function RegisterAdmin() {
             clientError.style.color = '#EBDBB2'
         })
     }
-
 
     return <>
         <div>

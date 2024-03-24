@@ -23,6 +23,8 @@ function Password() {
     function handleSubmit(event) {
         event.preventDefault()
 
+        const clientError = document.querySelector('#client-error-password')
+
         const password = event.target.querySelector('#password').value
         const newPassword = event.target.querySelector('#new-password').value
         const againNewPassword = event.target.querySelector('#repeat-new-password').value
@@ -30,20 +32,14 @@ function Password() {
         try {
             logic.changeUserPassword(password, newPassword, againNewPassword)
                 .then(() => {
-                    const clientError = document.querySelector('#client-error-password')
-
                     clientError.innerText = 'Password successfully changed ✅'
                     clientError.style.color = 'green'
                 })
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error-password')
-
                     clientError.innerText = error.message
                     clientError.style.color = 'tomato'
 
                     handleError(error, navigate)
-
-                    return
                 })
         } catch (error) {
             const clientError = document.querySelector('#client-error-password')

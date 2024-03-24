@@ -118,7 +118,7 @@ function DeleteUsers() {
                 </>
             )}
 
-            {list && users.map(user => <Users key={user.id} user={user} clientError={'#client-error-download'} />)}
+            {list && users.map(user => <Users key={user.id} user={user} updateUserList={setUsers} clientError={'#client-error-download'} />)}
         </div>
     )
 }

@@ -1,87 +1,146 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Context from '../Context'
-import { Pointer, CommandBar, } from '../utils'
+import { Pointer, CommandBar } from '../utils'
 import logic from '../logic'
 
 function AssignGroup() {
+    const [groups, setGroups] = useState([])
+    const [users, setUsers] = useState([])
+    const [fetchingGroups, setFetchingGroups] = useState(false)
+    const [fetchingUsers, setFetchingUsers] = useState(false)
     const [selectedGroup, setSelectedGroup] = useState('')
     const [selectedUser, setSelectedUser] = useState('')
-    const [showGroups, setShowGroups] = useState(true)
-    const [showUsers, setShowUsers] = useState(false)
     const [showButton, setShowButton] = useState(false)
-    const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
-    const [menu, setMenu] = useState(false)
-    const { pointer } = Pointer()
 
-    // const navigate = useNavigate()
-    // const { handleError } = useContext(Context)
+    const navigate = useNavigate()
+    const { handleError } = useContext(Context)
 
-    const handleGroupChange = (event) => {
-        const selectedGroup = event.target.value
-        setSelectedGroup(selectedGroup)
-        setShowUsers(true)
+    // RETRIEVE ALL GROUPS
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                setFetchingGroups(true)
+                const result = await logic.retrieveAllGroups()
+
+                setGroups(result)
+                setFetchingGroups(false)
+            } catch (error) {
+                handleError(error, navigate)
+                setFetchingGroups(false)
+            }
+        }
+
+        fetchGroups()
+    }, [handleError, navigate])
+
+    // RETRIEVE ALL USERS
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                setFetchingUsers(true)
+                const result = await logic.retrieveAllUsers()
+
+                setUsers(result)
+                setFetchingUsers(false)
+            } catch (error) {
+                handleError(error, navigate)
+                setFetchingUsers(false)
+            }
+        }
+
+        fetchUsers()
+    }, [handleError, navigate])
+
+    // SHOW ASSIGN BUTTON
+    useEffect(() => {
+        if (selectedUser !== '') {
+            setShowButton(true)
+        } else {
+            setShowButton(false)
+        }
+    }, [selectedUser])
+
+    // ASSIGN GROUP-USER
+    function handleAssignSubmit(event) {
+        event.preventDefault()
+
+        const clientError = document.querySelector('#client-error-assign-group')
+
+        if (selectedGroup !== '- Select Group -' || selectedUser !== '- Select User -') {
+            try {
+                logic.assignGroups(selectedGroup, selectedUser)
+                    .then(() => {
+                        clientError.innerText = 'Group succesfully assign! ✅'
+                        clientError.style.color = 'green'
+                    })
+                    .catch(error => {
+                        clientError.innerText = error.message
+                        clientError.style.color = 'tomato'
+
+                        handleError(error, navigate)
+                    })
+            } catch (error) {
+                clientError.innerText = error.message
+                clientError.style.color = 'tomato'
+
+                handleError(error, navigate)
+            }
+        } else {
+            clientError.innerText = 'Please, select an avaliable group or user...'
+            clientError.style.color = 'tomato'
+
+            return
+        }
+
+        document.body.addEventListener('keydown', function () {
+            clientError.innerText = 'ADMIN - Assign or change groups on users: '
+            clientError.style.color = '#EBDBB2'
+        })
     }
 
-    const handleUserChange = (event) => {
-        const selectedUser = event.target.value
-        setSelectedUser(selectedUser)
-        setShowButton(true)
-    }
-
-    const handleSubmit = () => {
-        // Aquí puedes manejar la lógica para enviar la información seleccionada
-        console.log('Selected Group:', selectedGroup)
-        console.log('Selected User:', selectedUser)
-    }
-
-    return <>
-        <p>~$</p>
-        <span>
-            <p id="client-error-newgroup">ADMIN - Assign or change groups on users: </p>
-
-            <br />
-            <div className='all-inline'>
-                {showGroups && (
-                    <div className="show-list-items">
-                        <select onChange={handleGroupChange}>
-                            <option value="groups">- Select Group -</option>
-                            <option value="group1">Group1</option>
-                            <option value="group2">Group2</option>
-                            <option value="group3">Group3</option>
-                            <option value="group4">Group4</option>
-                        </select>
-                    </div>
-                )}
+    return (
+        <div>
+            <p>~$</p>
+            <span>
+                <p id="client-error-assign-group">ADMIN - Assign or change groups on users: </p>
 
                 <br />
-
-                {showUsers && (
+                <div>
                     <div className="show-list-items">
-                        <select onChange={handleUserChange}>
-                            <option value="users">- Select User -</option>
-                            <option value="user1">User1</option>
-                            <option value="user2">User2</option>
-                            <option value="user3">User3</option>
-                            <option value="user4">User4</option>
+                        <select value={selectedGroup} onChange={(event) => setSelectedGroup(event.target.value)}>
+                            <option value="select-group">- Select Group -</option>
+                            {groups.map(group => (
+                                <option key={group.id} value={group.id}>{group.name}</option>
+                            ))}
                         </select>
                     </div>
-                )}
 
-                {showButton && (
-                    <button className="button-form" type="submit" >Assign</button>
-                )}
-            </div>
+                    <br />
 
-        </span>
+                    <div className="show-list-items">
+                        <select value={selectedUser} onChange={(event) => setSelectedUser(event.target.value)}>
+                            <option value="select-user">- Select User -</option>
+                            {users.map(user => (
+                                <option key={user.id} value={user.id}>{user.username}</option>
+                            ))}
+                        </select>
+                    </div>
 
-        {uknownCommand && (
-            <span>
-                <p>shell: command not found: '{commandText}'. Entry SUDO, DESKTOP or EXIT</p>
+                    {showButton && (
+                        <button className="button-form" type="submit" onClick={handleAssignSubmit}>Assign</button>
+                    )}
+                </div>
             </span>
-        )}
-    </>
+
+            {uknownCommand && (
+                <span>
+                    <p>shell: command not found: '{commandText}'. Entry SUDO, DESKTOP or EXIT</p>
+                </span>
+            )}
+        </div>
+    )
 }
 
 export default AssignGroup

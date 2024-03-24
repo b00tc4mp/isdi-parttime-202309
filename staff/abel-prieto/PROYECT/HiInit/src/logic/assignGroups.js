@@ -2,18 +2,20 @@ import session from './session.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
-// LOGIC - DELETE USERS (ONLY ADMIN)
-function deleteUser(deleteUser) {
-    validate.id(deleteUser, 'ID Delete User')
+export default function assignGroups(selectedGroupId, selectedUserId) {
+    validate.id(selectedGroupId, 'ID Group selected')
+    validate.id(selectedUserId, 'ID User selected')
 
     const req = {
-        method: 'DELETE',
+        method: 'PATCH',
         headers: {
-            Authorization: `Bearer ${session.token}`
-        }
+            Authorization: `Bearer ${session.token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ selectedGroupId, selectedUserId })
     }
 
-    return fetch(`${import.meta.env.VITE_HIINIT_APP}/admin/users/delete/${deleteUser}`, req)
+    return fetch(`${import.meta.env.VITE_HIINIT_APP}/admin/groups/edit`, req)
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
@@ -23,5 +25,3 @@ function deleteUser(deleteUser) {
             }
         })
 }
-
-export default deleteUser

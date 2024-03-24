@@ -27,6 +27,8 @@ function Register({ onSuccess }) {
     function handleSubmit(event) {
         event.preventDefault()
 
+        const clientError = document.querySelector('#client-error-register')
+
         const username = event.target.querySelector('#username').value
         const email = event.target.querySelector('#email').value
         const password = event.target.querySelector('#password').value
@@ -35,18 +37,12 @@ function Register({ onSuccess }) {
             return logic.registerUser(username, email, password)
                 .then(() => onSuccess())
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error-register')
-
                     clientError.innerText = error.message
                     clientError.style.color = 'tomato'
 
                     handleError(error, navigate)
-
-                    return
                 })
         } catch (error) {
-            const clientError = document.querySelector('#client-error-register')
-
             clientError.innerText = error.message
             clientError.style.color = 'tomato'
 

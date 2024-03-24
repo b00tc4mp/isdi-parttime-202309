@@ -1,94 +1,46 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import { CommandBar, Pointer } from './utils'
+import Context from './Context.jsx'
+import { Credentials, Desktop, Profile, Sudo, Initial } from './views'
+import { Login, Register, Upload, Download, DeleteUser, RegisterAdmin, CreateGroup, AssignGroup } from './components'
+import handleError from './utils/handleError.js'
+import session from './logic/session.js'
 
 function App() {
 
-  // POINTER AND COMMAND STATE
-  const [commandText, setCommandText] = useState('')
-  const { pointer } = Pointer()
-
-  // VIEWS
-  const navigate = useNavigate()
-
-  // ESCUCHA TECLADO Y ESCRITURA
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        navigate('/credentials')
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [navigate])
-
   return <>
-    <div className="container">
+    <Router basename='/hiinit'>
+      <Context.Provider value={{ handleError }}>
+        <Routes>
+          <Route path="/" element={<Initial />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/credentials/*" element={<Credentials />} />
 
-      <div className="tittle-logo">
-        <p>    ___ ___  .___ .___  _______   .___ ___________     __      __        ___              _______      _______       </p>
-        <p>   /   |   \ |   ||   | \      \  |   |\__    ___/    /  \    /  \  ____ \_ |__     ___  _\   _  \     \   _  \      </p>
-        <p>  /    ~    \|   ||   | /   |   \ |   |  |    |       \   \/\/   /_/ __ \ | __ \    \  \/ /  /_\  \    /  /_\  \     </p>
-        <p>  \    Y    /|   ||   |/    |    \|   |  |    |        \        / \  ___/ | \_\ \    \   /\  \_/   \   \  \_/   \    </p>
-        <p>   \___|_  / |___||___|\____|__  /|___|  |____|         \__/\  /   \___   |___  /     \_/  \_____  / /\ \_____  /    </p>
-        <p>         \/                    \/                            \/        \/     \/                 \/  \/       \/     </p>
-      </div>
+          <Route path="/desktop" element={<Desktop />} />
 
-      <br></br>
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/download" element={<Download />} />
+          <Route path="/profile/*" element={<Profile />} />
 
-      <div className="text">
-        <p>Type 'help' to see the list of avaliable comands.</p>
-        <p>Please, press 'ENTRY' to log in or sign up</p>
-      </div>
+          <Route path="/administrator/*" element={session.role === 'admin' ? <Sudo /> : <Initial />} />
+          <Route path="/create-admin" element={<RegisterAdmin />} />
+          <Route path="/delete-user" element={<DeleteUser />} />
+          <Route path="/create-group" element={<CreateGroup />} />
+          <Route path="/assign-group" element={<AssignGroup />} />
 
-      <br></br>
-      <br></br>
+          {/*session.role === 'admin' && (
+            <>
+            </>
+          )*/}
 
-      <div className="info">
-        <p>INFORMATION</p>
-        <br></br>
-        <p>-----------------------------------------</p>
-        <div className="info-about">
-          <p>ABOUT</p>
-          <br></br>
-          <p>👤 Abel Prieto Martín</p>
-          <p>-----------------------------------------</p>
-        </div>
-        <div className="info-contact">
-          <p>CONTACT</p>
-          <br></br>
-          <p>📧 abelpriem94@hotmail.com</p>
-          <a href="https://github.com/AbelPucela94" target="_blank">🌐 github.com/AbelPucela94</a>
-          <a href="https://www.linkedin.com/in/abel-prieto-mart%C3%ADn-050b75b8/" target="_blank">🌐 linkedin.com/abel-prieto-martin</a>
-          <p>-----------------------------------------</p>
-        </div>
-      </div>
+          {/*!session.token && (
+            <Route path="/*" element={<Initial />} />
+          )*/}
 
-      <br></br>
-      <br></br>
-
-      <div className="command-bar">
-        <CommandBar />
-        <div id="command-form">
-          <input id="command" type="text" contentEditable="true" autoFocus autoComplete="off" value={commandText} onChange={(event) => setCommandText(event.target.value)}
-            style={{ width: `${Math.max(10, commandText.length * 8)}px` }} />
-        </div>
-        <p>{pointer}</p>
-      </div>
-
-      <br></br>
-      <br></br>
-
-      <footer className="sign">
-        <p style={{ fontSize: 'solid', fontStyle: 'italic' }}>© Copyright by Abel Prieto | Proyect ISDI Coders School</p>
-      </footer>
-
-    </div >
+        </Routes>
+      </Context.Provider>
+    </Router>
   </>
 
 }

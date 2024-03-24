@@ -10,6 +10,8 @@ import DeleteUser from './DeleteUser'
 import CreateGroup from './CreateGroup'
 import Users from './Users'
 import AssignGroup from './AssignGroup'
+import Group from './Group'
+import UserGroup from './UserGroup'
 
 export {
     Login,
@@ -23,5 +25,7 @@ export {
     DeleteUser,
     CreateGroup,
     Users,
-    AssignGroup
+    AssignGroup,
+    Group,
+    UserGroup
 }

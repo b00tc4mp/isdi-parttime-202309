@@ -72,8 +72,6 @@ function Upload() {
                 clientError.style.color = 'tomato'
 
                 handleError(error, navigate)
-
-                return
             })
     }
 

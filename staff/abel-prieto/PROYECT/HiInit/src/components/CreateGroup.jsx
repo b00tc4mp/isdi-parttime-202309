@@ -9,18 +9,26 @@ function CreateGroup() {
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
 
-    // REGISTER FUNCTION
-    function handleSubmit(event) {
+    // CREATE GROUP FUNCTION
+    function handleCreateGroup(event) {
         event.preventDefault()
 
-        const clientError = document.querySelector('#client-error-register')
-        const group = event.target.querySelector('#new-group').value
+        const clientError = document.querySelector('#client-error-newgroup')
+        const group = event.target.querySelector('#newgroup').value
+
+        console.log(typeof group)
 
         try {
-            return logic.registerAdmin(group)
+            return logic.createGroup(group)
                 .then(() => {
                     clientError.innerText = 'Group succesfully created! ✅'
                     clientError.style.color = 'green'
+                })
+                .catch(error => {
+                    clientError.innerText = error.message
+                    clientError.style.color = 'tomato'
+
+                    handleError(error, navigate)
                 })
         } catch (error) {
             clientError.innerText = error.message
@@ -39,15 +47,15 @@ function CreateGroup() {
         <div>
             <p>~$</p>
             <span>
-                <form className="newgroup-form" onSubmit={handleSubmit}>
+                <form className="newgroup-form" onSubmit={handleCreateGroup}>
                     <p id="client-error-newgroup">ADMIN - Create a new group: </p>
 
                     <div className="space-between">
                         <div className="fields">
-                            <label htmlFor="new-group"> <p style={{ color: '#18E3C8' }}>New group: </p></label>
-                            <input type="text" id="new-group" contentEditable="true" autoComplete="off" />
+                            <label htmlFor="newgroup"> <p style={{ color: '#18E3C8' }}>New group: </p></label>
+                            <input type="text" id="newgroup" contentEditable="true" autoComplete="off" />
                         </div>
-                        <button className="button-form" type="submit" >Send</button>
+                        <button className="button-form" type="submit" >Create</button>
                     </div>
 
                 </form>

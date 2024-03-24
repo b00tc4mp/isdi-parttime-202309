@@ -19,25 +19,21 @@ function Login({ onSuccess }) {
     function handleSubmit(event) {
         event.preventDefault()
 
+        const clientError = document.querySelector('#client-error-login')
+
         const email = event.target.querySelector('#email').value
         const password = event.target.querySelector('#password').value
 
         try {
             logic.loginUser(email, password)
-                .then(() => onSuccess())
+                .then(() => { onSuccess() })
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error-login')
-
                     clientError.innerText = error.message
                     clientError.style.color = 'tomato'
 
                     handleError(error, navigate)
-
-                    return
                 })
         } catch (error) {
-            const clientError = document.querySelector('#client-error-login')
-
             clientError.innerText = error.message
             clientError.style.color = 'tomato'
 

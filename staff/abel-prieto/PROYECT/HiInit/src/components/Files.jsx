@@ -8,10 +8,13 @@ function Files(props) {
     const { handleError } = useContext(Context)
     const navigate = useNavigate()
     const file = props.file
+    // const updateFiles = props.onDelete()
 
     // DELETE FILES
     function handleDeleteFile(event) {
         event.preventDefault()
+
+        const clientError = document.querySelector(props.clientError)
 
         Swal.fire({
             title: "Are you want to delete it?",
@@ -31,10 +34,11 @@ function Files(props) {
                             text: "Your file has been deleted.",
                             icon: "success"
                         })
+
+                        // UPDATE FILES
+                        props.updateFilesList(prevFiles => prevFiles.filter(f => f.id !== file.id))
                     })
                     .catch(error => {
-                        const clientError = document.querySelector(props.clientError)
-
                         clientError.innerText = `${error.message} ❌`
                         clientError.style.color = 'tomato'
 

@@ -23,6 +23,8 @@ function Email() {
     function handleSubmit(event) {
         event.preventDefault()
 
+        const clientError = document.querySelector('#client-error-email')
+
         const newEmail = event.target.querySelector('#new-email').value
         const password = event.target.querySelector('#password').value
         const againPassword = event.target.querySelector('#repeat-password').value
@@ -30,20 +32,14 @@ function Email() {
         try {
             logic.changeUserEmail(newEmail, password, againPassword)
                 .then(() => {
-                    const clientError = document.querySelector('#client-error-email')
-
                     clientError.innerText = 'Email successfully changed ✅'
                     clientError.style.color = 'green'
                 })
                 .catch(error => {
-                    const clientError = document.querySelector('#client-error-email')
-
                     clientError.innerText = error.message
                     clientError.style.color = 'tomato'
 
                     handleError(error, navigate)
-
-                    return
                 })
         } catch (error) {
             const clientError = document.querySelector('#client-error-email')

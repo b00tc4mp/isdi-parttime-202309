@@ -2,8 +2,8 @@ import session from './session.js'
 import { errors } from 'com'
 const { SystemError } = errors
 
-// LOGIC - RETRIEVE ALL USERS (ONLY ADMIN)
-function retrieveAllUsers() {
+// LOGIC - RETRIEVE ALL GROUPS (ONLY ADMIN)
+function retrieveAllGroups() {
     const req = {
         method: 'GET',
         headers: {
@@ -11,7 +11,7 @@ function retrieveAllUsers() {
         }
     }
 
-    return fetch(`${import.meta.env.VITE_HIINIT_APP}/admin/users/all`, req)
+    return fetch(`${import.meta.env.VITE_HIINIT_APP}/admin/groups/all`, req)
         .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
@@ -22,8 +22,8 @@ function retrieveAllUsers() {
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(users => { return users })
+                .then(groups => { return groups })
         })
 }
 
-export default retrieveAllUsers
+export default retrieveAllGroups

@@ -93,6 +93,13 @@ function Download() {
         })
     }
 
+    function handleRefreshOnDelete(file) {
+        const fileIndex = files.indexOf(file)
+
+        const updateFiles = files.slice(fileIndex)
+        setFiles(updateFiles)
+    }
+
     return (
         <div className="container">
             <p>~$</p>
@@ -125,7 +132,7 @@ function Download() {
                 </span>
             )}
 
-            {list && files.map(file => <Files key={file.id} file={file} clientError={'#client-error-download'} />)}
+            {list && files.map(file => <Files key={file.id} file={file} updateFilesList={setFiles} clientError={'#client-error-download'} onDelete={() => handleRefreshOnDelete(file)} />)}
         </div>
     )
 }

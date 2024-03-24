@@ -32,6 +32,9 @@ function Users(props) {
                             text: "User has been deleted.",
                             icon: "success"
                         })
+
+                        // UPDATE USERS
+                        props.updateUserList(prevUsers => prevUsers.filter(u => u.id !== user.id))
                     })
                     .catch(error => {
                         const clientError = document.querySelector(props.clientError)

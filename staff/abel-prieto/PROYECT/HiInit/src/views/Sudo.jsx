@@ -29,22 +29,26 @@ export default function Sudo() {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/desktop')
-            } else if ((commandText === '1') && event.key === 'Enter') {
+            } else if ((commandText === 'sudo --1') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/create-admin')
-            } else if ((commandText === '2') && event.key === 'Enter') {
+            } else if ((commandText === 'sudo --2') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/delete-user')
-            } else if ((commandText === '3') && event.key === 'Enter') {
+            } else if ((commandText === 'sudo --3') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/create-group')
-            } else if ((commandText === '4') && event.key === 'Enter') {
+            } else if ((commandText === 'sudo --4') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/assign-group')
+                // } else if ((commandText === 'sudo --5') && event.key === 'Enter') {
+                // setUknownCommand(false)
+                // setMenu(false)
+                // navigate('/administrator/assign-group')
             } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(true)
@@ -108,10 +112,11 @@ export default function Sudo() {
 
             {menu && (
                 <ol>
-                    <li><p><strong>Create new ADMIN</strong></p></li>
+                    <li><p><strong>Create New ADMIN</strong></p></li>
                     <li><p><strong>Delete Users</strong></p></li>
-                    <li><p><strong>Create new Group</strong></p></li>
-                    <li><p><strong>Assign groups to users</strong></p></li>
+                    <li><p><strong>Create New Group</strong></p></li>
+                    <li><p><strong>Assign Groups to Users</strong></p></li>
+                    <li><p><strong>Delete Groups - In Contruction</strong></p></li>
                 </ol>
             )}
 

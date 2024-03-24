@@ -22,7 +22,11 @@ function retrieveUser() {
 
             return res.json()
                 .catch(error => { throw new SystemError(error.message) })
-                .then(user => { return user })
+                .then(user => {
+
+                    session.role = user.role
+                    return user
+                })
         })
 }
 
