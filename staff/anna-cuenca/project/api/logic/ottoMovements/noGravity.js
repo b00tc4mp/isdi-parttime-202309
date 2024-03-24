@@ -29,24 +29,24 @@ async function noGravity(ottoInstance, userId) {
 
     console.log(`Executing noGravity`)
 
-    // Posiciones predeterminadas para simular el movimiento
+
     const positions = [
-        { leftFoot: 120, rightFoot: 140 }, // move1
-        { leftFoot: 140, rightFoot: 140 }, // move2
-        { leftFoot: 120, rightFoot: 140 }, // move3
-        { leftFoot: 90, rightFoot: 90 }    // move4
-    ];
+        { leftFoot: 120, rightFoot: 140 },
+        { leftFoot: 140, rightFoot: 140 },
+        { leftFoot: 120, rightFoot: 140 },
+        { leftFoot: 90, rightFoot: 90 }
+    ]
 
-    const tempo = 2000 // Duración en milisegundos de cada movimiento
+    const tempo = 2000
 
-    // Iterar sobre cada conjunto de posiciones
+    // hago todas las posiciones del vector
     for (const position of positions) {
         const servoLeftFoot = new Servo(4)
         const servoRightFoot = new Servo(5)
         servoLeftFoot.to(position.leftFoot)
         servoRightFoot.to(position.rightFoot)
 
-        // Esperar la duración antes de pasar al siguiente conjunto de posiciones
+
         await delay(tempo)
     }
 
@@ -57,12 +57,12 @@ async function noGravity(ottoInstance, userId) {
         const savedSequence = await saveInSequence({
             type: 'noGravity',
             name: 'No Gravity',
-            // Aquí puedes añadir cualquier otro detalle relevante del movimiento
+
         }, userId)
         console.log('No Gravity movement saved', savedSequence)
     } catch (error) {
         console.error('Error saving No Gravity movement', error)
-        throw error // Lanza el error para ser capturado por quien llama a noGravity
+        throw error
     }
 }
 

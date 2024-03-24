@@ -55,7 +55,7 @@ function Home(props) {
                 .then(user => {
                     setName(user.name)
                     console.log(user)
-                    setRole(user.role) // Suponiendo que también quieras mantener este estado local
+                    setRole(user.role)
                     context.setUserRole(user.role)
                     //context.userRole = user.role
 

@@ -5,12 +5,12 @@ const { SystemError } = errors
 function ottoController(action, message = '', sequenceId = null, userId) {
     let bodyData = { action: action, userId }
 
-    // Agrega sequenceId al bodyData solo si se proporciona
+    // Agrega sequenceId al bodyData solo si viene
     if (sequenceId) {
         bodyData.sequenceId = sequenceId
     }
 
-    // Si la acción es 'sayHi' y se proporciona un mensaje, inclúyelo también
+    // Si la acción es 'sayHi' y tiene un mensaje, se incluye
     if (action === 'sayHi' && message) {
         bodyData.message = message
     }
@@ -34,8 +34,8 @@ function ottoController(action, message = '', sequenceId = null, userId) {
                         throw new SystemError(error.message)
                     })
                     .then(body => {
-                        // Asegúrate de que el manejo de errores aquí es correcto según tu implementación de errores
-                        throw new Error(body.message) // O usa una lógica específica de manejo de errores si es necesario
+
+                        throw new Error(body.message)
                     })
             }
             return res.json()

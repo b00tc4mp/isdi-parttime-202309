@@ -19,12 +19,12 @@ async function snakeMove(ottoInstance, userId) {
 
 
     ottoInstance.oscillators.forEach((oscillator, index) => {
-        const isRightLeg = index % 2 !== 0; // Determina si es la pierna derecha.
+        const isRightLeg = index % 2 !== 0 // Mirar la pierna que es
         oscillator.setParameters({
-            amplitude: isRightLeg ? 20 : 40, // Amplitud reducida para la pierna derecha para el giro.
-            period: 600, // Un periodo más rápido para un giro ágil.
-            phase: isRightLeg ? Math.PI / 2 : 0, // Fase desfasada para la pierna derecha.
-            offset: 90 // Offset neutral.
+            amplitude: isRightLeg ? 20 : 40, // ajustar valores segun pierna
+            period: 600,
+            phase: isRightLeg ? Math.PI / 2 : 0, // ajustar valores segun pierna
+            offset: 90
         })
         oscillator.start()
     })

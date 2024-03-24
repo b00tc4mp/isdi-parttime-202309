@@ -16,7 +16,7 @@ function delay(ms) {
     return new Promise(resolve => {
         console.log(`Waiting ${ms} milliseconds...`)
         setTimeout(() => {
-            console.log("Wait over, continuing with the next action.")
+            console.log('Wait over, continuing with the next action.')
             resolve()
         }, ms)
     })
@@ -47,7 +47,7 @@ class OttoController {
             })
 
             this.otto.init()
-            this.sayHi("Otto está listo!")
+            this.sayHi('Otto está listo!')
         })
     }
 
@@ -55,16 +55,16 @@ class OttoController {
     ////////////// SEQUENCE LOGICS ////////////
 
     async executeMovement(movement) {
-        // Suponiendo que `movement` tiene una estructura como { type: 'crusaito', userId: '...', steps: 10, T: 1000, h: 20, dir: LEFT, ... }
-        const { type, userId, steps, T, h, dir, tempo } = movement // Extrae todos los posibles parámetros que podrían ser necesarios
+
+        const { type, userId, steps, T, h, dir, tempo } = movement // Extraigo los parámetros para poder pasarlos individualemte luego
 
         if (!this.otto) {
-            console.error("Otto is not initialized")
+            console.error('Otto is not initialized')
             return
         }
 
         try {
-            // Utiliza un switch para llamar al método correspondiente con los parámetros adecuados
+
             switch (type) {
                 case 'crusaito':
                     await this.crusaito(userId, steps, T, h, dir)
@@ -100,7 +100,7 @@ class OttoController {
                 case 'stop':
                     await this.stop(userId)
                     break;
-                // Añade más movimientos según sea necesario
+
                 default:
                     console.log(`Movement type '${type}' not recognized.`)
             }
@@ -241,82 +241,82 @@ class OttoController {
 
     async crusaito(userId, steps, T, h, dir) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.crusaito(this.otto, userId, steps, T, h, dir) // Uso del movimiento upDown
+        await movement.crusaito(this.otto, userId, steps, T, h, dir)
     }
 
     async upDown(userId, steps, T) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.upDown(this.otto, userId, steps, T) // Uso del movimiento upDown
+        await movement.upDown(this.otto, userId, steps, T)
     }
 
     async kickLeft(userId, tempo) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.kickLeft(this.otto, userId, tempo) // Uso del movimiento upDown
+        await movement.kickLeft(this.otto, userId, tempo)
     }
 
     async noGravity(userId) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.noGravity(this.otto, userId) // Uso del movimiento upDown
+        await movement.noGravity(this.otto, userId)
     }
 
 
     async moonwalker(userId, steps, T, h, dir) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.moonwalker(this.otto, userId, steps, T, h, dir) // Uso del movimiento upDown
+        await movement.moonwalker(this.otto, userId, steps, T, h, dir)
     }
 
 
     async swing(userId, steps, T, h) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.swing(this.otto, userId, steps, T, h) // Uso del movimiento upDown
+        await movement.swing(this.otto, userId, steps, T, h)
     }
 
 
     async shakeLegRight(userId, steps, T) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.shakeLegRight(this.otto, userId, steps, T) // Uso del movimiento upDown
+        await movement.shakeLegRight(this.otto, userId, steps, T)
     }
 
     async shakeLegLeft(userId, steps, T) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.shakeLegLeft(this.otto, userId, steps, T) // Uso del movimiento upDown
+        await movement.shakeLegLeft(this.otto, userId, steps, T)
     }
 
     async jump(userId) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.jump(this.otto, userId) // Uso del movimiento upDown
+        await movement.jump(this.otto, userId)
     }
 
     async snakeMove(userId) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.snakeMove(this.otto, userId) // Uso del movimiento upDown
+        await movement.snakeMove(this.otto, userId)
     }
 
     async stop(userId) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
-        await movement.stop(this.otto, userId) // Uso del movimiento upDown
+        await movement.stop(this.otto, userId)
     }
 
 
@@ -325,21 +325,21 @@ class OttoController {
 
     async turn(steps, period, direction) {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
         await movement.turn(this.otto, steps, period, direction) // Uso del movimiento upDown
     }
 
     async walkForward() {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
         await movement.walkForward(this.otto)
     }
 
     async walkBackward() {
         if (!this.otto) {
-            throw new Error("Otto is not initialized")
+            throw new Error('Otto is not initialized')
         }
         await movement.walkBackward(this.otto)
     }

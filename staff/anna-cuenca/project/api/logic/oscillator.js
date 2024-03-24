@@ -26,8 +26,8 @@ export class Oscillator {
     }
 
     reset() {
-        this.isRunning = false // Restablece el estado de ejecución
-        // Restablecer cualquier otro estado necesario aquí
+        this.isRunning = false
+
     }
 
     start() {
@@ -56,22 +56,22 @@ export class Oscillator {
 
         this.servo.to(angle)
 
-        // Planifica el próximo update
+
         setTimeout(() => this.update(), 50) // Actualiza cada 50ms
     }
 
     stop() {
         if (this.servo) {
-            this.servo.to(this.offset) // Mueve el servo a una posición neutral o deseada antes de detener
-            this.servo.stop() // Intenta llamar a stop en el objeto servo directamente si está disponible
+            this.servo.to(this.offset)
+            this.servo.stop()
         }
         this.isRunning = false
     }
 
     restart() {
-        this.stop()  // Detiene el oscilador si está corriendo
-        this.reset() // Restablece cualquier estado necesario
-        this.start() // Inicia el oscilador
+        this.stop()
+        this.reset()
+        this.start()
     }
 
 }

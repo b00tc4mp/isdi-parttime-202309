@@ -8,6 +8,8 @@ function editSequence(sequenceId, movementId, action) {
 
 
     return (async () => {
+
+        //primero busco la secuencia
         let sequence
 
         try {
@@ -20,12 +22,19 @@ function editSequence(sequenceId, movementId, action) {
             throw new NotFoundError('Sequence not found')
         }
 
+        // pongo en la variable movements, los movimientos de la secuencia
+
         const movements = sequence.movements
+
+        // dentro de esos movimientos, busco por id, el movimiento que me pasan
         const movementIndex = movements.findIndex(movement => movement.id === movementId)
 
+        // si el index es -1, es que no ha encontrado el movimiento
         if (movementIndex === -1) {
             throw new NotFoundError('Movement not found in sequence')
         }
+
+        //hago un switch con las diferentes acciones que puedo hacer una vez tengo el movimiento
 
         switch (action) {
             case 'delete':
@@ -33,6 +42,7 @@ function editSequence(sequenceId, movementId, action) {
                 break;
             case 'moveUp':
                 if (movementIndex === 0) {
+                    //compruebo si la posición ya es la primera
                     throw new ValidationError('Movement is already at the top')
                 }
                 // Intercambiar la posición con el movimiento anterior
@@ -49,10 +59,10 @@ function editSequence(sequenceId, movementId, action) {
                 throw new ValidationError('Invalid action')
         }
 
-        // Guardar los cambios en la base de datos
+        // Guardo los cambios en la base de datos
         await sequence.save()
 
-        return sequence // Devuelve la secuencia actualizada
+        return sequence // Devuelvo la secuencia actualizada
     })()
 }
 

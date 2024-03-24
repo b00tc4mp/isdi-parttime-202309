@@ -23,9 +23,9 @@ function editTutorial(tutorialId, { title, text }) {
                     throw new errors[body.error](body.message)
                 })
             }
-            // Si la respuesta es exitosa y no esperamos contenido, no intentamos procesarla como JSON
+
             if (res.status === 204) {
-                return null // O manejar adecuadamente según tu lógica de aplicación
+                return null
             }
             return res.json()
         })

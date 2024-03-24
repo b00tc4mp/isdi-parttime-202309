@@ -34,7 +34,7 @@ async function swing(ottoInstance, userId, steps, T, h) {
         await new Promise(resolve => setTimeout(resolve, T / steps));
     }
 
-    // Volver a poner servos en la posición normal
+    // servos en posición neutral
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
 
@@ -52,7 +52,7 @@ async function swing(ottoInstance, userId, steps, T, h) {
         console.log('Swing movement saved', savedSequence)
     } catch (error) {
         console.error('Error saving Swing movement', error)
-        throw error // Lanza el error para ser capturado por quien llama a swing
+        throw error
     }
 }
 

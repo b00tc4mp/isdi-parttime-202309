@@ -17,17 +17,17 @@ async function shakeLegRight(ottoInstance, userId, steps, T) {
 
     console.log(`Shaking right leg for ${steps} steps with period ${T}`)
 
-    // Definir los pines para la pierna y pie derecho específicamente
+
     const legPin = 3
     const footPin = 5
 
     const legServo = new Servo(legPin)
     const footServo = new Servo(footPin)
 
-    // Iniciar el movimiento de sacudida para la pierna derecha
+
     for (let i = 0; i < steps; i++) {
         const phaseProgress = (i / steps) * 2 * Math.PI
-        const angle = 30 * Math.sin(phaseProgress) + 90 // Ejemplo con amplitud de 30 y offset de 90
+        const angle = 30 * Math.sin(phaseProgress) + 90
         legServo.to(angle)
         footServo.to(angle)
         await new Promise(resolve => setTimeout(resolve, T / steps))
@@ -41,7 +41,7 @@ async function shakeLegRight(ottoInstance, userId, steps, T) {
 
     try {
         const savedSequence = await saveInSequence({
-            type: 'shakeLegRight', // Tipo específico para sacudir la pierna derecha
+            type: 'shakeLegRight',
             name: 'Shake Leg Right',
             steps,
             T,

@@ -74,14 +74,16 @@ export default function Controller() {
                 }, 2000)
 
             } else if (action === 'endSequence') {
-                // Aquí se asume que endSequence necesita el userId, que ya verificamos
+
+                //esto lo podría quitar...
+
                 await logic.ottoController(action, '', null, userId)
                 console.log(`${action} action executed successfully`)
 
-                // Actualizar el estado para recargar o actualizar la UI según sea necesario
+                //actualizo 
                 setReloadSequences(prev => !prev)
             } else {
-                // Para todas las demás acciones que no requieren un mensaje específico
+
                 await logic.ottoController(action, '', null, userId)
                 console.log(`${action} action executed successfully`)
                 setReloadSequences(prev => !prev)

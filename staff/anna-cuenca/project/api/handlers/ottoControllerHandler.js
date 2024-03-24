@@ -55,7 +55,7 @@ export default (req, res) => {
                 break;
 
             case 'upDown':
-                logic.ottoController.upDown(userId, 4, 1000).then(() => {
+                logic.ottoController.upDown(userId, 4, 2000).then(() => {
                     res.status(200).json({ message: 'Otto is snaking' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
@@ -71,7 +71,7 @@ export default (req, res) => {
                 break;
 
             case 'shakeLegRight':
-                logic.ottoController.shakeLegRight(userId, 3, 1000).then(() => { // Asegúrate de que esta función exista y esté implementada correctamente
+                logic.ottoController.shakeLegRight(userId, 3, 1000).then(() => {
                     res.status(200).json({ message: 'Otto is shaking right leg' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
@@ -79,7 +79,7 @@ export default (req, res) => {
                 break;
 
             case 'shakeLegLeft':
-                logic.ottoController.shakeLegLeft(userId, 4, 1000).then(() => { // Asegúrate de que esta función exista y esté implementada correctamente
+                logic.ottoController.shakeLegLeft(userId, 4, 1000).then(() => {
                     res.status(200).json({ message: 'Otto is shaking left leg' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
@@ -124,7 +124,7 @@ export default (req, res) => {
                 break;
 
             case 'turnRight':
-                logic.ottoController.turn(7, 2000, RIGHT).then(() => {
+                logic.ottoController.turn(5, 2000, RIGHT).then(() => {
                     res.status(200).json({ message: 'Otto is turning right' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })
@@ -132,7 +132,7 @@ export default (req, res) => {
                 break;
 
             case 'turnLeft':
-                logic.ottoController.turn(7, 2000, LEFT).then(() => {
+                logic.ottoController.turn(5, 2000, LEFT).then(() => {
                     res.status(200).json({ message: 'Otto is turning left' })
                 }).catch(error => {
                     res.status(500).json({ error: error.constructor.name, message: error.message })

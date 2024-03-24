@@ -18,7 +18,8 @@ async function walkForward(ottoInstance) {
 
         await ottoInstance.restartOscillators()
         await ottoInstance.home()
-        await ottoInstance.walk(4, 2000, FORWARD)
+        // await ottoInstance.walk(4, 2000, FORWARD)
+        await ottoInstance.walkForward(4, 1000)
         console.log('Otto walked ')
     } catch (error) {
         console.error('Otto failed to walk forward:', error)

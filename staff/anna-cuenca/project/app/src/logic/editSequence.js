@@ -9,10 +9,10 @@ function editSequence(sequenceId, movementId, action) {
     const req = {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json', // Asegúrate de incluir este header para indicar que el cuerpo es JSON
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${session.token}`
         },
-        // Incluye movementId y action en el cuerpo de la solicitud como un objeto JSON
+
         body: JSON.stringify({ movementId, action })
     }
 

@@ -32,7 +32,7 @@ function retrieveTutorials() {
                 //si hay un error al convertir la respuesta a JSON, llama al callback con ese error
 
 
-            } //finaliza la respuesta no exitosa
+            }
 
             return res.json()
 

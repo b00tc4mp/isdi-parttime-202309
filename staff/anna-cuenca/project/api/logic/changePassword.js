@@ -3,8 +3,7 @@ import bcrypt from 'bcryptjs'
 import { User } from '../data/models.js'
 const { NotFoundError, CredentialsError, SystemError, DuplicityError } = errors
 function changePassword(userId, password, newPassword, repeatNewPassword) {
-    // TODO validate inputs
-    // tenemos que ver lo que tenemos guardado en el disco, me traigo los usuarios, cargo el fuichero
+
     validate.id(userId, 'user id')
     validate.password(password, 'password')
     validate.password(newPassword, 'password')

@@ -30,8 +30,8 @@ function Login(props) {
                 .then(() => {
 
                     const userId = sessionStorage.getItem('userId')
-                    console.log(userId) // Deberías ver el userId correcto
-                    props.onSuccess()// Realiza cualquier acción posterior necesaria, como navegar a otra página
+                    console.log(userId)
+                    props.onSuccess()
                 })
                 .catch(error => context.handleError(error))
 

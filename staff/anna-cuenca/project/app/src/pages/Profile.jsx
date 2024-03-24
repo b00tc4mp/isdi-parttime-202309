@@ -24,7 +24,7 @@ export default function Profile() {
                 setUserData(data)
             })
             .catch(error => {
-                context.handleError(error) // Manejar el error según tu lógica o contexto global
+                context.handleError(error)
             })
     }, []) // El array vacío hace que no se pinte más
 
@@ -82,7 +82,7 @@ export default function Profile() {
 
                     alert("E-mail changed")
 
-                    event.target.reset() // limpia los campos
+                    event.target.reset()
                     navigate('/')
 
                 })

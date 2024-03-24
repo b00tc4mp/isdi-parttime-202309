@@ -27,9 +27,9 @@ async function kickLeft(ottoInstance, userId, tempo) {
 
     console.log(`Executing kickLeft with tempo ${tempo}`)
 
-    // Inicializa los servos
-    const servoRightLeg = new Servo(3) // Asumiendo pie derecho en pin 3
-    const servoLeftLeg = new Servo(2)  // Asumiendo pie izquierdo en pin 2
+
+    const servoRightLeg = new Servo(3)
+    const servoLeftLeg = new Servo(2)
 
     // Colocar ambos pies en posición neutral al inicio
     servoRightLeg.to(90)
@@ -50,7 +50,7 @@ async function kickLeft(ottoInstance, userId, tempo) {
     for (let movement of movements) {
         servoRightLeg.to(movement.right)
         servoLeftLeg.to(movement.left)
-        await delay(tempo / 4) // Ajustar el tiempo según sea necesario
+        await delay(tempo / 4)
     }
 
     console.log("kickLeft completed")
@@ -66,7 +66,7 @@ async function kickLeft(ottoInstance, userId, tempo) {
         console.log('kickLeft movement saved', savedSequence)
     } catch (error) {
         console.error('Error saving kickLeft movement', error)
-        throw error // Lanza el error para ser capturado por quien llama a kickLeft
+        throw error
     }
 }
 

@@ -81,15 +81,15 @@ export class Otto {
 
             this.oscillators.forEach((oscillator, index) => {
 
-                const isLeg = index < 2  //ajuste piernas
-                const adjustment = isLeg ? 0 : 5 //ajuste pies
-                const phaseAdjustment = Math.PI + (isLeg ? 0 : Math.PI / 4) // Ajustar fase para pies diferente que para piernas
+                const isLeg = index < 2
+                const adjustment = isLeg ? 0 : 5
+                const phaseAdjustment = Math.PI + (isLeg ? 0 : Math.PI / 4)
 
                 oscillator.setParameters({
-                    amplitude: 20 + adjustment, // Ajuste de amplitud para compensar desviación
-                    period: 1000, // Periodo para velocidad
-                    phase: phaseAdjustment, // Ajuste de fase para coordinación
-                    offset: 90 // Offset neutro
+                    amplitude: 20 + adjustment,
+                    period: 1000,
+                    phase: phaseAdjustment,
+                    offset: 90
                 })
                 oscillator.start()
             })
@@ -106,23 +106,21 @@ export class Otto {
             console.log(`Intentando caminar ${steps} pasos hacia adelante con un periodo de ${period}`)
 
             this.oscillators.forEach((oscillator, index) => {
-                const isLeg = index < 2; // Identifica si el oscilador es para una pierna
-                const adjustment = isLeg ? 0 : 5; // Los pies pueden necesitar un ajuste para asegurar un paso firme
-                // La fase para caminar hacia adelante es generalmente directa para las piernas, 
-                // y los pies pueden tener una fase ligeramente ajustada para coordinar el movimiento.
-                const phaseAdjustment = isLeg ? 0 : Math.PI / 4 // Ajuste de fase para los pies
+                const isLeg = index < 2 // los osciladores son de las piernas
+                const adjustment = isLeg ? 0 : 5 // el ajuste es diferente según sea para pierna o pie
+                const phaseAdjustment = isLeg ? 0 : -Math.PI / 4 // La fase igual
 
                 oscillator.setParameters({
-                    amplitude: 20 + adjustment, // Amplitud ajustada para un paso firme
-                    period: period, // Periodo para controlar la velocidad de caminata
-                    phase: phaseAdjustment, // Ajuste de fase para coordinación entre piernas y pies
-                    offset: 90 // Offset neutro, punto de partida medio para el movimiento
+                    amplitude: 20 + adjustment,
+                    period: period,
+                    phase: phaseAdjustment,
+                    offset: 90
                 })
                 oscillator.start()
             })
 
             setTimeout(() => {
-                this.stopServos() // Detiene los servos y los coloca en posición neutral
+                this.stopServos()
                 resolve()
             }, period * steps)
         })

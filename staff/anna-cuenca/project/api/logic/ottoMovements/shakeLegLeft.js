@@ -27,13 +27,13 @@ async function shakeLegLeft(ottoInstance, userId, steps, T) {
     // Iniciar el movimiento de sacudida para la pierna izquierda
     for (let i = 0; i < steps; i++) {
         const phaseProgress = (i / steps) * 2 * Math.PI
-        const angle = 30 * Math.sin(phaseProgress) + 90 // Ejemplo con amplitud de 30 y offset de 90
+        const angle = 30 * Math.sin(phaseProgress) + 90
         legServo.to(angle)
         footServo.to(angle)
         await new Promise(resolve => setTimeout(resolve, T / steps))
     }
 
-    // Regresar la pierna y el pie a posición central/neutra
+    // posicion de los servos neutra
     legServo.to(90)
     footServo.to(90)
 
@@ -41,7 +41,7 @@ async function shakeLegLeft(ottoInstance, userId, steps, T) {
 
     try {
         const savedSequence = await saveInSequence({
-            type: 'shakeLegLeft', // Tipo específico para sacudir la pierna izquierda
+            type: 'shakeLegLeft',
             name: 'Shake Leg Left',
             steps,
             T,

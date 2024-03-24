@@ -15,12 +15,12 @@ async function stop(ottoInstance, userId) {
         throw new Error("Otto is not initialized")
     }
 
-    // Detener los servos de Otto
+    // para servos
     ottoInstance.stopServos()
     console.log("Otto has stopped")
 
     try {
-        // Ahora utilizamos saveInSequence para guardar el movimiento de detención
+
         const savedSequence = await saveInSequence({
             type: 'stop',
             name: 'Stop'

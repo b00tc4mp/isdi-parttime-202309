@@ -17,8 +17,8 @@ async function moonwalker(ottoInstance, userId, steps, T, h, dir) {
 
     console.log(`Moonwalking for ${steps} steps with period ${T}, height ${h}, and direction ${dir}`)
 
-    const servoLeftFoot = new Servo(4) // o 'A2' para OTTO GRANDE
-    const servoRightFoot = new Servo(5) // o 'A0' para OTTO GRANDE
+    const servoLeftFoot = new Servo(4)
+    const servoRightFoot = new Servo(5)
 
     const angleStartLeft = dir === LEFT ? 90 - h : 90 + h
     const angleStartRight = dir === LEFT ? 90 + h : 90 - h
@@ -36,7 +36,7 @@ async function moonwalker(ottoInstance, userId, steps, T, h, dir) {
         await new Promise(resolve => setTimeout(resolve, T / steps))
     }
 
-    // Regresar los servos a la posición central
+    // Devuelvo los servos a la posición neutral
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
 

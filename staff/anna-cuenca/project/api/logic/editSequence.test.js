@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import editSequence from './editSequence.js';
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import editSequence from './editSequence.js'
 
 dotenv.config();
 
@@ -13,8 +13,8 @@ dotenv.config();
     console.log("Pulsa 'd' para bajar la secuencia una posición.")
     console.log("Pulsa 'Ctrl + C' para salir del programa.")
 
-    const sequenceId = '65ec9788bcfbaf8e5d352a6c' // Reemplaza esto con el ID real de tu secuencia
-    const movementId = '65ec9ced16cd00646b53aa1d' // Reemplaza esto con el ID real del movimiento
+    const sequenceId = '65ec9788bcfbaf8e5d352a6c'
+    const movementId = '65ec9ced16cd00646b53aa1d'
 
     process.stdin.setRawMode(true)
     process.stdin.resume()

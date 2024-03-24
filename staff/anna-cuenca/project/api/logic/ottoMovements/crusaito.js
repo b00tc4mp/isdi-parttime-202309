@@ -39,7 +39,8 @@ const crusaito = async (ottoInstance, userId, steps, T, h, dir) => {
     }
 
 
-    await new Promise(resolve => setTimeout(resolve, 2000)) // Añadido un pequeño buffer
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    // envolvemos setTimeout en una promesa, porque no devuelve ninguna y por eso no podemos usa async/await
 
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
@@ -59,7 +60,7 @@ const crusaito = async (ottoInstance, userId, steps, T, h, dir) => {
         console.log('Crusaito movement saved', savedSequence)
     } catch (error) {
         console.error('Error saving Crusaito', error)
-        throw error // Lanza el error para ser capturado por quien llama a crusaito
+        throw error
     }
 }
 
