@@ -20,7 +20,8 @@ import {
     registerAdminHandler,
     createGroupHandler,
     retrieveAllGroupsHandler,
-    assignGroupsHandler
+    assignGroupsHandler,
+    deleteGroupHandler
 } from './handlers/index.js'
 
 dotenv.config()
@@ -88,7 +89,7 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         server.patch('/admin/groups/edit', jsonBodyParser, assignGroupsHandler)
 
         // DELETE GROUPS
-        // server.delete('/admin/groups/delete/:groupId', createGroupHandler)
+        server.delete('/admin/groups/delete/:groupId', deleteGroupHandler)
 
         // CREATE COMMANDS
         // server.post('/admin/commands', createCommandHandler)

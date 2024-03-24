@@ -4,31 +4,25 @@ import { errors } from 'com'
 const { NotFoundError, CredentialsError, ContentError, TokenError } = errors
 const { JsonWebTokenError } = jwt
 
-export default (req, res) => {
+export default async (req, res) => {
+    const { email, password } = req.body
+
     try {
-        const { email, password } = req.body
+        const userId = await authenticateUser(email, password)
+        const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE })
 
-        authenticateUser(email, password)
-            .then(userId => {
-                const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE })
+        res.json(token)
 
-                res.json(token)
-            })
-            .catch(error => {
-                let status = 500
-
-                if (error instanceof NotFoundError) {
-                    status = 404
-                }
-
-                if (error instanceof CredentialsError) {
-                    status = 406
-                }
-
-                res.status(status).json({ error: error.constructor.name, message: error.message })
-            })
     } catch (error) {
         let status = 500
+
+        if (error instanceof NotFoundError) {
+            status = 404
+        }
+
+        if (error instanceof CredentialsError) {
+            status = 406
+        }
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 409

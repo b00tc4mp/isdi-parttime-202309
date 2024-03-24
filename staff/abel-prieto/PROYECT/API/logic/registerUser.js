@@ -6,11 +6,11 @@ import { validate } from 'com'
 const { SystemError, DuplicityError } = errors
 
 async function registerUser(username, email, password) {
-    try {
-        validate.text(username, 'Username')
-        validate.email(email, 'Email')
-        validate.password(password, 'Password')
+    validate.text(username, 'Username')
+    validate.email(email, 'Email')
+    validate.password(password, 'Password')
 
+    try {
         const hash = await bcrypt.hash(password, 5)
         const user = await User.create({ username, email, password: hash, group: 'localhost', role: 'user' })
 

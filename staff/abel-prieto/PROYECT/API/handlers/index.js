@@ -16,6 +16,7 @@ import registerAdminHandler from './registerAdminHandler.js'
 import createGroupHandler from './createGroupHandler.js'
 import retrieveAllGroupsHandler from './retrieveAllGroupsHandler.js'
 import assignGroupsHandler from './assignGroupsHandler.js'
+import deleteGroupHandler from './deleteGroupHandler.js'
 
 export {
     authenticateUserHandler,
@@ -35,5 +36,6 @@ export {
     registerAdminHandler,
     createGroupHandler,
     retrieveAllGroupsHandler,
-    assignGroupsHandler
+    assignGroupsHandler,
+    deleteGroupHandler
 }

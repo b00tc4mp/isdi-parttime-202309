@@ -13,6 +13,7 @@ export default async (req, res) => {
     try {
         await assignGroups(userId, selectedUserId, selectedGroupId)
         res.status(200).send()
+
     } catch (error) {
         let status = 500
 
@@ -24,11 +25,7 @@ export default async (req, res) => {
             status = 404
         }
 
-        if (error instanceof DuplicityError) {
-            status = 406
-        }
-
-        if (error instanceof TypeError || error instanceof ContentError) {
+        if (error instanceof TypeError || error instanceof ContentError || error instanceof DuplicityError) {
             status = 409
         }
 

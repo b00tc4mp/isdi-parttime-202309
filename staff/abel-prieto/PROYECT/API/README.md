@@ -96,7 +96,7 @@
 - Response: 200
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message } 
 
-`Delete Groups` 
+`Delete Groups` ✅
 - Request: DELETE /admin/groups/delete/:groupId Authorization: Bearer ${session.token}
 - Response: 200
 - Response (error) : 500|409|406|401 "Content-Type": application/json { error, message }

@@ -16,16 +16,16 @@ export default async (req, res) => {
     } catch (error) {
         let status = 500
 
+        if (error instanceof AuthorizationError) {
+            status = 401
+        }
+
         if (error instanceof NotFoundError) {
             status = 404
         }
 
         if (error instanceof ContentError || error instanceof TypeError) {
             status = 409
-        }
-
-        if (error instanceof AuthorizationError) {
-            status = 401
         }
 
         if (error instanceof JsonWebTokenError) {

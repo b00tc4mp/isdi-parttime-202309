@@ -22,17 +22,12 @@ export default async (req, res) => {
         if (error instanceof NotFoundError)
             status = 404
 
-        if (error instanceof ContentError || error instanceof TypeError) {
+        if (error instanceof ContentError || error instanceof TypeError || error instanceof DuplicityError) {
             status = 409
-        }
-
-        if (error instanceof DuplicityError) {
-            status = 406
         }
 
         if (error instanceof JsonWebTokenError) {
             status = 401
-
             error = new TokenError(error.message)
         }
 

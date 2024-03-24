@@ -1,21 +1,18 @@
 import jwt from 'jsonwebtoken'
-import downloadFile from '../logic/downloadFile.js'
+import deleteGroup from '../logic/deleteGroup.js'
 import { errors } from 'com'
-
 const { JsonWebTokenError } = jwt
-const { NotFoundError, ContentError, TokenError, AuthorizationError } = errors
+const { NotFoundError, AuthorizationError, TokenError, ContentError } = errors
 
-export default async (req, res, next) => {
+export default async (req, res) => {
     const token = req.headers.authorization.substring(7)
     const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-    const { fileId } = req.params
+    const { groupId } = req.params
 
     try {
-        const file = await downloadFile(userId, fileId)
-        const { path, originalName } = file
-
-        res.download(path, originalName)
+        await deleteGroup(userId, groupId)
+        res.status(200).send()
 
     } catch (error) {
         let status = 500
@@ -28,7 +25,7 @@ export default async (req, res, next) => {
             status = 404
         }
 
-        if (error instanceof ContentError || error instanceof TypeError) {
+        if (error instanceof TypeError || error instanceof ContentError) {
             status = 409
         }
 
