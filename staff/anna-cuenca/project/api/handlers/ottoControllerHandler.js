@@ -131,6 +131,14 @@ export default (req, res) => {
                 })
                 break;
 
+            case 'turnLeft':
+                logic.ottoController.turn(7, 2000, LEFT).then(() => {
+                    res.status(200).json({ message: 'Otto is turning left' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
             case 'jump':
                 logic.ottoController.jump(userId).then(() => {
                     res.status(200).json({ message: 'Otto is jumping' })

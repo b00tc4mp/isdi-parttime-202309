@@ -8,22 +8,22 @@ const BACKWARD = -1
 const LEFT = 1
 const RIGHT = -1
 
-const turn = (ottoInstance, steps, period, direction) => {
-    return new Promise((resolve, reject) => {
-        if (!ottoInstance) {
-            reject(new Error("Otto is not initialized"))
-            return;
-        }
-        ottoInstance.restartOscillators()
+async function turn(ottoInstance, steps, period, direction) {
+    if (!ottoInstance) {
+        throw new Error("Otto is not initialized")
+    }
 
-        // Convertir dirección a multiplicador para el ajuste de fase
+    try {
+        await ottoInstance.restartOscillators()
+
+
         const dirMultiplier = direction === LEFT ? 1 : -1
 
         // Configurar los parámetros de los osciladores para girar
-        const legAmplitude = 30 // Amplitud para las piernas, igual para ambos lados
-        const footAmplitude = 30 // Amplitud para los pies, igual para ambos lados
-        const hipAmplitudeDiff = 30 // Diferencia de amplitud entre las caderas para girar
-        const phaseDiffFoot = Math.PI / 2 // Los pies se mueven con una fase desfasada
+        const legAmplitude = 30
+        const footAmplitude = 30
+        const hipAmplitudeDiff = 30
+        const phaseDiffFoot = Math.PI / 2
 
         // Ajustar la amplitud de las caderas basado en la dirección
         const leftHipAmplitude = direction === LEFT ? legAmplitude : legAmplitude - hipAmplitudeDiff
@@ -31,14 +31,9 @@ const turn = (ottoInstance, steps, period, direction) => {
 
         // Configurar los osciladores para simular el giro
         ottoInstance.oscillators.forEach((oscillator, index) => {
-            let amplitude = legAmplitude
-            if (index === 0) { // Pierna izquierda
-                amplitude = leftHipAmplitude
-            } else if (index === 1) { // Pierna derecha
-                amplitude = rightHipAmplitude
-            } else { // Pies
-                amplitude = footAmplitude
-            }
+            let amplitude = index < 2 ? legAmplitude : footAmplitude
+            if (index === 0) { amplitude = leftHipAmplitude } // Pierna izquierda
+            else if (index === 1) { amplitude = rightHipAmplitude } // Pierna derecha
 
             oscillator.setParameters({
                 amplitude: amplitude,
@@ -50,11 +45,15 @@ const turn = (ottoInstance, steps, period, direction) => {
         })
 
         // Detener el giro después de la duración calculada
-        setTimeout(() => {
-            ottoInstance.stopServos() // Detiene y coloca en posición neutral todos los osciladores
-            resolve()
-        }, steps * period)
-    })
+        await new Promise(resolve => setTimeout(resolve, steps * period))
+
+        ottoInstance.stopServos() // Detiene y coloca en posición neutral todos los osciladores
+        console.log("Turn completed")
+    } catch (error) {
+        console.error('Failed to execute turn:', error)
+        throw error // Propaga el error para manejo externo si es necesario.
+    }
 }
+
 
 export default turn
