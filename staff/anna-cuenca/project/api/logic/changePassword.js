@@ -10,7 +10,7 @@ function changePassword(userId, password, newPassword, repeatNewPassword) {
     validate.password(repeatNewPassword, 'password')
     return (async () => {
         if (newPassword !== repeatNewPassword)
-            throw new CredentialsError('The new email and the confirmation password do not match')
+            throw new CredentialsError('The new password and the confirmation do not match')
         let user
         try {
             user = await User.findById(userId)
