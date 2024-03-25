@@ -5,6 +5,7 @@ import Context from '../Context'
 import { Pointer, CommandBar } from '../utils'
 
 import logic from '../logic'
+import session from '../logic/session.js'
 
 function Desktop() {
     const [commandText, setCommandText] = useState('')
@@ -19,22 +20,22 @@ function Desktop() {
     const { handleError } = useContext(Context)
 
     // RETRIEVE ROLE
-    useEffect(() => {
-        if (fetchingUser) {
-            const fetchUser = async () => {
-                try {
-                    const user = await logic.retrieveUser()
-                    setRole(user.role)
-                    setFetchingUser(!fetchingUser)
-                } catch (error) {
-                    setFetchingUser(!fetchingUser)
-                    handleError(error, navigate)
-                }
-            }
+    // useEffect(() => {
+    //     if (fetchingUser) {
+    //         const fetchUser = async () => {
+    //             try {
+    //                 const user = await logic.retrieveUser()
+    //                 setRole(user.role)
+    //                 setFetchingUser(!fetchingUser)
+    //             } catch (error) {
+    //                 setFetchingUser(!fetchingUser)
+    //                 handleError(error, navigate)
+    //             }
+    //         }
 
-            fetchUser()
-        }
-    }, [fetchingUser, role, handleError, navigate])
+    //         fetchUser()
+    //     }
+    // }, [fetchingUser, role, handleError, navigate])
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {
@@ -52,7 +53,7 @@ function Desktop() {
             } else if ((commandText === 'PROFILE' || commandText === 'profile') && event.key === 'Enter') {
                 setUknownCommand(false)
                 navigate('/profile')
-            } else if (role.includes('admin') && (commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setFetchingUser(!fetchingUser)
                 navigate('/administrator')
@@ -112,7 +113,7 @@ function Desktop() {
                 </span>
             )}
 
-            {role.includes('user') && help && (
+            {session.role === 'user' && help && (
                 <ul>
                     <p>USER ~$ Command types </p>
                     <p>- - - - - - - - - - - - - - - - - - - </p>
@@ -125,7 +126,7 @@ function Desktop() {
                     <li><p>exit: <em>get back to initial page</em></p></li>
                     <p>- - - - - - - - - - - - - - - - - - - </p>
                 </ul>
-            ) || role.includes('admin') && help && (
+            ) || session.role === 'admin' && help && (
                 <ul>
                     <p>ADMIN ~$ Command types </p>
                     <p>- - - - - - - - - - - - - - - - - - - </p>

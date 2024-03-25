@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Routes, Route, Navigate } from 'react-router-dom'
+import { useNavigate, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
 import { Desktop } from '../views'
 import { Login, Register } from '../components'
@@ -9,6 +9,9 @@ import logic from '../logic'
 import Context from '../Context'
 
 function Credentials() {
+
+    //const location = useLocation()
+    // console.log(location.pathname)
 
     // POINTER, UKNOWN COMMAND & POINTER STATE
     const [commandText, setCommandText] = useState('')

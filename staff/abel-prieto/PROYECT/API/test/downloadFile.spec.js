@@ -25,9 +25,11 @@ describe('downloadFile', () => {
         await fs.writeFile(path, 'Descarga de archivo de prueba')
 
         const succesDownloadFile = await downloadFile(user.id, file.id)
-        const { newPath } = succesDownloadFile
+        const { path: newPath } = succesDownloadFile
 
         let fileExist = true
+
+        console.log(newPath)
 
         try {
             await fs.access(newPath)
@@ -35,8 +37,8 @@ describe('downloadFile', () => {
             fileExist = false
         }
 
-        // expect(fileExist).to.be.true
-        expect(newPath).to.be.equal(file.name)
+        expect(fileExist).to.be.true
+        expect(newPath).to.be.equal(`./downloads/${file.name}`)
     })
 
     // NEGATIVE CASE - User not found

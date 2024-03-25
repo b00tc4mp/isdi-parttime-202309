@@ -24,8 +24,10 @@ function Register({ onSuccess }) {
     }
 
     // REGISTER FUNCTION
-    function handleSubmit(event) {
+    function handleSubmitRegister(event) {
         event.preventDefault()
+
+        console.log('hola register')
 
         const clientError = document.querySelector('#client-error-register')
 
@@ -60,7 +62,7 @@ function Register({ onSuccess }) {
         <div>
             <p>~$</p>
             <span>
-                <form className="register-form" onSubmit={handleSubmit}>
+                <form className="register-form" onSubmit={handleSubmitRegister}>
                     <p id="client-error-register">Register - Create your account data: </p>
 
                     <div className="space-between">

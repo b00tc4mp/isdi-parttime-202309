@@ -16,8 +16,10 @@ function Login({ onSuccess }) {
         setShowPassword(true)
     }
 
-    function handleSubmit(event) {
+    function handleSubmitLogin(event) {
         event.preventDefault()
+
+        console.log('hola login')
 
         const clientError = document.querySelector('#client-error-login')
 
@@ -26,7 +28,7 @@ function Login({ onSuccess }) {
 
         try {
             logic.loginUser(email, password)
-                .then(() => { onSuccess() })
+                .then(() => onSuccess())
                 .catch(error => {
                     clientError.innerText = error.message
                     clientError.style.color = 'tomato'
@@ -50,7 +52,7 @@ function Login({ onSuccess }) {
         <div>
             <p>~$</p>
             <span>
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleSubmitLogin}>
                     <p id="client-error-login">Login - Entry your credentials: </p>
 
                     {showEmail && (
@@ -67,7 +69,7 @@ function Login({ onSuccess }) {
                         </div>
                     )}
 
-                    <button className="button-form">Send</button>
+                    <button className="button-form" type="submit" >Send</button>
                 </form>
             </span>
         </div >

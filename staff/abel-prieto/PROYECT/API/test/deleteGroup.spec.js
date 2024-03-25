@@ -78,8 +78,8 @@ describe('deleteGroup', () => {
         }
     })
 
-    // NEGATIVE CASE - Group 'localhost' not found
-    it('fails on group localhost (default) not found', async () => {
+    // NEGATIVE CASE - Trying to delete without ADMIN mode
+    it('fails on deleting group without ADMIN mode', async () => {
         const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
         const group = await Group.create({ name: 'testgroup', members: [] })
 

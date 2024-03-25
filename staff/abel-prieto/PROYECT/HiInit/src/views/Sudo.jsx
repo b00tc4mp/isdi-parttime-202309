@@ -7,6 +7,7 @@ import { RegisterAdmin, CreateGroup, AssignGroup } from '../components'
 
 import Context from '../Context'
 import logic from '../logic'
+import session from '../logic/session.js'
 
 export default function Sudo() {
     const [pwd, setPwd] = useState(false)
@@ -29,27 +30,27 @@ export default function Sudo() {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/desktop')
-            } else if ((commandText === 'sudo --1') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'sudo --1') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/create-admin')
-            } else if ((commandText === 'sudo --2') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'sudo --2') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/delete-user')
-            } else if ((commandText === 'sudo --3') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'sudo --3') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/create-group')
-            } else if ((commandText === 'sudo --4') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'sudo --4') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/administrator/assign-group')
-            } else if ((commandText === 'sudo --5') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'sudo --5') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(false)
                 navigate('/delete-group')
-            } else if ((commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
+            } else if (session.role === 'admin' && (commandText === 'SUDO' || commandText === 'sudo') && event.key === 'Enter') {
                 setUknownCommand(false)
                 setMenu(true)
                 navigate('/administrator')
