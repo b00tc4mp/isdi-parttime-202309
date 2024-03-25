@@ -4,27 +4,28 @@ import { errors } from 'com'
 import { validate } from 'com'
 const { SystemError, NotFoundError, CredentialsError } = errors
 
-function authenticateUser(email, password) {
+export default async function authenticateUser(email, password) {
     validate.email(email, 'Email')
     validate.password(password, 'Password')
 
-    return User.findOne({ email }).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found. Try again')
-            }
+    try {
+        const user = await User.findOne({ email }).lean()
+        if (!user) {
+            throw new NotFoundError('User not found. Try again')
+        }
 
-            return bcrypt.compare(password, user.password)
-                .catch(error => { throw new SystemError(error.message) })
-                .then(match => {
-                    if (!match) {
-                        throw new CredentialsError('Wrong credentials. Check again')
-                    }
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) {
+            throw new CredentialsError('Wrong credentials. Check again')
+        }
 
-                    return user._id
-                })
-        })
+        return user._id
+
+    } catch (error) {
+        if (error instanceof NotFoundError || error instanceof CredentialsError) {
+            throw error
+        }
+
+        throw new SystemError(error.message)
+    }
 }
-
-export default authenticateUser

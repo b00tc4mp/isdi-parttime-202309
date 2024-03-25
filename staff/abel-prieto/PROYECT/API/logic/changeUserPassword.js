@@ -3,45 +3,37 @@ import { User } from '../data/models.js'
 import { validate, errors } from 'com'
 const { SystemError, NotFoundError, CredentialsError } = errors
 
-function changeUserPassword(userId, password, newPassword, againNewPassword) {
-    validate.id(userId, 'ID user')
+export default async function changeUserPassword(userId, password, newPassword, againNewPassword) {
+    validate.id(userId, 'ID User')
     validate.password(password, 'Password')
     validate.password(newPassword, 'New password')
     validate.password(againNewPassword, 'Repeat new password')
 
-    return User.findById(userId)
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found. Try again')
-            }
+    try {
+        const user = await User.findById(userId)
+        if (!user) {
+            throw new NotFoundError('User not found. Try again')
+        }
 
-            return bcrypt.compare(password, user.password)
-                .catch(error => { throw new SystemError(error.message) })
-                .then(match => {
-                    if (!match) {
-                        throw new CredentialsError('Wrong credentials. Try again')
-                    }
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) {
+            throw new CredentialsError('Wrong credentials. Try again')
+        }
 
-                    if (newPassword !== againNewPassword) {
-                        throw new CredentialsError('Wrong credentials with new password')
-                    }
+        if (newPassword !== againNewPassword) {
+            throw new CredentialsError('Wrong credentials with new password')
+        }
 
-                    return bcrypt.hash(newPassword, 5)
-                        .catch(error => { throw new SystemError(error.message) })
-                        .then(hash => {
+        const hash = await bcrypt.hash(newPassword, 5)
 
-                            user.password = hash
+        user.password = hash
+        await user.save()
 
-                            return user.save()
-                                .catch(error => { throw new SystemError(error.message) })
-                        })
+    } catch (error) {
+        if (error instanceof NotFoundError || error instanceof CredentialsError) {
+            throw error
+        }
 
-
-                })
-
-        })
-
+        throw new SystemError(error.message)
+    }
 }
-
-export default changeUserPassword

@@ -2,31 +2,32 @@ import { validate, errors } from 'com'
 import { User, Command } from '../data/models.js'
 const { SystemError, NotFoundError, AuthorizationError, DuplicityError } = errors
 
-function createCommand(userId, commandName) {
-    validate.id(userId, 'ID user')
+export default async function createCommand(userId, commandName) {
+    validate.id(userId, 'ID User')
     validate.text(commandName, 'Command name')
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found')
-            }
+    try {
+        const user = await User.findById(userId).lean()
+        if (!user) {
+            throw new NotFoundError('User not found')
+        }
 
-            if (user.role[0] !== 'admin') {
-                throw new AuthorizationError('Authorization denied. Only ADMIN user')
-            }
+        if (user.role[0] === 'admin') {
+            const command = await Command.create({ name: commandName })
+            return command
 
-            return Command.create({ name: commandName })
-                .catch(error => {
-                    if (error.code === 11000) {
-                        throw new DuplicityError('Command already exist. Try again')
-                    }
+        } else {
+            throw new AuthorizationError('Authorization denied. Only ADMIN user')
+        }
+    } catch (error) {
+        if (error.code === 11000) {
+            throw new DuplicityError('Command already exist. Try again')
+        }
 
-                    throw new SystemError(error.message)
-                })
-                .then(command => { return command })
-        })
+        if (error instanceof NotFoundError || error instanceof AuthorizationError) {
+            throw error
+        }
+
+        throw new SystemError(error.message)
+    }
 }
-
-export default createCommand

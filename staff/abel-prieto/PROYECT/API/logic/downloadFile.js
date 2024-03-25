@@ -18,12 +18,12 @@ export default async function downloadFile(userId, fileId) {
     try {
         const user = await User.findById(userId).lean()
         if (!user) {
-            throw new NotFoundError('User not found')
+            throw new NotFoundError('User not found. Try again')
         }
 
         const file = await File.findById(fileId).lean()
         if (!file) {
-            throw new NotFoundError('File not found')
+            throw new NotFoundError('File not found. Try again')
         }
 
         // const isOwner = user.id === file.owner

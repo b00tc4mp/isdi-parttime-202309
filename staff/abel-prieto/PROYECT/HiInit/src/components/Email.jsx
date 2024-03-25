@@ -52,7 +52,7 @@ function Email() {
             clientError.innerText = 'Change Email - Entry your data account: '
             clientError.style.color = '#EBDBB2'
 
-            document.getElementById("new-email-form").reset()
+            // document.getElementById("new-email-form").reset()
         })
     }
 

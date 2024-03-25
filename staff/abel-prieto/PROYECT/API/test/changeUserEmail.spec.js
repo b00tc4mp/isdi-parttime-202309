@@ -24,10 +24,12 @@ describe('changeUserEmail', () => {
 
         const hash = await bcrypt.hash(password, 5)
         const user = await User.create({ username: random.username(), email: random.email(), password: hash, group: 'localhost', role: 'user' })
-        const userChanged = await changeUserEmail(user.id, newEmail, password, againNewPassword)
+        await changeUserEmail(user.id, newEmail, password, againNewPassword)
 
-        expect(userChanged).to.be.an('Object')
-        expect(userChanged.email).to.be.equal(newEmail)
+        const checkUserEmail = await User.findById(user.id)
+
+        expect(checkUserEmail).to.be.an('Object')
+        expect(checkUserEmail.email).to.be.equal(newEmail)
     })
 
     // NEGATIVE CASE - User not found

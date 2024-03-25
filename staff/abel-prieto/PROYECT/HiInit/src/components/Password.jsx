@@ -52,7 +52,7 @@ function Password() {
             clientError.innerText = 'Change Password - Entry your data account: '
             clientError.style.color = '#EBDBB2'
 
-            document.getElementById("new-password-form").reset()
+            // document.getElementById("new-password-form").reset()
         })
     }
 
