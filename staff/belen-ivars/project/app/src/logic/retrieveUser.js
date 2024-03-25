@@ -4,7 +4,7 @@ import { API_URL } from '../utils/constants'
 import { SystemError } from 'com/errors'
 
 export default async function retrieveUser() {
-
+	// no faltaria passar el paràmetre de l'id?
 	return (async () => {
 		const req = {
 			method: 'GET',
@@ -40,8 +40,4 @@ export default async function retrieveUser() {
 			throw new SystemError(error.message)
 		}
 	})()
-	// return Promise.resolve({
-	// 	name: "Belén",
-	// 	email: "belen.ivars@gmail.com"
-	// })
 }

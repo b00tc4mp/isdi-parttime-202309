@@ -47,34 +47,39 @@ const recipe = new Schema({
 		type: String,
 		required: true
 	},
-	ingredients: [{
+	author: {
 		type: ObjectId,
-		required: true,
-		ref: 'Ingredient'
-	}],
-	diet: {
-		type: String,
-		required: true,
-		enum: ['glutenfree', 'vegetarian', 'vegan', 'omnivorous']
-	},
-	complexity: {
-		type: Number,
-		required: true,
-		enum: [1, 2, 3, 4, 5]
-	},
-	method: {
-		type: String,
-		required: true,
-		enum: ['steamed', 'oven', 'microwave', 'grill', 'fresh']
-	},
-	time: {
-		type: Number,
+		ref: 'User',
 		required: true
 	},
-	date: {
-		type: Date,
-		required: true
-	}
+	// ingredients: [{
+	// 	type: ObjectId,
+	// 	required: true,
+	// 	ref: 'Ingredient'
+	// }],
+	// diet: {
+	// 	type: String,
+	// 	required: true,
+	// 	enum: ['glutenfree', 'vegetarian', 'vegan', 'omnivorous']
+	// },
+	// complexity: {
+	// 	type: Number,
+	// 	required: true,
+	// 	enum: [1, 2, 3, 4, 5]
+	// },
+	// method: {
+	// 	type: String,
+	// 	required: true,
+	// 	enum: ['steamed', 'oven', 'microwave', 'grill', 'fresh']
+	// },
+	// time: {
+	// 	type: Number,
+	// 	required: true
+	// },
+	// date: {
+	// 	type: Date,
+	// 	required: true
+	// }
 })
 
 const review = new Schema({

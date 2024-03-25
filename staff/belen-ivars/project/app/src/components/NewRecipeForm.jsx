@@ -1,28 +1,31 @@
 import { Button, Form, Field, Container } from "../library"
 import logic from "../logic"
-import { useContext } from '../hooks'
+import { useContext } from 'react'
+import session from "../logic/session"
+import Context from "../Context"
 
 export default function NewRecipe(props) {
 	console.log('NewRecipe')
 
-	const context = useContext()
+	const context = useContext(Context)
 
-	const handleSubmit = event => {
+	const handleSubmit = async event => {
 		event.preventDefault()
 
-		const image = event.target.image.value
-		const text = event.target.text.value
+		const titleInput = event.target.querySelector('#title-input')
+		const textInput = event.target.querySelector('#description-input')
+		const imageInput = event.target.querySelector('#image-input')
+
+		const title = titleInput.value
+		const text = textInput.value
+		const image = imageInput.value
+		const author = session.sessionUserId
 
 		try {
-			logic.publishRecipe(image, text, error => {
-				if (error) {
-					context.handleError(error)
+			await logic.createRecipe(author, title, text, image)
 
-					return
-				}
+			props.onPublish()
 
-				props.onPublish()
-			})
 		} catch (error) {
 			context.handleError(error)
 		}
@@ -34,12 +37,13 @@ export default function NewRecipe(props) {
 		props.onCancel()
 	}
 
-	return <Container className="new-post">
-		<h2>New post</h2>
+	return <Container className="new-recipe">
+		<h2>New recipe</h2>
 
 		<Form onSubmit={handleSubmit}>
-			<Field id="image" type="url" >Image</Field>
-			<Field id="text" type="text">Text</Field>
+			<Field id="title-input" type="text" >Title</Field>
+			<Field id="description-input" type="text">Text</Field>
+			<Field id="image-input" type="url" >Image</Field>
 
 			<Button type="submit">Post</Button>
 			<Button onClick={handleCancel}>Cancel</Button>

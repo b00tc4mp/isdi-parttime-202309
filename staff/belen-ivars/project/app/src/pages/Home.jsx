@@ -7,6 +7,7 @@ import Profile from './Profile'
 import FavsUser from "./FavsUser"
 import FullHeader from "../components/FullHeader"
 import Context from "../Context"
+import NewRecipe from "../components/NewRecipeForm"
 
 
 function Home(props) {
@@ -75,6 +76,8 @@ function Home(props) {
 		<Routes>
 			<Route path="/profile" element={<Profile />} />
 			<Route path='/favs' element={<FavsUser />} />
+			<Route path='/new-recipe' element={<NewRecipe />} />
+
 
 
 		</Routes>

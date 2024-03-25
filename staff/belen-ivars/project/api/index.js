@@ -2,13 +2,14 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import mongoose from 'mongoose'
-import express from 'express'
+import express, { json } from 'express'
 import cors from 'cors'
 
 import {
 	registerUserHandler,
 	authenticateUserHandler,
-	retrieveUserHandler
+	retrieveUserHandler,
+	createRecipeHandler
 
 } from './handlers/index.js'
 
@@ -27,6 +28,8 @@ mongoose.connect(process.env.MONGODB_URL)
 		server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
 		server.get('/users/:id', retrieveUserHandler)
+
+		server.post('/recipes', jsonBodyParser, createRecipeHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})
