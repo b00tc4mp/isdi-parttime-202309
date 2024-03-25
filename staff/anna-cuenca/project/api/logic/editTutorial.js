@@ -1,6 +1,6 @@
 import { validate, errors } from 'com'
 import { User, Tutorial } from '../data/models.js'
-const { SystemError, NotFoundError, ValidationError } = errors
+const { SystemError, NotFoundError, ValidationError, PermissionError } = errors
 
 function editTutorial(userId, tutorialId, { title, text }) {
 
@@ -45,7 +45,7 @@ function editTutorial(userId, tutorialId, { title, text }) {
             throw new NotFoundError('User not found')
 
         if (user.role !== 'admin') {
-            throw new PermissionError('User has no permission to create a tutorial')
+            throw new PermissionError('User has no permission to edit the tutorial')
         }
 
         if (title !== undefined) {
