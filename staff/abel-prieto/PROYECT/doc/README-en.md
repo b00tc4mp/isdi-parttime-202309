@@ -14,7 +14,7 @@ Languajes: | [Spanish](./README-es.md) |
 > Files can be shared between different members of a specific group as well as navigate between the different folders that make up the root.
 > There will be different roles with their corresponding permissions but only **ADMIN** user has the `CRUD System` (create, rewrite, update & delete).
 
-- Last update: 21/03/2024
+- Last update: 26/03/2024
 
 ## INDEX
 
