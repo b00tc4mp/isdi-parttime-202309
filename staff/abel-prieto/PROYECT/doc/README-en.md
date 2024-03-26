@@ -194,9 +194,10 @@ Languajes: | [Spanish](./README-es.md) |
 `ADMINISTRATOR -> On "ADMIN" logged`
 
 ![SUDO](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/6088b75e-d89f-4085-bb53-435054f38f93)
-- Only entry with ADMIN logged with command `sudo`
+
 - Group `root` by default
-- The **ADMIN** could `create, delete or update GROUPS` and add `assign users` on them
+- Only entry with ADMIN logged with command `sudo`
+- The **ADMIN** could `create, delete or update GROUPS` and `assign users` on them
 - They can also list users and `delete them`
 - They have the possibility of `creating` another **ADMIN** (they wont be able to eliminate each other)
 
