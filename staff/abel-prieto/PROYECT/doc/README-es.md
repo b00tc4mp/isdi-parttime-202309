@@ -14,7 +14,7 @@ Languajes: | [English](./README-en.md) |
 > Los archivos pueden ser compartidos entre los distintos miembros de un grupo específico, navegando entre los distintos archivos de la carpeta raíz.
 > Hay diferentes roles con sus correspondientes permisos pero solo el tipo de usuario **ADMIN** tiene el `sistema CRUD` (creación, escritura, carga y eliminación).
 
-- Última actualización: 21/03/2024
+- Última actualización: 26/03/2024
 
 ## ÍNDICE
 
@@ -23,7 +23,7 @@ Languajes: | [English](./README-en.md) |
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#casos---funciones">Casos - Funciones</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#modelo-de-datos">Modelo de Datos</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#comandos">Comandos</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#componentes">Componentes</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#figma---estructura">Figma - Estructura</a>
 
 
 ## RESUMEN
@@ -33,6 +33,7 @@ Languajes: | [English](./README-en.md) |
 - [x] Escritorio o espacio personal para cada usuario.
 - [x] Empleo de `MULTER` y el paquete `PATH` de NodeJS en API para subir archivos mediante petición HTTP y guardarlos en disco `npm i multer`
 - [x] Subida y descarga de archivos.
+- [x] Sistema CRUD completo
 - [x] Primera versión para el proyecto final de ISDI CODERS.
 
 <br>
@@ -41,7 +42,8 @@ Languajes: | [English](./README-en.md) |
 - [x] Utilización de AWS para el alojamiento en nube o remoto de archivos 
 - [x] Uso de MongoDB Atlas para almacenar base de datos en Cloud
 - [x] Organización y creación de carpetas
-- [x] Añadir más comandos
+- [x] Añadir grupos/roles de staffs
+- [ ] Poder asignar más grupos a usuarios
 - [ ] En construcción ... ⏳
 
 ## TIPOS DE USUARIOS
@@ -140,7 +142,7 @@ Languajes: | [English](./README-en.md) |
 
 `PÁGINA INICIAL`
 
-![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
+![INICIAL](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/4a4d3c48-c489-4c9d-9c46-59ef278338e1)
 
 - Página de inicio a la APP con información de contacto: email, GitHub y perfil de Linkedin.
 - Formato de la barra de comandos: **guest@hiinit-guest**
@@ -152,7 +154,8 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `REGISTRO -> En modo "INVITADO"`
-![register](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/1bd3f05b-4c85-4631-a373-a78382226744)
+
+![REGISTER](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/0cfbb82d-5257-40a3-8a35-1a8cef199e06)
 
 - ***register => nombre de usuario + email + contraseña***
 - Una vez que nos hayamos registrado, el texto desaparecerá y aparecerá una nueva barra de comandos para poder hacer el login
@@ -162,7 +165,8 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `LOGIN -> En modo "INVITADO"`
-![login](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/8b469735-f66b-4101-a0ae-4bf5f20ca2d9)
+
+![LOGIN](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/d9098538-35ae-4b73-8446-409f4cea064c)
 
 - ***login => email + contraseña***
 - Cuando ingresamos nuestras credenciales, la barra de comandos nos mostrará el nombre de usuario al lado de la categoría `user` o `admin` con su color indicativo
@@ -172,17 +176,30 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `ESCRITORIO -> Con "USUARIO" logeado`
+
 ![desktop](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/f525a6f5-fcd3-4c07-a7f0-da5a36d5220f)
 
 - Solo se accede mediante logeo
 - Grupo `localhost` por defecto
 - Formato de la barra de comandos: **usuario@grupo-rol**
-- Con el comando `mkdir` el usuario podrá crear nuevos archivos desde la rama raíz: `C:\Desktop`
-- Si creamos un directorio, el comando `pwd` nos dirá la dirección completa
+- El comando `pwd` nos indicará el directorio actual desde la carpeta raíz: `C:\Desktop`
+- Podrán visualizar sus comandos con el comando `help`
 - Podremos subir o descargar archivos con los comandos `upload` o `download`
-- El **ADMINISTRADOR** podrá `crear o modificar GRUPOS` y añadir usuarios en ellos ("localhost" es el grupo por defecto)
-- Los `permisos` estarán relacionados al tipo de grupo establecido por el ADMIN con el comando `chmod`
+- Los `permisos` estarán relacionados al tipo de grupo establecido por el ADMIN
 - Los usuarios del mismo grupo podrán `visualizar archivos de cada uno` y `descargarlos`
-- En todos los casos, tenemos el comando `logout` para salir de la sesión y volver a la **PÁGINA INICIAL** 
+- En la página `Profile`, los usuarios podrán modificar el email y el password de su cuenta
+- En todos los casos, tenemos el comando `logout` para salir de la sesión y volver a la **PÁGINA INICIAL**
 
+<br>
+
+`ADMINISTRATOR -> On "ADMIN" logged`
+
+![SUDO](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/6088b75e-d89f-4085-bb53-435054f38f93)
+
+- Grupo `root` por defecto
+- Solo se accede mediante el ADMIN logeado a través del comando `sudo`
+- El **ADMIN** puede `crear, borrar o modificar GRUPOS` y `asignar usuarios` en ellos
+- También podrán listar usuarios y `borrarlos`
+- Tienen la posibilidad de `crear` otro **ADMIN** (pero no podrán eliminarse entre ellos)
+  
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
