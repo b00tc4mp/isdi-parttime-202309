@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  /* Base modifications for a robot-themed app */
+  .form {
+    @apply flex flex-col max-w-[240px] gap-[5px];
+  }
+
+  .label {
+    @apply font-bold text-green-700;
+  }
+
+  .input,
+  input {
+    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
+  }
+
+  .button {
+    @apply border-[2px] border-solid border-green-500 p-[5px] bg-green-500 text-white font-bold hover:bg-green-600;
+  }
+
+  .link {
+    @apply decoration-[none] text-green-700 hover:text-green-800 before:content-['[_'] after:content-['_]'];
+  }
+
+  .container {
+    @apply flex flex-col items-center gap-[1rem] p-[1rem];
+  }
+
+  .container--horizontal {
+    @apply flex-row justify-center;
+  }
+
+  .header {
+    @apply flex items-center justify-between p-[.5rem] bg-green-500 text-white;
+  }
+
+  .new-post,
+  .tutorial {
+    @apply mb-[1rem] bg-green-50 border border-green-200;
+  }
+
+  .post {
+    @apply flex flex-col items-center pb-[2rem] bg-green-50;
+  }
+
+  .post-image {
+    @apply max-w-[220px];
+  }
+
+  .post-actions {
+    @apply flex justify-between gap-[.5rem] mt-[.5rem];
+  }
+
+  .posts {
+    @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 gap-[1rem];
+  }
+
+  .footer {
+    @apply bg-green-500 flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] text-white;
+  }
+
+  /* Feedback modifications for a cohesive look */
+  .Feedback {
+    @apply fixed top-0 w-full box-border text-white;
+  }
+
+  .Feedback--debug {
+    @apply bg-green-700;
+  }
+
+  .Feedback--info {
+    @apply bg-green-500;
+  }
+
+  .Feedback--warn {
+    @apply bg-yellow-400;
+  }
+
+  .Feedback--error {
+    @apply bg-orange-500;
+  }
+
+  .Feedback--fatal {
+    @apply bg-red-700;
+  }
+
+  .tutorial {
+    @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
+  }
+
+  /* Estilos para el popup */
+  .popup-container {
+    @apply fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10;
+  }
+
+  .popup {
+    @apply bg-green-500 p-4 rounded-lg shadow-lg text-white max-w-sm mx-auto;
+  }
+
+  .popup ul {
+    @apply list-none p-0;
+  }
+
+  .popup li {
+    @apply border-2 border-black p-2 rounded-md mb-2;
+  }
+}

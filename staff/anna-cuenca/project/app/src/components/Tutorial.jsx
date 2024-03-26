@@ -1,0 +1,149 @@
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Form, Field, Link, Container } from '../library'
+import logic from '../logic'
+
+import { Editor } from '@tinymce/tinymce-react'
+
+import { Input } from '../library'
+import session from '../logic/session'
+
+import { useContext } from '../hooks'
+
+
+
+
+
+function Tutorial(props) {
+    console.log(props.tutorial)
+    const [editTextTutorial, setEditTextTutorial] = useState(null)
+    const [title, setTitle] = useState(props.tutorial.title)
+    const [text, setText] = useState(props.tutorial.text)
+
+    const editorRef = useRef(null)
+
+    //const { handleError } = useContext(Context)
+    const context = useContext()
+    const navigate = useNavigate()
+    const tutorial = props.tutorial
+
+
+
+    function handleToggleLikePostClick() {
+        try {
+            logic.toggleLikeTutorial(tutorial.id)
+                .then(() => {
+                    props.onToggleLikeClick()
+
+                })
+                .catch(error => context.handleError(error))
+
+        } catch (error) {
+            //alert(error.message)
+            context.handleError(error)
+        }
+    }
+
+
+    function handleEditSubmit(event) {
+        event.preventDefault()
+        const newTitle = title
+        const newText = editorRef.current.getContent() // Obtengo el contenido del editor
+        setText(newText)
+        try {
+            logic.editTutorial(props.tutorial.id, { title: newTitle, text: newText })
+                .then(() => {
+                    setEditTextTutorial(false)
+                    props.onUpdate()
+                })
+                .catch(error => context.handleError(error))
+        } catch (error) {
+            context.handleError(error)
+        }
+    }
+
+
+    function handleEditClick() {
+        if (editTextTutorial === null) {
+            setEditTextTutorial('edit-text-tutorial')
+        } else {
+            setEditTextTutorial(null)
+        }
+    }
+    function handleCancelEdit() {
+        setEditTextTutorial(null)
+    }
+    function handleToggleDeleteTutorialClick() {
+        if (confirm('Are you sure you want to delete this tutorial?')) {
+            try {
+                logic.deleteTutorial(tutorial.id)
+                    .then(() => {
+                        props.onToggleDeleteClick()
+                    })
+                    .catch(error => context.handleError(error))
+            } catch (error) {
+                //alert(error.message)
+                context.handleError(error)
+            }
+        }
+    }
+    const handleUserClick = event => {
+        event.preventDefault()
+        //navigate(`/users/${props.post.author.id}`)
+    }
+
+
+    return (
+        <article className="tutorial">
+            <strong><p>{props.tutorial.author.name}</p></strong>
+            <strong><p>{props.tutorial.author.role}</p></strong>
+
+            {editTextTutorial ? (
+                <Form onSubmit={handleEditSubmit}>
+                    <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
+                    <Editor
+                        apiKey='3p5p5ls0lyowdf5ebluhjpkb69g44e0negw77zeywyb409pj'
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        initialValue={text}
+                        init={{
+                            height: 200,
+                            menubar: false,
+                            plugins: [
+                                'advlist autolink lists link image charmap print preview anchor',
+                                'searchreplace visualblocks code fullscreen',
+                                'insertdatetime media table paste code help wordcount'
+                            ],
+                            toolbar: 'undo redo | formatselect | ' +
+                                'bold italic backcolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | help'
+                        }}
+                    />
+                    <Button type="submit">Save</Button>
+                    <Button onClick={handleCancelEdit}>Cancel</Button>
+                </Form>
+            ) : (
+                <>
+                    <strong><p>{title}</p></strong>
+                    <p dangerouslySetInnerHTML={{ __html: text }}></p>
+                </>
+            )}
+
+            <div className="tutorial-actions">
+                <Button onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</Button>
+                {context.userRole === 'admin' && (
+                    <>
+                        <Button onClick={handleToggleDeleteTutorialClick}>🗑 Delete</Button>
+                        <Button onClick={handleEditClick}>{editTextTutorial ? 'Cancel Edit' : '🖍 Edit'}</Button>
+                    </>
+                )}
+            </div>
+        </article>
+    )
+
+
+
+
+
+}
+export default Tutorial
