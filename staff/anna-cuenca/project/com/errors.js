@@ -66,6 +66,13 @@ class PermissionError extends Error {
 }
 
 
+class ValidationError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    }
+}
+
 
 export {  //esto es un bucket
     NotFoundError,
@@ -75,7 +82,8 @@ export {  //esto es un bucket
     AuthenticateError,
     CredentialsError,
     TokenError,
-    PermissionError
+    PermissionError,
+    ValidationError
 }
 
 const errors = { // esto un objeto
@@ -85,7 +93,8 @@ const errors = { // esto un objeto
     DuplicityError,
     CredentialsError,
     TokenError,
-    PermissionError
+    PermissionError,
+    ValidationError
 }
 
 export default errors
