@@ -23,7 +23,7 @@ Languajes: | [Spanish](./README-es.md) |
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#cases---functions">Cases - Functions</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#data-model">Data Model</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#commands">Commands</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#stories">Stories</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-en.md#figma---stories">Figma - Stories</a>
 
 ## RESUME
 
@@ -32,15 +32,17 @@ Languajes: | [Spanish](./README-es.md) |
 - [x] Personal desktop for each user.
 - [x] Use `MULTER` librery and `PATH` package from NodeJS on API to upload files with HTTP request and save files on disk storage `npm i multer`
 - [x] Upload and download files.
+- [x] Fully CRUD system
 - [x] First version to final proyect ISDI CODERS.
 
 <br>
 
 `For HiInit v1.0`
-- [x] Using AWS for cloud or remote file hosting
-- [x] Use MongoDB ATLAS to store BBD in the cloud
-- [x] Organization and creation of folders
-- [x] Add more commands
+- [ ] Using AWS for cloud or remote file hosting
+- [ ] Use MongoDB ATLAS to store BBD in the cloud
+- [ ] Organization and creation of folders
+- [ ] Add staff groups/roles
+- [ ] Assign more groups to users
 - [ ] In construction ... ⏳
 
 ## TYPE OF USERS
@@ -139,7 +141,7 @@ Languajes: | [Spanish](./README-es.md) |
 
 `INITIAL PAGE`
 
-![FIRST PAGE](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/df5ca31d-12c4-4a6e-9db6-dfdb946e0e0f)
+![INICIAL](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/4a4d3c48-c489-4c9d-9c46-59ef278338e1)
 
 - First entry on APP with contact information: email, GitHub and Linkedin profile.
 - Format command bar: **guest@hiinit-guest**
@@ -151,7 +153,8 @@ Languajes: | [Spanish](./README-es.md) |
 <br>
 
 `REGISTER -> On "GUEST" Mode`
-![register](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/1bd3f05b-4c85-4631-a373-a78382226744)
+
+![REGISTER](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/0cfbb82d-5257-40a3-8a35-1a8cef199e06)
 
 - ***register => username + email + password***
 - Once we could register on web, the text will disappear and create a new command bar to entry the logg in
@@ -161,7 +164,8 @@ Languajes: | [Spanish](./README-es.md) |
 <br>
 
 `LOGIN -> On "GUEST" Mode`
-![login](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/8b469735-f66b-4101-a0ae-4bf5f20ca2d9)
+
+![LOGIN](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/d9098538-35ae-4b73-8446-409f4cea064c)
 
 - ***login => email + password***
 - When we entry our credentials, the command bar show us our username next to the category `user` or `admin` with its own group color
@@ -171,17 +175,29 @@ Languajes: | [Spanish](./README-es.md) |
 <br>
 
 `DESKTOP -> On "USER" logged`
+
 ![desktop](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/f525a6f5-fcd3-4c07-a7f0-da5a36d5220f)
 
 - Only entry with logged
 - Group `localhost` by default
-- Format command bar: **username@group-role** 
-- With `mkdir` the users would create new files from root directory: `C:\Desktop`
-- If we create a field, the `pwd` command will tell us the fully address
+- Command bar format: **username@group-role** 
+- Whith `pwd` command will tell us the fully address from root directory: `C:\Desktop`
+- They could see their commands with `help` command 
 - We can attach or upload files with `upload` command and `download` the own one
-- The **ADMIN** could `create or update GROUPS` and add users in them ("localhost" group default)
-- The `permissions` are related to the type of group established by ADMIN with `chmod` command
+- The `permissions` are related to the type of group established by ADMIN
 - Users from the same group could `see files from each other` and `download them`
+- On `Profile page`, users would modify their `email or password account`
 - In all cases, we have the `exit` command to return to **INITIAL PAGE**
+
+<br>
+
+`ADMINISTRATOR -> On "ADMIN" logged`
+
+![SUDO](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/6088b75e-d89f-4085-bb53-435054f38f93)
+- Only entry with ADMIN logged with command `sudo`
+- Group `root` by default
+- The **ADMIN** could `create, delete or update GROUPS` and add `assign users` on them
+- They can also list users and `delete them`
+- They have the possibility of `creating` another **ADMIN** (they wont be able to eliminate each other)
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
