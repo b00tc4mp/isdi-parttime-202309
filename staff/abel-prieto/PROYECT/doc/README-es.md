@@ -39,10 +39,10 @@ Languajes: | [English](./README-en.md) |
 <br>
 
 `Para HiInit v1.0`
-- [x] Utilización de AWS para el alojamiento en nube o remoto de archivos 
-- [x] Uso de MongoDB Atlas para almacenar base de datos en Cloud
-- [x] Organización y creación de carpetas
-- [x] Añadir grupos/roles de staffs
+- [ ] Utilización de AWS para el alojamiento en nube o remoto de archivos 
+- [ ] Uso de MongoDB Atlas para almacenar base de datos en Cloud
+- [ ] Organización y creación de carpetas
+- [ ] Añadir grupos/roles de staffs
 - [ ] Poder asignar más grupos a usuarios
 - [ ] En construcción ... ⏳
 
