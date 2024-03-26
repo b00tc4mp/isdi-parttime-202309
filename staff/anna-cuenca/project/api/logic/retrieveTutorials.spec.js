@@ -11,6 +11,11 @@ const { NotFoundError, CredentialsError, DuplicityError, PermissionError, Refere
 
 describe('retrieveTutorials', () => {
 
+    before(async () => {
+        await mongoose.connect(process.env.TEST_MONGODB_URL)
+    })
+
+
     it('should retrieve tutorials with correct formatting', async () => {
 
         const userData = {
