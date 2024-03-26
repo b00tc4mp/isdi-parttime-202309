@@ -31,7 +31,7 @@ Languajes: | [English](./README-en.md) |
 `Para HiInit v0.1`
 - [x] Terminal web con servicio de carga online de archivos.
 - [x] Escritorio o espacio personal para cada usuario.
-- [x] Empleo de `MULTER` y el paquete `PATH` de NodeJS en API para subir archivos mediante petición HTTP y guardarlos en disco `npm i multer`
+- [x] Empleo de `MULTER` y el paquete `FS` de NodeJS en API para subir archivos mediante petición HTTP y guardarlos en disco `npm i multer`
 - [x] Subida y descarga de archivos.
 - [x] Sistema CRUD completo
 - [x] Primera versión para el proyecto final de ISDI CODERS.
