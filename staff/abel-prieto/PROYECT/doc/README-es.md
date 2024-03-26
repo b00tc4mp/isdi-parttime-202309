@@ -192,7 +192,7 @@ Languajes: | [English](./README-en.md) |
 
 <br>
 
-`ADMINISTRATOR -> On "ADMIN" logged`
+`ADMINISTRADOR -> Con "ADMIN" logeado`
 
 ![SUDO](https://github.com/b00tc4mp/isdi-parttime-202309/assets/133054841/6088b75e-d89f-4085-bb53-435054f38f93)
 
