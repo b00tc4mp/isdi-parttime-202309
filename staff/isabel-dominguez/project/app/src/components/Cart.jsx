@@ -1,74 +1,67 @@
 import React from 'react'
 import { useUser } from '../hooks/UserContext'
+import Product from './Product'
 import logic from '../logic'
 
+export default function Cart({ cartItems }) {
+    const { isLoggedIn } = useUser()
+    console.log(cartItems)
 
-export default function Cart() {
-    const { isLoggedIn, userId } = useUser()
-    const [cartItems, setCartItems] = useState([]) //Esto habrá que llevarlo a Home como los favorites
-
-    useEffect(() => {
-        // Obtener los productos del carrito cuando el usuario está autenticado Esto se puede meter en el mismo useEffect que los favs
-        if (isLoggedIn) {
-            // Lógica para obtener los productos del carrito usando el userId logica retrieveUserOrder
-            // Debes implementar esto según la estructura de tu backend
-        }
-    }, [isLoggedIn, userId]);
-
-    const handleAddToCart = (productId) => {
-        // Lógica para añadir un producto al carrito
-        addToCart(productId, userId)
-            .then(() => {
-                // Actualizar la lista de productos del carrito después de añadir un producto logica addToCart
-                // Debes implementar esto según la estructura de tu backend
-            })
-            .catch(error => console.error(error));
-    };
-
-    const handleDeleteOrder = () => {
-        // Lógica para eliminar la orden del carrito
-        deleteOrder(orderId)
-            .then(() => {
-                // Actualizar la lista de productos del carrito después de eliminar la orden logica deleteOrder
-                // Debes implementar esto según la estructura de tu backend
-            })
-            .catch(error => console.error(error));
-    };
-
-    const handleUpdateQuantity = (productId, quantityDelta) => {
+    const handleUpdateQuantity = (productId, quantityDelta) => { //TRAER LA FUNCIÓN A LA APP
         // Lógica para actualizar la cantidad de un producto en el carrito
-        updateCartItemQuantity(productId, orderId, userId, quantityDelta)
-            .then(() => {
-                // Actualizar la lista de productos del carrito después de actualizar la cantidad logica updateQuantity
-                // Debes implementar esto según la estructura de tu backend
-            })
-            .catch(error => console.error(error));
-    };
+        logic.updateCartItemQuantity(productId, cartItems._id, cartItems.user, quantityDelta)
+            // .then(() => { Poner la función de update })
+            .catch(error => console.error(error))
+    }
+
+    const handleIncrement = (productId) => {
+        handleUpdateQuantity(productId, 1)
+    }
+
+    const handleDecrement = (productId) => {
+        handleUpdateQuantity(productId, -1)
+    }
 
     return (
         <div>
             {isLoggedIn ? (
                 <div>
-                    <h2>Tu carrito de compras</h2>
-                    {cartItems.length > 0 ? (
-                        <ul>
-                            {cartItems.map(item => (
-                                <li key={item.productId}>
-                                    <p>{item.productName}</p>
-                                    <p>Cantidad: {item.quantity}</p>
-                                    <button onClick={() => handleUpdateQuantity(item.productId, 1)}>+</button>
-                                    <button onClick={() => handleUpdateQuantity(item.productId, -1)}>-</button>
-                                </li>
+                    <h2 className='fav-title'>Tu carrito de compras</h2>
+                    {cartItems.products.length > 0 ? (
+                        <div className="products">
+                            {cartItems.products.map(product => (
+                                <div key={product.id}>
+                                    <Product {...product.product} isCartView={true} />
+                                    <div className="quantity-controls">
+                                        <button onClick={() => handleDecrement(product.id)}>-</button>
+                                        <span>{product.quantity}</span>
+                                        <button onClick={() => handleIncrement(product.id)}>+</button>
+                                    </div>
+                                </div>
                             ))}
-                            <button onClick={handleDeleteOrder}>Comprar</button>
-                        </ul>
+                        </div> //ENVOLVER DENTRO DE OTRO DIV Y EN EL DIV ESE EL BUTTON
                     ) : (
-                        <p>Tu carrito está vacío.</p>
+                        <p className='fav-title'>Tu carrito está vacío</p>
                     )}
                 </div>
             ) : (
-                <h1>Inicia sesión para ver tu carrito.</h1>
+                <h1 className='fav-title'>Inicia sesión para ver tu carrito</h1>
             )}
         </div>
     )
 }
+
+
+
+
+
+
+// const handleDeleteOrder = () => {
+//     // Lógica para eliminar la orden del carrito
+//     deleteOrder(orderId)
+//         .then(() => {
+//             // Actualizar la lista de productos del carrito después de eliminar la orden logica deleteOrder
+//             // Debes implementar esto según la estructura de tu backend
+//         })
+//         .catch(error => console.error(error))
+// }

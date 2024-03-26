@@ -11,6 +11,7 @@ export default function Home() {
 
     const [name, setName] = useState(null)
     const [favProducts, setFavProducts] = useState([])
+    const [cartItems, setCartItems] = useState([])
 
     const navigate = useNavigate()
     const { isLoggedIn, setIsLoggedIn } = useUser()
@@ -24,13 +25,13 @@ export default function Home() {
                 logic.retrieveProductsByType('Utensils')
             ])
                 .then(() => {
-                    logic.retrieveFavs()
+                    logic.retrieveFavs() //Traer la de retrieveOrder igual Favorites
                         .then((favs) => { setFavProducts(favs) })
                         .catch(error => { alert(error.message) })
                 })
-                .catch(error => alert(error.message));
+                .catch(error => alert(error.message))
         } catch (error) {
-            alert(error.message);
+            alert(error.message)
         }
     }
 
@@ -52,6 +53,14 @@ export default function Home() {
             } catch (error) {
                 console.error(error)
             }
+
+            try {
+                logic.retrieveUserOrder()
+                    .then((order) => { setCartItems(order) })
+                    .catch(error => { alert(error.message) })
+            } catch (error) {
+                console.error(error)
+            }
         }
     }, [isLoggedIn])
 
@@ -63,6 +72,7 @@ export default function Home() {
                 setName(null)
                 setIsLoggedIn(false)
                 setFavProducts([])
+                setCartItems([])
             })
             .catch(error => alert(error.message))
     }
@@ -165,11 +175,11 @@ export default function Home() {
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
                 <Route path="/favorites" element={<Favorites favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/cart" element={<Cart />} />
+                <Route path="/cart" element={<Cart cartItems={cartItems} />} />
             </Routes>
         </>
     )
 }
 
 
-// Lo mismo que con las turas de recetas, los detalles de cada producto. recipes/fragances/recipeId
+// Lo mismo que con las turas de recetas, los detalles de cada producto. recipes/fragances/:recipeId 
