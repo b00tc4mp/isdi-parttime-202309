@@ -137,7 +137,7 @@ Languajes: | [Spanish](./README-es.md) |
 |    `help`   | *Only **list** the commands with names & functions*        |
 |    `exit`   | *Exit and `get back` to initial page*                      |
 
-## STORIES
+## FIGMA
 
 `INITIAL PAGE`
 
