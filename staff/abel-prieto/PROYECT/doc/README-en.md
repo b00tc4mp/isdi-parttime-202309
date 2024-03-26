@@ -30,7 +30,7 @@ Languajes: | [Spanish](./README-es.md) |
 `For HiInit v0.1`
 - [x] Terminal web with local files and drive online services.
 - [x] Personal desktop for each user.
-- [x] Use `MULTER` librery and `PATH` package from NodeJS on API to upload files with HTTP request and save files on disk storage `npm i multer`
+- [x] Use `MULTER` librery and `FS` package from NodeJS on API to upload files with HTTP request and save files on disk storage `npm i multer`
 - [x] Upload and download files.
 - [x] Fully CRUD system
 - [x] First version to final proyect ISDI CODERS.
