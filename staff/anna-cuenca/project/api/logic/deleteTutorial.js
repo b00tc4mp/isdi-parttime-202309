@@ -2,7 +2,7 @@ import { validate, errors } from 'com'
 
 import { Tutorial, User } from '../data/models.js'
 
-const { NotFoundError, CredentialsError, SystemError } = errors
+const { NotFoundError, CredentialsError, SystemError, PermissionError } = errors
 
 function deleteTutorial(userId, tutorialId) {
     validate.id(userId, 'user id')

@@ -22,7 +22,7 @@ describe('createTutorial', () => {
         await Tutorial.deleteMany()
     })
 
-    it('should allow an admin to create a tutorial', async function () {
+    it('should allow an admin to create a tutorial', async () => {
         const adminData = {
             name: random.name(),
             email: random.email(),
