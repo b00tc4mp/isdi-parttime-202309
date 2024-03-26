@@ -1,4 +1,5 @@
 import { User, Group } from '../data/models.js'
+import bcrypr from 'bcrypt'
 import { validate, errors } from 'com'
 const { SystemError, NotFoundError, AuthorizationError } = errors
 
@@ -17,7 +18,9 @@ async function registerAdmin(userId, username, email, password) {
         if (requestAdmin.role[0] !== 'admin')
             throw new AuthorizationError('Authorization denied. Only ADMIN mode')
 
-        const admin = await User.create({ username: username, email: email, password: password, group: 'root', role: 'admin' })
+        const hash = await bcrypr.hash(password, 5)
+
+        const admin = await User.create({ username: username, email: email, password: hash, group: 'root', role: 'admin' })
         const group = await Group.findOne({ name: 'root' });
 
         group.members.push(admin._id)
