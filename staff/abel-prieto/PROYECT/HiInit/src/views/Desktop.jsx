@@ -11,31 +11,12 @@ function Desktop() {
     const [commandText, setCommandText] = useState('')
     const [uknownCommand, setUknownCommand] = useState(false)
     const [help, setHelp] = useState(false)
-    const [role, setRole] = useState([])
     const { pointer } = Pointer()
 
     const [fetchingUser, setFetchingUser] = useState(true) // Controlador bucle retrieveUser
 
     const navigate = useNavigate()
     const { handleError } = useContext(Context)
-
-    // RETRIEVE ROLE
-    // useEffect(() => {
-    //     if (fetchingUser) {
-    //         const fetchUser = async () => {
-    //             try {
-    //                 const user = await logic.retrieveUser()
-    //                 setRole(user.role)
-    //                 setFetchingUser(!fetchingUser)
-    //             } catch (error) {
-    //                 setFetchingUser(!fetchingUser)
-    //                 handleError(error, navigate)
-    //             }
-    //         }
-
-    //         fetchUser()
-    //     }
-    // }, [fetchingUser, role, handleError, navigate])
 
     // ESCUCHA TECLADO, ERROR Y ESCRITURA
     useEffect(() => {

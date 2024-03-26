@@ -27,8 +27,6 @@ function Register({ onSuccess }) {
     function handleSubmitRegister(event) {
         event.preventDefault()
 
-        console.log('hola register')
-
         const clientError = document.querySelector('#client-error-register')
 
         const username = event.target.querySelector('#username').value

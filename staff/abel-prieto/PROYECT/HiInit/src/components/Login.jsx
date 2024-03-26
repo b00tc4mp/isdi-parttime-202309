@@ -19,8 +19,6 @@ function Login({ onSuccess }) {
     function handleSubmitLogin(event) {
         event.preventDefault()
 
-        console.log('hola login')
-
         const clientError = document.querySelector('#client-error-login')
 
         const email = event.target.querySelector('#email').value

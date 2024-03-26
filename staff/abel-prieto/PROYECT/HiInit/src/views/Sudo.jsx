@@ -89,7 +89,7 @@ export default function Sudo() {
     return <>
         <div className="container">
             <p>~$</p>
-            <p>ADMINISTRATOR. Please, choose an option. Entry DESKTOP, SUDO or EXIT to return </p>
+            <p>ADMINISTRATOR. Please, choose an option: </p>
 
             <br />
 
@@ -125,7 +125,7 @@ export default function Sudo() {
 
             {uknownCommand && (
                 <span>
-                    <p>shell: command not found: '{commandText}'. Entry SUDO, DESKTOP or EXIT</p>
+                    <p>shell: command not found: '{commandText}'. Entry sudo, desktop or exit</p>
                 </span>
             )}
 

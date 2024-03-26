@@ -68,7 +68,7 @@ function AssignGroup() {
 
         const clientError = document.querySelector('#client-error-assign-group')
 
-        if (selectedGroup !== '- Select Group -' || selectedUser !== '- Select User -') {
+        if (selectedGroup !== 'select-group' || selectedUser !== 'select-user') {
             try {
                 logic.assignGroups(selectedGroup, selectedUser)
                     .then(() => {

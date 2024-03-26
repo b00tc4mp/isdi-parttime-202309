@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
-import { Desktop } from '../views'
+import { Desktop, Initial } from '../views'
 import { Login, Register } from '../components'
 import { CommandBar, Pointer } from '../utils'
 
@@ -9,9 +9,6 @@ import logic from '../logic'
 import Context from '../Context'
 
 function Credentials() {
-
-    //const location = useLocation()
-    // console.log(location.pathname)
 
     // POINTER, UKNOWN COMMAND & POINTER STATE
     const [commandText, setCommandText] = useState('')
@@ -68,7 +65,7 @@ function Credentials() {
 
     // EXIT SESSION
     function ProtectedRoute({ element }) {
-        return logic.isUserLoggedIn() ? element : <Navigate to="/" />;
+        return logic.isUserLoggedIn() ? element : <Navigate to="/*" />;
     }
 
     // LOGOUT VIEW
