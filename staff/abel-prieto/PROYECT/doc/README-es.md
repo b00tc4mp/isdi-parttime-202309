@@ -23,7 +23,7 @@ Languajes: | [English](./README-en.md) |
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#casos---funciones">Casos - Funciones</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#modelo-de-datos">Modelo de Datos</a>
 - <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#comandos">Comandos</a>
-- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#figma---estructura">Figma - Estructura</a>
+- <a href="https://github.com/AbelPucela94/isdi-parttime-202309/blob/feature/proyect/staff/abel-prieto/PROYECT/doc/README-es.md#figma---componentes">Figma - Componentes</a>
 
 
 ## RESUMEN
@@ -138,7 +138,7 @@ Languajes: | [English](./README-en.md) |
 |    `help`   | *Solo **lista** los comandos con nombres y funciones*      |
 |    `exit`   | *Deslogeo de sesión y `retorno` a la página inicial*       |
 
-## COMPONENTES
+## FIGMA - COMPONENTES
 
 `PÁGINA INICIAL`
 
