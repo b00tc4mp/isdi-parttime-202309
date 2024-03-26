@@ -26,9 +26,6 @@ export default async function downloadFile(userId, fileId) {
             throw new NotFoundError('File not found. Try again')
         }
 
-        // const isOwner = user.id === file.owner
-        // const isAdmin = user.role && user.role.includes('admin')
-
         if (file.owner[0] === user.id || user.role[0] === 'admin') {
             const originalName = file.name
             const oldPath = `./uploads/${file._id.toString()}`

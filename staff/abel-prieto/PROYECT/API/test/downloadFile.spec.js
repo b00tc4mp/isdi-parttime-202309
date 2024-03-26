@@ -29,8 +29,6 @@ describe('downloadFile', () => {
 
         let fileExist = true
 
-        console.log(newPath)
-
         try {
             await fs.access(newPath)
         } catch (error) {
@@ -54,6 +52,36 @@ describe('downloadFile', () => {
             expect(error.message).to.be.equal('User not found. Try again')
         }
     })
+
+    // NEGATIVE CASE - File not found
+    it('fails on file not found', async () => {
+        const user = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+        const file = random.id()
+
+        try {
+            await downloadFile(user.id, file)
+            throw new Error('should not reach this point!')
+        } catch (error) {
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.be.equal('File not found. Try again')
+        }
+    })
+
+    // NEGATIVE CASE - Other user trying to download his file
+    // it('fails on other user trying to download a file', async () => {
+    //     const user1 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+    //     const user2 = await User.create({ username: random.username(), email: random.email(), password: random.password(), group: 'localhost', role: 'user' })
+
+    //     const file = await File.create({ name: 'archivo_PRUEBA.pdf', owner: user1.id, type: 'application/pdf', permissions: 3 })
+
+    //     try {
+    //         await downloadFile(user2.id, file.id)
+    //         throw new Error('should not reach this point!')
+    //     } catch (error) {
+    //         expect(error).to.be.instanceOf(AuthorizationError)
+    //         expect(error.message).to.be.equal('Authorization denied. Try again')
+    //     }
+    // })
 
     after(() => mongoose.disconnect())
 })
