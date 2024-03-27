@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="play(1)">play 1</button>
+    <button onclick="play(2)">play 2</button>
+
+    <button onclick="loop(1000)">play loop</button>
+
+    <input type="range" min="200" max="2000" value="1000" id="bpm">
+
+    <input type="range" id="speed" min="0.5" max="2" value="1" step="0.1" />
+
+
+    <script>
+        const AudioContext = window.AudioContext || window.webkitAudioContext;;
+        let audioContext
+
+        audioContext = new AudioContext();
+
+        envelope = audioContext.createGain();
+        envelope.connect(audioContext.destination);
+
+        function play(level) {
+            if (!audioContext || !envelope) {
+                createAudioContext();
+            }
+
+            if (audioContext && envelope) {
+                envelope.gain.cancelScheduledValues(0);
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = "square";
+                oscillator.frequency.value = level === 2 ? 400 : level === 1 ? 325 : 250;
+                oscillator.connect(envelope);
+
+                envelope.gain.value = 0;
+                const time = audioContext.currentTime;
+                //envelope.gain.linearRampToValueAtTime(1, time + 0.01);
+                envelope.gain.setValueAtTime(1, time + 0.01);
+                envelope.gain.linearRampToValueAtTime(0.001, time + 0.04);
+
+                oscillator.start();
+                oscillator.stop(time + 0.1);
+            }
+        }
+
+        let interval, timeout
+
+        function loop(step) {
+            clearInterval(interval)
+            clearTimeout(timeout)
+
+            interval = setInterval(() => {
+                play(1)
+
+                timeout = setTimeout(() => play(2), step / 2)
+            }, step)
+        }
+
+        document.querySelector('#bpm').onchange = function (event) {
+            loop(+event.target.value)
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

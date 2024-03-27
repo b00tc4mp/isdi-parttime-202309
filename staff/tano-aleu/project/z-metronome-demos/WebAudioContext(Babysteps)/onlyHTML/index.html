@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metronome</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Audio Source -->
+    <audio src="Metronomo8beats.wav"></audio>
+    <audio id="sampleAudio" src="Drum1.8.mp3"></audio>
+
+    <!-- Play/Pause Button -->
+    <button data-playing="false" role="switch" aria-checked="false">
+        <span>Play/Pause</span>
+    </button>
+
+    <!-- Volume Control -->
+    <h3>Volume</h3>
+    <input type="range" id="volume" min="-1" max="10" value="1" step="0.01" />
+
+    <h3>BPM Control</h3>
+    <!-- BPM Control -->
+    <input type="range" id="bpm" min="20" max="300" value="120" step="0.1" />
+    <input type="number" id="bpmDisplay" value="120" min="20" max="300" step="0.1" /> <!-- Valor inicial mostrado -->
+
+    <h3>TAP Tempo</h3>
+    <!-- Tap Tempo Button -->
+    <button id="tapButton">Tap Tempo</button>
+
+    <h3>Beat Tranposition</h3>
+    <!-- Shift Buttons -->
+    <button id="shiftBackward">Beat Forward</button>
+    <button id="shiftForward">Beat Backward</button>
+
+
+
+    <script>
+
+        // Inicialización de Web Audio API
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+
+
+        // Controlador del evento 'DOMContentLoaded'
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log("DOM fully loaded and analyzed");
+
+
+
+            // Configuración inicial
+
+            const audioElement = document.querySelector("audio");
+            const bpmControl = document.querySelector("#bpm");
+            const bpmDisplay = document.querySelector("#bpmDisplay");
+            const playButton = document.querySelector("button[data-playing]");
+            const sampleElement = document.querySelector("#sampleAudio");
+            const originalBPM = 120;
+            const originalSampleBPM = 100;
+            let lastTapTime = 0;
+            let tapTempoArray = [];
+
+
+
+
+            // Conexión del metrónomo(audio) con Web Audio API
+
+            const track = audioContext.createMediaElementSource(audioElement);
+            track.connect(audioContext.destination);
+            audioElement.loop = true;
+            sampleElement.loop = true;
+
+
+
+
+            // Evento para el botón de Play/Pause
+
+            playButton.addEventListener("click", () => {
+                console.log("Play/Pause button pressed");
+                // Reanuda el contexto de audio si está suspendido
+                if (audioContext.state === "suspended") {
+                    audioContext.resume();
+                }
+
+                if (playButton.dataset.playing === "false") {
+                    // Solo reproduce si el contexto de audio no está suspendido
+                    if (audioContext.state !== "suspended") {
+                        audioElement.play();
+                        sampleElement.play(); // Reproduce el sample
+                        playButton.dataset.playing = "true";
+                    }
+                } else {
+                    audioElement.pause();
+                    sampleElement.pause(); // Pausa el sample
+                    audioElement.currentTime = 0;
+                    sampleElement.currentTime = 0; // Reinicia el sample
+                    playButton.dataset.playing = "false";
+                    console.log("Audio reset");
+                }
+            }, false);
+
+
+
+            // Configuración del control de volumen del metrónomo
+
+            const gainNode = audioContext.createGain();
+            track.connect(gainNode).connect(audioContext.destination);
+
+            document.querySelector("#volume").addEventListener("input", (event) => {
+                console.log("Control de volumen cambiado: ", event.target.value);
+                gainNode.gain.value = event.target.value;
+            }, false);
+
+
+
+            // Funciones para actualizar y calcular el BPM
+
+            function updateBPM(newBPM) {
+                const metronomePlaybackRate = newBPM / originalBPM;
+                audioElement.playbackRate = metronomePlaybackRate;
+
+                const samplePlaybackRate = newBPM / originalSampleBPM;
+                sampleElement.playbackRate = samplePlaybackRate; // Ajusta el BPM del sample
+
+                console.log("Metronome BPM actualizado a: ", newBPM);
+                console.log("Sample BPM ajustado a: ", newBPM);
+                bpmDisplay.value = newBPM;
+                bpmControl.value = newBPM;
+            }
+
+            bpmControl.addEventListener("input", () => {
+                updateBPM(parseFloat(bpmControl.value));
+            });
+
+            bpmDisplay.addEventListener("input", () => {
+                updateBPM(parseFloat(bpmDisplay.value));
+            });
+
+            tapButton.addEventListener("click", () => {
+                console.log("Tap button pressed");
+                const currentTime = new Date().getTime();
+                if (lastTapTime !== 0) {
+                    const tapInterval = currentTime - lastTapTime;
+                    const tapTempo = 60000 / tapInterval;
+                    tapTempoArray.push(tapTempo);
+                    if (tapTempoArray.length > 4) {
+                        tapTempoArray.shift();
+                    }
+                    const averageTempo = tapTempoArray.reduce((a, b) => a + b, 0) / tapTempoArray.length;
+                    updateBPM(averageTempo);
+                }
+                lastTapTime = currentTime;
+            });
+
+
+
+            // Transposición del beat
+
+            let intervalId;
+            let shiftTime = 0;
+            let shiftAmount = 500;
+            let shiftIncrement = 20;
+            let maxShift = 1000;
+
+            function startShifting(initialShiftAmount) {
+                shiftAmount = initialShiftAmount;
+                intervalId = setInterval(() => {
+                    shiftTime += shiftAmount;
+                    console.log("Shift Time: ", shiftTime, "ms");
+                    console.log("Shift Amount: ", shiftAmount, "ms");
+
+                    if (!audioElement.paused) {
+                        audioElement.currentTime = Math.max(0, (audioElement.currentTime * 1000 + shiftAmount) / 1000);
+                    }
+
+                    if (Math.abs(shiftAmount) < maxShift) {
+                        shiftAmount += (shiftAmount > 0) ? shiftIncrement : -shiftIncrement;
+                    }
+                }, 1000);
+            }
+
+            function stopShifting() {
+                clearInterval(intervalId);
+                console.log("Transposition stopped");
+                shiftAmount = 100;
+            }
+
+            document.querySelector("#shiftBackward").addEventListener("mousedown", () => startShifting(-100));
+            document.querySelector("#shiftBackward").addEventListener("mouseup", stopShifting);
+
+
+            document.querySelector("#shiftForward").addEventListener("mousedown", () => startShifting(100));
+            document.querySelector("#shiftForward").addEventListener("mouseup", stopShifting);
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>

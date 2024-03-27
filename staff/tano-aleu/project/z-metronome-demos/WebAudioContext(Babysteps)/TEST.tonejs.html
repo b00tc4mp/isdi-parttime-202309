@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tone.js Combined Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.38/build/Tone.min.js"></script>
+</head>
+
+<body>
+
+    <button id="toggleAll">Play/Pause All</button>
+    <br>
+
+
+    <button id="muteMetronome">Mute/Unmute Metronome</button>
+    <div>
+        <label for="metronomeVolume">Metronome Volume:</label>
+        <input type="range" id="metronomeVolume" min="-60" max="10" value="0" step="1">
+
+
+
+    </div>
+
+
+    <button id="muteSample1">Mute/Unmute Sample 1</button>
+    <br>
+    <button id="muteSample2">Mute/Unmute Sample 2</button>
+
+
+
+    <div>
+        <label for="samplesVolume">Samples Volume:</label>
+        <input type="range" id="samplesVolume" min="-60" max="0" value="0" step="1">
+    </div>
+
+
+
+
+    <button id="tapTempoButton">Tap Tempo</button>
+    <br>
+    <label for="bpmControl">BPM:</label>
+    <input type="number" id="bpmControl" min="40" max="240" value="120" step="0.1">
+    <br>
+    <button id="decreaseTempo">Backward</button>
+    <button id="increaseTempo">Forward</button>
+
+    <script>
+
+        let lastTapTime = 0;
+        let taps = [];
+
+
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const bpmControl = document.getElementById('bpmControl');
+
+            // Crear nodos de volumen
+            const metronomeVolume = new Tone.Volume().toDestination();
+            const samplesVolume = new Tone.Volume().toDestination();
+
+            function Sample(url, originalBPM, volumeNode) {
+                this.player = new Tone.Player(url).connect(volumeNode);
+                this.originalBPM = originalBPM;
+                this.player.loop = true;
+            }
+
+            // Crear metrónomo y samples, conectándolos a sus respectivos nodos de volumen
+            const metronome = new Sample("Metronomo8beats.wav", 120, metronomeVolume);
+            const samples = [
+                new Sample("Drum1.8.wav", 120, samplesVolume),
+                new Sample("Drum2.4.wav", 120, samplesVolume)
+            ];
+
+            // Manejar los eventos de cambio de volumen
+            document.getElementById('metronomeVolume').addEventListener('input', (e) => {
+                const volumeValue = parseFloat(e.target.value);
+                metronomeVolume.volume.value = volumeValue < -59 ? -Infinity : volumeValue;
+            });
+
+            document.getElementById('samplesVolume').addEventListener('input', (e) => {
+                const volumeValue = parseFloat(e.target.value);
+                samplesVolume.volume.value = volumeValue < -59 ? -Infinity : volumeValue;
+            });
+
+            function togglePlay() {
+                const allSamples = [metronome, ...samples];
+                allSamples.forEach(sample => {
+                    if (sample.isPlaying) {
+                        sample.player.stop();
+                    } else {
+                        sample.player.start();
+                        updatePlaybackRate([sample]);
+                    }
+                    sample.isPlaying = !sample.isPlaying;
+                });
+            }
+
+            function toggleMute(sample) {
+                sample.isMuted = !sample.isMuted;
+                sample.player.mute = sample.isMuted;
+            }
+
+
+            bpmControl.addEventListener('input', () => {
+                originalBPM = parseFloat(bpmControl.value);
+                updatePlaybackRate([metronome, ...samples]);
+            });
+
+
+            function updatePlaybackRate(sampleGroup) {
+                const newBPM = parseInt(bpmControl.value);
+                sampleGroup.forEach(sample => {
+                    sample.player.playbackRate = newBPM / sample.originalBPM;
+                });
+            }
+
+
+
+            document.getElementById('toggleAll').addEventListener('click', togglePlay);
+            document.getElementById('muteMetronome').addEventListener('click', () => toggleMute(metronome));
+            document.getElementById('muteSample1').addEventListener('click', () => toggleMute(samples[0]));
+            document.getElementById('muteSample2').addEventListener('click', () => toggleMute(samples[1]));
+
+            bpmControl.addEventListener('input', () => {
+                updatePlaybackRate([metronome, ...samples]);
+            });
+
+            function setBPM(bpm) {
+                bpmControl.value = bpm;
+                updatePlaybackRate([metronome, ...samples]);
+            }
+
+            document.getElementById('tapTempoButton').addEventListener('click', () => {
+                const currentTime = Tone.now();
+                if (lastTapTime != 0) {
+                    let interval = currentTime - lastTapTime;
+                    taps.push(60 / interval); // Convertir intervalo a BPM
+                    if (taps.length > 2) {
+                        taps.shift(); // Mantener solo los últimos dos taps
+                    }
+                    setBPM(Math.round((taps[0] + (taps[1] || taps[0])) / 2)); // Promedio de los últimos dos taps
+                }
+                lastTapTime = currentTime;
+            });
+
+            let temporaryBPM;
+
+            function setBPM(bpm) {
+                bpmControl.value = bpm;
+                updatePlaybackRate([metronome, ...samples]);
+            }
+
+            function changeTempo(tempoChange) {
+                console.log(`Cambiando tempo temporalmente en ${tempoChange}`);
+                temporaryBPM = parseFloat(bpmControl.value); // Usar bpmControl.value
+                setBPM(parseFloat(bpmControl.value) + tempoChange);
+            }
+
+            function resetBPM() {
+                setBPM(temporaryBPM);
+            }
+
+            document.getElementById('increaseTempo').addEventListener('mousedown', () => changeTempo(5));
+            document.getElementById('increaseTempo').addEventListener('mouseup', resetBPM);
+            document.getElementById('decreaseTempo').addEventListener('mousedown', () => changeTempo(-5));
+            document.getElementById('decreaseTempo').addEventListener('mouseup', resetBPM);
+
+
+        });
+    </script>
+</body>
+
+</html>

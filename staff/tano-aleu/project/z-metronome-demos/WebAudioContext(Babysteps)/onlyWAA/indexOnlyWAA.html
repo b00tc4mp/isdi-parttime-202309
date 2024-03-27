@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetronomoWAA</title>
+</head>
+
+<body>
+    <!-- Botón de Play/Pause -->
+    <button id="playButton">Play/Pause</button>
+
+    <!-- Input/Display para BPM -->
+    <input type="number" id="bpmControl" value="120" min="20" max="300" step="0.1">
+
+    <!-- Botón para Tap Tempo -->
+    <button id="tapButton">Tap</button>
+
+    <!-- Control para Transposición de Tempo -->
+    <button id="decreaseTempo">-</button>
+    <button id="increaseTempo">+</button>
+
+    <!-- Control de Volumen -->
+    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+
+    <script>
+        // Crear contexto de audio
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        let audioBuffer;
+        let sourceNode;
+        let isPlaying = false;
+
+        let bpm = 100;
+        const originalBPM = bpm;
+
+        let lastTapTime = 0;
+        let taps = [];
+
+
+
+        // Crear el GainNode
+        const gainNode = audioContext.createGain();
+
+        // Conectar el GainNode al destino de audio
+        gainNode.connect(audioContext.destination);
+
+
+        // Cargar el archivo de audio en un buffer
+        fetch('Drum1.8.wav')
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(decodedAudio => {
+                audioBuffer = decodedAudio;
+            });
+
+
+
+        // Función para reproducir o pausar el audio
+        function togglePlay() {
+            console.log("Toggle play/pause");
+            if (isPlaying) {
+                // Detiene la reproducción actual
+                sourceNode.stop();
+                sourceNode = null;
+                isPlaying = false;
+            } else {
+                startPlayback();
+            }
+        }
+
+
+
+        // Función para iniciar la reproducción
+        function startPlayback() {
+            console.log("Iniciando reproducción");
+            sourceNode = audioContext.createBufferSource();
+            sourceNode.buffer = audioBuffer;
+            sourceNode.loop = true;
+            sourceNode.playbackRate.value = bpm / originalBPM; // Ajustar la velocidad de reproducción
+            sourceNode.connect(gainNode); // Conectar el sourceNode al GainNode
+            sourceNode.start();
+            isPlaying = true;
+        }
+
+
+
+        // Evento para el botón de Play/Pause
+        document.getElementById('playButton').addEventListener('click', togglePlay);
+        document.getElementById('bpmControl').addEventListener('input', (e) => {
+            setBPM(e.target.valueAsNumber);
+        });
+
+
+
+        // Función para establecer el BPM
+        function setBPM(newBPM) {
+            console.log(`Estableciendo BPM a ${newBPM}`);
+            bpm = newBPM;
+            document.getElementById('bpmControl').value = newBPM; // Actualizar el input
+            if (isPlaying) {
+                sourceNode.playbackRate.value = bpm / originalBPM;
+            }
+        }
+
+
+
+        // Lógica para Tap Tempo
+        document.getElementById('tapButton').addEventListener('click', () => {
+            console.log("Tap registrado");
+            let currentTime = audioContext.currentTime;
+            if (lastTapTime != 0) {
+                let interval = currentTime - lastTapTime;
+                taps.push(60 / interval); // Convertir intervalo a BPM
+                if (taps.length > 2) {
+                    taps.shift(); // Mantener solo los últimos dos taps
+                }
+                setBPM(Math.round((taps[0] + (taps[1] || taps[0])) / 2)); // Promedio de los últimos dos taps
+            }
+            lastTapTime = currentTime;
+        });
+
+
+
+        // Funciones para aumentar y disminuir el tempo temporalmente
+        let temporaryBPM;
+        function changeTempo(tempoChange) {
+            console.log(`Cambiando tempo temporalmente en ${tempoChange}`);
+            temporaryBPM = bpm; // Almacenar el BPM actual
+            setBPM(bpm + tempoChange);
+        }
+
+
+
+        // Restablecer el BPM al valor guardado
+        function resetBPM() {
+            setBPM(temporaryBPM);
+        }
+
+        document.getElementById('increaseTempo').addEventListener('mousedown', () => changeTempo(5));
+        document.getElementById('increaseTempo').addEventListener('mouseup', resetBPM);
+        document.getElementById('decreaseTempo').addEventListener('mousedown', () => changeTempo(-5));
+        document.getElementById('decreaseTempo').addEventListener('mouseup', resetBPM);
+
+
+
+        // Función para ajustar el volumen
+        document.getElementById('volumeControl').addEventListener('input', function () {
+            const volume = this.value;
+            console.log(`Ajustando volumen a ${volume}`);
+            gainNode.gain.value = volume;
+        });
+
+
+
+    </script>
+</body>
+
+</html>
