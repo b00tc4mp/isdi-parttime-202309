@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import logo from '../assets/synqple.logo.png';
 import { useNavigate } from 'react-router-dom';
-import { ToggleSwitch } from '../library';
-
-const SettingItem = ({ label, children }) => {
-    return (
-        <div className="flex justify-between items-center py-4 border-b border-purple-700">
-            <span className="text-gray-300">{label}</span>
-            {children}
-        </div>
-    );
-};
+import { ToggleSwitch, SettingItem } from '../library';
+import buttonChevronRight from '../assets/settings_buttons/ChevronRight.png';
 
 
 function Settings() {
@@ -34,7 +26,9 @@ function Settings() {
             <h2>Preferences</h2>
 
             <SettingItem label="Profile" > <div className="space-y-1" onClick={navigateToProfile}>
-                <button className="text-gray-300 mr-3"> ▶ </button>
+                <button className="text-gray-300 mr-3">
+                    <img src={buttonChevronRight} alt="right" className="w-5 h-auto mt-2  justify-center" />
+                </button>
 
             </div>
             </SettingItem>
@@ -47,19 +41,19 @@ function Settings() {
 
 
             <SettingItem label="Option1">
-                <ToggleSwitch enabled={option1} setEnabled={setOption1} />
+                <ToggleSwitch id="option1" enabled={option1} setEnabled={setOption1} />
             </SettingItem>
             <SettingItem label="Option2">
-                <ToggleSwitch enabled={option2} setEnabled={setOption2} />
+                <ToggleSwitch id="option2" enabled={option2} setEnabled={setOption2} />
             </SettingItem>
 
             <h2>Sound & Samples</h2>
 
             <SettingItem label="Option3">
-                <ToggleSwitch enabled={option3} setEnabled={setOption3} />
+                <ToggleSwitch id="option3" enabled={option3} setEnabled={setOption3} />
             </SettingItem>
             <SettingItem label="Option4">
-                <ToggleSwitch enabled={option4} setEnabled={setOption4} />
+                <ToggleSwitch id="option4" enabled={option4} setEnabled={setOption4} />
             </SettingItem>
 
             <h2>Support</h2>
@@ -67,7 +61,8 @@ function Settings() {
             <SettingItem label="Help Center">
                 <SettingItem>
 
-                    <span className="text-gray-300 mr-3"> ▶ </span>
+                    <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto mt-2  justify-center" />
+                    </span>
 
                 </SettingItem>
 
@@ -75,7 +70,8 @@ function Settings() {
 
             <SettingItem label="App Feedback">
                 <SettingItem>
-                    <span className="text-gray-300 mr-3"> ▶ </span>
+                    <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto mt-2  justify-center" />
+                    </span>
                 </SettingItem>
 
             </SettingItem>
