@@ -10,6 +10,8 @@ import cors from 'cors'
 import {
     registerUserHandler,
     authenticateUserHandler,
+    changeUserEmailHandler,
+    changeUserPasswordHandler,
     retrieveUserHandler,
     getSamplesHandler,
     getMetronomoHandler,
@@ -33,6 +35,10 @@ mongoose.connect(process.env.MONGODB_URL) //conexion con moogose
         server.post('/users', jsonBodyParser, registerUserHandler)
 
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        server.patch('/users/email', jsonBodyParser, changeUserEmailHandler)
+
+        server.patch('/users/password', jsonBodyParser, changeUserPasswordHandler)
 
         server.get('/users', retrieveUserHandler)
 

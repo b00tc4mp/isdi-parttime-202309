@@ -28,6 +28,14 @@
     @apply border-[2px] border-solid border-black font-bold text-white rounded-3xl p-2 mt-5;
   }
 
+  .back-button {
+    @apply border-[2px] border-solid border-black font-bold text-white rounded-3xl p-2 mt-5;
+  }
+
+  .update-button {
+    @apply border-[2px] border-solid border-black font-bold text-white rounded-3xl p-2 mt-5;
+  }
+
   .link {
     @apply decoration-[none] visited:text-white text-white before:content-['[_'] after:content-['_]'];
   }
@@ -39,6 +47,43 @@
   .container--horizontal {
     @apply bg-purple-400 flex-row justify-center;
   }
+
+
+
+  /* Estilos para ToggleSwitch */
+  .toggle-checkbox {
+    @apply sr-only; /* sr-only es una clase de utilidad de Tailwind para accesibilidad */
+  }
+
+  .toggle-label {
+    @apply cursor-pointer block overflow-hidden rounded-full bg-gray-300 transition-colors duration-200 ease-in;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+  }
+
+  .toggle-label:after {
+    @apply block bg-white rounded-full transition-transform duration-200 ease-in;
+    content: '';
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    position: absolute;
+  }
+
+  .toggle-checkbox:checked + .toggle-label {
+    @apply bg-blue-500;
+  }
+
+  .toggle-checkbox:checked + .toggle-label:after {
+    @apply transform;
+    --tw-translate-x: 100%;
+    left: 1px; /* Ajusta según sea necesario para alinear correctamente el círculo */
+  }
+
+
+
 
   /* custom */
 
@@ -71,6 +116,7 @@
   .Feedback--fatal {
     @apply bg-[red] text-white;
   }
+
 }
 
 body {

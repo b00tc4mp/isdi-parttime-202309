@@ -10,7 +10,7 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
     };
     return (
         <div className="flex justify-around">
-            <div className="w-1/2 relative flex flex-col items-center space-y-1"> {/* Añade espacio verticalmente entre elementos */}
+            <div className="w-1/2 relative flex flex-col items-center space-y-1 mb-4"> {/* Añade espacio verticalmente entre elementos */}
                 {/* Texto sobre los inputs */}
                 <div className="text-white text-1sm">BPM</div> {/* Ajusta el tamaño del texto y el color según necesites */}
 
@@ -26,7 +26,7 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
 
                 <input
                     type="range"
-                    className="range-input w-full -mb-6"
+                    className="range-input w-full mb-4"
                     value={bpm}
                     onChange={handleBpmChange}
                     min="40"

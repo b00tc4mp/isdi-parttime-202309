@@ -5,8 +5,8 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+")
 const ID_REGEX = /^[0-9A-Fa-f]{24}$/
 
 function text(text, explain) {
-    if (typeof text !== 'string') throw new TypeErro(explain + ' is not string')
-    if (!text.trim().length) throw new ContentError(explin + ' is empty')
+    if (typeof text !== 'string') throw new TypeError(explain + ' is not string')
+    if (!text.trim().length) throw new ContentError(explain + ' is empty')
 }
 
 function email(email, explain) {

@@ -56,6 +56,9 @@ const Synqple = () => {
                 }).toDestination();
                 setMetronomePlayer(metronomePlayer);
             }
+        }).catch(error => {
+            console.error("Error loading metronome:", error);
+            // Aquí puedes manejar el error, como mostrar un mensaje al usuario.
         });
 
         getSamples().then(samples => {
@@ -74,6 +77,9 @@ const Synqple = () => {
                 return player;
             });
             setSamplePlayers(samplePlayers); // Establecemos todos los players
+        }).catch(error => {
+            console.error("Error loading samples:", error);
+            // Manejo del error
         });
 
         // Función de limpieza
@@ -98,7 +104,11 @@ const Synqple = () => {
                 metronomePlayer?.start();
                 const player = samplePlayers[currentSampleIndex];
                 if (player) player.start();
+            }).catch(error => {
+                console.error("Error starting audio context:", error);
+                // Manejo del error
             });
+
         } else {
             metronomePlayer?.stop();
             samplePlayers.forEach(player => player.stop());
@@ -148,6 +158,9 @@ const Synqple = () => {
         if (isPlaying && !isSampleMuted) {
             Tone.start().then(() => {
                 samplePlayers[index]?.start();
+            }).catch(error => {
+                console.error("Error starting audio context or playing sample:", error);
+                // Manejo del error
             });
         }
     };
@@ -311,19 +324,20 @@ const Synqple = () => {
             <div>
                 <div className=' flex justify-center'>Volumen Samples</div>
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
-                <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full">
+                <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full mb-4">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
                 </button>
             </div>
 
+
             {/* Loop Length Buttons */}
-            <div className=' flex justify-center'>Loop Length</div>
+            <h3 className='flex justify-center mt-8'>Loop Length</h3>
             <div className="flex justify-between">
                 {['1/8', '1/4', '1/2', '1', '2', '4', '8'].map((value) => (
                     <button
                         key={value}
                         onClick={() => handleLoopLengthChange(value)}
-                        className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded"
+                        className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mb-4"
                     >
                         {value}
                     </button>
@@ -336,7 +350,7 @@ const Synqple = () => {
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
 
-            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Sync | Metronome Controls </div>
+            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Tap Tempo | Metronome Controls </div>
 
             <div className="flex items-center justify-between space-x-2">
 

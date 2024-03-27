@@ -1,5 +1,3 @@
-// En getSamples.spec.js o un archivo de pruebas similar
-
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -14,7 +12,7 @@ describe('getMetronomo', () => {
 
     beforeEach(() => Metronomo.deleteMany())
 
-    it('should retrieve metronomo file path', async () => {
+    it('should retrieve metronomo file paths', async () => {
         const metronomoData = [
             { name: 'Metronomo1', filePath: 'path/to/metronomo1.mp3' },
         ];

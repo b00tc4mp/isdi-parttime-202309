@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 function name() {
     return `name-${Math.random()}`;
 }
@@ -8,6 +10,12 @@ function email() {
 
 function password() {
     return `password-${Math.random()}`;
+}
+
+const { ObjectId } = mongoose.Types
+
+function id() {
+    return new ObjectId().toString()
 }
 
 function sampleName() {
@@ -35,6 +43,7 @@ const random = {
     name,
     email,
     password,
+    id,
     sampleName,
     filePath,
     sampleType,

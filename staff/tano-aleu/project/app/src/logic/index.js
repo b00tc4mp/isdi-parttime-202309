@@ -7,13 +7,17 @@ import isUserLoggedIn from './isUserLoggedIn'
 import getMetronomo from './getMetronomo'
 import toggleFavSample from './toggleFavSample'
 import retrieveFavSamples from './retrieveFavSamples'
+import changeUserEmail from './changeUserEmail'
+import changeUserPassword from './changeUserPassword'
 
 
 const logic = {
     registerUser,
     loginUser,
-    logoutUser,
     retrieveUser,
+    changeUserEmail,
+    changeUserPassword,
+    logoutUser,
     isUserLoggedIn,
     getSamples,
     getMetronomo,

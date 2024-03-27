@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
+import { Profile } from './components'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
@@ -62,12 +63,17 @@ function App() {
     console2.log(error.message, level)
   }
 
+  const handleSuccess = (message) => {
+    setLevel('info'); // Nivel para mensajes de éxito
+    setMessage(message);
+  }
+
   const handleFeedbackAccepted = () => {
     setMessage(null)
     setLevel(null)
   }
 
-  const context = { handleError }
+  const context = { handleError, handleSuccess }
 
   return <>
 
@@ -81,6 +87,9 @@ function App() {
         <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
 
         <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
+
+        <Route path='/profile' element={<Profile />} />
+
       </Routes>
     </Context.Provider>
 

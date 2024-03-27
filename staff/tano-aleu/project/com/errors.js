@@ -1,52 +1,6 @@
-class NotFoundError extends Error {
-    constructor(message) {
-
-        super(message)
-
-        this.name = this.constructor.name
-
-    }
-}
-
-class SystemError extends Error {
-    constructor(message) {
-
-        super(message)
-
-        this.name = this.constructor.name
-    }
-}
-
-class ContentError extends Error {
-    constructor(message) {
-
-        super(message)
-
-        this.name = this.constructor.name
-    }
-}
-
-class DuplicityError extends Error {
-    constructor(message) {
-        super(message)
-
-        this.name = this.constructor.name
-    }
-}
-
-class AuthenticateError extends Error {
-    constructor(message) {
-
-        super(message)
-
-        this.name = this.constructor.name
-    }
-
-}
-
+// 401
 class CredentialsError extends Error {
     constructor(message) {
-
         super(message)
 
         this.name = this.constructor.name
@@ -55,7 +9,50 @@ class CredentialsError extends Error {
 
 class TokenError extends Error {
     constructor(message) {
+        super(message)
 
+        this.name = this.constructor.name
+    }
+}
+
+// 404
+class NotFoundError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+// 406
+class ContentError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+// 409
+class DuplicityError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+// 500
+class SystemError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+class TypeError extends Error {
+    constructor(message) {
         super(message)
 
         this.name = this.constructor.name
@@ -63,22 +60,23 @@ class TokenError extends Error {
 }
 
 export {
+    CredentialsError,
+    TokenError,
     NotFoundError,
-    SystemError,
     ContentError,
     DuplicityError,
-    AuthenticateError,
-    CredentialsError,
-    TokenError
+    SystemError,
+    TypeError
 }
 
 const errors = {
+    CredentialsError,
+    TokenError,
     NotFoundError,
-    SystemError,
     ContentError,
     DuplicityError,
-    CredentialsError,
-    TokenError
+    SystemError,
+    TypeError
 }
 
 export default errors

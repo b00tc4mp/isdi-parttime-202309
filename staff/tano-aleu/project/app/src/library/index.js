@@ -5,6 +5,7 @@ import Label from "./Label";
 import Input from "./Input";
 import Field from "./Field";
 import Container from "./Container";
+import ToggleSwitch from "./ToggleSwitch";
 
 export {
     Button,
@@ -13,5 +14,6 @@ export {
     Label,
     Input,
     Field,
-    Container
+    Container,
+    ToggleSwitch
 }
