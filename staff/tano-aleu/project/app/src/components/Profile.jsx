@@ -1,108 +1,85 @@
-import { useState } from 'react'
-import { Button } from '../library'
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import { useContext } from "../hooks"
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import defaultProfilePic from '../assets/profile_img/synqple_profile_default.png';
+import retrieveUser from '../logic/retrieveUser'; // Asegúrate de tener el path correcto a tu función retrieveUser
+import { Button } from '../library';
 import logo from '../assets/synqple.logo.png';
-import changeUserEmail from '../logic/changeUserEmail';
-import changeUserPassword from '../logic/changeUserPassword';
-import Context from '../contexts/Context';
-console.log(changeUserEmail, changeUserPassword);
 
-export default function Profile() {
-    console.log('Profile')
+const Profile = () => {
+    const navigate = useNavigate();
+    const [user, setUser] = useState({ name: 'Loading...' }); // Estado inicial del usuario
 
-    const navigate = useNavigate(); // Inicializar useNavigate
+    useEffect(() => {
+        // Función IIFE para usar async/await dentro de useEffect
+        (async () => {
+            try {
+                const userInfo = await retrieveUser();
+                setUser(userInfo); // Actualiza el estado con la información del usuario
+            } catch (error) {
+                console.error('Failed to retrieve user:', error);
+                // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
+            }
+        })();
+    }, []); // El array vacío asegura que esto se ejecute solo una vez al montar el componente
 
-    // Función para manejar el clic en el botón de volver a configuraciones
+    const handleProfilePicUpload = (event) => {
+        const file = event.target.files[0];
+        console.log(file);
+        // Aquí implementarías la subida del archivo
+    };
 
+    const navigateToUpdateCredentials = () => {
+        navigate('/change-credentials');
+    };
 
     const handleBackToSettings = () => {
         navigate('/settings'); // Asegúrate de que el path coincide con el de tu componente de configuraciones
     };
 
-    const context = useContext(Context)
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#5F5784] text-white p-4">
 
-    function handleChangeEmailSubmit(event) {
-        console.log('Attempting to change email');
-        event.preventDefault()
+            <h3 className="text-lg text-white rounded-full mb-20 ">
+                Profile Info
+            </h3>
 
-        const newEmail = event.target.querySelector('#new-email-input').value
-        const newEmailConfirm = event.target.querySelector('#new-email-confirm-input').value
-        const password = event.target.querySelector('#password-input').value
+            <div className="relative mb-6">
+                <img src={defaultProfilePic} alt="Profile" className="w-32 h-32 rounded-full" />
+                <div className="absolute bottom-0 right-2 bg-white p-1 rounded-full">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleProfilePicUpload}
+                        className="hidden"
+                        id="profile-pic-upload"
+                    />
+                    <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                        <i className="fas fa-plus-circle text-[#5F5784]">+</i> {/* Icono de carga, usa una librería de iconos o una imagen */}
+                    </label>
+                </div>
+            </div>
 
-        console.log(newEmail, newEmailConfirm, password); // Verificar los valores ingresados
-
-        return (async () => {
-            try {
-                await changeUserEmail(newEmail, newEmailConfirm, password);
-                context.handleSuccess('Email changed successfully');
-            } catch (error) {
-                context.handleError(error);
-            }
-        })()
-    }
-
-    function handleChangePasswordSubmit(event) {
-        console.log('Attempting to change password');
-        event.preventDefault()
-
-        const password = event.target.querySelector('#password-input').value
-        const newPassword = event.target.querySelector('#new-password-input').value
-        const newPasswordConfirm = event.target.querySelector('#new-password-confirm-input').value
-
-        console.log(password, newPassword, newPasswordConfirm); // Verificar los valores ingresados
-
-        return (async () => {
-            try {
-                await changeUserPassword(password, newPassword, newPasswordConfirm);
-                context.handleSuccess('Password changed successfully');
-            } catch (error) {
-                context.handleError(error);
-            }
-        })()
-    }
+            <h2 className="text-2xl mb-4">{user.name}</h2>
 
 
 
-    return <div className="container">
+            <button
+                onClick={navigateToUpdateCredentials} // Asumiendo que esto también navega a la sección de actualización de credenciales
+                className="text-lg text-white bg-transparent border border-white rounded-full px-6 py-2 hover:bg-white hover:text-[#5F5784] transition duration-300 ease-in-out"
+            >
+                Update credentials
+            </button>
 
 
-        <h2 className="mt-5">Update e-mail</h2>
+            <Button className="back-button mt-20" onClick={handleBackToSettings}>Back to Settings</Button>
 
-        <form className="form" onSubmit={handleChangeEmailSubmit}>
-            <label htmlFor="new-email-input">New e-mail</label>
-            <input className="input" id="new-email-input" type="email" />
+            <footer className="flex justify-center">
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-40  justify-center" />
 
-            <label htmlFor="new-email-confirm-input">Confirm new e-mail</label>
-            <input className="input" id="new-email-confirm-input" type="email" />
+            </footer>
 
-            <label htmlFor="password-input">Password</label>
-            <input className="input" type="password" id="password-input" />
+        </div>
+    );
+};
 
-            <Button type="submit" className="update-button mt-5">Update e-mail</Button>
-        </form>
-
-        <h2 className="mt-5">Update password</h2>
-
-        <form className="form" onSubmit={handleChangePasswordSubmit}>
-            <label htmlFor="password-input">Current password</label>
-            <input className="input" type="password" id="password-input" />
-
-            <label htmlFor="new-password-input">New password</label>
-            <input className="input" id="new-password-input" type="password" />
-
-            <label htmlFor="new-password-confirm-input">Confirm new password</label>
-            <input className="input" id="new-password-confirm-input" type="password" />
-
-            <Button type="submit" className="update-button mt-5">Update password</Button>
-        </form>
-
-        <Button className="back-button mt-5" onClick={handleBackToSettings}>Back to Settings</Button>
-
-        <footer className="flex justify-center">
-            <img src={logo} alt="Logo" className="w-40 h-auto mt-3  justify-center" />
-
-        </footer>
-
-    </div>
-}
+export default Profile;

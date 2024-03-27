@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Feedback from './components/Feedback'
+import Welcome from './pages/Welcome'
 
 import Context from './contexts/Context'
 
@@ -15,6 +16,7 @@ import { errors } from 'com'
 const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
 
 import logic from './logic'
+import ChangeCredentials from './components/ChangeCredentials'
 
 function App() {
   console.log('App')
@@ -82,6 +84,10 @@ function App() {
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
 
       <Routes>
+
+        <Route path='/' element={<Welcome />} />
+
+
         <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
 
         <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
@@ -89,6 +95,8 @@ function App() {
         <Route path='/*' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleLoginShow} /> : <Navigate to="/login" />} />
 
         <Route path='/profile' element={<Profile />} />
+
+        <Route path='/change-credentials' element={<ChangeCredentials />} />
 
       </Routes>
     </Context.Provider>
