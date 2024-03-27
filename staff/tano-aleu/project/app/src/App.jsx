@@ -8,7 +8,6 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Feedback from './components/Feedback'
-import Welcome from './pages/Welcome'
 
 import Context from './contexts/Context'
 
@@ -84,9 +83,6 @@ function App() {
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}
 
       <Routes>
-
-        <Route path='/' element={<Welcome />} />
-
 
         <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
 

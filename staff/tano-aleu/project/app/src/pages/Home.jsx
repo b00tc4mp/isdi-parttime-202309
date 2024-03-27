@@ -19,12 +19,17 @@ import logout from "../assets/footer_buttons/logout.png"
 
 
 
+
+
+
 function Home(props) {
     console.log('Home')
 
     const session = useContext();
     const [name, setName] = useState(null);
     const navigate = useNavigate();
+
+
 
 
     useEffect(() => {
@@ -55,11 +60,15 @@ function Home(props) {
         navigate('/')
     }
 
+
+
     function handleSamplesFolderClick(event) {
         event.preventDefault()
 
         navigate('/samplesfolder')
     }
+
+
 
     function handleSettingsClick(event) {
         event.preventDefault()
@@ -90,6 +99,7 @@ function Home(props) {
             <Route path="/samplesfolder" element={<SamplesFolder />} />
 
             <Route path="/settings" element={<Settings />} />
+
 
         </Routes>
 
