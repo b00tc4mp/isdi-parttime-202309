@@ -89,6 +89,13 @@ function Home(props) {
         navigate('/tutorials')
     }
 
+    function handleForumClick(event) {
+        event.preventDefault()
+
+        navigate('/')
+        //si da tiempo crear la working page de Forum
+    }
+
     function handleHomeClick(event) {
         event.preventDefault()
 
@@ -103,47 +110,60 @@ function Home(props) {
 
 
 
-    return <div>
-        <header className="header">
-            <h1><Link onClick={handleHomeClick}>Home</Link></h1>
+    return (
+
+        <div className="home-wrapper">
+            <header className="header">
+                <h1><Link onClick={handleHomeClick}>Home</Link></h1>
 
 
-            <div>
+                <div>
 
-                <Link onClick={handleProfileClick}>{name}</Link>
-
-
-
-                <Button onClick={handleLogoutClick}>Logout</Button>
-            </div>
-        </header>
-
-
-        {location.pathname === '/' && (
-            <>
-                <main>
-                    <h2>Welcome back, {name} </h2>
-                    <Button onClick={handleControllerClick}>Connect</Button>
-                    <Button onClick={handleTutorialClick}>Tutorials</Button>
-                </main>
-            </>
-        )}
+                    <Link onClick={handleProfileClick}>{name}</Link>
 
 
 
+                    <Button onClick={handleLogoutClick}>Logout</Button>
+                </div>
+            </header>
+
+            <div className="home-container flex flex-col justify-between">
 
 
-        <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/controller" element={<Controller />} />
-            <Route path="/tutorials" element={<Tutorials loadTutorials={logic.retrieveTutorials} stamp={stamp} />} />
-            {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
+                {location.pathname === '/' && (
+                    <>
+                        <main>
+                            <h2 className="h2-robotic">Welcome back, {name} </h2>
+                            <img src="/giphyHi.gif" alt="Descripción del GIF" />
+                            <div className="home-button-container">
+                                <button className="home-connect-button button" onClick={handleControllerClick}>Connect</button>
+                            </div>
+                            <div className="home-button-container">
+                                <button className="home-tutorials-button button" onClick={handleTutorialClick}>Tutorials</button>
+                            </div>
 
-            {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
-            {/* <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} /> */}
-        </Routes>
+                            <div className="home-button-container">
+                                <button className="home-forum-button button" onClick={handleForumClick}>Forum</button>
+                            </div>
+                        </main>
+                    </>
+                )}
 
-        {/* 
+
+
+
+
+                <Routes>
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/controller" element={<Controller />} />
+                    <Route path="/tutorials" element={<Tutorials loadTutorials={logic.retrieveTutorials} stamp={stamp} />} />
+                    {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
+
+                    {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
+                    {/* <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} /> */}
+                </Routes>
+
+                {/* 
         <footer className="footer">
 
             {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={context.handleError} />}
@@ -151,7 +171,10 @@ function Home(props) {
 
         </footer> */}
 
-    </div >
+            </div>
+
+        </div >)
+
 
 }
 

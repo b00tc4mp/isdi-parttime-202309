@@ -5,7 +5,12 @@ export default {
     './src/**/*.jsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'press-start': ['"Press Start 2P"', 'cursive'],
+      },
+
+    },
   },
   plugins: [],
 }

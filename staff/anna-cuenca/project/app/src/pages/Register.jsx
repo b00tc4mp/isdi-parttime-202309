@@ -45,21 +45,27 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <div className="custom-background"> <Container>
-        <h1>Register</h1>
+    return (
 
-        <Form onSubmit={handleSubmit}>
-            <Field id="name-input">Name</Field>
-            <Field id="email-input" type="email">E-mail</Field>
-            <Field id="password-input" type="password">Password</Field>
-            <Field id="robot-input" type="text">Robot Model</Field>
+        <div className="register-wrapper">
+            <div className="custom-header"></div>
+            <div className="register-container flex flex-col justify-between">
+                <Container>
+                    <h1 className="h1-robotic">Register</h1>
 
-            <Button type="submit">Register</Button>
-        </Form>
+                    <Form onSubmit={handleSubmit}>
+                        <Field id="name-input">Name</Field>
+                        <Field id="email-input" type="email">E-mail</Field>
+                        <Field id="password-input" type="password">Password</Field>
+                        <Field id="robot-input" type="text">Robot Model</Field>
 
-        <Link onClick={handleLoginClick}>Login</Link>
-    </Container>
-    </div>
+                        <Button type="submit">Register</Button>
+                    </Form>
+
+                    <Link onClick={handleLoginClick}>Login</Link>
+                </Container>
+            </div>
+        </div>)
 }
 
 

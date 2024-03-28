@@ -51,21 +51,50 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    return <div className="custom-background"> <Container>
+    //     return <div className="login-container">
 
-        <h1>Login</h1>
+    //         <div className="custom-header">  </div>
 
-        <Form onSubmit={handleSubmit}>
-            <Field id="email-input" type="email">E-mail</Field>
-            <Field id="password-input" type="password">Password</Field>
+    //         <div className="login-container">
 
-            <Button type="submit">Login</Button>
-        </Form>
+    //             <div className="custom-background"> <Container>
 
-        <Link onClick={handleRegisterClick}>Register</Link>
+    //                 <h1>Login</h1>
 
-    </Container>
-    </div>
+    //                 <Form onSubmit={handleSubmit}>
+    //                     <Field id="email-input" type="email">E-mail</Field>
+    //                     <Field id="password-input" type="password">Password</Field>
+
+    //                     <Button type="submit">Login</Button>
+    //                 </Form>
+
+    //                 <Link onClick={handleRegisterClick}>Register</Link>
+
+    //             </Container>
+    //             </div>
+
+    //         </div>
+    //     </div>
+    // }
+
+    return (
+        <div className="login-wrapper">
+
+            <div className="custom-header"></div>
+            <div className="login-container flex flex-col justify-between"> {/* Añadido flex, flex-col y justify-between */}
+                <Container>
+                    <h1 className="h1-robotic">Login</h1>
+                    <Form onSubmit={handleSubmit}>
+                        <Field id="email-input" type="email">E-mail</Field>
+                        <Field id="password-input" type="password">Password</Field>
+                        <Button type="submit">Login</Button>
+                    </Form>
+                    <Link onClick={handleRegisterClick}>Register</Link>
+                </Container>
+                <img src="/ottov4.gif" alt="Descripción del GIF" /> {/* Añadido self-center y mb-4 */}
+            </div>
+        </div>
+    )
 }
 
 

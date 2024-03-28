@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,20 +14,64 @@
   }
 
   .label {
-    @apply font-bold text-green-700;
+    @apply font-bold text-blue-900;
   }
+
+  /* .input,
+  input {
+    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
+  } */
+
+
 
   .input,
   input {
-    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
+    @apply border-[2px] border-solid border-blue-900 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
   }
 
-  .button {
+  /* .button {
     @apply border-[2px] border-solid border-green-500 p-[5px] bg-green-500 text-white font-bold hover:bg-green-600;
+  } */
+
+
+
+  .button {
+    @apply relative inline-block border-green-400 font-bold text-white bg-green-400 hover:bg-green-600 cursor-pointer;
+    padding: 10px 20px;
+
+
+
+
+    clip-path: polygon(30% 0,
+        /* top left */
+        70% 0,
+        /* top right */
+        80% 20%,
+        /* right top */
+        80% 80%,
+        /* right bottom */
+        70% 100%,
+        /* bottom right */
+        30% 100%,
+        /* bottom left */
+        20% 80%,
+        /* left bottom */
+        20% 20%
+        /* left top */
+      );
+    transition: background-color 250ms;
+  }
+
+  .button:hover {
+    @apply bg-blue-900;
   }
 
   .link {
     @apply decoration-[none] text-green-700 hover:text-green-800 before:content-['[_'] after:content-['_]'];
+  }
+
+  .link:hover {
+    @apply text-blue-900;
   }
 
   .container {
@@ -37,7 +83,7 @@
   }
 
   .header {
-    @apply flex items-center justify-between p-[.5rem] bg-green-500 text-white;
+    @apply flex items-center justify-between p-[.5rem] bg-green-400 text-white;
   }
 
   .new-post,
@@ -63,6 +109,259 @@
 
   .footer {
     @apply bg-green-500 flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] text-white;
+  }
+
+  /* LOGIN */
+
+  .h1-robotic {
+    @apply font-press-start;
+  }
+
+
+
+  .login-wrapper {
+    @apply max-w-sm w-full m-auto;
+    @apply md:max-w-md lg:max-w-lg;
+    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+    /* Ajusta el valor según tus preferencias */
+
+  }
+
+  .custom-header {
+    @apply bg-green-400 rounded-t-lg text-white py-4 px-6 flex justify-center items-center relative;
+    width: auto;
+    /* Ajusta el ancho según sea necesario, o deja que se defina por el contenedor padre */
+    height: 100px;
+    /* Ajusta según sea necesario */
+    position: relative;
+    /* Importante para posicionar los pseudo-elementos correctamente */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+
+  }
+
+  .custom-header::before,
+  .custom-header::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    /* Ajusta según la posición vertical deseada */
+    width: 50px;
+    /* Ajusta el tamaño de los ojos */
+    height: 50px;
+    /* Ajusta el tamaño de los ojos */
+    background-color: black;
+    border-radius: 60%;
+    border: 4px solid white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Agrega sombra */
+    /* Ajusta el grosor del borde */
+  }
+
+  .custom-header::before {
+    left: 105px;
+    /* Ajusta según la posición horizontal del ojo izquierdo */
+  }
+
+  .custom-header::after {
+    right: 105px;
+    /* Ajusta según la posición horizontal del ojo derecho */
+  }
+
+
+  /* Asegúrate de ajustar el .login-container para que no tenga márgenes/padding que lo hagan más grande que .custom-header */
+  .login-container {
+    @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
+    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+    @apply h-[700px];
+    @apply bg-zinc-50;
+    /* O un valor específico como h-[500px] */
+    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+  }
+
+
+  /* REGISTER */
+
+  .register-wrapper {
+    @apply max-w-sm w-full m-auto;
+    @apply md:max-w-md lg:max-w-lg;
+    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+    /* Ajusta el valor según tus preferencias */
+
+  }
+
+  .register-container {
+    @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
+    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+    @apply h-[700px];
+    @apply bg-zinc-50;
+    /* O un valor específico como h-[500px] */
+    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+  }
+
+
+  /* HOME */
+  .home-wrapper {
+    @apply max-w-sm w-full m-auto;
+    @apply md:max-w-md lg:max-w-lg;
+    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+    /* Ajusta el valor según tus preferencias */
+
+  }
+
+  .home-container {
+    @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
+    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+    @apply h-[700px];
+    @apply bg-zinc-50;
+    /* O un valor específico como h-[500px] */
+    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+  }
+
+  .h2-robotic {
+    @apply text-center font-press-start text-xs;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
+  .home-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+  }
+
+  .home-connect-button {
+    /* Estilos específicos para el botón Connect */
+    @apply relative inline-block border-blue-900 font-bold text-white bg-blue-900 hover:bg-green-400 cursor-pointer;
+    padding: 10px 20px;
+    /* Sin cortar los bordes */
+    transition: background-color 250ms;
+  }
+
+
+
+  .home-tutorials-button {
+    /* Estilos específicos para el botón Tutorials */
+    @apply relative inline-block border-blue-900 font-bold text-white bg-blue-900 hover:bg-green-400 cursor-pointer;
+    padding: 10px 20px;
+
+
+
+
+    clip-path: polygon(30% 0,
+        /* top left */
+        70% 0,
+        /* top right */
+        80% 20%,
+        /* right top */
+        80% 80%,
+        /* right bottom */
+        70% 100%,
+        /* bottom right */
+        30% 100%,
+        /* bottom left */
+        20% 80%,
+        /* left bottom */
+        20% 20%
+        /* left top */
+      );
+    transition: background-color 250ms;
+  }
+
+  /* CONTROLLER*/
+
+
+
+  .controller-wrapper {}
+
+  .h2-robotic-controller {
+    @apply text-center font-press-start text-xs;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  .controller-actions {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    /* Crea 3 columnas */
+    grid-template-rows: repeat(3, auto);
+    /* Crea 3 filas */
+    gap: 10px;
+    /* Espacio entre botones */
+    justify-content: center;
+    /* Centra la cuadrícula horizontalmente */
+    align-items: center;
+    /* Centra la cuadrícula verticalmente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    @apply bg-blue-900;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  .button-forward,
+  .button-backward,
+  .button-left,
+  .button-right {
+    @apply relative inline-block font-bold text-white bg-blue-900 cursor-pointer;
+    padding: 10px;
+    /* Reducir el padding reduce el tamaño del triángulo */
+    width: 60px;
+    /* Establece un ancho fijo */
+    height: 60px;
+    /* Establece una altura fija */
+    transition: background-color 250ms;
+
+  }
+
+  .button-forward {
+    @apply bg-zinc-50 hover:bg-green-400 cursor-pointer;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+
+  }
+
+  .button-backward {
+    @apply bg-zinc-50 hover:bg-green-400 cursor-pointer;
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+  }
+
+  .button-right {
+    @apply bg-zinc-50 hover:bg-green-400 cursor-pointer;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+  }
+
+  .button-left {
+    @apply bg-zinc-50 hover:bg-green-400 cursor-pointer;
+    clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .button-stop {
+    @apply bg-green-400 hover:bg-zinc-50 cursor-pointer;
+
+    padding: 20px 20px;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
   }
 
   /* Feedback modifications for a cohesive look */

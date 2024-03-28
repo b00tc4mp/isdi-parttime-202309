@@ -152,17 +152,21 @@ export default function Controller() {
 
 
     return (
-        <div className="container">
-            <h2>Controller</h2>
+        <div className="controller-container flex flex-col justify-between">
+
 
             {/* Sección de acciones */}
-            <div>
-                <h3>Actions</h3>
-                <Button onClick={() => handleAction('walkForward')}>Forward</Button>
-                <Button onClick={() => handleAction('walkBackward')}>Backward</Button>
-                <Button onClick={() => handleAction('turnRight')}>Turn Right</Button>
-                <Button onClick={() => handleAction('turnLeft')}>Turn Left</Button>
-                <Button onClick={() => handleAction('stop')}>Stop</Button>
+            <div className="controller-wrapper">
+                {/* <h2 className="h2-robotic-controller">Controller</h2> */}
+                {/* <h3>Actions</h3> */}
+                <div className="controller-actions">
+                    <button className="button-forward button" onClick={() => handleAction('walkForward')}></button>
+                    <button className="button-stop button" onClick={() => handleAction('stop')}></button>
+                    <button className="button-backward button" onClick={() => handleAction('walkBackward')}></button>
+                    <button className="button-right button" onClick={() => handleAction('turnRight')}></button>
+                    <button className="button-left button" onClick={() => handleAction('turnLeft')}></button>
+
+                </div>
                 <h3>Comunication</h3>
                 <Button onClick={() => handleAction('sayHi')}>Say Hi</Button>
                 <Button onClick={() => handleAction('clearLCD')}>Clear LCD</Button>
@@ -178,49 +182,50 @@ export default function Controller() {
                 <Button onClick={() => handleAction('shakeLegRight')}>Shake Leg Right</Button>
                 <Button onClick={() => handleAction('shakeLegLeft')}>Shake Leg Left</Button>
                 <Button onClick={() => handleAction('endSequence')}>End Sequence</Button>
-            </div>
-
-            {/* Sección para mostrar/ocultar secuencias */}
-            <Button onClick={toggleSequencesVisibility}>
-                {showSequences ? 'Hide' : 'Show'} Sequences
-            </Button>
-
-            {/* Sección de secuencias */}
-            {showSequences && (
-                <div>
-                    <h3>Sequences</h3>
 
 
-                    {sequences.length > 0 ? sequences.map(sequence => (
-                        <div key={sequence.id} style={{ marginBottom: '20px' }}>
-                            <h4>Sequence ID: {sequence.id}</h4>
-                            <p>Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
-                            <h5>Movements:</h5>
-                            <ul>
-                                {sequence.movements.map((movement, index) => (
-                                    <li key={movement.id}>
-                                        {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`}
-                                        <p>Index: {index}</p>
-                                        {editingSequenceId === sequence.id && (
-                                            <>
-                                                <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'delete')}>❌</Button>
-                                                {index !== 0 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveUp')}>⬆️</Button>}
-                                                {index !== sequence.movements.length - 1 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveDown')}>⬇️</Button>}
-                                            </>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
-                            <div>
-                                <Button onClick={() => handlePlaySequence(sequence.id)}>Play</Button>
-                                <Button onClick={() => handleDeleteSequence(sequence.id)}>Delete</Button>
-                                <Button onClick={() => handleEditSequence(sequence.id)}>{editingSequenceId === sequence.id ? 'Finish Edit' : 'Edit'}</Button>
+                {/* Sección para mostrar/ocultar secuencias */}
+                <Button onClick={toggleSequencesVisibility}>
+                    {showSequences ? 'Hide' : 'Show'} Sequences
+                </Button>
+
+                {/* Sección de secuencias */}
+                {showSequences && (
+                    <div>
+                        <h3>Sequences</h3>
+
+
+                        {sequences.length > 0 ? sequences.map(sequence => (
+                            <div key={sequence.id} style={{ marginBottom: '20px' }}>
+                                <h4>Sequence ID: {sequence.id}</h4>
+                                <p>Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
+                                <h5>Movements:</h5>
+                                <ul>
+                                    {sequence.movements.map((movement, index) => (
+                                        <li key={movement.id}>
+                                            {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`}
+                                            <p>Index: {index}</p>
+                                            {editingSequenceId === sequence.id && (
+                                                <>
+                                                    <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'delete')}>❌</Button>
+                                                    {index !== 0 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveUp')}>⬆️</Button>}
+                                                    {index !== sequence.movements.length - 1 && <Button onClick={() => handleEditMovement(sequence.id, movement.id, 'moveDown')}>⬇️</Button>}
+                                                </>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div>
+                                    <Button onClick={() => handlePlaySequence(sequence.id)}>Play</Button>
+                                    <Button onClick={() => handleDeleteSequence(sequence.id)}>Delete</Button>
+                                    <Button onClick={() => handleEditSequence(sequence.id)}>{editingSequenceId === sequence.id ? 'Finish Edit' : 'Edit'}</Button>
+                                </div>
                             </div>
-                        </div>
-                    )) : <p>No sequences found.</p>}
+                        )) : <p>No sequences found.</p>}
 
-                </div>
-            )}
+                    </div>
+                )}
+            </div>
 
 
         </div>
