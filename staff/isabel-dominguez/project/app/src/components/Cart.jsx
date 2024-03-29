@@ -9,7 +9,7 @@ export default function Cart({ cartItems, onSuccess }) {
     const handleIncrement = (productId) => {
         try {
             logic.updateCartItemQuantity(productId, cartItems._id, 1)
-                .then(() => { onSuccess() })
+                .then(() => onSuccess())
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -19,24 +19,24 @@ export default function Cart({ cartItems, onSuccess }) {
     const handleDecrement = (productId) => {
         try {
             logic.updateCartItemQuantity(productId, cartItems._id, -1)
-                .then(() => { onSuccess() })
+                .then(() => onSuccess())
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
         }
     }
 
-    // const handleDeleteOrder = () => {
-    //     logic.deleteOrder(cartItems._id)
-    //         .then(() => {
-    //             onSuccess()
-    //             alert('Ha realizado su compra con éxito!')
-    //         })
-    //         .catch(error => {
-    //             console.error(error)
-    //             alert(error.message)
-    //         })
-    // }
+    const handleDeleteOrder = () => {
+        logic.deleteOrder(cartItems._id)
+            .then(() => {
+                onSuccess()
+                alert('Ha realizado su compra con éxito!')
+            })
+            .catch(error => {
+                console.error(error)
+                alert(error.message)
+            })
+    }
 
 
     return (
@@ -44,7 +44,7 @@ export default function Cart({ cartItems, onSuccess }) {
             {isLoggedIn ? (
                 <div>
                     <h2 className='fav-title'>Tu carrito de compras</h2>
-                    {cartItems.products.length > 0 ? (
+                    {cartItems && cartItems.products.length > 0 ? (
                         <div className="products">
                             {cartItems.products.map(product => (
                                 <div key={product.product._id}>
@@ -58,15 +58,17 @@ export default function Cart({ cartItems, onSuccess }) {
                             ))}
                         </div>
                     ) : (
-                        <p className='fav-title'>Tu carrito está vacío</p>
+                        <p>No tienes ningún artículo en tu carro</p>
                     )}
-                    <div>
-                        {/* <button className='finish-order' onClick={handleDeleteOrder}>Realizar compra</button> */}
-                    </div>
+                    {cartItems && cartItems.products.length > 0 && (
+                        <div>
+                            <button className='finish-order' onClick={handleDeleteOrder}>Realizar compra</button>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <h1 className='fav-title'>Inicia sesión para ver tu carrito</h1>
             )}
         </div>
     )
-};
+}

@@ -12,6 +12,7 @@ import retrieveFavs from './retrieveFavs'
 import addToCart from './addToCart'
 import retrieveUserOrder from './retrieveUserOrder'
 import updateCartItemQuantity from './updateCartItemQuantity'
+import deleteOrder from './deleteOrder'
 
 const logic = {
     registerUser,
@@ -27,7 +28,8 @@ const logic = {
     retrieveFavs,
     addToCart,
     retrieveUserOrder,
-    updateCartItemQuantity
+    updateCartItemQuantity,
+    deleteOrder
 }
 
 export default logic

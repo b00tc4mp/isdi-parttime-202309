@@ -24,7 +24,7 @@ describe('retrieveUserOrder', () => {
             })
             .then(createdProduct => {
                 product = createdProduct
-                return Order.create({ user: user._id, status: 'active', products: [{ product: product._id, quantity: 1 }] })
+                return Order.create({ user: user._id, products: [{ product: product._id, quantity: 1 }] })
             })
             .then(createdOrder => {
                 order = createdOrder

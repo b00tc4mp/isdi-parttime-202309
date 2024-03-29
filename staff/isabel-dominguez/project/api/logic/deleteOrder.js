@@ -1,17 +1,27 @@
-import { Order } from '../data/models.js'
+import { Order, User } from '../data/models.js'
 
-import { errors } from 'com'
+import { errors, validate } from 'com'
 const { SystemError, NotFoundError } = errors
 
 
-function deleteOrder(orderId) {
-    return Order.findByIdAndUpdate(orderId, { status: 'canceled' })
+function deleteOrder(userId, orderId) {
+    validate.id(userId, 'user id')
+    validate.id(orderId, 'order id')
+
+    return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })
-        .then(order => {
-            if (!order) {
-                throw new NotFoundError('Order not found')
+        .then(user => {
+            if (!user) {
+                throw new NotFoundError('User not found')
             }
-            return order
+
+            return Order.findByIdAndDelete(orderId)
+                .then(order => {
+                    if (!order) {
+                        throw new NotFoundError('Order not found')
+                    }
+                    return order
+                })
         })
 }
 

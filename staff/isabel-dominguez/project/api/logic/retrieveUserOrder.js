@@ -1,16 +1,15 @@
 import { Order } from '../data/models.js'
 
 import { errors } from 'com'
-const { SystemError, NotFoundError } = errors
+const { SystemError } = errors
 
 function retrieveUserOrder(userId) {
-    return Order.findOne({ user: userId, status: 'active' }).populate('products.product')
+    return Order.findOne({ user: userId }).populate('products.product')
         .catch(error => { throw new SystemError(error.message) })
         .then(order => {
             if (!order) {
-                throw new NotFoundError('Active order not found')
+                return null
             }
-
             return order
         })
 }

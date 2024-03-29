@@ -17,7 +17,8 @@ import {
     retrieveFavsHandler,
     addToCartHandler,
     retrieveUserOrderHandler,
-    updateCartItemQuantityHandler
+    updateCartItemQuantityHandler,
+    deleteOrderHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -63,6 +64,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //UPDATE CART ITEM QUANTITY
         server.patch('/cart/update/:productId/:orderId/:quantityDelta', updateCartItemQuantityHandler)
+
+        // DELETE ORDER
+        server.delete('/order/:orderId', deleteOrderHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

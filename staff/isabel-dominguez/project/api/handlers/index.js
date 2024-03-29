@@ -10,6 +10,7 @@ import retrieveFavsHandler from './retrieveFavsHandler.js'
 import addToCartHandler from './addToCartHandler.js'
 import retrieveUserOrderHandler from './retrieveUserOrderHandler.js'
 import updateCartItemQuantityHandler from './updateCartItemQuantityHandler.js'
+import deleteOrderHandler from './deleteOrderHandler.js'
 
 
 export {
@@ -24,5 +25,6 @@ export {
     retrieveFavsHandler,
     addToCartHandler,
     retrieveUserOrderHandler,
-    updateCartItemQuantityHandler
+    updateCartItemQuantityHandler,
+    deleteOrderHandler
 }

@@ -25,15 +25,9 @@ describe('addToCart', () => {
             })
             .then(createdProduct => {
                 product = createdProduct
-                return Order.create({ user: user._id, status: 'active' })
-            })
-            .then(createdOrder => {
-                order = createdOrder
                 return addToCart(product._id, user._id)
             })
-            .then(() => {
-                return Order.findById(order._id)
-            })
+            .then(() => Order.findOne({ user: user._id }))
             .then(updatedOrder => {
                 expect(updatedOrder).to.exist
                 const updatedProduct = updatedOrder.products.find(p => p.product.equals(product._id))
@@ -51,18 +45,10 @@ describe('addToCart', () => {
             })
             .then(createdProduct => {
                 product = createdProduct
-                return Order.create({ user: user._id, status: 'active' })
+                return Order.create({ user: user._id, products: [{ product: product._id, quantity: 1 }] })
             })
-            .then(createdOrder => {
-                order = createdOrder
-                return addToCart(product._id, user._id)
-            })
-            .then(() => {
-                return addToCart(product._id, user._id)
-            })
-            .then(() => {
-                return Order.findById(order._id)
-            })
+            .then(() => addToCart(product._id, user._id))
+            .then(() => Order.findOne({ user: user._id }))
             .then(updatedOrder => {
                 const updatedProduct = updatedOrder.products.find(p => p.product.equals(product._id))
                 expect(updatedProduct.quantity).to.equal(2)

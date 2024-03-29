@@ -33,7 +33,7 @@ describe('deleteOrder', () => {
                 return Order.findById(order._id)
             })
             .then(deletedOrder => {
-                expect(deletedOrder.status).to.equal('canceled')
+                expect(deletedOrder).to.be.null
             })
     })
 

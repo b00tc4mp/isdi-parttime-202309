@@ -42,11 +42,6 @@ const order = new Schema({
             default: 1
         }
     }],
-    status: {
-        type: String,
-        enum: ['active', 'completed', 'cancelled'],
-        default: 'active'
-    },
     createdAt: {
         type: Date,
         default: Date.now

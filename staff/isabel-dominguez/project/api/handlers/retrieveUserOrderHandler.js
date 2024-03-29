@@ -11,7 +11,11 @@ export default (req, res) => {
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         logic.retrieveUserOrder(userId)
-            .then(order => res.json(order))
+            .then(order => {
+                if (order) {
+                    res.json(order)
+                }
+            })
             .catch(error => {
                 let status = 500
 
