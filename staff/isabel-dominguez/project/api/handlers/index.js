@@ -9,6 +9,7 @@ import toggleFavProductHandler from './toggleFavProductHandler.js'
 import retrieveFavsHandler from './retrieveFavsHandler.js'
 import addToCartHandler from './addToCartHandler.js'
 import retrieveUserOrderHandler from './retrieveUserOrderHandler.js'
+import updateCartItemQuantityHandler from './updateCartItemQuantityHandler.js'
 
 
 export {
@@ -22,5 +23,6 @@ export {
     toggleFavProductHandler,
     retrieveFavsHandler,
     addToCartHandler,
-    retrieveUserOrderHandler
+    retrieveUserOrderHandler,
+    updateCartItemQuantityHandler
 }

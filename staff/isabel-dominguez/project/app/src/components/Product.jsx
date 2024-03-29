@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import logic from '../logic'
 
 
-export default function Product({ id, name, image, price, description, onFavSuccess, favProducts, isCartView }) {
+export default function Product({ id, name, image, price, description, onSuccess, favProducts, isCartView }) {
 
     const [showDetails, setShowDetails] = useState(false)
     const [isProductFav, setIsProductFav] = useState(false)
@@ -24,6 +24,7 @@ export default function Product({ id, name, image, price, description, onFavSucc
         try {
             logic.addToCart(id)
                 .then(() => {
+                    onSuccess()
                     alert("Producto agregado al carrito correctamente")
                 })
                 .catch(error => alert(error.message))
@@ -41,7 +42,7 @@ export default function Product({ id, name, image, price, description, onFavSucc
         try {
             logic.toggleFavProduct(id)
                 .then(() => {
-                    onFavSuccess()
+                    onSuccess()
                 })
                 .catch(error => alert(error.message))
         } catch (error) {

@@ -16,7 +16,8 @@ import {
     toggleFavProductHandler,
     retrieveFavsHandler,
     addToCartHandler,
-    retrieveUserOrderHandler
+    retrieveUserOrderHandler,
+    updateCartItemQuantityHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -55,10 +56,13 @@ mongoose.connect(process.env.MONGODB_URL)
         server.get('/favorites', retrieveFavsHandler)
 
         // ADD PRODUCT TO CART
-        server.post('/cart/:productId', jsonBodyParser, addToCartHandler)
+        server.post('/cart/:productId', jsonBodyParser, addToCartHandler) //PATCH
 
         // RETRIEVE USER ORDER
         server.get('/cart/order', retrieveUserOrderHandler)
+
+        //UPDATE CART ITEM QUANTITY
+        server.patch('/cart/update/:productId/:orderId/:quantityDelta', updateCartItemQuantityHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

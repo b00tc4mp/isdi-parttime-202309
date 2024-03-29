@@ -11,6 +11,7 @@ import toggleFavProduct from './toggleFavProduct'
 import retrieveFavs from './retrieveFavs'
 import addToCart from './addToCart'
 import retrieveUserOrder from './retrieveUserOrder'
+import updateCartItemQuantity from './updateCartItemQuantity'
 
 const logic = {
     registerUser,
@@ -25,7 +26,8 @@ const logic = {
     toggleFavProduct,
     retrieveFavs,
     addToCart,
-    retrieveUserOrder
+    retrieveUserOrder,
+    updateCartItemQuantity
 }
 
 export default logic

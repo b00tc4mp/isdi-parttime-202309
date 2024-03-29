@@ -25,11 +25,17 @@ export default function Home() {
                 logic.retrieveProductsByType('Utensils')
             ])
                 .then(() => {
-                    logic.retrieveFavs() //Traer la de retrieveOrder igual Favorites
-                        .then((favs) => { setFavProducts(favs) })
+                    Promise.all([
+                        logic.retrieveFavs(),
+                        logic.retrieveUserOrder()
+                    ])
+                        .then(([favs, order]) => {
+                            setFavProducts(favs)
+                            setCartItems(order)
+                        })
                         .catch(error => { alert(error.message) })
                 })
-                .catch(error => alert(error.message))
+                .catch(error => { alert(error.message) })
         } catch (error) {
             alert(error.message)
         }
@@ -131,7 +137,7 @@ export default function Home() {
                 <div className="home-header">
                     <h1><Link className="home-link" onClick={handleHomeClick}>Maketics Shop</Link></h1>
                     <div className="search-container">
-                        <input className="search-input" type="text" placeholder="Buscar..." />
+                        <input className="search-input" type="text" placeholder="Proximamente..." />
                         <button className="search-button" type="submit">Buscar</button>
                     </div>
                 </div>
@@ -163,9 +169,9 @@ export default function Home() {
             </section>
 
             <Routes>
-                <Route path="/raw-material" element={<RawMaterial favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/packings" element={<Packings favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/utensils" element={<Utensils favProducts={favProducts} onFavSuccess={refreshProducts} />} />
+                <Route path="/raw-material" element={<RawMaterial favProducts={favProducts} onSuccess={refreshProducts} />} />
+                <Route path="/packings" element={<Packings favProducts={favProducts} onSuccess={refreshProducts} />} />
+                <Route path="/utensils" element={<Utensils favProducts={favProducts} onSuccess={refreshProducts} />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
                 <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
@@ -174,8 +180,8 @@ export default function Home() {
                 <Route path="/recipes/fragrance" element={<Recipes type='Fragrance' />} />
                 <Route path="/user-icon" element={<Login />} />
                 <Route path="/user-icon/register" element={<Register onSuccess={handleClickUserIcon} />} />
-                <Route path="/favorites" element={<Favorites favProducts={favProducts} onFavSuccess={refreshProducts} />} />
-                <Route path="/cart" element={<Cart cartItems={cartItems} />} />
+                <Route path="/favorites" element={<Favorites favProducts={favProducts} onSuccess={refreshProducts} />} />
+                <Route path="/cart" element={<Cart cartItems={cartItems} onSuccess={refreshProducts} />} />
             </Routes>
         </>
     )

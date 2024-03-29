@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Product from './Product'
 import logic from '../logic'
 
-export default function RawMaterial({ favProducts, onFavSuccess }) {
+export default function RawMaterial({ favProducts, onSuccess }) {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function RawMaterial({ favProducts, onFavSuccess }) {
 
     return (
         <div>
-            <div className="products">{products.map(product => (<Product key={product.id} {...product} favProducts={favProducts} onFavSuccess={onFavSuccess} />))}</div>
+            <div className="products">{products.map(product => (<Product key={product.id} {...product} favProducts={favProducts} onSuccess={onSuccess} />))}</div>
         </div>
     )
 }
