@@ -381,31 +381,34 @@ export default function Controller() {
     if (showSequences) {
         return (
             <div className="sequences-popup">
-                <h3>Sequences</h3>
+                <h3 className="h3-robotic-controller">Sequences</h3>
                 {sequences.length > 0 ? sequences.map(sequence => (
                     // <div key={sequence.id} style={{ marginBottom: '20px' }}>
                     <div key={sequence.id} className="mb-5 p-4 border border-gray-200 rounded-lg shadow">
                         {/* <h4>Sequence ID: {sequence.id}</h4> */}
-                        <p>Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
-                        <h5>Movements:</h5>
+                        <p className="created-at">Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
+                        <h5 className="h5-movements">Movements:</h5>
                         <ul>
-                            {sequence.movements.map((movement, index) => (
-                                <li key={movement.id}>
-                                    {/* {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`} */}
-                                    {`${movement.name}`}
-                                    {/* <p>Index: {index}</p> */}
+                            <div className="movements-list">
+                                {sequence.movements.map((movement, index) => (
+                                    <li key={movement.id}>
+                                        {/* {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`} */}
+                                        {`${movement.name}`}
+                                        {/* <p>Index: {index}</p> */}
 
-                                    {editingSequenceId === sequence.id && (
-                                        <>
-                                            <div className="edit-movement">
-                                                <button className="button-deleteMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'delete')}>❌</button>
-                                                {index !== 0 && <button className="button-upMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'moveUp')}>⬆️</button>}
-                                                {index !== sequence.movements.length - 1 && <button className="button-downMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'moveDown')}>⬇️</button>}
-                                            </div>
-                                        </>
-                                    )}
-                                </li>
-                            ))}
+                                        {editingSequenceId === sequence.id && (
+                                            <>
+                                                <div className="edit-movement">
+                                                    <button className="button-deleteMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'delete')}>❌</button>
+                                                    {index !== 0 && <button className="button-upMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'moveUp')}>⬆️</button>}
+                                                    {index !== sequence.movements.length - 1 && <button className="button-downMovement" onClick={() => handleEditMovement(sequence.id, movement.id, 'moveDown')}>⬇️</button>}
+                                                </div>
+                                            </>
+                                        )}
+                                    </li>
+
+                                ))}
+                            </div>
                         </ul>
                         <div className="edit-buttons">
                             <button className="button-playSequence button" onClick={() => handlePlaySequence(sequence.id)}>Play</button>

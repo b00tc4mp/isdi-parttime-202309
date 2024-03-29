@@ -11,6 +11,7 @@
   /* Base modifications for a robot-themed app */
   .form {
     @apply flex flex-col max-w-[240px] gap-[5px];
+    margin-bottom: 5px;
   }
 
   .label {
@@ -116,6 +117,11 @@
   .h1-robotic {
     @apply font-press-start;
   }
+
+  .button-login {
+    margin-top: 10px;
+  }
+
 
 
 
@@ -237,6 +243,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+
 
   }
 
@@ -655,9 +662,11 @@
   }
 
   .sequences-popup {
-    @apply bg-blue-900 shadow-md rounded-lg border-4 border-blue-900;
+    @apply bg-zinc-400 shadow-md rounded-lg border-4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* @apply bg-blue-900 shadow-md rounded-lg border-4 border-blue-900; */
     /* Ajusta la redondez de los bordes para el popup */
-    @apply bg-blue-900 text-white;
+    @apply bg-zinc-200 text-blue-900;
 
     /* Mantiene el color de fondo igual que .home-container */
     @apply max-w-md m-auto p-4;
@@ -681,7 +690,7 @@
     @apply flex flex-row justify-around;
 
 
-    margin-top: 5px;
+    margin-top: 10px;
     /* Alinea los botones de editar en línea */
   }
 
@@ -785,9 +794,301 @@
     /* Alinea los botones de editar en línea */
   }
 
+  .created-at {
+    @apply text-black;
+  }
+
+  .h5-movements {
+    @apply text-black;
+
+  }
+
+  .movements-list {
+
+    @apply text-blue-900 font-bold;
+  }
+
+
+
+  /* TUTORIALS */
+
+  .h3-robotic-tutorials {
+    @apply text-center font-press-start text-xs;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  .tutorials-wrapper {
+    width: 90%;
+    /* Ajusta esto al porcentaje deseado del ancho del contenedor padre */
+    max-width: 400px;
+    /* O un valor específico en píxeles */
+    margin: auto;
+    padding: 16px;
+    /* Centra el popup y aplica padding */
+    position: fixed;
+    /* Posición fija para que el popup sea modal */
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Centrado exacto en la pantalla */
+    z-index: 20;
+    /* Asegura que el popup se muestre por encima de otros elementos */
+    overflow-y: auto;
+    /* Permite el desplazamiento si el contenido excede la altura del popup */
+    max-height: 90vh;
+    /* Limita la altura del popup para asegurar que no se salga de la pantalla */
+    @apply h-[650px];
+    margin-top: 0px;
+    padding-top: 5px;
+
+  }
+
+
+  .tutorial {
+    @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
+  }
+
+  .button-addTutorial {
+    @apply bg-blue-900 hover:bg-green-400 cursor-pointer;
+
+
+  }
+
+  .button-likeTutorial,
+  .button-deleteTutorial,
+  .button-editTutorial {
+    padding: 2px 5px;
+    /* Reducir el padding */
+    font-size: 12px;
+    /* Reducir el tamaño de la fuente */
+    height: auto;
+    /* La altura se ajusta al contenido */
+    min-height: 0;
+    /* Eliminar altura mínima si está definida */
+    min-width: 0;
+    /* Eliminar ancho mínimo si está definido */
+    line-height: 1;
+    /* Ajustar el interlineado si es necesario */
+  }
+
+
+
+  .tutorial-actions {
+    padding: 2px 5px;
+    /* Reducir el padding */
+    font-size: 12px;
+    /* Reducir el tamaño de la fuente */
+    height: auto;
+    /* La altura se ajusta al contenido */
+    min-height: 0;
+    /* Eliminar altura mínima si está definida */
+    min-width: 0;
+    /* Eliminar ancho mínimo si está definido */
+    line-height: 1;
+    /* Ajustar el interlineado si es necesario */
+  }
+
+  .tutorial-edition {
+    display: flex;
+    justify-content: center;
+    /* Centra los botones horizontalmente */
+    align-items: flex-start;
+    /* Centra los botones verticalmente, útil si tienen diferentes alturas */
+    gap: 10px;
+    /* Espacio entre botones */
+    margin-bottom: 10px;
+  }
+
+  .button-saveTutorial {
+    @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-cancelTutorial {
+    @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-likeTutorial {
+    @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-deleteTutorial {
+    @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-editTutorial {
+    @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .footer {
+
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    width: 70%;
+    margin: auto;
+    @apply bg-blue-900 text-white text-center py-2.5 rounded-lg;
+
+
+  }
+
+
+  /* PROFILE */
+
+  .h2-robotic-profile {
+    @apply text-center font-press-start text-lg text-blue-900;
+    /* Cambiando text-xs a text-lg */
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  .h3-robotic-profile {
+    @apply text-center font-press-start text-xs text-green-400;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  .changeProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    /* Espacio entre elementos */
+  }
+
+  .userData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    margin-bottom: 10px;
+  }
+
+  .button-update {
+    @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-changeEmail {
+    @apply bg-zinc-200 text-blue-900 hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .button-changePassword {
+    @apply bg-zinc-200 text-blue-900 hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
+    padding: 10px 20px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 10px;
+
+
+  }
+
+  .profile-container {
+    overflow-y: auto;
+    /* Permite el desplazamiento si el contenido excede la altura del popup */
+    max-height: 90vh;
+    /* Limita la altura del popup para asegurar que no se salga de la pantalla */
+    @apply h-[650px];
+  }
+
+
+
   /* Feedback modifications for a cohesive look */
   .Feedback {
     @apply fixed top-0 w-full box-border text-white;
+    z-index: 20;
+    /* Asegura que el popup se muestre por encima de otros elementos */
+    overflow-y: auto;
   }
 
   .Feedback--debug {
@@ -810,9 +1111,6 @@
     @apply bg-red-700;
   }
 
-  .tutorial {
-    @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
-  }
 
   /* Estilos para el popup */
   .popup-container {

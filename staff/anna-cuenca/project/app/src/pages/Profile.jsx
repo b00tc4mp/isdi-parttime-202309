@@ -109,41 +109,47 @@ export default function Profile() {
 
     return (
         <div className="container">
-            <h2>Profile</h2>
-            <div>
-                <p>Name: {userData.name}</p>
-                <p>Email: {userData.email}</p>
-                <p>Robot: {userData.robot}</p>
-                <p>Role: {userData.role}</p>
+            <div className="profile-container">
+                <h2 className="h2-robotic-profile">Profile</h2>
+                <img src="/ottoHome4.gif" alt="Descripción del GIF" />
+
+                <div className="userData">
+                    <p>Name: {userData.name}</p>
+                    <p>Email: {userData.email}</p>
+                    <p>Robot: {userData.robot}</p>
+                    <p>Role: {userData.role}</p>
+                </div>
+                <div className="changeProfile">
+                    <button className="button-changeEmail" onClick={toggleChangeEmail}>Change E-mail</button>
+                    {showChangeEmail && (
+                        <div>
+                            <h3 className="h3-robotic-profile">Change Email</h3>
+                            <Form onSubmit={handleChangeEmailSubmit}>
+                                <Field id="new-email-input" type="email">New e-mail</Field>
+                                <Field id="new-email-confirm-input" type="email">Confirm new e-mail</Field>
+                                <Field id="password-input" type="password">Password</Field>
+
+
+                                <button className="button-update" type="submit">Update e-mail</button>
+                            </Form>
+                        </div>
+                    )}
+                    <button className="button-changePassword" onClick={toggleChangePassword}>Change Password</button>
+                    {showChangePassword && (
+                        <div>
+                            <h3 className="h3-robotic-profile">Change Password</h3>
+                            <Form onSubmit={handleChangePasswordSubmit}>
+                                <Field id="password-input" type="password">Current password</Field>
+                                <Field id="new-password-input" type="password">New password</Field>
+                                <Field id="repeat-new-password-input" type="password">Repit new password</Field>
+
+
+                                <button className="button-update" type="submit">Update password</button>
+                            </Form>
+                        </div>
+                    )}
+                </div>
             </div>
-            <Button onClick={toggleChangeEmail}>Change E-mail</Button>
-            {showChangeEmail && (
-                <div>
-                    <h3>Update e-mail</h3>
-                    <Form onSubmit={handleChangeEmailSubmit}>
-                        <Field id="new-email-input" type="email">New e-mail</Field>
-                        <Field id="new-email-confirm-input" type="email">Confirm new e-mail</Field>
-                        <Field id="password-input" type="password">Password</Field>
-
-
-                        <Button type="submit">Update e-mail</Button>
-                    </Form>
-                </div>
-            )}
-            <Button onClick={toggleChangePassword}>Change Password</Button>
-            {showChangePassword && (
-                <div>
-                    <h3>Update password</h3>
-                    <Form onSubmit={handleChangePasswordSubmit}>
-                        <Field id="password-input" type="password">Current password</Field>
-                        <Field id="new-password-input" type="password">New password</Field>
-                        <Field id="repeat-new-password-input" type="password">Repit new password</Field>
-
-
-                        <Button type="submit">Update password</Button>
-                    </Form>
-                </div>
-            )}
         </div>
     )
 }

@@ -85,9 +85,10 @@ function Login(props) {
                 <Container>
                     <h1 className="h1-robotic">Login</h1>
                     <Form onSubmit={handleSubmit}>
+
                         <Field id="email-input" type="email">E-mail</Field>
                         <Field id="password-input" type="password">Password</Field>
-                        <Button type="submit">Login</Button>
+                        <button className="button-login button" type="submit">Login</button>
                     </Form>
                     <Link onClick={handleRegisterClick}>Register</Link>
                 </Container>

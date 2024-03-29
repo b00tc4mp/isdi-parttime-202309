@@ -94,51 +94,56 @@ function Tutorial(props) {
 
 
     return (
-        <article className="tutorial">
-            <strong><p>{props.tutorial.author.name}</p></strong>
-            <strong><p>{props.tutorial.author.role}</p></strong>
+        <div className="tutorial-wrapper">
+            <article className="tutorial">
+                <strong><p>{props.tutorial.author.name}</p></strong>
+                <strong><p>{props.tutorial.author.role}</p></strong>
 
-            {editTextTutorial ? (
-                <Form onSubmit={handleEditSubmit}>
-                    <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
-                    <Editor
-                        apiKey='3p5p5ls0lyowdf5ebluhjpkb69g44e0negw77zeywyb409pj'
-                        onInit={(evt, editor) => editorRef.current = editor}
-                        initialValue={text}
-                        init={{
-                            height: 200,
-                            menubar: false,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                            ],
-                            toolbar: 'undo redo | formatselect | ' +
-                                'bold italic backcolor | alignleft aligncenter ' +
-                                'alignright alignjustify | bullist numlist outdent indent | ' +
-                                'removeformat | help'
-                        }}
-                    />
-                    <Button type="submit">Save</Button>
-                    <Button onClick={handleCancelEdit}>Cancel</Button>
-                </Form>
-            ) : (
-                <>
-                    <strong><p>{title}</p></strong>
-                    <p dangerouslySetInnerHTML={{ __html: text }}></p>
-                </>
-            )}
+                {editTextTutorial ? (
+                    <Form onSubmit={handleEditSubmit}>
+                        <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
+                        <Editor
+                            apiKey='3p5p5ls0lyowdf5ebluhjpkb69g44e0negw77zeywyb409pj'
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue={text}
+                            init={{
+                                height: 200,
 
-            <div className="tutorial-actions">
-                <Button onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</Button>
-                {context.userRole === 'admin' && (
+                                menubar: false,
+                                plugins: [
+                                    'advlist autolink lists link image charmap print preview anchor',
+                                    'searchreplace visualblocks code fullscreen',
+                                    'insertdatetime media table paste code help wordcount'
+                                ],
+                                toolbar: 'undo redo | formatselect | ' +
+                                    'bold italic backcolor | alignleft aligncenter ' +
+                                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                                    'removeformat | help'
+                            }}
+                        />
+                        <div className="tutorial-edition">
+                            <button className="button-saveTutorial" type="submit">Save</button>
+                            <button className="button-cancelTutorial" onClick={handleCancelEdit}>Cancel</button>
+                        </div>
+                    </Form>
+                ) : (
                     <>
-                        <Button onClick={handleToggleDeleteTutorialClick}>🗑 Delete</Button>
-                        <Button onClick={handleEditClick}>{editTextTutorial ? 'Cancel Edit' : '🖍 Edit'}</Button>
+                        <strong><p>{title}</p></strong>
+                        <p dangerouslySetInnerHTML={{ __html: text }}></p>
                     </>
                 )}
-            </div>
-        </article>
+
+                <div className="tutorial-actions">
+                    <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</button>
+                    {context.userRole === 'admin' && (
+                        <>
+                            <button className="button-deleteTutorial" onClick={handleToggleDeleteTutorialClick}>🗑 Delete</button>
+                            <button className="button-editTutorial" onClick={handleEditClick}>{editTextTutorial ? 'Cancel Edit' : '🖍 Edit'}</button>
+                        </>
+                    )}
+                </div>
+            </article>
+        </div>
     )
 
 

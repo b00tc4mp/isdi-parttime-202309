@@ -64,24 +64,36 @@ function Tutorials(props) {
 
 
 
-    return <div className="tutorials">
-        <h2>Tutorials</h2>
-        {/* {posts.map((post) => <Post key={post.id} post={post} onToggleLikeClick={handleLikeClick} onToggleFavClick={handleFavPostClick} onToggleDeleteClick={handleDeletePostClick} />)} */}
-        {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshTutorials} onToggleDeleteClick={refreshTutorials} onUpdate={refreshTutorials} />)}
-        {/* {tutorials.map(tutorial => <Tutorial key={tutorial.id} tutorial={tutorial} onToggleLikeClick={refreshPosts} onToggleFavClick={refreshPosts} onToggleEditClick={refreshPosts} onToggleDeleteClick={refreshPosts} onError={context.handleError} />)} */}
-        {/* con React necesitamos crear una Key para renderizar una lista de
-         elementos. Esta lista de elementos se renderiza con .map, porque .map
-         devuelve un arrays */}
+    return (
+        <div className="tutorials">
+            <div className="tutorials-wrapper">
+                <h3 className="h3-robotic-tutorials">Tutorials</h3>
+                {tutorials.map(tutorial => (
+                    <Tutorial
+                        key={tutorial.id}
+                        tutorial={tutorial}
+                        onToggleLikeClick={refreshTutorials}
+                        onToggleDeleteClick={refreshTutorials}
+                        onUpdate={refreshTutorials}
+                    />
+                ))}
+            </div>
 
+            {userRole === 'admin' && (
+                <footer className="footer">
 
-        <footer className="footer">
-
-            {view === 'new-tutorial' && <NewTutorial onPublish={handleNewTutorialPublish} onCancel={handleNewTutorialCancel} onError={context.handleError} />}
-            {userRole === 'admin' && <Button onClick={handleNewTutorialClick}>+</Button>}
-
-        </footer>
-    </div>
+                    {view === 'new-tutorial' && (
+                        <NewTutorial
+                            onPublish={handleNewTutorialPublish}
+                            onCancel={handleNewTutorialCancel}
+                            onError={context.handleError}
+                        />
+                    )}
+                    <button className="button-addTutorial button" onClick={handleNewTutorialClick}>+</button>
+                </footer>
+            )}
+        </div>
+    )
 
 }
-
 export default Tutorials
