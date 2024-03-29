@@ -46,13 +46,31 @@ class TokenError extends Error {
     }
 }
 
-export {//esto no es un objeto (es un bloque), esta manera de exportar se llama bucket
+class UnauthorizedError extends Error {
+    constructor(message) {
+        super(message);
+
+        this.name = this.constructor.name;
+    }
+}
+
+class BodyError extends Error {
+    constructor(message) {
+        super(message)
+
+        this.name = this.constructor.name
+    }
+}
+
+export {
     NotFoundError,
     SystemError,
     ContentError,
     DuplicityError,
     CredentialsError,
-    TokenError
+    TokenError,
+    UnauthorizedError,
+    BodyError
 }
 
 const errors = {
@@ -61,7 +79,9 @@ const errors = {
     ContentError,
     DuplicityError,
     CredentialsError,
-    TokenError
+    TokenError,
+    UnauthorizedError,
+    BodyError
 }
 
 export default errors

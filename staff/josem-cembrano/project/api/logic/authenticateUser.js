@@ -1,33 +1,36 @@
 import bcrypt from 'bcryptjs'
-import { validate, errors } from 'com'
-import { Admin } from '../data/models.js'
 
+import { validate, errors } from 'com'
+
+import { User } from '../data/models.js'
 const { SystemError, NotFoundError, CredentialsError } = errors
 
-export default function authenticateAdmin(email, password) {
+export default function authenticateUser(email, password) {
     validate.email(email, 'email')
     validate.password(password, 'password')
 
     return (async () => {
-        let admin
+        let user
 
         try {
-            admin = await Admin.findOne({ email })
+            user = await User.findOne({ email })
         } catch (error) {
             throw new SystemError(error.message)
         }
-        if (!admin)
-            throw new NotFoundError('admin not found')
 
-        let passwordMatch
+        if (!user)
+            throw new NotFoundError('user not found')
+
+        let match
         try {
-            passwordMatch = await bcrypt.compare(password, admin.password)
+            match = await bcrypt.compare(password, user.password)
         } catch (error) {
             throw new SystemError(error.message)
         }
-        if (!passwordMatch)
+
+        if (!match)
             throw new CredentialsError('wrong password')
 
-        return admin.id
+        return user.id
     })()
 }

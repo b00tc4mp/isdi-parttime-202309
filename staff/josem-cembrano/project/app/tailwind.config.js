@@ -2,7 +2,8 @@
 export default {
   content: [
     './index.html',
-    './src/**/*.jsx'
+    './src/**/*.jsx',//(**)todas las subcarpetas, (*)cualquier archivo jsx con estilos
+    './src/**/*.js'
   ],
   theme: {
     extend: {},

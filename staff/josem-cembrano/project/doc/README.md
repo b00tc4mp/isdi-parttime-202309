@@ -1,6 +1,6 @@
 # <u>Breeding Kennel</u>
 
-![Kennel](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnM4M2dhY2pubjI3bTZkOTAzcWlpdzkxcTI2bGFnNG1taXZuNDFwbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gQ0w92ggtPypO/giphy.gif)
+![Kennel](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGYxOGh5b2t5aDh5ZmtuMXRua2twOTR5cGY5cXg1bmd3YmR6bmt5MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cImxFRmPTQx5I7HU8l/giphy.gif)
 
 ## <u>Introduction:</u>
 
@@ -12,7 +12,7 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 ## <u>Funcional description</u>
 
 - _<p style="color:yellow;">Pantalla de Bienvenida (Splash Screen)</p>_
-  Al ingresar a la aplicación, los usuarios son recibidos pantalla de bienvenida que se desvanece después de unos segundos, dando paso a la parte funcional de la web.
+  Al ingresar a la aplicación, los usuarios son recibidos a una (landing-page) o pantalla de bienvenida que se desvanece después de unos segundos, dando paso a la parte funcional de la web.
 
 - _<p style="color:yellow;">Gestión de Contenido Dinámico</p>_
   La aplicación permite al administrador del criadero agregar, editar y eliminar fácilmente información sobre las mascotas, eventos, noticias y otros contenidos relevantes, para mantener actualizada la información del criadero en todo momento.
@@ -37,7 +37,7 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 
 ### <u>Use Case</u>
 
-- Pantalla de bienvenida (splash screen) que se desvanece después de unos segundos y luego da paso a la parte funcional de la web.
+- Pantalla de bienvenida (landing page) que se desvanece después de unos segundos y luego da paso a la parte funcional de la web.
 
 - Gestión de contenido dinámico: Permitir a los administradores del criadero agregar, editar y eliminar fácilmente información sobre las mascotas, eventos, noticias, etc.
 
@@ -60,12 +60,8 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 <p style="color:yellow;">USER<p/>
 
 - <u style="color:white;">id :</u> _("Token")_
-- <u style="color:white;">name :</u>
-- <u style="color:white;">username :</u>
 - <u style="color:white;">email :</u>
 - <u style="color:white;">password :</u> _("hash")_
-- <u style="color:white;">nombre :</u>:
-- <u style="color:white;">rol :</u> _*(Admin*)_
 
 <p style="color:yellow;">DOG<p/>
 

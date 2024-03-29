@@ -1,72 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container {
+  width: 100%;
+  z-index: 0;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.nav-position {
+  z-index: 2;
 }
-a:hover {
-  color: #535bf2;
+
+.container-Navbar {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  z-index: 2;
+}
+
+.container-dogs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.button-Fadog {
+  /* Estilos base del botón */
+  padding: 10px 20px; /* Ajusta el relleno para aumentar el tamaño del botón */
+  font-size: 16px; /* Tamaño de fuente */
+  border: none; /* Quita el borde */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color del texto */
+  transition: transform 0.3s ease-in-out; /* Transición suave */
+}
+
+.button-Fadog:hover {
+  transform: scale(
+    1.05
+  ); /* Aumenta ligeramente el tamaño al pasar el ratón por encima */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Agrega una pequeña sombra al pasar el ratón por encima */
+}
+
+.button-add-dog {
+  position: fixed;
+  top: 10px; /* Ajusta la distancia desde la parte superior */
+  right: 10px; /* Ajusta la distancia desde la derecha */
+  border-radius: 20px; /* Agrega un borde redondeado */
+  background-color: white;
+  padding: 5px; /* Ajusta el relleno del botón */
+  z-index: 9999; /* Asegura que el botón esté por encima de otros elementos */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Agrega una transición suave al botón */
+}
+
+.button-add-dog:hover {
+  transform: scale(
+    1.2
+  ); /* Escala ligeramente el botón al pasar el ratón por encima */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* Agrega una sombra al pasar el ratón por encima */
+}
+
+.button-picture {
+  position: fixed;
+  bottom: 50px; /* Ajusta según sea necesario para colocarlo más arriba */
+  left: 10px; /* Ajusta según sea necesario */
+}
+
+.session-user-container {
+  margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+}
+
+.session-user:hover {
+  transform: scale(1.1); /* Aumenta el tamaño al 110% al pasar el cursor */
+  transition: transform 0.3s ease; /* Agrega una transición suave */
+}
+
+.session-user {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en una columna */
+  align-items: flex-start; /* Alinea los elementos a la izquierda */
+  margin-left: -40px; /* Ajusta el margen izquierdo según sea necesario */
+}
+
+.user-info {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos dentro de user-info */
+}
+
+.user-info h2 {
+  margin-left: 10px; /* Espacio entre el icono y el nombre */
+}
+
+.icon-session {
+  color: black;
+}
+
+.close-session-icon {
+  color: tomato;
+  background-color: white;
+}
+
+.user-info-container {
+  margin-top: 5px; /* Ajusta el margen superior */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  padding: 4px;
+  display: flex;
+  align-items: center; /* Para centrar verticalmente los elementos */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Agregar sombra */
+}
+
+.icon-session {
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+.logout-options {
+  /* Estilos para las opciones de cierre de sesión, si es necesario */
+}
+
+.button-user {
+  margin-left: auto; /* Esto empujará el botón hacia la derecha */
+  transition: transform 0.2s ease; /* Agrega una transición suave */
+}
+
+.button-user:active {
+  transform: translateY(2px); /* Mueve el botón hacia abajo */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega sombra */
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-picture {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: #ffffff3f; /* Color de fondo */
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
+
+.container-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.menu-link {
+  transition: color 0.1s ease-in-out;
+}
+
+.menu-link.active {
+  color: #3b82f6; /* Color azul */
+}
+
+.menu-link:hover {
+  color: #718096; /* Color gris */
 }
 
 body {
-  margin: 0;
+  background-image: url("https://images7.alphacoders.com/101/1014918.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.h2 {
+  font-family: Arial, sans-serif; /* Cambia la familia de fuentes */
+  font-weight: bold; /* Hace que el texto sea más audaz */
+  font-style: italic; /* Aplica estilo itálico al texto */
+  color: black; /* Color de texto oscuro */
+  margin-bottom: 10px; /* Espacio en la parte inferior del elemento */
+  padding-left: 10px; /* Relleno en el lado izquierdo del elemento */
+  text-decoration: underline; /* Subraya el texto */
+}
+
+.form {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  max-width: 240px;
+  gap: 5px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.label {
+  font-weight: bold;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.input {
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  padding: 5px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.button {
+  padding: 5px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:visited {
+  color: black;
+}
+
+.link:before {
+  content: "[";
+}
+
+.link:after {
+  content: "]";
+}
+
+.Feedback {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Feedback--debug {
+  background-color: yellowgreen;
+}
+
+.Feedback--info {
+  background-color: dodgerblue;
+}
+
+.Feedback--warn {
+  background-color: gold;
+}
+
+.Feedback--error {
+  background-color: orange;
+}
+
+.Feedback--fatal {
+  background-color: red;
+  color: white;
 }

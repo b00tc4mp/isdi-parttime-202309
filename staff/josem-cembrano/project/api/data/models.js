@@ -2,51 +2,100 @@ import mongoose from 'mongoose'
 
 const { Schema, model, ObjectId } = mongoose
 
-
-const admin = new Schema({
+const user = new Schema({
+    Admin: {
+        type: Boolean,
+        default: false
+    },
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
-        required: true,
-        unique: true
+        unique: true,
+        required: true
     },
     password: {
         type: String,
-        required: true,
+        minlength: 8,
+        required: true
     },
 })
 
 const dog = new Schema({
-    chip: {
-        type: String,
-        required: true,
-        unique: true
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
     },
-    name: {
-        type: String,
-        required: true,
-    },
-    birthdate: {
-        type: String,
-        required: true,
-    },
-    gender: {
-        type: String,
-        required: true,
-    },
-    affix: {
-        type: String,
-        required: true,
-    },
+
     image: {
         type: String,
+        required: true
+    },
+
+    afix: {
+        type: String,
+        required: true
+    },
+
+    name: {
+        type: String,
+        required: true
+    },
+
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
+        required: true
+    },
+
+    birthDate: {
+        type: String,
+        required: true
+    },
+
+    puppy: {
+        type: Boolean,
         required: true,
+        default: false
+    },
+
+    text: {
+        type: String,
+        required: true
+    },
+})
+
+const contact = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+
+    email: {
+        type: String,
+        required: true
+    },
+
+    phone: {
+        type: String,
+        required: true
+    },
+
+    message: {
+        type: String,
+        required: true
     }
 })
 
-const Admin = model('Admin', admin)
+const User = model('User', user)
 const Dog = model('Dog', dog)
+const Contact = model('Contact', contact)
 
 export {
-    Admin,
-    Dog
+    User,
+    Dog,
+    Contact
 }
