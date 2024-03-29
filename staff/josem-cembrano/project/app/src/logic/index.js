@@ -6,6 +6,8 @@ import isUserLoggedIn from './isUserLoggedIn'
 import retrieveDogs from './retrieveDogs'
 import publishDog from './publishDog'
 import retrieveMales from './retrieveMales'
+import retrieveFemales from './retrieveFemales'
+import retrievePuppies from './retrievePuppies'
 
 import context from './context'
 
@@ -18,6 +20,8 @@ const logic = {
     retrieveDogs: retrieveDogs.bind(context),
     publishDog: publishDog.bind(context),
     retrieveMales: retrieveMales.bind(context),
+    retrieveFemales: retrieveFemales.bind(context),
+    retrievePuppies: retrievePuppies.bind(context),
 
     context,
 }

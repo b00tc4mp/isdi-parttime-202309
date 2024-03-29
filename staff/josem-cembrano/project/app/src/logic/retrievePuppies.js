@@ -1,7 +1,7 @@
 import { errors } from 'com'
 const SystemError = errors
 
-export default async function retrieveMales() {
+export default async function retrievePuppies() {
     const req = {
         method: 'GET',
     }
@@ -9,7 +9,7 @@ export default async function retrieveMales() {
     let res
 
     try {
-        res = await fetch(`${import.meta.env.VITE_API_URL}/males`, req)
+        res = await fetch(`${import.meta.env.VITE_API_URL}/puppies`, req)
     } catch (error) {
         throw new SystemError(error.message)
     }
