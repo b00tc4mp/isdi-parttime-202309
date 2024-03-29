@@ -1,7 +1,10 @@
 const context = {
   set sessionUserId(userId) {
-    if (userId) sessionStorage.userId = userId
-    else delete sessionStorage.userId
+    if (userId) {
+      sessionStorage.userId = userId
+    } else {
+      delete sessionStorage.userId
+    }
   },
 
   get sessionUserId() {
@@ -9,8 +12,11 @@ const context = {
   },
 
   set token(token) {
-    if (token) sessionStorage.token = token
-    else delete sessionStorage.token
+    if (token) {
+      sessionStorage.token = token
+    } else {
+      delete sessionStorage.token
+    }
   },
 
   get token() {

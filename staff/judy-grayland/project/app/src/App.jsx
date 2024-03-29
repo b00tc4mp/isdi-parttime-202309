@@ -1,12 +1,25 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route, NavLink, Navigate, Outlet } from 'react-router-dom'
+
+import context from './logic/context'
 
 // pages
 import Profile from './pages/Profile'
 import Home from './pages/Home'
-import Resource from './pages/Resource'
+import Resource from './pages/Resources'
 import Login from './pages/Login'
 import Topic from './pages/Topic'
 import Register from './pages/Register'
+
+function ProtectedRoute() {
+  // check if user is logged in
+  const userLoggedIn = !!context.token
+  // if user not logged in, navigate to login
+  if (!userLoggedIn) {
+    return <Navigate to="login" />
+  }
+  // if user logged in, navigate to the path
+  return <Outlet />
+}
 
 function App() {
   return (
@@ -21,7 +34,9 @@ function App() {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="profile" element={<Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="profile" element={<Profile />} />
+        </Route>
         <Route path="topic" element={<Topic />} />
         <Route path="resource" element={<Resource />} />
       </Routes>
@@ -30,24 +45,3 @@ function App() {
 }
 
 export default App
-
-//   <div>
-// <a href="https://vitejs.dev" target="_blank">
-//     <img src={viteLogo} className="logo" alt="Vite logo" />
-//   </a>
-//   <a href="https://react.dev" target="_blank">
-//     <img src={reactLogo} className="logo react" alt="React logo" />
-//   </a>
-// </div>
-// <h1>Vite + React</h1>
-// <div className="card">
-//   <button onClick={() => setCount((count) => count + 1)}>
-//     count is {count}
-//   </button>
-//   <p>
-//     Edit <code>src/App.jsx</code> and save to test HMR
-//   </p>
-// </div>
-// <p className="read-the-docs">
-//   Click on the Vite and React logos to learn more
-// </p>
