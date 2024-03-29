@@ -134,7 +134,7 @@ function Home(props) {
                     <>
                         <main>
                             <h2 className="h2-robotic">Welcome back, {name} </h2>
-                            <img src="/giphyHi.gif" alt="Descripción del GIF" />
+                            <img src="/ottoHome4.gif" alt="Descripción del GIF" />
                             <div className="home-button-container">
                                 <button className="home-connect-button button" onClick={handleControllerClick}>Connect</button>
                             </div>
