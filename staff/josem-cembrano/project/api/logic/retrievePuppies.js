@@ -1,48 +1,25 @@
-import { errors, validate } from 'com'
-import { User, Dog } from '../data/models.js'
+import { errors } from 'com'
+import { Dog } from '../data/models.js'
 
-const { UnauthorizedError, NotFoundError } = errors
+const { NotFoundError } = errors
 
-export default async function retrievePuppies(userId, name, puppy) {
-    validate.id(userId, 'userId');
-    validate.text(name, 'name');
-    validate.boolean(puppy, 'puppy');
-
+export default async function retrievePuppies() {
     try {
-        const user = await User.findById(userId);
 
-        if (!user)
-            throw new NotFoundError('user not found');
-
-        if (!user.Admin)
-            throw new UnauthorizedError('The user does not have permission to perform this action');
-
-        if (!name) {
-            throw new NotFoundError('wrong name');
-        }
-
-        if (puppy === undefined) {
-            throw new NotFoundError('puppy not found');
-        }
-
-        if (puppy !== true) {
-            throw new NotFoundError('puppy must be true');
-        }
-
-        const puppies = await Dog.find({ author: userId, name, puppy: true }).select('-__v').lean();
+        const puppies = await Dog.find({ puppy: true }).select('-__v').lean()
 
         if (!puppies || puppies.length === 0) {
-            throw new NotFoundError('No puppies found');
+            throw new NotFoundError('No puppies found')
         }
 
         puppies.forEach(puppy => {
-            puppy.id = puppy._id.toString();
-            delete puppy._id;
-        });
+            puppy.id = puppy._id.toString()
+            delete puppy._id
+        })
 
-        return puppies;
+        return puppies
 
     } catch (error) {
-        throw error;
+        throw error
     }
 }

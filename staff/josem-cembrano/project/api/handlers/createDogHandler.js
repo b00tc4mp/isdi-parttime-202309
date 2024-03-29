@@ -16,7 +16,7 @@ export default async (req, res) => {
         const dogBirthDate = new Date(birthDate).getFullYear()
         const age = currentYear - dogBirthDate
 
-        await logic.createDog(userId, image, afix, name, gender, age, puppy, text)
+        await logic.createDog(userId, image, afix, name, gender, birthDate, puppy, text)
 
         res.status(201).send()
     } catch (error) {
