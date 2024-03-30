@@ -13,7 +13,7 @@ function Register(props) {
     console.log('user successfully registered')
     navigate('/login')
   }
-  function registerNewUser(event) {
+  function handleSubmit(event) {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
@@ -40,7 +40,7 @@ function Register(props) {
   return (
     <>
       <h1>Register</h1>
-      <Form onSubmit={registerNewUser}>
+      <Form onSubmit={handleSubmit}>
         <Field name="name" inputId="name-input">
           Nombre
         </Field>

@@ -9,7 +9,7 @@ function Login(props) {
     navigate('/')
   }
 
-  function authenticateUser(event) {
+  function handleSubmit(event) {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
@@ -35,8 +35,8 @@ function Login(props) {
 
   return (
     <>
-      <h1>Login</h1>
-      <Form onSubmit={authenticateUser}>
+      <h1>Inicia sesión</h1>
+      <Form onSubmit={handleSubmit}>
         <Field name="email" inputId="email-input"></Field>
         <Field name="password" inputId="password-input"></Field>
         <Button type="submit">Iniciar sesión</Button>
