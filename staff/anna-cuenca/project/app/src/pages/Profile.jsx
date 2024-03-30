@@ -111,7 +111,7 @@ export default function Profile() {
         <div className="container">
             <div className="profile-container">
                 <h2 className="h2-robotic-profile">Profile</h2>
-                <img src="/ottoHome4.gif" alt="Descripción del GIF" />
+                <img src="/ottoProfile1.png" alt="Descripción del GIF" />
 
                 <div className="userData">
                     <p>Name: {userData.name}</p>

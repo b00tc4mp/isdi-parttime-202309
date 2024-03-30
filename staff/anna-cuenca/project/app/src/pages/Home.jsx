@@ -14,6 +14,7 @@ import { Button, Form, Link, Field } from '../library'
 import Profile from './Profile'
 import Controller from './Controller'
 import Tutorials from './Tutorials'
+import Forum from './Forum'
 
 
 function Home(props) {
@@ -92,7 +93,7 @@ function Home(props) {
     function handleForumClick(event) {
         event.preventDefault()
 
-        navigate('/')
+        navigate('/forum')
         //si da tiempo crear la working page de Forum
     }
 
@@ -157,6 +158,7 @@ function Home(props) {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/controller" element={<Controller />} />
                     <Route path="/tutorials" element={<Tutorials loadTutorials={logic.retrieveTutorials} stamp={stamp} />} />
+                    <Route path="/forum" element={<Forum />} />
                     {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
 
                     {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}

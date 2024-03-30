@@ -12,6 +12,7 @@ import snakeMove from './snakeMove.js'
 import stop from './stop.js'
 import walkForward from './walkForward.js'
 import walkBackward from './walkBackward.js'
+import firstPart from './firstPart.js'
 
 
 const movement = {
@@ -28,7 +29,8 @@ const movement = {
     snakeMove,
     stop,
     walkForward,
-    walkBackward
+    walkBackward,
+    firstPart
 }
 
 export default movement

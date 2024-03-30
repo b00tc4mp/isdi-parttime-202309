@@ -40,6 +40,15 @@ dotenv.config();
                     }
                     break;
 
+                case 'f':
+                    console.log("First Part..")
+                    try {
+                        await ottoController.firstPart()
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
+
 
                 case 'o':
                     console.log("Haciendo Moonwalker..")

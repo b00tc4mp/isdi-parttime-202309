@@ -1023,6 +1023,7 @@
     align-items: center;
     gap: 1px;
     margin-bottom: 10px;
+    @apply text-green-400 font-bold;
   }
 
   .button-update {
@@ -1079,6 +1080,13 @@
     max-height: 90vh;
     /* Limita la altura del popup para asegurar que no se salga de la pantalla */
     @apply h-[650px];
+  }
+
+  .h2-robotic-forum {
+    @apply text-center font-press-start text-lg text-blue-900;
+    /* Cambiando text-xs a text-lg */
+    margin-bottom: 10px;
+    margin-top: 15px;
   }
 
 

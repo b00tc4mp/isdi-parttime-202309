@@ -337,6 +337,15 @@ class OttoController {
         await movement.walkForward(this.otto)
     }
 
+
+    async firstPart() {
+        if (!this.otto) {
+            throw new Error('Otto is not initialized')
+        }
+        await movement.firstPart(this.otto)
+    }
+
+
     async walkBackward() {
         if (!this.otto) {
             throw new Error('Otto is not initialized')

@@ -134,7 +134,14 @@ function Tutorial(props) {
                 )}
 
                 <div className="tutorial-actions">
-                    <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</button>
+                    {/* <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</button> */}
+                    <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>
+                        {props.tutorial.liked ?
+                            (<img src="like3.png" alt="Liked" />) :
+                            (<img src="like4.png" alt="Not Liked" />)
+                        }
+                        {/* {props.tutorial.likes.length} */}
+                    </button>
                     {context.userRole === 'admin' && (
                         <>
                             <button className="button-deleteTutorial" onClick={handleToggleDeleteTutorialClick}>🗑 Delete</button>
