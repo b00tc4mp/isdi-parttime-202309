@@ -402,7 +402,7 @@ async function firstPart(ottoInstance) {
     }
 
 
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise(resolve => setTimeout(resolve, 500))
     // envolvemos setTimeout en una promesa, porque no devuelve ninguna y por eso no podemos usa async/await
 
     steps = 4
@@ -424,8 +424,67 @@ async function firstPart(ottoInstance) {
     }
 
     // servos en posición neutral
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+    servoLeftLeg.to(50)
+    servoRightLeg.to(130)
+    servoLeftFoot.to(70)
+    servoRightFoot.to(100)
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+
+    servoLeftLeg.to(50)
+    servoRightLeg.to(130)
+    servoLeftFoot.to(50)
+    servoRightFoot.to(100)
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+
+    servoLeftLeg.to(100)
+    servoRightLeg.to(130)
+    servoLeftFoot.to(50)
+    servoRightFoot.to(100)
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+
+    servoLeftLeg.to(100)
+    servoRightLeg.to(90)
+    servoLeftFoot.to(70)
+    servoRightFoot.to(100)
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+
+    servoLeftLeg.to(100)
+    servoRightLeg.to(90)
+    servoLeftFoot.to(70)
+    servoRightFoot.to(90)
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+
+    servoLeftLeg.to(100)
+    servoRightLeg.to(90)
+    servoLeftFoot.to(70)
+    servoRightFoot.to(110)
+
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+
+    servoLeftLeg.to(90)
+    servoRightLeg.to(90)
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
+
+
+
+
+
+
 
     console.log("Otto has danced")
 

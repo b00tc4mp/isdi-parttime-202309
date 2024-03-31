@@ -458,6 +458,9 @@ export default function Controller() {
                     {/* Botón para mostrar/ocultar secuencias */}
                     <button className="button-showSequence" onClick={toggleSequencesVisibility}>Show Sequences</button>
                 </div>
+                <div className="finalDance">
+                    <button className="button-finalDance" onClick={() => handleAction('finalDance')}>Party Time</button>
+                </div>
             </div>
         </div>
     )

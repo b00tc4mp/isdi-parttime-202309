@@ -29,6 +29,14 @@ export default (req, res) => {
                 })
                 break;
 
+            case 'finalDance':
+                logic.ottoController.danceSing().then(() => {
+                    res.status(200).json({ message: 'Otto is dancing' })
+                }).catch(error => {
+                    res.status(500).json({ error: error.constructor.name, message: error.message })
+                })
+                break;
+
             case 'kickLeft':
                 logic.ottoController.kickLeft(userId, 1000).then(() => {
                     res.status(200).json({ message: 'Otto is snaking' })

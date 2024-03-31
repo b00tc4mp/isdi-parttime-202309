@@ -808,6 +808,24 @@
     @apply text-blue-900 font-bold;
   }
 
+  .button-finalDance {
+    @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
+    padding: 5px 5px;
+    /* Ajusta el relleno según tus necesidades */
+    border: none;
+    /* Remueve cualquier borde predeterminado */
+    border-radius: 5px;
+    /* Añade bordes redondeados si lo deseas */
+
+    /* Añade sombra para dar profundidad */
+    transition: background-color 250ms, color 250ms;
+    margin-left: 15px;
+    margin-top: 5px;
+
+    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
+  }
+
 
 
   /* TUTORIALS */

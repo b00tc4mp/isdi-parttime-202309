@@ -49,6 +49,15 @@ dotenv.config();
                     }
                     break;
 
+                case 'd':
+                    console.log("Final Dance..")
+                    try {
+                        await ottoController.danceSing()
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    break;
+
 
                 case 'o':
                     console.log("Haciendo Moonwalker..")

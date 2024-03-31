@@ -1,5 +1,5 @@
 import pkg from 'johnny-five'
-const { Board, Servo, LCD, Pin } = pkg
+const { Board, Servo, LCD, Pin, Piezo } = pkg
 import { Otto } from './otto.js'
 import { Movement, SequenceMovement } from '../data/models.js'
 
@@ -344,6 +344,63 @@ class OttoController {
         }
         await movement.firstPart(this.otto)
     }
+
+    async danceSing() {
+
+        if (!this.otto) {
+            console.error("Otto is not initialized")
+            return
+        }
+
+
+        const piezo = new Piezo(6)
+        const song = [
+
+            ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 2], ["A4", 1 / 2],
+            ["F#4", 1 / 4], ["A4", 1 / 4], ["F#4", 1 / 2], ["F#4", 1 / 2], ["B4", 1 / 2], ["F#4", 1 / 2],
+            ["C#4", 1 / 2], ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 2], ["F#4", 1 / 2],
+            ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 2], ["G#4", 1 / 2], ["F#4", 1 / 2],
+
+            ["E4", 1 / 2], ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 4], ["E4", 1 / 4], ["F#4", 1 / 2], ["A4", 1 / 2],
+            ["F#4", 1 / 4], ["A4", 1 / 4], ["F#4", 1 / 2], ["F#4", 1 / 2], ["E4", 1 / 2], ["F#4", 1 / 2],
+            ["C#4", 1 / 2], ["F#4", 1 / 2], ["D4", 1 / 4], ["D4", 1 / 4], ["D4", 1 / 4], ["D4", 1 / 4], ["E4", 1 / 2], ["F#4", 1 / 2],
+            ["F#4", 1 / 2], ["F4", 1 / 4], ["F4", 1 / 4], ["F#4", 1 / 2], ["G#4", 1 / 2],
+
+            ["F#4", 1 / 2], ["E4", 1 / 4], ["C#4", 1 / 4], ["F#4", 1 / 2],
+            ["F#4", 1 / 2], ["E4", 1 / 4], ["C#4", 1 / 4], ["F#4", 1 / 2],
+            ["F#4", 1 / 2], ["E4", 1 / 4], ["C#4", 1 / 4], ["F#4", 1 / 2],
+            ["F#4", 1 / 4], ["A4", 1 / 4], ["B4", 1 / 2], ["A4", 1 / 4], ["G#4", 1 / 4], ["F#4", 1 / 2],
+
+            ["F#4", 1 / 4], ["C#5", 1 / 4], ["B4", 1 / 2], ["F#4", 1 / 2], ["D4", 1 / 2], ["C#4", 1 / 2],
+
+            ["F#4", 1 / 4], ["A4", 1 / 4], ["B4", 1 / 2], ["A4", 1 / 4], ["G#4", 1 / 4], ["F#4", 1 / 2],
+            ["F#4", 1 / 4], ["C#5", 1 / 4], ["B4", 1 / 2], ["F#4", 1 / 2], ["D4", 1 / 2], ["C#4", 1 / 2],
+
+            ["F#", 1 / 2], ["G#", 1 / 2], ["F#", 1 / 2],
+
+            ["F#4", 1 / 4], ["C#5", 1 / 4], ["B4", 1 / 2], ["F#4", 1 / 2], ["D4", 1 / 2], ["C#4", 1 / 2],
+
+            ["F#4", 1 / 4], ["A4", 1 / 4], ["B4", 1 / 2], ["A4", 1 / 4], ["G#4", 1 / 4], ["F#4", 1 / 2],
+            ["F#4", 1 / 4], ["C#5", 1 / 4], ["B4", 1 / 2], ["F#4", 1 / 2], ["D4", 1 / 2], ["C#4", 1 / 2],
+
+            ["F#", 1 / 2], ["G#", 1 / 2], ["F#", 1 / 2]
+
+
+        ]
+        const tempo = 60
+
+
+        try {
+            await Promise.all([
+                this.firstPart(),
+                new Promise((resolve) => piezo.play({ song, tempo }, resolve))
+            ])
+            console.log("Dance and song finished.")
+        } catch (error) {
+            console.error("An error occurred during the dance and sing routine:", error)
+        }
+    }
+
 
 
     async walkBackward() {
