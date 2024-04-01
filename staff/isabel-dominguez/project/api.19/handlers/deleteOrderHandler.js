@@ -10,14 +10,10 @@ export default (req, res) => {
         const token = req.headers.authorization.substring(7)
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-        logic.retrieveUserOrder(userId)
-            .then(order => {
-                if (order) {
-                    res.json(order)
-                } else {
-                    res.status(204).end()
-                }
-            })
+        const orderId = req.params.orderId
+
+        logic.deleteOrder(userId, orderId)
+            .then(() => res.status(200).send())
             .catch(error => {
                 let status = 500
 

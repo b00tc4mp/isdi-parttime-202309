@@ -1,23 +1,17 @@
-import jwt from 'jsonwebtoken'
-import logic from '../logic/index.js'
 import { errors } from 'com'
+import logic from '../logic/index.js'
 
-const { JsonWebTokenError } = jwt
 const { NotFoundError, ContentError, TokenError } = errors
 
 export default (req, res) => {
-    try {
-        const token = req.headers.authorization.substring(7)
-        const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-        logic.retrieveUserOrder(userId)
-            .then(order => {
-                if (order) {
-                    res.json(order)
-                } else {
-                    res.status(204).end()
-                }
-            })
+    try {
+        const { productId, orderId, quantityDelta } = req.params
+
+        const quantityDeltaNumber = parseInt(quantityDelta)
+
+        logic.updateCartItemQuantity(productId, orderId, quantityDeltaNumber)
+            .then(() => res.status(200).send())
             .catch(error => {
                 let status = 500
 
@@ -27,6 +21,7 @@ export default (req, res) => {
 
                 res.status(status).json({ error: error.constructor.name, message: error.message })
             })
+
     } catch (error) {
         let status = 500
 
