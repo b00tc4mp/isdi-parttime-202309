@@ -11,7 +11,7 @@ export default function(props) {
         event.preventDefault()
 
         const image = event.target.image.value
-        const afix = event.target.text.value
+        const afix = event.target.afix.value
         const name = event.target.name.value
         const gender = event.target.gender.value
         const birthDate = event.target.birthDate.value
