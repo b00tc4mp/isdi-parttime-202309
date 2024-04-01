@@ -39,6 +39,15 @@ export default function Cart({ cartItems, onSuccess }) {
         }
     }
 
+    const calculateTotalPrice = () => {
+        const total = cartItems.products.reduce((total, product) => {
+            const subtotal = product.product.price * product.quantity
+            return total + subtotal
+        }, 0)
+
+        return parseFloat(total.toFixed(3))
+    }
+
 
     return (
         <div>
@@ -59,11 +68,12 @@ export default function Cart({ cartItems, onSuccess }) {
                             ))}
                         </div>
                     ) : (
-                        <p>No tienes ningun artículo en el carro. A que esperas!</p>
+                        <p className='info'>No tienes ningun artículo en el carro. A que esperas!</p>
                     )}
                     {cartItems && cartItems.products && cartItems.products.length ? (
-                        <div>
-                            <button className='finish-order' onClick={handleDeleteOrder}>Realizar compra</button>
+                        <div className='container-cart'>
+                            <span className='total-price-cart'>Total: {calculateTotalPrice()}€</span>
+                            <button className='details-button' onClick={handleDeleteOrder}>Realizar compra</button>
                         </div>
                     ) : null}
                 </div>
