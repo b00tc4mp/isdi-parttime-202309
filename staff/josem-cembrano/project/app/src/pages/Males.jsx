@@ -3,7 +3,9 @@ import { useContext } from '../hooks'
 import { NewPerfilDog } from '../components/'
 import { useNavigate } from 'react-router-dom'
 import { FaDog } from "react-icons/fa"
+import { RiDeleteBin2Fill } from "react-icons/ri"
 import logic from '../logic'
+import { Button } from '../library'
 
 export default function Males() {
   console.log('MALES')
@@ -13,6 +15,7 @@ export default function Males() {
   const [isLoading, setIsLoading] = useState(true)
   const [males, setMales] = useState([])
   const [view, setView] = useState(null)
+  const [dogToDelete, setDogToDelete] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -29,20 +32,26 @@ export default function Males() {
     fetchData()
   }, [])
 
-  function handleNewPerfilDogClick() {
-    setView('new-picture')
-    console.log('click')
-}
+    function handleNewPerfilDogClick() {
+      setView('new-picture')
+      console.log('click')
+  }
 
-  function handleNewPerfilDogCancel() {
-    setView(null)
-}
+    function handleNewPerfilDogCancel() {
+      setView(null)
+  }
 
-  function handleNewPerfilDogPublish() {
-    setView(null)
-    navigate('/login')
+    function handleNewPerfilDogPublish() {
+      setView(null)
+      navigate('/login')
 
-    window.scrollTo(0, 0)
+      window.scrollTo(0, 0)
+  }
+
+
+
+function handleDeleteDog(dogId) {
+  setDogToDelete(dogId)
 }
   if(isLoading){
     return <div>Waiting...</div>
@@ -64,6 +73,7 @@ export default function Males() {
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.gender}</p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.birthDate}</p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.text}</p>
+                    {logic.context.token && logic.context.isAdmin &&(<Button><RiDeleteBin2Fill className='text-yellow-600' size={20}/></Button>)}
                 </div>
             </div>
             </div>

@@ -10,11 +10,11 @@ export default async (req, res) => {
         const token = req.headers.authorization.substring(7)
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-        const { dogId } = req.body
+        const { dogId } = req.body.dogId
 
         await logic.deleteDog(userId, dogId)
 
-        res.status(201).send()
+        res.status(200).send()
     } catch (error) {
         let status = 500
         let errorMessage
