@@ -2,7 +2,6 @@ function Field(props) {
   if (props.type === 'radio') {
     return (
       <>
-        <label htmlFor={props.inputId}>{props.children}</label>
         <input
           name={props.name}
           type="radio"
@@ -10,6 +9,7 @@ function Field(props) {
           checked={props.checked}
           onChange={props.onChange}
         ></input>
+        <label htmlFor={props.inputId}>{props.children}</label>
       </>
     )
   }

@@ -7,15 +7,15 @@ function handleSubmit(event) {
 }
 
 function Resources() {
-  const [resourceType, setResourceType] = useState('')
+  const [resourceType, setResourceType] = useState('activity')
 
   return (
     <>
       <h2>Recursos</h2>
       <h3>Añade un recurso</h3>
       <Form onSubmit={handleSubmit}>
-        <div>
-          Elige el tipo de recurso:
+        <fieldset>
+          <legend>Elige el tipo de recurso:</legend>
           <Field
             name="resourceType"
             type="radio"
@@ -43,44 +43,64 @@ function Resources() {
           >
             Fecha especial
           </Field>
-        </div>
+        </fieldset>
         {/* show different forms depending on what resource you choose */}
         {resourceType === 'activity' && (
-          <div>
+          <fieldset>
             <Field name="title" inputId="title-input">
               Título
-            </Field>
-            <Field name="image" inputId="image-input">
-              Imagen
             </Field>
             <Field name="description" inputId="description-input">
               Descripción
             </Field>
+            <Field name="image" inputId="image-input">
+              Imagen
+            </Field>
             <Field name="link" inputId="link-input">
               Enlace
             </Field>
-            <Button>Submit</Button>
-          </div>
+            <Button>Añadir</Button>
+          </fieldset>
         )}
         {resourceType === 'book' && (
-          <div>
+          <fieldset>
             <Field name="title" inputId="title-input">
               Título
             </Field>
             <Field name="author" inputId="author-input">
               Autor
             </Field>
-            <Field name="image" inputId="image-input">
-              Imagen
-            </Field>
             <Field name="description" inputId="description-input">
               Descripción
+            </Field>
+            <Field name="image" inputId="image-input">
+              Imagen
             </Field>
             <Field name="link" inputId="link-input">
               Enlace
             </Field>
-            <Button>Submit</Button>
-          </div>
+            <Button type="submit">Añadir</Button>
+          </fieldset>
+        )}
+        {resourceType === 'special-date' && (
+          <fieldset>
+            <Field name="title" inputId="title-input">
+              Título
+            </Field>
+            <Field name="date" inputId="date-input">
+              Autor
+            </Field>
+            <Field name="description" inputId="description-input">
+              Descripción
+            </Field>
+            <Field name="image" inputId="image-input">
+              Imagen
+            </Field>
+            <Field name="link" inputId="link-input">
+              Enlace
+            </Field>
+            <Button type="submit">Añadir</Button>
+          </fieldset>
         )}
       </Form>
     </>

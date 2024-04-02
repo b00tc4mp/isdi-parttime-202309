@@ -5,7 +5,7 @@ import context from './logic/context'
 // pages
 import Profile from './pages/Profile'
 import Home from './pages/Home'
-import Resource from './pages/Resources'
+import Resources from './pages/Resources'
 import Login from './pages/Login'
 import Topic from './pages/Topic'
 import Register from './pages/Register'
@@ -38,7 +38,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="topic" element={<Topic />} />
-        <Route path="resource" element={<Resource />} />
+        <Route path="resources" element={<Resources />} />
       </Routes>
     </>
   )
