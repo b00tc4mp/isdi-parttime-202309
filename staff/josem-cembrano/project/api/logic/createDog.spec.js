@@ -30,7 +30,7 @@ describe('createDog', () => {
         const gender = faker.person.sexType()
         const puppy = faker.datatype.boolean()
         const text = faker.lorem.sentence()
-        const birthDate = faker.date.past()
+        const birthDate = '01/01/1990'
 
         const admin = await User.create({ Admin: true, name, email, password })
 
@@ -41,7 +41,7 @@ describe('createDog', () => {
         expect(photo.afix).to.be.equal(afix)
         expect(photo.name).to.be.equal(nameDog)
         expect(photo.gender).to.be.equal(gender)
-        expect(photo.birthDate.getFullYear()).to.be.equal(birthDate.getFullYear())
+        expect(photo.birthDate).to.be.equal(birthDate)
         expect(photo.puppy).to.be.equal(puppy)
         expect(photo.text).to.be.equal(text)
     })
@@ -55,7 +55,7 @@ describe('createDog', () => {
         const afix = faker.person.lastName()
         const nameDog = faker.person.fullName()
         const gender = faker.person.sexType()
-        const birthDate = faker.date.past()
+        const birthDate = '1990-01-01'
         const puppy = faker.datatype.boolean()
         const text = faker.lorem.sentence()
 
@@ -77,7 +77,7 @@ describe('createDog', () => {
         const afix = faker.person.lastName()
         const nameDog = faker.person.fullName()
         const gender = faker.person.sexType()
-        const birthDate = faker.date.past()
+        const birthDate = '01/01/1990'
         const puppy = faker.datatype.boolean()
         const text = faker.lorem.sentence()
 

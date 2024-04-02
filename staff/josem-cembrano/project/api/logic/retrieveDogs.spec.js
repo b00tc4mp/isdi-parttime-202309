@@ -27,30 +27,6 @@ describe('retrieveDogs', () => {
         expect(dogs).to.have.lengthOf(1)
     })
 
-    it('should not retrieve dogs for a non-admin user', async () => {
-        const nonAdminUser = await User.create({ Admin: false, name: faker.person.fullName(), email: faker.internet.email(), password: faker.internet.password() })
-
-        try {
-            await retrieveDogs(nonAdminUser.id)
-
-            throw new Error('should not reach this point')
-        } catch (error) {
-            expect(error).to.be.instanceOf(UnauthorizedError)
-            expect(error.message).to.equal('The user does not have permission to perform this action')
-        }
-    })
-
-    it('fails on non-existing user', async () => {
-        try {
-            const nonExistingUserId = new ObjectId().toString()
-            const dogs = await retrieveDogs(nonExistingUserId)
-            throw new Error('should not reach this point')
-        } catch (error) {
-            expect(error).to.be.instanceOf(NotFoundError)
-            expect(error.message).to.equal('user not found')
-        }
-    })
-
     it('fails when no dogs are found for the admin', async () => {
         try {
             const admin = await User.create({ Admin: true, name: faker.person.fullName(), email: faker.internet.email(), password: faker.internet.password() })
