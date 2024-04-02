@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useUser } from "../hooks/UserContext"
 import logic from '../logic'
 
 
@@ -7,6 +8,7 @@ export default function Product({ id, name, image, price, description, onSuccess
     const [showDetails, setShowDetails] = useState(false)
     const [isProductFav, setIsProductFav] = useState(false)
 
+    const { isLoggedIn } = useUser()
 
     useEffect(() => {
         if (favProducts) {
@@ -55,9 +57,9 @@ export default function Product({ id, name, image, price, description, onSuccess
             <img className='product-image' src={image} alt={name} />
             <p>Precio: {price}</p>
             {!isCartView && <>
-                <button className="cart-button" onClick={handleAddToCart}>🛍️</button>
+                {isLoggedIn && <button className="cart-button" onClick={handleAddToCart}>🛍️</button>}
                 <button className="details-button" onClick={handleDetailsClick}>Ver detalles</button>
-                <button className="favs-button" onClick={handleToggleFavClick}>{isProductFav ? "🩷" : "💟"}</button></>}
+                {isLoggedIn && <button className="favs-button" onClick={handleToggleFavClick}>{isProductFav ? "🩷" : "💟"}</button>}</>}
             {showDetails && (
                 <div className="details-overlay">
                     <div className="details-content">

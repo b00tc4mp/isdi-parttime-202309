@@ -8,6 +8,7 @@ import Register from './Register'
 import Utensils from './Utensils'
 import Favorites from './Favorites'
 import Cart from './Cart'
+import RecipeDetail from './RecipeDetail'
 
 
 export {
@@ -20,5 +21,6 @@ export {
     Register,
     Utensils,
     Favorites,
-    Cart
+    Cart,
+    RecipeDetail
 }

@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom'
 import Recipe from './Recipe'
 import logic from '../logic'
 
-export default function Recipes(props) {
+export default function Recipes({ type }) {
     const [recipes, setRecipes] = useState([])
 
     useEffect(() => {
-        if (!props.type) {
+        if (!type) {
             logic.retrieveRecipesByType('Make-up')
                 .then(data => setRecipes(data))
                 .catch(error => alert(error.message))
         } else {
-            logic.retrieveRecipesByType(props.type)
+            logic.retrieveRecipesByType(type)
                 .then(data => setRecipes(data))
                 .catch(error => alert(error.message))
         }
-    }, [props.type])
+    }, [type])
 
     return (
         <div>
@@ -32,6 +32,7 @@ export default function Recipes(props) {
                 {recipes.map(recipe => (
                     <Recipe
                         key={recipe.id}
+                        recipeId={recipe.id}
                         name={recipe.name}
                         description={recipe.description}
                         image={recipe.image}

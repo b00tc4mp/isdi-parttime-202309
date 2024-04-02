@@ -18,7 +18,8 @@ import {
     addToCartHandler,
     retrieveUserOrderHandler,
     updateCartItemQuantityHandler,
-    deleteOrderHandler
+    deleteOrderHandler,
+    retrieveRecipeByIdHandler
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -67,6 +68,9 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // DELETE ORDER
         server.delete('/order/:orderId', deleteOrderHandler)
+
+        // RETRIEVE RECIPE BY ID
+        server.get('/recipe/:recipeId', retrieveRecipeByIdHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
     })

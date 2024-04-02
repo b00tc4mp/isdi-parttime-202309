@@ -11,6 +11,7 @@ import addToCartHandler from './addToCartHandler.js'
 import retrieveUserOrderHandler from './retrieveUserOrderHandler.js'
 import updateCartItemQuantityHandler from './updateCartItemQuantityHandler.js'
 import deleteOrderHandler from './deleteOrderHandler.js'
+import retrieveRecipeByIdHandler from './retrieveRecipeByIdHandler.js'
 
 
 export {
@@ -26,5 +27,6 @@ export {
     addToCartHandler,
     retrieveUserOrderHandler,
     updateCartItemQuantityHandler,
-    deleteOrderHandler
+    deleteOrderHandler,
+    retrieveRecipeByIdHandler
 }

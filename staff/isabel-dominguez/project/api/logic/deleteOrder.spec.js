@@ -9,6 +9,8 @@ import { Order, User } from '../data/models.js'
 import { errors } from 'com'
 const { NotFoundError } = errors
 
+const { ObjectId } = mongoose.Types
+
 describe('deleteOrder', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
@@ -27,7 +29,7 @@ describe('deleteOrder', () => {
             })
             .then(createdOrder => {
                 order = createdOrder
-                return deleteOrder(order._id)
+                return deleteOrder(order._id.toString()) // Convertir el ID de la orden a cadena
             })
             .then(() => {
                 return Order.findById(order._id)
@@ -38,10 +40,24 @@ describe('deleteOrder', () => {
     })
 
 
-    it('should throw NotFoundError when order does not exist', () => {
-        const nonExistingOrderId = new mongoose.Types.ObjectId()
+    it('When user does not exist', () => {
+        const nonExistingUserId = new ObjectId()
 
-        return deleteOrder(nonExistingOrderId)
+        return deleteOrder(nonExistingUserId.toString(), order._id.toString())
+            .then(() => {
+                throw new Error('The function should have thrown an error')
+            })
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('User not found')
+            })
+    })
+
+
+    it('When order does not exist', () => {
+        const nonExistingOrderId = new ObjectId()
+
+        return deleteOrder(nonExistingOrderId.toString()) // Convertir el ID de la orden a cadena
             .then(() => {
                 throw new Error('The function should have thrown an error')
             })

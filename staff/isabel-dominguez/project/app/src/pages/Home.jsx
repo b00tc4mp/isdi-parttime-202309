@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import { useUser } from "../hooks/UserContext"
 
 import logic from '../logic'
-import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites, Cart } from '../components'
+import { Login, Packings, RawMaterial, Register, Utensils, Recipes, Favorites, Cart, RecipeDetail } from '../components'
 
 
 export default function Home() {
@@ -173,6 +173,7 @@ export default function Home() {
                 <Route path="/packings" element={<Packings favProducts={favProducts} onSuccess={refreshProducts} />} />
                 <Route path="/utensils" element={<Utensils favProducts={favProducts} onSuccess={refreshProducts} />} />
                 <Route path="/recipes" element={<Recipes />} />
+                <Route path="/recipes/:type/:recipeId" element={<RecipeDetail />} />
                 <Route path="/recipes/make-up" element={<Recipes type='Make-up' />} />
                 <Route path="/recipes/treatment" element={<Recipes type='Treatment' />} />
                 <Route path="/recipes/hair" element={<Recipes type='Hair' />} />
@@ -185,7 +186,4 @@ export default function Home() {
             </Routes>
         </>
     )
-}
-
-
-// Lo mismo que con las turas de recetas, los detalles de cada producto. recipes/fragances/:recipeId 
+};

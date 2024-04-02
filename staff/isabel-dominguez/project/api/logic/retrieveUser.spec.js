@@ -9,7 +9,7 @@ import retrieveUser from './retrieveUser.js'
 import { User } from '../data/models.js'
 
 import { errors } from 'com'
-const { SystemError, NotFoundError, CredentialsError, DuplicityError } = errors
+const { NotFoundError } = errors
 
 const { ObjectId } = mongoose.Types
 
