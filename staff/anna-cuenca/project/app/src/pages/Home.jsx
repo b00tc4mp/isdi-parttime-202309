@@ -134,7 +134,8 @@ function Home(props) {
                 {location.pathname === '/' && (
                     <>
                         <main>
-                            <h2 className="h2-robotic">Welcome back, {name} </h2>
+                            <h2 className="h2-robotic">Welcome back,  </h2>
+                            <h2 className="h2-robotic">{name} </h2>
                             <img src="/ottoHome4.gif" alt="Descripción del GIF" />
                             <div className="home-button-container">
                                 <button className="home-connect-button button" onClick={handleControllerClick}>Connect</button>

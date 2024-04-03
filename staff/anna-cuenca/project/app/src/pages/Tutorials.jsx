@@ -81,7 +81,6 @@ function Tutorials(props) {
 
             {userRole === 'admin' && (
                 <footer className="footer">
-
                     {view === 'new-tutorial' && (
                         <NewTutorial
                             onPublish={handleNewTutorialPublish}
@@ -89,11 +88,14 @@ function Tutorials(props) {
                             onError={context.handleError}
                         />
                     )}
-                    <button className="button-addTutorial button" onClick={handleNewTutorialClick}>+</button>
+                    {view !== 'new-tutorial' && (
+                        <button className="button-addTutorial button" onClick={handleNewTutorialClick}>+</button>
+                    )}
                 </footer>
             )}
         </div>
     )
+
 
 }
 export default Tutorials

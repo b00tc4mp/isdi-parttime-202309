@@ -37,7 +37,7 @@ function retrieveSequence(userId) {
 
                 return transformedSequence
             })
-            console.log(JSON.stringify(userSequences, null, 2)) //convierto el objeto en json
+            // console.log(JSON.stringify(userSequences, null, 2)) //convierto el objeto en json
             // tiene ese formato (value, replacer, space). Value representa el objeto
             // replacer es por si queremos filtrar, como no, se pone null
             // space es el num de espacios

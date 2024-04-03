@@ -8,7 +8,6 @@
 
 @layer components {
 
-  /* Base modifications for a robot-themed app */
   .form {
     @apply flex flex-col max-w-[240px] gap-[5px];
     margin-bottom: 5px;
@@ -18,10 +17,6 @@
     @apply font-bold text-blue-900;
   }
 
-  /* .input,
-  input {
-    @apply border-[2px] border-solid border-green-500 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
-  } */
 
 
 
@@ -30,9 +25,6 @@
     @apply border-[2px] border-solid border-blue-900 p-[5px] focus:border-green-600 focus:ring focus:ring-green-300 text-black;
   }
 
-  /* .button {
-    @apply border-[2px] border-solid border-green-500 p-[5px] bg-green-500 text-white font-bold hover:bg-green-600;
-  } */
 
 
 
@@ -128,23 +120,21 @@
   .login-wrapper {
     @apply max-w-sm w-full m-auto;
     @apply md:max-w-md lg:max-w-lg;
-    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 
-    /* Ajusta el valor según tus preferencias */
+
 
   }
 
   .custom-header {
     @apply bg-green-400 rounded-t-lg text-white py-4 px-6 flex justify-center items-center relative;
     width: auto;
-    /* Ajusta el ancho según sea necesario, o deja que se defina por el contenedor padre */
+
     height: 100px;
-    /* Ajusta según sea necesario */
-    position: relative;
-    /* Importante para posicionar los pseudo-elementos correctamente */
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+
+
 
   }
 
@@ -153,38 +143,36 @@
     content: '';
     position: absolute;
     bottom: 20px;
-    /* Ajusta según la posición vertical deseada */
+
     width: 50px;
-    /* Ajusta el tamaño de los ojos */
+
     height: 50px;
-    /* Ajusta el tamaño de los ojos */
+
     background-color: black;
     border-radius: 60%;
     border: 4px solid white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    /* Agrega sombra */
-    /* Ajusta el grosor del borde */
+
   }
 
   .custom-header::before {
     left: 105px;
-    /* Ajusta según la posición horizontal del ojo izquierdo */
+
   }
 
   .custom-header::after {
     right: 105px;
-    /* Ajusta según la posición horizontal del ojo derecho */
+
   }
 
 
-  /* Asegúrate de ajustar el .login-container para que no tenga márgenes/padding que lo hagan más grande que .custom-header */
+
   .login-container {
     @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
-    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+
     @apply h-[700px];
     @apply bg-zinc-50;
-    /* O un valor específico como h-[500px] */
-    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+
   }
 
 
@@ -193,21 +181,20 @@
   .register-wrapper {
     @apply max-w-sm w-full m-auto;
     @apply md:max-w-md lg:max-w-lg;
-    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 
-    /* Ajusta el valor según tus preferencias */
+
 
   }
 
   .register-container {
     @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
-    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+
     @apply h-[700px];
     @apply bg-zinc-50;
-    /* O un valor específico como h-[500px] */
-    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+
   }
 
 
@@ -215,22 +202,20 @@
   .home-wrapper {
     @apply max-w-sm w-full m-auto;
     @apply md:max-w-md lg:max-w-lg;
-    /* Elimina el padding y bordes de .login-container si quieres que estén al ras */
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 
-    /* Ajusta el valor según tus preferencias */
 
   }
 
   .home-container {
     @apply bg-white shadow-md rounded-b-lg border-4 border-green-400;
-    /* Aquí se usa rounded-b-lg para redondear solo bordes inferiores */
+
     @apply h-[700px];
     @apply bg-zinc-50;
 
-    /* O un valor específico como h-[500px] */
-    /* Quita márgenes y padding si es necesario para alinear con el .custom-header */
+
   }
 
   .h2-robotic {
@@ -248,17 +233,17 @@
   }
 
   .home-connect-button {
-    /* Estilos específicos para el botón Connect */
+
     @apply relative inline-block border-blue-900 font-bold text-white bg-blue-900 hover:bg-green-400 cursor-pointer;
     padding: 10px 20px;
-    /* Sin cortar los bordes */
+
     transition: background-color 250ms;
   }
 
 
 
   .home-tutorials-button {
-    /* Estilos específicos para el botón Tutorials */
+
     @apply relative inline-block border-blue-900 font-bold text-white bg-blue-900 hover:bg-green-400 cursor-pointer;
     padding: 10px 20px;
 
@@ -300,15 +285,15 @@
   .controller-actions {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    /* Crea 3 columnas */
+
     grid-template-rows: repeat(3, auto);
-    /* Crea 3 filas */
+
     gap: 10px;
-    /* Espacio entre botones */
+
     justify-content: center;
-    /* Centra la cuadrícula horizontalmente */
+
     align-items: center;
-    /* Centra la cuadrícula verticalmente */
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     @apply bg-zinc-200;
@@ -324,11 +309,11 @@
   .button-right {
     @apply relative inline-block font-bold text-white bg-blue-900 cursor-pointer;
     padding: 10px;
-    /* Reducir el padding reduce el tamaño del triángulo */
+
     width: 60px;
-    /* Establece un ancho fijo */
+
     height: 60px;
-    /* Establece una altura fija */
+
     transition: background-color 250ms;
 
   }
@@ -370,19 +355,19 @@
     padding: 20px 20px;
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
   .comunication-buttons {
     display: flex;
-    /* Activa Flexbox */
+
     justify-content: center;
-    /* Centra los elementos horizontalmente */
+
     align-items: center;
-    /* Centra los elementos verticalmente (útil si tienen diferentes alturas) */
+
     flex-wrap: wrap;
-    /* Permite que los elementos se envuelvan en múltiples líneas si no caben */
+
     margin-bottom: 10px;
     margin-top: 5px;
   }
@@ -390,45 +375,44 @@
   .button-sayHi {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
   .button-clearLCD {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .movement-buttons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Mantiene 3 columnas */
+
     gap: 5px;
-    /* Reduce el espacio entre botones */
+
     padding: 5px;
-    /* Reduce el espacio alrededor de la cuadrícula */
+
     margin-right: 6px;
   }
 
@@ -445,82 +429,79 @@
   .button-endSequence,
   .button-showSequence {
     @apply text-xs;
-    /* Reduce el tamaño de fuente para que el texto ocupe menos espacio */
+
     padding: 5px 10px;
-    /* Reduce el relleno para disminuir el tamaño del botón */
+
     margin: 0;
-    /* Ajusta los márgenes si es necesario */
+
     min-width: 0;
-    /* Asegura que el botón no tenga un ancho mínimo que pueda causar desbordamiento */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    /* Opcional: ajusta la sombra para un efecto más sutil */
+
   }
 
   .button-jump {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
   .button-snakeMove {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-moonwalker {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-crusaito {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
@@ -528,161 +509,149 @@
   .button-swing {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-upDown {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-kickLeft {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-noGravity {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-shakeLegRight {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
-
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-shakeLegLeft {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
-
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-endSequence {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
-
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .button-showSequence {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
   .sequences-popup {
     @apply bg-zinc-400 shadow-md rounded-lg border-4;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* @apply bg-blue-900 shadow-md rounded-lg border-4 border-blue-900; */
-    /* Ajusta la redondez de los bordes para el popup */
+
     @apply bg-zinc-200 text-blue-900;
 
-    /* Mantiene el color de fondo igual que .home-container */
+
     @apply max-w-md m-auto p-4;
-    /* Centra el popup y aplica padding */
+
     position: fixed;
-    /* Posición fija para que el popup sea modal */
+
     top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* Centrado exacto en la pantalla */
+
     z-index: 20;
-    /* Asegura que el popup se muestre por encima de otros elementos */
+
     overflow-y: auto;
-    /* Permite el desplazamiento si el contenido excede la altura del popup */
+
     max-height: 90vh;
-    /* Limita la altura del popup para asegurar que no se salga de la pantalla */
+
     @apply h-[650px];
   }
 
@@ -691,7 +660,7 @@
 
 
     margin-top: 10px;
-    /* Alinea los botones de editar en línea */
+
   }
 
   .button-playSequence {
@@ -709,18 +678,18 @@
   .button-hideSequences {
     @apply bg-green-400 text-white hover:bg-zinc-50 hover:text-blue-900 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
   }
 
-  /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
 
   .h1-robotic-controller {
@@ -732,51 +701,50 @@
   .button-deleteMovement {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
-    border: none;
-    /* Remueve cualquier borde predeterminado */
-    border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
 
-    /* Añade sombra para dar profundidad */
+    border: none;
+
+    border-radius: 5px;
+
+
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
   .button-upMovement {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
-    border: none;
-    /* Remueve cualquier borde predeterminado */
-    border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
 
-    /* Añade sombra para dar profundidad */
+    border: none;
+
+    border-radius: 5px;
+
+
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
   .button-downMovement {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
-    border: none;
-    /* Remueve cualquier borde predeterminado */
-    border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
 
-    /* Añade sombra para dar profundidad */
+    border: none;
+
+    border-radius: 5px;
+
+
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
 
   }
 
@@ -791,7 +759,7 @@
 
 
     margin-top: 5px;
-    /* Alinea los botones de editar en línea */
+
   }
 
   .created-at {
@@ -811,18 +779,18 @@
   .button-finalDance {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 5px 5px;
-    /* Ajusta el relleno según tus necesidades */
-    border: none;
-    /* Remueve cualquier borde predeterminado */
-    border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
 
-    /* Añade sombra para dar profundidad */
+    border: none;
+
+    border-radius: 5px;
+
+
+
     transition: background-color 250ms, color 250ms;
     margin-left: 15px;
     margin-top: 5px;
 
-    /* Asegúrate de que el texto o ícono en el botón de stop esté centrado */
+
 
   }
 
@@ -838,24 +806,24 @@
 
   .tutorials-wrapper {
     width: 90%;
-    /* Ajusta esto al porcentaje deseado del ancho del contenedor padre */
+
     max-width: 400px;
-    /* O un valor específico en píxeles */
+
     margin: auto;
     padding: 16px;
-    /* Centra el popup y aplica padding */
+
     position: fixed;
-    /* Posición fija para que el popup sea modal */
+
     top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* Centrado exacto en la pantalla */
+
     z-index: 20;
-    /* Asegura que el popup se muestre por encima de otros elementos */
+
     overflow-y: auto;
-    /* Permite el desplazamiento si el contenido excede la altura del popup */
+
     max-height: 90vh;
-    /* Limita la altura del popup para asegurar que no se salga de la pantalla */
+
     @apply h-[650px];
     margin-top: 0px;
     padding-top: 5px;
@@ -865,6 +833,7 @@
 
   .tutorial {
     @apply border-2 border-solid border-green-200 rounded-lg shadow-md p-4 mb-4 bg-green-50;
+
   }
 
   .button-addTutorial {
@@ -877,57 +846,64 @@
   .button-deleteTutorial,
   .button-editTutorial {
     padding: 2px 5px;
-    /* Reducir el padding */
+
     font-size: 12px;
-    /* Reducir el tamaño de la fuente */
+
     height: auto;
-    /* La altura se ajusta al contenido */
+
     min-height: 0;
-    /* Eliminar altura mínima si está definida */
+
     min-width: 0;
-    /* Eliminar ancho mínimo si está definido */
+
     line-height: 1;
-    /* Ajustar el interlineado si es necesario */
+
   }
 
 
 
   .tutorial-actions {
-    padding: 2px 5px;
-    /* Reducir el padding */
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+
     font-size: 12px;
-    /* Reducir el tamaño de la fuente */
+
     height: auto;
-    /* La altura se ajusta al contenido */
+
     min-height: 0;
-    /* Eliminar altura mínima si está definida */
+
     min-width: 0;
-    /* Eliminar ancho mínimo si está definido */
+
     line-height: 1;
-    /* Ajustar el interlineado si es necesario */
+
   }
 
   .tutorial-edition {
     display: flex;
     justify-content: center;
-    /* Centra los botones horizontalmente */
+
     align-items: flex-start;
-    /* Centra los botones verticalmente, útil si tienen diferentes alturas */
+
     gap: 10px;
-    /* Espacio entre botones */
+
     margin-bottom: 10px;
+
+
   }
 
   .button-saveTutorial {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
@@ -937,13 +913,13 @@
   .button-cancelTutorial {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
@@ -953,15 +929,16 @@
   .button-likeTutorial {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
+
 
 
   }
@@ -969,33 +946,53 @@
   .button-deleteTutorial {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
 
   }
 
+
+
   .button-editTutorial {
     @apply bg-blue-900 text-white hover:bg-green-400 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
 
+  }
+
+  .container-new-post {
+    overflow-y: auto;
+    z-index: 20;
+
+
+
+  }
+
+  .container-new-post .label {
+    color: white;
+  }
+
+  .h2-robotic-new-tutorial {
+    @apply text-center font-press-start text-xs;
+    margin-bottom: 10px;
+    margin-top: 0px;
   }
 
   .footer {
@@ -1007,6 +1004,11 @@
     width: 70%;
     margin: auto;
     @apply bg-blue-900 text-white text-center py-2.5 rounded-lg;
+    overflow-y: auto;
+    z-index: 20;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    transition: background-color 250ms, color 250ms;
 
 
   }
@@ -1016,7 +1018,7 @@
 
   .h2-robotic-profile {
     @apply text-center font-press-start text-lg text-blue-900;
-    /* Cambiando text-xs a text-lg */
+
     margin-bottom: 10px;
     margin-top: 0px;
   }
@@ -1032,7 +1034,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    /* Espacio entre elementos */
+
   }
 
   .userData {
@@ -1047,13 +1049,13 @@
   .button-update {
     @apply bg-green-400 text-white hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
@@ -1063,13 +1065,13 @@
   .button-changeEmail {
     @apply bg-zinc-200 text-blue-900 hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
@@ -1079,13 +1081,13 @@
   .button-changePassword {
     @apply bg-zinc-200 text-blue-900 hover:bg-blue-900 hover:text-zinc-50 cursor-pointer;
     padding: 10px 20px;
-    /* Ajusta el relleno según tus necesidades */
+
     border: none;
-    /* Remueve cualquier borde predeterminado */
+
     border-radius: 5px;
-    /* Añade bordes redondeados si lo deseas */
+
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    /* Añade sombra para dar profundidad */
+
     transition: background-color 250ms, color 250ms;
     margin-left: 10px;
 
@@ -1094,26 +1096,26 @@
 
   .profile-container {
     overflow-y: auto;
-    /* Permite el desplazamiento si el contenido excede la altura del popup */
+
     max-height: 90vh;
-    /* Limita la altura del popup para asegurar que no se salga de la pantalla */
+
     @apply h-[650px];
   }
 
   .h2-robotic-forum {
     @apply text-center font-press-start text-lg text-blue-900;
-    /* Cambiando text-xs a text-lg */
+
     margin-bottom: 10px;
     margin-top: 15px;
   }
 
 
 
-  /* Feedback modifications for a cohesive look */
+
   .Feedback {
     @apply fixed top-0 w-full box-border text-white;
     z-index: 20;
-    /* Asegura que el popup se muestre por encima de otros elementos */
+
     overflow-y: auto;
   }
 

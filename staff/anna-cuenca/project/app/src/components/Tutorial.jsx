@@ -10,7 +10,7 @@ import session from '../logic/session'
 
 import { useContext } from '../hooks'
 
-
+const apiKey = import.meta.env.VITE_API_KEY
 
 
 
@@ -103,7 +103,8 @@ function Tutorial(props) {
                     <Form onSubmit={handleEditSubmit}>
                         <Field id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} label="Title" />
                         <Editor
-                            apiKey='3p5p5ls0lyowdf5ebluhjpkb69g44e0negw77zeywyb409pj'
+
+                            apiKey={apiKey}
                             onInit={(evt, editor) => editorRef.current = editor}
                             initialValue={text}
                             init={{
@@ -137,15 +138,19 @@ function Tutorial(props) {
                     {/* <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</button> */}
                     <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>
                         {props.tutorial.liked ?
-                            (<img src="like3.png" alt="Liked" />) :
-                            (<img src="like4.png" alt="Not Liked" />)
+                            (<img src="ottoLikePeq2.png" alt="Liked" />) :
+                            (<img src="ottoDislike2.png" alt="Not Liked" />)
                         }
                         {/* {props.tutorial.likes.length} */}
                     </button>
                     {context.userRole === 'admin' && (
                         <>
-                            <button className="button-deleteTutorial" onClick={handleToggleDeleteTutorialClick}>🗑 Delete</button>
-                            <button className="button-editTutorial" onClick={handleEditClick}>{editTextTutorial ? 'Cancel Edit' : '🖍 Edit'}</button>
+                            <button className="button-deleteTutorial" onClick={handleToggleDeleteTutorialClick}>
+                                <img src="papelera2.png" alt="Delete" />
+                            </button>
+                            <button className="button-editTutorial" onClick={handleEditClick}>
+                                {editTextTutorial ? 'Cancel Edit' : <img src="ottoEdit.png" alt="Edit" />}
+                            </button>
                         </>
                     )}
                 </div>

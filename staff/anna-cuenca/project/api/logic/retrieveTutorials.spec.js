@@ -37,14 +37,14 @@ describe('retrieveTutorials', () => {
         }
         await Tutorial.create(tutorialData1)
 
-        console.log('Creando tutoriales:', tutorialData1)
+        //console.log('Creando tutoriales:', tutorialData1)
 
 
         const retrievedTutorials = await retrieveTutorials(user._id.toString())
-        console.log('Tutoriales recuperados:', retrievedTutorials)
+        //  console.log('Tutoriales recuperados:', retrievedTutorials)
         expect(retrievedTutorials.length).to.be.greaterThan(0)
         const tutorial = retrievedTutorials[0]
-        console.log('Primer tutorial:', tutorial)
+        //console.log('Primer tutorial:', tutorial)
 
 
         expect(tutorial).to.have.property('id')

@@ -39,20 +39,19 @@ export default function ({ onPublish, onCancel }) {
 
 
 
-    return <Container className="new-post">
-        <h2>New tutorial</h2>
+    return (
+        <div className="container-new-post">
+            <div className="new-tutorial-container">
+                <h2 className="h2-robotic-new-tutorial">New Tutorial</h2>
 
-        <Form onSubmit={handleSubmit}>
-            <Field id="title-input">Title</Field>
+                <Form onSubmit={handleSubmit}>
+                    <Field id="title-input" type="text">Title</Field>
+                    <Field id="text-input" type="text">Text</Field>
 
-
-            <Field id="text-input">Text</Field>
-
-
-            <Button type="submit">Publish</Button>
-            <Button onClick={handleCancel}>Cancel</Button>
-
-
-        </Form>
-    </Container>
+                    <button className="button-playSequence button" type="submit" >Publish</button>
+                    <button className="button-playSequence button" onClick={handleCancel}>Cancel</button>
+                </Form>
+            </div>
+        </div>
+    )
 }

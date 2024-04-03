@@ -1,44 +1,16 @@
-import pkg from 'johnny-five'
-const { Board } = pkg
-import Oled from 'oled-js'
+import { ArduinoOLED } from './arduinoSetup.js'
 
+const myOLED = new ArduinoOLED()
 
-const arduinoOled = () => {
-    return new Promise((resolve, reject) => {
-        const board = new Board()
-
-        board.on("ready", () => {
-            const opts = {
-                width: 128,
-                height: 64,
-                address: 0x3C
-            }
-
-
-            const oled = new Oled(board, opts)
-
-            const textOpts = {
-                size: 1,
-                color: 'white',
-                wrap: true
-            }
-
-
-
-            oled.clearDisplay()
-            oled.setCursor(1, 1)
-
-
-
-            console.log('LED should be displaying "Hola" now.')
-            resolve()
-        })
-
-        board.on("error", error => {
-            console.error('Board initialization failed:', error.message)
-            reject(error)
-        })
-    })
+const arduinoOled = async () => {
+    try {
+        // Espera a que el board esté listo antes de mostrar el mensaje.
+        await myOLED.boardReady()
+        myOLED.displayMessage()
+        console.log('LED should be displaying "Cats and dogs are really cool animals, you know." now.')
+    } catch (error) {
+        console.error('Board initialization failed:', error)
+    }
 }
 
 export default arduinoOled

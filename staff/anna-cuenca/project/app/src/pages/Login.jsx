@@ -92,7 +92,7 @@ function Login(props) {
                     </Form>
                     <Link onClick={handleRegisterClick}>Register</Link>
                 </Container>
-                <img src="/ottov5.gif" alt="Descripción del GIF" /> {/* Añadido self-center y mb-4 */}
+                <img src="/ottoPerfil2.gif" alt="Descripción del GIF" /> {/* Añadido self-center y mb-4 */}
             </div>
         </div>
     )
