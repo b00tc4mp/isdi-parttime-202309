@@ -9,7 +9,7 @@ function registerUser(name, email, password) {
   validate.email(email, 'email')
   validate.password(password, 'password')
 
-  // in the brackets after password we had a number that represents the salt we're adding
+  // in the brackets after password we had a number that represents the salt we're adding (bcrypt is for encrypting passwords)
   return bcrypt
     .hash(password, 8)
     .catch((error) => {

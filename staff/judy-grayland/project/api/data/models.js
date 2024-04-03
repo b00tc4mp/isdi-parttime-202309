@@ -44,13 +44,14 @@ const activity = new Schema({
     type: String,
     required: true,
   },
-  link: {
-    type: String,
-  },
   image: {
     type: String,
+    required: true,
   },
-
+  link: {
+    type: String,
+    required: true,
+  },
   tag: [
     {
       type: ObjectId,
