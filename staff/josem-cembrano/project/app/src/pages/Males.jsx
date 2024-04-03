@@ -15,20 +15,19 @@ export default function Males() {
   const [isLoading, setIsLoading] = useState(true)
   const [males, setMales] = useState([])
   const [view, setView] = useState(null)
-  const [dogToDelete, setDogToDelete] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const retrivedMales = await logic.retrieveMales()
-        setMales(retrivedMales)
-      } catch (error) {
-        context.handleError(error)
-      }
-      setIsLoading(false)
+  const fetchData = async () => {
+    try {
+      const retrivedMales = await logic.retrieveMales()
+      setMales(retrivedMales)
+    } catch (error) {
+      context.handleError(error)
     }
+    setIsLoading(false)
+  }
 
+  useEffect(() => {
     fetchData()
   }, [])
 
@@ -48,10 +47,16 @@ export default function Males() {
       window.scrollTo(0, 0)
   }
 
-
-
 function handleDeleteDog(dogId) {
-  setDogToDelete(dogId)
+  console.log(dogId)
+  return (async() => {
+    try {
+        await logic.deleteDog(dogId)
+        fetchData()
+    } catch (error) {
+        context.handleError(error)
+    }
+})()
 }
   if(isLoading){
     return <div>Waiting...</div>
@@ -68,12 +73,12 @@ function handleDeleteDog(dogId) {
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <img className="rounded-t-lg" src={male.image} alt="" />
                 <div className="p-5">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{male.afix}</h5>
-                        <h4 className="mb-2 text-1xl font-bold tracking-tight text-gray-900 dark:text-white">{male.name}</h4>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.gender}</p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.birthDate}</p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{male.text}</p>
-                    {logic.context.token && logic.context.isAdmin &&(<Button><RiDeleteBin2Fill className='text-yellow-600' size={20}/></Button>)}
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Afix:</span>{male.afix}</h5>
+                        <h4 className="mb-2 text-1xl font-bold tracking-tight text-gray-900 dark:text-white"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Name:</span>{male.name}</h4>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Gender:</span>{male.gender}</p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>BirthDate:</span>{male.birthDate}</p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Description:</span>{male.text}</p>
+                    {logic.context.token && logic.context.isAdmin &&(<button onClick={ () => handleDeleteDog(male.id) }><RiDeleteBin2Fill className='text-yellow-600 deleteButton' size={20}/></button>)}
                 </div>
             </div>
             </div>

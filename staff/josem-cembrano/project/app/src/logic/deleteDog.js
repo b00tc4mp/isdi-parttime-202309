@@ -26,6 +26,6 @@ export default async function deleteDog(dogId) {
         } catch (error) {
             throw new SystemError(error.message)
         }
-        throw new errors[body.error](body.message)
+        throw new Error(body.message)
     }
 }

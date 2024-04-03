@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
-import { Routes, Route, useNavigate, Navigate, Link } from 'react-router-dom'
-import { Home, Males, Females, Puppies, History, Contact, FAQ, News, Opinions, Login, Register} from './pages/index'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Home, Males, Females, Puppies, History, Contact, FAQ, Login, Register} from './pages/index'
 import Feedback from './components/Feedback'
 import Context from './Context'
 import { errors } from 'com'
@@ -13,6 +13,7 @@ export default function App() {
 
   const navigate = useNavigate()
 
+  const [isUserNavbar, setIsUserNavbar] = useState(false)
   const [open, setOpen] = useState(true)
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)
@@ -21,6 +22,11 @@ export default function App() {
     navigate('/')
     setLevel(null)
     setMessage(null)
+  }
+
+  function handleLogoutClick(){
+    setIsUserNavbar(false)
+    navigate('/')
   }
 
   function handleError(error) {
@@ -55,6 +61,7 @@ export default function App() {
     navigate('/')
     setLevel(null)
     setMessage(null)
+    setIsUserNavbar(true)
   }
 
   return (
@@ -62,17 +69,15 @@ export default function App() {
     <Context.Provider value={context}>
     {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAcepted} />}
     <div className='container-Navbar'>
-    <Navbar open={open} setOpen={setOpen}/>
+    <Navbar open={open} setOpen={setOpen} isUserNavbar={isUserNavbar} onLogout={handleLogoutClick}/>
       <Routes>
-        <Route path='/' element={logic.isUserLoggedIn() ? <Home onLogoutClick={handleHomeShow} /> : <Navigate to='/' />} />
+        <Route path='/' element={<Home />} />
         <Route path='/history' element={<History />} />
         <Route path='/males' element={<Males />} />
         <Route path='/females' element={<Females />} />
         <Route path='/puppies' element={<Puppies />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/news' element={<News />} />
         <Route path='/FAQ' element={<FAQ />} />
-        <Route path='/opinions' element={<Opinions />} />
         <Route path='/login' element={<Login onSuccess={onSuccess}/>} />
         <Route path='/register' element={<Register />} />
       </Routes>

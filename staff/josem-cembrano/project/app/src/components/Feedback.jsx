@@ -1,5 +1,4 @@
 import { Button, Container } from '../library'
-import  classnames from 'classnames'
 
 const Feedback = (props) => {
     let modifier ='Feedback-debug'
@@ -21,7 +20,7 @@ const Feedback = (props) => {
 
     return <Container className={`container--horizontal Feedback Feedback ${modifier}`}>
         <p>{props.message}</p>
-        <Button onClick={props.onAccepted}>Accept</Button>
+        <Button onClick={props.onAccepted}><span className='ml-10'>Accept</span></Button>
     </Container>
 
 }

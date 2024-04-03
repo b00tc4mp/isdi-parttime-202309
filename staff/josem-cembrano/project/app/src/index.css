@@ -29,6 +29,16 @@
   width: 100vw;
 }
 
+.deleteButton {
+  transition: transform 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.deleteButton:hover {
+  transform: scale(1.4);
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.3); /* Agrega una pequeña sombra al pasar el ratón por encima */
+}
+
 .button-Fadog {
   /* Estilos base del botón */
   padding: 10px 20px; /* Ajusta el relleno para aumentar el tamaño del botón */
@@ -97,24 +107,18 @@
   margin-left: 10px; /* Espacio entre el icono y el nombre */
 }
 
-.icon-session {
-  color: black;
-}
-
-.close-session-icon {
-  color: tomato;
-  background-color: white;
-}
-
 .user-info-container {
   margin-top: 5px; /* Ajusta el margen superior */
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  background-color: gray;
   border-radius: 30px;
-  padding: 4px;
+  padding: 6px;
   display: flex;
   align-items: center; /* Para centrar verticalmente los elementos */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Agregar sombra */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 1); /* Agregar sombra */
+}
+
+.user-info-container:hover {
+  background-color: goldenrod;
 }
 
 .icon-session {
@@ -123,16 +127,6 @@
 
 .logout-options {
   /* Estilos para las opciones de cierre de sesión, si es necesario */
-}
-
-.button-user {
-  margin-left: auto; /* Esto empujará el botón hacia la derecha */
-  transition: transform 0.2s ease; /* Agrega una transición suave */
-}
-
-.button-user:active {
-  transform: translateY(2px); /* Mueve el botón hacia abajo */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega sombra */
 }
 
 .login-container {
@@ -233,6 +227,12 @@ body {
   top: 0;
   width: 100%;
   box-sizing: border-box;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* rgba(255, 255, 255, 0.5) representa blanco con una opacidad del 50% */
 }
 
 .Feedback--debug {
