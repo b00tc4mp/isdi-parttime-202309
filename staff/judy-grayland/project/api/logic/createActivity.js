@@ -1,5 +1,5 @@
 import { validate, errors } from 'shared'
-const { SystemError } = errors
+const { SystemError, DuplicityError } = errors
 
 import { Activity } from '../data/models.js'
 
@@ -25,6 +25,9 @@ function createActivity(title, description, image, link) {
     image,
     link,
   }).catch((error) => {
+    if (error.code === 11000) {
+      throw new DuplicityError('activity already exists')
+    }
     throw new SystemError(error.message)
   })
 }
