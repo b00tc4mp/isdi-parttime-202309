@@ -10,7 +10,7 @@ export default async (req, res) => {
         const token = req.headers.authorization.substring(7)
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
-        const { dogId } = req.body.dogId
+        const { dogId } = req.params
 
         await logic.deleteDog(userId, dogId)
 
