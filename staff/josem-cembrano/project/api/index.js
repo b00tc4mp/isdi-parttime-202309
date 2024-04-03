@@ -46,7 +46,7 @@ import {
 
         server.get('/females', retrieveFemalesHandler)
 
-        server.delete('/dogs/:id', deleteDogHandler)
+        server.delete('/dogs/:dogId', deleteDogHandler)
 
         server.listen(process.env.PORT, () => console.log(`server is 🆗 on port ${process.env.PORT}!!`))
     } catch (error) {

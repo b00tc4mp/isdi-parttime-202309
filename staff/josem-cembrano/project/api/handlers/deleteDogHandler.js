@@ -11,7 +11,6 @@ export default async (req, res) => {
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
         const { dogId } = req.params
-
         await logic.deleteDog(userId, dogId)
 
         res.status(200).send()

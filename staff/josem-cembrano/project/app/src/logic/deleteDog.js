@@ -8,8 +8,8 @@ export default async function deleteDog(dogId) {
 
     const req = {
         method: 'DELETE',
-        header: {
-            Authorization: `Bearer ${context.token}`
+        headers: {
+            Authorization: `Bearer ${this.token}`
         }
     }
     let res
