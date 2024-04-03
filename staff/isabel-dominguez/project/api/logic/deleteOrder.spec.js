@@ -14,10 +14,11 @@ const { ObjectId } = mongoose.Types
 describe('deleteOrder', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))
 
-    beforeEach(() => Promise.all([Order.deleteMany(), User.deleteMany()]))
+    beforeEach(() => Promise.all([User.deleteMany(), Order.deleteMany()]))
 
-    it('should delete an existing order', () => {
-        let order, user
+    it('should delete existing order for existing user', () => {
+        let user, order
+
         return User.create({
             name: random.name(),
             email: random.email(),
@@ -25,28 +26,39 @@ describe('deleteOrder', () => {
         })
             .then(createdUser => {
                 user = createdUser
-                return Order.create({ user: user._id })
+
+                return Order.create({
+                    user: user._id,
+                    products: [{
+                        name: random.productName(),
+                        description: random.description(),
+                        image: random.image(),
+                        price: random.price(1, 20),
+                        type: random.productType()
+                    }],
+                    createdAt: new Date()
+                })
             })
             .then(createdOrder => {
                 order = createdOrder
-                return deleteOrder(order._id.toString()) // Convertir el ID de la orden a cadena
-            })
-            .then(() => {
-                return Order.findById(order._id)
+                return deleteOrder(user._id.toString(), order._id.toString())
             })
             .then(deletedOrder => {
-                expect(deletedOrder).to.be.null
+                expect(deletedOrder._id).to.deep.equal(order._id)
+                return Order.findById(order._id)
+            })
+            .then(foundOrder => {
+                expect(foundOrder).to.be.null
             })
     })
 
 
-    it('When user does not exist', () => {
-        const nonExistingUserId = new ObjectId()
+    it('should fail when user does not exist', () => {
+        const userId = new ObjectId().toString()
+        const orderId = new ObjectId().toString()
 
-        return deleteOrder(nonExistingUserId.toString(), order._id.toString())
-            .then(() => {
-                throw new Error('The function should have thrown an error')
-            })
+        return deleteOrder(userId, orderId)
+            .then(() => { throw new Error('should not reach this point') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('User not found')
@@ -54,18 +66,44 @@ describe('deleteOrder', () => {
     })
 
 
-    it('When order does not exist', () => {
-        const nonExistingOrderId = new ObjectId()
+    it('should fail when order does not exist', () => {
+        let user, order
 
-        return deleteOrder(nonExistingOrderId.toString()) // Convertir el ID de la orden a cadena
-            .then(() => {
-                throw new Error('The function should have thrown an error')
+        return User.create({
+            name: random.name(),
+            email: random.email(),
+            password: random.password()
+        })
+            .then(createdUser => {
+                user = createdUser._id
+
+                return Order.create({
+                    user: user,
+                    products: [{
+                        name: random.productName(),
+                        description: random.description(),
+                        image: random.image(),
+                        price: random.price(1, 20),
+                        type: random.productType()
+                    }],
+                    createdAt: new Date()
+                })
             })
+            .then(createdOrder => {
+                order = createdOrder._id
+
+                return Order.deleteOne({ _id: order })
+            })
+            .then(() => {
+                return deleteOrder(user.toString(), order.toString())
+            })
+            .then(() => { throw new Error('should not reach this point') })
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('Order not found')
             })
     })
+
 
     after(() => mongoose.disconnect())
 })

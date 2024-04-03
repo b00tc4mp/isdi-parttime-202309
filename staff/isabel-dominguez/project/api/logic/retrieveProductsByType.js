@@ -1,9 +1,10 @@
-import { errors } from 'com'
 import { Product } from '../data/models.js'
 
+import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 function retrieveProductsByType(type) {
+    validate.text(type, 'type')
 
     return Product.find({ type }).lean()
         .catch(error => { throw new SystemError(error.message) })

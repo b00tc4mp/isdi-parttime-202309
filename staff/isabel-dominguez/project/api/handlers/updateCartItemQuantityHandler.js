@@ -6,11 +6,11 @@ const { NotFoundError, ContentError, TokenError } = errors
 export default (req, res) => {
 
     try {
-        const { productId, orderId, quantityDelta } = req.params
+        const { productId, orderId, quantityProduct } = req.params
 
-        const quantityDeltaNumber = parseInt(quantityDelta)
+        const quantityProductNumber = parseInt(quantityProduct)
 
-        logic.updateCartItemQuantity(productId, orderId, quantityDeltaNumber)
+        logic.updateCartItemQuantity(productId, orderId, quantityProductNumber)
             .then(() => res.status(200).send())
             .catch(error => {
                 let status = 500

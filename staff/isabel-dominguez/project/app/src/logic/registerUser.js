@@ -4,7 +4,7 @@ const { SystemError } = errors
 export default function registerUser(name, email, password) {
     validate.text(name, 'name')
     validate.email(email)
-    validate.password(password);
+    validate.password(password)
 
     const req = {
         method: 'POST',
@@ -19,8 +19,8 @@ export default function registerUser(name, email, password) {
         .then(res => {
             if (!res.ok) {
                 return res.json()
-                    .catch(error => { throw new SystemError(error.message) }) //Si falla la conversión de JSON, es decir el parseo (proceso de analizar una cadena)
+                    .catch(error => { throw new SystemError(error.message) })
                     .then(body => { throw new errors[body.error](body.message) })
-            };
-        });
-};
+            }
+        })
+}

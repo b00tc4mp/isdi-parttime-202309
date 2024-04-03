@@ -28,7 +28,7 @@ describe('retrieveUserOrder', () => {
             })
             .then(createdOrder => {
                 order = createdOrder
-                return retrieveUserOrder(user._id)
+                return retrieveUserOrder(user._id.toString())
             })
             .then(retrievedOrder => {
                 expect(retrievedOrder).to.exist
@@ -40,7 +40,7 @@ describe('retrieveUserOrder', () => {
     it('should return null when active order does not exist', () => {
         return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(user => {
-                return retrieveUserOrder(user._id)
+                return retrieveUserOrder(user._id.toString())
             })
             .then(retrievedOrder => {
                 expect(retrievedOrder).to.be.null

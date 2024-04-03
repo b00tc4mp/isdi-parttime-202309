@@ -1,7 +1,8 @@
-import { errors } from 'com'
+import { errors, validate } from 'com'
 const { SystemError } = errors
 
 export default function retrieveProductsByType(type) {
+    validate.text(type, 'type')
 
     return fetch(`${import.meta.env.VITE_API_URL}/products/${type}`)
         .catch(error => { throw new SystemError(error.message) })

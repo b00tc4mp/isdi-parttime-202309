@@ -4,7 +4,6 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default function retrieveUser() {
-    console.log('retrieveUser function')
 
     const req = {
         method: 'GET',

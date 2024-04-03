@@ -17,7 +17,7 @@ describe('addToCart', () => {
     beforeEach(() => Promise.all([User.deleteMany(), Product.deleteMany(), Order.deleteMany()]))
 
     it('should add product to the cart', () => {
-        let user, product, order
+        let user, product
         return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(createdUser => {
                 user = createdUser
@@ -25,7 +25,7 @@ describe('addToCart', () => {
             })
             .then(createdProduct => {
                 product = createdProduct
-                return addToCart(product._id, user._id)
+                return addToCart(product._id.toString(), user._id.toString())
             })
             .then(() => Order.findOne({ user: user._id }))
             .then(updatedOrder => {
@@ -37,7 +37,7 @@ describe('addToCart', () => {
     })
 
     it('should increment quantity when adding existing product to cart', () => {
-        let user, product, order
+        let user, product
         return User.create({ name: random.name(), email: random.email(), password: random.password() })
             .then(createdUser => {
                 user = createdUser
@@ -47,7 +47,7 @@ describe('addToCart', () => {
                 product = createdProduct
                 return Order.create({ user: user._id, products: [{ product: product._id, quantity: 1 }] })
             })
-            .then(() => addToCart(product._id, user._id))
+            .then(() => addToCart(product._id.toString(), user._id.toString()))
             .then(() => Order.findOne({ user: user._id }))
             .then(updatedOrder => {
                 const updatedProduct = updatedOrder.products.find(p => p.product.equals(product._id))
@@ -58,7 +58,7 @@ describe('addToCart', () => {
     it('should throw NotFoundError when user does not exist', () => {
         const nonExistingUserId = new ObjectId().toString()
 
-        return addToCart(new ObjectId(), nonExistingUserId)
+        return addToCart(new ObjectId().toString(), nonExistingUserId)
             .then(() => {
                 throw new Error('The function should have thrown an error')
             })
@@ -74,7 +74,7 @@ describe('addToCart', () => {
             .then(createdUser => {
                 user = createdUser
                 const nonExistingProductId = new ObjectId().toString()
-                return addToCart(nonExistingProductId, user._id)
+                return addToCart(nonExistingProductId, user._id.toString())
             })
             .then(() => {
                 throw new Error('The function should have thrown an error')

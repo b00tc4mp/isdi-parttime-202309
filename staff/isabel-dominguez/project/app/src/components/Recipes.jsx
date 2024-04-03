@@ -43,4 +43,4 @@ export default function Recipes({ type }) {
             </div>
         </div>
     )
-};
+}

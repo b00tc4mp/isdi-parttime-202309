@@ -7,8 +7,6 @@ export default (req, res) => {
 
     const { recipeId } = req.params
 
-    console.log(recipeId)
-
     try {
         logic.retrieveRecipeById(recipeId)
             .then(recipe => res.json(recipe))

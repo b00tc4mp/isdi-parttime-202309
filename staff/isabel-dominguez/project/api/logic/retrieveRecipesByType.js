@@ -1,9 +1,9 @@
-import { errors } from 'com'
 import { Recipe } from '../data/models.js'
-
+import { validate, errors } from 'com'
 const { NotFoundError, SystemError } = errors
 
 function retrieveRecipesByType(type) {
+    validate.text(type, 'type')
 
     return Recipe.find({ type }).populate('products').lean()
         .catch(error => { throw new SystemError(error.message) })

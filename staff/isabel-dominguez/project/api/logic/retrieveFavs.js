@@ -27,7 +27,3 @@ function retrieveFavs(userId) {
 }
 
 export default retrieveFavs
-
-
-// Lo de los detalles lo haré igual que los recetas ruta/rawMaterial/id del producto
-

@@ -35,7 +35,7 @@ describe('retrieveRecipeById', () => {
 
         return newRecipe.save()
             .then(savedRecipe => {
-                return retrieveRecipeById(savedRecipe._id)
+                return retrieveRecipeById(savedRecipe._id.toString())
                     .then(retrievedRecipe => {
                         expect(retrievedRecipe).to.exist
                         expect(retrievedRecipe.name).to.equal(recipeName)
@@ -52,7 +52,7 @@ describe('retrieveRecipeById', () => {
 
 
     it('fails on non-existing recipe', () => {
-        const nonExistingRecipeId = new ObjectId()
+        const nonExistingRecipeId = new ObjectId().toString()
 
         return retrieveRecipeById(nonExistingRecipeId)
             .catch(error => {

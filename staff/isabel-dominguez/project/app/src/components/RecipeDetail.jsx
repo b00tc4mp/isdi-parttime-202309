@@ -9,12 +9,10 @@ export default function RecipeDetail() {
     useEffect(() => {
 
         logic.retrieveRecipeById(recipeId)
-            .then(data => {
-                setRecipe(data)
+            .then(recipe => {
+                setRecipe(recipe)
             })
-            .catch(error => {
-                console.error('Error fetching recipe details:', error)
-            })
+            .catch(error => alert(error.message))
     }, [recipeId])
 
     return (

@@ -5,8 +5,8 @@ const { SystemError, NotFoundError } = errors
 
 
 function toggleFavProduct(userId, productId) {
-    validate.text(userId, 'user id')
-    validate.text(productId, 'product id')
+    validate.id(userId, 'user id')
+    validate.id(productId, 'product id')
 
     return User.findById(userId)
         .catch(error => { throw new SystemError(error.message) })

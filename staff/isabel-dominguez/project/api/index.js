@@ -58,13 +58,13 @@ mongoose.connect(process.env.MONGODB_URL)
         server.get('/favorites', retrieveFavsHandler)
 
         // ADD PRODUCT TO CART
-        server.post('/cart/:productId', jsonBodyParser, addToCartHandler) //PATCH
+        server.post('/cart/:productId', jsonBodyParser, addToCartHandler)
 
         // RETRIEVE USER ORDER
         server.get('/cart/order', retrieveUserOrderHandler)
 
         //UPDATE CART ITEM QUANTITY
-        server.patch('/cart/update/:productId/:orderId/:quantityDelta', updateCartItemQuantityHandler)
+        server.patch('/cart/update/:productId/:orderId/:quantityProduct', updateCartItemQuantityHandler)
 
         // DELETE ORDER
         server.delete('/order/:orderId', deleteOrderHandler)

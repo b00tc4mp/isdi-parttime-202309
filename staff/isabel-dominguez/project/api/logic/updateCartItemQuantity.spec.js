@@ -25,7 +25,7 @@ describe('updateCartItemQuantity', () => {
                     .then(product => {
                         return Order.create({ user: user._id, products: [{ product: product._id, quantity: 1 }] })
                             .then(order => {
-                                return updateCartItemQuantity(product._id, order._id, 2)
+                                return updateCartItemQuantity(product._id.toString(), order._id.toString(), 2)
                                     .then(() => {
                                         return Order.findById(order._id)
                                             .then(updatedOrder => {
@@ -45,7 +45,7 @@ describe('updateCartItemQuantity', () => {
                     .then(product => {
                         return Order.create({ user: user._id, products: [{ product: product._id, quantity: 3 }] })
                             .then(order => {
-                                return updateCartItemQuantity(product._id, order._id, -2)
+                                return updateCartItemQuantity(product._id.toString(), order._id.toString(), -2)
                                     .then(() => {
                                         return Order.findById(order._id)
                                             .then(updatedOrder => {
@@ -65,7 +65,7 @@ describe('updateCartItemQuantity', () => {
                     .then(product => {
                         return Order.create({ user: user._id, products: [{ product: product._id, quantity: 1 }] })
                             .then(order => {
-                                return updateCartItemQuantity(product._id, order._id, -1)
+                                return updateCartItemQuantity(product._id.toString(), order._id.toString(), -1)
                                     .then(() => {
                                         return Order.findById(order._id)
                                             .then(updatedOrder => {
@@ -84,7 +84,7 @@ describe('updateCartItemQuantity', () => {
             .then(createdUser => {
                 user = createdUser
                 const nonExistingOrderId = new ObjectId().toString()
-                return updateCartItemQuantity(new ObjectId(), nonExistingOrderId, user._id, 1)
+                return updateCartItemQuantity(new ObjectId().toString(), nonExistingOrderId, 1, user._id.toString())
             })
             .then(() => {
                 throw new Error('The function should have thrown an error')

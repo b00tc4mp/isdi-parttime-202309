@@ -3,7 +3,6 @@ import { useUser } from '../hooks/UserContext'
 import Product from './Product'
 
 
-
 export default function Favorites({ favProducts, onSuccess }) {
     const { isLoggedIn } = useUser()
 

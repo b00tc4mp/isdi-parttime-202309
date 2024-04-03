@@ -1,8 +1,10 @@
-import { errors } from 'com'
+import { errors, validate } from 'com'
 const { SystemError } = errors
 import session from './session'
 
 export default function addToCart(productId) {
+    validate.id(productId, "product id")
+
     const req = {
         method: 'POST',
         headers: {
