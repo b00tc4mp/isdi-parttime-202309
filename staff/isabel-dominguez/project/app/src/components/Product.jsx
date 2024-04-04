@@ -12,15 +12,10 @@ export default function Product({ id, name, image, price, description, onSuccess
 
     useEffect(() => {
         if (favProducts) {
-            const idFavs = favProducts.filter(_product => {
-                return _product._id === id
-            })
-
-            idFavs.length > 0 ? setIsProductFav(true) : setIsProductFav(false)
+            const isFav = favProducts.some(product => product.id === id && product.fav === true)
+            setIsProductFav(isFav)
         }
-
-    }, [favProducts])
-
+    }, [favProducts, id])
 
     const handleAddToCart = () => {
         try {

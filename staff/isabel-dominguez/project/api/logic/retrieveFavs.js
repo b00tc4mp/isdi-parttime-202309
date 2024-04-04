@@ -17,8 +17,8 @@ function retrieveFavs(userId) {
                     return products.map(product => {
                         product.id = product._id.toString()
                         product.fav = user.favs.some(productObjectId => productObjectId.toString() === product.id)
-                        return product;
-                    });
+                        return product
+                    })
                 })
                 .catch(error => {
                     throw new SystemError(error.message)

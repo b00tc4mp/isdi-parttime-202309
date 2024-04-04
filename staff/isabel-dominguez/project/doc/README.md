@@ -1,41 +1,37 @@
-# Maketics
+# Maketics Shop
 
 ## Intro
-e-Commerce of raw materials, utensils and packaging to make natural cosmetics at home.
+Maketics is an e-commerce that offers the experience of creating your own beauty products from the comfort of your home. You'll be able to find ingredients from essential oils to organic butters and tools and materials to help you with their preparation. There is also a recipe section where you can follow the preparation step by step.
 
 ![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGl5dXB2NGIwN2N0c2s1M2cxNW9iMmlxbzJkeWxrZXlvbWN4YXh0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UkywKrH8teJYA/giphy.gif)
 
 ## Functional Description
 
-This project is an e-commerce designed for the sale of products, utensils and packaging for the production of natural cosmetics. In addition, it will provide a section dedicated to sharing recipes for the creation of homemade cosmetics.
+Browse, shop and create your own homemade beauty products.
 
 ### Use Cases
 
-User anonimo
+Anonymous users:
 
-- Visualizar los productos y recetas de la tienda.
-- Visualizar detalles de un producto.
-- Buscar productos por nombre.
-- Filtrar recetas por categorías.
+- Visualize the products and recipes in the store.
+- View details of a product.
+- Visualize recipe preparation.
 
-User registrado
+Registered user:
 
-- Visualizar los productos y recetas de la tienda.
-- Visualizar detalles de un producto. (toggle)
-- Buscar productos por nombre.
-- Filtrar recetas por categorías. (dropdown)
-- Añadir/quitar producto de la lista de deseos. (toggle)
-- Añadir/quitar producto del carrito. (toggle)
-- Añadir/quitar unidades de producto en el carrito. (toggle)
-- Pagar orden de compra. (simulado)
-- Visualizar ordenes. 
-- Gestión de perfil (Borrar cuenta, cambio de contraseña y email) (Si da tiempo)
-- Reviews (si da tiempo)
+- Visualize the products and recipes in the store.
+- View details of a product.
+- Visualize recipe preparation.
+- Add/remove product from wishlist.
+- Add/remove product from cart.
+- Add/remove product units in the cart.
+- Display orders.
+- Make a purchase. 
+- Profile management (delete account, change password and email) (v.2.0)
+- Reviews (v.2.0)
 
 
 ## Technical Description
-
-
 
 ### Data Model
 
@@ -45,6 +41,12 @@ User
 * email (string)
 * password (string)
 * favs (array de Product.id)
+
+Order
+* id (string)
+* User.id (string)
+* products (array de Product.id y quantity)
+* date (Date)
 
 Product
 * id (string)
@@ -60,11 +62,8 @@ Recipe
 * description (string)
 * image (string)
 * products (array de Product.id)
+* type (string)
 
-Order
-* id (string)
-* date (Date)
-* products (array de Product.id)
 
 
 
