@@ -9,6 +9,7 @@ import retrieveMales from './retrieveMales'
 import retrieveFemales from './retrieveFemales'
 import retrievePuppies from './retrievePuppies'
 import deleteDog from './deleteDog'
+import changeEmail from './changeEmail'
 
 import context from './context'
 
@@ -24,6 +25,7 @@ const logic = {
     retrieveFemales: retrieveFemales.bind(context),
     retrievePuppies: retrievePuppies.bind(context),
     deleteDog: deleteDog.bind(context),
+    changeEmail: changeEmail.bind(context),
 
     context,
 }

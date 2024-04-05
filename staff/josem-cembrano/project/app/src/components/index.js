@@ -5,5 +5,5 @@ import NewPerfilDog from './NewPerfilDog'
 export {
     Navbar,
     Feedback,
-    NewPerfilDog
+    NewPerfilDog,
 }

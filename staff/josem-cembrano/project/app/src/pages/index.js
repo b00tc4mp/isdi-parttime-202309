@@ -7,6 +7,7 @@ import Contact from './Contact'
 import FAQ from './FAQ'
 import Login from './Login'
 import Register from './Register'
+import Profile from './Profile'
 
 export {
     Home,
@@ -18,4 +19,5 @@ export {
     FAQ,
     Login,
     Register,
+    Profile
 }

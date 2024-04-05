@@ -227,6 +227,7 @@ body {
   top: 0;
   width: 100%;
   box-sizing: border-box;
+  z-index: 9999999;
   background-color: rgba(
     255,
     255,

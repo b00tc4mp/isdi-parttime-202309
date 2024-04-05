@@ -1,5 +1,4 @@
 import { validate, errors } from 'com'
-import context from './context'
 
 const { SystemError } = errors
 

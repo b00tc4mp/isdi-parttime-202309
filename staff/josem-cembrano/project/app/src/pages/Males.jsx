@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { FaDog } from "react-icons/fa"
 import { RiDeleteBin2Fill } from "react-icons/ri"
 import logic from '../logic'
-import { Button } from '../library'
 
 export default function Males() {
   console.log('MALES')
@@ -42,9 +41,10 @@ export default function Males() {
 
     function handleNewPerfilDogPublish() {
       setView(null)
-      navigate('/login')
-
+      navigate('/males')
       window.scrollTo(0, 0)
+      
+      fetchData()
   }
 
 function handleDeleteDog(dogId) {

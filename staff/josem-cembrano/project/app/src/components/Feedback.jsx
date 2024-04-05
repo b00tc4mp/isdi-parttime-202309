@@ -18,10 +18,10 @@ const Feedback = (props) => {
             break
     }
 
-    return <Container className={`container--horizontal Feedback Feedback ${modifier}`}>
+    return <div className={`Feedback Feedback ${modifier}`}>
         <p>{props.message}</p>
         <Button onClick={props.onAccepted}><span className='ml-10'>Accept</span></Button>
-    </Container>
+    </div>
 
 }
 

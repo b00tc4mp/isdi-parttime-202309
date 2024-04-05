@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Home, Males, Females, Puppies, History, Contact, FAQ, Login, Register} from './pages/index'
+import { Home, Males, Females, Puppies, History, Contact, FAQ, Login, Register, Profile} from './pages/index'
 import Feedback from './components/Feedback'
 import Context from './Context'
 import { errors } from 'com'
@@ -13,16 +13,11 @@ export default function App() {
 
   const navigate = useNavigate()
 
+
   const [isUserNavbar, setIsUserNavbar] = useState(false)
   const [open, setOpen] = useState(true)
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)
-
-  function handleHomeShow() {
-    navigate('/')
-    setLevel(null)
-    setMessage(null)
-  }
 
   function handleLogoutClick(){
     setIsUserNavbar(false)
@@ -69,7 +64,7 @@ export default function App() {
     <Context.Provider value={context}>
     {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAcepted} />}
     <div className='container-Navbar'>
-    <Navbar open={open} setOpen={setOpen} isUserNavbar={isUserNavbar} onLogout={handleLogoutClick}/>
+    <Navbar open={open} setOpen={setOpen} isUserNavbar={isUserNavbar} onLogout={handleLogoutClick} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/history' element={<History />} />
@@ -80,6 +75,7 @@ export default function App() {
         <Route path='/FAQ' element={<FAQ />} />
         <Route path='/login' element={<Login onSuccess={onSuccess}/>} />
         <Route path='/register' element={<Register />} />
+        <Route path='/profile/:form' element={<Profile onSuccess={onSuccess}/>} />
       </Routes>
     </div>
     </Context.Provider>

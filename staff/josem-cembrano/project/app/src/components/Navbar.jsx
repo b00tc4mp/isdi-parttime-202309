@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as Icons from 'react-icons/fa6'
 import { RiLogoutCircleRLine } from "react-icons/ri"
 import { HiMenuAlt3 } from 'react-icons/hi'
@@ -11,7 +11,6 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { useContext } from '../hooks'
 import { Button } from '../library'
 import logic from '../logic'
-import { useNavigate } from 'react-router-dom'
 
 export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
   const location = useLocation()
@@ -38,29 +37,19 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
     fetchData()
   }, [isUserNavbar])
 
-  function handleLogoutClick() {
-    logic.logoutUser(error => {
-        if (error) {
-            context.handleError(error)
+    function handleLogoutClick() {
+      logic.logoutUser(error => {
+          if (error) {
+              context.handleError(error)
 
-            return
-        }
-    })
-    onLogout()
-}
+              return
+          }
+      })
+      onLogout()
+  }
 
   function handleNameClick() {
     setShowLogoutOptions(!showLogoutOptions)
-  }
-
-  const handleEmailChangeClick = () => {
-    const navigate = useNavigate();
-    navigate('/changeEmail');
-  }
-  
-  const handlePasswordChangeClick = () => {
-    const navigate = useNavigate();
-    navigate('/changePassword');
   }
 
   const menus = [
@@ -78,7 +67,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
   const renderMenuItems = () => {
     return menus.map((menu, i) => (
       <Link to={menu.link} key={i} className={`${ menu.margin && 'mt-5' } group flex items-center text-sm gap-3.5 font-medium p-2 rounded-md menu-link ${ location.pathname === menu.link ? 'active' : ''}`} >
-        <div>{React.createElement(menu.icon, { size: '20', style: { color: location.pathname === menu.link && !open ? '#6B7280' : menu.color } })}</div>
+        {(menu.name === 'Login' || menu.name === 'Register') && !logic.isUserLoggedIn() ? <div>{React.createElement(menu.icon, { size: '20', style: { color: location.pathname === menu.link && !open ? '#6B7280' : menu.color } })}</div> : menu.name !== 'Login' && menu.name !== 'Register' ? <div>{React.createElement(menu.icon, { size: '20', style: { color: location.pathname === menu.link && !open ? '#6B7280' : menu.color } })}</div> : ''}
         <h2 className={`whitespace-pre duration-500 ${ !open && 'opacity-0 translate-x-28 overflow-hidden' } ${ location.pathname === menu.link ? 'text-gray-500' : 'text-white'}`}>
           {menu.name === 'Home' && name ? (<><span className='mr-2'>{menu.name}</span><span className='italic text-yellow-700'>({name})</span>
           {logic.isUserLoggedIn() && (
@@ -89,7 +78,8 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
                   </Button>
                 </div>
               </div>
-            )}</>) : (<>{menu.name}</>)}
+            )}</>) : (menu.name === 'Login' || menu.name === 'Register') && !logic.isUserLoggedIn() ? <span>{menu.name}</span> : (menu.name !== 'Login' && menu.name !== 'Register') ? <span>{menu.name}</span> : ""
+          }
         </h2>
         <h2 className={`${ open && 'hidden' } absolute left-48 bg-gray-800 bg-opacity-50 font-semibold whitespace-pre text-white rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}>{menu.name}</h2>
         <h2 className={`${ open && 'hidden' } absolute left-48 bg-gray-800 bg-opacity-50 font-semibold whitespace-pre text-white rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}>{menu.name}</h2>
@@ -119,8 +109,8 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
           </div>
           {showLogoutOptions && (
             <div className='logout-options'>
-              <h2 className='cursor-pointer' onClick={handleEmailChangeClick}>Change Email</h2>
-              <h2 className='cursor-pointer' onClick={handlePasswordChangeClick}>Change Password</h2>
+              <Link className='cursor-pointer' to='/profile/email'>Change Email</Link>
+              <Link className='cursor-pointer' to='/profile/password'>Change Password</Link>
             </div>
           )}
         </div>

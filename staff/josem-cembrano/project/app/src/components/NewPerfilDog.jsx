@@ -27,9 +27,8 @@ export default function(props) {
 
                     return
                 }
-
-                props.onPublish()
             })
+            props.onPublish()
         } catch (error) {
             context.handleError(error)
         }
