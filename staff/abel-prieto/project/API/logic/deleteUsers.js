@@ -3,12 +3,6 @@ import { User, Group, File } from '../data/models.js'
 import { validate, errors } from 'com'
 const { SystemError, NotFoundError, AuthorizationError } = errors
 
-// Revisar en User: si existe el ADMIN y el usuario a eliminar
-// Eliminar TODOS los archivos que vayan asociados al user ID (owner) de la colección FILE
-// Eliminar el usuario del GROUP, si estuviera incluido en uno
-// Eliminar archivos en directorio
-// FINAL: Eliminar usuario
-
 async function deleteUser(userId, userIdDeleted) {
     validate.text(userId, 'ID User')
     validate.text(userIdDeleted, 'ID Deleted user')

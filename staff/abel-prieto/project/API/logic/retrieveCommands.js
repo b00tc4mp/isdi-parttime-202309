@@ -2,18 +2,18 @@ import { User, Command } from '../data/models.js'
 import { errors, validate } from 'com'
 const { SystemError } = errors
 
-function retrieveCommands(userId) {
+export default async function retrieveCommands(userId) {
     validate.id(userId, 'ID user')
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                return Command.find({ name: { $in: ['help', 'exit', 'login', 'register'] } }).lean().distinct('name')
-            }
+    try {
+        const user = await User.findById(userId).lean()
 
-            return Command.find().lean().distinct('name')
-        })
+        if (!user) {
+            return Command.find({ name: { $in: ['help', 'exit', 'login', 'register'] } }).lean().distinct('name')
+        }
+
+        return Command.find().lean().distinct('name')
+    } catch (error) {
+        throw new SystemError(error.message)
+    }
 }
-
-export default retrieveCommands

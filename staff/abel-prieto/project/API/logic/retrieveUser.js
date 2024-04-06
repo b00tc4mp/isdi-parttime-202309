@@ -2,24 +2,29 @@ import { User } from '../data/models.js'
 import { errors, validate } from 'com'
 const { SystemError, NotFoundError } = errors
 
-function retrieveUser(userId) {
+export default async function retrieveUser(userId) {
     validate.id(userId, 'ID user')
 
-    return User.findById(userId).lean()
-        .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) {
-                throw new NotFoundError('User not found. Try again')
-            }
+    try {
+        const user = await User.findById(userId).lean()
 
-            delete user._id
-            delete user.__v
-            delete user.email
-            delete user.password
+        if (!user) {
+            throw new NotFoundError('User not found. Try again')
+        }
 
-            // USERNAME - GROUP - ROLE 
-            return user
-        })
+        delete user._id
+        delete user.__v
+        delete user.email
+        delete user.password
+
+        // USERNAME - GROUP - ROLE 
+        return user
+
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            throw error
+        }
+
+        throw new SystemError(error.message)
+    }
 }
-
-export default retrieveUser
