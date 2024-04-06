@@ -91,9 +91,6 @@ mongoose.connect(process.env.URL_MONGODB_HIINIT_API)
         // DELETE GROUPS
         server.delete('/admin/groups/delete/:groupId', deleteGroupHandler)
 
-        // CREATE COMMANDS
-        // server.post('/admin/commands', createCommandHandler)
-
         server.listen(process.env.PORT, () => console.log(`server online! Listen on: ${process.env.PORT}`))
     })
     .catch(error => console.error(error))
