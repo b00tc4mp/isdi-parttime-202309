@@ -15,6 +15,8 @@ import {
     retrieveMalesHandler,
     retrieveFemalesHandler,
     deleteDogHandler,
+    changeEmailHandler,
+    changePasswordHandler,
     // userContactHandler,
 
 } from './handlers/index.js'
@@ -33,6 +35,10 @@ import {
         server.post('/users', jsonBodyParser, registerUserHandler)
 
         server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
+
+        server.patch('/users/email', jsonBodyParser, changeEmailHandler)
+
+        server.patch('/users/password', jsonBodyParser, changePasswordHandler)
 
         server.post('/perfil', jsonBodyParser, createDogHandler)
 

@@ -7,6 +7,8 @@ import retrievePuppies from './retrievePuppies.js'
 import retrieveMales from './retrieveMales.js'
 import retrieveFemales from './retrieveFemales.js'
 import deleteDog from './deleteDog.js'
+import changeEmail from './changeEmail.js'
+import changePassword from './changePassword.js'
 // import userContact from './userContact.js'
 
 const logic = {
@@ -19,6 +21,8 @@ const logic = {
     retrieveMales,
     retrieveFemales,
     deleteDog,
+    changeEmail,
+    changePassword
     // userContact
 
 }

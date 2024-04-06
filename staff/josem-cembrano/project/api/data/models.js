@@ -90,12 +90,21 @@ const contact = new Schema({
     }
 })
 
+const historyText = new Schema({
+    text: {
+        type: String,
+        required: true
+    },
+})
+
 const User = model('User', user)
 const Dog = model('Dog', dog)
 const Contact = model('Contact', contact)
+const HistoryText = model('HistoryText', historyText)
 
 export {
     User,
     Dog,
-    Contact
+    Contact,
+    HistoryText
 }
