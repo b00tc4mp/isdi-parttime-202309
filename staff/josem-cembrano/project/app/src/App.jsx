@@ -16,6 +16,7 @@ export default function App() {
 
   const [isUserNavbar, setIsUserNavbar] = useState(false)
   const [open, setOpen] = useState(true)
+  const [openForm, setOpenForm] = useState(false)
   const [level, setLevel] = useState(null)
   const [message, setMessage] = useState(null)
 
@@ -75,7 +76,7 @@ export default function App() {
         <Route path='/FAQ' element={<FAQ />} />
         <Route path='/login' element={<Login onSuccess={onSuccess}/>} />
         <Route path='/register' element={<Register />} />
-        <Route path='/profile/:form' element={<Profile onSuccess={onSuccess}/>} />
+        <Route path='/profile/:form' element={<Profile onSuccess={onSuccess} openForm={openForm} setOpenForm={setOpenForm} />} />
       </Routes>
     </div>
     </Context.Provider>

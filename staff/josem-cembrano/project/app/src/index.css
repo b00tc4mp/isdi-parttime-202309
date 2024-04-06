@@ -82,20 +82,8 @@
   left: 10px; /* Ajusta según sea necesario */
 }
 
-.session-user-container {
-  margin-top: 5px; /* Ajusta el margen superior según sea necesario */
-}
-
-.session-user:hover {
-  transform: scale(1.1); /* Aumenta el tamaño al 110% al pasar el cursor */
-  transition: transform 0.3s ease; /* Agrega una transición suave */
-}
-
-.session-user {
-  display: flex;
-  flex-direction: column; /* Coloca los elementos en una columna */
-  align-items: flex-start; /* Alinea los elementos a la izquierda */
-  margin-left: -40px; /* Ajusta el margen izquierdo según sea necesario */
+.shadow-custom {
+  box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.7); /* Cambia los valores de RGBA según tu preferencia */
 }
 
 .user-info {
@@ -113,8 +101,6 @@
   border-radius: 30px;
   padding: 6px;
   display: flex;
-  align-items: center; /* Para centrar verticalmente los elementos */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 1); /* Agregar sombra */
 }
 
 .user-info-container:hover {
