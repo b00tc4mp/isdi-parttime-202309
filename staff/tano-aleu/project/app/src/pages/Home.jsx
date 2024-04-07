@@ -94,6 +94,7 @@ function Home(props) {
 
         {/* Rutas */}
         <Routes>
+
             <Route path="/" element={<Synqple />} />
 
             <Route path="/samplesfolder" element={<SamplesFolder />} />

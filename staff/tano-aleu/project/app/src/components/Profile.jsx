@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../assets/profile_img/synqple_profile_default.png';
 import retrieveUser from '../logic/retrieveUser'; // Asegúrate de tener el path correcto a tu función retrieveUser
+import deleteUser from '../logic/deleteUser';
 import { Button } from '../library';
 import logo from '../assets/synqple.logo.png';
+import logoutUser from '../logic/logoutUser';
 
 const Profile = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState({ name: 'Loading...' }); // Estado inicial del usuario
+    const [user, setUser] = useState({ id: null, name: 'Loading...' }); // Estado inicial del usuario
 
     useEffect(() => {
         // Función IIFE para usar async/await dentro de useEffect
         (async () => {
             try {
                 const userInfo = await retrieveUser();
+                console.log("userInfo:", userInfo)
                 setUser(userInfo); // Actualiza el estado con la información del usuario
             } catch (error) {
                 console.error('Failed to retrieve user:', error);
@@ -35,6 +38,32 @@ const Profile = () => {
     const handleBackToSettings = () => {
         navigate('/settings'); // Asegúrate de que el path coincide con el de tu componente de configuraciones
     };
+
+    const handleDeleteAccount = async () => {
+        if (user.id && window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            try {
+                console.log("Deleting user with ID:", user.id); // Debug
+                await deleteUser(user.id);
+                alert('Your account has been successfully deleted.');
+
+                // Limpia el estado de sesión 
+                logoutUser(() => {
+                    console.log('Session cleared, redirecting to login.');
+                    navigate('/login'); // Asegúrate de que la ruta al login sea correcta
+                });
+
+                navigate('/login'); // Redirige al login
+            } catch (error) {
+                console.error('Failed to delete account:', error);
+                alert('Failed to delete account. Please try again.');
+            }
+        } else {
+            console.error("User ID is not available for deletion.");
+            // Maneja el caso de ID no disponible
+        }
+    };
+
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#5F5784] text-white p-4">
@@ -69,6 +98,10 @@ const Profile = () => {
             >
                 Update credentials
             </button>
+
+            <Button className="text-lg text-white bg-transparent border border-white rounded-full px-6 py-2 hover:bg-white hover:text-[#5F5784] transition duration-300 ease-in-out mt-4" onClick={handleDeleteAccount}>
+                Delete Account
+            </Button>
 
 
             <Button className="back-button mt-20" onClick={handleBackToSettings}>Back to Settings</Button>

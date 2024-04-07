@@ -5,6 +5,8 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
 
+import bcrypt from 'bcryptjs'
+
 import changeUserEmail from './changeUserEmail.js'
 import { User } from '../data/models.js'
 
@@ -23,9 +25,11 @@ describe('changeUserEmail', async () => {
         const newEmail = random.email()
         const newEmailConfirm = newEmail
 
-        const user = await User.create({ name, email, password })
+        let hash = await bcrypt.hash(password, 8)
 
-        await changeUserEmail(user.id, newEmail, newEmailConfirm, user.password)
+        const user = await User.create({ name, email, password: hash })
+
+        await changeUserEmail(user.id, newEmail, newEmailConfirm, password)
 
         const user2 = await User.findById(user.id)
 

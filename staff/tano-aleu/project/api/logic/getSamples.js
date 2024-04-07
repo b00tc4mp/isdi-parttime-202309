@@ -10,7 +10,7 @@ async function getSamples(userId) {
         if (!user) throw new NotFoundError('User not found');
 
         // Obtener tanto el nombre como el filePath de cada sample
-        const samples = await Sample.find({}, 'name filePath bpm').lean();
+        const samples = await Sample.find({}, 'name filePath bpm duration').lean();
 
         // Añade la información de si cada sample es favorito o no
         const samplesWithFavs = samples.map(sample => ({

@@ -12,6 +12,7 @@ import {
     authenticateUserHandler,
     changeUserEmailHandler,
     changeUserPasswordHandler,
+    deleteUserHandler,
     retrieveUserHandler,
     getSamplesHandler,
     getMetronomoHandler,
@@ -39,6 +40,8 @@ mongoose.connect(process.env.MONGODB_URL) //conexion con moogose
         server.patch('/users/email', jsonBodyParser, changeUserEmailHandler)
 
         server.patch('/users/password', jsonBodyParser, changeUserPasswordHandler)
+
+        server.delete('/users/:userId', jsonBodyParser, deleteUserHandler);
 
         server.get('/users', retrieveUserHandler)
 

@@ -5,28 +5,29 @@ import { User } from '../data/models.js'
 const { SystemError, NotFoundError } = errors
 
 function retrieveUser(userId) {
-    validate.id(userId, 'user id')
+    validate.id(userId, 'user id');
 
     return (async () => {
-        let user
+        let user;
 
         try {
-
-            user = await User.findById(userId, 'name').lean()
-
+            user = await User.findById(userId, 'name _id').lean(); // Solicita explícitamente _id además de name
         } catch (error) {
-            throw new SystemError(error.message)
+            throw new SystemError(error.message);
         }
 
-        if (!user)
+        if (!user) {
+            throw new NotFoundError('user not found');
+        }
 
-            throw new NotFoundError('user not found')
+        // Ajusta el objeto user para renombrar _id a id para su uso en el frontend
+        const result = {
+            id: user._id.toString(), // Asegúrate de convertir _id a string si es necesario
+            name: user.name
+        };
 
-        delete user._id
-
-        return user
-    })()
-
+        return result;
+    })();
 }
 
 

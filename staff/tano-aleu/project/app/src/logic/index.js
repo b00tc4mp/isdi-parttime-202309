@@ -9,12 +9,15 @@ import toggleFavSample from './toggleFavSample'
 import retrieveFavSamples from './retrieveFavSamples'
 import changeUserEmail from './changeUserEmail'
 import changeUserPassword from './changeUserPassword'
+import deleteUser from './deleteUser'
+
 
 
 const logic = {
     registerUser,
     loginUser,
     retrieveUser,
+    deleteUser,
     changeUserEmail,
     changeUserPassword,
     logoutUser,

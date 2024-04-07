@@ -13,6 +13,7 @@ export default function ChangeCredentials() {
 
     const navigate = useNavigate(); // Inicializar useNavigate
 
+
     // Función para manejar el clic en el botón de volver a configuraciones
 
 
@@ -24,44 +25,45 @@ export default function ChangeCredentials() {
 
     function handleChangeEmailSubmit(event) {
         console.log('Attempting to change email');
-        event.preventDefault()
+        event.preventDefault();
 
-        const newEmail = event.target.querySelector('#new-email-input').value
-        const newEmailConfirm = event.target.querySelector('#new-email-confirm-input').value
-        const password = event.target.querySelector('#password-input').value
+        const newEmail = event.target.querySelector('#new-email-input').value;
+        const newEmailConfirm = event.target.querySelector('#new-email-confirm-input').value;
+        const password = event.target.querySelector('#password-input').value;
 
         console.log(newEmail, newEmailConfirm, password); // Verificar los valores ingresados
 
-        return (async () => {
+        (async () => {
             try {
                 await changeUserEmail(newEmail, newEmailConfirm, password);
                 context.handleSuccess('Email changed successfully');
+                event.target.reset(); // Limpia el formulario después de un cambio exitoso
             } catch (error) {
                 context.handleError(error);
             }
-        })()
+        })();
     }
 
     function handleChangePasswordSubmit(event) {
         console.log('Attempting to change password');
-        event.preventDefault()
+        event.preventDefault();
 
-        const password = event.target.querySelector('#password-input').value
-        const newPassword = event.target.querySelector('#new-password-input').value
-        const newPasswordConfirm = event.target.querySelector('#new-password-confirm-input').value
+        const password = event.target.querySelector('#password-input').value;
+        const newPassword = event.target.querySelector('#new-password-input').value;
+        const newPasswordConfirm = event.target.querySelector('#new-password-confirm-input').value;
 
         console.log(password, newPassword, newPasswordConfirm); // Verificar los valores ingresados
 
-        return (async () => {
+        (async () => {
             try {
                 await changeUserPassword(password, newPassword, newPasswordConfirm);
                 context.handleSuccess('Password changed successfully');
+                event.target.reset(); // Limpia el formulario después de un cambio exitoso
             } catch (error) {
                 context.handleError(error);
             }
-        })()
+        })();
     }
-
 
 
     return <div className="container">

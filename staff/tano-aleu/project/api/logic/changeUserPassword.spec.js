@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import bcrypt from 'bcryptjs'
+
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 import random from './helpers/random.js'
@@ -23,13 +25,17 @@ describe('changeUserPassword', async () => {
         const newPassword = random.password()
         const newPasswordConfirm = newPassword
 
-        const user = await User.create({ name, email, password })
+        let hash = await bcrypt.hash(password, 8)
 
-        await changeUserPassword(user.id, newPassword, newPasswordConfirm, user.password)
+        const user = await User.create({ name, email, password: hash })
+
+        await changeUserPassword(user.id, password, newPassword, newPasswordConfirm)
 
         const user2 = await User.findById(user.id)
 
-        expect(user2.password).to.equal(newPassword)
+        let match = await bcrypt.compare(newPassword, user2.password)
+
+        expect(match).to.equal(true)
     })
 
     it('fails on non existing user', async () => {
@@ -39,7 +45,7 @@ describe('changeUserPassword', async () => {
         const password = random.password()
 
         try {
-            await changeUserPassword(id, newPassword, newPasswordConfirm, password)
+            await changeUserPassword(id, password, newPassword, newPasswordConfirm)
             throw new Error('should not reach this point')
         } catch (error) {
             expect(error).to.be.instanceOf(NotFoundError)
@@ -54,7 +60,7 @@ describe('changeUserPassword', async () => {
         const password = random.password()
 
         try {
-            await changeUserPassword(id, newPassword, newPasswordConfirm, password)
+            await changeUserPassword(id, password, newPassword, newPasswordConfirm)
             throw new Error('should not reach this point')
         } catch (error) {
             expect(error).to.be.instanceOf(ContentError)

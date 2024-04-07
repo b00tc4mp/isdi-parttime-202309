@@ -17,7 +17,9 @@ const Synqple = () => {
     const [metronomePlayer, setMetronomePlayer] = useState(null);
     const [samplePlayers, setSamplePlayers] = useState([]);
 
+
     const [samplesList, setSamplesList] = useState([]);
+
 
 
     const [currentSampleIndex, setCurrentSampleIndex] = useState(0); // Usamos -1 para indicar que no hay selección inicial
@@ -35,6 +37,7 @@ const Synqple = () => {
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
     const [favoritesList, setFavoritesList] = useState([]); // Solo los favoritos
+    // const [favSamplesPlayer, setFavSamplesPlayer] = useState([]);
 
 
 
@@ -131,6 +134,7 @@ const Synqple = () => {
     }, [isMetronomeMuted, isSampleMuted, metronomePlayer, samplePlayers, currentSampleIndex]);
 
 
+
     //SINCRONIA DE LOS SAMPLES CON EL METRONOMO
     useEffect(() => {
         if (metronomePlayer) {
@@ -142,28 +146,46 @@ const Synqple = () => {
     }, [bpm, metronomePlayer, samplePlayers]);
 
 
+
+
     //MANEJO DEL PLAY/STOP PARA METRONOMO Y SAMPLES
+
     const handlePlayToggle = () => setIsPlaying(!isPlaying);
 
+    const getAbsoluteIndex = (index) => {
+
+        const name = favoritesList[index]?.name;
+
+        const isNameTheSame = (sample) => sample.name === name;
+
+        return (samplesList.findIndex(isNameTheSame));
+
+    }
+
     const handleSampleSelect = index => {
+
+        let indexToPlay = showFavoritesOnly ? getAbsoluteIndex(index) : index;
+
         // Detén cualquier sample que se esté reproduciendo actualmente.
         if (currentSampleIndex >= 0) {
             samplePlayers[currentSampleIndex]?.stop();
         }
 
         // Actualiza el índice del sample actualmente seleccionado.
-        setCurrentSampleIndex(index);
+        setCurrentSampleIndex(indexToPlay);
 
         // Si el reproductor está en reproducción, inicia el nuevo sample seleccionado.
         if (isPlaying && !isSampleMuted) {
             Tone.start().then(() => {
-                samplePlayers[index]?.start();
+                samplePlayers[indexToPlay]?.start();
             }).catch(error => {
                 console.error("Error starting audio context or playing sample:", error);
                 // Manejo del error
             });
         }
     };
+
+
 
     //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
     // Ajusta el manejador de muteo del metrónomo
@@ -218,6 +240,24 @@ const Synqple = () => {
         // Aquí podrías añadir cualquier otra lógica necesaria cuando el BPM cambia
     };
 
+
+
+    const [loopConfig, setLoopConfig] = useState({});
+
+
+
+    const getMultiplierFromFraction = (loopFraction) => {
+        let multiplier;
+        if (loopFraction.includes('/')) {
+            const [numerator, denominator] = loopFraction.split('/').map(Number);
+            multiplier = numerator / (denominator * 16); // Ajuste según tu lógica actual
+        } else {
+            multiplier = Number(loopFraction) / 8;
+        }
+        return multiplier;
+    };
+
+
     const handleLoopLengthChange = (loopFraction) => {
         let multiplier;
 
@@ -233,18 +273,53 @@ const Synqple = () => {
             const sample = samplesList[index];
             if (!sample || !player.loaded) return;
 
-            // Asumiendo 4 beats por compás, calcula la duración del loop en segundos
-            const beatsPerSecond = sample.bpm / 60;
-            // 32 octavos en la totalidad de los 8 compases (8 compases * 4 beats cada uno)
-            const totalBeats = 4 * 2; // 8 compases de 4 beats cada uno
-            const totalDuration = totalBeats / beatsPerSecond; // Duración total en segundos
-
-            // Ajustar loopEnd basado en el multiplicador de longitud de loop
-            player.loopEnd = totalDuration * multiplier;
+            // Verifica si ya se aplicó el mismo loopFraction a este sample
+            if (loopConfig[index] && loopConfig[index].isLooping && loopConfig[index].loopFraction === loopFraction) {
+                // Si es el mismo, resetea a la configuración normal
+                player.loop = true; // Desactiva el loop
+                player.loopEnd = 0; // Reset loop end a la duración completa del sample
+                setLoopConfig(current => ({ ...current, [index]: { isLooping: false, loopFraction: null } }));
+            } else {
+                // Aplica la nueva configuración de loop
+                let multiplier = getMultiplierFromFraction(loopFraction);
+                const beatsPerSecond = sample.bpm / 60;
+                const totalBeats = 4 * 2; // Asumiendo 4 beats por compás
+                const totalDuration = totalBeats / beatsPerSecond;
+                player.loop = true;
+                player.loopEnd = totalDuration * multiplier;
+                setLoopConfig(current => ({ ...current, [index]: { isLooping: true, loopFraction } }));
+            }
         });
 
         console.log(`Loop length set to ${loopFraction} of a compás`);
     };
+
+    // const handleLoopLengthChange = (loopFraction) => {
+
+    //     // Itera sobre todos los sample players
+    //     samplePlayers.forEach((player, index) => {
+    //         const sample = samplesList[index];
+    //         if (!sample || !player.loaded) return;
+
+    //         // Verifica si ya se aplicó el mismo loopFraction a este sample
+    //         if (loopConfig[index] && loopConfig[index].isLooping && loopConfig[index].loopFraction === loopFraction) {
+    //             // Si es el mismo, resetea a la configuración normal
+    //             player.loop = true; // Desactiva el loop
+    //             player.loopEnd = 0; // Reset loop end a la duración completa del sample
+    //             setLoopConfig(current => ({ ...current, [index]: { isLooping: false, loopFraction: null } }));
+    //         } else {
+    //             // Aplica la nueva configuración de loop
+    //             let multiplier = getMultiplierFromFraction(loopFraction);
+    //             const beatsPerSecond = sample.bpm / 60;
+    //             const totalBeats = 4 * 2; // Asumiendo 4 beats por compás
+    //             const totalDuration = totalBeats / beatsPerSecond;
+    //             player.loop = true;
+    //             player.loopEnd = totalDuration * multiplier;
+    //             setLoopConfig(current => ({ ...current, [index]: { isLooping: true, loopFraction } }));
+    //         }
+    //     });
+    // };
+
 
 
 
@@ -274,6 +349,8 @@ const Synqple = () => {
             retrieveFavSamplesPromise()
                 .then(favSamples => {
                     setFavoritesList(favSamples); // Establece los favoritos obtenidos
+                    console.log(favSamples)
+                    console.log(samplesList)
                 })
                 .catch(error => console.error("Error retrieving favorite samples:", error));
         }
@@ -281,6 +358,7 @@ const Synqple = () => {
 
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
+
 
 
 

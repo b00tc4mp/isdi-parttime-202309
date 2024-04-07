@@ -7,6 +7,7 @@ import toggleFavSampleHandler from "./toggleFavSampleHandler.js";
 import retrieveFavSamplesHandler from "./retrieveFavSamplesHandler.js";
 import changeUserEmailHandler from "./changeUserEmailHandler.js";
 import changeUserPasswordHandler from "./changeUserPasswordHandler.js";
+import deleteUserHandler from "./deleteUserHandler.js";
 
 export {
     authenticateUserHandler,
@@ -14,6 +15,7 @@ export {
     retrieveUserHandler,
     changeUserEmailHandler,
     changeUserPasswordHandler,
+    deleteUserHandler,
     getSamplesHandler,
     getMetronomoHandler,
     toggleFavSampleHandler,

@@ -21,7 +21,7 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 
 3. Posibilidad de reproduccion de audio desde un sistema de sonido paralelo al que suena la cancion, musico o banda o desde el mismo sistema de sonido, eso dependerá de la posibilidad de conexion de audio.
 
-#### Another Example: 
+#### Another Example (para version en React Native): 
 
 - Synqple se puede utilizar como un reproductor de CD o cualquier otro tipo de reproductor para Deejay: 
 

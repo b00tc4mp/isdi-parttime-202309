@@ -7,6 +7,8 @@ import toggleFavSample from "./toggleFavSample.js"
 import retrieveFavSamples from "./retrieveFavSamples.js"
 import changeUserEmail from "./changeUserEmail.js"
 import changeUserPassword from "./changeUserPassword.js"
+import deleteUser from "./deleteUser.js"
+
 
 const logic = {
     registerUser,
@@ -14,6 +16,7 @@ const logic = {
     retrieveUser,
     changeUserEmail,
     changeUserPassword,
+    deleteUser,
     getSamples,
     getMetronomo,
     toggleFavSample,

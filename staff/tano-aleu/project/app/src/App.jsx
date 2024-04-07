@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
@@ -8,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Feedback from './components/Feedback'
+import Welcome from './pages/Welcome'
 
 import Context from './contexts/Context'
 
@@ -84,6 +83,8 @@ function App() {
 
       <Routes>
 
+        <Route path='/' element={logic.isUserLoggedIn() ? <Home /> : <Welcome />} />
+
         <Route path='/login' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Login onRegisterClick={handleRegisterShow} onSuccess={handleHomeShow} />} />
 
         <Route path='/register' element={logic.isUserLoggedIn() ? <Navigate to="/" /> : <Register onLoginClick={handleLoginShow} onSuccess={handleLoginShow} />} />
@@ -95,6 +96,7 @@ function App() {
         <Route path='/change-credentials' element={<ChangeCredentials />} />
 
       </Routes>
+
     </Context.Provider>
 
 
