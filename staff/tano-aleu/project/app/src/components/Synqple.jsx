@@ -376,9 +376,11 @@ const Synqple = () => {
 
 
             {/* Sample Selection with Scroll */}
+
             <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)} className="mb-4 bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
                 {showFavoritesOnly ? "Mostrar Todos" : "Mostrar Favoritos"}
             </button>
+
             <div className="relative w-full max-h-[120px] min-h-[120px] overflow-y-auto bg-purple-600 rounded shadow">
                 {displayedSamples.length > 0 ? (
                     displayedSamples.map((sample, index) => (
@@ -428,7 +430,7 @@ const Synqple = () => {
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
 
-            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Tap Tempo | Metronome Controls </div>
+            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Tap Tempo | Metronome </div>
 
             <div className="flex items-center justify-between space-x-2">
 

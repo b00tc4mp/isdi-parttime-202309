@@ -16,7 +16,7 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
 
                 <input
                     type="number"
-                    className="w-full bg-purple-800 p-10 rounded-full text-center shadow-lg"
+                    className="w-full bg-purple-800 p-2 rounded-full text-center shadow-lg text-3xl"
                     value={bpm}
                     onChange={handleBpmChange}
                     min="40"

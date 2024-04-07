@@ -43,7 +43,7 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
 
     return (
         <div>
-            <h3 className="flex justify-around">Beat Transposition</h3>
+
             <div onContextMenu={preventContextMenu} className="flex justify-around">
                 <div className="select-none touch-none mb-4">
                     <button className="w-0 h-0 border-t-[30px] border-t-transparent border-r-[60px] border-r-purple-800 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(-5)}
@@ -53,7 +53,7 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
                         onContextMenu={preventContextMenu}>
                     </button>
                 </div>
-
+                <h3 className="flex justify-around mt-4">Beat Transposition</h3>
                 <div className="select-none touch-none">
                     <button className="w-6 h-6 border-t-[30px] border-t-transparent border-l-[60px] border-l-purple-800 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(5)}
                         onMouseUp={stopChangeTempo}
