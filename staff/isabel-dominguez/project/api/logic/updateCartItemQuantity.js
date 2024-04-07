@@ -15,20 +15,16 @@ function updateCartItemQuantity(productId, orderId, quantityProduct) {
                 throw new NotFoundError('Order not found')
             }
 
-            const existingProductIndex = order.products.findIndex(item => item.product.equals(productId))
+            const orderProductsList = order.products.findIndex(item => item.product.equals(productId))
 
-            if (existingProductIndex !== -1) {
-                // Si el producto ya existe en la lista de productos de la orden
-                order.products[existingProductIndex].quantity += quantityProduct
+            if (orderProductsList !== -1) {
+                order.products[orderProductsList].quantity += quantityProduct
 
-                // Si la nueva cantidad es menor o igual a 0, elimina el producto de la orden
-                if (order.products[existingProductIndex].quantity <= 0) {
-                    order.products.splice(existingProductIndex, 1)
+                if (order.products[orderProductsList].quantity <= 0) {
+                    order.products.splice(orderProductsList, 1)
                 }
             } else {
                 if (quantityProduct > 0) {
-                    // Si el producto no existe en la lista de productos de la orden y la cantidadDelta es positiva
-                    // Agrega el producto a la orden con la cantidad especificada
                     order.products.push({ product: productId, quantity: quantityProduct })
                 }
             }

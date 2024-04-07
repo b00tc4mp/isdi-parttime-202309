@@ -30,7 +30,7 @@ export default function RecipeDetail() {
                                 <li key={product._id}>{product.name}</li>
                             ))}
                         </ul>
-                        <h3 className='recipe-description-details'>Descripción:</h3>
+                        <h3 className='recipe-description-details'>Preparación:</h3>
                         <ul>
                             {recipe.description.split('\n').map((line, index) => (
                                 <li key={index}>{line}</li>

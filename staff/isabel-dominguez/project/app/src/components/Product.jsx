@@ -15,7 +15,7 @@ export default function Product({ id, name, image, price, description, onSuccess
             const isFav = favProducts.some(product => product.id === id && product.fav === true)
             setIsProductFav(isFav)
         }
-    }, [favProducts, id])
+    }, [favProducts])
 
     const handleAddToCart = () => {
         try {

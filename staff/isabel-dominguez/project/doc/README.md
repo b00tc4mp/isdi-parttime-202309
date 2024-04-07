@@ -22,10 +22,10 @@ Registered user:
 - Visualize the products and recipes in the store.
 - View details of a product.
 - Visualize recipe preparation.
+- Visualize orders and wishlist.
 - Add/remove product from wishlist.
 - Add/remove product from cart.
 - Add/remove product units in the cart.
-- Display orders.
 - Make a purchase. 
 - Profile management (delete account, change password and email) (v.2.0)
 - Reviews (v.2.0)
