@@ -380,7 +380,7 @@ const Synqple = () => {
             {/* Sample Selection with Scroll */}
 
             <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)} className="mb-4 bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
-                {showFavoritesOnly ? "Mostrar Todos" : "Mostrar Favoritos"}
+                {showFavoritesOnly ? "Show all Samples" : "Show Favorites Samples"}
             </button>
 
             <div className="relative w-full max-h-[120px] min-h-[120px] overflow-y-auto bg-purple-600 rounded shadow">
@@ -395,7 +395,7 @@ const Synqple = () => {
                         </button>
                     ))
                 ) : (
-                    <div className="text-center p-4">No hay samples favoritos.</div>
+                    <div className="text-center p-4">No favorite samples yet.</div>
                 )}
             </div>
 
@@ -404,7 +404,7 @@ const Synqple = () => {
 
             {/* Sample Volume Control and Mute Button */}
             <div>
-                <div className=' flex justify-center'>Volumen Samples</div>
+                <div className=' flex justify-center'>Samples Volume</div>
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
                 <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full mb-4">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
@@ -449,7 +449,7 @@ const Synqple = () => {
 
 
             </div>
-            <div className=' flex justify-center'>Volumen Metronomo</div>
+            <div className=' flex justify-center'>Metronome Volume</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
 
 

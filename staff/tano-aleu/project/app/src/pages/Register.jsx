@@ -44,7 +44,7 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+    return <div className="bg-[#5F5784] border rounded-3xl p-10 border-black flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
         <div className='flex flex-col items-center justify-center '>
 
