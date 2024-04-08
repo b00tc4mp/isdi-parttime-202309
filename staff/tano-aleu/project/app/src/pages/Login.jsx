@@ -39,31 +39,34 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    return <Container class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
+    return <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
-        <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
+        <div className='flex flex-col items-center justify-center '>
 
-        <h1 class="text-white mb-10" >Welcome again!</h1>
+            <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
 
-        <Form onSubmit={handleSubmit}>
+            <h1 class="text-white mb-10" >Welcome again!</h1>
 
-            <Field id="email-input" type="email">E-mail</Field>
-            <Field id="password-input" type="password">Password</Field>
+            <Form onSubmit={handleSubmit}>
 
-            <Button type="submit" className="login-register-button">Login</Button>
+                <Field id="email-input" type="email">E-mail</Field>
+                <Field id="password-input" type="password">Password</Field>
 
-        </Form>
+                <Button type="submit" className="login-register-button mb-4">Login</Button>
+
+            </Form>
 
 
-        <Link onClick={handleRegisterClick}>Register</Link>
+            <Link onClick={handleRegisterClick}>Register</Link>
 
-        <footer className=" text-white text-center py-0 mt-10 ">
+            <footer className=" text-white text-center py-0 mt-10 ">
 
-            <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-40" />
 
-        </footer>
+            </footer>
 
-    </Container>
+        </div>
+    </div>
 }
 
 export default Login

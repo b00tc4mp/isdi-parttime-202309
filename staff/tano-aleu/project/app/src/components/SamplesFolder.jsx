@@ -42,7 +42,7 @@ function SamplesFolder() {
 
 
     return (
-        <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-4 overflow-auto">
+        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
             <h2 className="text-white text-lg text-center mb-4">SAMPLES</h2>
             <div className="space-y-1">
 

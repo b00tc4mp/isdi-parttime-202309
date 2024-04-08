@@ -22,6 +22,7 @@ import logout from "../assets/footer_buttons/logout.png"
 
 
 
+
 function Home(props) {
     console.log('Home')
 
@@ -79,13 +80,16 @@ function Home(props) {
     function handleLogoutClick() {
         logic.logoutUser(error => {
             if (error) {
-
-                session.handleError(error)
-                return
+                session.handleError(error);
+            } else {
+                // Ahora comprobamos si onLogoutClick es una función antes de llamarla
+                if (typeof props.onLogoutClick === 'function') {
+                    props.onLogoutClick();
+                } else {
+                    console.error('onLogoutClick is not a function', props.onLogoutClick);
+                }
             }
-        })
-
-        props.onLogoutClick()
+        });
     }
 
 
@@ -104,21 +108,25 @@ function Home(props) {
 
         </Routes>
 
+        <div className="footer">
+            <div className="footer-content">
 
-        <footer className="footer">
+                <footer>
+                    <Button className="button" onClick={handleSynqpleClick}><img src={synqpleLogo} alt="Synqple" /></Button>
 
-            <Button className="button" onClick={handleSynqpleClick}><img src={synqpleLogo} alt="Synqple" /></Button>
+                    <Button className="button" onClick={handleSamplesFolderClick}><img src={folder} alt="Samples" /></Button>
 
-            <Button className="button" onClick={handleSamplesFolderClick}><img src={folder} alt="Samples" /></Button>
+                    <Button className="button" onClick={handleSettingsClick}><img src={settings} alt="Settings" /></Button>
 
-            <Button className="button" onClick={handleSettingsClick}><img src={settings} alt="Settings" /></Button>
+                    <Button className="button" onClick={handleLogoutClick}><img src={logout} alt="Logout" /></Button>
 
-            <Button className="button" onClick={handleLogoutClick}><img src={logout} alt="Logout" /></Button>
+                </footer>
 
-        </footer>
+            </div>
+        </div>
 
 
-    </div>
+    </div >
 
 }
 

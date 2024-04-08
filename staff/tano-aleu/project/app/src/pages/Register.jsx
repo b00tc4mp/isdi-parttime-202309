@@ -44,31 +44,35 @@ function Register(props) {
         props.onLoginClick()
     }
 
-    return <Container class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
+    return <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
-        <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
+        <div className='flex flex-col items-center justify-center '>
 
-        <h1 class="text-white mb-2">Sign up to start playing!</h1>
+            <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
 
-        <Form onSubmit={handleSubmit}>
+            <h1 class="text-white mb-14">Sign up to start playing!</h1>
 
-            <Field id="name-input">Name</Field>
-            <Field id="email-input" type="email">E-mail</Field>
-            <Field id="password-input" type="password">Password</Field>
+            <Form onSubmit={handleSubmit}>
 
-            <Button type="submit" className="login-register-button">Register</Button>
+                <Field id="name-input">Name</Field>
+                <Field id="email-input" type="email">E-mail</Field>
+                <Field id="password-input" type="password">Password</Field>
 
-        </Form>
+                <Button type="submit" className="login-register-button mb-4">Register</Button>
 
-        <Link onClick={handleLoginClick}>Login</Link>
+            </Form>
 
-        <footer className="py-0">
+            <Link onClick={handleLoginClick}>Login</Link>
 
-            <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
+            <footer className=" text-white text-center py-0 mt-10 ">
 
-        </footer>
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
 
-    </Container>
+            </footer>
+
+        </div>
+    </div>
+
 }
 
 export default Register

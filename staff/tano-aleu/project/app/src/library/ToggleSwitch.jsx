@@ -11,7 +11,7 @@ const ToggleSwitch = ({ id, enabled, setEnabled }) => {
             />
             <label
                 htmlFor={`toggle-${id}`}
-                className={`toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer ${enabled ? 'bg-blue-500' : 'bg-gray-300'
+                className={`toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer ${enabled ? 'bg-purple-800' : 'bg-gray-300'
                     }`}
             ></label>
         </div>

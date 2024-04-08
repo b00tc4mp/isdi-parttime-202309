@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Tone from 'tone';
+import logo from '../assets/synqple.logo.png';
 import getMetronomo from '../logic/getMetronomo';
 import getSamples from '../logic/getSamples';
 import BpmControl from './bpmControl';
@@ -364,8 +365,9 @@ const Synqple = () => {
 
 
 
+
     return (
-        <div class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
+        <div className="bg-[#5F5784] border rounded-3xl p-20 border-black text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
             {/* LP-HP Filter */}
             {
@@ -430,7 +432,7 @@ const Synqple = () => {
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
 
-            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'>Global Play | Tap Tempo | Metronome </div>
+            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'></div>
 
             <div className="flex items-center justify-between space-x-2">
 
@@ -449,7 +451,16 @@ const Synqple = () => {
             </div>
             <div className=' flex justify-center'>Volumen Metronomo</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
+
+
+
+            <footer className="flex justify-center">
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
+
+            </footer>
         </div>
+
+
     );
 
 };

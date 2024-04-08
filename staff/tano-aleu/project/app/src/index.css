@@ -88,9 +88,37 @@
   /* custom */
 
   .footer {
-    @apply bg-purple-300 flex items-center justify-between p-[.5rem] fixed bottom-0 w-full;
+    @apply bg-purple-300 flex items-center justify-center fixed inset-x-0 bottom-0 mx-auto rounded-bl-3xl rounded-br-3xl;
   }
-
+  
+  .footer-content {
+    @apply flex justify-between items-center py-2;
+  }
+  
+  @media (min-width: 450px) { /* sm */
+    .footer {
+      @apply w-[450px];
+    }
+  }
+  
+  @media (min-width: 768px) { /* md */
+    .footer {
+      @apply w-[510px];
+    }
+  }
+  
+  @media (min-width: 1024px) { /* lg */
+    .footer {
+      @apply w-[575px];
+    }
+  }
+  
+  @media (min-width: 1280px) { /* xl */
+    .footer {
+      @apply w-[670px];
+    }
+  }
+  
   /* Feedback */
 
   .Feedback {

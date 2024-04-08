@@ -17,40 +17,43 @@ const Welcome = () => {
     };
 
     return (
-        <Container class="bg-[#5F5784] text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen">
+        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
-            <img src={versionLogo} alt="versionLogo" className="w-80 h-auto mt-20 " />
+            <div className='flex flex-col items-center justify-center '>
 
-            <div className="text-white mb-8">
-                {/* Aquí iría tu logo */}
+                <img src={versionLogo} alt="versionLogo" className="w-80 h-auto mt-20 " />
 
-                <p className="text-md">The app to synchronize your music</p>
+                <div className="text-white mb-8">
+                    {/* Aquí iría tu logo */}
+
+                    <p className="text-md">The app to synchronize your music</p>
+                </div>
+
+
+                <img src={logoSolo} alt="Logo" className="w-40 h-auto mt-10" />
+
+                <Button
+                    type="submit" className="login-register-button"
+                    onClick={handleLogin}
+                >
+                    Press to Login
+                </Button>
+
+                <Button type="submit" className="login-register-button"
+                    onClick={handleRegister}
+                >
+                    Press to Register
+                </Button>
+
+
+                <footer className=" text-white text-center py-0 mt-20 ">
+
+                    <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
+
+                </footer>
+
             </div>
-
-
-            <img src={logoSolo} alt="Logo" className="w-40 h-auto mt-10" />
-
-            <Button
-                type="submit" className="login-register-button"
-                onClick={handleLogin}
-            >
-                Press to Login
-            </Button>
-
-            <Button type="submit" className="login-register-button"
-                onClick={handleRegister}
-            >
-                Press to Register
-            </Button>
-
-
-            <footer className=" text-white text-center py-0 mt-20 ">
-
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-30" />
-
-            </footer>
-
-        </Container>
+        </div>
     );
 };
 

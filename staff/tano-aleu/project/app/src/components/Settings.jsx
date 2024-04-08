@@ -20,10 +20,11 @@ function Settings() {
     };
 
     return (
-        <div className="bg-[#5F5784] text-white min-h-screen p-5 flex flex-col space-y-3 overflow-auto">
-            <h2 className="text-white text-lg text-center mb-2">Settings</h2>
+        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white  flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
-            <h2>Preferences</h2>
+            <h2 className="text-white text-lg text-center mb-6">Settings</h2>
+
+            <h2 className="mt-6 font-bold text-md mb-6">Preferences</h2>
 
             <SettingItem label="Profile" > <div className="space-y-1" onClick={navigateToProfile}>
                 <button className="text-gray-300 mr-3">
@@ -43,42 +44,51 @@ function Settings() {
             <SettingItem label="Option1">
                 <ToggleSwitch id="option1" enabled={option1} setEnabled={setOption1} />
             </SettingItem>
-            <SettingItem label="Option2">
+
+            <SettingItem className='mt-6' label="Option2">
                 <ToggleSwitch id="option2" enabled={option2} setEnabled={setOption2} />
             </SettingItem>
 
-            <h2>Sound & Samples</h2>
+            <div>
+                <h2 className="mt-6 font-bold text-md mb-2">Sound & Samples</h2>
 
-            <SettingItem label="Option3">
-                <ToggleSwitch id="option3" enabled={option3} setEnabled={setOption3} />
-            </SettingItem>
-            <SettingItem label="Option4">
-                <ToggleSwitch id="option4" enabled={option4} setEnabled={setOption4} />
-            </SettingItem>
+                <SettingItem label="Option3">
+                    <ToggleSwitch id="option3" enabled={option3} setEnabled={setOption3} />
+                </SettingItem>
+                <SettingItem label="Option4">
+                    <ToggleSwitch id="option4" enabled={option4} setEnabled={setOption4} />
+                </SettingItem>
+            </div>
 
-            <h2>Support</h2>
 
-            <SettingItem label="Help Center">
-                <SettingItem>
+            <div className='mt-6' >
 
-                    <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto mt-2  justify-center" />
-                    </span>
+                <h2 className="mt-6 font-bold text-md mb-22">Support</h2>
+
+
+                <SettingItem label="Help Center">
+                    <SettingItem>
+
+                        <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto   justify-center" />
+                        </span>
+
+                    </SettingItem>
 
                 </SettingItem>
 
-            </SettingItem>
+                <SettingItem label="App Feedback">
+                    <SettingItem>
+                        <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto  justify-center" />
+                        </span>
+                    </SettingItem>
 
-            <SettingItem label="App Feedback">
-                <SettingItem>
-                    <span className="text-gray-300 mr-3"> <img src={buttonChevronRight} alt="right" className="w-5 h-auto mt-2  justify-center" />
-                    </span>
                 </SettingItem>
 
-            </SettingItem>
+            </div>
 
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-2  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-8  justify-center" />
 
             </footer>
         </div>
