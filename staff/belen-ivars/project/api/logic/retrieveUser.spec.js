@@ -1,8 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import mongoose, { isObjectIdOrHexString, mongo } from 'mongoose'
-import bcrypt from 'bcryptjs'
+import mongoose from 'mongoose'
 
 import { expect } from 'chai'
 import random from './helpers/random.js'
