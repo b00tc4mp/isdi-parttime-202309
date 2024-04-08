@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Tone from 'tone';
 import logo from '../assets/synqple.logo.png';
+import metronome_button from '../assets/synqple_buttons/metronome_button.png';
 import getMetronomo from '../logic/getMetronomo';
 import getSamples from '../logic/getSamples';
 import BpmControl from './bpmControl';
@@ -444,8 +445,9 @@ const Synqple = () => {
                 <TapTempo onBPMChange={setBpm} />
 
                 <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={toggleMuteMetronome}>
-                    {isMetronomeMuted ? 'Off' : 'On'}
+                    <img className='w-6' src={metronome_button} alt="Metronome" />
                 </button>
+
 
 
             </div>

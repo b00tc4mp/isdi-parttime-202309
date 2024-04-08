@@ -26,12 +26,27 @@ import logout from "../assets/footer_buttons/logout.png"
 function Home(props) {
     console.log('Home')
 
-    const session = useContext();
+    const context = useContext();
     const [name, setName] = useState(null);
     const navigate = useNavigate();
 
 
-
+    function handleLogoutClick() {
+        try {
+            logic.logoutUser(() => {
+                // Verificar si onLogoutClick es una función antes de llamarla
+                if (typeof props.onLogoutClick === 'function') {
+                    props.onLogoutClick();
+                } else {
+                    // Manejo por defecto si onLogoutClick no está disponible
+                    // Por ejemplo, redirigir al usuario a la página de inicio de sesión
+                    navigate('/login'); // Asumiendo que `navigate` ha sido obtenido de `useNavigate()`
+                }
+            });
+        } catch (error) {
+            context.handleError(error);
+        }
+    }
 
     useEffect(() => {
         console.log('Home -> effect (name)')
@@ -77,20 +92,7 @@ function Home(props) {
         navigate('/settings')
     }
 
-    function handleLogoutClick() {
-        logic.logoutUser(error => {
-            if (error) {
-                session.handleError(error);
-            } else {
-                // Ahora comprobamos si onLogoutClick es una función antes de llamarla
-                if (typeof props.onLogoutClick === 'function') {
-                    props.onLogoutClick();
-                } else {
-                    console.error('onLogoutClick is not a function', props.onLogoutClick);
-                }
-            }
-        });
-    }
+
 
 
     return <div>
