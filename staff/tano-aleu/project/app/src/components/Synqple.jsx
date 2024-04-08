@@ -367,7 +367,7 @@ const Synqple = () => {
 
 
     return (
-        <div className="bg-[#5F5784] border rounded-3xl p-20 border-black text-white p-5 flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
             {/* LP-HP Filter */}
             {
@@ -406,14 +406,14 @@ const Synqple = () => {
             <div>
                 <div className=' flex justify-center'>Samples Volume</div>
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
-                <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full mb-4">
+                <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full mb-1">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
                 </button>
             </div>
 
 
             {/* Loop Length Buttons */}
-            <h3 className='flex justify-center mt-8'>Loop Length</h3>
+            <h3 className='flex justify-center mt-2 mb-3'>Loop Length</h3>
             <div className="flex justify-between">
                 {['1/8', '1/4', '1/2', '1', '2', '4', '8'].map((value) => (
                     <button
@@ -434,7 +434,7 @@ const Synqple = () => {
 
             {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'></div>
 
-            <div className="flex items-center justify-between space-x-2">
+            <div className="flex items-center justify-between space-x-2 mb-4">
 
 
                 <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={handlePlayToggle}>
@@ -449,13 +449,14 @@ const Synqple = () => {
 
 
             </div>
-            <div className=' flex justify-center'>Metronome Volume</div>
+
+            <div className=' flex justify-center mt-1'>Metronome Volume</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
 
 
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-10  justify-center" />
 
             </footer>
         </div>

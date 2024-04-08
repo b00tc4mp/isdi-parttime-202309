@@ -20,7 +20,7 @@ function Settings() {
     };
 
     return (
-        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white  flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white  flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
             <h2 className="text-white text-lg text-center mb-6">Settings</h2>
 
@@ -88,7 +88,7 @@ function Settings() {
 
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-28  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-10  justify-center" />
 
             </footer>
         </div>
