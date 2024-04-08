@@ -10,11 +10,11 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
     };
     return (
         <div className="flex justify-around">
-            <div className="w-1/2 relative flex flex-col items-center space-y-1 mb-4"> {/* Añade espacio verticalmente entre elementos */}
+            <div className="w-1/2 relative flex flex-col items-center  mb-4"> {/* Añade espacio verticalmente entre elementos */}
                 {/* Texto sobre los inputs */}
                 <div className="text-white text-1sm"></div> {/* Ajusta el tamaño del texto y el color según necesites */}
 
-                <div className="relative w-full bg-purple-800 p-2 rounded-full text-center shadow-lg">
+                <div className="relative w-full bg-purple-800 p-2 rounded-full text-center shadow-lg mb-3 ">
                     <input
                         type="number"
                         className="w-medium bg-transparent text-3xl"

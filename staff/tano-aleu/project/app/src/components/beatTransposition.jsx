@@ -45,7 +45,7 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
         <div>
 
             <div onContextMenu={preventContextMenu} className="flex justify-around">
-                <div className="select-none touch-none mb-4">
+                <div className=" select-none touch-none mb-4">
                     <button className="w-0 h-0 border-t-[30px] border-t-transparent border-r-[60px] border-r-purple-400 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(-5)}
                         onMouseUp={stopChangeTempo}
                         onTouchStart={handleTouchStart(-5)}

@@ -405,8 +405,10 @@ const Synqple = () => {
 
             {/* Sample Volume Control and Mute Button */}
             <div>
-                <div className=' flex justify-center mt-2'>Samples Volume</div>
+                <div className=' flex justify-center mt-3'>Samples Volume</div>
+
                 <input type="range" min="-60" max="0" value={sampleVolume} onChange={handleSampleVolumeChange} className="w-full" />
+
                 <button onClick={toggleMuteSample} className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2 w-full mb-1">
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
                 </button>
@@ -414,7 +416,7 @@ const Synqple = () => {
 
 
             {/* Loop Length Buttons */}
-            <h3 className='flex justify-center mt-2 mb-3'>Loop Length</h3>
+            <h3 className='flex justify-center mt-2 mb-2'>Loop Length</h3>
             <div className="flex justify-between">
                 {['1/8', '1/4', '1/2', '1', '2', '4', '8'].map((value) => (
                     <button
@@ -444,7 +446,11 @@ const Synqple = () => {
 
                 <TapTempo onBPMChange={setBpm} />
 
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={toggleMuteMetronome}>
+                <button
+                    className={`hover:bg-purple-800 text-white font-bold py-2 px-4 rounded ${isMetronomeMuted ? "bg-purple-900" : "bg-purple-800"
+                        }`}
+                    onClick={toggleMuteMetronome}
+                >
                     <img className='w-6' src={metronome_button} alt="Metronome" />
                 </button>
 
@@ -452,7 +458,7 @@ const Synqple = () => {
 
             </div>
 
-            <div className=' flex justify-center mt-1'>Metronome Volume</div>
+            <div className=' flex justify-center mt-1 mb-2'>Metronome Volume</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
 
 

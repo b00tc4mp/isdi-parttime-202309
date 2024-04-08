@@ -118,6 +118,49 @@
       @apply w-[670px];
     }
   }
+
+
+
+/* input range custom*/
+.input-range-thumb {
+  @apply bg-purple-600 h-4 w-4 border-0 rounded-full cursor-pointer;
+}
+
+.input-range-track {
+  @apply bg-purple-300 h-1.5 rounded cursor-pointer;
+}
+
+/* Añade esto a tu archivo CSS, ajustando los colores como desees */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  @apply bg-purple-600 h-4 w-4 border-0 rounded-full cursor-pointer;
+  transform: translateY(-30%);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply bg-purple-300 h-1.5 rounded cursor-pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply bg-purple-600 h-4 w-4 border-0 rounded-full cursor-pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  @apply bg-purple-300 h-1.5 rounded cursor-pointer;
+}
+
+input[type="range"]::-ms-thumb {
+  @apply bg-purple-600 h-4 w-4 border-0 rounded-full cursor-pointer;
+}
+
+input[type="range"]::-ms-track {
+  @apply bg-purple-300 h-1.5 rounded cursor-pointer;
+}
+
+
+
+
   
   /* Feedback */
 
@@ -150,6 +193,17 @@
 body {
   font-family: 'Kumbh Sans', sans-serif;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
