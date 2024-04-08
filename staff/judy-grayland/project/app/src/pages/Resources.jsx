@@ -14,12 +14,14 @@ function Resources() {
       <h2>Recursos</h2>
       <h3>Añade un recurso</h3>
       <Form onSubmit={handleSubmit}>
+        {/* fieldset is an element used to group together part of a form. legend is used for the caption,ie.title */}
         <fieldset>
           <legend>Elige el tipo de recurso:</legend>
           <Field
             name="resourceType"
             type="radio"
             inputId="activity-radio"
+            // resourceType is a variable. Checked is an attribute on an HTML tag that accepts true or false. If it coincides with the string "activity", it evaluates to true and that makes it checked.
             checked={resourceType === 'activity'}
             onChange={() => setResourceType('activity')}
           >
@@ -44,9 +46,10 @@ function Resources() {
             Fecha especial
           </Field>
         </fieldset>
+
         {/* show different forms depending on what resource you choose */}
         {resourceType === 'activity' && (
-          <fieldset>
+          <>
             <Field name="title" inputId="title-input">
               Título
             </Field>
@@ -59,11 +62,49 @@ function Resources() {
             <Field name="link" inputId="link-input">
               Enlace
             </Field>
+            <fieldset>
+              <legend>Selecciona los temas relacionados a la actividad</legend>
+              <Field
+                name="cultural-diversity"
+                type="checkbox"
+                inputId="cultural-diversity-check"
+              >
+                Diversidad cultural
+              </Field>
+              <Field name="topic-tag" type="checkbox" inputId="bullying-check">
+                Bullying
+              </Field>
+              <Field
+                name="functional-diversity"
+                type="checkbox"
+                inputId="functional-diversity-check"
+              >
+                Diversidad funcional
+              </Field>
+              <Field name="lgbt+" type="checkbox" inputId="lgbt+-check">
+                LGTB+
+              </Field>
+              <Field
+                name="gender-equality"
+                type="checkbox"
+                inputId="gender-equality-check"
+              >
+                Igualdad de género
+              </Field>
+              <Field
+                name="childrens-rights"
+                type="checkbox"
+                inputId="childrens-rights-check"
+              >
+                Derechos de la infancia
+              </Field>
+            </fieldset>
+
             <Button>Añadir</Button>
-          </fieldset>
+          </>
         )}
         {resourceType === 'book' && (
-          <fieldset>
+          <>
             <Field name="title" inputId="title-input">
               Título
             </Field>
@@ -80,10 +121,10 @@ function Resources() {
               Enlace
             </Field>
             <Button type="submit">Añadir</Button>
-          </fieldset>
+          </>
         )}
         {resourceType === 'special-date' && (
-          <fieldset>
+          <>
             <Field name="title" inputId="title-input">
               Título
             </Field>
@@ -100,7 +141,7 @@ function Resources() {
               Enlace
             </Field>
             <Button type="submit">Añadir</Button>
-          </fieldset>
+          </>
         )}
       </Form>
     </>

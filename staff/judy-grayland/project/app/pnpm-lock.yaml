@@ -14,6 +14,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.22.2
     version: 6.22.2(react-dom@18.2.0)(react@18.2.0)
+  shared:
+    specifier: file:../shared
+    version: file:../shared
 
 devDependencies:
   '@types/react':
@@ -2466,3 +2469,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  file:../shared:
+    resolution: {directory: ../shared, type: directory}
+    name: shared
+    dev: false

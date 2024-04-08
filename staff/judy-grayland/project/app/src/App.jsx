@@ -1,6 +1,9 @@
 import { Routes, Route, NavLink, Navigate, Outlet } from 'react-router-dom'
 
+import { Button } from './components'
+
 import context from './logic/context'
+import logic from './logic'
 
 // pages
 import Profile from './pages/Profile'
@@ -9,6 +12,7 @@ import Resources from './pages/Resources'
 import Login from './pages/Login'
 import Topic from './pages/Topic'
 import Register from './pages/Register'
+import { useNavigate } from 'react-router-dom'
 
 function ProtectedRoute() {
   // check if user is logged in
@@ -22,12 +26,19 @@ function ProtectedRoute() {
 }
 
 function App() {
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logic.logoutUser()
+    navigate('/')
+  }
   return (
     <>
       <header>
         <nav>
           <NavLink to="profile">Profile</NavLink>
           <NavLink to="/">Home</NavLink>
+          <Button onClick={handleLogout}>Log out</Button>
         </nav>
       </header>
       <Routes>

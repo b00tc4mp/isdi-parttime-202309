@@ -13,6 +13,20 @@ function Field(props) {
       </>
     )
   }
+  if (props.type === 'checkbox') {
+    return (
+      <>
+        <input
+          name={props.name}
+          type="checkbox"
+          id={props.inputId}
+          checked={props.checked}
+          onChange={props.onChange}
+        ></input>
+        <label htmlFor={props.inputId}>{props.children}</label>
+      </>
+    )
+  }
   return (
     <>
       <label htmlFor={props.inputId}>{props.children}</label>
