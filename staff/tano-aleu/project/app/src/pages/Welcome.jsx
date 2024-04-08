@@ -17,7 +17,7 @@ const Welcome = () => {
     };
 
     return (
-        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
             <div className='flex flex-col items-center justify-center '>
 
@@ -46,9 +46,9 @@ const Welcome = () => {
                 </Button>
 
 
-                <footer className=" text-white text-center py-0 mt-20 ">
+                <footer className=" text-white text-center  ">
 
-                    <img src={logo} alt="Logo" className="w-40 h-auto mt-10" />
+                    <img src={logo} alt="Logo" className="w-40 h-auto mt-40" />
 
                 </footer>
 
