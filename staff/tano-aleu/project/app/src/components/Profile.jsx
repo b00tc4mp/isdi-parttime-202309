@@ -66,11 +66,11 @@ const Profile = () => {
 
 
     return (
-        <div className="bg-[#5F5784] border rounded-3xl p-10 border-black text-white flex flex-col space-y-1 overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
             <div className='flex flex-col items-center justify-center '>
 
-                <h3 className="text-lg text-white rounded-full mb-20 ">
+                <h3 className="text-lg text-white rounded-full mb-20 mt-20 ">
                     Profile Info
                 </h3>
 
@@ -109,7 +109,7 @@ const Profile = () => {
                 <Button className="back-button mt-20" onClick={handleBackToSettings}>Back to Settings</Button>
 
                 <footer className="flex justify-center">
-                    <img src={logo} alt="Logo" className="w-40 h-auto mt-60  justify-center" />
+                    <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
 
                 </footer>
             </div>
