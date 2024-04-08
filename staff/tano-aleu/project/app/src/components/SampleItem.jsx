@@ -72,7 +72,7 @@ function SampleItem({ sample, onToggleFav }) {
 
     return (
         <div className="sample flex items-center justify-between">
-            <h2 className='flex-1'>{sample.name}</h2>
+            <h2 className='flex-1 mt-1'>{sample.name}</h2>
             <Button className='mx-4' onClick={handlePlayPauseClick}>
                 {currentSampleId === sample._id && isPlaying ? '⏸' : '▶️'}
             </Button>

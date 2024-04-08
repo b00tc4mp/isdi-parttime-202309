@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useState, } from 'react';
 import SampleItem from './SampleItem';
 import { useContext } from '../hooks';
 import getSamples from '../logic/getSamples'; // Asegúrate de tener la ruta correcta a getSamples
@@ -9,6 +10,15 @@ import logo from '../assets/synqple.logo.png';
 function SamplesFolder() {
     const [samples, setSamples] = useState([]);
     const context = useContext();
+
+    const categoryIndices = {
+        2: "Bass",
+        5: "Piano/Guitar",
+        8: "Synth",
+        11: "Percs",
+        14: "Vocals",
+    };
+
 
     const refreshSamples = async () => {
         try {
@@ -42,33 +52,24 @@ function SamplesFolder() {
 
 
     return (
-        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col  overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-            <h2 className="text-white text-lg text-center mb-4">SAMPLES</h2>
-            <div className="space-y-1">
+        <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-hidden min-h-screen max-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl pb-20">
 
+            <h2 className="text-white text-lg text-center mb-4">SAMPLES</h2>
+            <div className="overflow-y-auto space-y-1">
                 <h2 className="text-center bg-purple-400 text-white py-2">Drums</h2>
                 {samples.map((sample, index) => (
-                    <>
+                    <React.Fragment key={sample._id}>
                         <SampleItem
-                            key={sample._id}
                             sample={sample}
                             onToggleFav={() => onToggleFav(sample._id)}
                         />
-                        {index === 2 && <h2 className="text-center bg-purple-400 text-white py-2">Bass</h2>}
-                        {index === 5 && <h2 className="text-center bg-purple-400 text-white py-2">Piano</h2>}
-                        {index === 8 && <h2 className="text-center bg-purple-400 text-white py-2">Synth</h2>}
-                        {index === 11 && <h2 className="text-center bg-purple-400 text-white py-2">Percs</h2>}
-                        {index === 14 && <h2 className="text-center bg-purple-400 text-white py-2">Vocals</h2>}
-                    </>
+                        {categoryIndices[index] && (
+                            <h2 className="text-center bg-purple-400 text-white py-2">{categoryIndices[index]}</h2>
+                        )}
+                    </React.Fragment>
                 ))}
             </div>
 
-
-            <footer className="flex justify-center py-0">
-
-                <img src={logo} alt="Logo" className="w-40 h-auto  justify-center" />
-
-            </footer>
 
         </div>
 

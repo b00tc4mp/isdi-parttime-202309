@@ -159,6 +159,13 @@ input[type="range"]::-ms-track {
 }
 
 
+@layer components {
+  .toggle-checkbox:focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+  }
+}
+
 
 
   
