@@ -1,7 +1,7 @@
 import { errors } from 'com'
 const { SystemError } = errors
 
-export default async function retrieveDogs() {
+export default async function retrieveHistory() {
     const req = {
         method: 'GET',
         headers: {
@@ -11,7 +11,7 @@ export default async function retrieveDogs() {
     let res
 
     try {
-        res = await fetch(`${import.meta.env.VITE_API_URL}/dogs`, req)
+        res = await fetch(`${import.meta.env.VITE_API_URL}/history-m`, req)
     } catch (error) {
         throw new SystemError(error.message)
     }

@@ -4,6 +4,73 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
+  /* Agrega otros atributos de la fuente si es necesario */
+}
+
+.myfont {
+  font-family: "myfont", sans-serif;
+}
+
+.home-container {
+  position: relative;
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  height: 100vh; /* Ajusta la altura según tus necesidades */
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute; /* Cambia a posición absoluta */
+  top: 0; /* Ajusta la posición superior */
+  left: 0; /* Ajusta la posición izquierda */
+  display: flex;
+}
+
+.bubble span {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  margin: 0 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px #ffffff, 0 0 50px #ffffff, 0 0 100px #ffffff;
+  animation: animate 15s linear infinite;
+  animation-duration: calc(160s / var(--i));
+  opacity: 0.8;
+}
+
+.bubble span:nth-child(even) {
+  background: #ffffff;
+  box-shadow: 0 0 0 10px #ffffff, 0 0 50px #ffffff, 0 0 100px #ffffff;
+  opacity: 0.4;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(100vh) scale(0);
+  }
+  100% {
+    transform: translateY(-10vh) scale(1);
+  }
+}
+
+.container-females {
+  display: flex;
+  justify-content: space-between; /* Para distribuir los elementos de manera uniforme */
+}
+
+/* Estilo para cada elemento dentro del contenedor */
+.container-females > * {
+  flex-grow: 1; /* Todos los elementos se expandirán para ocupar el mismo espacio */
+  margin-right: 10px; /* Espacio entre los elementos, ajusta según tus necesidades */
+}
+
+.container-history {
+  max-width: 100%;
+  z-index: 0;
+}
+
 .container {
   width: 100%;
   z-index: 0;
@@ -39,41 +106,26 @@
   box-shadow: 0 0 5px rgba(255, 255, 0, 0.3); /* Agrega una pequeña sombra al pasar el ratón por encima */
 }
 
-.button-Fadog {
-  /* Estilos base del botón */
-  padding: 10px 20px; /* Ajusta el relleno para aumentar el tamaño del botón */
-  font-size: 16px; /* Tamaño de fuente */
-  border: none; /* Quita el borde */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: #007bff; /* Color de fondo */
-  color: white; /* Color del texto */
-  transition: transform 0.3s ease-in-out; /* Transición suave */
-}
-
-.button-Fadog:hover {
-  transform: scale(
-    1.05
-  ); /* Aumenta ligeramente el tamaño al pasar el ratón por encima */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Agrega una pequeña sombra al pasar el ratón por encima */
-}
-
-.button-add-dog {
+.button-add {
   position: fixed;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
+  top: 0px; /* Ajusta la distancia desde la parte superior */
   right: 10px; /* Ajusta la distancia desde la derecha */
-  border-radius: 20px; /* Agrega un borde redondeado */
-  background-color: white;
-  padding: 5px; /* Ajusta el relleno del botón */
   z-index: 9999; /* Asegura que el botón esté por encima de otros elementos */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Agrega una transición suave al botón */
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5); /* Sombra blanca */
+  margin-top: 5px; /* Ajusta el margen superior */
+  background-color: gray;
+  border-radius: 30px;
+  padding: 6px;
+  display: flex;
 }
 
-.button-add-dog:hover {
+.button-add:hover {
   transform: scale(
-    1.2
+    1.3
   ); /* Escala ligeramente el botón al pasar el ratón por encima */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* Agrega una sombra al pasar el ratón por encima */
+  background-color: goldenrod;
 }
 
 .button-picture {
@@ -84,6 +136,10 @@
 
 .shadow-custom {
   box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.7); /* Cambia los valores de RGBA según tu preferencia */
+}
+
+.shadow-footer {
+  box-shadow: 0px -20px 20px -20px rgba(0, 0, 0, 1);
 }
 
 .user-info {

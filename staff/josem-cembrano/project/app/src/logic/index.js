@@ -11,6 +11,8 @@ import retrievePuppies from './retrievePuppies'
 import deleteDog from './deleteDog'
 import changeEmail from './changeEmail'
 import changePassword from './changePassword'
+import publishHistory from './publishHistory'
+import retrieveHistory from './retrieveHistory'
 
 import context from './context'
 
@@ -28,6 +30,8 @@ const logic = {
     deleteDog: deleteDog.bind(context),
     changeEmail: changeEmail.bind(context),
     changePassword: changePassword.bind(context),
+    publishHistory: publishHistory.bind(context),
+    retrieveHistory: retrieveHistory.bind(context),
 
     context,
 }

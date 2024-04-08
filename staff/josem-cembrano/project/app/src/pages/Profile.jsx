@@ -1,10 +1,10 @@
 import logic from '../logic'
 import { useState } from 'react'
 import { useContext } from '../hooks'
-import { useParams } from 'react-router-dom'
+import { useParams, Link} from 'react-router-dom'
 import { Button, Form, Input, Container } from '../library'
 
-export default function Profile({ onSuccess, setOpenForm }) {
+export default function Profile({ onSuccess }) {
     const context = useContext()
 
     const [newEmail, setNewEmail]=useState('')
@@ -73,10 +73,6 @@ export default function Profile({ onSuccess, setOpenForm }) {
         setNewPasswordConfirm(event.target.value)
     }
 
-    function handleCancelClick() {
-        setOpenForm(false)
-    }
-
     return (
         <Container className=''>
             { form === 'email' && <article><h2>Change email</h2>
@@ -88,7 +84,7 @@ export default function Profile({ onSuccess, setOpenForm }) {
                     <Input id='password-input' type='password' placeholder='Password' value={password} onChange={handlePasswordEmail}>Password</Input>
 
                     <Button type='submit'>Update email</Button>
-                    <Button type='button' onClick={handleCancelClick}>Cancel</Button>
+                    <Link to='/'>Cancel</Link>
                 </Form>
             </article> }
             { form === 'password' && <article><h2>Change password</h2>
@@ -100,6 +96,7 @@ export default function Profile({ onSuccess, setOpenForm }) {
                     <Input id='new-password-confirm-input' type='password' placeholder='New Password Confirm' value={newPasswordConfirm} onChange={handlePassword}>New password confirm</Input>
 
                     <Button type='submit'>Update password</Button>
+                    <Link to='/'>Cancel</Link>
                 </Form>
             </article> }
         </Container>

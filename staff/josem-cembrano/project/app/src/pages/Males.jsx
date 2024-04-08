@@ -65,7 +65,7 @@ function handleDeleteDog(dogId) {
     <>
            {view === 'new-picture' && <NewPerfilDog onPublish={handleNewPerfilDogPublish} onCancel={handleNewPerfilDogCancel} />}
        <div className='container'>
-       {logic.context.token && logic.context.isAdmin && (<button className='button-add-dog' onClick={handleNewPerfilDogClick}><FaDog size={20} /></button>)}
+       {logic.context.token && logic.context.isAdmin && (<button className='button-add text-gray-600 transition-colors duration-300 cursor-pointer' onClick={handleNewPerfilDogClick}><FaDog size={20} /></button>)}
         <div className="flex flex-wrap gap-1 flex-row pt-2">
         {
           males.lenght !== 0 && (males.map((male) => {

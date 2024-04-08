@@ -6,8 +6,10 @@ import { HiMenuAlt3 } from 'react-icons/hi'
 import { TbReportAnalytics, TbBabyBottle, TbFence } from 'react-icons/tb'
 import { IoMdMale, IoMdFemale, IoMdLogIn } from 'react-icons/io'
 import { MdHistoryEdu, MdOutlineAlternateEmail } from 'react-icons/md'
-import { FaUserAlt } from 'react-icons/fa';
-import { GiArchiveRegister } from 'react-icons/gi';
+import { BsInstagram } from "react-icons/bs";
+import { FaUserAlt, FaFacebookSquare } from 'react-icons/fa'
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { GiArchiveRegister } from 'react-icons/gi'
 import { useContext } from '../hooks'
 import { Button } from '../library'
 import logic from '../logic'
@@ -18,6 +20,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
 
   const [name, setName] = useState('')
   const [showLogoutOptions, setShowLogoutOptions] = useState(false)
+  const [showIcons, setShowIcons] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +53,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
 
   function handleNameClick() {
     setShowLogoutOptions(!showLogoutOptions)
+    setShowIcons(!showIcons)
   }
 
   const menus = [
@@ -90,33 +94,46 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
   return (
     <>
       <section className='flex gap-6 nav-position'>
-        <div className={`bg-[#000000] bg-opacity-50 min-h-screen ${open ? 'w-60' : 'w-20'} duration-500 text-gray-100 px-4`}>
-        <div className='py-3'>
-          <HiMenuAlt3 size={26} className='cursor-pointer mb-2 hover:scale-125 transition-transform duration-300 text-yellow-500 hover:text-yellow-700' onClick={() => setOpen(!open)} />
-        </div>
+        <div className={`bg-gray-900 bg-opacity-50 min-h-screen ${open ? 'w-60' : 'w-20'} duration-500 text-gray-100 px-4`}>
+          <div className='py-3'>
+            <HiMenuAlt3 size={26} className='cursor-pointer mb-2 hover:scale-125 transition-transform duration-300 text-yellow-500 hover:text-yellow-700' onClick={() => setOpen(!open)} />
+          </div>
           <div className='mt-4 flex flex-col gap-4 relative'>
             {renderMenuItems()}
           </div>
         </div>
         <div className='session-user-container'>
-        {
-          logic.isUserLoggedIn() && <div className='ml-[-40px]'>
-          <div className='user-info' onClick={handleNameClick}>
-            <div className='user-info-container shadow-custom hover:scale-110 transition-transform duration-300'>
-              <FaUserAlt className='text-gray-600 transition-colors duration-300 ' size={20} />
-            </div>
-          </div>
-          {showLogoutOptions && (
-            <div className='flex items-center mr-[50px]'>
-              <Link className='cursor-pointer ml-[-15px] flex items-center justify-center bg-gray-600 rounded-full w-5 h-5 shadow-custom hover:scale-125 transition-transform duration-300' to='/profile/email'><MdOutlineAlternateEmail className='text-yellow-500 transition-colors duration-300 text-lg'></MdOutlineAlternateEmail></Link>
-              <Link className='cursor-pointer ml-[25px] flex items-center justify-center bg-gray-600 rounded-full w-5 h-5 shadow-custom hover:scale-125 transition-transform duration-300' to='/profile/password'><RiLockPasswordFill className='text-yellow-500 transition-colors duration-300 text-lg'></RiLockPasswordFill></Link>
+          {logic.isUserLoggedIn() && (
+            <div className='ml-[-40px]'>
+              <div className='user-info' onClick={handleNameClick}>
+                <div className='user-info-container shadow-custom hover:scale-125 transition-transform duration-300 ease-in-out'>
+                  <FaUserAlt className='text-gray-600 transition-colors duration-300 cursor-pointer' size={20} />
+                </div>
+              </div>
+              <div className={`flex items-center mr-[50px] ${showIcons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+                <Link className='cursor-pointer ml-[-15px] flex items-center justify-center bg-gray-600 rounded-full w-5 h-5 shadow-custom hover:scale-125 transition-transform duration-300' to={location.pathname === '/profile/email' ? '/' : '/profile/email'}><MdOutlineAlternateEmail className='text-yellow-500 transition-colors duration-300 text-lg'></MdOutlineAlternateEmail></Link>
+                <Link className='cursor-pointer ml-[25px] flex items-center justify-center bg-gray-600 rounded-full w-5 h-5 shadow-custom hover:scale-125 transition-transform duration-300' to={location.pathname === '/profile/password' ? '/' : '/profile/password'}><RiLockPasswordFill className='text-yellow-500 transition-colors duration-300 text-lg'></RiLockPasswordFill></Link>
+              </div>
             </div>
           )}
         </div>
-        }
-        </div>
+        <footer className="fixed bottom-0 w-full bg-gray-900 text-gray-100 px-4 shadow-footer">
+        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 JM-Cembrano™. All Rights Reserved.</span>
+    <h1 className='text-sm text-gray-500 sm:text-center dark:text-gray-400 myfont'>Follow us on our social networks</h1>
+    <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0 gap-10">
+        <li>
+          <a href="https://www.instagram.com/"><BsInstagram className=' text-yellow-500 cursor-pointer mb-2 shadow-custom hover:scale-150 transition-transform duration-300'></BsInstagram></a>
+        </li>
+        <li>
+          <a href="https://twitter.com/"><FaSquareXTwitter className='text-yellow-500 cursor-pointer mb-2 shadow-custom hover:scale-150 transition-transform duration-300'></FaSquareXTwitter></a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/"><FaFacebookSquare className='text-yellow-500 cursor-pointer mb-2 shadow-custom hover:scale-150 transition-transform duration-300'></FaFacebookSquare></a>
+        </li>
+    </ul>
+    </div>        </footer>
       </section>
     </>
   )
-  
 }
