@@ -9,6 +9,8 @@ import retrieveFemales from './retrieveFemales.js'
 import deleteDog from './deleteDog.js'
 import changeEmail from './changeEmail.js'
 import changePassword from './changePassword.js'
+import createHistory from './createHistory.js'
+import retrieveHistory from './retrieveHistory.js'
 // import userContact from './userContact.js'
 
 const logic = {
@@ -22,7 +24,9 @@ const logic = {
     retrieveFemales,
     deleteDog,
     changeEmail,
-    changePassword
+    changePassword,
+    createHistory,
+    retrieveHistory,
     // userContact
 
 }

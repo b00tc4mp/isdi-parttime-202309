@@ -9,6 +9,8 @@ import retrieveFemalesHandler from './retrieveFemalesHandler.js'
 import deleteDogHandler from './deleteDogHandler.js'
 import changeEmailHandler from './changeEmailHandler.js'
 import changePasswordHandler from './changePasswordHandler.js'
+import createHistoryHandler from './createHistoryHandler.js'
+import retrieveHistoryHandler from './retrieveHistoryHandler.js'
 // import userContactHandler from './userContactHandler.js'
 
 export {
@@ -22,7 +24,9 @@ export {
     retrieveFemalesHandler,
     deleteDogHandler,
     changeEmailHandler,
-    changePasswordHandler
+    changePasswordHandler,
+    createHistoryHandler,
+    retrieveHistoryHandler,
     // userContactHandler
 
 }

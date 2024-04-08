@@ -90,7 +90,18 @@ const contact = new Schema({
     }
 })
 
-const historyText = new Schema({
+const history = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+
+    image: {
+        type: String,
+        required: true
+    },
+
     text: {
         type: String,
         required: true
@@ -100,11 +111,11 @@ const historyText = new Schema({
 const User = model('User', user)
 const Dog = model('Dog', dog)
 const Contact = model('Contact', contact)
-const HistoryText = model('HistoryText', historyText)
+const History = model('History', history)
 
 export {
     User,
     Dog,
     Contact,
-    HistoryText
+    History
 }

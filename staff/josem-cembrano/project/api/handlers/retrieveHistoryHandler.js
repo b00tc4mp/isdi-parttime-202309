@@ -5,8 +5,8 @@ const { NotFoundError, ContentError } = errors
 
 export default async (req, res) => {
     try {
-        const dogs = await logic.retrieveDogs()
-        res.json(dogs)
+        const history = await logic.retrieveHistory()
+        res.json(history)
     } catch (error) {
         let status = 500
 

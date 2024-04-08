@@ -17,6 +17,8 @@ import {
     deleteDogHandler,
     changeEmailHandler,
     changePasswordHandler,
+    createHistoryHandler,
+    retrieveHistoryHandler,
     // userContactHandler,
 
 } from './handlers/index.js'
@@ -42,6 +44,8 @@ import {
 
         server.post('/perfil', jsonBodyParser, createDogHandler)
 
+        server.post('/history', jsonBodyParser, createHistoryHandler)
+
         server.get('/users', retrieveUsersHandler)
 
         server.get('/dogs', retrieveDogsHandler)
@@ -51,6 +55,8 @@ import {
         server.get('/males', retrieveMalesHandler)
 
         server.get('/females', retrieveFemalesHandler)
+
+        server.get('/history-m', retrieveHistoryHandler)
 
         server.delete('/dogs/:dogId', deleteDogHandler)
 
