@@ -82,10 +82,13 @@ Post in Forum (v1)
 
 ### Technologies
 
-- johnny-five
-- arduino
-- Firmata
-- tinyMCE
+- Database: MongoDB
+- Backend: Node.js | Express
+- Frontend: HTML | React | Tailwind | TinyMCE
+- Testing: Mocha y Chai
+- Connection with Arduino: Firmata | Johnny-five
+
+
 
 <br>
 
