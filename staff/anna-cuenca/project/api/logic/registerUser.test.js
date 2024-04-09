@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import mongoose from 'mongoose'
 
-import registerUser from './registerUser.js' // el requiere es como el input
+import registerUser from './registerUser.js'
 (async () => {
     await mongoose.connect(process.env.MONGODB_URL)
     try {

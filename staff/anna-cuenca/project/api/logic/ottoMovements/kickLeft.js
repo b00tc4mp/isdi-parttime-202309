@@ -31,12 +31,12 @@ async function kickLeft(ottoInstance, userId, tempo) {
     const servoRightLeg = new Servo(3)
     const servoLeftLeg = new Servo(2)
 
-    // Colocar ambos pies en posición neutral al inicio
+
     servoRightLeg.to(90)
     servoLeftLeg.to(90)
     await delay(tempo)
 
-    // Secuencia de movimientos para simular la patada
+
     let movements = [
         { right: 50, left: 70 },
         { right: 80, left: 70 },
@@ -46,7 +46,7 @@ async function kickLeft(ottoInstance, userId, tempo) {
         { right: 80, left: 70 }
     ]
 
-    // Ejecutar cada movimiento en la secuencia
+
     for (let movement of movements) {
         servoRightLeg.to(movement.right)
         servoLeftLeg.to(movement.left)
@@ -55,7 +55,7 @@ async function kickLeft(ottoInstance, userId, tempo) {
 
     console.log("kickLeft completed")
 
-    // Guardar el movimiento en la base de datos utilizando saveInSequence
+
     try {
         const savedSequence = await saveInSequence({
             type: 'kickLeft',

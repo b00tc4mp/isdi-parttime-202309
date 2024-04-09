@@ -7,9 +7,9 @@ const arduinoLed = () => {
 
         board.on("ready", () => {
             const led = new Led(13)
-            led.blink(500) //el led parpadea cada 500ms
+            led.blink(500)
             console.log('LED should be blinking now.')
-            resolve() // resueve la promesa si todo va bien
+            resolve()
         })
 
         board.on("error", error => {

@@ -5,19 +5,17 @@ import logic from "../logic"
 import { useContext } from '../hooks'
 
 export default function ({ onPublish, onCancel }) {
-    console.log('New Tutorial')
+
 
     const context = useContext()
 
-    // si lo exportamos de esta manera(en la cabecera de la función), se puede exportar la función de 
-    // manera anónima
+
 
     const handleSubmit = event => {
         event.preventDefault()
 
         const title = event.target.querySelector('#title-input').value
-        // comole hemos puesto un id, también se podría hacer: const image = event.target['image-input'].value
-        // si no tuviera un guion, que solo se llamara image, podríamos hacer; const image = event.target.image.value
+
         const text = event.target.querySelector('#text-input').value
 
         try {

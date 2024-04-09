@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
-//son hooks de React para gestionar el estado del component y efectos secundarios, respectivamente
+
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-//son parte de React Router y se utilizan para la navegacion y la gestión de rutas
+
 import logic from '../logic'
 
 import { useContext } from '../hooks'
 
 
-//como en App hemos envuelto 
+
 
 import { Button, Form, Link, Field } from '../library'
 
@@ -18,7 +18,7 @@ import Forum from './Forum'
 
 
 function Home(props) {
-    console.log('Home')
+
     const context = useContext()
     const { setUserRole } = context
 
@@ -30,7 +30,7 @@ function Home(props) {
 
 
 
-    // permiten navegar a diferentes rutas dentro de la aplicación y acceder a la ruta actual, respectivamente
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -49,19 +49,19 @@ function Home(props) {
 
 
     useEffect(() => {
-        console.log('Home -> effect (name)')
+
 
         try {
             logic.retrieveUser()
                 .then(user => {
                     setName(user.name)
-                    console.log(user)
+
                     setRole(user.role)
                     context.setUserRole(user.role)
-                    //context.userRole = user.role
 
 
-                    console.log(context)
+
+
 
 
                 })
@@ -72,9 +72,7 @@ function Home(props) {
 
             context.handleError(error)
         }
-    }, []) //es un array de dependencias, indica a React qué variables o propiedades deben cambiar
-    // para que el efecto secundario se vuelva a ejecutar. Si el array está vacío [] significa
-    // que sólo se ejecutará una vez.
+    }, [])
 
 
 
@@ -94,7 +92,7 @@ function Home(props) {
         event.preventDefault()
 
         navigate('/forum')
-        //si da tiempo crear la working page de Forum
+
     }
 
     function handleHomeClick(event) {
@@ -160,19 +158,10 @@ function Home(props) {
                     <Route path="/controller" element={<Controller />} />
                     <Route path="/tutorials" element={<Tutorials loadTutorials={logic.retrieveTutorials} stamp={stamp} />} />
                     <Route path="/forum" element={<Forum />} />
-                    {/* <Route path="/favs" element={< Posts loadPosts={logic.retrieveFavPosts} onError={context.handleError} />} /> */}
 
-                    {/* <Route path="/users/:userId" element={<UserPosts loadPosts={logic.retrieveUserPosts} stamp={stamp} onError={context.handleError} />} /> */}
-                    {/* <Route path="/" element={< Posts loadPosts={logic.retrievePosts} stamp={stamp} onError={context.handleError} />} /> */}
                 </Routes>
 
-                {/* 
-        <footer className="footer">
 
-            {view === 'new-post' && <NewPost onPublish={handleNewPostPublish} onCancel={handleNewPostCancel} onError={context.handleError} />}
-            {view !== 'new-post' && location.pathname !== '/profile' && location.pathname !== '/favs' && <Button onClick={handleNewPostClick}>+</Button>}
-
-        </footer> */}
 
             </div>
 

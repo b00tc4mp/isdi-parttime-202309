@@ -21,7 +21,7 @@ function registerUser(name, email, password, robot, role = 'user') {
         }
 
         try {
-            await User.create({ name, email, password: hash, robot, role }) //aqui no lo envolvemos en una constante porque no devuelve nada
+            await User.create({ name, email, password: hash, robot, role })
 
         } catch (error) {
             if (error.code === 11000)

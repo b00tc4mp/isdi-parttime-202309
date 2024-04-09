@@ -6,10 +6,10 @@ import { Button, Form, Link, Field } from '../library'
 import { useContext } from '../hooks'
 
 function Tutorials(props) {
-    console.log('Tutorials')
+
     const context = useContext()
     const { userRole } = context
-    console.log(userRole)
+
     const [view, setView] = useState(null)
     const [tutorials, setTutorials] = useState([])
 
@@ -37,7 +37,7 @@ function Tutorials(props) {
     }
 
     useEffect(() => {
-        console.log('Tutorials effect')
+
 
         refreshTutorials()
     }, [props.stamp])

@@ -9,7 +9,10 @@ const arduinoLCD = (message) => {
 
         board.on("ready", () => {
             const lcd = new LCD({
-                controller: "PCF8574A"
+                //controller: "PCF8574A"
+                controller: "PCF8574"
+
+
             });
 
             try {

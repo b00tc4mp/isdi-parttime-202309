@@ -19,11 +19,11 @@ async function snakeMove(ottoInstance, userId) {
 
 
     ottoInstance.oscillators.forEach((oscillator, index) => {
-        const isRightLeg = index % 2 !== 0 // Mirar la pierna que es
+        const isRightLeg = index % 2 !== 0
         oscillator.setParameters({
-            amplitude: isRightLeg ? 20 : 40, // ajustar valores segun pierna
+            amplitude: isRightLeg ? 20 : 40,
             period: 600,
-            phase: isRightLeg ? Math.PI / 2 : 0, // ajustar valores segun pierna
+            phase: isRightLeg ? Math.PI / 2 : 0,
             offset: 90
         })
         oscillator.start()

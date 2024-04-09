@@ -46,33 +46,6 @@ export class Otto {
         })
     }
 
-    // walk(steps, period, direction) {
-    //     return new Promise((resolve) => {
-    //         const dirMultiplier = direction === FORWARD ? 1 : -1 // Asume FORWARD = 1, BACKWARD = -1
-    //         const legAmplitude = 20 // Ajuste de amplitud para las piernas
-    //         const footAmplitude = 20 // Ajuste de amplitud para los pies
-    //         const phaseDiffLeg = 0 // Las piernas se mueven en fase para caminar
-    //         const phaseDiffFoot = Math.PI / 2 * dirMultiplier // Los pies se mueven con una fase desfasada
-
-    //         // Configuramos los osciladores para simular el caminar
-    //         this.oscillators.forEach((oscillator, index) => {
-    //             const isLeg = index < 2; // Primeros dos osciladores son las piernas
-    //             oscillator.setParameters({
-    //                 amplitude: isLeg ? legAmplitude : footAmplitude,
-    //                 period: period,
-    //                 phase: isLeg ? phaseDiffLeg : phaseDiffFoot,
-    //                 offset: 90 // Offset neutral
-    //             });
-    //             oscillator.start();
-    //         });
-
-    //         // Detenemos el caminar después de la duración calculada
-    //         setTimeout(() => {
-    //             this.stopServos() // Detiene y coloca en posición neutral todos los osciladores
-    //             resolve()
-    //         }, steps * period)
-    //     })
-    // }
 
     walkBackward(steps, period) {
         return new Promise((resolve, reject) => {
@@ -106,9 +79,9 @@ export class Otto {
             console.log(`Intentando caminar ${steps} pasos hacia adelante con un periodo de ${period}`)
 
             this.oscillators.forEach((oscillator, index) => {
-                const isLeg = index < 2 // los osciladores son de las piernas
-                const adjustment = isLeg ? 0 : 5 // el ajuste es diferente según sea para pierna o pie
-                const phaseAdjustment = isLeg ? 0 : -Math.PI / 4 // La fase igual
+                const isLeg = index < 2
+                const adjustment = isLeg ? 0 : 5
+                const phaseAdjustment = isLeg ? 0 : -Math.PI / 4
 
                 oscillator.setParameters({
                     amplitude: 20 + adjustment,

@@ -14,7 +14,7 @@ export default function Profile() {
     const context = useContext()
 
 
-    console.log('Profile')
+
 
     const [userData, setUserData] = useState(null)
 
@@ -26,7 +26,7 @@ export default function Profile() {
             .catch(error => {
                 context.handleError(error)
             })
-    }, []) // El array vacío hace que no se pinte más
+    }, [])
 
     const [showChangePassword, setShowChangePassword] = useState(null)
     const [showChangeEmail, setShowChangeEmail] = useState(null)
@@ -104,7 +104,7 @@ export default function Profile() {
     }
 
     if (!userData) {
-        return <div>Loading...</div>; // Mostrar un spinner o mensaje mientras los datos se cargan
+        return <div>Loading...</div>;
     }
 
     return (

@@ -11,7 +11,7 @@ function TEST() {
 }
 
 function CASE() {
-  # Unir todos los parámetros en un solo mensaje
+
   message="$*"
   print_in_orange "\n\nCASE $message"
 }

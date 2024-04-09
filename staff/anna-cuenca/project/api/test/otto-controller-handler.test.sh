@@ -11,12 +11,12 @@ function TEST() {
 }
 
 function CASE() {
-  # Unir todos los parámetros en un solo mensaje
+  
   message="$*"
   print_in_orange "\n\nCASE $message"
 }
 
-# Funciones para interactuar con el servidor
+
 walk_forward() {
     curl -X POST http://localhost:9000/arduino/controller/ottoController -H "Content-Type: application/json" -d '{"action":"walkForward"}'
     echo "Command to walk forward sent."
@@ -72,12 +72,12 @@ clear_lcd() {
     echo "Command to clear LCD sent."
 }
 
-# Inicio del script de test
+
 TEST "otto-controller"
 
 CASE "success on otto controller"
 
-# Bucle para leer la entrada del usuario
+
 while true; do
     read -p "Press 'w' to walk forward, 'b' to walk backward, 'r' to snake move, 's' to stop, 't' to crusaito, 'h' to say hi, 'c' to clear LCD,  'm' to moonwalk, 'e' to end sequence, 'q' to quit: " input
     case $input in

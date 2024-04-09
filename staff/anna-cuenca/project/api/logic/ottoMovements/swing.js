@@ -34,14 +34,13 @@ async function swing(ottoInstance, userId, steps, T, h) {
         await new Promise(resolve => setTimeout(resolve, T / steps));
     }
 
-    // servos en posición neutral
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
 
     console.log("Swing completed")
 
     try {
-        // Guardar el movimiento en la base de datos utilizando saveInSequence
+
         const savedSequence = await saveInSequence({
             type: 'swing',
             name: 'Swing',

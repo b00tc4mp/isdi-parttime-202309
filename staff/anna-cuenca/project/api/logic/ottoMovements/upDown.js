@@ -33,7 +33,7 @@ const upDown = async (ottoInstance, userId, steps, T) => {
 
         if (currentStep >= steps) {
             clearInterval(intervalId)
-            // Volver a la posición neutral al terminar
+
             servoLeftFoot.to(90)
             servoRightFoot.to(90)
 
@@ -41,10 +41,10 @@ const upDown = async (ottoInstance, userId, steps, T) => {
         }
     }, T / steps)
 
-    // Espera a que finalice el movimiento antes de continuar
+
     await new Promise(resolve => setTimeout(resolve, T))
 
-    // Guarda el movimiento en la base de datos una vez completado
+
     try {
         const savedSequence = await saveInSequence({
             type: 'upDown',

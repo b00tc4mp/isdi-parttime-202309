@@ -11,9 +11,9 @@ Control and connect with your Otto robot model effortlessly, featuring interacti
 
 ### Use Cases
 
-Admin (v2)
-- user management
-- forum moderation
+Admin 
+- user management (v1)
+- forum moderation (v1)
 - publish tutorials
 - content management
 
@@ -23,13 +23,13 @@ User
 - send movement order to robot (left/right...)
 - save movement order (histograma)
 - view movement orders
-- update movement order ordinal (v1)
-- execute movement orders (v1)
-- acces to tutorials (v2)
-- save tutorial (v2)
-- fav tutorial / post forum (v2)
+- update movement order ordinal
+- execute movement orders 
+- acces to tutorials 
+- save tutorial (v1)
+- fav tutorial / post forum (v0/v1)
 - user profile
-- private messaging (v2)
+- private messaging (v1)
 
 
 
@@ -43,23 +43,35 @@ User
 - email (String)
 - password (String)
 - robot model (String)
-- role (enum) [Admin, User] (v2)
+- role (enum) [Admin, User] 
 
 Movement
 - id (String)
-- order (number)
-- type (enum [foward, backward, left, right])
+- name (String)
+- type (enum ['forward', 'backward', 'left', 'right', 'jump', 'turnRight', 'turnLeft', 'stop', 'snakeMove', 'crusaito', 'moonwalker', 'swing', 'shakeLegLeft', 'shakeLegRight', 'noGravity', 'kickLeft', 'upDown'])
+- ordinal (number)
+- steps (Number)
+- T (Number)
+- h (Number)
+- dir (String)
+- tempo (Number)
+
+Sequence Movement
+- userId (user.id)
+- movements (array of Movement)
+- createdAt (Data)
 
 
-Tutorial (v2)
+
+Tutorial
 - id (String)
-- title (String)
 - author (String)
+- title (String)
 - text (String)
 - likes (array of user.id)
 
 
-Post in Forum (v2)
+Post in Forum (v1)
 - id (String)
 - author (String)
 - body message (String)
@@ -70,5 +82,14 @@ Post in Forum (v2)
 
 ### Technologies
 
-- bluetooh serial port (npm)
+- johnny-five
 - arduino
+- Firmata
+- tinyMCE
+
+<br>
+
+![Descripción de la imagen](images/readmeFoto0.png)
+![Descripción de la imagen](images/readmeFoto1.png)
+![Descripción de la imagen](images/readmeFoto4.png)
+

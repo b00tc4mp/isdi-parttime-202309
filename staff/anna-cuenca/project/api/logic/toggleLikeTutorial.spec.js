@@ -21,14 +21,14 @@ describe('toggleLikeTutorials', () => {
         await User.deleteMany()
         await Tutorial.deleteMany()
 
-        // Crear usuario de prueba
+
         const user = new User({
             name: 'Test User',
             email: 'test@example.com',
             password: 'password',
             robot: 'TestRobot',
             role: 'user',
-        });
+        })
         await user.save()
         userId = user._id
 
@@ -51,9 +51,9 @@ describe('toggleLikeTutorials', () => {
     })
 
     it('should unlike a tutorial when already liked', async () => {
-        // Primero, agregamos un like al tutorial
+
         await toggleLikeTutorial(userId.toString(), tutorialId.toString())
-        // Luego, quitamos el like
+
         await toggleLikeTutorial(userId.toString(), tutorialId.toString())
         const updatedTutorial = await Tutorial.findById(tutorialId)
         expect(updatedTutorial.likes).not.to.include(userId)

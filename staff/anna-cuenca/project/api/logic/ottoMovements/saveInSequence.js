@@ -2,9 +2,9 @@ import { SequenceMovement } from '../../data/models.js'
 
 const saveInSequence = async (movementDetails, userId) => {
     try {
-        // extraigo los campos 
+
         const { type, name, steps, T, h, dir, tempo } = movementDetails
-        // Y los incluyo en movement para que tenga la información y poder reproducir la secuencia después
+
         const movement = { type, name, steps, T, h, dir, tempo, ordinal: 0 }
 
         const sequence = await SequenceMovement.findOne({ userId }).sort({ createdAt: -1 })

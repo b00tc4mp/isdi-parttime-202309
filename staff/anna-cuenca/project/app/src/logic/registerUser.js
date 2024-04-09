@@ -20,7 +20,7 @@ function registerUser(name, email, password, robot) {
 
     return fetch(`${import.meta.env.VITE_API_URL}/users`, req)
 
-        .catch(error => { throw new SystemError(error.message) }) // este error es por si el servidor está caido
+        .catch(error => { throw new SystemError(error.message) })
         .then(res => {
             if (!res.ok) {
                 return res.json()

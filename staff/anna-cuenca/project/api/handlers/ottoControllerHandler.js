@@ -119,7 +119,7 @@ export default (req, res) => {
                 break;
 
             case 'endSequence':
-                //const { userId } = req.body; // Extraer el userId del cuerpo de la petición
+
 
                 if (!userId) {
                     return res.status(400).json({ message: 'userId is required to end a sequence.' })

@@ -6,8 +6,8 @@ export class Oscillator {
         this.servo = new Servo({ pin, board })
         this.amplitude = 0
         this.offset = 0
-        this.period = 1000 // En milisegundos
-        this.phase = 0 // En radianes
+        this.period = 1000
+        this.phase = 0
         this.currentAngle = 0
         this.lastUpdateTime = 0
         this.isRunning = false
@@ -50,14 +50,13 @@ export class Oscillator {
 
         const phaseProgress = ((now - this.lastUpdateTime) / this.period) * 2 * Math.PI
         const angle = this.amplitude * Math.sin(phaseProgress + this.phase) + this.offset
-        //console.log(angle)
-        //console.log(phaseProgress)
+
 
 
         this.servo.to(angle)
 
 
-        setTimeout(() => this.update(), 50) // Actualiza cada 50ms
+        setTimeout(() => this.update(), 50)
     }
 
     stop() {

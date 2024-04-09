@@ -5,12 +5,12 @@ const { SystemError } = errors
 function ottoController(action, message = '', sequenceId = null, userId) {
     let bodyData = { action: action, userId }
 
-    // Agrega sequenceId al bodyData solo si viene
+
     if (sequenceId) {
         bodyData.sequenceId = sequenceId
     }
 
-    // Si la acción es 'sayHi' y tiene un mensaje, se incluye
+
     if (action === 'sayHi' && message) {
         bodyData.message = message
     }

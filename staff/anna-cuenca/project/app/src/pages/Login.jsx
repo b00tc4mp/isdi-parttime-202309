@@ -8,7 +8,7 @@ import { useContext } from '../hooks'
 
 function Login(props) {
 
-    console.log('Login')
+
 
     const context = useContext()
 
@@ -30,7 +30,7 @@ function Login(props) {
                 .then(() => {
 
                     const userId = sessionStorage.getItem('userId')
-                    console.log(userId)
+
                     props.onSuccess()
                 })
                 .catch(error => context.handleError(error))
@@ -51,37 +51,12 @@ function Login(props) {
         props.onRegisterClick()
     }
 
-    //     return <div className="login-container">
-
-    //         <div className="custom-header">  </div>
-
-    //         <div className="login-container">
-
-    //             <div className="custom-background"> <Container>
-
-    //                 <h1>Login</h1>
-
-    //                 <Form onSubmit={handleSubmit}>
-    //                     <Field id="email-input" type="email">E-mail</Field>
-    //                     <Field id="password-input" type="password">Password</Field>
-
-    //                     <Button type="submit">Login</Button>
-    //                 </Form>
-
-    //                 <Link onClick={handleRegisterClick}>Register</Link>
-
-    //             </Container>
-    //             </div>
-
-    //         </div>
-    //     </div>
-    // }
 
     return (
         <div className="login-wrapper">
 
             <div className="custom-header"></div>
-            <div className="login-container flex flex-col justify-between"> {/* Añadido flex, flex-col y justify-between */}
+            <div className="login-container flex flex-col justify-between">
                 <Container>
                     <h1 className="h1-robotic">Login</h1>
                     <Form onSubmit={handleSubmit}>
@@ -92,7 +67,7 @@ function Login(props) {
                     </Form>
                     <Link onClick={handleRegisterClick}>Register</Link>
                 </Container>
-                <img src="/ottoPerfil2.gif" alt="Descripción del GIF" /> {/* Añadido self-center y mb-4 */}
+                <img src="/ottoPerfil2.gif" alt="Descripción del GIF" />
             </div>
         </div>
     )

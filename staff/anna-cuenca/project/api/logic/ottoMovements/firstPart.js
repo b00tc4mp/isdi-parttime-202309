@@ -32,7 +32,7 @@ async function firstPart(ottoInstance) {
 
     console.log("Otto is preparing to dance first part")
 
-    // Inicializa los servos
+
     const servoLeftLeg = new Servo(2)
     const servoRightLeg = new Servo(3)
     const servoLeftFoot = new Servo(4)
@@ -111,7 +111,7 @@ async function firstPart(ottoInstance) {
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
-    // Finaliza la lógica del salto
+
     servoLeftLeg.to(90)
     servoRightLeg.to(90)
     servoLeftFoot.to(90)
@@ -137,7 +137,7 @@ async function firstPart(ottoInstance) {
         await new Promise(resolve => setTimeout(resolve, T / steps))
     }
 
-    // Devuelvo los servos a la posición neutral
+
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
 
@@ -158,11 +158,11 @@ async function firstPart(ottoInstance) {
     await new Promise(resolve => setTimeout(resolve, 500))
 
     ottoInstance.oscillators.forEach((oscillator, index) => {
-        const isRightLeg = index % 2 !== 0 // Mirar la pierna que es
+        const isRightLeg = index % 2 !== 0
         oscillator.setParameters({
-            amplitude: isRightLeg ? 20 : 40, // ajustar valores segun pierna
+            amplitude: isRightLeg ? 20 : 40,
             period: 600,
-            phase: isRightLeg ? Math.PI / 2 : 0, // ajustar valores segun pierna
+            phase: isRightLeg ? Math.PI / 2 : 0,
             offset: 90
         })
         oscillator.start()
@@ -184,7 +184,7 @@ async function firstPart(ottoInstance) {
         { right: 80, left: 70 }
     ]
 
-    // Ejecutar cada movimiento en la secuencia
+
     for (let movement of movements) {
         servoRightLeg.to(movement.right)
         servoLeftLeg.to(movement.left)
@@ -226,73 +226,73 @@ async function firstPart(ottoInstance) {
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(50)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(90)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(50)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(90)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(120)//
+    servoLeftFoot.to(120)
     servoRightFoot.to(50)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(90)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(120)//
+    servoLeftFoot.to(120)
     servoRightFoot.to(50)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(150)//
+    servoLeftFoot.to(150)
     servoRightFoot.to(90)
 
     await new Promise(resolve => setTimeout(resolve, 500))
 
 
-    servoLeftLeg.to(90) //
+    servoLeftLeg.to(90)
     servoRightLeg.to(90)
-    servoLeftFoot.to(90)//
+    servoLeftFoot.to(90)
     servoRightFoot.to(90)
 
     await new Promise(resolve => setTimeout(resolve, 500))
@@ -306,7 +306,7 @@ async function firstPart(ottoInstance) {
 
     tempo = 2000
 
-    // hago todas las posiciones del vector
+
     for (const position of positions) {
         const servoLeftFoot = new Servo(4)
         const servoRightFoot = new Servo(5)
@@ -336,7 +336,7 @@ async function firstPart(ottoInstance) {
 
         if (currentStep >= steps) {
             clearInterval(intervalId)
-            // Volver a la posición neutral al terminar
+
             servoLeftFoot.to(90)
             servoRightFoot.to(90)
 
@@ -346,16 +346,16 @@ async function firstPart(ottoInstance) {
 
 
     await new Promise(resolve => setTimeout(resolve, 2000))
-    // caminar hacia atras
+
 
     steps = 2
     let period = 2000
 
 
     ottoInstance.oscillators.forEach((oscillator, index) => {
-        const isLeg = index < 2 // Suponiendo que los primeros dos osciladores controlan las piernas
-        const adjustment = isLeg ? 0 : 5 // Ajuste basado en si el oscilador controla una pierna o no
-        const phaseAdjustment = Math.PI + (isLeg ? 0 : Math.PI / 4) // Ajuste de fase
+        const isLeg = index < 2
+        const adjustment = isLeg ? 0 : 5
+        const phaseAdjustment = Math.PI + (isLeg ? 0 : Math.PI / 4)
 
         oscillator.setParameters({
             amplitude: 20 + adjustment,
@@ -366,15 +366,15 @@ async function firstPart(ottoInstance) {
         oscillator.start()
     })
 
-    // Espera por 'period * steps' milisegundos antes de detener todos los osciladores
+
     await new Promise(resolve => setTimeout(() => {
-        ottoInstance.oscillators.forEach(oscillator => oscillator.stop()) // Detiene cada oscilador
-        resolve() // Resuelve la promesa, lo que permite que la ejecución continúe
+        ottoInstance.oscillators.forEach(oscillator => oscillator.stop())
+        resolve()
     }, period * steps))
 
 
 
-    //// 
+
     await new Promise(resolve => setTimeout(resolve, 500))
 
     steps = 10
@@ -403,7 +403,7 @@ async function firstPart(ottoInstance) {
 
 
     await new Promise(resolve => setTimeout(resolve, 500))
-    // envolvemos setTimeout en una promesa, porque no devuelve ninguna y por eso no podemos usa async/await
+
 
     steps = 4
     T = 1000
@@ -423,7 +423,7 @@ async function firstPart(ottoInstance) {
         await new Promise(resolve => setTimeout(resolve, T / steps));
     }
 
-    // servos en posición neutral
+
 
     await new Promise(resolve => setTimeout(resolve, 500))
 

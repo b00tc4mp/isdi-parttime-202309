@@ -794,6 +794,22 @@
 
   }
 
+  .button-finalDance {
+    @apply bg-zinc-50;
+    background-image: url('/ottoParty1.png');
+
+    width: 33px;
+    /* Ajusta según el tamaño de tu imagen o como prefieras */
+    height: 34px;
+
+
+  }
+
+  .button-finalDance:hover {
+    background-image: url('/ottoParty2.png');
+    /* Cambia a la imagen de hover */
+  }
+
 
 
   /* TUTORIALS */

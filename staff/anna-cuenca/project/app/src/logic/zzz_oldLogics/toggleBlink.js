@@ -7,7 +7,7 @@ function toggleBlink() {
         body: JSON.stringify({ action: 'toggleBlink' }),
     })
         .then(response => response.json())
-        .then(data => console.log("Blink toggled:", data))
+        .then(data => //console.log("Blink toggled:", data))
         .catch(error => console.error('Error:', error));
 }
 

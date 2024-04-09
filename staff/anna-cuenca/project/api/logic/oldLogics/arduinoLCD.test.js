@@ -6,7 +6,7 @@ import arduinoLCD from './arduinoLCD.js'
 (async () => {
     await mongoose.connect(process.env.MONGODB_URL)
     try {
-        await arduinoLCD('Hola qué tal')
+        await arduinoLCD('hola :D')
         console.log('monitor is working')
     } catch (error) {
         console.log(error)

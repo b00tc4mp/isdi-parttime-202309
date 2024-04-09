@@ -15,7 +15,7 @@ async function stop(ottoInstance, userId) {
         throw new Error("Otto is not initialized")
     }
 
-    // para servos
+
     ottoInstance.stopServos()
     console.log("Otto has stopped")
 

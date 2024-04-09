@@ -14,7 +14,7 @@ describe('authenticateUser', () => {
     beforeEach(async () => await User.deleteMany())
 
     it('succeeds on correct credentials', async () => {
-        // si el expect falla, va a ser un throw, captura el error el it, tiene un catch el propio mocha por dento
+
         const name = random.name()
         const email = random.email()
         const password = random.password()

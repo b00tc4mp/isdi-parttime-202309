@@ -17,7 +17,7 @@ export default function Controller() {
     useEffect(() => {
         logic.retrieveUserInfo()
             .then(user => {
-                console.log(user)
+
                 setUserData({ name: user.name, robot: user.robot })
             })
             .catch(error => {
@@ -36,7 +36,7 @@ export default function Controller() {
 
     const handleAction = async (action) => {
         const userId = session.sessionUserId
-        console.log(userId)
+
 
         if (!userId) {
             console.error('No userId found')
@@ -51,10 +51,10 @@ export default function Controller() {
                 await logic.ottoController(action, messagePart1, null, userId)
 
                 setTimeout(async () => {
-                    // Limpiar la pantalla
+
                     await logic.ottoController('clearLCD', '', null, userId)
 
-                    // Mensaje parte 2
+
                     setTimeout(async () => {
                         await logic.ottoController(action, messagePart2, null, userId)
                     }, 1000)
@@ -62,17 +62,17 @@ export default function Controller() {
 
             } else if (action === 'endSequence') {
 
-                //esto lo podría quitar...
+
 
                 await logic.ottoController(action, '', null, userId)
-                console.log(`${action} action executed successfully`)
 
-                //actualizo 
+
+
                 setReloadSequences(prev => !prev)
             } else {
 
                 await logic.ottoController(action, '', null, userId)
-                console.log(`${action} action executed successfully`)
+
                 setReloadSequences(prev => !prev)
             }
         } catch (error) {
@@ -84,10 +84,10 @@ export default function Controller() {
 
 
     function handlePlaySequence(sequenceId) {
-        //llamo a la logica de ejecutar la funcion 
+
         logic.ottoController('executeSequenceById', '', sequenceId)
             .then(response => {
-                console.log('Sequence executed', response)
+
             })
             .catch(error => {
                 console.error('Error al ejecutar la secuencia:', error)
@@ -100,7 +100,7 @@ export default function Controller() {
 
         logic.deleteSequence(sequenceId)
             .then(response => {
-                console.log('Sequence deleted')
+
                 setReloadSequences(prev => !prev)
             })
             .catch(error => {
@@ -115,10 +115,10 @@ export default function Controller() {
     function handleEditSequence(sequenceId) {
 
         if (editingSequenceId === sequenceId) {
-            //si el usuario vuelve a darle al boton, se desactiva
+
             setEditingSequenceId(null)
         } else {
-            //sino activa la edicion
+
             setEditingSequenceId(sequenceId)
 
         }
@@ -127,7 +127,7 @@ export default function Controller() {
     function handleEditMovement(sequenceId, movementId, action) {
         logic.editSequence(sequenceId, movementId, action)
             .then(() => {
-                // recargamos las secuencias
+
                 setReloadSequences(prev => !prev)
             })
             .catch(error => {
@@ -141,18 +141,18 @@ export default function Controller() {
             <div className="sequences-popup">
                 <h3 className="h3-robotic-controller">Sequences</h3>
                 {sequences.length > 0 ? sequences.map(sequence => (
-                    // <div key={sequence.id} style={{ marginBottom: '20px' }}>
+
                     <div key={sequence.id} className="mb-5 p-4 border border-gray-200 rounded-lg shadow">
-                        {/* <h4>Sequence ID: {sequence.id}</h4> */}
+
                         <p className="created-at">Created at: {new Date(sequence.createdAt).toLocaleString()}</p>
                         <h5 className="h5-movements">Movements:</h5>
                         <ul>
                             <div className="movements-list">
                                 {sequence.movements.map((movement, index) => (
                                     <li key={movement.id}>
-                                        {/* {`${movement.name} (Type: ${movement.type}, Ordinal: ${movement.ordinal})`} */}
+
                                         {`${movement.name}`}
-                                        {/* <p>Index: {index}</p> */}
+
 
                                         {editingSequenceId === sequence.id && (
                                             <>
@@ -185,7 +185,7 @@ export default function Controller() {
             <h1 className="h1-robotic-controller">Control your robot</h1>
             <div className="controller-wrapper">
                 <h3 className="h3-robotic-controller">Direction</h3>
-                {/* Sección de acciones y demás componentes */}
+
                 <div className="controller-actions">
                     <button className="button-forward button" onClick={() => handleAction('walkForward')}></button>
                     <button className="button-stop button" onClick={() => handleAction('stop')}></button>
@@ -213,11 +213,11 @@ export default function Controller() {
                     <button className="button-endSequence" onClick={() => handleAction('endSequence')}>End Sequence</button>
 
 
-                    {/* Botón para mostrar/ocultar secuencias */}
+
                     <button className="button-showSequence" onClick={toggleSequencesVisibility}>Show Sequences</button>
                 </div>
                 <div className="finalDance">
-                    <button className="button-finalDance" onClick={() => handleAction('finalDance')}>Party Time</button>
+                    <button className="button-finalDance" onClick={() => handleAction('finalDance')}></button>
                 </div>
             </div>
         </div>

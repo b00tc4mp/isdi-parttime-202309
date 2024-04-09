@@ -36,14 +36,14 @@ async function moonwalker(ottoInstance, userId, steps, T, h, dir) {
         await new Promise(resolve => setTimeout(resolve, T / steps))
     }
 
-    // Devuelvo los servos a la posición neutral
+
     servoLeftFoot.to(90)
     servoRightFoot.to(90)
 
     console.log("Moonwalk completed")
 
     try {
-        // Guardar el movimiento en la base de datos utilizando saveInSequence
+
         const savedSequence = await saveInSequence({
             type: 'moonwalker',
             name: 'Moonwalker',

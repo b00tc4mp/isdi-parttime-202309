@@ -15,14 +15,14 @@ const apiKey = import.meta.env.VITE_API_KEY
 
 
 function Tutorial(props) {
-    console.log(props.tutorial)
+
     const [editTextTutorial, setEditTextTutorial] = useState(null)
     const [title, setTitle] = useState(props.tutorial.title)
     const [text, setText] = useState(props.tutorial.text)
 
     const editorRef = useRef(null)
 
-    //const { handleError } = useContext(Context)
+
     const context = useContext()
     const navigate = useNavigate()
     const tutorial = props.tutorial
@@ -39,7 +39,7 @@ function Tutorial(props) {
                 .catch(error => context.handleError(error))
 
         } catch (error) {
-            //alert(error.message)
+
             context.handleError(error)
         }
     }
@@ -48,7 +48,7 @@ function Tutorial(props) {
     function handleEditSubmit(event) {
         event.preventDefault()
         const newTitle = title
-        const newText = editorRef.current.getContent() // Obtengo el contenido del editor
+        const newText = editorRef.current.getContent()
         setText(newText)
         try {
             logic.editTutorial(props.tutorial.id, { title: newTitle, text: newText })
@@ -82,14 +82,14 @@ function Tutorial(props) {
                     })
                     .catch(error => context.handleError(error))
             } catch (error) {
-                //alert(error.message)
+
                 context.handleError(error)
             }
         }
     }
     const handleUserClick = event => {
         event.preventDefault()
-        //navigate(`/users/${props.post.author.id}`)
+
     }
 
 
@@ -135,13 +135,13 @@ function Tutorial(props) {
                 )}
 
                 <div className="tutorial-actions">
-                    {/* <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>{props.tutorial.liked ? '🤖' : '🤍'} {props.tutorial.likes.length}</button> */}
+
                     <button className="button-likeTutorial" onClick={handleToggleLikePostClick}>
                         {props.tutorial.liked ?
                             (<img src="ottoLikePeq2.png" alt="Liked" />) :
                             (<img src="ottoDislike2.png" alt="Not Liked" />)
                         }
-                        {/* {props.tutorial.likes.length} */}
+
                     </button>
                     {context.userRole === 'admin' && (
                         <>

@@ -1,4 +1,4 @@
-window.console2 = { // usando windows, lo que hacemos que es que se cargue globalmente
+window.console2 = {
     log(message, type = 'debug') {
         let color = 'yellowgreen'
         let back = 'transparent'
@@ -17,7 +17,7 @@ window.console2 = { // usando windows, lo que hacemos que es que se cargue globa
             back = 'tomato'
         }
 
-        console.log(`%c${message}`, `color: ${color}; background-color: ${back}; font-weight: bold;`)
+
 
     }
 }

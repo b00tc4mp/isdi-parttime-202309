@@ -17,22 +17,22 @@ async function jump(ottoInstance, userId) {
 
     console.log("Otto is preparing to jump")
 
-    // Inicializa los servos
+
     const servoLeftLeg = new Servo(2)
     const servoRightLeg = new Servo(3)
     const servoLeftFoot = new Servo(4)
     const servoRightFoot = new Servo(5)
 
-    // Lógica para hacer que Otto salte
+
     servoLeftLeg.to(90)
     servoRightLeg.to(90)
     servoLeftFoot.to(150)
     servoRightFoot.to(30)
 
-    // Espera antes de finalizar la lógica del salto
+
     await new Promise(resolve => setTimeout(resolve, 2000))
 
-    // Finaliza la lógica del salto
+
     servoLeftLeg.to(90)
     servoRightLeg.to(90)
     servoLeftFoot.to(90)
@@ -40,7 +40,7 @@ async function jump(ottoInstance, userId) {
 
     console.log("Otto has jumped")
 
-    // Guardar el movimiento en la base de datos utilizando saveInSequence
+
     try {
         const savedSequence = await saveInSequence({
             type: 'jump',

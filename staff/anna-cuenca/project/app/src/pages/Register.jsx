@@ -7,7 +7,7 @@ import logic from '../logic'
 import { useContext } from '../hooks'
 
 function Register(props) {
-    console.log('Register')
+
 
     const context = useContext()
 
@@ -24,7 +24,7 @@ function Register(props) {
         const password = passwordInput.value
         const robot = robotInput.value
 
-        // console.log(name, email, password)
+
 
         try {
             logic.registerUser(name, email, password, robot)
@@ -32,7 +32,7 @@ function Register(props) {
                 .catch(error => context.handleError(error))
 
         } catch (error) {
-            //alert(error.message)
+
 
             context.handleError(error)
         }
@@ -41,7 +41,7 @@ function Register(props) {
     function handleLoginClick(event) {
         event.preventDefault()
 
-        // console.log('login click')
+
         props.onLoginClick()
     }
 

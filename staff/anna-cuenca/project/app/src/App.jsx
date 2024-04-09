@@ -23,7 +23,7 @@ const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
 
 
 function App() {
-  console.log('App')
+
 
 
   const [level, setLevel] = React.useState(null)
@@ -86,7 +86,7 @@ function App() {
   }
 
   const setUserRoleInContext = (role) => {
-    setUserRole(role) // Función para actualizar el role en el contexto
+    setUserRole(role)
   }
 
 
@@ -100,7 +100,7 @@ function App() {
 
 
 
-  console.log(context)
+
   return <>
     <Context.Provider value={context}>
       {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAccepted} />}

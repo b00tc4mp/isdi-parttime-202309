@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
-// trae la librería dotenv y config lo que hace es leer el archivo .env, lee las variables que hay
-// y te las pone en process.env
+
 
 import mongoose from 'mongoose'
 import express from 'express'
@@ -34,7 +33,7 @@ import {
 
 } from './handlers/index.js'
 
-mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
+mongoose.connect(process.env.MONGODB_URL)
 
     .then(() => {
         const server = express()
@@ -114,10 +113,7 @@ mongoose.connect(process.env.MONGODB_URL) //hagola conexión con moongose
 
         server.post('/arduino/controller/ottoController', jsonBodyParser, ottoControllerHandler)
 
-        //server.post('/arduino/controller/lcd', jsonBodyParser, arduinoLCDHandler)
 
-
-        //server.post('/arduino/controller/colors', jsonBodyParser, arduinoRgbLedHandler)
 
         server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 

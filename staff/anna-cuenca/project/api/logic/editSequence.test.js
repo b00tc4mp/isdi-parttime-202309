@@ -38,7 +38,7 @@ dotenv.config();
                     await editSequence(sequenceId, movementId, 'moveDown')
                     console.log("Movimiento movido hacia abajo.")
                     break;
-                case '\u0003': // Detecta la combinación de teclas Ctrl+C para terminar el programa
+                case '\u0003':
                     console.log("Saliendo...")
                     process.exit()
                     break;

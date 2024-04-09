@@ -39,7 +39,7 @@ async function noGravity(ottoInstance, userId) {
 
     const tempo = 2000
 
-    // hago todas las posiciones del vector
+
     for (const position of positions) {
         const servoLeftFoot = new Servo(4)
         const servoRightFoot = new Servo(5)
@@ -53,7 +53,7 @@ async function noGravity(ottoInstance, userId) {
     console.log("noGravity completed")
 
     try {
-        // Guardar el movimiento en la base de datos utilizando saveInSequence
+
         const savedSequence = await saveInSequence({
             type: 'noGravity',
             name: 'No Gravity',

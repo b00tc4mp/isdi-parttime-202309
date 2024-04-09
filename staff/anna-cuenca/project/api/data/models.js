@@ -11,7 +11,7 @@ const user = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true //crea un indice para que no deje registrar a más usuarios con el mismo email 
+        unique: true
     },
     password: {
         type: String,
@@ -60,7 +60,7 @@ const movement = new Schema({
 const sequenceMovement = new Schema({
     userId: {
         type: ObjectId,
-        //required: true,
+
         ref: 'User'
     },
     movements: [movement],
@@ -75,7 +75,7 @@ const tutorial = new Schema({
     author: {
         type: ObjectId,
         required: true,
-        ref: 'User' //le decimos que el objectId hace referencia a usuario
+        ref: 'User'
     },
     title: {
         type: String,
@@ -96,7 +96,7 @@ const tutorial = new Schema({
     }]
 })
 
-//tenemos que usar una clase para construir usuarios
+
 const User = model('User', user)
 const Tutorial = model('Tutorial', tutorial)
 const Movement = model('Movement', movement)

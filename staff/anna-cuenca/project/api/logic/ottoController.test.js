@@ -13,21 +13,21 @@ const RIGHT = -1
 dotenv.config();
 
 (async () => {
-    // Conexión a la base de datos
+
     await mongoose.connect(process.env.MONGODB_URL)
 
-    // Crear una instancia del controlador de Otto
+
     const ottoController = new OttoController()
 
-    // Esperar a que la placa esté lista
+
     ottoController.board.on("ready", async () => {
         console.log("Control de Otto activado. Presiona 'W' para caminar, 'S' para detener, 'B' para caminar hacia atrás, 'H' para shake leg, 'R' para girar a la derecha, 'L' para girar a la derecha, 'J' para saltar, 'M' para snakeMove,  'A' para reproducir secuencia, 'H' para decir hola en el LCD, 'C' para limpiar pantalla.");
 
-        process.stdin.setRawMode(true) // Esto permite leer las teclas presionadas sin necesidad de presionar enter
+        process.stdin.setRawMode(true)
         process.stdin.resume()
         process.stdin.setEncoding('utf8')
 
-        // executeSequenceById
+
 
         process.stdin.on('data', async (key) => {
             switch (key.toLowerCase()) {
@@ -112,7 +112,7 @@ dotenv.config();
 
 
 
-                case 'x': //hacer shake leg con la derecha
+                case 'x':
                     console.log("Swing")
                     try {
                         await ottoController.swing('65d8d9dffdfc051c2e6c1e96', 4, 1000, 40)
@@ -121,25 +121,8 @@ dotenv.config();
                     }
                     break;
 
-                // case 'h': //hacer shake leg con la derecha
-                //     console.log("Shake leg")
-                //     try {
-                //         await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 3, 1000, RIGHT)
-                //     } catch (error) {
-                //         console.error('Error al intentar girar a la derecha y caminar:', error)
-                //     }
-                //     break;
 
-                // case 'i': //hacer shake leg con la derecha
-                //     console.log("Shake leg")
-                //     try {
-                //         await ottoController.shakeLeg('65d8d9dffdfc051c2e6c1e96', 4, 1000, LEFT)
-                //     } catch (error) {
-                //         console.error('Error al intentar girar a la derecha y caminar:', error)
-                //     }
-                //     break;
-
-                case 'r': // girar a la derecha y caminar
+                case 'r':
                     console.log("Girando a la derecha")
                     try {
                         await ottoController.turn(7, 2000, RIGHT)
@@ -147,7 +130,7 @@ dotenv.config();
                         console.error('Error al intentar girar a la derecha y caminar:', error)
                     }
                     break;
-                case 'l': // girar a la derecha y caminar
+                case 'l':
                     console.log("Girando a la izquierda")
                     try {
                         await ottoController.turn(7, 2000, LEFT)
@@ -156,7 +139,7 @@ dotenv.config();
                     }
                     break;
 
-                case 'j': // saltar
+                case 'j':
                     console.log("Saltando")
                     try {
                         await ottoController.jump('65d8d9dffdfc051c2e6c1e96')
@@ -164,7 +147,7 @@ dotenv.config();
                         console.error('Error al intentar saltar:', error)
                     }
                     break;
-                case 'g': // saltar
+                case 'g':
                     console.log("Gravity")
                     try {
                         await ottoController.noGravity('65d8d9dffdfc051c2e6c1e96')
@@ -173,7 +156,7 @@ dotenv.config();
                     }
                     break;
 
-                case 'k': // kickleft
+                case 'k':
                     console.log("Kickleft")
                     try {
                         await ottoController.kickLeft('65d8d9dffdfc051c2e6c1e96', 1000)
@@ -182,7 +165,7 @@ dotenv.config();
                     }
                     break;
 
-                case 'm': // snakeMove
+                case 'm':
                     console.log("Movimiento Snake")
                     try {
                         await ottoController.snakeMove('65d8d9dffdfc051c2e6c1e96')
@@ -190,7 +173,7 @@ dotenv.config();
                         console.error('Error al intentar saltar:', error)
                     }
                     break;
-                case 'z': // activar el LCD
+                case 'z':
                     console.log("Diciendo hola...")
                     try {
                         await ottoController.sayHi("¡Hola, soy Otto!")
@@ -199,7 +182,7 @@ dotenv.config();
                     }
                     break;
 
-                case 'p': // activar el LCD
+                case 'p':
                     console.log("upDown")
                     try {
                         await ottoController.upDown('65d8d9dffdfc051c2e6c1e96', 4, 1000)
@@ -208,7 +191,7 @@ dotenv.config();
                     }
                     break;
 
-                case 'c': // limpiar el LCD
+                case 'c':
                     console.log("Limpiando pantalla")
                     try {
                         await ottoController.clearLCD()
@@ -216,7 +199,7 @@ dotenv.config();
                         console.error('Error al intentar borrar el contenido LCD:', error)
                     }
                     break;
-                case '\u0003': // Detecta la combinación de teclas Ctrl+C para terminar el programa
+                case '\u0003':
                     console.log("Saliendo...")
                     process.exit()
                     break;

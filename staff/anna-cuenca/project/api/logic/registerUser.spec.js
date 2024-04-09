@@ -1,9 +1,9 @@
 
 import dotenv from 'dotenv'
 dotenv.config()
-// primero nos traemos mongoose para conectar los modelos y conectar la base de datos
+
 import mongoose from "mongoose";
-// nos traemos los expect de chai
+
 import { expect } from 'chai'
 import bcrypt from 'bcryptjs'
 import random from './helpers/random.js'
@@ -12,8 +12,8 @@ import { errors } from 'com'
 import { User } from '../data/models.js'
 const { DuplicityError } = errors
 
-describe('registerUser', () => { //describimos el test, le ponemos un título
-    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL)) //es un poco redundante usar async / await aqui, porque el before ya es una promesa
+describe('registerUser', () => {
+    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
     beforeEach(async () => await User.deleteMany())
     it('succeds on new user', async () => {
         const name = random.name()
@@ -23,7 +23,7 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
         await registerUser(name, email, password, robot)
 
         const user = await User.findOne({ email })
-        //comprobamos que realmente el usuario que acabmos de registrar est´en la base de dato
+
 
         expect(user).to.exist
         expect(user.name).to.equal(name)
@@ -33,8 +33,6 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
         const match = await bcrypt.compare(password, user.password)
         expect(match).to.be.true
 
-
-        //si se registra bien, devuelve la promesa
     })
 
     it('fails on already existing user', async () => {
@@ -58,5 +56,5 @@ describe('registerUser', () => { //describimos el test, le ponemos un título
 
     })
 
-    after(async () => await mongoose.disconnect()) //así desconecta cuando terminan todos los tests 
+    after(async () => await mongoose.disconnect())
 })
