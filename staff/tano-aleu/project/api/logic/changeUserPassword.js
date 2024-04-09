@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 
 import { User } from '../data/models.js'
 import { validate, errors } from 'com'
-const { ContentError, NotFoundError, CredentialsError, SystemError } = errors
+const { ContentError, NotFoundError, CredentialsError, SystemError, TypeError } = errors
 
 function changeUserPassword(userId, password, newPassword, newPasswordConfirm) {
     validate.id(userId, 'user id')
@@ -33,6 +33,12 @@ function changeUserPassword(userId, password, newPassword, newPasswordConfirm) {
 
         if (!match)
             throw new CredentialsError('wrong password')
+
+        // Verifica si la nueva contraseña es igual a la actual
+        const samePassword = await bcrypt.compare(newPassword, user.password);
+        if (samePassword) {
+            throw new ContentError('the new password must be different from the current one');
+        }
 
         let hash
         try {

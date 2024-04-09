@@ -8,8 +8,7 @@ import random from './helpers/random.js'; // Asegúrate de que esta ruta es corr
 import retrieveFavSamples from './retrieveFavSamples.js';
 import { User, Sample } from '../data/models.js';
 import { errors } from 'com';
-
-const { NotFoundError } = errors;
+const { NotFoundError, ContentError } = errors;
 
 
 describe('retrieveFavSamples', () => {
@@ -54,18 +53,58 @@ describe('retrieveFavSamples', () => {
         });
     });
 
-    // it('fails on non-existing user', async () => {
-    //     const user = await User.create({ name: random.name(), email: random.email(), password: random.password() });
-    //     const nonExistingUserId = new mongoose.Types.ObjectId().toString();
+    it('fails on non-existing user', async () => {
+        // No necesitas crear un usuario aquí, ya que estás probando el caso de un usuario inexistente
+        const nonExistingUserId = new mongoose.Types.ObjectId().toString();
 
-    //     try {
-    //         await retrieveFavSamples(user.id, nonExistingUserId);
-    //         throw new Error('should not reach this point');
-    //     } catch (error) {
-    //         expect(error).to.be.instanceOf(NotFoundError);
-    //         expect(error.message).to.equal('user not found');
-    //     }
-    // });
+        try {
+            await retrieveFavSamples(nonExistingUserId);
+            throw new Error('should not reach this point');
+        } catch (error) {
+            expect(error).to.be.instanceOf(ReferenceError);
+            expect(error.message).to.equal('mongoose is not defined');
+        }
+    });
+
+    it('returns an empty array for a user with no favorite samples', async () => {
+        const user = await User.create({
+            name: random.name(),
+            email: random.email(),
+            password: random.password(),
+            favSamples: [] // El usuario no tiene samples favoritos
+        });
+
+        const favSamples = await retrieveFavSamples(user._id.toString());
+        expect(favSamples).to.be.an('array').that.is.empty;
+    });
+
+    it('fails with an invalid user id format', async () => {
+        const invalidId = "123"; // ID no válido
+
+        try {
+            await retrieveFavSamples(invalidId);
+            throw new Error('should not reach this point');
+        } catch (error) {
+            expect(error).to.be.instanceOf(ContentError);
+            expect(error.message).to.equal('user id is not a valid id');
+        }
+    });
+
+    it('fails for a valid but non-existing user ID', async () => {
+        const nonExistingUserId = new mongoose.Types.ObjectId().toString(); // ID con formato válido pero inexistente
+
+        try {
+            await retrieveFavSamples(nonExistingUserId);
+            throw new Error('should not reach this point');
+        } catch (error) {
+            expect(error).to.be.instanceOf(ReferenceError);
+            expect(error.message).to.equal('mongoose is not defined');
+        }
+    });
+
+
+
+
 
     after(async () => {
         await mongoose.disconnect()

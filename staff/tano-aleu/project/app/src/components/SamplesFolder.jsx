@@ -8,6 +8,7 @@ import logic from '../logic';
 import logo from '../assets/synqple.logo.png';
 
 function SamplesFolder() {
+    console.log('SampleFolder')
     const [samples, setSamples] = useState([]);
     const context = useContext();
 

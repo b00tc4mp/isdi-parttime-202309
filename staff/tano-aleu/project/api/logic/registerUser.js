@@ -9,9 +9,12 @@ const { SystemError, DuplicityError } = errors
 function registerUser(name, email, password) {
     validate.text(name, 'name')
     validate.email(email, 'email')
+    validate.password(password, 'password')
     validate.text(password, 'password')
 
     return (async () => {
+
+        email = email.toLowerCase();
 
         let hash
         try {

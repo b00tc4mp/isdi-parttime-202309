@@ -8,6 +8,7 @@ import logo from '../assets/synqple.logo.png';
 import logoutUser from '../logic/logoutUser';
 
 const Profile = () => {
+    console.log('Profile')
     const navigate = useNavigate();
     const [user, setUser] = useState({ id: null, name: 'Loading...' }); // Estado inicial del usuario
 
@@ -109,7 +110,7 @@ const Profile = () => {
                 <Button className="back-button mt-20" onClick={handleBackToSettings}>Back to Settings</Button>
 
                 <footer className="flex justify-center">
-                    <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
+                    <img src={logo} alt="Logo" className="w-40 h-auto mt-40  justify-center" />
 
                 </footer>
             </div>

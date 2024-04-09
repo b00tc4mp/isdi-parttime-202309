@@ -6,6 +6,7 @@ import buttonChevronRight from '../assets/settings_buttons/ChevronRight.png';
 
 
 function Settings() {
+    console.log('Settings')
     // Estado para controlar las preferencias
     // Estado separado para cada opción
     const [option1, setOption1] = useState(false);

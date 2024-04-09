@@ -6,6 +6,7 @@ import versionLogo from '../assets/synqple.logo.png'
 import logoSolo from '../assets/synqple.logo.SOLO.png'
 
 const Welcome = () => {
+    console.log('Welcome')
     const navigate = useNavigate();
 
     const handleLogin = () => {

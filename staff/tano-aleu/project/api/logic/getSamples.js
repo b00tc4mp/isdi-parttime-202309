@@ -6,9 +6,17 @@ async function getSamples(userId) {
         if (!userId) throw new NotFoundError('User ID not provided');
 
         // Primero, encuentra al usuario para obtener su lista de samples favoritos
-        const user = await User.findById(userId);
-        if (!user) throw new NotFoundError('User not found');
-
+        let user;
+        try {
+            user = await User.findById(userId);
+            if (!user) throw new NotFoundError('User not found');
+        } catch (error) {
+            if (error.name === 'CastError') {
+                throw new NotFoundError('User not found'); // Manejo específico para errores de casteo
+            } else {
+                throw error; // Re-lanza el error para ser capturado por el bloque catch exterior
+            }
+        }
         // Obtener tanto el nombre como el filePath de cada sample
         const samples = await Sample.find({}, 'name filePath bpm duration').lean();
 

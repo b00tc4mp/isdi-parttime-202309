@@ -11,12 +11,15 @@ function authenticateUser(email, password) {
     validate.password(password, 'password')
 
     return (async () => {
+
+        email = email.toLowerCase();
+
         let user
 
         try {
-            user = await User.findOne({ email })
+            user = await User.findOne({ email: email.toLowerCase() });
         } catch (error) {
-            throw new SystemError(error.message)
+            throw new SystemError(error.message);
         }
 
         if (!user)
@@ -25,15 +28,16 @@ function authenticateUser(email, password) {
         let match
 
         try {
-            match = await bcrypt.compare(password, user.password)
+            match = await bcrypt.compare(password.trim(), user.password);
         } catch (error) {
-            throw new SystemError(error.message)
+            throw new SystemError(error.message);
         }
 
         if (!match)
             throw new CredentialsError('wrong password')
 
         return user.id
+
 
     })()
 

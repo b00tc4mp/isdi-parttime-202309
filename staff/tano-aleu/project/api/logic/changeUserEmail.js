@@ -34,12 +34,17 @@ function changeUserEmail(userId, newEmail, newEmailConfirm, password) {
         if (!match)
             throw new CredentialsError('wrong password')
 
-        user.email = newEmail
-
         try {
-            await user.save()
+            user.email = newEmail;
+            await user.save();
         } catch (error) {
-            throw new SystemError(error.message)
+            if (error.code === 11000) {
+                // Esto captura específicamente el error de duplicado de MongoDB.
+                throw new ContentError('email already exists');
+            } else {
+                // Para otros errores, podrías querer lanzarlos tal como están o manejarlos de forma diferente.
+                throw new SystemError(error.message);
+            }
         }
     })()
 }

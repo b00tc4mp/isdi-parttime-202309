@@ -68,6 +68,23 @@ describe('authenticateUser', () => {//describimos el test, le ponemos un titulo
         }
     })
 
+
+    it('succeeds with correct credentials and email case insensitive', async () => {
+        const name = random.name();
+        const email = random.email().toLowerCase(); // Asegura que el email está en minúsculas
+        const password = random.password();
+
+        const hash = await bcrypt.hash(password, 8);
+        const user = await User.create({ name, email, password: hash }); // Define user aquí
+
+        const userId = await authenticateUser(email.toUpperCase(), password); // Prueba con el email en mayúsculas
+
+        expect(userId).to.be.a('string');
+        expect(userId).to.equal(user.id); // Ahora user está definido en este ámbito
+    });
+
+
+
     after(async () => await mongoose.disconnect())
     //asi desconecta cuando terminan los test
 })

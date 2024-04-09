@@ -18,7 +18,7 @@ function email(email, explain) {
 function password(password, explain = 'password') {
     text(password, explain)
 
-    if (password.length < 8) throw new RangeError(`${explain} length is lower than 8 characters`)
+    if (password.length < 8) throw new ContentError(`${explain} length is lower than 8 characters`)
 }
 
 function number(number, explain) {

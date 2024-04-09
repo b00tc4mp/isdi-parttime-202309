@@ -9,6 +9,7 @@ import Context from '../contexts/Context';
 
 
 export default function ChangeCredentials() {
+    console.log('ChangeCredentials')
 
 
     const navigate = useNavigate(); // Inicializar useNavigate
@@ -102,7 +103,7 @@ export default function ChangeCredentials() {
             <Button className="back-button mt-5" onClick={handleBackToProfile}>Back to Profile</Button>
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-3  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-10  justify-center" />
 
             </footer>
 

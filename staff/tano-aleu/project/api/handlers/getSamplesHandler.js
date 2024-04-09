@@ -10,6 +10,7 @@ export default (req, res) => {
     try {
         const token = req.headers.authorization.substring(7);
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET);
+        // console.log(`getSamplesHandler: Token verificado, userId: ${userId}`);
 
 
         logic.getSamples(userId)

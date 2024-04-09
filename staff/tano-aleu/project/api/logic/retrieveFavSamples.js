@@ -6,6 +6,7 @@ const { SystemError, NotFoundError } = errors;
 function retrieveFavSamples(userId) {
     validate.id(userId, 'user id');
 
+
     // Encuentra al usuario por ID y obtiene sus samples favoritos.
     return User.findById(userId).lean()
         .then(user => {
