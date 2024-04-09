@@ -18,11 +18,6 @@ import settings from "../assets/footer_buttons/settings.png"
 import logout from "../assets/footer_buttons/logout.png"
 
 
-
-
-
-
-
 function Home(props) {
     console.log('Home')
 
@@ -49,7 +44,7 @@ function Home(props) {
     }
 
     useEffect(() => {
-        console.log('Home -> effect (name)')
+        // console.log('Home -> effect (name)')
 
 
         try {
@@ -134,6 +129,3 @@ function Home(props) {
 
 export default Home
 
-//  <Route path="/" />
-// <Button onClick={handleSampleClick}>Samples</Button>
-//<Route path="/samples" element={<Samples />} />

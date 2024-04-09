@@ -50,7 +50,7 @@ function Register(props) {
 
             <img src={versionLogo} alt="versionLogo" className="w-60 h-auto mt-20 mb-10" />
 
-            <h1 class="text-white mb-14">Sign up to start playing!</h1>
+            <h1 className="text-white mb-14">Sign up to start playing!</h1>
 
             <Form onSubmit={handleSubmit}>
 

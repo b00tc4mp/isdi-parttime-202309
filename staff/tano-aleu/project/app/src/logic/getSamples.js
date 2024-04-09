@@ -14,7 +14,6 @@ export default function getSamples(token) {
         let res;
 
         try {
-            console.log("Sending token:", session.token);
             res = await fetch(`${import.meta.env.VITE_API_URL}/samples`, req);
         } catch (error) {
             throw new SystemError(error.message);

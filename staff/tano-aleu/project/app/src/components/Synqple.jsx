@@ -11,6 +11,7 @@ import FilterControl from './FilterControl';
 import retrieveFavSamples from '../logic/retrieveFavSamples';
 
 const Synqple = () => {
+    console.log('Synqple')
 
     const [bpm, setBpm] = useState(120); // Estado inicial de BPM, ajustable por BpmControl
     const [isPlaying, setIsPlaying] = useState(false);
@@ -72,8 +73,8 @@ const Synqple = () => {
                 const player = new Tone.GrainPlayer({
                     url: sample.filePath,
                     loop: true,
-                    grainSize: 0.1, // Ejemplo de configuración de tamaño del grano en segundos
-                    overlap: 0.10, // Ejemplo de configuración de solapamiento en segundos
+                    grainSize: 0.2, // Ejemplo de configuración de tamaño del grano en segundos
+                    overlap: 0.1, // Ejemplo de configuración de solapamiento en segundos
                     playbackRate: 1, // Velocidad de reproducción normal
                     detune: 0, // Sin desafinación
                     duration: sample.duration,
@@ -296,35 +297,6 @@ const Synqple = () => {
         console.log(`Loop length set to ${loopFraction} of a compás`);
     };
 
-    // const handleLoopLengthChange = (loopFraction) => {
-
-    //     // Itera sobre todos los sample players
-    //     samplePlayers.forEach((player, index) => {
-    //         const sample = samplesList[index];
-    //         if (!sample || !player.loaded) return;
-
-    //         // Verifica si ya se aplicó el mismo loopFraction a este sample
-    //         if (loopConfig[index] && loopConfig[index].isLooping && loopConfig[index].loopFraction === loopFraction) {
-    //             // Si es el mismo, resetea a la configuración normal
-    //             player.loop = true; // Desactiva el loop
-    //             player.loopEnd = 0; // Reset loop end a la duración completa del sample
-    //             setLoopConfig(current => ({ ...current, [index]: { isLooping: false, loopFraction: null } }));
-    //         } else {
-    //             // Aplica la nueva configuración de loop
-    //             let multiplier = getMultiplierFromFraction(loopFraction);
-    //             const beatsPerSecond = sample.bpm / 60;
-    //             const totalBeats = 4 * 2; // Asumiendo 4 beats por compás
-    //             const totalDuration = totalBeats / beatsPerSecond;
-    //             player.loop = true;
-    //             player.loopEnd = totalDuration * multiplier;
-    //             setLoopConfig(current => ({ ...current, [index]: { isLooping: true, loopFraction } }));
-    //         }
-    //     });
-    // };
-
-
-
-
 
     function retrieveFavSamplesPromise() {
         return new Promise((resolve, reject) => {
@@ -351,8 +323,7 @@ const Synqple = () => {
             retrieveFavSamplesPromise()
                 .then(favSamples => {
                     setFavoritesList(favSamples); // Establece los favoritos obtenidos
-                    console.log(favSamples)
-                    console.log(samplesList)
+
                 })
                 .catch(error => console.error("Error retrieving favorite samples:", error));
         }
@@ -464,7 +435,7 @@ const Synqple = () => {
 
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-10  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
 
             </footer>
         </div>

@@ -88,7 +88,7 @@ function Settings() {
 
 
             <footer className="flex justify-center">
-                <img src={logo} alt="Logo" className="w-40 h-auto mt-10  justify-center" />
+                <img src={logo} alt="Logo" className="w-40 h-auto mt-20  justify-center" />
 
             </footer>
         </div>

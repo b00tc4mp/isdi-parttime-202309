@@ -24,9 +24,9 @@ function SamplesFolder() {
         try {
             // Aquí accedes al token desde tu lógica de sesión/contexto
             const token = session.token; // Asume que 'session.token' contiene el token de autenticación actual
-            console.log("Token for getSamples:", token); // Verifica el token
+
             const loadedSamples = await getSamples(token); // Pasas el token como argumento a getSamples
-            console.log("Loaded Samples:", loadedSamples); // Verifica los samples cargados
+
             setSamples(loadedSamples);
         } catch (error) {
             console.error("Refresh Samples Error:", error);
@@ -46,7 +46,7 @@ function SamplesFolder() {
     };
 
     useEffect(() => {
-        console.log('SampleFolder effect');
+
         refreshSamples();
     }, []); // Dependencias vacías para efectuar la carga solo al montar el componente
 

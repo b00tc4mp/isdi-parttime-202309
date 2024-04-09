@@ -16,7 +16,7 @@ const Profile = () => {
         (async () => {
             try {
                 const userInfo = await retrieveUser();
-                console.log("userInfo:", userInfo)
+
                 setUser(userInfo); // Actualiza el estado con la información del usuario
             } catch (error) {
                 console.error('Failed to retrieve user:', error);
@@ -27,8 +27,8 @@ const Profile = () => {
 
     const handleProfilePicUpload = (event) => {
         const file = event.target.files[0];
-        console.log(file);
-        // Aquí implementarías la subida del archivo
+
+        // Aquí implementaría la subida del archivo
     };
 
     const navigateToUpdateCredentials = () => {

@@ -9,7 +9,7 @@ import Context from '../contexts/Context';
 
 
 export default function ChangeCredentials() {
-    console.log('ChangeCredentials')
+
 
     const navigate = useNavigate(); // Inicializar useNavigate
 
@@ -24,14 +24,13 @@ export default function ChangeCredentials() {
     const context = useContext(Context)
 
     function handleChangeEmailSubmit(event) {
-        console.log('Attempting to change email');
+
         event.preventDefault();
 
         const newEmail = event.target.querySelector('#new-email-input').value;
         const newEmailConfirm = event.target.querySelector('#new-email-confirm-input').value;
         const password = event.target.querySelector('#password-input').value;
 
-        console.log(newEmail, newEmailConfirm, password); // Verificar los valores ingresados
 
         (async () => {
             try {
@@ -45,14 +44,14 @@ export default function ChangeCredentials() {
     }
 
     function handleChangePasswordSubmit(event) {
-        console.log('Attempting to change password');
+
         event.preventDefault();
 
         const password = event.target.querySelector('#password-input').value;
         const newPassword = event.target.querySelector('#new-password-input').value;
         const newPasswordConfirm = event.target.querySelector('#new-password-confirm-input').value;
 
-        console.log(password, newPassword, newPasswordConfirm); // Verificar los valores ingresados
+
 
         (async () => {
             try {
