@@ -9,7 +9,7 @@ function text(text, explain) {
     if (!text.trim().length) throw new ContentError(explain + ' is empty')
 }
 
-function email(email, explain) {
+function email(email, explain = 'email') {
     text(email, explain)
 
     if (!EMAIL_REGEX.test(email)) throw new ContentError(`${explain} is not valid`)

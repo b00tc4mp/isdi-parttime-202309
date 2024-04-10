@@ -12,7 +12,7 @@ function toggleFavSample(sampleId) {
         }
     };
 
-    console.log(`Toggling fav for Sample ID: ${sampleId} with token: ${session.token}`); // Verifica el ID y token
+    // console.log(`Toggling fav for Sample ID: ${sampleId} with token: ${session.token}`); // Verifica el ID y token
 
     return fetch(`${import.meta.env.VITE_API_URL}/samples/${sampleId}/favSamples`, req)
         .then(res => {
@@ -22,7 +22,8 @@ function toggleFavSample(sampleId) {
                     return Promise.reject(new errors[body.error](body.message));
                 });
             }
-            console.log("Toggle Fav Sample Success for Sample ID:", sampleId);
+
+            // console.log("Toggle Fav Sample Success for Sample ID:", sampleId);
 
         })
         .catch(error => {

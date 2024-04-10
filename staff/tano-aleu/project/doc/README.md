@@ -41,7 +41,7 @@ Tambien Synqple a nivel de juego didactico y como herramienta musical tiene much
 ### Use Cases
 
 
-- Login/Register/Retrieve User (required to use the app)
+- Login/Register/Retrieve/ChangeCredentials User (required to use the app)
 
 - Play metronome audio and Samples/loops, through audio control (play/stop "global", mute and volume).
 
@@ -140,6 +140,9 @@ v.1
 - description/type (string)
 - tempo ´bpm´ (number)
 - length ´secs´ (number)
+
+
+
 
 v.2
 - compases ´4x4´ (1, 2, 4, 8, 16, 32, 64) (number)

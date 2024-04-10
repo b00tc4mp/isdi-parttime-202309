@@ -42,6 +42,8 @@ const Synqple = () => {
     const [favoritesList, setFavoritesList] = useState([]); // Solo los favoritos
     // const [favSamplesPlayer, setFavSamplesPlayer] = useState([]);
 
+    const [lastStartTime, setLastStartTime] = useState(0);
+
 
 
     //RENDERIZACION DE METRONOMO Y SAMPLES
@@ -165,31 +167,30 @@ const Synqple = () => {
 
     }
 
-    const handleSampleSelect = index => {
-
+    const handleSampleSelect = (index) => {
         let indexToPlay = showFavoritesOnly ? getAbsoluteIndex(index) : index;
 
+        // Calcula un tiempo de inicio que sea seguro, basado en el último tiempo de inicio conocido
+        const safeStartTime = Math.max(Tone.now(), lastStartTime + 0.1);
+
         // Detén cualquier sample que se esté reproduciendo actualmente.
-        if (currentSampleIndex >= 0) {
-            samplePlayers[currentSampleIndex]?.stop();
+        if (currentSampleIndex >= 0 && samplePlayers[currentSampleIndex]) {
+            samplePlayers[currentSampleIndex].stop();
         }
 
-        // Actualiza el índice del sample actualmente seleccionado.
-        setCurrentSampleIndex(indexToPlay);
+        // Asegura que el contexto de audio de Tone.js esté iniciado.
+        Tone.start().then(() => {
+            // Actualiza el índice del sample actualmente seleccionado.
+            setCurrentSampleIndex(indexToPlay);
 
-        // Si el reproductor está en reproducción, inicia el nuevo sample seleccionado.
-        if (isPlaying && !isSampleMuted) {
-            Tone.start().then(() => {
-                samplePlayers[indexToPlay]?.start();
-            }).catch(error => {
-                console.error("Error starting audio context or playing sample:", error);
-                // Manejo del error
-            });
-        }
+            // Si el reproductor está en reproducción, inicia el nuevo sample seleccionado con un retraso.
+            if (isPlaying && !isSampleMuted && samplePlayers[indexToPlay]) {
+                samplePlayers[indexToPlay].start(safeStartTime);
+                // Actualiza el último tiempo de inicio conocido
+                setLastStartTime(safeStartTime);
+            }
+        });
     };
-
-
-
     //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
     // Ajusta el manejador de muteo del metrónomo
     const toggleMuteMetronome = () => {
@@ -294,7 +295,7 @@ const Synqple = () => {
             }
         });
 
-        console.log(`Loop length set to ${loopFraction} of a compás`);
+
     };
 
 
@@ -332,7 +333,33 @@ const Synqple = () => {
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
+    useEffect(() => {
+        const unlockAudio = async () => {
+            // Inicia el contexto de audio de Tone.js
+            await Tone.start();
+            console.log('El contexto de audio está listo');
 
+            // Reproduce un breve sonido en silencio para desbloquear el audio
+            const oscillator = new Tone.Oscillator().toDestination();
+            oscillator.volume.value = -Infinity; // Pone el volumen a -Infinity para "silenciar" el sonido
+            oscillator.start();
+            oscillator.stop("+0.1"); // Detiene el oscilador después de un breve momento
+
+            // Después de reproducir el sonido en silencio, remueve el manejador de eventos
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        };
+
+        // Añade el manejador de eventos para desbloquear audio en iOS en la primera interacción del usuario
+        document.addEventListener('touchstart', unlockAudio);
+        document.addEventListener('click', unlockAudio);
+
+        // No olvides limpiar el manejador de eventos si tu componente se desmonta
+        return () => {
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        };
+    }, []);
 
 
 

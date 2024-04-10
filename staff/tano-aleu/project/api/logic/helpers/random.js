@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 function name() {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
     return `name-${Math.random()}`;
 }
 

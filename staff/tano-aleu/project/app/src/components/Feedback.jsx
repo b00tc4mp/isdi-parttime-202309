@@ -19,11 +19,11 @@ const Feedback = props => {
             break
     }
 
-    return <Container className={`container--horizontal Feedback ${modifier}`}>
+    return <div className={`container--horizontal Feedback ${modifier}`}>
         <p>{props.message}</p>
-        <Button onClick={props.onAccepted}>Accept</Button>
+        <Button className="feedback__button" onClick={props.onAccepted}>Accept</Button>
 
-    </Container>
+    </div>
 }
 
 export default Feedback

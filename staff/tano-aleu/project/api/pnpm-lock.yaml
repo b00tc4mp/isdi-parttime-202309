@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.4.3
     version: 2.4.3
   com:
-    specifier: link:../com
-    version: link:../com
+    specifier: file:../com
+    version: file:../com
   cors:
     specifier: ^2.8.5
     version: 2.8.5
@@ -1245,3 +1245,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  file:../com:
+    resolution: {directory: ../com, type: directory}
+    name: com
+    dev: false

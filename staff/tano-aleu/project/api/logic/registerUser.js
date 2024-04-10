@@ -1,9 +1,7 @@
 import bcrypt from 'bcryptjs'
 
-import { validate, errors } from 'com'
-
 import { User } from '../data/models.js'
-
+import { validate, errors } from 'com'
 const { SystemError, DuplicityError } = errors
 
 function registerUser(name, email, password) {
