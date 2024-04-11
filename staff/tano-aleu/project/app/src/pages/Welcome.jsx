@@ -31,7 +31,7 @@ const Welcome = () => {
                 </div>
 
 
-                <img src={logoSolo} alt="Logo" className="w-40 h-auto mt-10" />
+                <img src={logoSolo} alt="Logo" className="w-40 h-auto mt-10 logo" />
 
                 <Button
                     type="submit" className="login-register-button"
@@ -49,7 +49,9 @@ const Welcome = () => {
 
                 <footer className=" text-white text-center  ">
 
-                    <img src={logo} alt="Logo" className="w-40 h-auto mt-40" />
+                    <footer className="text-white text-center">
+                        <img src={logo} alt="Logo" className="w-40 h-auto mt-40 " />
+                    </footer>
 
                 </footer>
 

@@ -38,6 +38,7 @@ const Synqple = () => {
 
     const [visualIndex, setVisualIndex] = useState(-1);
 
+    const [loopConfig, setLoopConfig] = useState({});
 
 
     //RENDERIZACION DE METRONOMO Y SAMPLES
@@ -188,7 +189,7 @@ const Synqple = () => {
 
     // Efecto para manejar el silencio del metrónomo
     useEffect(() => {
-        console.log('toggleMuteMetronome')
+
         if (metronomePlayer) {
             metronomePlayer.volume.value = isMetronomeMuted ? -Infinity : metronomeVolume;
         }
@@ -196,7 +197,7 @@ const Synqple = () => {
 
     // Efecto para manejar el silencio de los samples
     useEffect(() => {
-        console.log('toggleMuteSample')
+
         if (currentSampleIndex >= 0 && samplePlayers[currentSampleIndex]) {
             samplePlayers[currentSampleIndex].volume.value = isSampleMuted ? -Infinity : sampleVolume;
         }
@@ -219,20 +220,10 @@ const Synqple = () => {
     };
 
 
-
-
-
-
-
     const handleChangeBpm = (newBpm) => {
         setBpm(newBpm); // Actualiza el estado del BPM
         // Aquí podrías añadir cualquier otra lógica necesaria cuando el BPM cambia
     };
-
-
-
-    const [loopConfig, setLoopConfig] = useState({});
-
 
 
     const getMultiplierFromFraction = (loopFraction) => {
@@ -279,8 +270,6 @@ const Synqple = () => {
                 setLoopConfig(current => ({ ...current, [index]: { isLooping: true, loopFraction } }));
             }
         });
-
-
     };
 
 
@@ -318,9 +307,6 @@ const Synqple = () => {
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
-    // const toggleAudioContext = () => {
-    //     setAudioContextActive(!audioContextActive);
-    // };
 
     const handleShowFavorites = () => {
         setShowFavoritesOnly(!showFavoritesOnly);
@@ -328,21 +314,14 @@ const Synqple = () => {
     };
 
 
-
-
     return (
         <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-
-
-
 
             {/* LP-HP Filter */}
             {
                 samplePlayers.length > 0 && currentSampleIndex >= 0 &&
                 <FilterControl currentSamplePlayer={samplePlayers[currentSampleIndex]} />
             }
-
-
 
             {/* Sample Selection with Scroll */}
             <button onClick={() => handleShowFavorites()} className=" bg-purple-800 hover:bg-purple-900 text-white font-bold rounded py-2">
@@ -365,9 +344,6 @@ const Synqple = () => {
                 )}
             </div>
 
-
-
-
             {/* Sample Volume Control and Mute Button */}
             <div>
                 <div className=' flex justify-center mt-3'>Samples Volume</div>
@@ -378,7 +354,6 @@ const Synqple = () => {
                     {isSampleMuted ? 'Unmute Sample' : 'Mute Sample'}
                 </button>
             </div>
-
 
             {/* Loop Length Buttons */}
             <h3 className='flex justify-center mt-2 mb-2'>Loop Length</h3>
@@ -394,8 +369,8 @@ const Synqple = () => {
                 ))}
             </div>
 
-
             {/* BPM Control & Beat Transposition */}
+
             <BpmControl bpm={bpm} onChangeBpm={setBpm} />
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
@@ -420,12 +395,10 @@ const Synqple = () => {
                     <img className='w-6' src={metronome_button} alt="Metronome" />
                 </button>
 
-
             </div>
 
             <div className=' flex justify-center mt-1 mb-2'>Metronome Volume</div>
             <input type="range" min="-60" max="0" value={metronomeVolume} onChange={handleMetronomeVolumeChange} className="flex justify-around" />
-
 
 
             <footer className="flex justify-center">
@@ -433,7 +406,6 @@ const Synqple = () => {
 
             </footer>
         </div>
-
 
     );
 

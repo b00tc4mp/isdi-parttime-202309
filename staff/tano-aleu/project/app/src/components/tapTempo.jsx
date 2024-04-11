@@ -48,7 +48,7 @@ const TapTempo = ({ onBPMChange }) => {
     return (
         <div className="flex justify-around">
             <button
-                className={`bg-${buttonColor ? 'purple-800' : 'purple-900'} hover:bg-${buttonColor ? 'purple-900' : 'purple-800'} text-white font-bold py-2 px-4 rounded shadow`}
+                className={`bg-${buttonColor ? 'purple-800' : 'purple-500'} hover:bg-${buttonColor ? 'purple-800' : 'purple-500'} text-white font-bold py-2 px-4 rounded shadow`}
                 onMouseDown={handleTap} // Detectar inicio del tap
                 onMouseUp={handleRelease} // Detectar fin del tap
             >
