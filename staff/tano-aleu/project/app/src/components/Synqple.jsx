@@ -9,7 +9,7 @@ import TapTempo from './tapTempo';
 import BeatTransposition from './beatTransposition'; // 
 import FilterControl from './FilterControl';
 import retrieveFavSamples from '../logic/retrieveFavSamples';
-import StartAudioContext from 'startaudiocontext';
+
 
 const Synqple = () => {
     console.log('Synqple')
@@ -17,26 +17,17 @@ const Synqple = () => {
     const [bpm, setBpm] = useState(120); // Estado inicial de BPM, ajustable por BpmControl
     const [isPlaying, setIsPlaying] = useState(false);
 
-
     const [metronomePlayer, setMetronomePlayer] = useState(null);
     const [samplePlayers, setSamplePlayers] = useState([]);
 
-
     const [samplesList, setSamplesList] = useState([]);
 
-
-
-    const [currentSampleIndex, setCurrentSampleIndex] = useState(0); // Usamos -1 para indicar que no hay selección inicial
-
+    const [currentSampleIndex, setCurrentSampleIndex] = useState(0);
     const [isSampleMuted, setIsSampleMuted] = useState(true);
     const [isMetronomeMuted, setIsMetronomeMuted] = useState(false);
 
     const [metronomeVolume, setMetronomeVolume] = useState(0); // Volumen inicial del metrónomo
     const [sampleVolume, setSampleVolume] = useState(0); // Volumen inicial de los samples
-
-
-    const [prevMetronomeVolume, setPrevMetronomeVolume] = useState(0); // Guarda el volumen previo al mute
-    const [prevSampleVolume, setPrevSampleVolume] = useState(0); // Guarda el volumen previo al mute
 
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
@@ -45,19 +36,16 @@ const Synqple = () => {
 
     const [lastStartTime, setLastStartTime] = useState(0);
 
-    const [audioContextActive, setAudioContextActive] = useState(false);
-
+    const [visualIndex, setVisualIndex] = useState(-1);
 
 
 
     //RENDERIZACION DE METRONOMO Y SAMPLES
 
-
     useEffect(() => {
 
         let metronomePlayer;
         let samplePlayers = [];
-
 
         getMetronomo().then(metronomo => {
             const metronomeSample = metronomo.find(m => m.name === 'Metronomo');
@@ -127,23 +115,6 @@ const Synqple = () => {
         }
     }, [isPlaying, metronomePlayer, samplePlayers, currentSampleIndex]);
 
-
-    //CONTROL DE VOLUMEN DEL METRONOMO Y LOS SAMPLES
-    useEffect(() => {
-        // Asegurarse de que metronomePlayer ha sido inicializado antes de intentar modificar su volumen.
-        if (metronomePlayer) {
-            metronomePlayer.volume.value = isMetronomeMuted ? -Infinity : 0;
-        }
-        // Asegurarse de que cada player en samplePlayers ha sido inicializado antes de modificar su volumen.
-        samplePlayers.forEach((player, index) => {
-            if (player && index === currentSampleIndex) {
-                player.volume.value = isSampleMuted ? -Infinity : 0;
-            }
-        });
-    }, [isMetronomeMuted, isSampleMuted, metronomePlayer, samplePlayers, currentSampleIndex]);
-
-
-
     //SINCRONIA DE LOS SAMPLES CON EL METRONOMO
     useEffect(() => {
         if (metronomePlayer) {
@@ -155,42 +126,9 @@ const Synqple = () => {
     }, [bpm, metronomePlayer, samplePlayers]);
 
 
+    //MANEJO DEL PLAY/STOP PARA METRONOMO Y SAMPLES
 
-
-    const oscillatorAudio = new Tone.Oscillator({
-        frequency: "A4", // Frecuencia estándar de la nota A4. Ajusta según necesidad.
-        volume: -Infinity, // Inicialmente silencioso.
-    }).toDestination();
-
-    useEffect(() => {
-        // Este efecto no hace nada al iniciar, pero asegura limpieza al desmontar.
-        return () => oscillatorAudio.dispose(); // Limpieza al desmontar el componente
-    }, [oscillatorAudio]);
-
-    const handleToggleAudio = async () => {
-        // Iniciar el AudioContext de Tone.js si aún no está en ejecución
-        if (Tone.context.state !== 'running') {
-            await Tone.start();
-            console.log('Playback resumed successfully');
-        }
-
-        if (!audioContextActive) {
-            oscillatorAudio.volume.rampTo(0, 0.01); // Hacer el oscilador audible gradualmente
-            oscillatorAudio.start();
-        } else {
-            oscillatorAudio.volume.rampTo(-Infinity, 0.01); // Silenciar el oscilador gradualmente
-            // Considerar detener el oscilador después de silenciar si no se requiere que siga ejecutándose.
-        }
-
-        setAudioContextActive(!audioContextActive);
-    };
-    const handlePlayToggle = async () => {
-        if (Tone.context.state !== 'running') {
-            await Tone.start();
-            console.log('Playback resumed successfully');
-        }
-        setIsPlaying(!isPlaying);
-    };
+    const handlePlayToggle = () => setIsPlaying(!isPlaying);
 
     const getAbsoluteIndex = (index) => {
 
@@ -201,7 +139,11 @@ const Synqple = () => {
         return (samplesList.findIndex(isNameTheSame));
 
     }
+
     const handleSampleSelect = async (index) => {
+
+        setVisualIndex(index);
+
         let indexToPlay = showFavoritesOnly ? getAbsoluteIndex(index) : index;
 
         // Asegura que el contexto de audio de Tone.js esté iniciado.
@@ -231,30 +173,22 @@ const Synqple = () => {
         }
     };
 
-
     //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
     // Ajusta el manejador de muteo del metrónomo
     const toggleMuteMetronome = () => {
-        if (!isMetronomeMuted) {
-            setPrevMetronomeVolume(metronomeVolume); // Guarda el volumen actual antes de mutear
-        } else {
-            setMetronomeVolume(prevMetronomeVolume); // Restaura el volumen al valor previo al mute
-        }
+
         setIsMetronomeMuted(!isMetronomeMuted);
     };
 
     // Ajusta el manejador de muteo del sample
     const toggleMuteSample = () => {
-        if (!isSampleMuted) {
-            setPrevSampleVolume(sampleVolume); // Guarda el volumen actual antes de mutear
-        } else {
-            setSampleVolume(prevSampleVolume); // Restaura el volumen al valor previo al mute
-        }
+
         setIsSampleMuted(!isSampleMuted);
     };
 
     // Efecto para manejar el silencio del metrónomo
     useEffect(() => {
+        console.log('toggleMuteMetronome')
         if (metronomePlayer) {
             metronomePlayer.volume.value = isMetronomeMuted ? -Infinity : metronomeVolume;
         }
@@ -262,22 +196,32 @@ const Synqple = () => {
 
     // Efecto para manejar el silencio de los samples
     useEffect(() => {
+        console.log('toggleMuteSample')
         if (currentSampleIndex >= 0 && samplePlayers[currentSampleIndex]) {
             samplePlayers[currentSampleIndex].volume.value = isSampleMuted ? -Infinity : sampleVolume;
         }
     }, [isSampleMuted, sampleVolume, currentSampleIndex, samplePlayers]);
 
 
+
     // Manejadores para cambios de volumen
     const handleMetronomeVolumeChange = (event) => {
         const volume = Number(event.target.value);
+
         setMetronomeVolume(volume);
+
     };
 
     const handleSampleVolumeChange = (event) => {
         const volume = Number(event.target.value);
         setSampleVolume(volume);
+
     };
+
+
+
+
+
 
 
     const handleChangeBpm = (newBpm) => {
@@ -374,21 +318,22 @@ const Synqple = () => {
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
+    // const toggleAudioContext = () => {
+    //     setAudioContextActive(!audioContextActive);
+    // };
+
+    const handleShowFavorites = () => {
+        setShowFavoritesOnly(!showFavoritesOnly);
+        setVisualIndex(-1)
+    };
+
+
+
 
     return (
         <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
-            <div>
-                {/* Otro contenido de tu componente aquí */}
-                <button
-                    className='bg-purple-800 hover:bg-purple-900 text-white  py-2 px-4 rounded text-xs
-                    '
-                    style={{ backgroundColor: audioContextActive ? '#34D399' : '#EF4444' }}
-                    onClick={handleToggleAudio}
-                >
-                    {audioContextActive ? "SYNQPLE ON" : " SYNQPLE OFF"}
-                </button>
-            </div>
+
 
 
             {/* LP-HP Filter */}
@@ -400,8 +345,7 @@ const Synqple = () => {
 
 
             {/* Sample Selection with Scroll */}
-
-            <button onClick={() => setShowFavoritesOnly(!showFavoritesOnly)} className=" bg-purple-800 hover:bg-purple-900 text-white font-bold rounded py-2">
+            <button onClick={() => handleShowFavorites()} className=" bg-purple-800 hover:bg-purple-900 text-white font-bold rounded py-2">
                 {showFavoritesOnly ? "Show all Samples" : "Show Favorites Samples"}
             </button>
 
@@ -411,7 +355,7 @@ const Synqple = () => {
                         <button
                             key={index}
                             onClick={() => handleSampleSelect(index)}
-                            className="block w-full px-4 py-2 text-left hover:bg-purple-500"
+                            className={`block w-full px-4 py-2 text-left hover:bg-purple-500 ${visualIndex === index ? 'bg-purple-500' : ''}`}
                         >
                             {sample.name}
                         </button>
@@ -461,12 +405,6 @@ const Synqple = () => {
             <div className="flex items-center justify-between space-x-2 mb-4">
 
 
-
-
-
-
-
-
                 <button className='bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded'
                     style={{ backgroundColor: isPlaying ? '#34D399' : '#EF4444' }} onClick={handlePlayToggle}>
                     {isPlaying ? 'Stop' : 'Play'}
@@ -481,7 +419,6 @@ const Synqple = () => {
                 >
                     <img className='w-6' src={metronome_button} alt="Metronome" />
                 </button>
-
 
 
             </div>

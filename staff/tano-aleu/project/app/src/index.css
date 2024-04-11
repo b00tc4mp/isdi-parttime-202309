@@ -45,7 +45,7 @@
   }
 
   .container--horizontal {
-    @apply bg-purple-300 flex items-center justify-center fixed inset-x-0 top-0 mx-auto rounded-tl-3xl rounded-tr-3xl;
+    @apply bg-purple-300 flex items-center justify-center fixed inset-x-0 top-0 mx-auto rounded-tl-3xl rounded-tr-3xl p-2;
   max-width: 100%; /* Asegura que no se extienda más allá del ancho de la pantalla */
 }
 
@@ -108,13 +108,10 @@
     left: 1px; /* Ajusta según sea necesario para alinear correctamente el círculo */
   }
 
-
-
-
   /* custom */
 
   .feedback__button {
-    @apply border-[2px] border-solid border-black font-bold text-sm  text-white rounded-3xl p-2 mr-3 ml-3 mb-2 mt-2;
+    @apply border-[2px] border-solid border-black font-bold text-sm  text-white rounded-3xl p-2 mr-3 ml-1 mb-2 mt-2;
   }
 
   .footer {

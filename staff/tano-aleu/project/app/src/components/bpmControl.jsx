@@ -6,6 +6,7 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
         if (onChangeBpm) {
             onChangeBpm(newBpm);
         }
+
     };
 
     const handleIncreaseBpm = () => {

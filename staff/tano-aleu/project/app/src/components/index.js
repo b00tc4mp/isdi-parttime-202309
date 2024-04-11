@@ -8,9 +8,6 @@ import SampleItem from './SampleItem'
 import Settings from './Settings'
 import FilterControl from './FilterControl'
 
-// import SampleList from './sampleList'
-// import PlayPauseGlobal from './playPauseGlobal'
-//import Samples from './Samples'
 
 export {
     Profile,
@@ -22,6 +19,4 @@ export {
     SampleItem,
     Settings,
     FilterControl
-    // SampleList,
-    // PlayPauseGlobal
 }
