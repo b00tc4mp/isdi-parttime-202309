@@ -74,8 +74,8 @@ export default function Profile({ onSuccess }) {
     }
 
     return (
-        <Container className=''>
-            { form === 'email' && <article><h2>Change email</h2>
+        <Container className='flex justify-center items-center h-full container-form'>
+            { form === 'email' && <article className='text-center'><h2 className='text-gray-900 font-bold underline border-b-2 border-goldenrod'>Change email</h2>
                 <Form onSubmit={handleChangeMailSubmit}>
                     <Input id='new-email-input' type='email' placeholder='New Email' value={newEmail} onChange={handleChangeNewEmail}>New e-mail</Input>
 
@@ -83,11 +83,11 @@ export default function Profile({ onSuccess }) {
 
                     <Input id='password-input' type='password' placeholder='Password' value={password} onChange={handlePasswordEmail}>Password</Input>
 
-                    <Button type='submit'>Update email</Button>
-                    <Link to='/'>Cancel</Link>
+                    <Button className='myfont' type='submit'>Update email</Button>
+                    <Link className='cancel-link' to='/'>Cancel</Link>
                 </Form>
             </article> }
-            { form === 'password' && <article><h2>Change password</h2>
+            { form === 'password' && <article className='text-center'><h2>Change password</h2>
                 <Form onSubmit={handleChangePasswordSubmit}>
                     <Input id='password-input' type='password' placeholder='Password' value={password} onChange={handleChangeNewPassword}>Password</Input>
 
@@ -96,7 +96,7 @@ export default function Profile({ onSuccess }) {
                     <Input id='new-password-confirm-input' type='password' placeholder='New Password Confirm' value={newPasswordConfirm} onChange={handlePassword}>New password confirm</Input>
 
                     <Button type='submit'>Update password</Button>
-                    <Link to='/'>Cancel</Link>
+                    <Link className='cancel-link' to='/'>Cancel</Link>
                 </Form>
             </article> }
         </Container>

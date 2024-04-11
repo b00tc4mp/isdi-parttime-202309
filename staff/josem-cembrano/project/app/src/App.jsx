@@ -67,7 +67,7 @@ export default function App() {
     <Navbar open={open} setOpen={setOpen} isUserNavbar={isUserNavbar} onLogout={handleLogoutClick} />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/history' element={<History />} />
+        <Route path='/history' element={<History onSuccess={onSuccess} />} />
         <Route path='/males' element={<Males />} />
         <Route path='/females' element={<Females />} />
         <Route path='/puppies' element={<Puppies />} />

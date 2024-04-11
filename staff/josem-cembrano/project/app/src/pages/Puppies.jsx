@@ -17,16 +17,17 @@ export default function Puppies() {
   const [view, setView] = useState(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const retrivedPuppies = await logic.retrievePuppies()
-        setpuppies(retrivedPuppies)
-      } catch (error) {
-        context.handleError(error)
-      }
-      setIsLoading(false)
+  const fetchData = async () => {
+    try {
+      const retrivedPuppies = await logic.retrievePuppies()
+      setpuppies(retrivedPuppies)
+    } catch (error) {
+      context.handleError(error)
     }
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
 
     fetchData()
   }, [])
@@ -42,10 +43,25 @@ export default function Puppies() {
 
   function handleNewPerfilDogPublish() {
     setView(null)
-    navigate('/login')
+    navigate('/puppies')
 
     window.scrollTo(0, 0)
 }
+
+function handleDeleteDog(dogId) {
+  return (async() => {
+    try {
+        await logic.deleteDog(dogId)
+        
+        const updatePuppies = puppies.filter(p => p.id !== dogId)
+        setpuppies(updatePuppies)
+
+    } catch (error) {
+        context.handleError(error)
+    }
+})()
+}
+
   if(isLoading){
     return <div>Waiting...</div>
   }
@@ -66,7 +82,7 @@ export default function Puppies() {
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Gender:</span>{puppy.gender}</p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>BirthDate:</span>{puppy.birthDate}</p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Description:</span>{puppy.text}</p>
-                    {logic.context.token && logic.context.isAdmin &&(<Button><RiDeleteBin2Fill className='text-yellow-600 deleteButton' size={20}/></Button>)}
+                    {logic.context.token && logic.context.isAdmin &&(<Button onClick={ () => handleDeleteDog(puppy.id) }><RiDeleteBin2Fill className='text-yellow-600 deleteButton' size={20}/></Button>)}
                 </div>
             </div>
             </div>

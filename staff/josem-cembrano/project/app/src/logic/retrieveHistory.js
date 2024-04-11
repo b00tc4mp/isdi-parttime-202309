@@ -11,7 +11,7 @@ export default async function retrieveHistory() {
     let res
 
     try {
-        res = await fetch(`${import.meta.env.VITE_API_URL}/history-m`, req)
+        res = await fetch(`${import.meta.env.VITE_API_URL}/history-r`, req)
     } catch (error) {
         throw new SystemError(error.message)
     }

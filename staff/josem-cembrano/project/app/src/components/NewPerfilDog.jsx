@@ -29,6 +29,7 @@ export default function(props) {
                 }
             })
             props.onPublish()
+            location.reload()
         } catch (error) {
             context.handleError(error)
         }

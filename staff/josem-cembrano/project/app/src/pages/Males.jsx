@@ -47,17 +47,20 @@ export default function Males() {
       fetchData()
   }
 
-function handleDeleteDog(dogId) {
-  console.log(dogId)
-  return (async() => {
-    try {
-        await logic.deleteDog(dogId)
-        fetchData()
-    } catch (error) {
-        context.handleError(error)
+    function handleDeleteDog(dogId) {
+
+      return (async() => {
+        try {
+            await logic.deleteDog(dogId)
+
+            const updateMales = males.filter(p => p.id !== dogId)
+            setMales(updateMales)
+
+        } catch (error) {
+            context.handleError(error)
+        }
+    })()
     }
-})()
-}
   if(isLoading){
     return <div>Waiting...</div>
   }

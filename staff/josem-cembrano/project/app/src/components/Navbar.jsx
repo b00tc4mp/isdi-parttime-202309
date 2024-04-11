@@ -63,7 +63,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
     { name: 'Females', link: '/females', icon: IoMdFemale, color: 'goldenrod' },
     { name: 'Puppies', link: '/puppies', icon: TbBabyBottle, color: 'goldenrod' },
     { name: 'Contact', link: '/contact', icon: TbReportAnalytics, color: 'goldenrod' },
-    { name: 'FAQ', link: '/faq', icon: Icons.FaQuestion, color: 'goldenrod' },
+    { name: 'Faq', link: '/faq', icon: Icons.FaQuestion, color: 'goldenrod' },
     { name: 'Login', link: '/login', icon: IoMdLogIn, margin: true, color: 'goldenrod' },
     { name: 'Register', link: '/register', icon: GiArchiveRegister, color: 'goldenrod' },
   ]
@@ -72,7 +72,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
     return menus.map((menu, i) => (
       <Link to={menu.link} key={i} className={`${ menu.margin && 'mt-5' } group flex items-center text-sm gap-3.5 font-medium p-2 rounded-md menu-link ${ location.pathname === menu.link ? 'active' : ''}`} >
         {(menu.name === 'Login' || menu.name === 'Register') && !logic.isUserLoggedIn() ? <div>{React.createElement(menu.icon, { size: '20', style: { color: location.pathname === menu.link && !open ? '#6B7280' : menu.color }, className: 'hover:scale-125 transition-transform duration-300' })}</div> : menu.name !== 'Login' && menu.name !== 'Register' ? <div>{React.createElement(menu.icon, { size: '20', style: { color: location.pathname === menu.link && !open ? '#6B7280' : menu.color }, className: 'hover:scale-125 transition-transform duration-300' })}</div> : ''}
-        <h2 className={`whitespace-pre duration-500 ${ !open && 'opacity-0 translate-x-28 overflow-hidden' } ${ location.pathname === menu.link ? 'text-gray-500' : 'text-white'}`}>
+        <h2 className={`whitespace-pre duration-500 ${ !open && 'opacity-0 translate-x-28 overflow-hidden' } ${ location.pathname === menu.link ? 'text-gray-500' : 'text-white'} myfont`}>
           {menu.name === 'Home' && name ? (<><span className='mr-2'>{menu.name}</span><span className='italic text-yellow-700'>({name})</span>
           {logic.isUserLoggedIn() && (
               <div className='inline-block relative top-0.5 ml-2'>

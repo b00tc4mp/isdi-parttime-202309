@@ -14,6 +14,10 @@
   font-family: "myfont", sans-serif;
 }
 
+.container-form {
+  font-family: "myfont", sans-serif;
+}
+
 .home-container {
   position: relative;
   width: 100%; /* Ajusta el ancho según tus necesidades */
@@ -67,14 +71,23 @@
 }
 
 .container-history {
-  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 5rem;
   z-index: 0;
 }
 
 .container {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* 100% del viewport height */
+  width: auto;
+  padding: 5rem;
   z-index: 0;
 }
+
+
 
 .nav-position {
   z-index: 2;
@@ -167,10 +180,6 @@
   margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
-.logout-options {
-  /* Estilos para las opciones de cierre de sesión, si es necesario */
-}
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -214,7 +223,7 @@ body {
 }
 
 .h2 {
-  font-family: Arial, sans-serif; /* Cambia la familia de fuentes */
+  font-family: "myfont", sans-serif;/* Cambia la familia de fuentes */
   font-weight: bold; /* Hace que el texto sea más audaz */
   font-style: italic; /* Aplica estilo itálico al texto */
   color: black; /* Color de texto oscuro */
@@ -237,14 +246,47 @@ body {
 .input {
   border-width: 2px;
   border-style: solid;
-  border-color: black;
+  border-color: rgb(202, 171, 112);
   padding: 5px;
+  border-radius: 15px;
+}
+
+.imput:hover {
+  transform: scale(1.02);
 }
 
 .button {
   padding: 5px;
+  margin: auto;
+  display: block;
   background-color: transparent;
   font-weight: bold;
+  color: #4B5563; /* text-gray-600 */
+  transition-property: color; /* transition-colors */
+  transition-duration: 300ms; /* duration-300 */
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: scale(1.2); /* Escala ligeramente el botón al pasar el ratón por encima */
+  color: rgb(218, 144, 32);
+  background-size: 20%;
+}
+
+.cancel-link {
+  padding: 5px;
+  background-color: transparent;
+  font-weight: bold;
+  color: #4B5563; /* text-gray-600 */
+  transition-property: color; /* transition-colors */
+  transition-duration: 300ms; /* duration-300 */
+  transition: background-size 0.5s ease;
+  cursor: pointer;
+}
+
+.cancel-link:hover {
+  transform: scale(1.2); /* Escala ligeramente el botón al pasar el ratón por encima */
+  color: rgb(218, 144, 32);
 }
 
 .link {
@@ -270,12 +312,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   z-index: 9999999;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.5
-  ); /* rgba(255, 255, 255, 0.5) representa blanco con una opacidad del 50% */
+  background-color: rgba(255,255,255,0.5); /* rgba(255, 255, 255, 0.5) representa blanco con una opacidad del 50% */
 }
 
 .Feedback--debug {

@@ -1,4 +1,4 @@
-import { Button, Container } from '../library'
+import { Button } from '../library'
 
 const Feedback = (props) => {
     let modifier ='Feedback-debug'
@@ -19,8 +19,8 @@ const Feedback = (props) => {
     }
 
     return <div className={`Feedback Feedback ${modifier}`}>
-        <p>{props.message}</p>
-        <Button onClick={props.onAccepted}><span className='ml-10'>Accept</span></Button>
+        <p className='text-center'>{props.message}</p>
+        <Button className='border border-white p-2 rounded-lg border-feedback' onClick={props.onAccepted}>Accept</Button>
     </div>
 
 }

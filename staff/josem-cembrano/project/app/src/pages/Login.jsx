@@ -36,7 +36,7 @@ export default function Login({onSuccess}) {
 
     return <>
 
-    <Container className='login-container'>
+    <Container className='login-container myfont flex justify-center items-center h-full container-form text-center'>
         <Form onSubmit={handleSubmit}>
             <Field id="email-input" type="email">E-mail</Field>
             <Field id="password-input" type="password">Password</Field>

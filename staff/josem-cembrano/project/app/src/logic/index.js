@@ -13,6 +13,7 @@ import changeEmail from './changeEmail'
 import changePassword from './changePassword'
 import publishHistory from './publishHistory'
 import retrieveHistory from './retrieveHistory'
+import modifyHistory from './modifyHistory'
 
 import context from './context'
 
@@ -32,6 +33,7 @@ const logic = {
     changePassword: changePassword.bind(context),
     publishHistory: publishHistory.bind(context),
     retrieveHistory: retrieveHistory.bind(context),
+    modifyHistory: modifyHistory.bind(context),
 
     context,
 }
