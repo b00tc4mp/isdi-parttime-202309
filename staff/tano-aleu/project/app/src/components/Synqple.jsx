@@ -49,6 +49,7 @@ const Synqple = () => {
 
 
 
+
     //RENDERIZACION DE METRONOMO Y SAMPLES
 
 
@@ -156,9 +157,40 @@ const Synqple = () => {
 
 
 
-    //MANEJO DEL PLAY/STOP PARA METRONOMO Y SAMPLES
+    const oscillatorAudio = new Tone.Oscillator({
+        frequency: "A4", // Frecuencia estándar de la nota A4. Ajusta según necesidad.
+        volume: -Infinity, // Inicialmente silencioso.
+    }).toDestination();
 
-    const handlePlayToggle = () => setIsPlaying(!isPlaying);
+    useEffect(() => {
+        // Este efecto no hace nada al iniciar, pero asegura limpieza al desmontar.
+        return () => oscillatorAudio.dispose(); // Limpieza al desmontar el componente
+    }, [oscillatorAudio]);
+
+    const handleToggleAudio = async () => {
+        // Iniciar el AudioContext de Tone.js si aún no está en ejecución
+        if (Tone.context.state !== 'running') {
+            await Tone.start();
+            console.log('Playback resumed successfully');
+        }
+
+        if (!audioContextActive) {
+            oscillatorAudio.volume.rampTo(0, 0.01); // Hacer el oscilador audible gradualmente
+            oscillatorAudio.start();
+        } else {
+            oscillatorAudio.volume.rampTo(-Infinity, 0.01); // Silenciar el oscilador gradualmente
+            // Considerar detener el oscilador después de silenciar si no se requiere que siga ejecutándose.
+        }
+
+        setAudioContextActive(!audioContextActive);
+    };
+    const handlePlayToggle = async () => {
+        if (Tone.context.state !== 'running') {
+            await Tone.start();
+            console.log('Playback resumed successfully');
+        }
+        setIsPlaying(!isPlaying);
+    };
 
     const getAbsoluteIndex = (index) => {
 
@@ -169,31 +201,37 @@ const Synqple = () => {
         return (samplesList.findIndex(isNameTheSame));
 
     }
-
-    const handleSampleSelect = (index) => {
+    const handleSampleSelect = async (index) => {
         let indexToPlay = showFavoritesOnly ? getAbsoluteIndex(index) : index;
 
-        // Calcula un tiempo de inicio que sea seguro, basado en el último tiempo de inicio conocido
-        const safeStartTime = Math.max(Tone.now(), lastStartTime + 0.1);
+        // Asegura que el contexto de audio de Tone.js esté iniciado.
+        await Tone.start();
+
+        const now = Tone.now();
+        const bufferTime = 0.1; // Este es el tiempo antes del inicio del nuevo sample.
+        const silenceDuration = 0.20; // Duración del silencio entre samples en segundos.
 
         // Detén cualquier sample que se esté reproduciendo actualmente.
         if (currentSampleIndex >= 0 && samplePlayers[currentSampleIndex]) {
             samplePlayers[currentSampleIndex].stop();
+            // Introduce un pequeño silencio antes de iniciar el próximo sample.
+            await new Promise(resolve => setTimeout(resolve, silenceDuration * 1000)); // Convertimos a milisegundos
         }
 
-        // Asegura que el contexto de audio de Tone.js esté iniciado.
-        Tone.start().then(() => {
-            // Actualiza el índice del sample actualmente seleccionado.
-            setCurrentSampleIndex(indexToPlay);
+        const safeStartTime = Math.max(now + bufferTime, lastStartTime + bufferTime + silenceDuration);
 
-            // Si el reproductor está en reproducción, inicia el nuevo sample seleccionado con un retraso.
-            if (isPlaying && !isSampleMuted && samplePlayers[indexToPlay]) {
-                samplePlayers[indexToPlay].start(safeStartTime);
-                // Actualiza el último tiempo de inicio conocido
-                setLastStartTime(safeStartTime);
-            }
-        });
+        // Actualiza el índice del sample actualmente seleccionado.
+        setCurrentSampleIndex(indexToPlay);
+
+        // Si el reproductor está en reproducción, inicia el nuevo sample seleccionado con un retraso.
+        if (isPlaying && !isSampleMuted && samplePlayers[indexToPlay]) {
+            samplePlayers[indexToPlay].start(safeStartTime);
+            // Actualiza el último tiempo de inicio conocido
+            setLastStartTime(safeStartTime);
+        }
     };
+
+
     //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
     // Ajusta el manejador de muteo del metrónomo
     const toggleMuteMetronome = () => {
@@ -336,11 +374,6 @@ const Synqple = () => {
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
-    const toggleAudioContext = () => {
-        console.log('toggleAudioContext')
-        setAudioContextActive(!audioContextActive);
-    };
-
 
     return (
         <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
@@ -351,7 +384,7 @@ const Synqple = () => {
                     className='bg-purple-800 hover:bg-purple-900 text-white  py-2 px-4 rounded text-xs
                     '
                     style={{ backgroundColor: audioContextActive ? '#34D399' : '#EF4444' }}
-                    onClick={toggleAudioContext}
+                    onClick={handleToggleAudio}
                 >
                     {audioContextActive ? "SYNQPLE ON" : " SYNQPLE OFF"}
                 </button>
