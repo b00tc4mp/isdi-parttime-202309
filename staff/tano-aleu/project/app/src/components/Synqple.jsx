@@ -9,6 +9,7 @@ import TapTempo from './tapTempo';
 import BeatTransposition from './beatTransposition'; // 
 import FilterControl from './FilterControl';
 import retrieveFavSamples from '../logic/retrieveFavSamples';
+import StartAudioContext from 'startaudiocontext';
 
 const Synqple = () => {
     console.log('Synqple')
@@ -43,6 +44,8 @@ const Synqple = () => {
     // const [favSamplesPlayer, setFavSamplesPlayer] = useState([]);
 
     const [lastStartTime, setLastStartTime] = useState(0);
+
+    const [audioContextActive, setAudioContextActive] = useState(false);
 
 
 
@@ -333,40 +336,27 @@ const Synqple = () => {
     // Decide qué lista mostrar
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
-    useEffect(() => {
-        const unlockAudio = async () => {
-            // Inicia el contexto de audio de Tone.js
-            await Tone.start();
-            console.log('El contexto de audio está listo');
-
-            // Reproduce un breve sonido en silencio para desbloquear el audio
-            const oscillator = new Tone.Oscillator().toDestination();
-            oscillator.volume.value = -Infinity; // Pone el volumen a -Infinity para "silenciar" el sonido
-            oscillator.start();
-            oscillator.stop("+0.1"); // Detiene el oscilador después de un breve momento
-
-            // Después de reproducir el sonido en silencio, remueve el manejador de eventos
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('click', unlockAudio);
-        };
-
-        // Añade el manejador de eventos para desbloquear audio en iOS en la primera interacción del usuario
-        document.addEventListener('touchstart', unlockAudio);
-        document.addEventListener('click', unlockAudio);
-
-        // No olvides limpiar el manejador de eventos si tu componente se desmonta
-        return () => {
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('click', unlockAudio);
-        };
-    }, []);
-
-
-
+    const toggleAudioContext = () => {
+        console.log('toggleAudioContext')
+        setAudioContextActive(!audioContextActive);
+    };
 
 
     return (
         <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+
+            <div>
+                {/* Otro contenido de tu componente aquí */}
+                <button
+                    className='bg-purple-800 hover:bg-purple-900 text-white  py-2 px-4 rounded text-xs
+                    '
+                    style={{ backgroundColor: audioContextActive ? '#34D399' : '#EF4444' }}
+                    onClick={toggleAudioContext}
+                >
+                    {audioContextActive ? "SYNQPLE ON" : " SYNQPLE OFF"}
+                </button>
+            </div>
+
 
             {/* LP-HP Filter */}
             {
@@ -438,15 +428,22 @@ const Synqple = () => {
             <div className="flex items-center justify-between space-x-2 mb-4">
 
 
-                <button className="bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded" onClick={handlePlayToggle}>
+
+
+
+
+
+
+                <button className='bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded'
+                    style={{ backgroundColor: isPlaying ? '#34D399' : '#EF4444' }} onClick={handlePlayToggle}>
                     {isPlaying ? 'Stop' : 'Play'}
                 </button>
 
                 <TapTempo onBPMChange={setBpm} />
 
                 <button
-                    className={`hover:bg-purple-800 text-white font-bold py-2 px-4 rounded ${isMetronomeMuted ? "bg-purple-900" : "bg-purple-800"
-                        }`}
+                    className='bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded'
+                    style={{ backgroundColor: isMetronomeMuted ? '#EF4444' : '#34D399' }}
                     onClick={toggleMuteMetronome}
                 >
                     <img className='w-6' src={metronome_button} alt="Metronome" />

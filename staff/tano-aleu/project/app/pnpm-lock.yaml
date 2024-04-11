@@ -23,6 +23,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.22.1
     version: 6.22.1(react-dom@18.2.0)(react@18.2.0)
+  startaudiocontext:
+    specifier: ^1.2.1
+    version: 1.2.1
   tone:
     specifier: ^14.7.77
     version: 14.7.77
@@ -2877,6 +2880,10 @@ packages:
       '@babel/runtime': 7.24.0
       automation-events: 7.0.1
       tslib: 2.6.2
+    dev: false
+
+  /startaudiocontext@1.2.1:
+    resolution: {integrity: sha512-ooOQhOAoCwzMIRwWd9j7xF8kAMo1Wv7Zfw+q6dWDW5gxJUKx15HJXWDg89GMDqfdle9xsqPv+uioneX+bI643g==}
     dev: false
 
   /string-width@4.2.3:

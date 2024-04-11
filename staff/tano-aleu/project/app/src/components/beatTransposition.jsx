@@ -46,7 +46,9 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
 
             <div onContextMenu={preventContextMenu} className="flex justify-around">
                 <div className=" select-none touch-none mb-4">
-                    <button className="w-0 h-0 border-t-[30px] border-t-transparent border-r-[60px] border-r-purple-400 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(-5)}
+                    <button className="w-0 h-0 border-t-[30px] border-t-transparent border-r-[60px] border-r-purple-400 border-b-[30px] border-b-transparent"
+                        style={{ backgroundColor: bpm > 0 ? '#34D399' : '#EF4444' }}
+                        onMouseDown={() => startChangeTempo(-5)}
                         onMouseUp={stopChangeTempo}
                         onTouchStart={handleTouchStart(-5)}
                         onTouchEnd={handleTouchEnd}
@@ -56,6 +58,7 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
                 <h3 className="flex justify-around mt-4">Beat Transposition</h3>
                 <div className="select-none touch-none">
                     <button className="w-6 h-6 border-t-[30px] border-t-transparent border-l-[60px] border-l-purple-400 border-b-[30px] border-b-transparent" onMouseDown={() => startChangeTempo(5)}
+                        style={{ backgroundColor: bpm < 0 ? '#34D399' : '#EF4444' }}
                         onMouseUp={stopChangeTempo}
                         onTouchStart={handleTouchStart(5)}
                         onTouchEnd={handleTouchEnd}
