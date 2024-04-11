@@ -11,6 +11,7 @@ import changeEmail from './changeEmail.js'
 import changePassword from './changePassword.js'
 import createHistory from './createHistory.js'
 import retrieveHistory from './retrieveHistory.js'
+import modifyHistory from './modifyHistory.js'
 // import userContact from './userContact.js'
 
 const logic = {
@@ -27,6 +28,7 @@ const logic = {
     changePassword,
     createHistory,
     retrieveHistory,
+    modifyHistory,
     // userContact
 
 }

@@ -19,6 +19,7 @@ import {
     changePasswordHandler,
     createHistoryHandler,
     retrieveHistoryHandler,
+    modifyHistoryHandler,
     // userContactHandler,
 
 } from './handlers/index.js'
@@ -42,6 +43,8 @@ import {
 
         server.patch('/users/password', jsonBodyParser, changePasswordHandler)
 
+        server.patch('/history-m', jsonBodyParser, modifyHistoryHandler)
+
         server.post('/perfil', jsonBodyParser, createDogHandler)
 
         server.post('/history', jsonBodyParser, createHistoryHandler)
@@ -56,7 +59,7 @@ import {
 
         server.get('/females', retrieveFemalesHandler)
 
-        server.get('/history-m', retrieveHistoryHandler)
+        server.get('/history-r', retrieveHistoryHandler)
 
         server.delete('/dogs/:dogId', deleteDogHandler)
 

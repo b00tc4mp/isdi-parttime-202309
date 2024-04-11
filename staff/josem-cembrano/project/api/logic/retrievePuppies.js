@@ -9,7 +9,7 @@ export default async function retrievePuppies() {
         const puppies = await Dog.find({ puppy: true }).select('-__v').lean()
 
         if (!puppies || puppies.length === 0) {
-            throw new NotFoundError('No puppies found')
+            throw new NotFoundError('Add new puppies!!')
         }
 
         puppies.forEach(puppy => {

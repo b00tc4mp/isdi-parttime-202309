@@ -11,6 +11,7 @@ import changeEmailHandler from './changeEmailHandler.js'
 import changePasswordHandler from './changePasswordHandler.js'
 import createHistoryHandler from './createHistoryHandler.js'
 import retrieveHistoryHandler from './retrieveHistoryHandler.js'
+import modifyHistoryHandler from './modifyHistoryHandler.js'
 // import userContactHandler from './userContactHandler.js'
 
 export {
@@ -27,6 +28,7 @@ export {
     changePasswordHandler,
     createHistoryHandler,
     retrieveHistoryHandler,
+    modifyHistoryHandler,
     // userContactHandler
 
 }

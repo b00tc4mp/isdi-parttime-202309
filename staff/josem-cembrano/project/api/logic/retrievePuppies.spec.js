@@ -42,7 +42,7 @@ describe('retrievePuppies', () => {
             throw new Error('Should not reach this point')
         } catch (error) {
             if (error instanceof NotFoundError) {
-                expect(error.message).to.equal('No puppies found')
+                expect(error.message).to.equal('Add new puppies!!')
             } else {
                 throw error
             }
@@ -63,7 +63,7 @@ describe('retrievePuppies', () => {
             throw new Error('Should not reach this point')
         } catch (error) {
             if (error instanceof NotFoundError) {
-                expect(error.message).to.equal('No puppies found')
+                expect(error.message).to.equal('Add new puppies!!')
             } else {
                 throw error
             }
