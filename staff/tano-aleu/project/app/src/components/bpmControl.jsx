@@ -51,6 +51,4 @@ const BpmControl = ({ bpm, onChangeBpm }) => {
 
 };
 
-
-
 export default BpmControl;
