@@ -256,12 +256,27 @@ Vesion Nativa
 
 -------------------------------------------
 
-### Algunas anecdotas
+# Algunas anecdotas
 
-- Web Audio API esta deshabilitado por IOS, no reproduce como audio de medios si no como audio de notificaciones, me ha traido bastante dolor de cabeza,  no solo a mi si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general.
-Esto quiere decir si tiene sun iphonr y tienes el interruptor del silencio activado el sonido de la API de audio no suena, tienes que desactivar el modo silencioso.
-***Solucion:**ponerlo en modo dormir o no molestar, para que mientras que juegas con synqple no te molesten los sonidos de las notificaciones.
+- **Web Audio API esta deshabilitado por iOS:** Web Audio API no reproduce en iOS como audio de medios si no como audio de notificaciones, me ha traido bastante dolor de cabeza, y no solo a mi, si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general.
+Esto quiere decir si tienes un iphone y tienes el interruptor del silencio activado el sonido de la API de audio no suena, tienes que desactivar el modo silencioso.
+
+<br>
+
+***Solucion (provisional):** ponerlo en modo dormir o no molestar, para que mientras que juegas con synqple o cualquien app de audio no te molesten los sonidos de las notificaciones.
+
+***Solucion (funcional):** Convertir la web app en una app nativa (con React Native, por ejemplo)
 
 Este problema no es asi en **Android**, en android funciona tambien en modo silencioso.
 
-- Busqueda de informacion y ayuda: essencial ha sido la documentacion de Tone.js pero para agilidad y aprendizaje me ayudé mucho de Chat GPT.
+-------------------------------------------------
+
+- **Busqueda de informacion y ayuda:** essencial ha sido la documentacion de Tone.js, comenzar pruebas de audio con un simple HTML y un script, pero para agilidad y aprendizaje me ayudé muchisimo de Chat GPT.
+
+Los companieros que he tenido en el bootcamp juegan tambien un papel importante aqui, ha habido muchisimo companierismo y disposicion, ha sido genial trabajar con gente tan buena onda y con ganas de aprender.
+
+El profe, Manu es un profe con mucho conocimiento en la materia y muchas veces bastante exigente, pero con buena onda, siempre con ganas de ayudar y ganas de enseniar cosas nuevas.
+
+La profe asistente, Flors me ayudó en los ultimos momentos antes de la presentacion, fue de muchisima ayuda para terminar de pulir los ultimos detalles, me saco varias dudas y me dio buenos consejos para la presentacion. 
+(Essencial para futuros bootcamps, tener unx profe asistente en mi opinion, desdes el minuto uno hasta el ultimo)
+

@@ -264,4 +264,13 @@ This means if you have sun iphonr and you have the mute switch on the audio API 
 
 This problem is not like this on **Android**, on android it also works in silent mode.
 
-- Search for information and help: essential has been the documentation of Tone.js but for agility and learning I helped me a lot with Chat GPT.
+-------------------------------------------
+
+- Information search and help:** essential has been the Tone.js documentation, starting audio tests with a simple HTML and a script, but for agility and learning I got a lot of help from Chat GPT.
+
+The partners I've had in the bootcamp also play an important role here, there has been a lot of companionship and willingness, it's been great to work with people so cool and eager to learn.
+
+The teacher, Manu is a teacher with a lot of knowledge in the subject and often quite demanding, but with a good vibe, always willing to help and eager to teach new things.
+
+The assistant teacher, Flors, helped me in the last moments before the presentation, she was very helpful to polish the last details, she took out some doubts and gave me good advice for the presentation. 
+(Essential for future bootcamps, to have an assistant teacher in my opinion, from the first to the last minute).
