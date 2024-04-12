@@ -6,7 +6,7 @@ import getMetronomo from '../logic/getMetronomo';
 import getSamples from '../logic/getSamples';
 import BpmControl from './bpmControl';
 import TapTempo from './tapTempo';
-import BeatTransposition from './beatTransposition'; // 
+import BeatTransposition from './beatTransposition';
 import FilterControl from './FilterControl';
 import retrieveFavSamples from '../logic/retrieveFavSamples';
 
@@ -14,30 +14,49 @@ import retrieveFavSamples from '../logic/retrieveFavSamples';
 const Synqple = () => {
     console.log('Synqple')
 
-    const [bpm, setBpm] = useState(120); // Estado inicial de BPM, ajustable por BpmControl
+    // Estado para controlar el BPM
+    const [bpm, setBpm] = useState(120);
+
+    // Estado para controlar si se está reproduciendo
     const [isPlaying, setIsPlaying] = useState(false);
 
+    // Estado para el reproductor del metrónomo
     const [metronomePlayer, setMetronomePlayer] = useState(null);
+
+    // Estado para los reproductores de las muestras de audio
     const [samplePlayers, setSamplePlayers] = useState([]);
 
+    // Estado para la lista de muestras de audio
     const [samplesList, setSamplesList] = useState([]);
 
+    // Estado para el índice de la muestra de audio actualmente seleccionada
     const [currentSampleIndex, setCurrentSampleIndex] = useState(0);
+
+    // Estado para controlar si la muestra de audio está silenciada
     const [isSampleMuted, setIsSampleMuted] = useState(true);
+
+    // Estado para controlar si el metrónomo está silenciado
     const [isMetronomeMuted, setIsMetronomeMuted] = useState(false);
 
-    const [metronomeVolume, setMetronomeVolume] = useState(0); // Volumen inicial del metrónomo
-    const [sampleVolume, setSampleVolume] = useState(0); // Volumen inicial de los samples
+    // Estado para el volumen del metrónomo
+    const [metronomeVolume, setMetronomeVolume] = useState(0);
 
+    // Estado para el volumen de las muestras de audio
+    const [sampleVolume, setSampleVolume] = useState(0);
+
+    // Estado para controlar si solo se muestran las muestras favoritas
     const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-    const [favoritesList, setFavoritesList] = useState([]); // Solo los favoritos
-    // const [favSamplesPlayer, setFavSamplesPlayer] = useState([]);
+    // Estado para la lista de muestras favoritas
+    const [favoritesList, setFavoritesList] = useState([]);
 
+    // Estado para el último tiempo de inicio conocido
     const [lastStartTime, setLastStartTime] = useState(0);
 
+    // Estado para el índice visual de la muestra seleccionada
     const [visualIndex, setVisualIndex] = useState(-1);
 
+    // Estado para la configuración del loop
     const [loopConfig, setLoopConfig] = useState({});
 
 
@@ -59,7 +78,7 @@ const Synqple = () => {
             }
         }).catch(error => {
             console.error("Error loading metronome:", error);
-            // Aquí puedes manejar el error, como mostrar un mensaje al usuario.
+
         });
 
         getSamples().then(samples => {
@@ -80,17 +99,16 @@ const Synqple = () => {
             setSamplePlayers(samplePlayers); // Establecemos todos los players
         }).catch(error => {
             console.error("Error loading samples:", error);
-            // Manejo del error
         });
 
         // Función de limpieza
         return () => {
-            // Detener metrónomo si existe
+            // Detener metrónomo player
             if (metronomePlayer) {
                 metronomePlayer.stop();
             }
 
-            // Detener todos los sample players
+            //Detener todos los sample players
             samplePlayers.forEach(player => player.stop());
         };
 
@@ -98,6 +116,7 @@ const Synqple = () => {
 
 
     // CONTROL DE REPRODUCCION DE METRONOMO Y SAMPLES POR INDICE
+
     useEffect(() => {
         // Control de la reproducción basada en isPlaying, independiente del estado de silencio
         if (isPlaying) {
@@ -116,7 +135,10 @@ const Synqple = () => {
         }
     }, [isPlaying, metronomePlayer, samplePlayers, currentSampleIndex]);
 
+
+
     //SINCRONIA DE LOS SAMPLES CON EL METRONOMO
+
     useEffect(() => {
         if (metronomePlayer) {
             metronomePlayer.playbackRate = bpm / 120; // Asumiendo 120 como el BPM original de tu sample del metrónomo
@@ -125,6 +147,8 @@ const Synqple = () => {
             player.playbackRate = bpm / 120; // Asegura que esto es correcto para tus samples
         });
     }, [bpm, metronomePlayer, samplePlayers]);
+
+
 
 
     //MANEJO DEL PLAY/STOP PARA METRONOMO Y SAMPLES
@@ -175,6 +199,7 @@ const Synqple = () => {
     };
 
     //MANEJO DE MUTEO DE METRONOMO Y SAMPLES
+
     // Ajusta el manejador de muteo del metrónomo
     const toggleMuteMetronome = () => {
 
@@ -205,7 +230,7 @@ const Synqple = () => {
 
 
 
-    // Manejadores para cambios de volumen
+    // MANEJO DE CAMBIO DE VOLUMEN DE METRONOMO Y SAMPLES
     const handleMetronomeVolumeChange = (event) => {
         const volume = Number(event.target.value);
 
@@ -219,12 +244,15 @@ const Synqple = () => {
 
     };
 
+    // MANEJO DE CAMBIO DE VELOCIDAD BPM
 
     const handleChangeBpm = (newBpm) => {
         setBpm(newBpm); // Actualiza el estado del BPM
-        // Aquí podrías añadir cualquier otra lógica necesaria cuando el BPM cambia
+
     };
 
+
+    // MANEJO DE LOOPS DE SAMPLES
 
     const getMultiplierFromFraction = (loopFraction) => {
         let multiplier;
@@ -243,27 +271,28 @@ const Synqple = () => {
 
         if (loopFraction.includes('/')) {
             const [numerator, denominator] = loopFraction.split('/').map(Number);
-            // Para "1/8", esto debería resultar en un valor mucho menor, correcto para 1/8 de un compás
-            multiplier = numerator / (denominator * 16); // 32 porque hay 32 octavos en 8 compases de 4/4
+
+            multiplier = numerator / (denominator * 16);
         } else {
-            multiplier = Number(loopFraction) / 8; // Convertir a fracción de la duración total de 8 compases
+            multiplier = Number(loopFraction) / 8;
         }
 
         samplePlayers.forEach((player, index) => {
+
             const sample = samplesList[index];
             if (!sample || !player.loaded) return;
 
-            // Verifica si ya se aplicó el mismo loopFraction a este sample
             if (loopConfig[index] && loopConfig[index].isLooping && loopConfig[index].loopFraction === loopFraction) {
-                // Si es el mismo, resetea a la configuración normal
-                player.loop = true; // Desactiva el loop
-                player.loopEnd = 0; // Reset loop end a la duración completa del sample
+
+                player.loop = true;
+                player.loopEnd = 0;
                 setLoopConfig(current => ({ ...current, [index]: { isLooping: false, loopFraction: null } }));
+
             } else {
-                // Aplica la nueva configuración de loop
+
                 let multiplier = getMultiplierFromFraction(loopFraction);
                 const beatsPerSecond = sample.bpm / 60;
-                const totalBeats = 4 * 2; // Asumiendo 4 beats por compás
+                const totalBeats = 4 * 2;
                 const totalDuration = totalBeats / beatsPerSecond;
                 player.loop = true;
                 player.loopEnd = totalDuration * multiplier;
@@ -304,7 +333,7 @@ const Synqple = () => {
         }
     }, [showFavoritesOnly]);
 
-    // Decide qué lista mostrar
+    // MANEJO DE LISTAS DE SAMPLES 
     const displayedSamples = showFavoritesOnly ? favoritesList : samplesList;
 
 
@@ -317,11 +346,13 @@ const Synqple = () => {
     return (
         <div className="bg-[#5F5784] border rounded-3xl p-4 border-black text-white flex flex-col overflow-auto min-h-screen mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
 
+
             {/* LP-HP Filter */}
             {
                 samplePlayers.length > 0 && currentSampleIndex >= 0 &&
                 <FilterControl currentSamplePlayer={samplePlayers[currentSampleIndex]} />
             }
+
 
             {/* Sample Selection with Scroll */}
             <button onClick={() => handleShowFavorites()} className=" bg-purple-800 hover:bg-purple-900 text-white font-bold rounded py-2">
@@ -343,6 +374,7 @@ const Synqple = () => {
                     <div className="text-center p-4">No favorite samples yet.</div>
                 )}
             </div>
+
 
             {/* Sample Volume Control and Mute Button */}
             <div>
@@ -369,16 +401,21 @@ const Synqple = () => {
                 ))}
             </div>
 
+
+
             {/* BPM Control & Beat Transposition */}
 
             <BpmControl bpm={bpm} onChangeBpm={setBpm} />
 
             <BeatTransposition bpm={bpm} onBPMChange={handleChangeBpm} />
 
-            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */} <div className=' flex justify-center'></div>
+
+
+            {/* Tap Tempo, Mute Metronome, Play Button & Metronome Volume Control */}
+
+            <div className=' flex justify-center'></div>
 
             <div className="flex items-center justify-between space-x-2 mb-4">
-
 
                 <button className='bg-purple-800 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded'
                     style={{ backgroundColor: isPlaying ? '#34D399' : '#EF4444' }} onClick={handlePlayToggle}>
