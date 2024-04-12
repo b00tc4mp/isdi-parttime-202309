@@ -11,7 +11,7 @@ const user = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true //crea un indice para que no deje registrar a mas usuarios con el mismo email.
+        unique: true
     },
     password: {
         type: String,
@@ -37,7 +37,7 @@ const metronomo = new Schema({
         required: true
     },
     type: {
-        type: String, // Ejemplo: 'metronomo'
+        type: String,
     },
     bpm: {
         type: Number,
@@ -45,7 +45,7 @@ const metronomo = new Schema({
     duration: {
         type: Number
     }
-    //  añadir más campos según si es necesario
+
 }, { collection: 'metronomes' });
 
 
@@ -60,7 +60,7 @@ const sample = new Schema({
         required: true
     },
     type: {
-        type: String, // Ejemplo: 'drums', 'bass'
+        type: String,
     },
     bpm: {
         type: Number,
@@ -68,7 +68,7 @@ const sample = new Schema({
     duration: {
         type: Number
     }
-    //  añadir más campos según si es necesario
+
 }, { collection: 'samples' });
 
 const User = model('User', user)

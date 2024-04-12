@@ -8,7 +8,7 @@ export default (req, res) => {
     try {
         const token = req.headers.authorization.substring(7);
         const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET);
-        const sampleId = req.params.sampleId; // Asegúrate de extraer correctamente el sampleId
+        const sampleId = req.params.sampleId;
 
         logic.toggleFavSample(userId, sampleId)
             .then(() => {
