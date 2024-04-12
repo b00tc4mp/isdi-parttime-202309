@@ -16,30 +16,32 @@ Synqple es una aplicacion web, que tiene como funcionalidad principal sincroniza
 
 Ademas permitirá al usuario aprender, comprender y practicar la sincronización de 2 o más sonidos, con ello la posibilidad de hacer una canción o un Remix en vivo, desde uno o mas dispositivos mobiles sincronizados simultaneamente y conectados en dispositivos de audio (altavoces, amplificadores, altavoces bluetooth...)
 
-Synqple trae una forma rapida y sencilla de sincronizar audio, a traves de un reproductor de audio, metronomo, control de velocidad, tap tempo, ecualizacion y efectos, que permiten reproducir samples y loops para sincronizarlo con cualquier audio externo.
+Synqple trae una forma rapida y sencilla de sincronizar audio, a traves de un reproductor de audio, metronomo, control de velocidad, tap tempo, ecualizacion y efectos, que permiten reproducir samples y loops para sincronizarlos con cualquier audio externo.
 
 ***(Synqple en su version 1, viene por defecto con un metronomo, 17 Samples, 3 estilos musicales (breaks, reggae, house), 3 harmonias completas Gmin, Emin, Bmin, estas dividas en 6 canales: drums, bass, guitar/piano, synth, percs, vocals)**
 
 ![](https://media.giphy.com/media/ku5EcFe4PNGWA/giphy.gif)
 
-# Functional Description
+## Functional Description
 
-Reproductor de Audio, Metronomo, Tap Tempo, Sampler, EQ y AudioFX
+Reproductor de Audio, Metronomo, Tap Tempo, Control BPM, Sampler, EQ y AudioFX
 
 ## Use Cases
 
 Registered Users: 
 
-- Login/Register/Retrieve/ChangeCredentials/Delete User 
+- Login / Register 
+- Profile - Retrieve / ChangeCredentials / Delete User 
 - Reproducir audio (metronomo, samples)
 - Tap tempo para marcar BPM manualmente
 - Ajustar BPM (incrementar/decrementar)
-- Reproducir/pausar/detener metrónomo
-- Reproducir/pausar/detener samples 
+- Ajustar el beat (empuje hacia delante o atras)
+- Reproducir/detener metrónomo
+- Reproducir/detener samples 
 - Silenciar metrónomo y samples
 - Ajustar volumen metrónomo y samples
 - Visualizar carpeta de samples y navegar entre ellos
-- Reproducir/pausar/detener samples individuales
+- Reproducir/detener samples individuales desde el sample folder
 - Guardar samples como favoritos
 - Streaming Samples por URL (AWS)
 
@@ -47,7 +49,7 @@ Registered Users:
 -----------
 
 
-### Technical Description
+## Technical Description
 
 - Frontend: HTML, CSS, React, Vite, Tailwind
 - Audio: Tone.js, Web Audio API
@@ -60,7 +62,7 @@ Registered Users:
 ----------------
 
 
-### Data Model
+## Data Model
 
 ### User
 v.1
@@ -102,7 +104,7 @@ v.1
 
 ---------------------------------------------------------
 
-# Pages UI
+## Pages UI
 
 ### Welcome
 
@@ -115,18 +117,26 @@ v.1
 - Register
 
 
+### Home
+
+- El componente home renderiza:
+
+### Logout
+
+- Logout -- Redirects to Loginpage
+
+
 ### Settings
 
 1. Profile
 
 - Change Email
 - Change Password
-- Delete User
-- User Image (Upload/Delete)
+- Delete User --- Redirects to Loginpage
+- User Image (Upload/Delete) (not working)
+- Logout (siguiente version)
 
 2. Audio Settings
-
-3. Logout
 
 
 ### Samples Folder
@@ -135,7 +145,6 @@ v.1
 - User toggle Favs
 - Favs
 
-### Home
 
 #### synqpleTool (audio component)
 - Reproduccion de metronomo y samples (botones play/stop/mute)
@@ -256,7 +265,7 @@ Vesion Nativa
 
 -------------------------------------------
 
-# Algunas anecdotas
+## Algunas anecdotas
 
 - **Web Audio API esta deshabilitado por iOS:** Web Audio API no reproduce en iOS como audio de medios si no como audio de notificaciones, me ha traido bastante dolor de cabeza, y no solo a mi, si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general.
 Esto quiere decir si tienes un iphone y tienes el interruptor del silencio activado el sonido de la API de audio no suena, tienes que desactivar el modo silencioso.

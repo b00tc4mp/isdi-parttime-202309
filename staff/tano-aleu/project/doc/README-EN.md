@@ -9,43 +9,45 @@
 
 ## Intro
 
-Synqple is a web application, whose main functionality is to synchronize live music, in an analogue way, i.e. without automatic synchronization. 
+Synqple is a web application, whose main functionality is to synchronize live music, in an analogue way, that is to say, without automatic synchronization. 
 
 It will also allow the user to learn, understand and practice the synchronization of 2 or more sounds, with the possibility of making a song or a live Remix, from one or more mobile devices synchronized simultaneously and connected to audio devices (speakers, amplifiers, bluetooth speakers...).
 
-Synqple brings a quick and easy way to synchronize audio, through an audio player, metronome, speed control, tap tempo, EQ and effects, that allow to play samples, loops and external audio in a synchronized way.
+Synqple brings a quick and easy way to synchronize audio, through an audio player, metronome, speed control, tap tempo, equalization and effects, which allow you to play samples and loops to synchronize them with any external audio.
 
-***(comes by default with a metronome, 17 Samples, 3 musical styles (breaks, reggae, house), 3 full harmonies Gmin, Emin, Bmin, these divided into 6 channels: drums, bass, guitar/piano, synth, percs, vocals)**.
+***(Synqple in its version 1, comes by default with a metronome, 17 Samples, 3 musical styles (breaks, reggae, house), 3 complete harmonies Gmin, Emin, Bmin, these divided in 6 channels: drums, bass, guitar/piano, synth, percs, vocals)**.
 
 ![](https://media.giphy.com/media/ku5EcFe4PNGWA/giphy.gif)
 
-# Functional Description
+## Functional Description
 
-Audio Player, Metronome, Tap Tempo, Sampler, EQ and AudioFX
+Audio Player, Metronome, Tap Tempo, BPM Control, Sampler, EQ and AudioFX
 
 ## Use Cases
 
 Registered Users: 
 
-- Login/Register/Retrieve/ChangeCredentials/Delete User 
+- Login / Register 
+- Profile - Retrieve / ChangeCredentials / Delete User 
 - Play audio (metronome, samples)
-- Tap tempo para marcar BPM manualmente
-- Ajustar BPM (incrementar/decrementar)
-- Reproducir/pausar/detener metrónomo
-- Reproducir/pausar/detener samples 
-
+- Tap tempo to set BPM manually
+- Adjust BPM (increase/decrease)
+- Adjust beat (push forward or backward)
+- Play/stop metronome
+- Play/stop samples 
 - Mute metronome and samples
 - Adjust metronome and sample volume
-- View and navigate between sample folders
-- Play/pause/stop individual samples
+- Display and navigate between sample folders
+- Play/Stop individual samples from the sample folder
 - Save samples as favourites
 - Streaming Samples by URL (AWS)
+
 
 
 -----------
 
 
-### Technical Description
+## Technical Description
 
 - Frontend: HTML, CSS, React, Vite, Tailwind
 - Audio: Tone.js, Web Audio API
@@ -59,7 +61,7 @@ Registered Users:
 ----------------
 
 
-### Data Model
+## Data Model
 
 ### User
 v.1
@@ -113,6 +115,15 @@ v.1
 - Login
 - Register
 
+### Home
+
+- The home component renders:
+
+
+### Logout
+
+- Logout -- Redirects to Loginpage
+
 
 ### Settings
 
@@ -120,12 +131,17 @@ v.1
 
 - Change Email
 - Change Password
-- Delete User
-- User Image (Upload/Delete)
+- Delete User --- Redirects to Loginpage
+- User Image (Upload/Delete) (next version)
+- Logout (next version)
 
-2. Audio Settings
+2. Languages (next version)
 
-3. Logout
+3. Audio Settings (next version)
+
+4. Help Center (next version)
+
+4. Some more options... (next version)
 
 
 ### Samples Folder
@@ -134,9 +150,9 @@ v.1
 - User toggle Favs
 - Favs
 
-### Home
 
-#### synqpleTool (audio component)
+### synqpleTool (audio component)
+
 - Metronome and sample playback (play/stop/mute buttons)
 - metronome volume control (input range)
 - TAP to mark the tempo (TAP button)
@@ -241,7 +257,7 @@ New logics
 - Equalizer
 - Audio channels (at least 2 more)
 
-Native View
+Native App
 - Ionic Framework to create a cross-platform App
 - Being able to play whole songs with the same controls as for samples
 - To be able to have a native folder for the songs and navigate between them
@@ -256,7 +272,7 @@ Native View
 
 -------------------------------------------
 
-### Some anecdotes
+## Some anecdotes
 
 - Web Audio API is disabled by IOS, it doesn't play as media audio but as notification audio, it has brought me a lot of headache, not only to me but to many developers from what I've seen in Stack Overflow, Github and the web in general.
 This means if you have sun iphonr and you have the mute switch on the audio API sound doesn't play, you have to disable mute mode.
