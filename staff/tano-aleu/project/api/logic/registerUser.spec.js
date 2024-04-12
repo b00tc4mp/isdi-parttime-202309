@@ -20,7 +20,6 @@ describe('registerUser', () => {//describimos el test, le ponemos un titulo
     beforeEach(async () => await User.deleteMany())
     it('succeds on new user', async () => {
         const name = random.name()
-        console.log(name)
         const email = random.email()
         const password = random.password()
         await registerUser(name, email, password)

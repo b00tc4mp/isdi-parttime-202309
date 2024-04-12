@@ -152,7 +152,7 @@ const Synqple = () => {
 
         const now = Tone.now();
         const bufferTime = 0.1; // Este es el tiempo antes del inicio del nuevo sample.
-        const silenceDuration = 0.20; // Duración del silencio entre samples en segundos.
+        const silenceDuration = 0.1; // Duración del silencio entre samples en segundos.
 
         // Detén cualquier sample que se esté reproduciendo actualmente.
         if (currentSampleIndex >= 0 && samplePlayers[currentSampleIndex]) {

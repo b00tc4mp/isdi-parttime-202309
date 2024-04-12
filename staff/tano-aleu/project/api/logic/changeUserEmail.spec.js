@@ -123,6 +123,7 @@ describe('changeUserEmail', async () => {
         }
     });
 
+
     it('fails if the new email is already in use', async () => {
         const name1 = random.name();
         const email1 = random.email();
@@ -146,6 +147,27 @@ describe('changeUserEmail', async () => {
             expect(error.message).to.equal('email already exists'); // Este mensaje debe coincidir con lo que tu lógica realmente devuelve
         }
     });
+
+    it('fails if the new email is the same as the current one', async () => {
+        const name = random.name();
+        const email = random.email();
+        const password = random.password();
+        const newEmail = email; // Usar el mismo email para la prueba
+        const newEmailConfirm = email;
+
+        let hash = await bcrypt.hash(password, 8);
+
+        const user = await User.create({ name, email, password: hash });
+
+        try {
+            await changeUserEmail(user.id, newEmail, newEmailConfirm, password);
+            throw new Error('should not reach this point');
+        } catch (error) {
+            expect(error).to.be.instanceOf(ContentError);
+            expect(error.message).to.equal('the new email must be different from the current one');
+        }
+    });
+
 
 
     after(() => mongoose.disconnect())

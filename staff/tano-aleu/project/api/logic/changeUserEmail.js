@@ -24,6 +24,10 @@ function changeUserEmail(userId, newEmail, newEmailConfirm, password) {
         if (!user)
             throw new NotFoundError('user not found')
 
+        if (user.email === newEmail) {
+            throw new ContentError('the new email must be different from the current one');
+        }
+
         let match
         try {
             match = await bcrypt.compare(password, user.password)
