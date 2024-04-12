@@ -243,3 +243,19 @@ Vesion Nativa
 - Ionic Framework para crear una App multiplataforma
 - Poder reproducir canciones enteras con los mismos controles que para samples
 - Poder tener una carpeta nativa para las canciones y navegar entre ellas
+
+
+------------------------------
+
+
+### Info sobre API de Audio en JavaScript
+
+- **Web Audio API:** Es una interfaz de programación de aplicaciones (API) que permite a los desarrolladores manipular y controlar audio en la web mediante JavaScript. Con esta API, puedes crear y manipular sonidos directamente en el navegador, aplicar efectos de sonido, crear secuencias de audio y mucho más. Es una herramienta poderosa para la creación de aplicaciones web interactivas y experiencias multimedia.
+
+- **Tone.js:** Es una biblioteca de JavaScript para la creación de música y sonido en la web. Tone.js simplifica el proceso de trabajar con audio en el navegador al proporcionar una API fácil de usar para la síntesis de audio, la programación de eventos musicales, la creación de efectos de sonido y más. Es especialmente útil para desarrolladores que desean crear aplicaciones musicales interactivas, juegos o experiencias de sonido inmersivas en la web.
+
+-------------------------------------------
+
+### Algunas anecdotas
+
+- Web Audio API esta deshabilitado por IOS, no reproduce como audio de medios si no como audio de notificaciones, me ha traido bastante solor de cabeza no solo a mi si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general

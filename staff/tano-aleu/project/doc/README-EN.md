@@ -54,6 +54,7 @@ Registered Users:
 - Test/specs: Mocha + Chai
 - Deploy: Netlify (Frontend) + Render(Backend)
 - Design: Figma, Illustrator
+- Versions Control: Git
 
 ----------------
 
@@ -184,15 +185,10 @@ The beat nudge -/+ (moving the sample loop a little forward or backward) plays a
 - 5. **Other functionalities:** You can change sample/loop by browsing the sample folder or using the favourites. You can also mute and unmute the metronome and samples independently. It has an allpass filter to play with the mixes. It also has a loop length that allows you to control the length of the sample loop, another fun way to play with the samples once they are synced.
 
 
-
 -------------------
 
 
-
--------------------
-
-
-### Example:
+### Use Example:
 
 - A song is playing, a musician or a band is playing and Synqple will allow you to:  
 
@@ -202,7 +198,7 @@ The beat nudge -/+ (moving the sample loop a little forward or backward) plays a
 
 3. Possibility of audio playback from a sound system parallel to the one that plays the song, musician or band or from the same sound system, that will depend on the possibility of audio connection.
 
-### Another example (for React Native version): 
+### Another use  example (only possible React Native version): 
 
 - Synqple can be used as a CD player or any other kind of Deejay player: 
 
@@ -213,7 +209,6 @@ The beat nudge -/+ (moving the sample loop a little forward or backward) plays a
 3. Now you can play your tracks from your device or from another device.
 
 4. You can proceed to use it like any other deejay audio player, as it has pitch, beat nudge and playback control, allowing you to mix 2 songs or as many as you want (with 2 or more devices connected analog to a djmixer with enough channels).
-
 
 
 ------------------------
@@ -251,4 +246,26 @@ Native View
 - Being able to play whole songs with the same controls as for samples
 - To be able to have a native folder for the songs and navigate between them
 
+-------------------------------
 
+## Info on JavaScript Audio API
+
+- The Web Audio API is an application programming interface (API) that allows developers to manipulate and control audio on the web using JavaScript. With this API, you can create and manipulate sounds directly in the browser, apply sound effects, create audio streams and much more. It is a powerful tool for creating interactive web applications and multimedia experiences.
+
+- Tone.js:** A JavaScript library for creating music and sound on the web. Tone.js simplifies the process of working with audio in the browser by providing an easy-to-use API for audio synthesis, scheduling music events, creating sound effects and more. It is especially useful for developers who want to create interactive music applications, games or immersive sound experiences on the web.
+
+-------------------------------------------
+
+### Some anecdotes
+
+- Web Audio API is disabled by IOS, it doesn't play as media audio but as notification audio, it has brought me a lot of headache, not only to me but to many developers from what I've seen in Stack Overflow, Github and the web in general.
+This means if you have sun iphonr and you have the mute switch on the audio API sound doesn't play, you have to disable mute mode.
+
+***Solution:** set it to sleep or do not disturb mode, so that while playing with synqple you are not disturbed by notification sounds.
+
+This problem is not like this on **Android**, on android it also works in silent mode.
+
+
+- Busqueda de informacion y ayuda: essencial ha sido la documentacion de Tone.js pero para agilidad y 
+
+------------
