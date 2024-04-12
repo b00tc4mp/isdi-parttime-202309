@@ -60,6 +60,14 @@ Registered Users:
 
 ----------------
 
+### Info on JavaScript Audio API
+
+- The Web Audio API is an application programming interface (API) that allows developers to manipulate and control audio on the web using JavaScript. With this API, you can create and manipulate sounds directly in the browser, apply sound effects, create audio streams and much more. It is a powerful tool for creating interactive web applications and multimedia experiences.
+
+- Tone.js:** A JavaScript library for creating music and sound on the web. Tone.js simplifies the process of working with audio in the browser by providing an easy-to-use API for audio synthesis, scheduling music events, creating sound effects and more. It is especially useful for developers who want to create interactive music applications, games or immersive sound experiences on the web.
+
+-------------------------------------------
+
 
 ## Data Model
 
@@ -264,13 +272,7 @@ Native App
 
 -------------------------------
 
-## Info on JavaScript Audio API
 
-- The Web Audio API is an application programming interface (API) that allows developers to manipulate and control audio on the web using JavaScript. With this API, you can create and manipulate sounds directly in the browser, apply sound effects, create audio streams and much more. It is a powerful tool for creating interactive web applications and multimedia experiences.
-
-- Tone.js:** A JavaScript library for creating music and sound on the web. Tone.js simplifies the process of working with audio in the browser by providing an easy-to-use API for audio synthesis, scheduling music events, creating sound effects and more. It is especially useful for developers who want to create interactive music applications, games or immersive sound experiences on the web.
-
--------------------------------------------
 
 ## Some anecdotes
 
