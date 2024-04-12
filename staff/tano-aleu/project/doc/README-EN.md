@@ -146,6 +146,8 @@ v.1
 - Display of sample/loop folder and possibility to browse in list mode 
 
 
+-----------------------------------------------
+
 ### APP URL CORE CODE
 
 <br>
@@ -155,17 +157,37 @@ v.1
 </a>
 
 
-###### Use Description
+------------------------
 
-- 1. Audio playback: first a metronome and then, once the metronome is synchronized, possibility to play samples/loops (which must be at the same BPM speed of the metronome, the speed must be global).
+#### Use Description
 
-- 2. For the synchronisation it must have a TAP to mark the speed manually, which must be reflected in a display where it will mark the BPM, it must also have 2 buttons to be able to edit the BPM. 
 
-- 3. It must have a play and stop control for both metronome and samples and the possibility to mute the metronome and samples.
+Move through the app, and discover its sections and functionalities,
 
-- 4. In the case that when launching the metronome it goes asynchronous (very likely case, otherwise you should launch it again), it must have 2 buttons that allow you to move the metronome to the correct position with the first beat of the song or instrument to be synchronised with your metronome or sample/loop.
+once in the synqple(audio tool) section I recommend you to choose the first sample to test "Drum_1_Breaks", and follow the steps:
 
-- 5. Volume control of metronome and samples
+**(the BPM speed control is for both the metronome and the samples, the 2 sounds are started synchronously)** ** 1.
+
+
+- 1. **Audio playback (metronome):** hit the play button and the metronome will play at a default speed of 120 bpm, also the sample just started playing **(only it is muted by default, you have to unmute it manually, but that can still wait)** you can change the bpm speed with the increase/decrease bpm buttons or with the tap to set the speed.
+
+- 2. **Synchronisation:** For synchronisation you must use the TAP(synq), with 4 beats at the rhythm (of the music or instrument to be synchronised), marked from the beginning of the beat or loop to the end, 4 beats because synqple is intended for 4x4 music.
+
+You will see that after 4 beats the value of the bpm control will change, showing the detected bpm. It is up to the user how accurate the sync is, for fine tuning use the bpm increment/decrement buttons in one unit and in the input range you can set it to 0.5. 
+
+The beat nudge -/+ (moving the sample loop a little forward or backward) plays an essential role here because of the asynchrony or delay and the way synqple forces you to fully synchronise aurally, the beat nudge is essential in the synchronisation without it nothing could be synchronised.
+
+- 3. **Audio playback (samples):** the idea is that the metronome is always completely synchronised first, once this is synchronised and it is re-checked several seconds aurally, the sample is unmuted.
+
+- 4. **Sample volume control:** once the sample has been unmuted, the volume can be adjusted with the sample volume input range to achieve a balance between the music or instrument to be synchronised and the sample.
+
+- 5. **Other functionalities:** You can change sample/loop by browsing the sample folder or using the favourites. You can also mute and unmute the metronome and samples independently. It has an allpass filter to play with the mixes. It also has a loop length that allows you to control the length of the sample loop, another fun way to play with the samples once they are synced.
+
+
+
+-------------------
+
+
 
 -------------------
 
@@ -192,5 +214,41 @@ v.1
 
 4. You can proceed to use it like any other deejay audio player, as it has pitch, beat nudge and playback control, allowing you to mix 2 songs or as many as you want (with 2 or more devices connected analog to a djmixer with enough channels).
 
+
+
+------------------------
+
+### Upcoming Releases
+
+v.1.1
+
+
+Prelisten
+- Switch between Pre-listening and Playback (L/R double false stereo)
+
+FX
+- Delay
+- Reverb
+- PitchShift
+
+UI
+- New styles
+
+Test
+- Start Frontend testing with Vitest
+- Backend making more specs
+
+New logics
+- Profile (imageUpload, deleteImage...)
+- Settings (changeLanguage,...)
+- Light/Dark mode toggle
+- Audio quality (low/high)
+- Equalizer
+- Audio channels (at least 2 more)
+
+Native View
+- Ionic Framework to create a cross-platform App
+- Being able to play whole songs with the same controls as for samples
+- To be able to have a native folder for the songs and navigate between them
 
 

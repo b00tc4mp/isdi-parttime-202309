@@ -3,8 +3,11 @@
 
 <br>
 
-[![synqple-logo-version-white.png](https://i.postimg.cc/X7VdJ4QX/synqple-logo-version-white.png)](https://postimg.cc/9znrg53j)
 
+<a href="https://postimg.cc/9znrg53j">
+    <img src="https://i.postimg.cc/X7VdJ4QX/synqple-logo-version-white.png" width="400" alt="IMG-4770">
+    
+</a>
 
 
 ## Intro
@@ -13,9 +16,9 @@ Synqple es una aplicacion web, que tiene como funcionalidad principal sincroniza
 
 Ademas permitirá al usuario aprender, comprender y practicar la sincronización de 2 o más sonidos, con ello la posibilidad de hacer una canción o un Remix en vivo, desde uno o mas dispositivos mobiles sincronizados simultaneamente y conectados en dispositivos de audio (altavoces, amplificadores, altavoces bluetooth...)
 
-Synqple trae una forma rapida y sencilla de sincronizar audio, a traves de un reproductor de audio, metronomo, control de velocidad, tap tempo, ecualizacion y efectos, que permiten reproducir samples, loops y audio externo de forma sincronizada.
+Synqple trae una forma rapida y sencilla de sincronizar audio, a traves de un reproductor de audio, metronomo, control de velocidad, tap tempo, ecualizacion y efectos, que permiten reproducir samples y loops para sincronizarlo con cualquier audio externo.
 
-***(viene por defecto con un metronomo, 17 Samples, 3 estilos musicales (breaks, reggae, house), 3 harmonias completas Gmin, Emin, Bmin, estas dividas en 6 canales: drums, bass, guitar/piano, synth, percs, vocals)**
+***(Synqple en su version 1, viene por defecto con un metronomo, 17 Samples, 3 estilos musicales (breaks, reggae, house), 3 harmonias completas Gmin, Emin, Bmin, estas dividas en 6 canales: drums, bass, guitar/piano, synth, percs, vocals)**
 
 ![](https://media.giphy.com/media/ku5EcFe4PNGWA/giphy.gif)
 
@@ -33,9 +36,6 @@ Registered Users:
 - Ajustar BPM (incrementar/decrementar)
 - Reproducir/pausar/detener metrónomo
 - Reproducir/pausar/detener samples 
-
-<br>  
-
 - Silenciar metrónomo y samples
 - Ajustar volumen metrónomo y samples
 - Visualizar carpeta de samples y navegar entre ellos
@@ -102,7 +102,7 @@ v.1
 
 ---------------------------------------------------------
 
-## Pages UI
+# Pages UI
 
 ### Welcome
 
@@ -159,19 +159,32 @@ v.1
 
 
 
-
+-----------------------------------
 
 #### Use Description
 
-- 1. Reproducción de audio: primero un metrónomo y luego, una vez sincronizado el metrónomo, posibilidad de reproducción de samples/loops (que deben de ir a la misma velocidad BPM del metronomo, la velocidad debe ser global)
 
-- 2. Para la sincronización deberá tener un TAP para marcar la velocidad manualmente, lo cual deberá reflejarse en un display donde marcará los BPM, también deberá tener 2 botones para poder editar el BPM. 
+Muevete a traves de la app, y descubre sus secciones y funcionalidades,
 
-- 3. Deberá tener un control de play y stop tanto para metronomo como para samples y la posibilidad de silenciar el metrónomo y los samples
+una vez en la seccion synqple(audio tool) te recomiendo que elijas el primer sample para hacer una prueba "Drum_1_Breaks", y sigue los pasos:
 
-- 4. En el caso que al lanzar el metrónomo vaya asincrono (caso muy probable, si no deberias de lanzarlo de nuevo), debe tener 2 botones que permitan mover el metrónomo a la posición correcta con el primer golpe de ritmo de la canción o el instrumento a sincronizar con tu metronomo o sample/loop.
+**(el control de velocidad BPM es tanto para el metronomo como para los samples, se inician los 2 sonidos de forma sincrona)**
 
-- 5. Control de volumen del metrónomo y de los samples
+
+- 1. **Reproducción de audio (metronomo):** dale al boton play y el metronomo sonará a una velocidad por defecto de 120 bpm, tambien el sample acaba de ponerse en reproduccion **(solo que esté esta muteado por defecto, hay que desmutearlo manualmente, pero eso aun puede esperar)** puedes cambiar la velocidad bpm con los botones de incrementar/decrementar bpm o con el tap para marcar la velocidad.
+
+- 2. **Sincronizacion:** Para la sincronización se debe utilizar el TAP(synq), con 4 golpes a ritmo (de la musica o instrumento sincronizar), marcados en desde el comienzo del compas o loop hasta el final, 4 golpes por que synqple esta pensado paara musica 4x4.
+
+Verás que despues de 4 golpes el valor del bpm control cambiará, mostrando el bpm detectado. Depende del usuario la exactitud de la sincronizacion, para ajustes finos se debe utilizar los botones de incremento/decremento bpm en una unidad y en el input range podras ajustas a 0.5. 
+
+El beat nudge -/+ (mover el loop del sample un poco adelante o atras) juega aqui un papel essencial por el tema del y de la asincronia o delay y de la forma que synqple te obliga a sincronizar totalmente a oido, el beat nudge es essencial en la sincronizacion sin el no se podria sincronizar nada.
+
+- 3. **Reproducción de audio (samples):** la idea es que siempre primero se sincronice completamente el metronomo una vez sincronizado este y es recomprobado varios segundos de forma auditiva, se procede al desmuteo del sample.
+
+- 4. **Control de volumen de samples:** una vez desmuteado el sample, se puede ajustar su volumen con el input range de volumen de samples para lograr un balance entre la musica o instrumento a sincronizar y el sample.
+
+- 5. **Otras funcionalidades:** Se puede cambiar de sample/loop mediante la navegacion en la carpeta de samples o mediante los favoritos. Tambien se puede mutear y desmutear el metronomo y los samples de forma independiente. Tiene un filtro allpass para poder jugar con las mezclas. Tambiene tiene el loop length que te permite controlar la duracion del loop del sample, otra forma divertida de jugar con los samples una vez sincronizados
+
 
 
 -------------------
@@ -197,3 +210,36 @@ v.1
 3. Ahora puedes reproducir tus canciones desde tu dispositivo o desde otro dispositivo.
 
 4. Puedes proceder a utilizarlo como cualquier reproductor de audio Deejay, ya que tiene pitch, beat nudge y control de reproduccion, permitiendote mezclar 2 canciones o cuantas quieras (con 2 dipositivos o mas conectados de forma analogica a un djmixer con suficientes canales)
+
+### Proximas Versiones
+
+v.1.1
+
+
+Preescuha
+- Switch entre Preescucha y Reproduccion (L/R doble falso estereo)
+
+FX
+- Delay
+- Reverb
+- PitchShift
+
+UI
+- Nuevos estilos
+
+Test
+- Start Frontend testing with Vitest
+- Backend hacer mas specs
+
+Nuenas logicas
+- Profile (imageUpload, deleteImage...)
+- Settings (changeLanguage,...)
+- Ligth/Dark mode toggle
+- Audio quality (low/high)
+- Equalizer
+- Canales de audio (almenos 2 mas)
+
+Vesion Nativa
+- Ionic Framework para crear una App multiplataforma
+- Poder reproducir canciones enteras con los mismos controles que para samples
+- Poder tener una carpeta nativa para las canciones y navegar entre ellas
