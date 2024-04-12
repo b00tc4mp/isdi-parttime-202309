@@ -38,9 +38,6 @@ const BeatTransposition = ({ bpm, onBPMChange }) => {
     };
 
 
-
-
-
     return (
         <div>
 

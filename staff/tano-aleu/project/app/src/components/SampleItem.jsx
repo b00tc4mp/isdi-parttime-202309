@@ -6,13 +6,6 @@ import { Button } from '../library';
 let currentPlayer = null;
 let onSamplePlayListeners = new Set();
 
-const subscribeToSamplePlay = (listener) => {
-    onSamplePlayListeners.add(listener);
-};
-
-const unsubscribeFromSamplePlay = (listener) => {
-    onSamplePlayListeners.delete(listener);
-};
 
 const notifySamplePlay = (sampleId) => {
     onSamplePlayListeners.forEach((listener) => listener(sampleId));
