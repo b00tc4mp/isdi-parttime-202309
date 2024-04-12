@@ -1,4 +1,4 @@
-import logic from '../logic/index.js'; // Asegúrate de que la ruta sea correcta
+import logic from '../logic/index.js';
 
 export default (req, res) => {
     logic.getMetronomo()

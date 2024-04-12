@@ -1,4 +1,4 @@
-// En el archivo del handler, por ejemplo, getSamplesHandler.js
+
 import jwt from 'jsonwebtoken';
 import logic from '../logic/index.js';
 import { SystemError, NotFoundError, TokenError } from 'com/errors.js';
