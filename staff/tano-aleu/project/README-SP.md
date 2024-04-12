@@ -258,4 +258,10 @@ Vesion Nativa
 
 ### Algunas anecdotas
 
-- Web Audio API esta deshabilitado por IOS, no reproduce como audio de medios si no como audio de notificaciones, me ha traido bastante solor de cabeza no solo a mi si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general
+- Web Audio API esta deshabilitado por IOS, no reproduce como audio de medios si no como audio de notificaciones, me ha traido bastante dolor de cabeza,  no solo a mi si no a muchos developers por lo que he podido ver en Stack Overflow, Github y en la web en general.
+Esto quiere decir si tiene sun iphonr y tienes el interruptor del silencio activado el sonido de la API de audio no suena, tienes que desactivar el modo silencioso.
+***Solucion:**ponerlo en modo dormir o no molestar, para que mientras que juegas con synqple no te molesten los sonidos de las notificaciones.
+
+Este problema no es asi en **Android**, en android funciona tambien en modo silencioso.
+
+- Busqueda de informacion y ayuda: essencial ha sido la documentacion de Tone.js pero para agilidad y aprendizaje me ayudé mucho de Chat GPT.

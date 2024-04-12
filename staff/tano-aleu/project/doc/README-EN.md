@@ -260,12 +260,8 @@ Native View
 
 - Web Audio API is disabled by IOS, it doesn't play as media audio but as notification audio, it has brought me a lot of headache, not only to me but to many developers from what I've seen in Stack Overflow, Github and the web in general.
 This means if you have sun iphonr and you have the mute switch on the audio API sound doesn't play, you have to disable mute mode.
-
 ***Solution:** set it to sleep or do not disturb mode, so that while playing with synqple you are not disturbed by notification sounds.
 
 This problem is not like this on **Android**, on android it also works in silent mode.
 
-
-- Busqueda de informacion y ayuda: essencial ha sido la documentacion de Tone.js pero para agilidad y 
-
-------------
+- Search for information and help: essential has been the documentation of Tone.js but for agility and learning I helped me a lot with Chat GPT.
