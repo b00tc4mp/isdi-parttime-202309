@@ -1,0 +1,40 @@
+import { validate, errors } from 'com'
+
+
+export default function publishPost(image, text, callback) {
+    validate.text(image, 'image')
+    validate.text(text, 'text')
+
+    // / Se crea un objeto 'req' que contiene la configuración de la solicitud
+    const req = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${this.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image, text })
+    }
+
+    // esto es un endpoint, a donde estamos llamando
+    fetch(`${import.meta.env.VITE_API_URL}/posts`, req)
+        .then(res => {
+            // si todo va bien irá por ese camino 
+            if (!res.ok) {
+                // Se llama al método json() de la respuesta para extraer y parsear el cuerpo de la respuesta como JSON
+                // Este método devuelve una nueva promesa que se resuelve con el cuerpo de la respuesta parseado
+                res.json()
+                    // El bloque then se encarga de manejar el cuerpo de la respuesta (body) después de que se ha parseado como JSON
+                    // Se crea un nuevo objeto Error con el mensaje proporcionado en el cuerpo de la respuesta (body.message)
+                    // Si hay algún problema al intentar analizar el cuerpo de la respuesta como JSON, se captura el error en el bloque catch
+                    .then(body => callback(new errors[body.error](body.message)))
+                    .catch(error => callback(error))
+
+                return
+            }
+            callback(null)
+
+        })
+        .catch(error => callback(error))
+}
+
+
