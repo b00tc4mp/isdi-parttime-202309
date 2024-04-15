@@ -17,11 +17,11 @@ export default async function modifyHistory(userId, newImage, newText) {
         if (!user.Admin)
         throw new UnauthorizedError('The user does not have permission to perform this action')
 
-        const history = new History({
-            author: userId,
-            image: newImage,
-            text: newText
-        })
+        const histories = await History.find()
+        const history = histories[0]
+        
+        history.image = newImage
+        history.text = newText
 
         await history.save();
     } catch (error) {

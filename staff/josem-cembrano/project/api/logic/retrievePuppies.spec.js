@@ -9,8 +9,7 @@ import { User, Dog } from '../data/models.js'
 import { errors } from 'com'
 import retrievePuppies from './retrievePuppies.js'
 
-const { ObjectId } = mongoose.Types
-const { NotFoundError, UnauthorizedError } = errors
+const { NotFoundError } = errors
 
 describe('retrievePuppies', () => {
     before(() => mongoose.connect(process.env.TEST_MONGODB_URL))

@@ -9,7 +9,7 @@ export default async function retrieveFemales() {
         const females = await Dog.find({ gender: 'female', puppy: false }).select('-__v').lean()
 
         if (!females || females.length === 0) {
-            throw new NotFoundError('No females found')
+            throw new NotFoundError('Add new Females!!')
         }
 
         females.forEach(females => {

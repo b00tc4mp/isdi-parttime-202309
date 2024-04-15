@@ -41,7 +41,7 @@ describe('retrieveFemales', () => {
             throw new Error('Should not reach this point')
         } catch (error) {
             if (error instanceof NotFoundError) {
-                expect(error.message).to.equal('No females found')
+                expect(error.message).to.equal('Add new Females!!')
             } else {
                 throw error
             }
@@ -62,7 +62,7 @@ describe('retrieveFemales', () => {
             throw new Error('Should not reach this point')
         } catch (error) {
             if (error instanceof NotFoundError) {
-                expect(error.message).to.equal('No females found')
+                expect(error.message).to.equal('Add new Females!!')
             } else {
                 throw error
             }
