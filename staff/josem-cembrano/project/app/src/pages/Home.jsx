@@ -1,12 +1,23 @@
 import React from 'react'
-import { CarouselHome } from '../components'
+import { BsPlay } from 'react-icons/bs';
 
 export default function Home() {
   console.log('HOME');
 
   return (
-  <div className="home-container"> 
-    <CarouselHome />
+  <div className="home-container">
+<div className='flex items-center justify-center h-screen bg-gray-800 p-4 mx-auto rounded-lg shadow-custom dark:border-yellow-700'>
+  <video 
+    className=' rounded-lg border bshadow dark:bg-gray-800 dark:border-gray-800 shadow-lg'
+    loop
+    controls
+    autoPlay
+    src="https://videos.pexels.com/video-files/3852658/3852658-uhd_3840_2160_30fps.mp4" 
+    type="video/mp4"
+  >
+  </video>
+</div>
+
     <div className='bubble'>
       <span style={{ '--i': 11 }}></span>
       <span style={{ '--i': 12 }}></span>

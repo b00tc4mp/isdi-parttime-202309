@@ -152,7 +152,7 @@
   display: block;
   background-color: transparent;
   font-weight: bold;
-  color: #838592; /* text-gray-600 */
+  color: #b17070; /* text-gray-600 */
   transition-property: color; /* transition-colors */
   transition-duration: 300ms; /* duration-300 */
   cursor: pointer;
@@ -201,6 +201,8 @@
 }
 
 .complete-form-container {
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
@@ -328,12 +330,26 @@ body {
 }
 
 .link {
-  text-decoration: none;
-  color: black;
+  padding: 5px;
+  margin: auto;
+  display: block;
+  background-color: transparent;
+  font-weight: bold;
+  color: #b17070; /* text-gray-600 */
+  transition-property: color; /* transition-colors */
+  transition-duration: 300ms; /* duration-300 */
+  cursor: pointer;
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
 }
 
 .link:visited {
   color: black;
+}
+
+.link:hover {
+  transform: scale(1.2); /* Escala ligeramente el botón al pasar el ratón por encima */
+  color: rgb(218, 144, 32);
 }
 
 .link:before {

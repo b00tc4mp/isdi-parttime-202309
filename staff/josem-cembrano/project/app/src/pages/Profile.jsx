@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useContext } from '../hooks'
 import { useParams, Link} from 'react-router-dom'
 import { Box, TextField } from '@mui/material';
-import { Button, Form, Container } from '../library'
+import { Button, Form } from '../library'
 
 export default function Profile({ onSuccess }) {
     const context = useContext()
@@ -158,8 +158,8 @@ export default function Profile({ onSuccess }) {
                         }}
                     />
                 </Box>
-                <Button className='myfont' type='submit'>Update email</Button>
-                <Link className='cancel-link' to='/'>Cancel</Link>
+                <button className="flex justify-between button-form myfont" type='submit'>Update email</button>
+                <Link className='cancel-link flex justify-between button-form myfont' to='/'>Cancel</Link>
             </Form>
         </article>
     }

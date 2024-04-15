@@ -7,6 +7,7 @@ import { errors } from 'com'
 const { ContentError, DuplicityError, NotFoundError, TokenError } = errors
 import logic from './logic'
 import {Navbar} from './components/index'
+import { Toaster } from 'sonner'
 
 export default function App() {
   console.log('App')
@@ -61,6 +62,13 @@ export default function App() {
 
   return (
     <>
+      <Toaster
+      position="top-center"
+      toastOptions={{
+      style: { background: 'green' },
+      className: '',
+    }}
+    />
     <Context.Provider value={context}>
     {message && <Feedback level={level} message={message} onAccepted={handleFeedbackAcepted} />}
     <div className='container-Navbar'>

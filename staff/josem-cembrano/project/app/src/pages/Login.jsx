@@ -1,9 +1,8 @@
 import React from 'react'
 import logic from '../logic'
-import { Button, Form } from '../library'
+import { Form } from '../library'
 import { Box, TextField } from '@mui/material';
 import { useContext } from '../hooks'
-
 
 export default function Login({onSuccess}) {
     console.log('Login')
@@ -36,11 +35,11 @@ export default function Login({onSuccess}) {
 
 
     return (
-<div className='complete-form-container all-form myfont font-bold'>
+<div className='complete-form-container all-form myfont font-bold '>
     <Form onSubmit={handleSubmit}>
+        <h1 className='text-center font-bold text-3xl text-yellow-600'>Login</h1>
         {/* Utiliza el componente Box de MUI para envolver los campos de texto */}
         <Box
-            component="form"
             sx={{
                 '& > :not(style)': { m: 1, width: '25ch' },
             }}
@@ -91,9 +90,8 @@ export default function Login({onSuccess}) {
         </Box>
 
         {/* Botón de envío del formulario */}
-        <Button type="submit">Login</Button>
+        <button className='button-form' type="submit">Login</button>
     </Form>
 </div>
-
     )
 }

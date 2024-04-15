@@ -10,8 +10,8 @@ export default function FAQ () {
 
   return (
     <div className='w-screen h-full flex flex-row justify-center pb-28'>
-      <div className=' h-fit myfont faq-container text-gray-700 font-bold bg-white shadow-custom rounded-lg mt-5 mr-10'style={{ paddiongBottom: '10px' }}>
-        <div className="faq-header text-yellow-600" style={{ textAlign: 'center', fontSize: '35px' }}>Frequently Asked Questions</div>
+      <div className=' p-4 h-fit myfont faq-container text-gray-700 font-bold bg-white shadow-custom rounded-lg mt-5 mr-10'style={{ paddiongBottom: '10px' }}>
+        <h2 className="faq-header text-yellow-600" style={{ textAlign: 'center', fontSize: '35px' }}>Frequently Asked Questions</h2>
         <div className="faq-content">
           <div className="faq-question">
             <input id="q1" type="checkbox" className="panel" />

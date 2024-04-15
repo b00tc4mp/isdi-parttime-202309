@@ -20,7 +20,7 @@ import {
     createHistoryHandler,
     retrieveHistoryHandler,
     modifyHistoryHandler,
-    // userContactHandler,
+    userContactHandler,
 
 } from './handlers/index.js'
 
@@ -48,6 +48,8 @@ import {
         server.post('/perfil', jsonBodyParser, createDogHandler)
 
         server.post('/history', jsonBodyParser, createHistoryHandler)
+
+        server.post('/contact', jsonBodyParser, userContactHandler)
 
         server.get('/users', retrieveUsersHandler)
 

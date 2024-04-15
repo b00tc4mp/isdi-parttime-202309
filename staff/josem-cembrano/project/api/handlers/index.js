@@ -12,7 +12,7 @@ import changePasswordHandler from './changePasswordHandler.js'
 import createHistoryHandler from './createHistoryHandler.js'
 import retrieveHistoryHandler from './retrieveHistoryHandler.js'
 import modifyHistoryHandler from './modifyHistoryHandler.js'
-// import userContactHandler from './userContactHandler.js'
+import userContactHandler from './userContactHandler.js'
 
 export {
     registerUserHandler,
@@ -29,6 +29,6 @@ export {
     createHistoryHandler,
     retrieveHistoryHandler,
     modifyHistoryHandler,
-    // userContactHandler
+    userContactHandler
 
 }

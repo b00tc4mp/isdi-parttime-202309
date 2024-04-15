@@ -1,43 +1,33 @@
-// import dotenv from 'dotenv'
-// dotenv.config()
-// import mongoose from 'mongoose'
-// import { expect } from 'chai'
-// // import nodemailer from 'nodemailer'
-// // import sinon from 'sinon'
+import dotenv from 'dotenv'
+dotenv.config()
+import mongoose from 'mongoose'
+import { expect } from 'chai'
 
-// import { faker, it } from '@faker-js/faker'
-// import userContact from './userContact.js'
-// import { User, Contact } from '../data/models.js'
-// import { errors } from 'com'
-// const { NotFoundError } = errors
+import { faker } from '@faker-js/faker'
+import userContact from './userContact.js'
+import { User, Contact } from '../data/models.js'
+import { errors } from 'com'
+const { SystemError } = errors
 
-// describe('userContact', () => {
-//     before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
+describe('userContact', () => {
+    before(async () => await mongoose.connect(process.env.TEST_MONGODB_URL))
 
-//     beforeEach(async () => await User.deleteMany(), async () => await Contact.deleteMany())
+    beforeEach(async () => await User.deleteMany(), async () => await Contact.deleteMany())
 
-//     it('throws error if no admin found', async () => {
-//         const name = faker.person.fullName()
-//         const email = faker.internet.email()
-//         const password = faker.internet.password()
+    it('create contact', async () => {
 
-//         const nameContact = faker.person.fullName()
-//         const emailContact = faker.internet.email()
-//         const phoneContact = '123123123'
-//         const messageContact = faker.lorem.sentence()
+        const nameContact = faker.person.fullName()
+        const emailContact = faker.internet.email()
+        const phoneContact = 123123123
+        const messageContact = faker.lorem.sentence()
 
+        try {
+            await userContact(nameContact, emailContact, phoneContact, messageContact)
 
-//         const admin = await User.create({ Admin: false, name, email, password })
-//         const contact = await Contact.create({ name: nameContact, email: emailContact, phone: phoneContact, message: messageContact })
+        } catch (error) {
+            console.log(error)
+        }
+    })
 
-//         try {
-//             await userContact(name, email, phoneContact, messageContact)
-//             throw new Error('should not get here')
-//         } catch (error) {
-//             expect(error).to.be.instanceOf(NotFoundError)
-//             expect(error.message).to.be.equal('admin not found')
-//         }
-//     })
-
-//     after(() => mongoose.disconnect())
-// })
+    after(() => mongoose.disconnect())
+})

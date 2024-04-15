@@ -1,28 +1,25 @@
 import { validate, errors } from 'com'
-import { Contact, User } from '../data/models.js'
+import { Contact } from '../data/models.js'
+import sendEmail from '../logic/helpers/sendEmail.js'
 
-const { NotFoundError, SystemError } = errors
+const { SystemError } = errors
 
 export default async function userContact(name, email, phone, message) {
     validate.text(name, 'name')
     validate.email(email, 'email')
-    validate.number(Number(phone), 'phone')
+    validate.text(phone, 'phone')
     validate.text(message, 'message')
 
     try {
-        const admins = await User.find({ Admin: true })
-
-        if (admins.length === 0) {
-            throw new NotFoundError('admin not found')
-        }
-
-        const contact = await Contact.create({ name, email, phone: Number(phone), message })
+        const contact = await Contact.create({ name, email, phone, message })
 
         if (!contact) {
             throw new SystemError('failed to create contact')
         }
 
         await contact.save()
+        
+        await sendEmail(name, email, phone, message)
     } catch (error) {
         throw error
     }
