@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -74,7 +76,6 @@
   width: 100%;
   margin: 0 auto;
   padding: 5rem;
-  z-index: 0;
 }
 
 .container {
@@ -94,7 +95,7 @@
 }
 
 .container-Navbar {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   display: flex;
   z-index: 2;
@@ -141,11 +142,30 @@
   background-color: goldenrod;
 }
 
-.button-picture {
-  position: fixed;
-  bottom: 50px; /* Ajusta según sea necesario para colocarlo más arriba */
-  left: 10px; /* Ajusta según sea necesario */
+.button-add-history {
+  z-index: 5000;
 }
+
+.button-form {
+  padding: 5px;
+  margin: auto;
+  display: block;
+  background-color: transparent;
+  font-weight: bold;
+  color: #838592; /* text-gray-600 */
+  transition-property: color; /* transition-colors */
+  transition-duration: 300ms; /* duration-300 */
+  cursor: pointer;
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
+}
+
+.button-form:hover {
+  transform: scale(1.2); /* Escala ligeramente el botón al pasar el ratón por encima */
+  background-size: 20%;
+    color: rgb(218, 144, 32);
+}
+
 
 .shadow-custom {
   box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.7); /* Cambia los valores de RGBA según tu preferencia */
@@ -180,18 +200,11 @@
   margin-right: 8px; /* Espacio entre el icono y el texto */
 }
 
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.new-picture {
+.complete-form-container {
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
-  background-color: #ffffff3f; /* Color de fondo */
-  z-index: 2;
+  background-color: #383e50d7; /* Color de fondo */
   position: absolute;
   width: 100%;
   height: 100vh;
@@ -226,10 +239,21 @@ body {
   font-family: "myfont", sans-serif;/* Cambia la familia de fuentes */
   font-weight: bold; /* Hace que el texto sea más audaz */
   font-style: italic; /* Aplica estilo itálico al texto */
-  color: black; /* Color de texto oscuro */
+  color: rgb(218, 144, 32); /* Color de texto oscuro */
   margin-bottom: 10px; /* Espacio en la parte inferior del elemento */
   padding-left: 10px; /* Relleno en el lado izquierdo del elemento */
   text-decoration: underline; /* Subraya el texto */
+}
+
+.all-forms {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: #030a1d9a; /* Color de fondo */
+  position: absolute;
+  z-index: 999999;
+  width: 100vw;
+  height: 100vh;
 }
 
 .form {
@@ -241,6 +265,10 @@ body {
 
 .label {
   font-weight: bold;
+  color: #a2ceff; /* text-gray-600 */
+  text-align: center;
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
 }
 
 .input {
@@ -249,10 +277,18 @@ body {
   border-color: rgb(202, 171, 112);
   padding: 5px;
   border-radius: 15px;
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
 }
 
-.imput:hover {
+.input:hover {
   transform: scale(1.02);
+}
+
+.input:focus {
+  outline: none;
+  color:#0961ee;
+  font-weight: bold;
 }
 
 .button {
@@ -261,23 +297,25 @@ body {
   display: block;
   background-color: transparent;
   font-weight: bold;
-  color: #4B5563; /* text-gray-600 */
+  color: #ffffff; /* text-gray-600 */
   transition-property: color; /* transition-colors */
   transition-duration: 300ms; /* duration-300 */
   cursor: pointer;
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
 }
 
 .button:hover {
   transform: scale(1.2); /* Escala ligeramente el botón al pasar el ratón por encima */
-  color: rgb(218, 144, 32);
   background-size: 20%;
+  color: rgb(255, 255, 255);
 }
 
 .cancel-link {
   padding: 5px;
   background-color: transparent;
   font-weight: bold;
-  color: #4B5563; /* text-gray-600 */
+  color: #292929; /* text-gray-600 */
   transition-property: color; /* transition-colors */
   transition-duration: 300ms; /* duration-300 */
   transition: background-size 0.5s ease;
@@ -313,6 +351,8 @@ body {
   box-sizing: border-box;
   z-index: 9999999;
   background-color: rgba(255,255,255,0.5); /* rgba(255, 255, 255, 0.5) representa blanco con una opacidad del 50% */
+  font-family: "myfont";
+  src: url("./fonts/myfont.ttf") format("truetype");
 }
 
 .Feedback--debug {
@@ -334,4 +374,64 @@ body {
 .Feedback--fatal {
   background-color: red;
   color: white;
+}
+
+.faq-content {
+  margin: 0 auto;
+}
+
+.faq-question {
+  padding: 20px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.panel-title {
+  font-size: 24px;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 0 48px;
+  display: block;
+  cursor: pointer;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+}
+
+.panel-content {
+  font-size: 20px;
+  padding: 0px 14px;
+  margin: 0 40px;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transition: .4s ease;
+}
+
+.panel:checked ~ .panel-content {
+  height: auto;
+  opacity: 1;
+  padding: 14px;
+}
+
+.plus {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 30px;
+  line-height: 100%;
+  user-select: none;
+  transition: .2s ease;
+  color: rgb(218, 144, 32);
+}
+
+.plus.clicked:hover {
+  color: rgb(218, 144, 32); /* Volver al color original al hacer hover */
+}
+
+.panel:checked ~ .plus {
+  transform: rotate(45deg);
+}
+
+.panel {
+  display: none;
 }

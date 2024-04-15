@@ -20,7 +20,7 @@ const Feedback = (props) => {
 
     return <div className={`Feedback Feedback ${modifier}`}>
         <p className='text-center'>{props.message}</p>
-        <Button className='border border-white p-2 rounded-lg border-feedback' onClick={props.onAccepted}>Accept</Button>
+        <Button className='border border-white p-2 rounded-lg border-feedback text-white' onClick={props.onAccepted}>Accept</Button>
     </div>
 
 }

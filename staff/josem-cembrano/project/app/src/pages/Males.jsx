@@ -67,13 +67,13 @@ export default function Males() {
   return (
     <>
            {view === 'new-picture' && <NewPerfilDog onPublish={handleNewPerfilDogPublish} onCancel={handleNewPerfilDogCancel} />}
-       <div className='container'>
+       <div className='flex flex-wrap gap-1 flex-row pt-2'>
        {logic.context.token && logic.context.isAdmin && (<button className='button-add text-gray-600 transition-colors duration-300 cursor-pointer' onClick={handleNewPerfilDogClick}><FaDog size={20} /></button>)}
         <div className="flex flex-wrap gap-1 flex-row pt-2">
         {
           males.lenght !== 0 && (males.map((male) => {
             return <div key={male.id}>
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 container-males">
                     <img className="rounded-t-lg" src={male.image} alt="" />
                 <div className="p-5">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className='italic mr-2 text-sm font-normal dark:text-yellow-400'>Afix:</span>{male.afix}</h5>

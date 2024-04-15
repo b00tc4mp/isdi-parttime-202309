@@ -132,7 +132,8 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
           <a href="https://www.facebook.com/"><FaFacebookSquare className='text-yellow-500 cursor-pointer mb-2 shadow-custom hover:scale-150 transition-transform duration-300'></FaFacebookSquare></a>
         </li>
     </ul>
-    </div>        </footer>
+    </div>
+    </footer>
       </section>
     </>
   )

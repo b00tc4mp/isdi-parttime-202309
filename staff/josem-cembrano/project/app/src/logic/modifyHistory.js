@@ -17,6 +17,7 @@ export default async function changeEmail(newImage, newText) {
     let res
     try {
         res = await fetch(`${import.meta.env.VITE_API_URL}/history-m`, req)
+        console.log('RESPUESTA MODIFY' + res)
     } catch (error) {
         throw new SystemError(error.message)
     }

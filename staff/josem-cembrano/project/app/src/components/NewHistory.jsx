@@ -1,6 +1,4 @@
-import { Button, Form, Field } from "../library"
-import logic from "../logic"
-
+import { Form, Field } from "../library"
 import { useContext } from '../hooks'
 
 export default function(props) {
@@ -14,14 +12,7 @@ export default function(props) {
         const text = event.target.text.value
 
         try {
-            logic.publishHistory(image, text, error => {
-                if (error) {
-                    context.handleError(error)
-
-                    return
-                }
-            })
-            props.onPublish()
+            props.onPublish(image, text)
         } catch (error) {
             context.handleError(error)
         }
@@ -34,14 +25,16 @@ export default function(props) {
     }
 
     return (
-    <div className="new-history">
-        <Form onSubmit={handleSubmit}>
-            <h2 className="h2">Add new history</h2>
-            <Field id="image" type="url">Image</Field>
-            <Field id="text">Text</Field>
-            <Button type='submit'>Add</Button>
-            <Button onClick={handleCancel}>Cancel</Button>
-        </Form>
-    </div>
+        <div className='complete-form-container all-form myfont font-bold flex flex-col items-center justify-center'>
+            <Form onSubmit={handleSubmit} className="w-full max-w-md">
+                <h2 className="h2 text-center mb-4" style={{ fontSize: '25px' }}>Add new history</h2>
+                <Field id="image" type="url" className="mb-4 text-center">Image</Field>
+                <Field id="text" className="mb-4 text-center">Text</Field>
+                    <button className="flex justify-between button-form" type='submit'>Add</button>
+                    <button className="flex justify-between button-form" onClick={handleCancel}>Cancel</button>
+            </Form>
+        </div>
     )
+    
+    
 }

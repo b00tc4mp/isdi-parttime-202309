@@ -29,7 +29,8 @@ function Register(props) {
         })()
     }
 
-    return <Container>
+    return <>
+    <div className='complete-form-container'>
         <Form onSubmit={handleSubmit}>
             <Field id="name-input">Name</Field>
             <Field id="email-input" type="email">E-mail</Field>
@@ -37,7 +38,8 @@ function Register(props) {
 
             <Button type="submit">Register</Button>
         </Form>
-    </Container>
+    </div>
+    </>
 }
 
 export default Register

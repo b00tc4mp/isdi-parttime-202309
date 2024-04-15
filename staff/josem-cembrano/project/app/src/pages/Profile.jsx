@@ -2,7 +2,8 @@ import logic from '../logic'
 import { useState } from 'react'
 import { useContext } from '../hooks'
 import { useParams, Link} from 'react-router-dom'
-import { Button, Form, Input, Container } from '../library'
+import { Box, TextField } from '@mui/material';
+import { Button, Form, Container } from '../library'
 
 export default function Profile({ onSuccess }) {
     const context = useContext()
@@ -74,31 +75,181 @@ export default function Profile({ onSuccess }) {
     }
 
     return (
-        <Container className='flex justify-center items-center h-full container-form'>
-            { form === 'email' && <article className='text-center'><h2 className='text-gray-900 font-bold underline border-b-2 border-goldenrod'>Change email</h2>
-                <Form onSubmit={handleChangeMailSubmit}>
-                    <Input id='new-email-input' type='email' placeholder='New Email' value={newEmail} onChange={handleChangeNewEmail}>New e-mail</Input>
-
-                    <Input id='new-email-confirm-input' type='email' placeholder='Confirm new Email' value={newEmailConfirm} onChange={handleChangeNewEmailConfirm}>Confirm new e-mail</Input>
-
-                    <Input id='password-input' type='password' placeholder='Password' value={password} onChange={handlePasswordEmail}>Password</Input>
-
-                    <Button className='myfont' type='submit'>Update email</Button>
-                    <Link className='cancel-link' to='/'>Cancel</Link>
-                </Form>
-            </article> }
-            { form === 'password' && <article className='text-center'><h2>Change password</h2>
-                <Form onSubmit={handleChangePasswordSubmit}>
-                    <Input id='password-input' type='password' placeholder='Password' value={password} onChange={handleChangeNewPassword}>Password</Input>
-
-                    <Input id='new-password-input' type='password' placeholder='New Password' value={newPassword} onChange={handleChangeNewPasswordConfirm}>New password</Input>
-
-                    <Input id='new-password-confirm-input' type='password' placeholder='New Password Confirm' value={newPasswordConfirm} onChange={handlePassword}>New password confirm</Input>
-
-                    <Button type='submit'>Update password</Button>
-                    <Link className='cancel-link' to='/'>Cancel</Link>
-                </Form>
-            </article> }
-        </Container>
+<div className='complete-form-container'>
+    { form === 'email' && 
+        <article className='text-center'>
+            <h2 className='text-lg font-bold text-yellow-700'>Change email</h2>
+            <Form onSubmit={handleChangeMailSubmit}>
+                <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        id="new-email-input"
+                        type="email"
+                        placeholder="New Email"
+                        value={newEmail}
+                        onChange={handleChangeNewEmail}
+                        label="New e-mail"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                    <TextField
+                        id="new-email-confirm-input"
+                        type="email"
+                        placeholder="Confirm New Email"
+                        value={newEmailConfirm}
+                        onChange={handleChangeNewEmailConfirm}
+                        label="Confirm New e-mail"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                    <TextField
+                        id="password-input"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handlePasswordEmail}
+                        label="Password"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                </Box>
+                <Button className='myfont' type='submit'>Update email</Button>
+                <Link className='cancel-link' to='/'>Cancel</Link>
+            </Form>
+        </article>
+    }
+    { form === 'password' && 
+        <article className='text-center'>
+            <h2 className='text-lg font-bold text-yellow-700'>Change password</h2>
+            <Form onSubmit={handleChangePasswordSubmit}>
+                <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        id="password-input"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handleChangeNewPassword}
+                        label="Password"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                    <TextField
+                        id="new-password-input"
+                        type="password"
+                        placeholder="New Password"
+                        value={newPassword}
+                        onChange={handleChangeNewPasswordConfirm}
+                        label="New password"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                    <TextField
+                        id="new-password-confirm-input"
+                        type="password"
+                        placeholder="New Password Confirm"
+                        value={newPasswordConfirm}
+                        onChange={handlePassword}
+                        label="New password confirm"
+                        variant="outlined"
+                        sx={{
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando enfocado
+                            },
+                            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: 'darkblue' // Borde dorado cuando se pasa el mouse
+                            },
+                            '& .MuiInputLabel-outlined': {
+                                color: 'darkblue' // Texto azul oscuro cuando no enfocado
+                            },
+                            '& .MuiInputLabel-outlined.Mui-focused': {
+                                color: '#FFA000' // Texto dorado cuando enfocado
+                            }
+                        }}
+                    />
+                </Box>
+                <Button type='submit'>Update password</Button>
+                <Link className='cancel-link' to='/'>Cancel</Link>
+            </Form>
+        </article>
+    }
+</div>
     )
 }
