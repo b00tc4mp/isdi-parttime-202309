@@ -35,6 +35,42 @@ const user = new Schema({
 })
 
 // Resources
+const resource = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  resourceType: {
+    type: String,
+    required: true,
+  },
+
+  // tag: [
+  //   {
+  //     type: ObjectId,
+  //     ref: 'Theme',
+  //     required: true,
+  //   },
+  // ],
+  link: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+  author: {
+    type: String,
+  },
+  ageRange: {
+    type: Number,
+  },
+})
+
 const activity = new Schema({
   title: {
     type: String,
@@ -126,6 +162,7 @@ const eventsCalendar = new Schema({
 })
 
 const User = model('User', user)
+const Resource = model('Resource', resource)
 const Activity = model('Activity', activity)
 const Book = model('Book', book)
 const SpecialDate = model('SpecialDate', specialDate)
@@ -140,4 +177,4 @@ eg. const book = new Category({ name: 'Libro' })
 
 */
 
-export { User, Activity, Book, SpecialDate, Tag, EventsCalendar }
+export { User, Resource, Activity, Book, SpecialDate, Tag, EventsCalendar }

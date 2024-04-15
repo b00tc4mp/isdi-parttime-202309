@@ -42,34 +42,49 @@ The idea behind this app is to bring all available resources together in one pla
 - saved resources ([Resource.id])
 - scheduled activities ([Resource.id])
 
+// Generic Resource (MVP)
+
+#### Resource
+
+- id (string)
+- title (string)
+- description (string)
+- resourceType (string)
+- tags ([Tag.id])
+- link (string)
+- image (string)
+- author (string)
+- ageRange ([number, number])
+
+// Specific Resources
+
 #### Activity
 
 - id (string)
 - title (string)
 - description (string)
+- tags ([Tag.id])
 - link (string)
 - image (string)
-- tags ([Tag.id])
 
 #### Book
 
 - id (string)
 - title (string)
-- author (string)
 - description (string)
+- tags ([Tag.id])
+- author (string)
 - ageRange ([number, number])
 - image (string)
-- tags ([Tag.id])
 
 #### SpecialDate
 
 - id (string)
-- date (date)
 - title (string)
 - description (string)
-- link (string)
-- image (string)
 - tags ([Tag.id])
+- date (date)
+- link (string)
 
 #### Tag -topic- (xenofobia, bullying, dislexia)
 

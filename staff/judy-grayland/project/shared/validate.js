@@ -39,6 +39,15 @@ function funktion(funktion, explain) {
     throw new TypeError(`${explain} is not a function`)
 }
 
+function resourceType(resourceType, explain) {
+  if (
+    resourceType !== 'book' &&
+    resourceType !== 'activity' &&
+    resourceType !== 'specialDate'
+  )
+    throw new TypeError(`${resourceType} is not a valid resource type`)
+}
+
 const validate = {
   text,
   id,
@@ -46,6 +55,7 @@ const validate = {
   password,
   number,
   function: funktion,
+  resourceType,
 }
 
 export default validate
