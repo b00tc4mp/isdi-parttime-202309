@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
 		server.post('/recipes', jsonBodyParser, createRecipeHandler)
 
-		server.get('/recipes', retrieveRecipesHandler)
+		server.get('/recipes/:id', retrieveRecipesHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})

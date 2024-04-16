@@ -8,6 +8,7 @@ import MethodFilter from './MethodFilter'
 import SearchForm from './SearchForm'
 import TimeFilter from './TimeFilter'
 import TopProfileImage from './TopProfileImage'
+import Recipe from './Recipe'
 
 
 export {
@@ -20,5 +21,6 @@ export {
 	MethodFilter,
 	SearchForm,
 	TimeFilter,
-	TopProfileImage
+	TopProfileImage,
+	Recipe
 }

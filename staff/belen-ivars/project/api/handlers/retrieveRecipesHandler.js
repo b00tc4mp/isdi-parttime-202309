@@ -1,10 +1,10 @@
 import { ContentError, NotFoundError } from 'com/errors.js'
-import logic from '../logic.index.js'
+import logic from '../logic/index.js'
 import { validate } from "com"
 
 
 const retrieveRecipesHandler = async (req, res) => {
-	const userId = req.params.userId
+	const userId = req.params.id
 
 	try {
 		validate.id(userId, 'id')

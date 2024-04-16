@@ -7,7 +7,7 @@ import random from './helpers/random.js'
 import retrieveRecipes from './retrieveRecipes.js'
 import { errors } from 'com'
 import { User, Recipe } from '../data/models.js'
-import { NotFoundError } from 'com/errors.js'
+const { NotFoundError } = errors
 const { ObjectId } = mongoose.Types
 
 describe('retrieveRecipes', () => {
@@ -67,7 +67,7 @@ describe('retrieveRecipes', () => {
 			throw new Error('should not reach this point')
 		} catch (error) {
 			expect(error).to.be.instanceOf(NotFoundError)
-			expect(error.message).to.equal('no user found')
+			expect(error.message).to.equal('No user found')
 		}
 	})
 	after(async () => await mongoose.disconnect())

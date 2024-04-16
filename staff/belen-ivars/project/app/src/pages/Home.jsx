@@ -8,6 +8,7 @@ import FavsUser from "./FavsUser"
 import FullHeader from "../components/FullHeader"
 import Context from "../Context"
 import NewRecipe from "../components/NewRecipeForm"
+import { Recipes } from "../components"
 
 
 function Home(props) {
@@ -49,7 +50,6 @@ function Home(props) {
 	function handleNewRecipeClick() {
 
 		setView('new-recipe')
-		//Component i lògica per a fer de 0, o bé, copiant de newPost
 	}
 
 	function handleNewRecipeCancel() {
@@ -77,6 +77,7 @@ function Home(props) {
 			<Route path="/profile" element={<Profile />} />
 			<Route path='/favs' element={<FavsUser />} />
 			<Route path='/new-recipe' element={<NewRecipe />} />
+			<Route path='/' element={<Recipes stamp={stamp} />} />
 
 
 

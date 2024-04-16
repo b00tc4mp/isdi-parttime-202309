@@ -1,10 +1,10 @@
 import { NotFoundError } from "com/errors.js"
-import { Recipe } from "../data/models.js"
+import { Recipe, User } from "../data/models.js"
 import retrieveUser from "./retrieveUser.js"
 
 async function retrieveRecipes(id) {
 
-	const user = retrieveUser(id)
+	const user = await User.findById(id)
 
 	if (!user) {
 		throw new NotFoundError('No user found')
