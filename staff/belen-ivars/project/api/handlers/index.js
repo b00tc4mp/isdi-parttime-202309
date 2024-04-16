@@ -3,6 +3,7 @@ import authenticateUserHandler from './authenticateUserHandler.js'
 import retrieveUserHandler from './retrieveUserHandler.js'
 import createRecipeHandler from './createRecipeHandler.js'
 import retrieveRecipesHandler from './retrieveRecipesHandler.js'
+import deleteRecipeHandler from './deleteRecipeHandler.js'
 
 
 export {
@@ -10,5 +11,6 @@ export {
 	authenticateUserHandler,
 	retrieveUserHandler,
 	createRecipeHandler,
-	retrieveRecipesHandler
+	retrieveRecipesHandler,
+	deleteRecipeHandler
 }

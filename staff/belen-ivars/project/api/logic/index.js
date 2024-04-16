@@ -3,13 +3,15 @@ import authenticateUser from './authenticateUser.js'
 import retrieveUser from './retrieveUser.js'
 import createRecipe from './createRecipe.js'
 import retrieveRecipes from './retrieveRecipes.js'
+import deleteRecipe from './deleteRecipe.js'
 
 const logic = {
 	registerUser,
 	authenticateUser,
 	retrieveUser,
 	createRecipe,
-	retrieveRecipes
+	retrieveRecipes,
+	deleteRecipe
 }
 
 export default logic
