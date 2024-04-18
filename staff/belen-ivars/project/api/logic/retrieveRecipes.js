@@ -1,6 +1,5 @@
 import { NotFoundError } from "com/errors.js"
 import { Recipe, User } from "../data/models.js"
-import retrieveUser from "./retrieveUser.js"
 
 async function retrieveRecipes(id) {
 

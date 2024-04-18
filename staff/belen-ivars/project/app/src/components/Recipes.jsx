@@ -30,7 +30,7 @@ function Recipes(props) {
 	}, [props.stamp])
 
 	return <div className="recipes">
-		{recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe} onError={props.onError} />)}
+		{recipes.map(recipe => <Recipe key={recipe._id} recipe={recipe} onError={props.onError} onSuccess={refreshRecipes} />)}
 	</div>
 
 }

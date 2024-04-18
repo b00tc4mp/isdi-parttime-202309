@@ -1,10 +1,15 @@
 import { ContentError, NotFoundError } from 'com/errors.js'
 import logic from '../logic/index.js'
 import { validate } from "com"
+import jwt from 'jsonwebtoken'
 
 
 const retrieveRecipesHandler = async (req, res) => {
-	const userId = req.params.id
+	const token = req.headers.authorization.substring(7)
+
+	const payload = jwt.verify(token, process.env.JWT_SECRET)
+	const { sub: userId } = payload
+	console.log(userId)
 
 	try {
 		validate.id(userId, 'id')

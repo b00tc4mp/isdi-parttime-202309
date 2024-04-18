@@ -5,7 +5,7 @@ import session from "./session"
 const { SystemError } = errors
 
 
-export default async function createRecipe(author, title, description, image) {
+export default function createRecipe(author, title, description, image) {
 	return (async () => {
 		const req = {
 			method: 'POST',
@@ -37,6 +37,4 @@ export default async function createRecipe(author, title, description, image) {
 		}
 
 	})()
-
-
 }

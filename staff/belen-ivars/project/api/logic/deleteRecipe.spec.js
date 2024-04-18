@@ -28,11 +28,13 @@ describe('deleteRecipe', () => {
 		const author = user.id
 		const recipe = await Recipe.create({ author, title, description, image })
 
-		try {
-			await deleteRecipe(user.id, recipe.id)
-		} catch (error) {
-			expect(recipe).not.exist
-		}
+
+		await deleteRecipe(user.id, recipe.id)
+
+		const deletedRecipe = await Recipe.findById(recipe.id)
+
+		expect(deletedRecipe).not.exist
+
 
 	})
 

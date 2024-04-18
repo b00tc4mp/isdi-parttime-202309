@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import logic from "../logic"
@@ -16,31 +16,47 @@ function Recipe(props) {
 	const context = useContext()
 	const navigate = useNavigate()
 
+	const handleSubmit = async (event) => {
+		event.preventDefault()
+
+		const title = event.target.title.value ? event.target.title.value : null
+		const description = event.target.description.value ? event.target.description.value : null
+		const image = event.target.image.value ? event.target.image.value : null
+		console.log(props.recipe._id)
+		try {
+			await logic.editRecipe(props.recipe._id, title, description, image)
+			props.onSuccess()
+
+			setView(null)
+			document.getElementById("edit-form").reset()
+
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	useEffect(() => {
+
+	}, [handleSubmit])
 
 
 	return <article className="recipe">
-		{/* <h2><Link onClick={handleUserClick}> {props.recipe.author.name}</Link></h2> */}
 
 		<h2> {props.recipe.title}</h2>
 		<img className="recipe-image" src={props.recipe.image} />
 		<p>{props.recipe.description}</p>
 
-		{/* {view === null && <p>{props.recipe.text}</p>} */}
 
-		{/* {view === 'edit' && <Form onSubmit={handleEditSubmit}>
-			<Field id="text" value={props.recipe.text} />
-			<Button type="submit">Save</Button>
-			<Button onClick={handleEditCancelClick}>Cancel</Button>
-		</Form>} */}
+		{view === 'edit' ? <Button onClick={() => setView(null)}>Cancel</Button> : <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>
+		}
+		{view === 'edit' && <Form id='edit-form' onSubmit={handleSubmit}>
+			<Field type='text' id='title' placeholder={props.recipe.title} />
+			<Field type='text' id='description' placeholder={props.recipe.description} />
+			<Field type='url' id='image' placeholder={props.recipe.image} />
+			<Button type='submit' > Modificar </Button>
 
+		</Form>}
 
-		{/* <div className="recipe-actions">
-			<Button onClick={handleToggleLikeClick}>{props.recipe.liked ? '❤️' : '🤍'} {props.recipe.likes.length}</Button>
-			<Button onClick={handleToggleFavClick}>{props.recipe.fav ? '⭐️' : '✩'}</Button>
-			{session.sessionUserId === props.recipe.author.id && <Button onClick={handleDeleteRecipeClick}>🗑️</Button>}
-			{session.sessionUserId === props.recipe.author.id && view === null && <Button onClick={handleEditclick}>✏️</Button>}
-
-		</div> */}
 	</article>
 }
 

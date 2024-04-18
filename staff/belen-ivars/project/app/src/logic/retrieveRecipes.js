@@ -14,7 +14,7 @@ export default async function retrieveRecipes() {
 
 		let res
 		try {
-			res = await fetch(`${API_URL}/recipes/${session.sessionUserId}`, req)
+			res = await fetch(`${API_URL}/recipes`, req)
 		} catch (error) {
 			throw new SystemError(error.message)
 		}
