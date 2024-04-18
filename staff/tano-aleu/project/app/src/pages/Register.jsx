@@ -8,10 +8,12 @@ import logo from '../assets/synqple.logo.png';
 
 import versionLogo from '../assets/synqple.logo.version.white.png'
 
+import Context from '../contexts/Context';
+
 function Register(props) {
     console.log('Register')
 
-    const context = useContext()
+    const context = useContext(Context)
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -29,7 +31,13 @@ function Register(props) {
         try {
 
             logic.registerUser(name, email, password)
-                .then(() => props.onSuccess())
+                .then(() => {
+                    context.handleSuccess('User created successfully, you will be automatically redirected to login')
+                    event.target.reset();
+                    setTimeout(() => {
+                        props.onSuccess(); // Esto se ejecutará después de 2 segundos
+                    }, 5000); // 2000 milisegundos = 2 segundos
+                })
                 .catch(error => context.handleError(error))
 
         } catch (error) {
