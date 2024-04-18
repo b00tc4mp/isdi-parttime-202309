@@ -4,9 +4,8 @@ TEST 'delete-recipe'
 
 CASE 'success on current user'
 
-curl 'http://localhost:9000/recipes/65d655fac1dd88f9aee917d6' \
--H 'Authorization: Bearer 65d655fac1dd88f9aee917d6' \
--d '{"recipeId": "ObjectId('65f97adbd699fa7945c5d178')"}' \
+curl 'http://localhost:9000/recipes/65fc7fbf9c9ec7ea25f03601' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWY4NWFjNzg4M2ZkMzcxM2M4YmQzYTMiLCJpYXQiOjE3MTM0NTMxMTEsImV4cCI6MTcxMzQ1NjcxMX0.iXUrxzIQztv_8kzU5Fbzrr_HTX67O8XTN8UJP9n0768' \
 -X DELETE \
 -v
 
@@ -27,9 +26,9 @@ curl 'http://localhost:9000/recipes/65d655fac1dd88f9aee917d6' \
 
 CASE "fail on non existing user"
 
-curl 'http://localhost:9000/recipes' \
--H 'Content-Type: application/json' \
--v
+# curl 'http://localhost:9000/recipes' \
+# -H 'Content-Type: application/json' \
+# -v
 
 # > POST /recipes HTTP/1.1
 # > Host: localhost:9000

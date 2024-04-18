@@ -1,9 +1,12 @@
 import { ContentError, NotFoundError } from "com/errors.js"
 import logic from "../logic/index.js"
+import jwt from 'jsonwebtoken'
 
 export default async (req, res) => {
-	const userId = req.params.id
-	const recipeId = req.body
+	const recipeId = req.params.recipeId
+	const token = req.headers.authorization.substring(7)
+
+	const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
 	try {
 		await logic.deleteRecipe(userId, recipeId)

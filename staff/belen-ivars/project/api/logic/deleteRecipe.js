@@ -10,7 +10,7 @@ async function deleteRecipe(userId, recipeId) {
 
 	if (!user)
 		throw new NotFoundError('user not found')
-	console.log('user founded')
+
 
 	const recipe = await Recipe.findById(recipeId)
 	if (user.id !== recipe.author.toString())
