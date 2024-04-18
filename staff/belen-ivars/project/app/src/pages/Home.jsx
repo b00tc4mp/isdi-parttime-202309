@@ -78,10 +78,9 @@ function Home(props) {
 			<Route path='/favs' element={<FavsUser />} />
 			<Route path='/new-recipe' element={<NewRecipe />} />
 			<Route path='/' element={<Recipes stamp={stamp} />} />
-
-
-
 		</Routes>
+
+
 		<footer className="footer">
 			<Container className="footer-menu">
 				{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}

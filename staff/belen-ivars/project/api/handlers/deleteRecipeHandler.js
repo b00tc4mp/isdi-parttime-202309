@@ -2,7 +2,7 @@ import { ContentError, NotFoundError } from "com/errors.js"
 import logic from "../logic/index.js"
 import jwt from 'jsonwebtoken'
 
-export default async (req, res) => {
+const deleteRecipeHandler = async (req, res) => {
 	const recipeId = req.params.recipeId
 	const token = req.headers.authorization.substring(7)
 
@@ -22,3 +22,5 @@ export default async (req, res) => {
 		res.status(status).json({ error: error.constructor.name, message: error.message })
 	}
 }
+
+export default deleteRecipeHandler

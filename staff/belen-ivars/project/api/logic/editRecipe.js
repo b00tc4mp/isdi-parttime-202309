@@ -14,12 +14,10 @@ async function editRecipe(userId, recipeId, title, description, image) {
 	const user = await User.findById(userId)
 	if (!user)
 		throw new NotFoundError('user not found')
-	console.log('user founded')
 
 	const recipe = await Recipe.findById(recipeId)
 	if (!recipe)
 		throw new NotFoundError('recipe not found')
-	console.log('recipe founded')
 
 	let recipeUpdated
 

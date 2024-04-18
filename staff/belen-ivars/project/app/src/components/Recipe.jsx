@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import logic from "../logic"
 
-import { Button, Field, Form, Link } from "../library"
+import { Button, Container, Field, Form, Link } from "../library"
 import { useContext } from '../hooks'
 
 import session from '../logic/session'
@@ -35,6 +35,18 @@ function Recipe(props) {
 		}
 	}
 
+	const handleDeleteClick = async (event) => {
+		event.preventDefault()
+
+		try {
+			await logic.deleteRecipe(props.recipe._id)
+			props.onSuccess()
+
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	useEffect(() => {
 
 	}, [handleSubmit])
@@ -46,9 +58,13 @@ function Recipe(props) {
 		<img className="recipe-image" src={props.recipe.image} />
 		<p>{props.recipe.description}</p>
 
+		{/* Ací estic configurant el botó d'edició*/}
 
-		{view === 'edit' ? <Button onClick={() => setView(null)}>Cancel</Button> : <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>
-		}
+		{session.sessionUserId === props.recipe.author && view === null && <Button onClick={handleDeleteClick}>🗑️</Button>}
+		{session.sessionUserId === props.recipe.author && view === null && <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>}
+
+		{view === 'edit' && <Button onClick={() => setView(null)}>Cancel</Button>}
+
 		{view === 'edit' && <Form id='edit-form' onSubmit={handleSubmit}>
 			<Field type='text' id='title' placeholder={props.recipe.title} />
 			<Field type='text' id='description' placeholder={props.recipe.description} />
@@ -56,6 +72,9 @@ function Recipe(props) {
 			<Button type='submit' > Modificar </Button>
 
 		</Form>}
+
+
+
 
 	</article>
 }
