@@ -10,6 +10,16 @@ export default function NewPicture(props) {
     const [gender, setGender] = useState('male')
     const [isPuppy, setIsPuppy] = useState(false)
 
+    const convertDate = (dateInput) => {
+        let date = new Date(dateInput);
+  
+        let day = date.getDate();
+        let month = date.getMonth() + 1; 
+        let year = date.getFullYear();
+  
+        return day + '/' + month + '/' + year;
+  }
+
     const handleSubmit = event => {
         event.preventDefault();
         const image = event.target.image.value
@@ -18,8 +28,12 @@ export default function NewPicture(props) {
         const birthDate = event.target.birthDate.value
         const text = event.target.text.value
 
+        const formatedBirthDate = convertDate(birthDate)
+
+        console.log(formatedBirthDate)
+
         try {
-            logic.publishDog(image, afix, name, gender, birthDate, isPuppy, text, error => {
+            logic.publishDog(image, afix, name, gender, formatedBirthDate, isPuppy, text, error => {
                 if (error) {
                     context.handleError(error)
                     return;
@@ -58,17 +72,18 @@ export default function NewPicture(props) {
                     <label htmlFor='female'><IoMdFemale className='text-blue-300' size={20}></IoMdFemale></label>
                     <input type="radio" id="female" name="gender" value="female" checked={gender === 'female'} onChange={handleGenderChange} />
                 </div>
-                <Field id='birthDate'>Birth Date(YYYY-MM-DD)</Field>
+                <input className='input' type='date' id='birthDate'></input>
                 <div className='label flex justify-center m-4 items-center space-x-3'>
                     <label htmlFor='puppy'>Puppy</label>
                     <input type='checkbox' id='puppy' checked={isPuppy} onChange={handlePuppyChange} />
                 </div>
-                <Field id="text">Text</Field>
+                <label className='label' htmlFor='text'>Text</label>
+                <textarea className='input' id="text"></textarea>
                 <div>
                     <button className="flex justify-between button-form" type='submit'>Add</button>
                     <button className="flex justify-between button-form" onClick={handleCancel}>Cancel</button>
                 </div>
             </Form>
         </div>
-    );
+    )
 }

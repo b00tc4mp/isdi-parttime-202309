@@ -245,7 +245,7 @@ export default function Profile({ onSuccess }) {
                         }}
                     />
                 </Box>
-                <Button type='submit'>Update password</Button>
+                <button className="flex justify-between button-form myfont" type='submit'>Update password</button>
                 <Link className='cancel-link' to='/'>Cancel</Link>
             </Form>
         </article>

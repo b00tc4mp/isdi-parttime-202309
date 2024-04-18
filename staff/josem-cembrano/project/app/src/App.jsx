@@ -53,8 +53,8 @@ export default function App() {
 
   const context = { handleError }
 
-  function onSuccess() {
-    navigate('/')
+  function onSuccess(type='home') {
+    type === 'home' ? navigate('/'): navigate('/history')
     setLevel(null)
     setMessage(null)
     setIsUserNavbar(true)

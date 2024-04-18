@@ -18,7 +18,8 @@ export default function History( { onSuccess }) {
     return (async () => {
         try {
             await logic.modifyHistory(image, text)
-            onSuccess()
+            onSuccess('history')
+            setView(null)
         } catch (error) {
             context.handleError(error)
         }
@@ -37,7 +38,7 @@ export default function History( { onSuccess }) {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [view])
 
     function handleNewHistoryClick() {
       setView('new-history')

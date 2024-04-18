@@ -29,7 +29,8 @@ export default function(props) {
             <Form onSubmit={handleSubmit} className="w-full max-w-md">
                 <h2 className="h2 text-center mb-4" style={{ fontSize: '25px' }}>Add new history</h2>
                 <Field id="image" type="url" className="mb-4 text-center">Image</Field>
-                <Field id="text" className="mb-4 text-center">Text</Field>
+                    <label className='label' htmlFor='text'>Text</label>
+                    <textarea className='input' id="text"></textarea>
                     <button className="flex justify-between button-form" type='submit'>Add</button>
                     <button className="flex justify-between button-form" onClick={handleCancel}>Cancel</button>
             </Form>
