@@ -1,5 +1,5 @@
 import Recipes from './Recipes'
-import ProfileButton from './ProfileButton'
+import LogoutButton from './LogoutButton'
 import NewRecipeForm from './NewRecipeForm'
 import ComplexityLevelFilter from './ComplexityLevelFilter'
 import DietFilter from './DietFilter'
@@ -13,7 +13,7 @@ import Recipe from './Recipe'
 
 export {
 	Recipes,
-	ProfileButton,
+	LogoutButton,
 	NewRecipeForm,
 	ComplexityLevelFilter,
 	DietFilter,

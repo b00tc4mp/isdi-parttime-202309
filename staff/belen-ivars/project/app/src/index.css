@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
 .form {
   @apply flex flex-col max-w-[240px] gap-[5px];
 }
@@ -14,12 +22,28 @@
   @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
 }
 
-.button-menu {
-  @apply self-start;
+.button-header {
+  @apply border-[1px] border-solid border-black p-[5px] rounded-[10px] font-bold cursor-[pointer] bg-amber-100 hover:bg-amber-200 active:bg-amber-300 focus:outline-none focus:ring focus:ring-orange-700;
+}
+
+.button-new-recipe {
+  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-full font-bold size-20 text-4xl justify-items-center cursor-[pointer] focus:ring;
+}
+
+.button-search {
+  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-full font-bold size-20 text-4xl justify-items-center cursor-[pointer]  ;
 }
 
 .link {
-  @apply decoration-[none] text-black visited:text-black before:content-["[_"] after:content-["_]"];
+  @apply decoration-[none] text-black visited:text-black;
+}
+
+.link-profile {
+  @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base hover:text-xl;
+}
+
+.link-header {
+  @apply text-black text-base hover:text-xl overline decoration-wavy decoration-sky-500 ;
 }
 
 .container {
@@ -30,41 +54,50 @@
   @apply flex-row justify-center;
 }
 
+.container-recipe {
+@apply text-balance;
+}
+
 /* custom */
 
 .header {
 
-  @apply flex items-center justify-between p-[.5rem] bg-white hover:bg-indigo-100 border-b-[.3rem] border-black;
+  @apply flex items-center justify-around p-[.5rem] bg-white border-b-[.3rem] border-black;
 }
 
-.new-post {
-  @apply p-[none] bg-purple-100;
+.new-recipe {
+  @apply p-[none];
 }
 
-.post {
-  @apply flex flex-col items-center m-[.7rem] border-[.3rem] border-solid border-black p-[1rem] bg-[#F2EDF8] max-w-[350px] max-h-[350px];
+.recipe {
+  @apply flex flex-col items-center m-[.7rem] shadow-2xl p-[1rem] bg-[#F2EDF8] max-w-[600px] max-h-[600px];
 }
 
-.post-image {
-  @apply max-w-[220px] max-h-[220px] border-double border-[1rem] border-red-500/25
+.recipe-image {
+  @apply max-w-[220px] max-h-[220px] bg-white border-double border-[1rem] border-red-500/25 shadow-lg float-left;
 }
 
-.post-actions {
-  @apply flex justify-between gap-[.5rem]
+.recipe-actions {
+  @apply flex justify-between gap-[.5rem];
 }
 
-.posts {
-  @apply mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-r from-[#8C1B8C] to-[#26C2C7];
+.recipe-title {
+  @apply font-bold text-2xl;
+}
+
+.recipes {
+  @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-r from-zinc-400/50 to-rose-700/50;
+}
+
+.search {
+  @apply placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 ;
 }
 
 .footer {
-  @apply bg-white flex flex-col justify-center items-center fixed bottom-0 w-full min-h-[3rem] border-t-[.3rem] border-solid border-black
+  @apply bg-transparent flex items-center justify-between fixed bottom-0 w-full min-h-[3rem] ;
 }
 
-.footer-menu {
-  @apply flex flex-row justify-around w-full
 }
-
 
 .Feedback {
 @apply fixed top-0 w-full box-border;
@@ -87,5 +120,5 @@
 }
 
 .Feedback--fatal {
-@apply bg-[red] text-white;
+@apply bg-[red] text-black;
 }

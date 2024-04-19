@@ -12,9 +12,10 @@ export default function Searcher(props) {
 	}
 
 	return <Form onSubmit={handleSubmit}>
-		<Field id="search-elements" placeholder="Search..." value={term} />
+		<Field id="search-elements" placeholder="Search..." className="search" value={term} />
 
 		<Button type="submit">🔍</Button>
 
 	</Form>
 }
+

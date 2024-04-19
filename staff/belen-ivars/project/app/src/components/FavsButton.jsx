@@ -13,7 +13,7 @@ export default function Favs() {
 
 	return <div>
 
-		<Button onClick={handleFavRecipesClick}>💛</Button>
+		<Button className="button-header" onClick={handleFavRecipesClick}>💛</Button>
 
 
 	</div>

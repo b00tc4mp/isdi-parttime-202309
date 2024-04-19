@@ -1,11 +1,11 @@
 import FavsButton from "./FavsButton"
-import ProfileButton from "./ProfileButton"
+import LogoutButton from "./LogoutButton"
 
 export default function FullHeader({ name, email }) {
 	return <>
 		<FavsButton />
 
-		<ProfileButton />
+		<LogoutButton />
 
 	</>
 }

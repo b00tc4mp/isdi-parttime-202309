@@ -2,7 +2,7 @@ import { Button } from "../library"
 import logic from "../logic"
 import { useNavigate } from 'react-router-dom'
 
-function ProfileButton() {
+function LogoutButton() {
 	const navigate = useNavigate()
 
 	const handleLogoutClick = () => {
@@ -18,10 +18,10 @@ function ProfileButton() {
 
 	return <>
 
-		<Button onClick={handleLogoutClick}>Logout</Button>
+		<Button className="button-header" onClick={handleLogoutClick}>Logout</Button>
 	</>
 }
 
 
 
-export default ProfileButton
+export default LogoutButton

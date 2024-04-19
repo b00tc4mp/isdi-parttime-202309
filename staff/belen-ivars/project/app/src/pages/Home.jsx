@@ -9,6 +9,7 @@ import FullHeader from "../components/FullHeader"
 import Context from "../Context"
 import NewRecipe from "../components/NewRecipeForm"
 import { Recipes } from "../components"
+import Search from "../components/Search"
 
 
 function Home(props) {
@@ -47,6 +48,23 @@ function Home(props) {
 		navigate('/')
 	}
 
+	function handleSearchClick() {
+
+		setView('search')
+	}
+
+	function handleSearchCancel() {
+		setView(null)
+	}
+
+	function handleSearchPublish() {
+		setStamp(Date.now())
+		setView(null)
+		navigate('/')
+
+		window.scrollTo(0, 0)
+	}
+
 	function handleNewRecipeClick() {
 
 		setView('new-recipe')
@@ -67,7 +85,7 @@ function Home(props) {
 
 	return <div>
 		<header className="header">
-			<h1><Link onClick={handleHomeClick}>Basic Pantry</Link></h1>
+			<h1><Link className="link-header" onClick={handleHomeClick}>Basic Pantry</Link></h1>
 
 			<FullHeader email={email} name={name} />
 
@@ -80,12 +98,23 @@ function Home(props) {
 			<Route path='/' element={<Recipes stamp={stamp} />} />
 		</Routes>
 
+		<div>
+			{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
+
+			{view === 'search' && <Search onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
+		</div>
 
 		<footer className="footer">
-			<Container className="footer-menu">
-				{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
+			<Container>
 
-				{view !== 'new-recipe' && location.pathname !== '/favs' && <Button onClick={handleNewRecipeClick}>+</Button>}
+				{view !== 'new-recipe' && <Button className="button-new-recipe" onClick={handleNewRecipeClick}>+</Button>}
+
+			</Container>
+
+			<Container>
+
+
+				{view !== 'search' && <Button className="button-search" onClick={handleSearchClick}>🔍</Button>}
 
 			</Container>
 

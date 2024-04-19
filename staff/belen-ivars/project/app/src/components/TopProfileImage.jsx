@@ -10,8 +10,9 @@ export default function TopProfileImage({ name, email }) {
 		navigate('/profile')
 	}
 
-	return <Link onClick={handleProfileClick}>
+	return <Link className="link-profile" onClick={handleProfileClick}>
 		<Gravatar email={email} /> {name}
 	</Link>
+
 }
 

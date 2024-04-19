@@ -54,14 +54,16 @@ function Recipe(props) {
 
 	return <article className="recipe">
 
-		<h2> {props.recipe.title}</h2>
-		<img className="recipe-image" src={props.recipe.image} />
-		<p>{props.recipe.description}</p>
+		<Container className="container-recipe">
+			<h2 className="recipe-title"> {props.recipe.title}</h2>
+			<img className="recipe-image" src={props.recipe.image} />
+			<p>{props.recipe.description}</p>
+		</Container>
 
-		{/* Ací estic configurant el botó d'edició*/}
-
-		{session.sessionUserId === props.recipe.author && view === null && <Button onClick={handleDeleteClick}>🗑️</Button>}
-		{session.sessionUserId === props.recipe.author && view === null && <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>}
+		<div>
+			{session.sessionUserId === props.recipe.author && view === null && <Button onClick={handleDeleteClick}>🗑️</Button>}
+			{session.sessionUserId === props.recipe.author && view === null && <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>}
+		</div>
 
 		{view === 'edit' && <Button onClick={() => setView(null)}>Cancel</Button>}
 
@@ -72,9 +74,6 @@ function Recipe(props) {
 			<Button type='submit' > Modificar </Button>
 
 		</Form>}
-
-
-
 
 	</article>
 }
