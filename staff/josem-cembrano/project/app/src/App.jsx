@@ -82,7 +82,7 @@ export default function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/FAQ' element={<FAQ />} />
         <Route path='/login' element={<Login onSuccess={onSuccess}/>} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<Register onSuccess={onSuccess}/>} />
         <Route path='/profile/:form' element={<Profile onSuccess={onSuccess} />} />
       </Routes>
     </div>

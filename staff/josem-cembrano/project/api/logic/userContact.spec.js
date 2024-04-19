@@ -18,7 +18,7 @@ describe('userContact', () => {
 
         const nameContact = faker.person.fullName()
         const emailContact = faker.internet.email()
-        const phoneContact = 123123123
+        const phoneContact = '123123123'
         const messageContact = faker.lorem.sentence()
 
         try {

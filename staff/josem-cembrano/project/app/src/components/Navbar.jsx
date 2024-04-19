@@ -20,7 +20,7 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
 
   const [name, setName] = useState('')
   const [showLogoutOptions, setShowLogoutOptions] = useState(false)
-  const [showIcons, setShowIcons] = useState(false);
+  const [showIcons, setShowIcons] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +38,8 @@ export default function Navbar({ open, setOpen, isUserNavbar, onLogout }) {
     }
 
     fetchData()
-  }, [isUserNavbar])
+
+  }, [isUserNavbar, location.pathname])
 
     function handleLogoutClick() {
       logic.logoutUser(error => {

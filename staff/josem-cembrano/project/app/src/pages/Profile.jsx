@@ -2,8 +2,7 @@ import logic from '../logic'
 import { useState } from 'react'
 import { useContext } from '../hooks'
 import { useParams, Link} from 'react-router-dom'
-import { Box, TextField } from '@mui/material';
-import { Button, Form } from '../library'
+import { Box, TextField } from '@mui/material'
 
 export default function Profile({ onSuccess }) {
     const context = useContext()
@@ -79,8 +78,8 @@ export default function Profile({ onSuccess }) {
     { form === 'email' && 
         <article className='text-center'>
             <h2 className='text-lg font-bold text-yellow-700'>Change email</h2>
-            <Form onSubmit={handleChangeMailSubmit}>
-                <Box
+                <Box onSubmit={handleChangeMailSubmit}
+                    className='flex flex-col'
                     component="form"
                     sx={{
                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -157,17 +156,16 @@ export default function Profile({ onSuccess }) {
                             }
                         }}
                     />
-                </Box>
                 <button className="flex justify-between button-form myfont" type='submit'>Update email</button>
+                </Box>
                 <Link className='cancel-link flex justify-between button-form myfont' to='/'>Cancel</Link>
-            </Form>
         </article>
     }
     { form === 'password' && 
         <article className='text-center'>
             <h2 className='text-lg font-bold text-yellow-700'>Change password</h2>
-            <Form onSubmit={handleChangePasswordSubmit}>
-                <Box
+                <Box onSubmit={handleChangePasswordSubmit}
+                    className='flex flex-col'
                     component="form"
                     sx={{
                         '& > :not(style)': { m: 1, width: '25ch' },
@@ -244,10 +242,9 @@ export default function Profile({ onSuccess }) {
                             }
                         }}
                     />
-                </Box>
                 <button className="flex justify-between button-form myfont" type='submit'>Update password</button>
+                </Box>
                 <Link className='cancel-link' to='/'>Cancel</Link>
-            </Form>
         </article>
     }
 </div>

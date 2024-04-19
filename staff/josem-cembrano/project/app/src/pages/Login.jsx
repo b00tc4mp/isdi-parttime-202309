@@ -3,6 +3,7 @@ import logic from '../logic'
 import { Form } from '../library'
 import { Box, TextField } from '@mui/material';
 import { useContext } from '../hooks'
+import { toast } from 'sonner'
 
 export default function Login({onSuccess}) {
     console.log('Login')
@@ -25,6 +26,8 @@ export default function Login({onSuccess}) {
                 const user = await logic.retrieveUser()
                 
                 logic.context.isAdmin = user.Admin
+
+                toast.success('You are now logged in')
 
                 onSuccess()
             } catch (error) {

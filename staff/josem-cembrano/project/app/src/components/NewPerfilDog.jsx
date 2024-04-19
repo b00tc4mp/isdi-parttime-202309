@@ -30,8 +30,6 @@ export default function NewPicture(props) {
 
         const formatedBirthDate = convertDate(birthDate)
 
-        console.log(formatedBirthDate)
-
         try {
             logic.publishDog(image, afix, name, gender, formatedBirthDate, isPuppy, text, error => {
                 if (error) {
@@ -74,7 +72,7 @@ export default function NewPicture(props) {
                 </div>
                 <input className='input' type='date' id='birthDate'></input>
                 <div className='label flex justify-center m-4 items-center space-x-3'>
-                    <label htmlFor='puppy'>Puppy</label>
+                    <label htmlFor='puppy'>Puppy ?</label>
                     <input type='checkbox' id='puppy' checked={isPuppy} onChange={handlePuppyChange} />
                 </div>
                 <label className='label' htmlFor='text'>Text</label>

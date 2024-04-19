@@ -7,17 +7,17 @@
 Creación de página web de un criadero:
 
 Quiero centrarme principalmente en el ADMIN, que tenga una gestión dinámica de uso y edición en cualquier lugar de la web que se necesiten hacer cambios a nivel de ejemplares, información etc.
-Integrar funciones interactivas, como formularios y un sistema de comentarios y valoraciones, para mejorar la participación del usuario y facilitar el proceso de interacción con la plataforma.
+Integrar funciones interactivas, como formulario de contacto y un sistema de comentarios y valoraciones (v.0.1), para mejorar la participación del usuario y facilitar el proceso de interacción con la plataforma.
 
 ## <u>Funcional description</u>
 
-- _<p style="color:yellow;">Pantalla de Bienvenida (Splash Screen)</p>_
-  Al ingresar a la aplicación, los usuarios son recibidos a una (landing-page) o pantalla de bienvenida que se desvanece después de unos segundos, dando paso a la parte funcional de la web.
+- _<p style="color:yellow;">Pantalla de Bienvenida (home)</p>_
+  Al ingresar a la aplicación, los usuarios son recibidos directamente a Home como pantalla de bienvenida reflejado con un video un ejemplar de alaska y el navbar.
 
 - _<p style="color:yellow;">Gestión de Contenido Dinámico</p>_
-  La aplicación permite al administrador del criadero agregar, editar y eliminar fácilmente información sobre las mascotas, eventos, noticias y otros contenidos relevantes, para mantener actualizada la información del criadero en todo momento.
+  La aplicación permite al administrador del criadero agregar, editar y eliminar fácilmente información sobre las mascotas, historia, noticias y otros contenidos relevantes, para mantener actualizada la información del criadero en todo momento.
 
-- _<p style="color:yellow;">Formulario Interactivo de Adopción/Compra</p>_
+- _<p style="color:yellow;">Formulario Interactivo de (PRE) Adopción/Adquisicion</p>_(v.0.1)
   Con el motivo de simplificar el proceso de adopción o compra, los usuarios podrán completar un formulario, para facilitar la conexión entre el criador y cliente.
 
 - _<p style="color:yellow;">Integración con Redes Sociales</p>_
@@ -26,10 +26,10 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 - _<p style="color:yellow;">Galería Multimedia</p>_
   Crear un galería multimedia que incluye imágenes, videos, información genealógica y veterinaria de ejemplares disponibles.
 
-- _<p style="color:yellow;">Comentarios y Valoraciones</p>_
+- _<p style="color:yellow;">Comentarios y Valoraciones</p>_(v.0.1)
   Posibilidad de dejar comentarios y valoraciones sobre las mascotas y su experiencia general con el criadero para dar transparencia y corregir posibles errores.
 
-- _<p style="color:yellow;">Integración de Mapa</p>_
+- _<p style="color:yellow;">Integración de Mapa</p>_(v.0.1)
   Integrar un mapa interactivo que muestra la ubicación del criadero y facilitar a los usuarios encontrar la ubicación física del criadero.
 
 - _<p style="color:yellow;">Preguntas Frecuentes (FAQ)</p>_
@@ -37,7 +37,7 @@ Integrar funciones interactivas, como formularios y un sistema de comentarios y 
 
 ### <u>Use Case</u>
 
-- Pantalla de bienvenida (landing page) que se desvanece después de unos segundos y luego da paso a la parte funcional de la web.
+- Pantalla de bienvenida (Home)
 
 - Gestión de contenido dinámico: Permitir a los administradores del criadero agregar, editar y eliminar fácilmente información sobre las mascotas, eventos, noticias, etc.
 

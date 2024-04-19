@@ -71,7 +71,7 @@ function handleDeleteDog(dogId) {
            {view === 'new-picture' && <NewPerfilDog onPublish={handleNewPerfilDogPublish} onCancel={handleNewPerfilDogCancel} />}
        <div className='flex justify-center p-5'>
        {logic.context.token && logic.context.isAdmin && (<button className='button-add text-gray-600 transition-colors duration-300 cursor-pointer' onClick={handleNewPerfilDogClick}><FaDog size={20} /></button>)}
-        <div className="flex flex-wrap gap-1 flex-row pt-2">
+        <div className="flex flex-wrap gap-1 flex-row pt-2 pb-14">
         {
           females.lenght !== 0 && (females.map((female) => {
             return <div key={female.id}>

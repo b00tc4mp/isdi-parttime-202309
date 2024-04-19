@@ -22,9 +22,7 @@ export default async function createDog(userId, image, afix, name, gender, birth
         if (!user.Admin)
             throw new UnauthorizedError('The user does not have permission to perform this action')
 
-        const formateBirthDate = new Date(birthDate).toLocaleDateString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })
-
-        const dog = await Dog.create({ author: userId, image, afix, name, gender, birthDate: formateBirthDate, puppy, text })
+        const dog = await Dog.create({ author: userId, image, afix, name, gender, birthDate, puppy, text })
 
         if (!dog) {
             throw new SystemError('Failed to create picture')
