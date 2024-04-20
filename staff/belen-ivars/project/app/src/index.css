@@ -86,7 +86,9 @@
 }
 
 .recipes {
-  @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-r from-zinc-400/50 to-rose-700/50;
+  @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3; 
+  /* bg-gradient-to-r from-zinc-400/50 to-rose-700/50; */
+  background:url(https://www.comedera.com/wp-content/uploads/2014/03/arroz-tres-delicias.jpg);
 }
 
 .search {

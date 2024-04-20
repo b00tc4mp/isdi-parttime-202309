@@ -31,7 +31,7 @@ function Recipe(props) {
 			document.getElementById("edit-form").reset()
 
 		} catch (error) {
-			console.log(error)
+			context.handleError(error)
 		}
 	}
 
@@ -43,7 +43,19 @@ function Recipe(props) {
 			props.onSuccess()
 
 		} catch (error) {
-			console.log(error)
+			context.handleError(error)
+		}
+	}
+
+	const handleToggleFavClick = async (event) => {
+		event.preventDefault
+		try {
+			await logic.toggleFavRecipe(props.recipe._id)
+			props.onSuccess()
+			console.log('fav done')
+
+		} catch (error) {
+			context.handleError(error)
 		}
 	}
 
@@ -63,6 +75,8 @@ function Recipe(props) {
 		<div>
 			{session.sessionUserId === props.recipe.author && view === null && <Button onClick={handleDeleteClick}>🗑️</Button>}
 			{session.sessionUserId === props.recipe.author && view === null && <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>}
+			<Button onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
+
 		</div>
 
 		{view === 'edit' && <Button onClick={() => setView(null)}>Cancel</Button>}

@@ -5,6 +5,7 @@ import createRecipe from './createRecipe.js'
 import retrieveRecipes from './retrieveRecipes.js'
 import deleteRecipe from './deleteRecipe.js'
 import editRecipe from './editRecipe.js'
+import toggleFavRecipe from './toggleFavRecipe.js'
 
 const logic = {
 	registerUser,
@@ -13,7 +14,8 @@ const logic = {
 	createRecipe,
 	retrieveRecipes,
 	deleteRecipe,
-	editRecipe
+	editRecipe,
+	toggleFavRecipe
 }
 
 export default logic
