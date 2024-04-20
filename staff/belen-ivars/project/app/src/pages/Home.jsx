@@ -98,14 +98,10 @@ function Home(props) {
 			<Route path='/' element={<Recipes stamp={stamp} />} />
 		</Routes>
 
-		<div>
-			{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
-
-			{view === 'search' && <Search onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
-		</div>
 
 		<footer className="footer">
 			<Container>
+				{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
 
 				{view !== 'new-recipe' && <Button className="button-new-recipe" onClick={handleNewRecipeClick}>+</Button>}
 
@@ -113,6 +109,7 @@ function Home(props) {
 
 			<Container>
 
+				{view === 'search' && <Search onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
 
 				{view !== 'search' && <Button className="button-search" onClick={handleSearchClick}>🔍</Button>}
 

@@ -11,11 +11,19 @@ export default function Searcher(props) {
 		// const ingredients = event.target.querySelector('#search-elements').value
 	}
 
+	const handleCancel = event => {
+		event.preventDefault()
+
+		props.onCancel()
+	}
+
 	return <Form onSubmit={handleSubmit}>
 		<Field id="search-elements" placeholder="Search..." className="search" value={term} />
 
-		<Button type="submit">🔍</Button>
-
+		<div>
+			<Button type="submit">🔍</Button>
+			<Button onClick={handleCancel}>Cancel</Button>
+		</div>
 	</Form>
 }
 

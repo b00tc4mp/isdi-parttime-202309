@@ -42,7 +42,7 @@ export default function NewRecipe(props) {
 
 		<Form onSubmit={handleSubmit}>
 			<Field id="title-input" type="text" >Title</Field>
-			<Field id="description-input" type="text">Text</Field>
+			<Field id="description-input" type="text">Description</Field>
 			<Field id="image-input" type="url" >Image</Field>
 
 			<Button type="submit">Post</Button>

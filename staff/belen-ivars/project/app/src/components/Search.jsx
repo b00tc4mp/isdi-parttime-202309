@@ -3,7 +3,7 @@ import MethodFilter from "./MethodFilter"
 
 export default function Search(props) {
 	return <>
-		<SearchForm />
+		<SearchForm onCancel={props.onCancel} />
 		<MethodFilter />
 	</>
 }
