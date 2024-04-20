@@ -40,12 +40,31 @@ function funktion(funktion, explain) {
 }
 
 function resourceType(resourceType, explain) {
+  text(resourceType, explain)
   if (
     resourceType !== 'book' &&
     resourceType !== 'activity' &&
     resourceType !== 'specialDate'
   )
     throw new TypeError(`${resourceType} is not a valid resource type`)
+}
+
+function tagArray(tags) {
+  if (!Array.isArray(tags)) {
+    throw new TypeError('Tags must be an array')
+  }
+  if (tags.some((tag) => typeof tag !== 'string')) {
+    throw new TypeError('The tags array must only contain strings')
+  }
+}
+
+function ageRange(ages) {
+  if (!Array.isArray(ages)) {
+    throw new TypeError('ageRange must be an array')
+  }
+  if (ages.some((age) => typeof age !== 'string')) {
+    throw new TypeError('The ageRange array must only contain strings')
+  }
 }
 
 const validate = {
@@ -56,6 +75,8 @@ const validate = {
   number,
   function: funktion,
   resourceType,
+  tagArray,
+  ageRange,
 }
 
 export default validate

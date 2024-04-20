@@ -38,25 +38,19 @@ const user = new Schema({
 const resource = new Schema({
   title: {
     type: String,
-    required: true,
     unique: true,
   },
   description: {
     type: String,
-    required: true,
   },
   resourceType: {
     type: String,
-    required: true,
   },
-
-  // tag: [
-  //   {
-  //     type: ObjectId,
-  //     ref: 'Theme',
-  //     required: true,
-  //   },
-  // ],
+  tag: [
+    {
+      type: String,
+    },
+  ],
   link: {
     type: String,
   },
@@ -66,9 +60,11 @@ const resource = new Schema({
   author: {
     type: String,
   },
-  ageRange: {
-    type: Number,
-  },
+  ageRange: [
+    {
+      type: String,
+    },
+  ],
 })
 
 const activity = new Schema({
@@ -92,7 +88,6 @@ const activity = new Schema({
   tag: [
     {
       type: ObjectId,
-      ref: 'Theme',
     },
   ],
 })
@@ -117,7 +112,6 @@ const book = new Schema({
   tag: [
     {
       type: ObjectId,
-      ref: 'Theme',
     },
   ],
 })
@@ -146,28 +140,11 @@ const specialDate = new Schema({
   ],
 })
 
-// Labels
-
-const tag = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-})
-
-const eventsCalendar = new Schema({
-  name: {
-    type: String,
-  },
-})
-
 const User = model('User', user)
 const Resource = model('Resource', resource)
 const Activity = model('Activity', activity)
 const Book = model('Book', book)
 const SpecialDate = model('SpecialDate', specialDate)
-const Tag = model('Tag', tag)
-const EventsCalendar = model('EventsCalendar', eventsCalendar)
 
 /*
 eg. const colegio123 = new User({ name: 'Colegio 123' })
@@ -177,4 +154,4 @@ eg. const book = new Category({ name: 'Libro' })
 
 */
 
-export { User, Resource, Activity, Book, SpecialDate, Tag, EventsCalendar }
+export { User, Resource, Activity, Book, SpecialDate }

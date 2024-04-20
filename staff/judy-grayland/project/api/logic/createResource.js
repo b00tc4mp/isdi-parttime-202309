@@ -7,6 +7,7 @@ function createResource({
   title,
   description,
   resourceType,
+  tag,
   link,
   image,
   author,
@@ -15,12 +16,27 @@ function createResource({
   validate.text(title, 'title')
   validate.text(description, 'description')
   validate.resourceType(resourceType, 'resourceType')
-  validate.text(link, 'link')
+  validate.tagArray(tag, 'tag array')
+
+  if (resourceType === 'activity') {
+    validate.text(link, 'link')
+    validate.text(image, 'image')
+  }
+  if (resourceType === 'book') {
+    validate.text(author, 'author')
+    validate.text(image, 'image')
+    validate.ageRange(ageRange, 'ageRange')
+  }
+
+  if (resourceType === 'specialDate') {
+    validate.text(link, 'link')
+  }
 
   return Resource.create({
     title,
     description,
     resourceType,
+    tag,
     link,
     image,
     author,

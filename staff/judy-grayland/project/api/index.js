@@ -7,6 +7,7 @@ import {
   registerUserHandler,
   authenticateUserHandler,
   createActivityHandler,
+  createResourceHandler,
 } from './handlers/index.js'
 
 dotenv.config()
@@ -30,6 +31,8 @@ mongoose
     server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
     server.post('/activities', jsonBodyParser, createActivityHandler)
+
+    server.post('/resources', jsonBodyParser, createResourceHandler)
 
     // declaring endpoint for categories path
     // server.get('/categories', (req, res) => {

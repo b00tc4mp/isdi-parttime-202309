@@ -38,7 +38,7 @@ describe('authenticateUser', () => {
 
     return authenticateUser(email, password)
       .then(() => {
-        throw new Error('should not reacht this point')
+        throw new Error('should not reach this point')
       })
       .catch((error) => {
         expect(error).to.be.instanceOf(NotFoundError)
