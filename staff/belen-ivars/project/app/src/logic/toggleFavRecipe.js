@@ -16,7 +16,7 @@ export default function toggleFavRecipe(recipeId) {
 		let res
 
 		try {
-			res = await fetch(`${API_URL}/users/${recipeId}`, req)
+			res = await fetch(`${API_URL}/recipes/${recipeId}/favs`, req)
 		} catch (error) {
 			throw new SystemError(error.message)
 		}
