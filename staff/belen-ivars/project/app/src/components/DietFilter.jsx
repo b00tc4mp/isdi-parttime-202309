@@ -1,6 +1,6 @@
-import Dropable from "./Dropable"
+import OptionsFilters from "./OptionsFilters"
 
 export default function DietFilter() {
 	const options = ['glutenfree', 'vegetarian', 'vegan', 'omnivorous']
-	return <Dropable title="Diet type" options={options} />
+	return <OptionsFilters title="Diet type" options={options} />
 }

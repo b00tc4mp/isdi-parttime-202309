@@ -1,7 +1,7 @@
 import { Button } from "../library"
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
-export default function Favs() {
+export default function FavsButton() {
 
 	const navigate = useNavigate()
 
@@ -13,7 +13,7 @@ export default function Favs() {
 
 	return <div>
 
-		<Button className="button-header" onClick={handleFavRecipesClick}>💛</Button>
+		<Button className="button-header" onClick={handleFavRecipesClick}>💛 My Favs </Button>
 
 
 	</div>
