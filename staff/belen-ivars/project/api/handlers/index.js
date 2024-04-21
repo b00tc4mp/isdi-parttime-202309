@@ -6,6 +6,7 @@ import retrieveRecipesHandler from './retrieveRecipesHandler.js'
 import deleteRecipeHandler from './deleteRecipeHandler.js'
 import editRecipeHandler from './editeRecipeHandler.js'
 import toggleFavRecipeHandler from './toggleFavRecipeHandler.js'
+import retrieveFavRecipesHandler from './retrieveFavRecipesHandler.js'
 
 
 export {
@@ -16,5 +17,6 @@ export {
 	retrieveRecipesHandler,
 	deleteRecipeHandler,
 	editRecipeHandler,
-	toggleFavRecipeHandler
+	toggleFavRecipeHandler,
+	retrieveFavRecipesHandler
 }

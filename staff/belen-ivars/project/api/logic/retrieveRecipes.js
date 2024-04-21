@@ -12,6 +12,10 @@ async function retrieveRecipes(id) {
 	console.log('user exists')
 	const recipes = await Recipe.find()
 
+	recipes.forEach(recipe => {
+		recipe.fav = user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id)
+	})
+
 	return recipes
 }
 

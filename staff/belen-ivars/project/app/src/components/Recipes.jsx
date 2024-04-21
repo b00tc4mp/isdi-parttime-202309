@@ -14,8 +14,8 @@ function Recipes(props) {
 		(async () => {
 
 			try {
-				const content = await logic.retrieveRecipes()
-
+				const content = await props.showRecipes()
+				//props.showRecipes
 				setRecipes(content)
 			} catch (error) {
 				context.handleError(error)

@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import logic from "../logic"
 import { Button, Link, Container } from "../library"
 import Profile from './Profile'
-import FavsUser from "./FavsUser"
 import FullHeader from "../components/FullHeader"
 import Context from "../Context"
 import NewRecipe from "../components/NewRecipeForm"
@@ -93,9 +92,9 @@ function Home(props) {
 
 		<Routes>
 			<Route path="/profile" element={<Profile />} />
-			<Route path='/favs' element={<FavsUser />} />
+			<Route path='/favs' element={<Recipes showRecipes={logic.retrieveFavRecipes} />} />
 			<Route path='/new-recipe' element={<NewRecipe />} />
-			<Route path='/' element={<Recipes stamp={stamp} />} />
+			<Route path='/' element={<Recipes showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
 		</Routes>
 
 
