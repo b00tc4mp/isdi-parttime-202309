@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Synqple v.1</title>
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.38/build/Tone.min.js"></script>
+    <style>
+        .mute {
+            color: red;
+        }
+
+        .unmute {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Botones para controlar la reproducción y el volumen -->
+    <button id="toggleAll">Play/Pause All</button>
+    <br>
+
+    <button id="muteMetronome" class="mute">Mute/Unmute Metronome</button>
+    <div>
+        <label for="metronomeVolume">Metronome Volume:</label>
+        <input type="range" id="metronomeVolume" min="-60" max="10" value="0" step="1">
+    </div>
+
+    <button id="muteSample1" class="mute">Mute/Unmute Sample 1</button>
+    <br>
+    <button id="muteSample2" class="mute">Mute/Unmute Sample 2</button>
+
+    <div>
+        <label for="samplesVolume">Samples Volume:</label>
+        <input type="range" id="samplesVolume" min="-60" max="0" value="0" step="1">
+    </div>
+
+    <!-- Tap tempo -->
+    <button id="tapTempoButton">Tap Tempo</button>
+    <br>
+    <!-- BPM Tempo -->
+    <label for="bpmControl">BPM:</label>
+    <input type="number" id="bpmControl" min="40" max="240" value="120" step="0.1">
+    <br>
+    <!-- Nudge -/+ -->
+    <button id="decreaseTempo">Nudge -</button>
+    <button id="increaseTempo">Nudge +</button>
+    <br>
+    <!-- Loopsmaker -->
+    <button id="loop1">1</button>
+    <button id="loop2">2</button>
+    <button id="loop4">4</button>
+    <br>
+    <!-- LP-HP FILTER -->
+    <label for="filterControl">Filter Control:</label>
+    <input type="range" id="filterControl" min="0" max="100" value="50">
+
+
+    <script>
+        let lastTapTime = 0;
+        let taps = [];
+
+        // Inicialización cuando se carga el contenido del DOM
+        document.addEventListener("DOMContentLoaded", async function () {
+            console.log("Inicializando Synqple v.1");
+            const bpmControl = document.getElementById('bpmControl');
+
+            // Crear nodos de volumen para el metrónomo y los samples
+            const metronomeVolume = new Tone.Volume().toDestination();
+            const samplesVolume = new Tone.Volume().toDestination();
+
+            // Función constructora para los samples
+            function Metronomo(url, originalBPM, volumeNode, buttonId) {
+                console.log("Creando sample:", url);
+                this.player = new Tone.Player(url).connect(volumeNode);
+                this.originalBPM = originalBPM;
+                this.player.loop = true;
+                this.player.mute = true; // Iniciar con el sample muteado
+                this.isMuted = true;     // Estado inicial de silencio
+                this.buttonId = buttonId; // ID del botón asociado
+            }
+
+            // Función constructora para los samples
+            function Sample(url, originalBPM, volumeNode, buttonId) {
+                console.log("Creando sample:", url);
+                this.player = new Tone.GrainPlayer(url).connect(volumeNode);
+                this.originalBPM = originalBPM;
+                this.player.loop = true;
+                this.player.mute = true; // Iniciar con el sample muteado
+                this.isMuted = true;     // Estado inicial de silencio
+                this.buttonId = buttonId; // ID del botón asociado
+
+                // Añadir parámetros específicos de GrainPlayer
+                this.player.grainSize = 0.2; // Tamaño del grano en segundos
+                this.player.detune = 0; // Dispersión en cents
+                // Puedes añadir más parámetros aquí
+            }
+            // Crear metrónomo y samples
+            const metronome = new Metronomo("Metronomo8beats.wav", 120, metronomeVolume, 'muteMetronome');
+            const samples = [
+                new Sample("Drum1.8.wav", 120, samplesVolume, 'muteSample1'),
+                new Sample("Drum2.4.wav", 120, samplesVolume, 'muteSample2')
+            ];
+
+            // Manejo de eventos de cambio de volumen
+            document.getElementById('metronomeVolume').addEventListener('input', (e) => {
+                console.log("Cambiando volumen del metrónomo");
+                const volumeValue = parseFloat(e.target.value);
+                metronomeVolume.volume.value = volumeValue < -59 ? -Infinity : volumeValue;
+            });
+
+            document.getElementById('samplesVolume').addEventListener('input', (e) => {
+                console.log("Cambiando volumen de los samples");
+                const volumeValue = parseFloat(e.target.value);
+                samplesVolume.volume.value = volumeValue < -59 ? -Infinity : volumeValue;
+            });
+
+            // Función para reproducir o pausar todos los samples
+            function togglePlay() {
+                console.log("Alternando reproducción de todos los samples");
+                const allSamples = [metronome, ...samples];
+                allSamples.forEach(sample => {
+                    if (sample.isPlaying) {
+                        sample.player.stop();
+                    } else {
+                        sample.player.start();
+                        updatePlaybackRate([sample]);
+                    }
+                    sample.isPlaying = !sample.isPlaying;
+                });
+            }
+
+            // Función para silenciar o activar un sample
+            function toggleMute(sample) {
+                console.log("Alternando mute para un sample");
+                sample.isMuted = !sample.isMuted;
+                sample.player.mute = sample.isMuted;
+                updateButtonVisuals(sample, sample.buttonId); // Actualizar el botón visualmente
+            }
+
+            // Función para actualizar el estado visual del botón
+            function updateButtonVisuals(sample, buttonId) {
+                const button = document.getElementById(buttonId);
+                if (sample.isMuted) {
+                    button.classList.remove('unmute');
+                    button.classList.add('mute');
+                } else {
+                    button.classList.remove('mute');
+                    button.classList.add('unmute');
+                }
+            }
+
+            // Manejo del cambio de BPM
+            bpmControl.addEventListener('input', () => {
+                console.log("Cambiando BPM");
+                updatePlaybackRate([metronome, ...samples]);
+            });
+
+            // Actualizar la tasa de reproducción basado en el BPM
+            function updatePlaybackRate(sampleGroup) {
+                console.log("Actualizando tasa de reproducción");
+                const newBPM = parseInt(bpmControl.value);
+                sampleGroup.forEach(sample => {
+                    sample.player.playbackRate = newBPM / sample.originalBPM;
+                });
+            }
+
+            // Eventos para los botones
+            document.getElementById('toggleAll').addEventListener('click', togglePlay);
+            document.getElementById('muteMetronome').addEventListener('click', () => toggleMute(metronome));
+            document.getElementById('muteSample1').addEventListener('click', () => toggleMute(samples[0]));
+            document.getElementById('muteSample2').addEventListener('click', () => toggleMute(samples[1]));
+
+            // Manejo de Tap Tempo
+            document.getElementById('tapTempoButton').addEventListener('click', () => {
+                console.log("Tap Tempo utilizado");
+                const currentTime = Tone.now();
+                if (lastTapTime != 0) {
+                    let interval = currentTime - lastTapTime;
+                    taps.push(60 / interval); // Convertir intervalo a BPM
+                    if (taps.length > 2) {
+                        taps.shift(); // Mantener solo los últimos dos taps
+                    }
+                    setBPM(Math.round((taps[0] + (taps[1] || taps[0])) / 2)); // Promedio de los últimos dos taps
+                }
+                lastTapTime = currentTime;
+            });
+
+            let temporaryBPM;
+
+            // Funciones para cambiar el BPM temporalmente
+            function setBPM(bpm) {
+                console.log("Estableciendo BPM a", bpm);
+                bpmControl.value = bpm;
+                updatePlaybackRate([metronome, ...samples]);
+            }
+
+            function changeTempo(tempoChange) {
+                console.log(`Cambiando tempo temporalmente en ${tempoChange}`);
+                temporaryBPM = parseFloat(bpmControl.value);
+                setBPM(parseFloat(bpmControl.value) + tempoChange);
+            }
+
+            function resetBPM() {
+                console.log("Restableciendo BPM al valor original");
+                setBPM(temporaryBPM);
+            }
+
+            // Eventos para cambiar el tempo temporalmente
+            document.getElementById('increaseTempo').addEventListener('mousedown', () => changeTempo(5));
+            document.getElementById('increaseTempo').addEventListener('mouseup', resetBPM);
+            document.getElementById('decreaseTempo').addEventListener('mousedown', () => changeTempo(-5));
+            document.getElementById('decreaseTempo').addEventListener('mouseup', resetBPM);
+
+            function calcularDuracionDeUnCompas(bpm) {
+                // Suponiendo un compás de 4/4
+                return 60 / bpm * 4;
+            }
+
+
+
+            // Función para ajustar la duración del loop de un sample
+            function setLoopLength(compases, sample) {
+                const bpm = parseFloat(bpmControl.value);
+                const duracionCompas = calcularDuracionDeUnCompas(bpm);
+
+                samples.forEach(sample => {
+                    // Calcula la fracción del sample que deseas reproducir
+                    const fraccionDeseada = (compases / 8) * sample.player.buffer.duration;
+
+                    // Establece el loopEnd para cada sample
+                    sample.player.loopEnd = fraccionDeseada;
+                });
+
+            }
+            // Añadir event listeners a los botones para cambiar la duración del loop
+            document.getElementById('loop1').addEventListener('click', () => setLoopLength(1)); // Ajusta para 1 compás
+            document.getElementById('loop2').addEventListener('click', () => setLoopLength(2)); // Ajusta para 2 compases
+            document.getElementById('loop4').addEventListener('click', () => setLoopLength(4)); // Ajusta para 4 compases
+
+            // Crear el filtro
+            const filter = new Tone.Filter(1500, "lowpass");
+
+            // Conectar el filtro al nodo de volumen de los samples
+            filter.connect(samplesVolume);
+
+            // Luego conectar el nodo de volumen al destino
+            samplesVolume.toDestination();
+
+            // Conectar fuentes de audio al filtro
+            samples.forEach(sample => {
+                sample.player.disconnect(); // Desconectar de cualquier salida anterior
+                sample.player.connect(filter); // Conectar al filtro
+            });
+
+            // Control de filtro basado en el deslizador
+            document.getElementById('filterControl').addEventListener('input', (e) => {
+                const value = parseFloat(e.target.value);
+
+                // Actualizar tipo y frecuencia del filtro basado en el valor del deslizador
+                if (value < 25) {
+                    filter.type = "lowpass";
+                    filter.frequency.value = 20 + ((1000 - 20) * (value / 25));
+                } else if (value < 75) {
+                    filter.type = "allpass";
+                } else {
+                    filter.type = "highpass";
+                    filter.frequency.value = 1000 + ((20000 - 1000) * ((value - 75) / 25));
+                }
+
+                console.log(`Filter Type: ${filter.type}, Frequency: ${filter.frequency.value}`);
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>
