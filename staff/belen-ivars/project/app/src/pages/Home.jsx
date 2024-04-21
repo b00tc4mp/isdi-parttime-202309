@@ -4,10 +4,9 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import logic from "../logic"
 import { Button, Link, Container } from "../library"
 import Profile from './Profile'
-import FullHeader from "../components/FullHeader"
 import Context from "../Context"
 import NewRecipe from "../components/NewRecipeForm"
-import { Recipes } from "../components"
+import { Recipes, TopProfileImage } from "../components"
 import Search from "../components/Search"
 
 
@@ -86,7 +85,7 @@ function Home(props) {
 		<header className="header">
 			<h1><Link className="link-header" onClick={handleHomeClick}>Basic Pantry</Link></h1>
 
-			<FullHeader email={email} name={name} />
+			<TopProfileImage email={email} name={name} />
 
 		</header>
 

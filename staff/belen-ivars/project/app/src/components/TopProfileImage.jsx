@@ -1,18 +1,35 @@
 import Gravatar from 'react-gravatar'
-import { Link } from '../library'
+import { Button } from '../library'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import FavsButton from './FavsButton'
+import LogoutButton from './LogoutButton'
 
 export default function TopProfileImage({ name, email }) {
 
+	const [view, setView] = useState(null)
+	const [isOpen, setIsOpen] = useState(false)
+	const navigate = useNavigate()
+
+
 	function handleProfileClick(event) {
 		event.preventDefault()
-		const navigate = useNavigate()
-		navigate('/profile')
+
+		setIsOpen(!isOpen)
+
+		if (isOpen) {
+			setIsOpen(false)
+		}
 	}
 
-	return <Link className="link-profile" onClick={handleProfileClick}>
+	return <Button className="link-profile" onClick={handleProfileClick}>
 		<Gravatar email={email} /> {name}
-	</Link>
-
+		{isOpen && (
+			<div>
+				<FavsButton />
+				<LogoutButton />
+			</div>
+		)}
+	</Button>
 }
 
