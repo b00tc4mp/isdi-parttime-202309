@@ -35,8 +35,10 @@ function Login(props) {
 		props.onRegisterClick()
 	}
 
-	return <Container>
-		<h1>Login</h1>
+	return <Container className='login-register'>
+		<div className='login-register-div'>
+			<h1 className='login-register-title'>Login</h1>
+		</div>
 		<Form onSubmit={handleSubmit}>
 			<Field id="email-input" type="email">E-mail</Field>
 			<Field id="password-input" type="password">Password</Field>

@@ -3,6 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
 @layer components {
 
@@ -22,8 +23,12 @@
   @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
 }
 
+.button-recipe {
+  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
+}
+
 .button-header {
-  @apply border-[1px] border-solid border-black p-[5px] rounded-[10px] font-bold cursor-[pointer] bg-amber-100 hover:bg-amber-200 active:bg-amber-300 focus:outline-none focus:ring focus:ring-orange-700;
+  @apply flex flex-col items-center border-[1px] border-solid border-black p-[5px] rounded-[10px] font-bold cursor-[pointer] bg-amber-100 hover:bg-amber-200 active:bg-amber-300 focus:outline-none focus:ring focus:ring-orange-700;
 }
 
 .button-new-recipe {
@@ -38,6 +43,10 @@
   @apply decoration-[none] text-black visited:text-black;
 }
 
+.link-menu {
+  @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base hover:text-xl;
+}
+
 .link-profile {
   @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base hover:text-xl;
 }
@@ -46,12 +55,25 @@
   @apply text-black text-base hover:text-xl overline decoration-wavy decoration-sky-500 ;
 }
 
+
+.login-register-title {
+  @apply font-bold relative text-black text-2xl;
+}
+
 .container {
   @apply flex flex-col items-center gap-[1rem] p-[1rem];
 }
 
 .container--horizontal {
   @apply flex-row justify-center;
+}
+
+.login-register {
+  @apply flex flex-col justify-items-center my-40 mx-10;
+}
+
+.login-register-div {
+@apply before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-green-400/50 relative inline-block;
 }
 
 .container-recipe {
@@ -69,8 +91,12 @@
   @apply p-[none];
 }
 
+.profile-menu {
+ 
+}
+
 .recipe {
-  @apply flex flex-col items-center m-[.7rem] shadow-2xl p-[1rem] bg-[#F2EDF8] max-w-[600px] max-h-[600px];
+  @apply flex flex-col items-center m-[1rem] border-black border-[1px] shadow-2xl p-[1rem] bg-[#F2EDF8]/90 max-w-[400px] max-h-[400px];
 }
 
 .recipe-image {
@@ -85,10 +111,14 @@
   @apply font-bold text-2xl;
 }
 
+.recipe-description {
+  @apply text-sm first-letter:text-7xl first-letter:font-bold first-letter:text-slate-900
+  first-letter:mr-3 first-letter:float-left;
+}
+
 .recipes {
-  @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3; 
-  /* bg-gradient-to-r from-zinc-400/50 to-rose-700/50; */
-  background:url(https://www.comedera.com/wp-content/uploads/2014/03/arroz-tres-delicias.jpg);
+  @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-cover; 
+  background-image:url('/background-food.png');
 }
 .search {
   @apply placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 ;

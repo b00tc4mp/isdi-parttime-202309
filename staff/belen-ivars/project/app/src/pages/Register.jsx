@@ -34,8 +34,10 @@ function Register(props) {
 		props.onLoginClick()
 	}
 
-	return <Container>
-		<h1>Register</h1>
+	return <Container className='login-register'>
+		<div className="login-register-div">
+			<h1 className="login-register-title">Register</h1>
+		</div>
 
 		<Form onSubmit={handleSubmit}>
 			<Field id="name-input">Name</Field>

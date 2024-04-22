@@ -8,6 +8,7 @@ import Context from "../Context"
 import NewRecipe from "../components/NewRecipeForm"
 import { Recipes, TopProfileImage } from "../components"
 import Search from "../components/Search"
+import Login from "./Login"
 
 
 function Home(props) {
@@ -95,7 +96,6 @@ function Home(props) {
 			<Route path='/new-recipe' element={<NewRecipe />} />
 			<Route path='/' element={<Recipes showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
 		</Routes>
-
 
 		<footer className="footer">
 			<Container>
