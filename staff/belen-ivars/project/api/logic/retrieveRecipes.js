@@ -10,12 +10,19 @@ async function retrieveRecipes(id) {
 	}
 
 	console.log('user exists')
-	const recipes = await Recipe.find()
+	const recipes = await Recipe.find().lean()
 
+	// const recipesWithFavs = recipes.map(recipe => {
+	// 	return { ...recipe, fav: user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id.toString()) };
+	// })
+
+	// const recipesFormated = recipesWithFavs.map(_recipe => {
+	// 	const { recipe, ...rest } = _recipe;
+	// 	return { ...recipe, ...rest };
+	// });
 	recipes.forEach(recipe => {
-		recipe.fav = user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id)
+		recipe.fav = user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id.toString())
 	})
-
 	return recipes
 }
 

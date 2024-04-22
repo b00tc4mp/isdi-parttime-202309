@@ -17,6 +17,7 @@ function Recipes(props) {
 				const content = await props.showRecipes()
 				//props.showRecipes
 				setRecipes(content)
+				console.log(content)
 			} catch (error) {
 				context.handleError(error)
 			}

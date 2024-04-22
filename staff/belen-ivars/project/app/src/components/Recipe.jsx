@@ -51,6 +51,7 @@ function Recipe(props) {
 		event.preventDefault
 		try {
 			await logic.toggleFavRecipe(props.recipe._id)
+			props.recipe.fav = !props.recipe.fav
 			props.onSuccess()
 			console.log('fav done')
 
