@@ -1,9 +1,10 @@
 import Gravatar from 'react-gravatar'
-import { Button } from '../library'
+import { Link } from '../library'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import FavsButton from './FavsButton'
-import LogoutButton from './LogoutButton'
+import Logout from './Logout'
+import { Container } from '../library'
 
 export default function TopProfileImage({ name, email }) {
 
@@ -22,14 +23,14 @@ export default function TopProfileImage({ name, email }) {
 		}
 	}
 
-	return <Button className="link-profile" onClick={handleProfileClick}>
+	return <Link className="link-menu" onClick={handleProfileClick}>
 		<Gravatar email={email} /> {name}
 		{isOpen && (
-			<div>
+			<Container className='profile-menu'>
 				<FavsButton />
-				<LogoutButton />
-			</div>
+				<Logout />
+			</Container>
 		)}
-	</Button>
+	</Link>
 }
 

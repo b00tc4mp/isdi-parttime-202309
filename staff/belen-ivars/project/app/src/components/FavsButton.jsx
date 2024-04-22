@@ -1,4 +1,4 @@
-import { Button } from "../library"
+import { Link } from "../library"
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 export default function FavsButton() {
@@ -13,7 +13,7 @@ export default function FavsButton() {
 
 	return <div>
 
-		<Button className="button-header" onClick={handleFavRecipesClick}>💛 My Favs </Button>
+		<Link className="link-profile" onClick={handleFavRecipesClick}>💛 My Favs </Link>
 
 
 	</div>

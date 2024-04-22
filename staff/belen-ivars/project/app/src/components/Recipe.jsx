@@ -69,13 +69,13 @@ function Recipe(props) {
 		<Container className="container-recipe">
 			<h2 className="recipe-title"> {props.recipe.title}</h2>
 			<img className="recipe-image" src={props.recipe.image} />
-			<p>{props.recipe.description}</p>
+			<p className='recipe-description'>{props.recipe.description}</p>
 		</Container>
 
 		<div>
-			{session.sessionUserId === props.recipe.author && view === null && <Button onClick={handleDeleteClick}>🗑️</Button>}
-			{session.sessionUserId === props.recipe.author && view === null && <Button className="edit-recipe" onClick={() => setView('edit')}>Edit</Button>}
-			<Button onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
+			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={handleDeleteClick}>🗑️</Button>}
+			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={() => setView('edit')}>Edit</Button>}
+			<Button className='button-recipe' onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
 
 		</div>
 
