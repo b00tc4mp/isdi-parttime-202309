@@ -88,7 +88,7 @@
 }
 
 .new-recipe {
-  @apply p-[none];
+  @apply p-[none] border-black border-[1px] bg-white;
 }
 
 .profile-menu {
