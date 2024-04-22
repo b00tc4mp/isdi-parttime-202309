@@ -1,10 +1,10 @@
 import SearchForm from "./SearchForm"
-import MethodFilter from "./MethodFilter"
+import MethodOptions from "./MethodOptions"
 import { Container } from "../library"
 
 export default function Search(props) {
 	return <Container className='new-recipe'>
 		<SearchForm onCancel={props.onCancel} />
-		<MethodFilter />
+		<MethodOptions />
 	</Container>
 }

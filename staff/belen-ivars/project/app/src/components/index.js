@@ -1,12 +1,12 @@
 import Recipes from './Recipes'
 import Logout from './Logout'
 import NewRecipeForm from './NewRecipeForm'
-import ComplexityLevelFilter from './ComplexityLevelFilter'
-import DietFilter from './DietFilter'
+import ComplexityOptions from './ComplexityOptions'
+import DietOptions from './DietOptions'
 import OptionsFilters from './OptionsFilters'
-import MethodFilter from './MethodFilter'
+import MethodOptions from './MethodOptions'
 import SearchForm from './SearchForm'
-import TimeFilter from './TimeFilter'
+import TimeOptions from './TimeOptions'
 import TopProfileImage from './TopProfileImage'
 import Recipe from './Recipe'
 import FavsButton from './FavsButton'
@@ -16,12 +16,12 @@ export {
 	Recipes,
 	Logout,
 	NewRecipeForm,
-	ComplexityLevelFilter,
-	DietFilter,
+	ComplexityOptions,
+	DietOptions,
 	OptionsFilters,
-	MethodFilter,
+	MethodOptions,
 	SearchForm,
-	TimeFilter,
+	TimeOptions,
 	TopProfileImage,
 	Recipe,
 	FavsButton
