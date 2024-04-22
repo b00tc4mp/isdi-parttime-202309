@@ -15,14 +15,23 @@ export default function NewRecipe(props) {
 		const titleInput = event.target.querySelector('#title-input')
 		const textInput = event.target.querySelector('#description-input')
 		const imageInput = event.target.querySelector('#image-input')
+		const ingredientsInput = event.target.querySelector('#ingredients-input')
+		const dietInput = event.target.querySelector('#diet-input')
+		const complexityInput = event.target.querySelector('#complexity-input')
+		const methodInput = event.target.querySelector('#method-input')
+
 
 		const title = titleInput.value
 		const text = textInput.value
 		const image = imageInput.value
-		const author = session.sessionUserId
+		const ingredients = ingredientsInput.value.split(',' || '-' || '.')
+		const diet = dietInput.value
+		const complexity = complexityInput.value
+		const method = methodInput.value
+
 
 		try {
-			await logic.createRecipe(author, title, text, image)
+			await logic.createRecipe(title, text, image, ingredients, diet, complexity, method)
 
 			props.onPublish()
 
@@ -44,6 +53,11 @@ export default function NewRecipe(props) {
 			<Field id="title-input" type="text" >Title</Field>
 			<Field id="description-input" type="text">Description</Field>
 			<Field id="image-input" type="url" >Image</Field>
+			<Field id="ingredients-input" type="text" placeholder='example1, example2,...'>Ingredients</Field>
+			<Field id="diet-input" type="text" >Diet</Field>
+			<Field id="complexity-input" type="text" >Complexity</Field>
+			<Field id="method-input" type="text" >Method</Field>
+
 
 			<Button type="submit">Post</Button>
 			<Button onClick={handleCancel}>Cancel</Button>

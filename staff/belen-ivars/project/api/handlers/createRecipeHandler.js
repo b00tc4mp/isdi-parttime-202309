@@ -1,12 +1,19 @@
 import { ContentError, NotFoundError } from "com/errors.js";
 import logic from "../logic/index.js";
 import { errors } from 'com'
+import jwt from 'jsonwebtoken'
 
-export default async (req, res) => {
-	const { author, title, description, image } = req.body
+const createRecipeHandler = async (req, res) => {
+
+	const token = req.headers.authorization.substring(7)
+
+	const { sub: author } = jwt.verify(token, process.env.JWT_SECRET)
+
+	const { title, description, image, ingredients, diet, complexity, method } = req.body
+
 
 	try {
-		await logic.createRecipe(author, title, description, image)
+		await logic.createRecipe(author, title, description, image, ingredients, diet, complexity, method)
 
 		res.status(201).send()
 	} catch (error) {
@@ -19,3 +26,5 @@ export default async (req, res) => {
 		res.status(status).json({ error: error.constructor.name, message: error.message })
 	}
 }
+
+export default createRecipeHandler

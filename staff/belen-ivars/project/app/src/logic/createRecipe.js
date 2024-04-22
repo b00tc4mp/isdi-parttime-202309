@@ -5,7 +5,7 @@ import session from "./session"
 const { SystemError } = errors
 
 
-export default function createRecipe(author, title, description, image) {
+export default function createRecipe(title, description, image, ingredients, diet, complexity, method) {
 	return (async () => {
 		const req = {
 			method: 'POST',
@@ -13,7 +13,7 @@ export default function createRecipe(author, title, description, image) {
 				Authorization: `Bearer ${session.token}`,
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ author, title, description, image })
+			body: JSON.stringify({ title, description, image, ingredients, diet, complexity, method })
 		}
 
 		let res

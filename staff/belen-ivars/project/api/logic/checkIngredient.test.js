@@ -7,7 +7,7 @@ import { Ingredient } from '../data/models.js'
 (async () => {
 	await mongoose.connect(process.env.MONGODB_URL)
 	try {
-		const result = await checkIngredient('65d655fac1dd88f9aee917d6', 'sal')
+		await checkIngredient('65d655fac1dd88f9aee917d6', 'sal')
 
 	} catch (error) {
 		console.log(error)
