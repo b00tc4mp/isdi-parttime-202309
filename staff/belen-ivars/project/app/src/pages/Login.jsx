@@ -36,8 +36,8 @@ function Login(props) {
 	}
 
 	return <Container className='login-register'>
-		<div className='login-register-div'>
-			<h1 className='login-register-title'>Login</h1>
+		<div className='title-div'>
+			<h1 className='title-text'>Login</h1>
 		</div>
 		<Form onSubmit={handleSubmit}>
 			<Field id="email-input" type="email">E-mail</Field>

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,12 +8,20 @@
 
 @layer components {
 
+  * {
+    @apply font-['Inter']
+}
+
+body {
+    @apply bg-orange-50
+}
+
 .form {
-  @apply flex flex-col max-w-[240px] gap-[5px];
+  @apply flex flex-col max-w-[240px] gap-[5px]
 }
 
 .label {
-  @apply font-bold;
+  @apply font-bold
 }
 
 .input {
@@ -31,13 +40,10 @@
   @apply flex flex-col items-center border-[1px] border-solid border-black p-[5px] rounded-[10px] font-bold cursor-[pointer] bg-amber-100 hover:bg-amber-200 active:bg-amber-300 focus:outline-none focus:ring focus:ring-orange-700;
 }
 
-.button-new-recipe {
-  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-full font-bold size-20 text-4xl justify-items-center cursor-[pointer] focus:ring;
+.button-footer {
+  @apply border-[1px] border-solid border-amber-300 p-[5px] bg-amber-100 rounded-full font-bold size-16 text-4xl cursor-[pointer] hover:bg-yellow-300;
 }
 
-.button-search {
-  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-full font-bold size-20 text-4xl justify-items-center cursor-[pointer]  ;
-}
 
 .link {
   @apply decoration-[none] text-black visited:text-black;
@@ -56,8 +62,12 @@
 }
 
 
-.login-register-title {
-  @apply font-bold relative text-black text-2xl;
+.title-div {
+@apply before:block before:absolute before:-inset-2 before:-skew-y-3 before:bg-emerald-500 relative inline-block;
+}
+
+.title-text {
+  @apply font-bold relative text-white text-2xl;
 }
 
 .container {
@@ -68,13 +78,14 @@
   @apply flex-row justify-center;
 }
 
+.container-recipes {
+  @apply pb-20
+}
+
 .login-register {
   @apply flex flex-col justify-items-center my-40 mx-10;
 }
 
-.login-register-div {
-@apply before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-green-400/50 relative inline-block;
-}
 
 .container-recipe {
 @apply text-balance;
@@ -84,7 +95,7 @@
 
 .header {
 
-  @apply flex items-center justify-around p-[.5rem] bg-white border-b-[.3rem] border-black;
+  @apply flex items-center justify-around p-[.5rem] bg-transparent;
 }
 
 .new-recipe {
@@ -96,11 +107,11 @@
 }
 
 .recipe {
-  @apply flex flex-col items-center m-[1rem] border-black border-[1px] shadow-2xl p-[1rem] bg-[#F2EDF8]/90 max-w-[400px] max-h-[400px];
+  @apply flex flex-col items-center m-[1rem] border-black rounded-3xl border-[.5px]  p-[1rem] max-w-[400px] max-h-[400px] bg-emerald-100 shadow-black shadow-sm ;
 }
 
 .recipe-image {
-  @apply max-w-[220px] max-h-[220px] bg-white border-double border-[1rem] border-red-500/25 shadow-lg float-left;
+  @apply max-w-[220px] max-h-[140px] bg-white rounded-3xl border-red-500/25 shadow-black shadow-sm ;
 }
 
 .recipe-actions {
@@ -112,20 +123,20 @@
 }
 
 .recipe-description {
-  @apply text-sm first-letter:text-7xl first-letter:font-bold first-letter:text-slate-900
+  @apply overflow-ellipsis text-sm first-letter:text-7xl first-letter:font-bold first-letter:text-slate-900
   first-letter:mr-3 first-letter:float-left;
 }
 
 .recipes {
   @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-cover; 
-  background-image:url('/background-food.png');
+  
 }
 .search {
   @apply placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 ;
 }
 
 .footer {
-  @apply bg-transparent flex items-center justify-between fixed bottom-0 w-full min-h-[3rem] ;
+  @apply bg-transparent flex flex-row fixed bottom-10 w-full min-h-[3rem] justify-items-end;
 }
 
 }
