@@ -9,11 +9,10 @@ const createRecipeHandler = async (req, res) => {
 
 	const { sub: author } = jwt.verify(token, process.env.JWT_SECRET)
 
-	const { title, description, image, ingredients, diet, complexity, method } = req.body
-
+	const { title, description, image, ingredientsList, diet, complexity, method } = req.body
 
 	try {
-		await logic.createRecipe(author, title, description, image, ingredients, diet, complexity, method)
+		await logic.createRecipe(author, title, description, image, ingredientsList, diet, complexity, method)
 
 		res.status(201).send()
 	} catch (error) {

@@ -9,6 +9,7 @@ async function createRecipe(userId, title, description, image, ingredients, diet
 	validate.text(image, 'image')
 	validate.id(userId, 'id')
 
+	console.log(ingredients, 'probando')
 	const user = await User.findById(userId)
 
 	if (!user)

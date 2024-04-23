@@ -7,13 +7,16 @@ const { SystemError } = errors
 
 export default function createRecipe(title, description, image, ingredients, diet, complexity, method) {
 	return (async () => {
+
+		const ingredientsList = ingredients.split(', ')
+
 		const req = {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${session.token}`,
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ title, description, image, ingredients, diet, complexity, method })
+			body: JSON.stringify({ title, description, image, ingredientsList, diet, complexity, method })
 		}
 
 		let res

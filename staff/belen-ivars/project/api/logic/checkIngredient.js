@@ -31,10 +31,10 @@ async function checkIngredient(userId, ingredient) {
 	try {
 		newIngredient = await Ingredient.create({ name: ingredientName })
 		console.log('nou ingredient creat')
+		return newIngredient
 	} catch (error) {
 		throw new SystemError(error.message)
 	}
-	return newIngredient
 }
 
 

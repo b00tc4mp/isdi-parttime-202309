@@ -70,7 +70,7 @@ const recipe = new Schema({
 	method: {
 		type: String,
 		required: true,
-		enum: ['steamed', 'oven', 'microwave', 'grill', 'fresh']
+		enum: ['steamed', 'oven', 'microwave', 'grill', 'fresh', 'cook']
 	}
 	// time: {
 	// 	type: Number,

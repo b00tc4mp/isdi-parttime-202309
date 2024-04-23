@@ -24,7 +24,7 @@ export default function NewRecipe(props) {
 		const title = titleInput.value
 		const text = textInput.value
 		const image = imageInput.value
-		const ingredients = ingredientsInput.value.split(',' || '-' || '.')
+		const ingredients = ingredientsInput.value
 		const diet = dietInput.value
 		const complexity = complexityInput.value
 		const method = methodInput.value
