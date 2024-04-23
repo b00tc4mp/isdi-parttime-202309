@@ -1,21 +1,30 @@
-import { Recipe } from '../data/models.js'
+import { Recipe, Ingredient } from '../data/models.js'
 
-async function findRecipes() {
-	// const { diet, ingredients } = req.query
+async function findRecipes(userId, ingredients, diet) {
+
+	console.log(ingredients, diet, 'prueba')
+
 	const filter = {}
-	if (diet) filter.diet = diet
-	if (method) filter.method = method
-	if (complexity) filter.complexity = complexity
-	if (time) {
-		filter.time = { $lte: parseInt(tiempo) }
-	}
+
+	if (diet) filter.diet = { $in: diet }
+	// if (method) filter.method = method
+	// if (complexity) filter.complexity = complexity
+	// if (time) {
+	// 	filter.time = { $lte: parseInt(tiempo) }
+	// }
 	if (ingredients) {
-		const ingredientList = ingredients.split('-')
-		filter.ingredients = { $in: ingredientList }
+		let ingredientsList = []
+		for (let ingredient of ingredients) {
+			const _ingredient = await Ingredient.findOne({ name: ingredient })
+			ingredientsList.push(_ingredient)
+		}
+		filter.ingredients = { $in: ingredientsList }
 	}
 
 
 	const recipes = await Recipe.find(filter)
+	console.log(recipes)
+	return recipes
 }
 
 export default findRecipes  

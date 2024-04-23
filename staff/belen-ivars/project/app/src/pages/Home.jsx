@@ -5,10 +5,9 @@ import logic from "../logic"
 import { Button, Link, Container } from "../library"
 import Profile from './Profile'
 import Context from "../Context"
-import NewRecipe from "../components/NewRecipeForm"
-import { Recipes, TopProfileImage } from "../components"
-import Search from "../components/Search"
+import { Recipes, TopProfileImage, NewSearch, NewRecipe } from "../components"
 import Login from "./Login"
+import CompleteRecipe from './CompleteRecipe'
 
 
 function Home(props) {
@@ -20,6 +19,11 @@ function Home(props) {
 	const [name, setName] = useState(null)
 	const [email, setEmail] = useState(null)
 	const [stamp, setStamp] = useState(null)
+	const [ingredients, setIngredients] = useState('')
+	const [diet, setDiet] = useState('')
+	const [isSearching, setIsSearching] = useState(false)
+	const [recipe, setRecipe] = useState(null)
+
 
 	const location = useLocation()
 	const navigate = useNavigate()
@@ -43,7 +47,9 @@ function Home(props) {
 
 	function handleHomeClick(event) {
 		event.preventDefault()
-
+		setIsSearching(false)
+		setStamp(Date.now())
+		setRecipe(null)
 		navigate('/')
 	}
 
@@ -58,10 +64,16 @@ function Home(props) {
 
 	function handleSearchPublish() {
 		setStamp(Date.now())
-		setView(null)
-		navigate('/')
-
+		console.log(ingredients, diet)
+		setIsSearching(true)
 		window.scrollTo(0, 0)
+		setView(null)
+
+	}
+
+	function resetInputs() {
+		setIngredients('')
+		setDiet('')
 	}
 
 	function handleNewRecipeClick() {
@@ -77,39 +89,49 @@ function Home(props) {
 		setStamp(Date.now())
 		setView(null)
 		navigate('/')
-
 		window.scrollTo(0, 0)
 	}
 
+	function handleRecipeClick(recipe) {
+		setRecipe(recipe)
+		navigate('/recipe')
+	}
 
-	return <div>
+
+	return <div className="body-home">
 		<header className="header">
-			<h1><Link className="link-header" onClick={handleHomeClick}>Basic Pantry</Link></h1>
+			<div className="title-div">
+				<h1><Link className="title-text" onClick={handleHomeClick}>Basic Pantry</Link></h1>
+			</div>
 
 			<TopProfileImage email={email} name={name} />
 
 		</header>
-
-		<Routes>
-			<Route path="/profile" element={<Profile />} />
-			<Route path='/favs' element={<Recipes showRecipes={logic.retrieveFavRecipes} />} />
-			<Route path='/new-recipe' element={<NewRecipe />} />
-			<Route path='/' element={<Recipes showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
-		</Routes>
+		<div className="container-recipes">
+			{/* traslladar a clase */}
+			<Routes>
+				{recipe && <Route path='/recipe' element={<CompleteRecipe recipe={recipe} />} />
+				}
+				<Route path="/profile" element={<Profile />} />
+				<Route path='/favs' element={<Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveFavRecipes} />} />
+				<Route path='/new-recipe' element={<NewRecipe />} />
+				<Route path='/' element={isSearching ? <Recipes setRecipe={handleRecipeClick} resetInputs={resetInputs} showRecipes={() => logic.searchRecipes(ingredients, diet)} stamp={stamp} /> : <Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
+			</Routes>
+		</div>
 
 		<footer className="footer">
 			<Container>
 				{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
 
-				{view !== 'new-recipe' && <Button className="button-new-recipe" onClick={handleNewRecipeClick}>+</Button>}
+				{view !== 'new-recipe' && <Button className="button-footer" onClick={handleNewRecipeClick}>+</Button>}
 
 			</Container>
 
 			<Container>
 
-				{view === 'search' && <Search onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
+				{view === 'search' && <NewSearch setIngredients={setIngredients} setDiet={setDiet} onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
 
-				{view !== 'search' && <Button className="button-search" onClick={handleSearchClick}>🔍</Button>}
+				{view !== 'search' && <Button className="button-footer" onClick={handleSearchClick}>🔍</Button>}
 
 			</Container>
 

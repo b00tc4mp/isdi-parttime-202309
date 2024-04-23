@@ -1,11 +1,11 @@
 import Recipes from './Recipes'
 import Logout from './Logout'
-import NewRecipeForm from './NewRecipeForm'
+import NewRecipe from './NewRecipe'
 import ComplexityOptions from './ComplexityOptions'
 import DietOptions from './DietOptions'
 import OptionsFilters from './OptionsFilters'
 import MethodOptions from './MethodOptions'
-import SearchForm from './SearchForm'
+import NewSearch from './NewSearch'
 import TimeOptions from './TimeOptions'
 import TopProfileImage from './TopProfileImage'
 import Recipe from './Recipe'
@@ -15,12 +15,12 @@ import FavsButton from './FavsButton'
 export {
 	Recipes,
 	Logout,
-	NewRecipeForm,
+	NewRecipe,
 	ComplexityOptions,
 	DietOptions,
 	OptionsFilters,
 	MethodOptions,
-	SearchForm,
+	NewSearch,
 	TimeOptions,
 	TopProfileImage,
 	Recipe,

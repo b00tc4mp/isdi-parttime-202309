@@ -60,6 +60,10 @@ function Recipe(props) {
 		}
 	}
 
+	const handleRecipeClick = () => {
+		props.onRecipeClick(props.recipe)
+	}
+
 	useEffect(() => {
 
 	}, [handleSubmit])
@@ -77,6 +81,7 @@ function Recipe(props) {
 			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={handleDeleteClick}>🗑️</Button>}
 			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={() => setView('edit')}>Edit</Button>}
 			<Button className='button-recipe' onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
+			<Button onClick={handleRecipeClick} >Show more</Button>
 
 		</div>
 

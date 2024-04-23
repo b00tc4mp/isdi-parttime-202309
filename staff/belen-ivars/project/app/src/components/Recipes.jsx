@@ -15,7 +15,7 @@ function Recipes(props) {
 
 			try {
 				const content = await props.showRecipes()
-				//props.showRecipes
+				if (props.resetInputs) props.resetInputs()
 				setRecipes(content)
 				console.log(content)
 			} catch (error) {
@@ -31,7 +31,9 @@ function Recipes(props) {
 	}, [props.stamp])
 
 	return <div className="recipes">
-		{recipes.map(recipe => <Recipe key={recipe._id} recipe={recipe} onError={props.onError} onSuccess={refreshRecipes} />)}
+
+		{recipes.length === 0 ? <div>No recipes</div> : recipes.map(recipe => <Recipe onRecipeClick={props.setRecipe} key={recipe._id} recipe={recipe} onError={props.onError} onSuccess={refreshRecipes} />)}
+
 	</div>
 
 }
