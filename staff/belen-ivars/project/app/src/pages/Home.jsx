@@ -100,8 +100,8 @@ function Home(props) {
 
 	return <div className="body-home">
 		<header className="header">
-			<div className="title-div">
-				<h1><Link className="title-text" onClick={handleHomeClick}>Basic Pantry</Link></h1>
+			<div className="page-title-div">
+				<h1><Link className="page-title-text" onClick={handleHomeClick}>Basic Pantry</Link></h1>
 			</div>
 
 			<TopProfileImage email={email} name={name} />
@@ -119,24 +119,18 @@ function Home(props) {
 			</Routes>
 		</div>
 
-		<footer className="footer">
-			<Container>
+		<div className="footer">
+			<footer >
 				{view === 'new-recipe' && <NewRecipe onPublish={handleNewRecipePublish} onCancel={handleNewRecipeCancel} />}
 
-				{view !== 'new-recipe' && <Button className="button-footer" onClick={handleNewRecipeClick}>+</Button>}
-
-			</Container>
-
-			<Container>
+				{view !== 'new-recipe' && view !== 'search' && <Button className="button-footer" onClick={handleNewRecipeClick}>+</Button>}
 
 				{view === 'search' && <NewSearch setIngredients={setIngredients} setDiet={setDiet} onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
 
-				{view !== 'search' && <Button className="button-footer" onClick={handleSearchClick}>🔍</Button>}
-
-			</Container>
-
-		</footer>
-	</div>
+				{view !== 'search' && view !== 'new-recipe' && <Button className="button-footer" onClick={handleSearchClick}>🔍</Button>}
+			</footer>
+		</div>
+	</div >
 
 }
 

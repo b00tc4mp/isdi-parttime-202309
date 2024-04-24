@@ -13,7 +13,7 @@ export default function FavsButton() {
 
 	return <div>
 
-		<Link className="link-profile" onClick={handleFavRecipesClick}>💛 My Favs </Link>
+		<Link className="link-profile-items" onClick={handleFavRecipesClick}>💛 Les millors 💛 </Link>
 
 
 	</div>

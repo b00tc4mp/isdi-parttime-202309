@@ -18,7 +18,7 @@ function Logout() {
 
 	return <>
 
-		<Link className="link-profile" onClick={handleLogoutClick}>Logout</Link>
+		<Link className="link-profile-items" onClick={handleLogoutClick}>Tancar sessió</Link>
 	</>
 }
 

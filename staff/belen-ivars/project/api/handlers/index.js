@@ -8,6 +8,7 @@ import editRecipeHandler from './editeRecipeHandler.js'
 import toggleFavRecipeHandler from './toggleFavRecipeHandler.js'
 import retrieveFavRecipesHandler from './retrieveFavRecipesHandler.js'
 import searchRecipesHandler from './searchRecipesHandler.js'
+import getIngredientsListHandler from './getIngredientsListHandler.js'
 
 
 export {
@@ -20,5 +21,6 @@ export {
 	editRecipeHandler,
 	toggleFavRecipeHandler,
 	retrieveFavRecipesHandler,
-	searchRecipesHandler
+	searchRecipesHandler,
+	getIngredientsListHandler
 }

@@ -46,21 +46,21 @@ export default function NewRecipe(props) {
 		props.onCancel()
 	}
 
-	return <Container className="new-recipe">
-		<h2>New recipe</h2>
+	return <Container className="new-form">
+		<h2 className="form-title">Puja la teua recepta</h2>
 
 		<Form onSubmit={handleSubmit}>
-			<Field id="title-input" type="text" >Title</Field>
-			<Field id="description-input" type="text">Description</Field>
-			<Field id="image-input" type="url" >Image</Field>
-			<Field id="ingredients-input" type="text" placeholder='example1, example2,...'>Ingredients</Field>
-			<Field id="diet-input" type="text" >Diet</Field>
-			<Field id="complexity-input" type="text" >Complexity</Field>
-			<Field id="method-input" type="text" >Method</Field>
+			<Field id="title-input" type="text" placeholder='Títol de la recepta'>Títol</Field>
+			<Field id="description-input" type="text" placeholder='Descriu els pasos'>Descripció</Field>
+			<Field id="image-input" type="url" placeholder='Inclou una imatge'>Imatge</Field>
+			<Field id="ingredients-input" type="text" placeholder='exemple1, exemple2,...'>Ingredients</Field>
+			<Field id="diet-input" type="text" placeholder='glutenfree, vegan or vegetarian'>Tipus de dieta</Field>
+			<Field id="complexity-input" type="text" placeholder='easy, medium or complex' >Nivell de complexitat</Field>
+			<Field id="method-input" type="text" placeholder='steamed, oven, microwave, grill, fresh or cook'>Mètode de cocció</Field>
 
 
 			<Button type="submit">Post</Button>
-			<Button onClick={handleCancel}>Cancel</Button>
+			<Button onClick={handleCancel}>Cancela</Button>
 		</Form>
 	</Container>
 }

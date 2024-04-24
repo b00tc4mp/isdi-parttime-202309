@@ -20,14 +20,17 @@ export default function TopProfileImage({ name, email }) {
 		}
 	}
 
-	return <Link className="link-menu" onClick={handleProfileClick}>
-		<Gravatar email={email} /> {name}
-		{isOpen && (
-			<Container className='profile-menu'>
-				<FavsButton />
-				<Logout />
-			</Container>
-		)}
-	</Link>
+	return <div className='profile-menu'>
+		<Link className="link-profile-menu" onClick={handleProfileClick}>
+			<Gravatar email={email} /> {name}
+			{isOpen && (
+				<Container >
+					<FavsButton />
+					<Logout />
+				</Container>
+			)}
+		</Link>
+	</div>
+
 }
 

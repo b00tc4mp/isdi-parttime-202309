@@ -38,7 +38,9 @@ export default function NewSearch(props) {
 		props.onCancel()
 	}
 
-	return <Container className="new-recipe">
+	return <Container className="new-form">
+		<h2 className="form-title">Busca les millors receptes</h2>
+
 		<Form onSubmit={handleSubmit}>
 			<Field id="search-elements" placeholder="Search..." className="search" />
 
@@ -47,7 +49,7 @@ export default function NewSearch(props) {
 
 			<div>
 				<Button type='submit'>🔍</Button>
-				<Button onClick={handleCancel}>Cancel</Button>
+				<Button onClick={handleCancel}>Cancelar</Button>
 			</div>
 		</Form>
 	</Container>

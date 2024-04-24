@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Luckiest+Guy&family=Mansalva&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 
 @tailwind base;
@@ -8,25 +9,53 @@
 
 @layer components {
 
-  * {
-    @apply font-['Inter']
-}
+
 
 body {
-    @apply bg-orange-50
+    @apply bg-orange-50/75
 }
 
-.form {
-  @apply flex flex-col max-w-[240px] gap-[5px]
+/* Estils dels textos */
+  
+.page-title-text {
+ @apply relative font-bold text-6xl text-green-900 ;
+font-family: 'Luckiest Guy';
 }
 
-.label {
-  @apply font-bold
+.recipe-title {
+@apply font-extrabold text-3xl text-green-900 text-center underline underline-offset-4 decoration-yellow-300 decoration-4;
+font-family: 'Ubuntu', sans serif;
 }
 
-.input {
-  @apply border-[2px] border-solid border-black p-[5px]
+.recipe-subtitle {
+@apply font-semibold text-center bg-yellow-300/50 border-spacing-0;
+font-family: 'Ubuntu', sans serif;
 }
+
+.recipe-text {
+@apply font-light text-center capitalize;
+font-family: 'Ubuntu', sans serif;
+}
+
+.recipe-list {
+  @apply list-inside list-disc capitalize decoration-yellow-300;
+}
+
+.recipe-description {
+  @apply  text-sm text-green-950 pt-3;
+  font-family: 'Ubuntu', sans serif;
+}
+
+.text-link-login-register {
+  @apply decoration-[none];
+}
+
+.form-title {
+  @apply font-semibold text-xl text-center bg-yellow-300 border-spacing-0;
+font-family: 'Ubuntu', sans serif;
+}
+
+/* Estils dels botons */
 
 .button {
   @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
@@ -45,30 +74,70 @@ body {
 }
 
 
+/* Estils dels formularis */
+
+.form {
+  @apply flex flex-col max-w-[240px] gap-[5px]
+}
+
+.label {
+  @apply font-bold
+}
+
+.input {
+  @apply border-[2px] border-solid border-black p-[5px]
+}
+
+/* .ingredient-item-list {
+  @apply 
+} */
+
+/* Estils dels enllaços */
+
+
 .link {
-  @apply decoration-[none] text-black visited:text-black;
+  @apply decoration-[none];
 }
 
-.link-menu {
-  @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base hover:text-xl;
+.link-profile-menu {
+  @apply relative decoration-[none] flex flex-col font-bold items-center text-black visited:text-black text-base 
+  ;
+  family-font:'Ubuntu', sans serif;
 }
 
-.link-profile {
-  @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base hover:text-xl;
+.link-profile-items {
+  @apply decoration-[none] flex flex-col items-center text-black visited:text-black text-base;
 }
 
-.link-header {
-  @apply text-black text-base hover:text-xl overline decoration-wavy decoration-sky-500 ;
+/* Estils home*/
+
+.header {
+  @apply flex items-center justify-around;
+  align-items: flex-start;
 }
 
-
-.title-div {
-@apply before:block before:absolute before:-inset-2 before:-skew-y-3 before:bg-emerald-500 relative inline-block;
+.new-form {
+  @apply p-[none] border-black border-[1px] bg-white;
 }
 
-.title-text {
-  @apply font-bold relative text-white text-2xl;
+.profile-menu {
+  @apply  -inset-2 rounded-b-[2rem] align-middle bg-yellow-300/50 pt-20 pl-4 pr-4 relative inline-block pb-4 h-full;
+
 }
+
+.search {
+  @apply placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 ;
+}
+
+.footer {
+  @apply bg-transparent flex flex-row justify-end fixed bottom-10 w-full min-h-[3rem] pr-32 pb-5 ;
+}
+
+/* Estils dels contenidors*/
+
+.page-title-div {
+  @apply rounded-b-[2rem] bg-yellow-300 pt-20 pl-4 pr-4 relative pb-4 h-full -inset-2;
+  }
 
 .container {
   @apply flex flex-col items-center gap-[1rem] p-[1rem];
@@ -79,88 +148,74 @@ body {
 }
 
 .container-recipes {
-  @apply pb-20
+  @apply pb-20 pt-10
+}
+
+.container-info-recipe {
+  @apply grid grid-cols-2 items-start place-content-between border-yellow-300/40 text-clip overflow-hidden;
+}
+
+.container-description {
+  @apply  shadow-inner shadow-green-700/50 text-clip overflow-hidden
 }
 
 .login-register {
-  @apply flex flex-col justify-items-center my-40 mx-10;
+  @apply flex flex-col items-center ;
 }
 
+/* Estils dels blocs de receptes*/
 
-.container-recipe {
-@apply text-balance;
-}
-
-/* custom */
-
-.header {
-
-  @apply flex items-center justify-around p-[.5rem] bg-transparent;
-}
-
-.new-recipe {
-  @apply p-[none] border-black border-[1px] bg-white;
-}
-
-.profile-menu {
- 
-}
 
 .recipe {
-  @apply flex flex-col items-center m-[1rem] border-black rounded-3xl border-[.5px]  p-[1rem] max-w-[400px] max-h-[400px] bg-emerald-100 shadow-black shadow-sm ;
+  @apply flex flex-col items-center m-[1rem] border-black rounded-3xl border-[.4px]  p-[1rem] max-w-[400px] max-h-[500px] bg-emerald-50 shadow-black shadow-sm;
+}
+
+.recipe-complet {
+  @apply flex flex-col items-center m-[1rem] border-black border-[.5px]  p-[1rem] max-w-[500px] max-h-full bg-emerald-50 shadow-black rounded-md shadow-md mb-8;
 }
 
 .recipe-image {
-  @apply max-w-[220px] max-h-[140px] bg-white rounded-3xl border-red-500/25 shadow-black shadow-sm ;
+  @apply max-w-[300px] max-h-[150px] bg-white rounded-3xl border-red-500/25 shadow-black shadow-sm ;
 }
 
 .recipe-actions {
   @apply flex justify-between gap-[.5rem];
 }
 
-.recipe-title {
-  @apply font-bold text-2xl;
-}
-
-.recipe-description {
-  @apply overflow-ellipsis text-sm first-letter:text-7xl first-letter:font-bold first-letter:text-slate-900
-  first-letter:mr-3 first-letter:float-left;
-}
-
 .recipes {
   @apply flex flex-col items-center mb-[3rem] md:grid md:grid-cols-2 lg:grid-cols-3 bg-cover; 
   
 }
-.search {
-  @apply placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 ;
+
+.recipe-complet-div {
+  @apply flex flex-col items-center mb-[3rem] bg-cover; 
+  
 }
 
-.footer {
-  @apply bg-transparent flex flex-row fixed bottom-10 w-full min-h-[3rem] justify-items-end;
-}
-
-}
+/* Avisos */
 
 .Feedback {
-@apply fixed top-0 w-full box-border;
+  @apply fixed top-0 w-full box-border;
 }
 
 .Feedback--debug {
-@apply bg-[yellowgreen];
+  @apply bg-[yellowgreen];
 }
 
 .Feedback--info {
-@apply bg-[dodgerblue];
+  @apply bg-[dodgerblue];
 }
 
 .Feedback--warn {
-@apply bg-[gold];
+  @apply bg-[gold];
 }
 
 .Feedback--error {
-@apply bg-[orange];
+  @apply bg-[orange];
 }
 
 .Feedback--fatal {
-@apply bg-[red] text-black;
+  @apply bg-[red] text-black;
+}
+
 }

@@ -15,7 +15,8 @@ import {
 	editRecipeHandler,
 	toggleFavRecipeHandler,
 	retrieveFavRecipesHandler,
-	searchRecipesHandler
+	searchRecipesHandler,
+	getIngredientsListHandler
 
 } from './handlers/index.js'
 
@@ -48,6 +49,8 @@ mongoose.connect(process.env.MONGODB_URL)
 		server.patch('/recipes/:recipeId/favs', toggleFavRecipeHandler)
 
 		server.get('/recipes/search', searchRecipesHandler)
+
+		server.get('/recipe/:recipeId', getIngredientsListHandler)
 
 		server.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 	})

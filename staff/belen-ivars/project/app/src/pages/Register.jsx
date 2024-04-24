@@ -34,22 +34,26 @@ function Register(props) {
 		props.onLoginClick()
 	}
 
-	return <Container className='login-register'>
-		<div className="title-div">
-			<h1 className="title-text">Register</h1>
-		</div>
+	return <div className='login-register'>
+		<header>
+			<div className="page-title-div">
+				<h1 className="page-title-text">Register</h1>
+			</div>
+		</header>
 
-		<Form onSubmit={handleSubmit}>
-			<Field id="name-input">Name</Field>
-			<Field id="email-input" type="email">E-mail</Field>
-			<Field id="password-input" type="password">Password</Field>
+		<Container>
+			<Form onSubmit={handleSubmit}>
+				<Field id="name-input">Name</Field>
+				<Field id="email-input" type="email">E-mail</Field>
+				<Field id="password-input" type="password">Password</Field>
 
-			<Button type="submit">Register</Button>
-		</Form>
+				<Button type="submit">Register</Button>
+			</Form>
+		</Container>
 
-		<Link onClick={handleLoginClick}>Login</Link>
+		<Link className="text-link-login-register" onClick={handleLoginClick}>Login</Link>
 
-	</Container>
+	</div>
 }
 
 export default Register
