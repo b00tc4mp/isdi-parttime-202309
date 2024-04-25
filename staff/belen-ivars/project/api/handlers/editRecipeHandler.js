@@ -10,10 +10,10 @@ const editRecipeHandler = async (req, res) => {
 
 	const recipeId = req.params.recipeId
 
-	const { title, description, image } = req.body
+	const { title, description, image, ingredients, diet, complexity, method } = req.body
 
 	try {
-		await logic.editRecipe(userId, recipeId, title, description, image)
+		await logic.editRecipe(userId, recipeId, title, description, image, ingredients, diet, complexity, method)
 
 		res.status(204).send()
 	} catch (error) {
