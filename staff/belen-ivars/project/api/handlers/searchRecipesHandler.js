@@ -9,7 +9,7 @@ const searchRecipesHandler = async (req, res) => {
 
 	const payload = jwt.verify(token, process.env.JWT_SECRET)
 	const { sub: userId } = payload
-	const { ingredients, diet } = req.query
+	const { ingredients, diet, complexity, method } = req.query
 
 	let ingredientsList
 	if (ingredients) {
@@ -17,9 +17,21 @@ const searchRecipesHandler = async (req, res) => {
 	}
 
 	let dietList
+
 	if (diet) {
 		dietList = diet.split('-')
 	}
+
+	let complexityList
+	if (complexity) {
+		complexityList = complexity.split('-')
+	}
+
+	let methodList
+	if (method) {
+		methodList = method.split('-')
+	}
+
 	try {
 		validate.id(userId, 'id')
 	} catch (error) {
@@ -28,7 +40,7 @@ const searchRecipesHandler = async (req, res) => {
 	}
 
 	try {
-		const foundRecipes = await logic.findRecipes(userId, ingredientsList, dietList)
+		const foundRecipes = await logic.findRecipes(userId, ingredientsList, dietList, complexityList, methodList)
 		res.status(200).send(foundRecipes)
 	} catch (error) {
 		if (error instanceof NotFoundError) {

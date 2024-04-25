@@ -1,7 +1,7 @@
 import { SystemError } from 'com/errors.js'
 import { Ingredient, Recipe, User } from '../data/models.js'
 
-async function getIngredientsList(userId, recipeId) {
+export default async function getIngredientsList(userId, recipeId) {
 
 	let user
 
@@ -44,5 +44,3 @@ async function getIngredientsList(userId, recipeId) {
 
 	return ingredients
 }
-
-export default getIngredientsList

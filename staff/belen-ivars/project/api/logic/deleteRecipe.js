@@ -2,7 +2,7 @@ import { validate } from "com"
 import { User, Recipe } from '../data/models.js'
 import { ContentError, NotFoundError, SystemError } from "com/errors.js"
 
-async function deleteRecipe(userId, recipeId) {
+export default async function deleteRecipe(userId, recipeId) {
 	validate.id(userId, 'user id')
 	validate.id(recipeId, 'recipe id')
 
@@ -28,5 +28,3 @@ async function deleteRecipe(userId, recipeId) {
 		throw new ContentError('recipe cannot be deleted')
 	}
 }
-
-export default deleteRecipe

@@ -1,7 +1,7 @@
 import { NotFoundError, SystemError } from "com/errors.js"
 import { Recipe, User } from "../data/models.js"
 
-async function retrieveRecipes(id) {
+export default async function retrieveRecipes(id) {
 
 	let user
 	try {
@@ -26,5 +26,3 @@ async function retrieveRecipes(id) {
 	})
 	return recipes
 }
-
-export default retrieveRecipes

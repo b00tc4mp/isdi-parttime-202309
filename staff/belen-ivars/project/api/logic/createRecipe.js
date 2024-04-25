@@ -3,7 +3,7 @@ import { Recipe, User } from '../data/models.js'
 import checkIngredient from './checkIngredient.js'
 const { SystemError, NotFoundError } = errors
 
-async function createRecipe(userId, title, description, image, ingredients, diet, complexity, method) {
+export default async function createRecipe(userId, title, description, image, ingredients, diet, complexity, method) {
 	validate.text(title, 'title')
 	validate.text(description, 'description')
 	validate.text(image, 'image')
@@ -39,5 +39,3 @@ async function createRecipe(userId, title, description, image, ingredients, diet
 	}
 	return recipe
 }
-
-export default createRecipe

@@ -58,7 +58,7 @@ function complexity() {
 }
 
 function method() {
-	const methodCook = ['oven', 'steamed', 'microwave', 'grill', 'fresh', 'cook'];
+	const methodCook = ['oven', 'steamed', 'microwave', 'grill', 'fresh', 'cooked'];
 
 	const randomMethod = methodCook[Math.floor(Math.random() * methodCook.length)];
 

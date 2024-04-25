@@ -1,8 +1,8 @@
 import { validate, errors } from 'com'
 import { User, Ingredient } from '../data/models.js'
-const { ContentError, NotFoundError, SystemError } = errors
+const { NotFoundError, SystemError } = errors
 
-async function checkIngredient(userId, ingredient) {
+export default async function checkIngredient(userId, ingredient) {
 	validate.id(userId, 'id')
 	validate.text(ingredient, 'ingredient')
 
@@ -37,6 +37,3 @@ async function checkIngredient(userId, ingredient) {
 		throw new SystemError(error.message)
 	}
 }
-
-
-export default checkIngredient

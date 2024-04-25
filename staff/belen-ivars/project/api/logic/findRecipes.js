@@ -1,7 +1,7 @@
-import { SystemError } from 'com/errors.js'
+import { SystemError, NotFoundError } from 'com/errors.js'
 import { Recipe, Ingredient, User } from '../data/models.js'
 
-async function findRecipes(userId, ingredients, diet) {
+export default async function findRecipes(userId, ingredients, diet, complexity, method) {
 
 	let user
 
@@ -17,11 +17,9 @@ async function findRecipes(userId, ingredients, diet) {
 	const filter = {}
 
 	if (diet) filter.diet = { $in: diet }
-	// if (method) filter.method = method
-	// if (complexity) filter.complexity = complexity
-	// if (time) {
-	// 	filter.time = { $lte: parseInt(tiempo) }
-	// }
+	if (complexity) filter.complexity = { $in: complexity }
+	if (method) filter.method = { $in: method }
+
 	if (ingredients) {
 		let ingredientsList = []
 		for (let ingredient of ingredients) {
@@ -43,5 +41,3 @@ async function findRecipes(userId, ingredients, diet) {
 		throw new SystemError(error.message)
 	}
 }
-
-export default findRecipes  

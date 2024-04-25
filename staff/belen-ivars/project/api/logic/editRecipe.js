@@ -4,7 +4,7 @@ import { NotFoundError, ContentError, SystemError } from "com/errors.js"
 import checkIngredient from "./checkIngredient.js"
 
 
-async function editRecipe(userId, recipeId, title, description, image, ingredients, diet, complexity, method) {
+export default async function editRecipe(userId, recipeId, title, description, image, ingredients, diet, complexity, method) {
 	validate.id(userId, 'user id')
 	validate.id(recipeId, 'recipe id')
 
@@ -119,5 +119,3 @@ async function editRecipe(userId, recipeId, title, description, image, ingredien
 	return recipeUpdated
 
 }
-
-export default editRecipe

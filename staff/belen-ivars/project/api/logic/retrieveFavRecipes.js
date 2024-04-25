@@ -1,7 +1,7 @@
 import { NotFoundError, SystemError } from "com/errors.js"
 import { Recipe, User } from "../data/models.js"
 
-async function retrieveFavRecipes(id) {
+export default async function retrieveFavRecipes(id) {
 
 	let user
 	try {
@@ -27,5 +27,3 @@ async function retrieveFavRecipes(id) {
 
 	return favRecipes
 }
-
-export default retrieveFavRecipes
