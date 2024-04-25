@@ -21,6 +21,9 @@ function Home(props) {
 	const [stamp, setStamp] = useState(null)
 	const [ingredients, setIngredients] = useState('')
 	const [diet, setDiet] = useState('')
+	const [complexity, setComplexity] = useState('')
+	const [method, setMethod] = useState('')
+
 	const [isSearching, setIsSearching] = useState(false)
 
 	const location = useLocation()
@@ -61,7 +64,6 @@ function Home(props) {
 
 	function handleSearchPublish() {
 		setStamp(Date.now())
-		console.log(ingredients, diet)
 		setIsSearching(true)
 		window.scrollTo(0, 0)
 		setView(null)
@@ -71,6 +73,8 @@ function Home(props) {
 	function resetInputs() {
 		setIngredients('')
 		setDiet('')
+		setComplexity('')
+		setMethod('')
 	}
 
 	function handleNewRecipeClick() {
@@ -110,7 +114,7 @@ function Home(props) {
 				<Route path="/profile" element={<Profile />} />
 				<Route path='/favs' element={<Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveFavRecipes} />} />
 				<Route path='/new-recipe' element={<NewRecipe />} />
-				<Route path='/' element={isSearching ? <Recipes setRecipe={handleRecipeClick} resetInputs={resetInputs} showRecipes={() => logic.searchRecipes(ingredients, diet)} stamp={stamp} /> : <Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
+				<Route path='/' element={isSearching ? <Recipes setRecipe={handleRecipeClick} resetInputs={resetInputs} showRecipes={() => logic.searchRecipes(ingredients, diet, complexity, method)} stamp={stamp} /> : <Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveRecipes} stamp={stamp} />} />
 			</Routes>
 		</div>
 
@@ -120,7 +124,7 @@ function Home(props) {
 
 				{view !== 'new-recipe' && view !== 'search' && <Button className="button-footer" onClick={handleNewRecipeClick}>+</Button>}
 
-				{view === 'search' && <NewSearch setIngredients={setIngredients} setDiet={setDiet} onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
+				{view === 'search' && <NewSearch setIngredients={setIngredients} setDiet={setDiet} setComplexity={setComplexity} setMethod={setMethod} onPublish={handleSearchPublish} onCancel={handleSearchCancel} />}
 
 				{view !== 'search' && view !== 'new-recipe' && <Button className="button-footer" onClick={handleSearchClick}>🔍</Button>}
 			</footer>

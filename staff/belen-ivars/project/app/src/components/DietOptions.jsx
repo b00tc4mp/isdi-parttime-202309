@@ -22,7 +22,7 @@ export default function DietOptions(props) {
 
 	return (
 		<div>
-			Select your diet:
+			Selecciona una dieta:
 			<div className="flex flex-col">
 				<div>
 					<input
@@ -44,7 +44,7 @@ export default function DietOptions(props) {
 						checked={isVeganChecked}
 						onChange={handleVeganOnChange}
 					/>
-					Vegan
+					Vegà
 				</div>
 				<div>
 					<input
@@ -55,7 +55,7 @@ export default function DietOptions(props) {
 						checked={isVeggieChecked}
 						onChange={handleVeggieOnChange}
 					/>
-					Vegeterian
+					Vegeterià
 				</div>
 			</div>
 		</div>

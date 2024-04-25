@@ -75,10 +75,10 @@ function Recipe(props) {
 				</ul>
 			</div>
 			<div>
-				<h3 className='recipe-subtitle'> Tipus de dieta </h3>
+				<h3 className='recipe-subtitle'> Dieta </h3>
 				<p className='recipe-text'>{dietTranslations[props.recipe.diet]}</p>
 
-				<h3 className='recipe-subtitle'> Nivell de complexitat </h3>
+				<h3 className='recipe-subtitle'> Complexitat </h3>
 				<p className='recipe-text'>{complexityTranslations[props.recipe.complexity]}</p>
 
 				<h3 className='recipe-subtitle'> Mètode </h3>

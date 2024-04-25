@@ -63,10 +63,9 @@ function Recipes(props) {
 	}, [props.stamp])
 
 	return <div className="recipes">
-
 		{view !== 'edit' && <>
 			{recipes.length === 0 ? <div >
-				<Container>
+				<Container className="container-search-no-result">
 					<h1 className="recipe-title">No s'han trobat receptes</h1>
 					<p className="recipe-text">
 						Oooohhh, no hi ha receptes que conicidisquen amb els teus criteris de búsqueda!
@@ -77,7 +76,7 @@ function Recipes(props) {
 		</>}
 
 
-		{view === 'edit' && <Container className='absolute z-10 h-screen top-2 new-form'>
+		{view === 'edit' && <Container className='new-form'>
 			<h2 className='form-title'>Modifica la teua recepta</h2>
 			<Button onClick={() => setView(null)}>Cancel</Button>
 			<Form id='edit-form' onSubmit={handleSubmit}>

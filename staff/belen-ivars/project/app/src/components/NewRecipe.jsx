@@ -48,7 +48,7 @@ export default function NewRecipe(props) {
 		props.onCancel()
 	}
 
-	return <Container className="new-form">
+	return <Container className="new-form-footer">
 		<h2 className="form-title">Puja la teua recepta</h2>
 
 		<Form onSubmit={handleSubmit}>

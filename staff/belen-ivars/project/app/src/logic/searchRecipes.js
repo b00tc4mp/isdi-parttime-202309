@@ -3,7 +3,7 @@ import { API_URL } from "../utils/constants"
 import { errors } from "com"
 const { SystemError } = errors
 
-export default async function searchRecipes(ingredients, diet) {
+export default async function searchRecipes(ingredients, diet, complexity, method) {
 
 	let query = ''
 	if (ingredients.length > 0) {
@@ -11,6 +11,12 @@ export default async function searchRecipes(ingredients, diet) {
 	}
 	if (diet.length > 0) {
 		query.length > 0 ? query += `&diet=${diet}` : query += `diet=${diet}`
+	}
+	if (complexity.length > 0) {
+		query.length > 0 ? query += `&complexity=${complexity}` : query += `complexity=${complexity}`
+	}
+	if (method.length > 0) {
+		query.length > 0 ? query += `&method=${method}` : query += `method=${method}`
 	}
 	return (async () => {
 		const req = {
