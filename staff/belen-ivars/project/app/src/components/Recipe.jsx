@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import logic from "../logic"
 
-import { Button, Container, Field, Form, Link } from "../library"
+import { Button, Container } from "../library"
 import { useContext } from '../hooks'
 
 import session from '../logic/session'
@@ -16,30 +16,6 @@ function Recipe(props) {
 
 	const context = useContext()
 	const navigate = useNavigate()
-
-	async function handleSubmit(event) {
-		event.preventDefault()
-
-		const title = event.target.title.value ? event.target.title.value : null
-		const description = event.target.description.value ? event.target.description.value : null
-		const image = event.target.image.value ? event.target.image.value : null
-		console.log(props.recipe._id)
-		const ingredients = event.target.ingredients.value ? event.target.ingredients.value : null
-		const diet = event.target.diet.value ? event.target.diet.value : null
-		const complexity = event.target.complexity.value ? event.target.complexity.value : null
-		const method = event.target.method.value ? event.target.complexity.value : null
-
-		try {
-			await logic.editRecipe(props.recipe._id, title, description, image, ingredients, diet, complexity, method)
-			props.onSuccess()
-
-			setView(null)
-			document.getElementById("edit-form").reset()
-
-		} catch (error) {
-			context.handleError(error)
-		}
-	}
 
 	async function handleDeleteClick(event) {
 		event.preventDefault()
@@ -67,12 +43,8 @@ function Recipe(props) {
 	}
 
 	const handleRecipeClick = () => {
-		props.onRecipeClick(props.recipe)
+		props.onRecipeClick(props.recipe._id)
 	}
-
-	useEffect(() => {
-
-	}, [handleSubmit])
 
 	useEffect(() => {
 		async function getIngredients() {
@@ -93,7 +65,7 @@ function Recipe(props) {
 			<img className="recipe-image" src={props.recipe.image} />
 		</Container>
 		<Container className="container-info-recipe" >
-			<div>
+			<div className='container-ingredients-list'>
 				<h3 className='recipe-subtitle'> Ingredients </h3>
 				<ul className='recipe-list'>
 					{ingredientsList.map((ingredient, index) => (
@@ -114,23 +86,13 @@ function Recipe(props) {
 		</Container>
 		<div>
 			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={handleDeleteClick}>🗑️</Button>}
-			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={() => setView('edit')}>Edit</Button>}
+			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={() => props.onEditClick(props.recipe)}>Edit</Button>}
 			<Button className='button-recipe' onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
 			<Button onClick={handleRecipeClick} >Mostra més</Button>
 
 		</div>
 
-		{view === 'edit' && <Button onClick={() => setView(null)}>Cancel</Button>}
 
-		{view === 'edit' && <Container className='new-form'>
-			<Form id='edit-form' onSubmit={handleSubmit}>
-				<Field type='text' id='title' placeholder={props.recipe.title} />
-				<Field type='text' id='description' placeholder={props.recipe.description} />
-				<Field type='url' id='image' placeholder={props.recipe.image} />
-				<Button type='submit' > Modificar </Button>
-
-			</Form>
-		</Container>}
 	</article>
 
 

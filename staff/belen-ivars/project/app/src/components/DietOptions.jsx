@@ -25,34 +25,40 @@ export default function DietOptions(props) {
 	return (
 		<div>
 			Select your diet:
-			<div>
-				<input
-					type="checkbox"
-					id="gluten"
-					name="gluten"
-					value="GlutenFree"
-					checked={isGlutenChecked}
-					onChange={handleGlutenOnChange}
-				/>
-				Gluten Free
-				<input
-					type="checkbox"
-					id="vegan"
-					name="vegan"
-					value="Vegan"
-					checked={isVeganChecked}
-					onChange={handleVeganOnChange}
-				/>
-				Vegan
-				<input
-					type="checkbox"
-					id="veggie"
-					name="veggie"
-					value="Vegeterian"
-					checked={isVeggieChecked}
-					onChange={handleVeggieOnChange}
-				/>
-				Vegeterian
+			<div className="flex flex-col">
+				<div>
+					<input
+						type="checkbox"
+						id="gluten"
+						name="gluten"
+						value="GlutenFree"
+						checked={isGlutenChecked}
+						onChange={handleGlutenOnChange}
+					/>
+					Gluten Free
+				</div>
+				<div>
+					<input
+						type="checkbox"
+						id="vegan"
+						name="vegan"
+						value="Vegan"
+						checked={isVeganChecked}
+						onChange={handleVeganOnChange}
+					/>
+					Vegan
+				</div>
+				<div>
+					<input
+						type="checkbox"
+						id="veggie"
+						name="veggie"
+						value="Vegeterian"
+						checked={isVeggieChecked}
+						onChange={handleVeggieOnChange}
+					/>
+					Vegeterian
+				</div>
 			</div>
 		</div>
 	);

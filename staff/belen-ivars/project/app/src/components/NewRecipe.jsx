@@ -3,6 +3,7 @@ import logic from "../logic"
 import { useContext } from 'react'
 import session from "../logic/session"
 import Context from "../Context"
+import { getEnglishKey, dietTranslations, methodTranslations, complexityTranslations } from "../assets/translation"
 
 export default function NewRecipe(props) {
 	console.log('NewRecipe')
@@ -26,7 +27,10 @@ export default function NewRecipe(props) {
 		const image = imageInput.value
 		const ingredients = ingredientsInput.value
 		const diet = dietInput.value
-		const complexity = complexityInput.value
+		const complexity = getEnglishKey(complexityTranslations, complexityInput.value)
+
+		// const complexity = complexityInput.value
+
 		const method = methodInput.value
 
 
@@ -55,7 +59,7 @@ export default function NewRecipe(props) {
 			<Field id="image-input" type="url" placeholder='Inclou una imatge'>Imatge</Field>
 			<Field id="ingredients-input" type="text" placeholder='exemple1, exemple2,...'>Ingredients</Field>
 			<Field id="diet-input" type="text" placeholder='glutenfree, vegan or vegetarian'>Tipus de dieta</Field>
-			<Field id="complexity-input" type="text" placeholder='easy, medium or complex' >Nivell de complexitat</Field>
+			<Field id="complexity-input" type="text" placeholder='easy, regular or complex' >Nivell de complexitat</Field>
 			<Field id="method-input" type="text" placeholder='steamed, oven, microwave, grill, fresh or cook'>Mètode de cocció</Field>
 
 

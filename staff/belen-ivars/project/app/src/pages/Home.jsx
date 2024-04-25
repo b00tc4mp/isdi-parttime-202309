@@ -22,8 +22,6 @@ function Home(props) {
 	const [ingredients, setIngredients] = useState('')
 	const [diet, setDiet] = useState('')
 	const [isSearching, setIsSearching] = useState(false)
-	const [recipe, setRecipe] = useState(null)
-
 
 	const location = useLocation()
 	const navigate = useNavigate()
@@ -49,7 +47,6 @@ function Home(props) {
 		event.preventDefault()
 		setIsSearching(false)
 		setStamp(Date.now())
-		setRecipe(null)
 		navigate('/')
 	}
 
@@ -92,9 +89,8 @@ function Home(props) {
 		window.scrollTo(0, 0)
 	}
 
-	function handleRecipeClick(recipe) {
-		setRecipe(recipe)
-		navigate('/recipe')
+	function handleRecipeClick(recipeId) {
+		navigate(`/recipe/${recipeId}`)
 	}
 
 
@@ -108,10 +104,9 @@ function Home(props) {
 
 		</header>
 		<div className="container-recipes">
-			{/* traslladar a clase */}
+
 			<Routes>
-				{recipe && <Route path='/recipe' element={<CompleteRecipe recipe={recipe} />} />
-				}
+				<Route path='/recipe/:recipeId' element={<CompleteRecipe />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path='/favs' element={<Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveFavRecipes} />} />
 				<Route path='/new-recipe' element={<NewRecipe />} />

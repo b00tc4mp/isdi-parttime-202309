@@ -28,7 +28,7 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .recipe-subtitle {
-@apply font-semibold text-center bg-yellow-300/50 border-spacing-0;
+@apply font-semibold text-center  text-green-900 bg-yellow-300/50 border-spacing-0;
 font-family: 'Ubuntu', sans serif;
 }
 
@@ -38,7 +38,8 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .recipe-list {
-  @apply list-inside list-disc capitalize decoration-yellow-300;
+  @apply font-light list-inside list-disc capitalize;
+  font-family: 'Ubuntu', sans serif;
 }
 
 .recipe-description {
@@ -152,11 +153,15 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .container-info-recipe {
-  @apply grid grid-cols-2 items-start place-content-between border-yellow-300/40 text-clip overflow-hidden;
+  @apply grid grid-cols-2 items-start place-content-between border-yellow-300/40 text-clip overflow-hidden ;
 }
 
 .container-description {
   @apply  shadow-inner shadow-green-700/50 text-clip overflow-hidden
+}
+
+.container-ingredients-list {
+  @apply text-clip overflow-hidden max-h-36;
 }
 
 .login-register {
@@ -191,7 +196,7 @@ font-family: 'Ubuntu', sans serif;
   @apply flex flex-col items-center mb-[3rem] bg-cover; 
   
 }
-
+}
 /* Avisos */
 
 .Feedback {
@@ -216,6 +221,4 @@ font-family: 'Ubuntu', sans serif;
 
 .Feedback--fatal {
   @apply bg-[red] text-black;
-}
-
 }
