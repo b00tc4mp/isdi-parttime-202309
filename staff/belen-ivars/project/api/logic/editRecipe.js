@@ -1,6 +1,6 @@
 import { validate } from "com"
 import { User, Recipe } from '../data/models.js'
-import { NotFoundError, ContentError } from "com/errors.js"
+import { NotFoundError, ContentError, SystemError } from "com/errors.js"
 
 
 async function editRecipe(userId, recipeId, title, description, image) {
@@ -11,11 +11,21 @@ async function editRecipe(userId, recipeId, title, description, image) {
 	if (description) validate.text(description, 'description')
 	//if (image) validate.image pròximament
 
-	const user = await User.findById(userId)
+	let user
+	try {
+		user = await User.findById(userId)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 	if (!user)
 		throw new NotFoundError('user not found')
 
-	const recipe = await Recipe.findById(recipeId)
+	let recipe
+	try {
+		recipe = await Recipe.findById(recipeId)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 	if (!recipe)
 		throw new NotFoundError('recipe not found')
 
@@ -23,14 +33,26 @@ async function editRecipe(userId, recipeId, title, description, image) {
 
 	try {
 		if (title)
-			recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { title: title })
+			try {
+				recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { title: title })
+			} catch (error) {
+				throw new SystemError(error.message)
+			}
 
 		if (description)
-			recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { description: description })
+			try {
+				recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { description: description })
+			} catch (error) {
+				throw new SystemError(error.message)
+			}
+
 
 		if (image)
-			recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { image: image })
-
+			try {
+				recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { image: image })
+			} catch (error) {
+				throw new SystemError(error.message)
+			}
 
 	} catch (error) {
 		throw new ContentError('recipe cannot be edited')

@@ -6,11 +6,14 @@ async function checkIngredient(userId, ingredient) {
 	validate.id(userId, 'id')
 	validate.text(ingredient, 'ingredient')
 
-	const user = await User.findById(userId)
-
+	let user
+	try {
+		user = await User.findById(userId)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 	if (!user)
 		throw new NotFoundError('user not found')
-	console.log('user founded')
 
 	const ingredientName = ingredient.toLowerCase()
 
@@ -19,7 +22,6 @@ async function checkIngredient(userId, ingredient) {
 	try {
 		isAnIngredient = await Ingredient.findOne({ name: ingredientName })
 		if (isAnIngredient) {
-			console.log('ja era un ingredient')
 			return isAnIngredient
 		}
 	} catch (error) {
@@ -30,7 +32,6 @@ async function checkIngredient(userId, ingredient) {
 
 	try {
 		newIngredient = await Ingredient.create({ name: ingredientName })
-		console.log('nou ingredient creat')
 		return newIngredient
 	} catch (error) {
 		throw new SystemError(error.message)

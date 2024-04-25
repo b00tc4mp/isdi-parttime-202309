@@ -3,7 +3,7 @@ import { User, Recipe } from '../data/models.js'
 import { SystemError } from 'com/errors.js'
 import { NotFoundError } from 'com/errors.js'
 
-async function toggleFavRecipe(userId, recipeId) {
+export default async function toggleFavRecipe(userId, recipeId) {
 	validate.id(userId, 'user id')
 	validate.id(recipeId, 'user id')
 
@@ -11,7 +11,6 @@ async function toggleFavRecipe(userId, recipeId) {
 
 	try {
 		user = await User.findById(userId)
-		console.log('user founded')
 	} catch (error) {
 		throw new SystemError(error.message)
 	}
@@ -23,7 +22,6 @@ async function toggleFavRecipe(userId, recipeId) {
 
 	try {
 		recipe = await Recipe.findById(recipeId)
-		console.log('recipe founded')
 	} catch (error) {
 		throw new SystemError(error.message)
 	}
@@ -39,7 +37,6 @@ async function toggleFavRecipe(userId, recipeId) {
 		} catch (error) {
 			throw new SystemError(error.message)
 		}
-
 	} else {
 		try {
 			await User.findOneAndUpdate({ _id: user.id }, { $pull: { favs: recipeId } })
@@ -48,5 +45,3 @@ async function toggleFavRecipe(userId, recipeId) {
 		}
 	}
 }
-
-export default toggleFavRecipe

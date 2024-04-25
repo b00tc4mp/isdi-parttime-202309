@@ -9,12 +9,15 @@ async function createRecipe(userId, title, description, image, ingredients, diet
 	validate.text(image, 'image')
 	validate.id(userId, 'id')
 
-	console.log(ingredients, 'probando')
-	const user = await User.findById(userId)
+	let user
+	try {
+		user = await User.findById(userId)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 
 	if (!user)
 		throw new NotFoundError('user not found')
-	console.log('user founded')
 
 	let ingredientsOfThisRecipe = []
 
@@ -24,7 +27,7 @@ async function createRecipe(userId, title, description, image, ingredients, diet
 			ingredientsOfThisRecipe.push(result._id)
 		}
 	} catch (error) {
-		throw new SystemError('ingredients cannnot be pushed')
+		throw new SystemError(error.message)
 	}
 
 	let recipe

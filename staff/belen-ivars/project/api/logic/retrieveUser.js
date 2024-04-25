@@ -1,9 +1,14 @@
-import { NotFoundError } from "com/errors.js"
+import { NotFoundError, SystemError } from "com/errors.js"
 import { User } from "../data/models.js"
 
-async function retrieveUser(id) {
+export default async function retrieveUser(id) {
 
-	const user = await User.findById(id)
+	let user
+	try {
+		user = await User.findById(id)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 
 	if (!user) {
 		throw new NotFoundError("No user found")
@@ -11,5 +16,3 @@ async function retrieveUser(id) {
 
 	return user
 }
-
-export default retrieveUser

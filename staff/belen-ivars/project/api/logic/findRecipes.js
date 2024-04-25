@@ -1,8 +1,18 @@
-import { Recipe, Ingredient } from '../data/models.js'
+import { SystemError } from 'com/errors.js'
+import { Recipe, Ingredient, User } from '../data/models.js'
 
 async function findRecipes(userId, ingredients, diet) {
 
-	console.log(ingredients, diet, 'prueba')
+	let user
+
+	try {
+		user = await User.findById(userId)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
+
+	if (!user)
+		throw new NotFoundError('user not found')
 
 	const filter = {}
 
@@ -15,16 +25,23 @@ async function findRecipes(userId, ingredients, diet) {
 	if (ingredients) {
 		let ingredientsList = []
 		for (let ingredient of ingredients) {
-			const _ingredient = await Ingredient.findOne({ name: ingredient })
-			ingredientsList.push(_ingredient)
+			try {
+				const _ingredient = await Ingredient.findOne({ name: ingredient })
+				ingredientsList.push(_ingredient)
+
+			} catch (error) {
+				throw new SystemError(error.message)
+			}
 		}
 		filter.ingredients = { $in: ingredientsList }
 	}
 
-
-	const recipes = await Recipe.find(filter)
-	console.log(recipes)
-	return recipes
+	try {
+		const recipes = await Recipe.find(filter)
+		return recipes
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 }
 
 export default findRecipes  

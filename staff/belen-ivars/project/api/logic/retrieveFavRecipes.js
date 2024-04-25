@@ -1,25 +1,25 @@
-import { NotFoundError } from "com/errors.js"
+import { NotFoundError, SystemError } from "com/errors.js"
 import { Recipe, User } from "../data/models.js"
 
 async function retrieveFavRecipes(id) {
 
-	const user = await User.findById(id)
+	let user
+	try {
+		user = await User.findById(id)
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 
 	if (!user) {
 		throw new NotFoundError('No user found')
 	}
 
-	console.log('user exists')
-	const favRecipes = await Recipe.find({ _id: { $in: user.favs } }).lean()
-
-	// const recipesWithFavs = favRecipes.map(recipe => {
-	// 	return { ...recipe, fav: user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id.toString()) };
-	// })
-
-	// const recipesFormated = recipesWithFavs.map(_recipe => {
-	// 	const { recipe, ...rest } = _recipe;
-	// 	return { ...recipe, ...rest };
-	// });
+	let favRecipes
+	try {
+		favRecipes = await Recipe.find({ _id: { $in: user.favs } }).lean()
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 
 	favRecipes.forEach(recipe => {
 		recipe.fav = user.favs.some(recipeObjectId => recipeObjectId.toString() === recipe._id.toString())

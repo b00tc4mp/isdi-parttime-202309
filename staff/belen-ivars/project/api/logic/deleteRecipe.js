@@ -1,12 +1,18 @@
 import { validate } from "com"
 import { User, Recipe } from '../data/models.js'
-import { ContentError, NotFoundError } from "com/errors.js"
+import { ContentError, NotFoundError, SystemError } from "com/errors.js"
 
 async function deleteRecipe(userId, recipeId) {
 	validate.id(userId, 'user id')
 	validate.id(recipeId, 'recipe id')
 
-	const user = await User.findById(userId)
+	let user
+	try {
+		user = await User.findById(userId)
+
+	} catch (error) {
+		throw new SystemError(error.message)
+	}
 
 	if (!user)
 		throw new NotFoundError('user not found')

@@ -4,7 +4,7 @@ import { User } from '../data/models.js'
 
 const { SystemError, DuplicityError } = errors
 
-async function registerUser(name, email, password) {
+export default async function registerUser(name, email, password) {
 	validate.text(name, 'name')
 	validate.email(email, 'email')
 	validate.password(password, 'password')
@@ -25,5 +25,3 @@ async function registerUser(name, email, password) {
 		throw new SystemError(error.message)
 	}
 }
-
-export default registerUser

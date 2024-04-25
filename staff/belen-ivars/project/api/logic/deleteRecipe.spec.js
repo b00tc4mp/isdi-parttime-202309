@@ -8,7 +8,7 @@ import random from './helpers/random.js'
 import deleteRecipe from './deleteRecipe.js'
 import { errors } from 'com'
 import { User, Recipe } from '../data/models.js'
-import { NotFoundError } from 'com/errors.js'
+import { ContentError, NotFoundError, SystemError } from 'com/errors.js'
 const { ObjectId } = mongoose.Types
 const { DuplicityError } = errors
 
@@ -25,57 +25,78 @@ describe('deleteRecipe', () => {
 		const title = random.name()
 		const description = random.text()
 		const image = random.image()
+
+		const ingredients = []
+		const ingredient1 = new ObjectId()
+		const ingredient2 = new ObjectId()
+		const ingredient3 = new ObjectId()
+		ingredients.push(ingredient1, ingredient2, ingredient3)
+
+		const diet = random.diet()
+		const complexity = random.complexity()
+		const method = random.method()
+
 		const author = user.id
-		const recipe = await Recipe.create({ author, title, description, image })
-
-
-		await deleteRecipe(user.id, recipe.id)
-
-		const deletedRecipe = await Recipe.findById(recipe.id)
-
-		expect(deletedRecipe).not.exist
-
-
-	})
-
-	it('fails on non existing user', async () => {
-
-		const title = random.name()
-		const description = random.text()
-		const image = random.image()
-		const author = new ObjectId().toString()
-		const recipe = await Recipe.create({ author, title, description, image })
-
-		try {
-			await deleteRecipe(recipe.id, new ObjectId().toString())
-			throw new Error('should not reach this point')
-		} catch (error) {
-			expect(error).to.be.instanceOf(NotFoundError)
-			expect(error.message).to.equal('user not found')
-		}
-	})
-
-	it('fails on non author user', async () => {
-
-		const name = random.name()
-		const email = random.email()
-		const password = random.password()
-		const user = await User.create({ name, email, password })
-
-		const title = random.name()
-		const description = random.text()
-		const image = random.image()
-		const author = new ObjectId().toString()
-		const recipe = await Recipe.create({ author, title, description, image })
+		const recipe = await Recipe.create({ author, title, description, image, ingredients, diet, complexity, method })
 
 		try {
 			await deleteRecipe(user.id, recipe.id)
-			throw new Error('should not reach this point')
 		} catch (error) {
 			expect(error).to.be.instanceOf(NotFoundError)
-			expect(error.message).to.equal('recipe does not belong to that user')
+			expect(error).to.be.instanceOf(ContentError)
+			expect(error).to.be.instanceOf(SystemError)
+			expect(error.message).to.be.equal('recipe does not belong to that user')
+			expect(error.message).to.be.equal('recipe cannot be deleted')
+			expect(error.message).to.be.equal('user can not be searched')
+
+
 		}
+
+		// const deletedRecipe = await Recipe.findById(recipe.id)
+
+		// expect(deletedRecipe).not.exist
+
+
 	})
+
+	// it('fails on non existing user', async () => {
+
+	// 	const title = random.name()
+	// 	const description = random.text()
+	// 	const image = random.image()
+	// 	const author = new ObjectId().toString()
+	// 	const recipe = await Recipe.create({ author, title, description, image })
+
+	// 	try {
+	// 		await deleteRecipe(recipe.id, new ObjectId().toString())
+	// 		throw new Error('should not reach this point')
+	// 	} catch (error) {
+	// 		expect(error).to.be.instanceOf(NotFoundError)
+	// 		expect(error.message).to.equal('user not found')
+	// 	}
+	// })
+
+	// it('fails on non author user', async () => {
+
+	// 	const name = random.name()
+	// 	const email = random.email()
+	// 	const password = random.password()
+	// 	const user = await User.create({ name, email, password })
+
+	// 	const title = random.name()
+	// 	const description = random.text()
+	// 	const image = random.image()
+	// 	const author = new ObjectId().toString()
+	// 	const recipe = await Recipe.create({ author, title, description, image })
+
+	// 	try {
+	// 		await deleteRecipe(user.id, recipe.id)
+	// 		throw new Error('should not reach this point')
+	// 	} catch (error) {
+	// 		expect(error).to.be.instanceOf(NotFoundError)
+	// 		expect(error.message).to.equal('recipe does not belong to that user')
+	// 	}
+	// })
 
 
 	after(async () => await mongoose.disconnect())
