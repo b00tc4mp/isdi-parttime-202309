@@ -26,12 +26,10 @@ export default function NewRecipe(props) {
 		const text = textInput.value
 		const image = imageInput.value
 		const ingredients = ingredientsInput.value
-		const diet = dietInput.value
+
+		const diet = getEnglishKey(dietTranslations, dietInput.value)
 		const complexity = getEnglishKey(complexityTranslations, complexityInput.value)
-
-		// const complexity = complexityInput.value
-
-		const method = methodInput.value
+		const method = getEnglishKey(methodTranslations, methodInput.value)
 
 
 		try {
@@ -59,8 +57,8 @@ export default function NewRecipe(props) {
 			<Field id="image-input" type="url" placeholder='Inclou una imatge'>Imatge</Field>
 			<Field id="ingredients-input" type="text" placeholder='exemple1, exemple2,...'>Ingredients</Field>
 			<Field id="diet-input" type="text" placeholder='glutenfree, vegan or vegetarian'>Tipus de dieta</Field>
-			<Field id="complexity-input" type="text" placeholder='easy, regular or complex' >Nivell de complexitat</Field>
-			<Field id="method-input" type="text" placeholder='steamed, oven, microwave, grill, fresh or cook'>Mètode de cocció</Field>
+			<Field id="complexity-input" type="text" placeholder='fàcil, regular o complexe' >Nivell de complexitat</Field>
+			<Field id="method-input" type="text" placeholder='al vapor, forn, microones, planxa, fresc or cuit'>Mètode de cocció</Field>
 
 
 			<Button type="submit">Post</Button>

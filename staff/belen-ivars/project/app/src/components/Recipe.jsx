@@ -7,6 +7,7 @@ import { Button, Container } from "../library"
 import { useContext } from '../hooks'
 
 import session from '../logic/session'
+import { complexityTranslations, dietTranslations, methodTranslations } from '../assets/translation'
 
 function Recipe(props) {
 
@@ -75,13 +76,13 @@ function Recipe(props) {
 			</div>
 			<div>
 				<h3 className='recipe-subtitle'> Tipus de dieta </h3>
-				<p className='recipe-text'>{props.recipe.diet}</p>
+				<p className='recipe-text'>{dietTranslations[props.recipe.diet]}</p>
 
 				<h3 className='recipe-subtitle'> Nivell de complexitat </h3>
-				<p className='recipe-text'>{props.recipe.complexity}</p>
+				<p className='recipe-text'>{complexityTranslations[props.recipe.complexity]}</p>
 
 				<h3 className='recipe-subtitle'> Mètode </h3>
-				<p className='recipe-text'>{props.recipe.method}</p>
+				<p className='recipe-text'>{methodTranslations[props.recipe.method]}</p>
 			</div>
 		</Container>
 		<div>

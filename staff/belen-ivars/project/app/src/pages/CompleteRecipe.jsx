@@ -7,7 +7,7 @@ import { Button, Container, Field, Form, Link } from "../library"
 import { useContext } from '../hooks'
 
 import session from '../logic/session'
-import { complexityTranslations } from '../assets/translation'
+import { complexityTranslations, dietTranslations, methodTranslations } from '../assets/translation'
 
 export default function CompleteRecipe() {
 
@@ -103,13 +103,13 @@ export default function CompleteRecipe() {
 				</div>
 				<div>
 					<h3 className='recipe-subtitle'> Tipus de dieta </h3>
-					<p className='recipe-text'>{recipe.diet}</p>
+					<p className='recipe-text'>{dietTranslations[recipe.diet]}</p>
 
 					<h3 className='recipe-subtitle'> Nivell de complexitat </h3>
 					<p className='recipe-text'>{complexityTranslations[recipe.complexity]}</p>
 
 					<h3 className='recipe-subtitle'> Mètode </h3>
-					<p className='recipe-text'>{recipe.method}</p>
+					<p className='recipe-text'>{methodTranslations[recipe.method]}</p>
 				</div>
 			</Container>
 			<Container className="container-description">
@@ -134,9 +134,9 @@ export default function CompleteRecipe() {
 						<Field type='text' id='description' placeholder={recipe.description} >Descripció</Field>
 						<Field type='url' id='image' placeholder='Enllaça ací la imatge' >Imatge</Field>
 						<Field type='text' id='ingredients' >Ingredients</Field>
-						<Field type='text' id='diet' placeholder={recipe.diet} >Tipus de dieta</Field>
-						<Field type='text' id='complexity' placeholder={recipe.complexity} >Nivell de complexitat</Field>
-						<Field type='text' id='method' placeholder={recipe.method} >Mètode de cocció</Field>
+						<Field type='text' id='diet' placeholder={dietTranslations[recipe.diet]} >Tipus de dieta</Field>
+						<Field type='text' id='complexity' placeholder={complexityTranslations[recipe.complexity]} >Nivell de complexitat</Field>
+						<Field type='text' id='method' placeholder={methodTranslations[recipe.method]} >Mètode de cocció</Field>
 						<Button type='submit' > Modificar </Button>
 
 					</Form>

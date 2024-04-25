@@ -1,5 +1,3 @@
-import OptionsFilters from "./OptionsFilters"
-
 import { useState } from "react"
 
 export default function DietOptions(props) {

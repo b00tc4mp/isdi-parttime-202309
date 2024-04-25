@@ -3,6 +3,8 @@ import Recipe from './Recipe'
 import { useContext } from "../hooks"
 import logic from "../logic"
 import { Container, Button, Field, Form } from "../library"
+import { complexityTranslations, dietTranslations, methodTranslations } from '../assets/translation'
+
 
 function Recipes(props) {
 	console.log('Recipes')
@@ -36,6 +38,8 @@ function Recipes(props) {
 		const diet = event.target.diet.value ? event.target.diet.value : null
 		const complexity = event.target.complexity.value ? event.target.complexity.value : null
 		const method = event.target.method.value ? event.target.method.value : null
+
+
 
 		try {
 			await logic.editRecipe(recipeToEdit._id, title, description, image, ingredients, diet, complexity, method)
@@ -74,15 +78,16 @@ function Recipes(props) {
 
 
 		{view === 'edit' && <Container className='absolute z-10 h-screen top-2 new-form'>
+			<h2 className='form-title'>Modifica la teua recepta</h2>
 			<Button onClick={() => setView(null)}>Cancel</Button>
 			<Form id='edit-form' onSubmit={handleSubmit}>
 				<Field type='text' id='title' placeholder={recipeToEdit.title} />
 				<Field type='text' id='description' placeholder={recipeToEdit.description} />
 				<Field type='url' id='image' placeholder={recipeToEdit.image} />
 				<Field type='text' id='ingredients' placeholder={recipeToEdit.ingredients} />
-				<Field type='text' id='diet' placeholder={recipeToEdit.diet} />
-				<Field type='text' id='complexity' placeholder={recipeToEdit.complexity} />
-				<Field type='text' id='method' placeholder={recipeToEdit.method} />
+				<Field type='text' id='diet' placeholder={dietTranslations[recipeToEdit.diet]} />
+				<Field type='text' id='complexity' placeholder={complexityTranslations[recipeToEdit.complexity]} />
+				<Field type='text' id='method' placeholder={methodTranslations[recipeToEdit.method]} />
 
 				<Button type='submit' > Modificar </Button>
 
