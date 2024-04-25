@@ -10,6 +10,7 @@ import retrieveFavRecipes from './retrieveFavRecipes.js'
 import checkIngredient from './checkIngredient.js'
 import findRecipes from './findRecipes.js'
 import getIngredientsList from './getIngredientsList.js'
+import retrieveCompleteRecipe from './retrieveCompleteRecipe.js'
 
 const logic = {
 	registerUser,
@@ -23,7 +24,8 @@ const logic = {
 	retrieveFavRecipes,
 	checkIngredient,
 	findRecipes,
-	getIngredientsList
+	getIngredientsList,
+	retrieveCompleteRecipe
 }
 
 export default logic

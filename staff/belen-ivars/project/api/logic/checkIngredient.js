@@ -17,12 +17,12 @@ async function checkIngredient(userId, ingredient) {
 
 	const ingredientName = ingredient.toLowerCase()
 
-	let isAnIngredient
+	let existingIngredient
 
 	try {
-		isAnIngredient = await Ingredient.findOne({ name: ingredientName })
-		if (isAnIngredient) {
-			return isAnIngredient
+		existingIngredient = await Ingredient.findOne({ name: ingredientName })
+		if (existingIngredient) {
+			return existingIngredient
 		}
 	} catch (error) {
 		throw new SystemError(error.message)
