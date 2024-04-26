@@ -37,12 +37,3 @@ describe('checkIngredient', () => {
 	})
 	after(async () => await mongoose.disconnect())
 })
-// it('fails on non-existing user', async () => {
-// 	try {
-// 		await checkIngredient(new ObjectId().toString())
-// 		throw new Error('should not reach this point')
-// 	} catch (error) {
-// 		expect(error).to.be.instanceOf(NotFoundError)
-// 		expect(error.message).to.equal('No user found')
-// 	}
-// })
