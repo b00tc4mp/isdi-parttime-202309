@@ -22,7 +22,7 @@ export default function TopProfileImage({ name, email }) {
 
 	return <div className='profile-menu'>
 		<Link className="link-profile-menu" onClick={handleProfileClick}>
-			<Gravatar email={email} /> {name}
+			<Gravatar className="avatar" email={email} /> {name}
 			{isOpen && (
 				<Container >
 					<FavsButton />

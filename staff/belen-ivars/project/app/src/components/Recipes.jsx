@@ -62,39 +62,46 @@ function Recipes(props) {
 		refreshRecipes()
 	}, [props.stamp])
 
-	return <div className="recipes">
-		{view !== 'edit' && <>
-			{recipes.length === 0 ? <div >
-				<Container className="container-search-no-result">
-					<h1 className="recipe-title">No s'han trobat receptes</h1>
-					<p className="recipe-text">
-						Oooohhh, no hi ha receptes que conicidisquen amb els teus criteris de búsqueda!
-					</p>
+	return <div>
 
-				</Container>
-			</div> : recipes.map(recipe => <Recipe onEditClick={handleEditClick} onRecipeClick={props.setRecipe} key={recipe._id} recipe={recipe} onError={props.onError} onSuccess={refreshRecipes} />)}
+		{view !== 'edit' && <>
+			{recipes.length === 0 ?
+				<NoResults />
+				: <div className="recipes">{recipes.map(recipe => <Recipe onEditClick={handleEditClick} onRecipeClick={props.setRecipe} key={recipe._id} recipe={recipe} onError={props.onError} onSuccess={refreshRecipes} />)} </div>
+			}
 		</>}
 
 
-		{view === 'edit' && <Container className='new-form'>
-			<h2 className='form-title'>Modifica la teua recepta</h2>
-			<Button onClick={() => setView(null)}>Cancel</Button>
-			<Form id='edit-form' onSubmit={handleSubmit}>
-				<Field type='text' id='title' placeholder={recipeToEdit.title} />
-				<Field type='text' id='description' placeholder={recipeToEdit.description} />
-				<Field type='url' id='image' placeholder={recipeToEdit.image} />
-				<Field type='text' id='ingredients' placeholder={recipeToEdit.ingredients} />
-				<Field type='text' id='diet' placeholder={dietTranslations[recipeToEdit.diet]} />
-				<Field type='text' id='complexity' placeholder={complexityTranslations[recipeToEdit.complexity]} />
-				<Field type='text' id='method' placeholder={methodTranslations[recipeToEdit.method]} />
+		{view === 'edit' && <div className="recipe-complet-div">
+			<Container className='new-form'>
+				<h2 className='form-title'>Modifica la teua recepta</h2>
+				<Button className='button-recipe' onClick={() => setView(null)}>Cancel</Button>
+				<Form id='edit-form' onSubmit={handleSubmit}>
+					<Field type='text' id='title' placeholder={recipeToEdit.title}>Títol</Field>
+					<Field type='text' id='description' placeholder={recipeToEdit.description}>Descripció</Field>
+					<Field type='url' id='image' placeholder={recipeToEdit.image} >Imatge</Field>
+					<Field type='text' id='ingredients' placeholder={recipeToEdit.ingredients} >Ingredients</Field>
+					<Field type='text' id='diet' placeholder={dietTranslations[recipeToEdit.diet]} >Tipus de dieta</Field>
+					<Field type='text' id='complexity' placeholder={complexityTranslations[recipeToEdit.complexity]} >Nivell de complexitat</Field>
+					<Field type='text' id='method' placeholder={methodTranslations[recipeToEdit.method]} >Mètode d'elaboració</Field>
 
-				<Button type='submit' > Modificar </Button>
+					<Button className='button-recipe' type='submit' > Modificar </Button>
 
-			</Form>
-		</Container>}
+				</Form>
+			</Container>
+		</div>}
 
 	</div >
+}
 
+const NoResults = () => {
+	return <Container className="container-search-no-result">
+		<h1 className="recipe-title">No s'han trobat receptes</h1>
+		<p className="recipe-text">
+			Oooohhh, no hi ha receptes que conicidisquen amb els teus criteris de búsqueda!
+		</p>
+
+	</Container>
 }
 
 export default Recipes

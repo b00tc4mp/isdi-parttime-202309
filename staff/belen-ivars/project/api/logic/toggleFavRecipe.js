@@ -5,7 +5,7 @@ import { NotFoundError } from 'com/errors.js'
 
 export default async function toggleFavRecipe(userId, recipeId) {
 	validate.id(userId, 'user id')
-	validate.id(recipeId, 'user id')
+	validate.id(recipeId, 'recipe id')
 
 	let user
 

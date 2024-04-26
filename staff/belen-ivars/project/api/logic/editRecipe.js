@@ -69,15 +69,17 @@ export default async function editRecipe(userId, recipeId, title, description, i
 				const ingredientList = ingredients.split(', ')
 				for (let ingredient of ingredientList) {
 					const result = await checkIngredient(user.id, ingredient)
+
 					ingredientsOfThisRecipe.push(result._id)
 				}
 			} catch (error) {
-				throw new SystemError(error.message)
+				throw new SystemError(error.message, 'es trenca ací')
 			}
 
 			try {
 				console.log(recipe.id, 'hay recipe.id?')
 				recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { ingredients: ingredientsOfThisRecipe })
+				console.log(ingredientsOfThisRecipe)
 			} catch (error) {
 				throw new SystemError(error.message)
 			}

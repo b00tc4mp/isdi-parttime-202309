@@ -22,9 +22,9 @@ export default function ComplexityOptions(props) {
 
 	return (
 		<div>
-			Tria la complexitat de la recepta:
+			<h2 className="form-subtitle-text">Tria la complexitat de la recepta:</h2>Tria la complexitat de la recepta:
 			<div className="flex flex-col">
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="easy"
@@ -35,7 +35,7 @@ export default function ComplexityOptions(props) {
 					/>
 					Fàcil
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="regular"
@@ -46,7 +46,7 @@ export default function ComplexityOptions(props) {
 					/>
 					Regular
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="complex"

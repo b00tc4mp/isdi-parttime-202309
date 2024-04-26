@@ -126,9 +126,10 @@ export default function CompleteRecipe() {
 				<Button className='button-recipe' onClick={handleToggleFavClick}>{recipe.fav ? '❤️' : '🤍'}</Button>
 
 
-				{view === 'edit' && <Button onClick={() => setView(null)}>Cancel</Button>}
+				{view === 'edit' && <Button className='button-recipe' onClick={() => setView(null)}>Cancel</Button>}
 
 				{view === 'edit' && <Container className='new-form'>
+					<h2 className='form-title'>Modifica la teua recepta</h2>
 					<Form id='edit-form' onSubmit={handleSubmit}>
 						<Field type='text' id='title' placeholder={recipe.title}>Títol</Field>
 						<Field type='text' id='description' placeholder={recipe.description} >Descripció</Field>
@@ -136,8 +137,8 @@ export default function CompleteRecipe() {
 						<Field type='text' id='ingredients' >Ingredients</Field>
 						<Field type='text' id='diet' placeholder={dietTranslations[recipe.diet]} >Tipus de dieta</Field>
 						<Field type='text' id='complexity' placeholder={complexityTranslations[recipe.complexity]} >Nivell de complexitat</Field>
-						<Field type='text' id='method' placeholder={methodTranslations[recipe.method]} >Mètode de cocció</Field>
-						<Button type='submit' > Modificar </Button>
+						<Field type='text' id='method' placeholder={methodTranslations[recipe.method]} >Mètode d'elaboració</Field>
+						<Button className='button-recipe' type='submit' > Modificar </Button>
 
 					</Form>
 				</Container>}

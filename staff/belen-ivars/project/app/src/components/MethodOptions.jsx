@@ -40,9 +40,9 @@ export default function MethodOptions(props) {
 
 	return (
 		<div>
-			Tria el mètode d'elaboració:
+			<h2 className="form-subtitle-text"> Tria el mètode d'elaboració: </h2>
 			<div className="flex flex-col">
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="steamed"
@@ -53,7 +53,7 @@ export default function MethodOptions(props) {
 					/>
 					Al vapor
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="oven"
@@ -64,7 +64,7 @@ export default function MethodOptions(props) {
 					/>
 					Forn
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="microwave"
@@ -75,7 +75,7 @@ export default function MethodOptions(props) {
 					/>
 					Microones
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="grill"
@@ -86,7 +86,7 @@ export default function MethodOptions(props) {
 					/>
 					Planxa
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="fresh"
@@ -97,7 +97,7 @@ export default function MethodOptions(props) {
 					/>
 					Fresc
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="cooked"
@@ -109,6 +109,6 @@ export default function MethodOptions(props) {
 					Cuit
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 }

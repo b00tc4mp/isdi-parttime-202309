@@ -22,9 +22,9 @@ export default function DietOptions(props) {
 
 	return (
 		<div>
-			Selecciona una dieta:
 			<div className="flex flex-col">
-				<div>
+				<h2 className="form-subtitle-text">Selecciona una dieta: </h2>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="gluten"
@@ -35,7 +35,7 @@ export default function DietOptions(props) {
 					/>
 					Gluten Free
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="vegan"
@@ -46,7 +46,7 @@ export default function DietOptions(props) {
 					/>
 					Vegà
 				</div>
-				<div>
+				<div className="form-options-text">
 					<input
 						type="checkbox"
 						id="veggie"

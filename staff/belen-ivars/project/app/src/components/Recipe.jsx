@@ -89,7 +89,7 @@ function Recipe(props) {
 			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={handleDeleteClick}>🗑️</Button>}
 			{session.sessionUserId === props.recipe.author && view === null && <Button className='button-recipe' onClick={() => props.onEditClick(props.recipe)}>Edit</Button>}
 			<Button className='button-recipe' onClick={handleToggleFavClick}>{props.recipe.fav ? '❤️' : '🤍'}</Button>
-			<Button onClick={handleRecipeClick} >Mostra més</Button>
+			<Button className='button-recipe' onClick={handleRecipeClick} >Mostra més</Button>
 
 		</div>
 

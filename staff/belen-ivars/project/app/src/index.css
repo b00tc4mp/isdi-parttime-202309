@@ -49,6 +49,8 @@ font-family: 'Ubuntu', sans serif;
 
 .text-link-login-register {
   @apply decoration-[none];
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .form-title {
@@ -56,6 +58,14 @@ font-family: 'Ubuntu', sans serif;
 font-family: 'Ubuntu', sans serif;
 }
 
+.form-subtitle-text {
+  @apply font-normal text-xl text-center underline underline-offset-0 decoration-yellow-300;
+font-family: 'Montserrat', sans serif;
+}
+.form-options-text {
+  @apply font-light text-lg text-start;
+font-family: 'Montserrat', sans serif;
+}
 
 /* Estils dels botons */
 
@@ -64,7 +74,9 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .button-recipe {
-  @apply border-[1px] border-solid border-black p-[5px] bg-white rounded-[5px] font-bold cursor-[pointer];
+  @apply border-[.5px] border-solid border-green-900 p-[5px] rounded-[5px]  cursor-[pointer] bg-amber-50 hover:bg-yellow-400 font-normal ;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .button-header {
@@ -90,6 +102,10 @@ font-family: 'Ubuntu', sans serif;
   @apply border-[2px] border-solid border-black p-[5px]
 }
 
+.avatar {
+  @apply rounded-full hover:ring-4 hover:ring-green-700
+}
+
 /* .ingredient-item-list {
   @apply 
 } */
@@ -102,7 +118,7 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .link-profile-menu {
-  @apply relative decoration-[none] flex flex-col font-bold items-center text-black visited:text-black text-base 
+  @apply relative decoration-[none] flex flex-col font-bold items-center text-black visited:text-black text-base
   ;
   family-font:'Ubuntu', sans serif;
 }
@@ -114,16 +130,19 @@ font-family: 'Ubuntu', sans serif;
 /* Estils home*/
 
 .header {
-  @apply flex items-center justify-around;
-  align-items: flex-start;
+  @apply flex justify-around items-start;
 }
 
 .new-form {
-  @apply inline-block inset-0 p-[none] border-black border-[1px] bg-white z-10 h-screen top-2 ;
+  @apply inline-block inset-0 p-[none] border-black border-[1px] bg-white z-10 h-screen top-2 max-w-[320px];
+}
+
+.new-form-edit-slim {
+  @apply items-center inline-block inset-0 p-[none] border-black border-[1px] bg-white z-10 h-screen top-2 ;
 }
 
 .new-form-footer {
-  @apply p-[none] border-black border-[1px] bg-white;
+  @apply p-[none] border-black border-[1px] bg-white ;
 }
 
 .profile-menu {
@@ -136,7 +155,7 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .footer {
-  @apply bg-transparent flex flex-row justify-end fixed bottom-10 w-full min-h-[3rem] pr-32 pb-5 ;
+  @apply bg-transparent flex flex-row justify-end fixed bottom-10 min-h-[3rem] pr-32 pb-5 right-0;
 }
 
 /* Estils dels contenidors*/
@@ -146,7 +165,7 @@ font-family: 'Ubuntu', sans serif;
   }
 
 .container {
-  @apply flex flex-col items-center gap-[1rem] p-[1rem];
+  @apply flex flex-col items-center align-middle gap-[1rem] p-[1rem];
 }
 
 .container--horizontal {
@@ -154,7 +173,7 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .container-recipes {
-  @apply pb-20 pt-10 place-content-center
+  @apply pb-20 pt-10 place-content-center items-center
 }
 
 .container-info-recipe {
@@ -174,14 +193,14 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .container-search-no-result {
-  @apply  items-center align-middle content-center;
+  @apply  flex items-center align-middle content-center;
 }
 
 /* Estils dels blocs de receptes*/
 
 
 .recipe {
-  @apply self-stretch flex flex-col items-center m-[1rem] border-black rounded-3xl border-[.4px] p-[1rem] max-w-[400px] max-h-[600px] bg-emerald-50 shadow-black shadow-sm;
+  @apply self-stretch flex flex-col items-center m-[1rem] border-black rounded-3xl border-[.4px] p-[1rem] max-w-[400px] lg:w-[400px] md:w-[350px] sm:w-[400px] max-h-[600px] bg-emerald-50 shadow-black shadow-sm;
 }
 
 .recipe-complet {
@@ -197,7 +216,7 @@ font-family: 'Ubuntu', sans serif;
 }
 
 .recipes {
-  @apply flex flex-col sm:items-center md:items-center justify-center mb-[3rem] sm:grid md:grid md:grid-cols-2 lg:grid-cols-3; 
+  @apply flex flex-col sm:items-center mb-[3rem] sm:grid sm:grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3 justify-items-center; 
   
 }
 

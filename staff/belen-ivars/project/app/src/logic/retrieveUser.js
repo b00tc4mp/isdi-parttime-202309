@@ -16,7 +16,7 @@ export default async function retrieveUser() {
 		let res
 
 		try {
-			res = await fetch(`${API_URL}/users/${session.sessionUserId}`, req)
+			res = await fetch(`${API_URL}/users/${session.token}`, req)
 		} catch (error) {
 			throw new SystemError(error.message)
 		}

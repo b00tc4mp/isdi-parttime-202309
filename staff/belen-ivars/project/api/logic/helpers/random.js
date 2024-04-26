@@ -20,7 +20,7 @@ function text() {
 
 function ingredientName() {
 
-	const ingredientNames = ['harina', 'azúcar', 'sal', 'aceite', 'leche', 'huevos', 'mantequilla', 'levadura', 'chocolate', 'vainilla'];
+	const ingredientNames = ['harina', 'azúcar', 'sal', 'aceite', 'leche', 'huevos', 'mantequilla', 'levadura', 'chocolate', 'vainilla', 'berenjena', 'ajo', 'queso', 'pan'];
 
 	const randomIngredient = ingredientNames[Math.floor(Math.random() * ingredientNames.length)];
 
@@ -29,7 +29,7 @@ function ingredientName() {
 
 function ingredientObject() {
 
-	const ingredientNames = ['harina', 'azúcar', 'sal', 'aceite', 'leche', 'huevos', 'mantequilla', 'levadura', 'chocolate', 'vainilla'];
+	const ingredientNames = ['harina', 'azúcar', 'sal', 'aceite', 'leche', 'huevos', 'mantequilla', 'levadura', 'chocolate', 'vainilla', 'berenjena', 'ajo', 'queso', 'pan'];
 
 	const randomIngredientName = ingredientNames[Math.floor(Math.random() * ingredientNames.length)];
 

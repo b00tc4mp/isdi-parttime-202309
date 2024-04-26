@@ -65,8 +65,10 @@ function Home(props) {
 	function handleSearchPublish() {
 		setStamp(Date.now())
 		setIsSearching(true)
+		navigate('/')
 		window.scrollTo(0, 0)
 		setView(null)
+
 
 	}
 
@@ -110,7 +112,7 @@ function Home(props) {
 		<div className="container-recipes">
 
 			<Routes>
-				<Route path='/recipe/:recipeId' element={<CompleteRecipe />} />
+				<Route path='/recipe/:recipeId' element={<CompleteRecipe recipe={props.recipe} />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path='/favs' element={<Recipes setRecipe={handleRecipeClick} showRecipes={logic.retrieveFavRecipes} />} />
 				<Route path='/new-recipe' element={<NewRecipe />} />

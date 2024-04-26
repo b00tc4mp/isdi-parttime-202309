@@ -19,10 +19,12 @@ It's the kitchen basic wardrobe.
 - Add new recipes.
 - Filter recipes by ingredients.
 - Filter recipes by elaboration duration.
-- Filter recipes by feed type (glutenfree, vegetarian, vegan, omnivorous).
+- Filter recipes by feed type (glutenfree, vegetarian, vegan).
 - Filter by complexity level.
-- Filter by cooking type (steamed, oven, microwave, grill, fresh).
-- Evaluation of recipes using a score system.
+- Filter by cooking type (steamed, oven, microwave, grill, fresh, cooked).
+- Edit owner recipes.
+- Mark recipes as Favs.
+- Evaluation of recipes using a score system (v.2).
 
 ## Technical description
 
@@ -33,7 +35,7 @@ It's the kitchen basic wardrobe.
 * name (string)
 * email (string)
 * password (string)
-* avatar profile (image)
+* avatar profile (image) (v.2)
 * favs (ObjectId reference to Recipe)
 
 #### Ingredient
@@ -47,12 +49,12 @@ It's the kitchen basic wardrobe.
 * image (image)
 * ingredients (array of Ingredient.id)
 * elaborationDuration (number)
-* feedType (string, enum: glutenfree, vegetarian, vegan, omnivorous)
-* complexityLevel (string, enum: very easy, easy, medium, complex, very complex)
-* cookingType (string, enum: steamed, oven, microwave, grill, fresh)
+* feedType (string, enum: glutenfree, vegetarian, vegan)
+* complexityLevel (string, enum: easy, regular, complex)
+* cookingType (string, enum: steamed, oven, microwave, grill, fresh, cooked)
 * date (date)
 
-#### Review
+#### Review (v.2)
 * id (string)
 * user (User.id)
 * recipe (Recipe.id)
