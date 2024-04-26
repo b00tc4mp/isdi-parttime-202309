@@ -43,7 +43,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('títol bé')
 
 		if (description)
 			try {
@@ -51,7 +50,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('descripció')
 
 
 		if (image)
@@ -60,7 +58,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('image')
 
 
 		if (ingredients) {
@@ -77,13 +74,10 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			}
 
 			try {
-				console.log(recipe.id, 'hay recipe.id?')
 				recipeUpdated = await Recipe.findOneAndUpdate({ _id: recipe.id }, { ingredients: ingredientsOfThisRecipe })
-				console.log(ingredientsOfThisRecipe)
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-			console.log('ingredients')
 		}
 
 
@@ -93,7 +87,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('dieta')
 
 
 		if (complexity)
@@ -102,7 +95,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('complexitat')
 
 
 		if (method)
@@ -111,7 +103,6 @@ export default async function editRecipe(userId, recipeId, title, description, i
 			} catch (error) {
 				throw new SystemError(error.message)
 			}
-		console.log('mètode')
 
 
 

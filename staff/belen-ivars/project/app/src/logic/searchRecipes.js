@@ -28,7 +28,6 @@ export default async function searchRecipes(ingredients, diet, complexity, metho
 
 		let res
 		try {
-			console.log(query, 'query')
 			res = await fetch(`${API_URL}/recipes/search?${query}`, req)
 		} catch (error) {
 			throw new SystemError(error.message)

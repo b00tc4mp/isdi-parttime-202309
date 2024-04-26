@@ -33,7 +33,6 @@ async function getIngredientsList(recipeId) {
 
 		try {
 			const ingredientsList = await res.json()
-			console.log('estic en lògica front')
 			return ingredientsList
 		} catch (error) {
 			throw new SystemError(error.message)

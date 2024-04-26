@@ -15,7 +15,7 @@ In this application you can add and find different recipes, simple, and made up 
 It's the kitchen basic wardrobe.
 
 ### Use Cases
-- Display the recipes.
+- Display recipes.
 - Add new recipes.
 - Filter recipes by ingredients.
 - Filter recipes by elaboration duration.
@@ -48,11 +48,11 @@ It's the kitchen basic wardrobe.
 * description (string)
 * image (image)
 * ingredients (array of Ingredient.id)
-* elaborationDuration (number)
+* elaborationDuration (number) (v.2)
 * feedType (string, enum: glutenfree, vegetarian, vegan)
 * complexityLevel (string, enum: easy, regular, complex)
 * cookingType (string, enum: steamed, oven, microwave, grill, fresh, cooked)
-* date (date)
+* date (date) (v.2)
 
 #### Review (v.2)
 * id (string)

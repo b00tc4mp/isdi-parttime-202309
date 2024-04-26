@@ -26,12 +26,11 @@ describe('editRecipe', () => {
 		const description = random.text()
 		const image = random.image()
 
-		const ingredients = []
-		const ingredient1 = random.ingredientName()
-		const ingredient2 = random.ingredientName()
-		const ingredient3 = random.ingredientName()
-		ingredients.push(ingredient1, ingredient2, ingredient3)
-		console.log(ingredients)
+		const ingredients2 = []
+		const ingredient4 = random.ingredientName()
+		const ingredient5 = random.ingredientName()
+		const ingredient6 = random.ingredientName()
+		ingredients2.push(ingredient4, ingredient5, ingredient6)
 
 		const diet = random.diet()
 		const complexity = random.complexity()
@@ -39,26 +38,24 @@ describe('editRecipe', () => {
 
 		const author = user.id
 
-		let recipe = await Recipe.create({ author, title, description, image, ingredients, diet, complexity, method })
+		let recipe = await Recipe.create({ author, title, description, image, ingredients2, diet, complexity, method })
 
 		const title2 = random.name()
 		const description2 = random.text()
 		const image2 = random.image()
 
-		const ingredients2 = []
-		const ingredient4 = random.ingredientName()
-		const ingredient5 = random.ingredientName()
-		const ingredient6 = random.ingredientName()
-		ingredients2.push(ingredient4, ingredient5, ingredient6)
-		console.log(ingredients2)
+		const ingredient1 = random.ingredientName()
+		const ingredient2 = random.ingredientName()
+		const ingredient3 = random.ingredientName()
+		const ingredients = `${ingredient1}, ${ingredient2}, ${ingredient3}`
 
 		const diet2 = random.diet()
 		const complexity2 = random.complexity()
 		const method2 = random.method()
-		console.log(recipe.id)
+
 		let recipeEdited
 		try {
-			recipeEdited = await editRecipe(user.id, recipe.id, title2, description2, image2, ingredients2, diet2, complexity2, method2)
+			recipeEdited = await editRecipe(user.id, recipe.id, title2, description2, image2, ingredients, diet2, complexity2, method2)
 		} catch (error) {
 			expect(recipeEdited).to.be.exist
 			expect(recipeEdited.title).to.equal(title2)

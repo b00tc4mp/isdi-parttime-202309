@@ -36,7 +36,6 @@ function Recipe(props) {
 			await logic.toggleFavRecipe(props.recipe._id)
 			props.recipe.fav = !props.recipe.fav
 			props.onSuccess()
-			console.log('fav done')
 
 		} catch (error) {
 			context.handleError(error)

@@ -9,7 +9,6 @@ const retrieveFavRecipesHandler = async (req, res) => {
 
 	const payload = jwt.verify(token, process.env.JWT_SECRET)
 	const { sub: userId } = payload
-	console.log(userId)
 
 	try {
 		validate.id(userId, 'id')

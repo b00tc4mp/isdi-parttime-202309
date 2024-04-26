@@ -48,7 +48,7 @@ export default function NewSearch(props) {
 	function handleSubmit(event) {
 		event.preventDefault()
 
-		const ingredients = event.target.querySelector('#search-elements').value
+		const ingredients = event.target.querySelector('#search-elements').value.toLowerCase()
 		if (ingredients.length > 0) {
 			const formatedIngredients = ingredients.split(', ').join('-')
 			props.setIngredients(formatedIngredients)
