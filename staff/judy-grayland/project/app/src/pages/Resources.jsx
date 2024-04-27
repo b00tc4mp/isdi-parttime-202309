@@ -3,7 +3,23 @@ import { useState } from 'react'
 function handleSubmit(event) {
   event.preventDefault()
 
-  console.log('resource created')
+  const formData = new FormData(event.currentTarget)
+  const data = {}
+
+  // FormData is a class. it's a complex object that cannot be iterated over. however it provides the entries method that returns an array of key-value pairs that can be iterated over: an array of arrays. we destructure each entry into key and value that gives us access to those values which we then store in the data object on each loop.
+
+  // we access the key using square brackets because it's a variable that contains the name of the form field. the field name is dynamic so we use square brackets to access it dynamically.
+
+  // form values are (casi) always strings. we loop through the data object and every time we find a key value pair where the key is topic, we add it to the existing value.
+  for (let [key, val] of formData.entries()) {
+    if (key === 'topic' && data.topic) {
+      data.topic += `,${val}`
+    } else {
+      data[key] = val
+    }
+  }
+
+  console.log('data', data)
 }
 
 function Resources() {
@@ -21,6 +37,7 @@ function Resources() {
             name="resourceType"
             type="radio"
             inputId="activity-radio"
+            value="activity"
             // resourceType is a variable. Checked is an attribute on an HTML tag that accepts true or false. If it coincides with the string "activity", it evaluates to true and that makes it checked.
             checked={resourceType === 'activity'}
             onChange={() => setResourceType('activity')}
@@ -31,6 +48,7 @@ function Resources() {
             name="resourceType"
             type="radio"
             inputId="book-radio"
+            value="book"
             checked={resourceType === 'book'}
             onChange={() => setResourceType('book')}
           >
@@ -40,6 +58,7 @@ function Resources() {
             name="resourceType"
             type="radio"
             inputId="special-date-radio"
+            value="special-date"
             checked={resourceType === 'special-date'}
             onChange={() => setResourceType('special-date')}
           >
@@ -65,42 +84,54 @@ function Resources() {
             <fieldset>
               <legend>Selecciona los temas relacionados a la actividad</legend>
               <Field
-                name="cultural-diversity"
+                name="topic"
+                value="cultural-diversity"
                 type="checkbox"
                 inputId="cultural-diversity-check"
               >
                 Diversidad cultural
               </Field>
-              <Field name="topic-tag" type="checkbox" inputId="bullying-check">
+              <Field
+                name="topic"
+                value="bullying"
+                type="checkbox"
+                inputId="bullying-check"
+              >
                 Bullying
               </Field>
               <Field
-                name="functional-diversity"
+                name="topic"
+                value="functional-diversity"
                 type="checkbox"
                 inputId="functional-diversity-check"
               >
                 Diversidad funcional
               </Field>
-              <Field name="lgbt+" type="checkbox" inputId="lgbt+-check">
+              <Field
+                name="topic"
+                value="lgbt+"
+                type="checkbox"
+                inputId="lgbt+-check"
+              >
                 LGTB+
               </Field>
               <Field
-                name="gender-equality"
+                name="topic"
+                value="gender-equality"
                 type="checkbox"
                 inputId="gender-equality-check"
               >
                 Igualdad de género
               </Field>
               <Field
-                name="childrens-rights"
+                name="topic"
+                value="childrens-rights"
                 type="checkbox"
                 inputId="childrens-rights-check"
               >
                 Derechos de la infancia
               </Field>
             </fieldset>
-
-            <Button>Añadir</Button>
           </>
         )}
         {resourceType === 'book' && (
@@ -120,7 +151,57 @@ function Resources() {
             <Field name="link" inputId="link-input">
               Enlace
             </Field>
-            <Button type="submit">Añadir</Button>
+            <fieldset>
+              <legend>Selecciona los temas relacionados a la actividad</legend>
+              <Field
+                name="topic"
+                value="cultural-diversity"
+                type="checkbox"
+                inputId="cultural-diversity-check"
+              >
+                Diversidad cultural
+              </Field>
+              <Field
+                name="topic"
+                value="bullying"
+                type="checkbox"
+                inputId="bullying-check"
+              >
+                Bullying
+              </Field>
+              <Field
+                name="topic"
+                value="functional-diversity"
+                type="checkbox"
+                inputId="functional-diversity-check"
+              >
+                Diversidad funcional
+              </Field>
+              <Field
+                name="topic"
+                value="lgbt+"
+                type="checkbox"
+                inputId="lgbt+-check"
+              >
+                LGTB+
+              </Field>
+              <Field
+                name="topic"
+                value="gender-equality"
+                type="checkbox"
+                inputId="gender-equality-check"
+              >
+                Igualdad de género
+              </Field>
+              <Field
+                name="topic"
+                value="childrens-rights"
+                type="checkbox"
+                inputId="childrens-rights-check"
+              >
+                Derechos de la infancia
+              </Field>
+            </fieldset>
           </>
         )}
         {resourceType === 'special-date' && (
@@ -140,9 +221,60 @@ function Resources() {
             <Field name="link" inputId="link-input">
               Enlace
             </Field>
-            <Button type="submit">Añadir</Button>
+            <fieldset>
+              <legend>Selecciona los temas relacionados a la actividad</legend>
+              <Field
+                name="topic"
+                value="cultural-diversity"
+                type="checkbox"
+                inputId="cultural-diversity-check"
+              >
+                Diversidad cultural
+              </Field>
+              <Field
+                name="topic"
+                value="bullying"
+                type="checkbox"
+                inputId="bullying-check"
+              >
+                Bullying
+              </Field>
+              <Field
+                name="topic"
+                value="functional-diversity"
+                type="checkbox"
+                inputId="functional-diversity-check"
+              >
+                Diversidad funcional
+              </Field>
+              <Field
+                name="topic"
+                value="lgbt+"
+                type="checkbox"
+                inputId="lgbt+-check"
+              >
+                LGTB+
+              </Field>
+              <Field
+                name="topic"
+                value="gender-equality"
+                type="checkbox"
+                inputId="gender-equality-check"
+              >
+                Igualdad de género
+              </Field>
+              <Field
+                name="topic"
+                value="childrens-rights"
+                type="checkbox"
+                inputId="childrens-rights-check"
+              >
+                Derechos de la infancia
+              </Field>
+            </fieldset>
           </>
         )}
+        <Button type="submit">Crear</Button>
       </Form>
     </>
   )

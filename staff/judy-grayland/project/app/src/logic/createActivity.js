@@ -15,7 +15,7 @@ function createActivity(title, description, image, link) {
     body: JSON.stringify({ title, description, image, link }),
   }
 
-  return fetch(`$ {import.meta.env.VITE_API_URL}/resources`, req)
+  return fetch(`${import.meta.env.VITE_API_URL}/resources`, req)
     .catch((error) => {
       throw new SystemError(error.message)
     })

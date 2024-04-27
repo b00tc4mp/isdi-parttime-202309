@@ -6,6 +6,7 @@ function Field(props) {
           name={props.name}
           type="radio"
           id={props.inputId}
+          value={props.value}
           checked={props.checked}
           onChange={props.onChange}
         ></input>
@@ -20,6 +21,7 @@ function Field(props) {
           name={props.name}
           type="checkbox"
           id={props.inputId}
+          value={props.value}
           checked={props.checked}
           onChange={props.onChange}
         ></input>
