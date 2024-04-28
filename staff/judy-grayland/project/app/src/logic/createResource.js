@@ -11,8 +11,8 @@ function createResource({
   author,
   ageRange,
 }) {
-  validate.title(title, 'title')
-  validate.description(description, 'description')
+  validate.text(title, 'title')
+  validate.text(description, 'description')
   validate.resourceType(resourceType, 'resourceType')
   validate.tagArray(topic, 'topic array')
 
@@ -23,7 +23,7 @@ function createResource({
   if (resourceType === 'book') {
     validate.text(author, 'author')
     validate.text(image, 'image')
-    validate.ageRange(ageRange, 'ageRange')
+    // validate.ageRange(ageRange, 'ageRange')
   }
   if (resourceType === 'specialDate') {
     validate.text(link, 'link')
@@ -32,7 +32,7 @@ function createResource({
   // prepare the request (body)
   const req = {
     method: 'POST',
-    header: {
+    headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -60,6 +60,7 @@ function createResource({
             throw new SystemError(error.message)
           })
           .then((body) => {
+            console.log('error from server', body.error)
             throw new errors[body.error](body.message)
           })
       }

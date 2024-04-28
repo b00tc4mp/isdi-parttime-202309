@@ -2,6 +2,8 @@ import { validate, errors } from '../../../shared'
 import { SystemError } from '../../../shared/errors'
 
 function registerUser(name, email, password) {
+  console.log('Received parameters:', { name, email, password })
+
   validate.text(name, 'name')
   validate.email(email, 'email')
   validate.password(password, 'password')

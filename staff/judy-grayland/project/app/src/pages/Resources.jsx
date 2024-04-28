@@ -1,29 +1,48 @@
 import { Form, Field, Button } from '../components'
 import { useState } from 'react'
-function handleSubmit(event) {
-  event.preventDefault()
-
-  const formData = new FormData(event.currentTarget)
-  const data = {}
-
-  // FormData is a class. it's a complex object that cannot be iterated over. however it provides the entries method that returns an array of key-value pairs that can be iterated over: an array of arrays. we destructure each entry into key and value that gives us access to those values which we then store in the data object on each loop.
-
-  // we access the key using square brackets because it's a variable that contains the name of the form field. the field name is dynamic so we use square brackets to access it dynamically.
-
-  // form values are (casi) always strings. we loop through the data object and every time we find a key value pair where the key is topic, we add it to the existing value.
-  for (let [key, val] of formData.entries()) {
-    if (key === 'topic' && data.topic) {
-      data.topic += `,${val}`
-    } else {
-      data[key] = val
-    }
-  }
-
-  console.log('data', data)
-}
+import logic from '../logic'
 
 function Resources() {
   const [resourceType, setResourceType] = useState('activity')
+
+  function handleCreateResourceSuccess() {
+    console.log('resource created successfully')
+  }
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const data = {}
+
+    // FormData is a class. it's a complex object that cannot be iterated over. however it provides the entries method that returns an array of key-value pairs that can be iterated over: an array of arrays. we destructure each entry into key and value that gives us access to those values which we then store in the data object on each loop.
+
+    // we access the key using square brackets because it's a variable that contains the name of the form field. the field name is dynamic so we use square brackets to access it dynamically.
+
+    // form values are (casi) always strings. we need to store the topics as a an array of strings because that's how we've stored it in our backend: tagArray. So we loop through the data object and every time we find a key value pair in which the key is topic, we push it to the existing value. if we don't do this, if we have more than one topic it will overwrite the previous one instead of accumulating them.
+
+    for (let [key, val] of formData.entries()) {
+      if (key === 'topic' && !data.topic) {
+        data.topic = [val]
+      } else if (key === 'topic' && data.topic) {
+        data.topic.push(val)
+      } else {
+        data[key] = val
+      }
+    }
+
+    try {
+      logic
+        .createResource(data)
+        .then(() => {
+          handleCreateResourceSuccess()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>

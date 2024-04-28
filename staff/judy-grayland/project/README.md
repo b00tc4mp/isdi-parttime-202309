@@ -27,6 +27,8 @@ The idea behind this app is to bring all available resources together in one pla
 
 - Propose new resource (all users)
 - Propose modification of an existing resource (all users)
+- Set age ratings for books
+- Toaster that tells you resource has been created
 
 ## Technical Description
 
@@ -54,7 +56,7 @@ The idea behind this app is to bring all available resources together in one pla
 - link (string)
 - image (string)
 - author (string)
-- ageRange ([number, number])
+- ageRange ([number, number]) <= NICE TO HAVE
 
 // Specific Resources
 

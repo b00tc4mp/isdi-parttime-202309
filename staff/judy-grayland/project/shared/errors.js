@@ -22,6 +22,13 @@ class ContentError extends Error {
   }
 }
 
+class TypeError extends Error {
+  constructor(message) {
+    super(message)
+
+    this.name = this.constructor.name
+  }
+}
 class DuplicityError extends Error {
   constructor(message) {
     super(message)
@@ -58,6 +65,7 @@ export {
   NotFoundError,
   SystemError,
   ContentError,
+  TypeError,
   RangeError,
   DuplicityError,
   CredentialsError,
@@ -68,6 +76,7 @@ const errors = {
   NotFoundError,
   SystemError,
   ContentError,
+  TypeError,
   RangeError,
   DuplicityError,
   CredentialsError,

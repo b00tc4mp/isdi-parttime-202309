@@ -6,7 +6,8 @@ const EMAIL_REGEX =
 const ID_REGEX = /^[0-9A-Fa-f]{24}$/
 
 function text(text, explain) {
-  if (typeof text !== 'string') throw new TypeError(explain + ' is not string')
+  if (typeof text !== 'string')
+    throw new TypeError(explain + ' is not a string')
   if (!text.trim().length) throw new ContentError(explain + ' is empty')
 }
 
@@ -50,9 +51,11 @@ function resourceType(resourceType, explain) {
 }
 
 function tagArray(tags) {
+  //we check that it's actually an array
   if (!Array.isArray(tags)) {
-    throw new TypeError('Tags must be an array')
+    throw new TypeError(`${tags} must be an array`)
   }
+  // we check that each element in the array is a string
   if (tags.some((tag) => typeof tag !== 'string')) {
     throw new TypeError('The tags array must only contain strings')
   }

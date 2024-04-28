@@ -49,7 +49,9 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="topic" element={<Topic />} />
-        <Route path="resources" element={<Resources />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="resources/new" element={<Resources />} />
+        </Route>
       </Routes>
     </>
   )

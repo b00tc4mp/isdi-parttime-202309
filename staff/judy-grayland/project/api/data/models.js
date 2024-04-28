@@ -46,7 +46,7 @@ const resource = new Schema({
   resourceType: {
     type: String,
   },
-  tag: [
+  topic: [
     {
       type: String,
     },

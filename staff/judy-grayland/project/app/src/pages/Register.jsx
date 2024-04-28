@@ -6,7 +6,7 @@ import { Button, Form, Field } from '../components'
 //   console.log('mooo')
 // }
 
-function Register(props) {
+function Register() {
   const navigate = useNavigate()
 
   function handleRegisterSuccess() {
