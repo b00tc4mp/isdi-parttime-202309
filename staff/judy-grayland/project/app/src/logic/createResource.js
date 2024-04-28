@@ -17,8 +17,8 @@ function createResource({
   validate.tagArray(topic, 'topic array')
 
   if (resourceType === 'activity') {
-    validate.text(link, 'link')
     validate.text(image, 'image')
+    validate.text(link, 'link')
   }
   if (resourceType === 'book') {
     validate.text(author, 'author')

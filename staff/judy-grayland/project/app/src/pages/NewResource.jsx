@@ -2,7 +2,7 @@ import { Form, Field, Button } from '../components'
 import { useState } from 'react'
 import logic from '../logic'
 
-function Resources() {
+function NewResource() {
   const [resourceType, setResourceType] = useState('activity')
 
   function handleCreateResourceSuccess() {
@@ -299,4 +299,4 @@ function Resources() {
   )
 }
 
-export default Resources
+export default NewResource

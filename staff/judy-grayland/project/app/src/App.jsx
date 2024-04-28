@@ -8,9 +8,8 @@ import logic from './logic'
 // pages
 import Profile from './pages/Profile'
 import Home from './pages/Home'
-import Resources from './pages/Resources'
+import NewResource from './pages/NewResource'
 import Login from './pages/Login'
-import Topic from './pages/Topic'
 import Register from './pages/Register'
 import { useNavigate } from 'react-router-dom'
 
@@ -48,9 +47,8 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="topic" element={<Topic />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="resources/new" element={<Resources />} />
+          <Route path="resources/new" element={<NewResource />} />
         </Route>
       </Routes>
     </>
