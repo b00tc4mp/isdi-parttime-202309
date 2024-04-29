@@ -39,7 +39,7 @@ describe('createResource', () => {
       return Resource.findOne({ title: title }).then((resource) => {
         expect(resource.description).to.equal(description)
         expect(resource.resourceType).to.equal(resourceType)
-        // In Mongoose, when you retrieve an array field from a document, it returns a JS array object, not a plain array. This means that direct comparison using expect(resource.tag).to.equal(tag) may fail because they are two different array objects, even though they contain the same elements. To fix this, you can use Chai's deep equality assertion deep.equal() instead of equal() to compare arrays, because it looks manually through each element and compares them:
+        // In Mongoose, when you retrieve an array field from a document, it returns a JS array object, not a plain array. This means that direct comparison using expect(resource.topic).to.equal(topic) may fail because they are two different array objects, even though they contain the same elements. To fix this, you can use Chai's deep equality assertion deep.equal() instead of equal() to compare arrays, because it looks manually through each element and compares them:
         expect(resource.topic).to.deep.equal(topic)
         expect(resource.link).to.equal(link)
         expect(resource.image).to.equal(image)
@@ -84,7 +84,7 @@ describe('createResource', () => {
   })
 
   // UNHAPPY path - activity on missing required field for all resources
-  it('fails on missing resourceType', () => {
+  it('fails on missing resourceType', async () => {
     const title = random.title()
     const description = random.description()
     const resourceType = ''
@@ -94,7 +94,32 @@ describe('createResource', () => {
     const author = ''
     const ageRange = ''
 
-    return createResource({
+    await expect(() => {
+      createResource({
+        title,
+        description,
+        resourceType,
+        topic,
+        link,
+        image,
+        author,
+        ageRange,
+      }).to.throw(ContentError, 'resourceType is empty')
+    })
+  })
+
+  // UNHAPPY path - book on already existing resources
+  it('fails on already existing resource', () => {
+    const title = random.title()
+    const description = random.description()
+    const resourceType = 'activity'
+    const topic = ['igualdad de genero']
+    const link = random.link()
+    const image = random.image()
+    const author = ''
+    const ageRange = ''
+
+    return Resource.create({
       title,
       description,
       resourceType,
@@ -103,54 +128,24 @@ describe('createResource', () => {
       image,
       author,
       ageRange,
+    }).then((resource) => {
+      return createResource({
+        title,
+        description,
+        resourceType,
+        topic,
+        link,
+        image,
+        author,
+        ageRange,
+      })
+        .then(() => {
+          throw new Error('should not reach this point')
+        })
+        .catch((error) => {
+          expect(error).to.be.instanceOf(DuplicityError)
+          expect(error.message).to.equal('resource already exists')
+        })
     })
-      .then((value) => {
-        throw new Error('should not reach this point')
-      })
-      .catch((error) => {
-        expect(error).to.be.instanceOf(ContentError)
-        expect(error.message).to.equal('resourceType is empty')
-      })
-  })
-})
-
-// UNHAPPY path - book on already existing resources
-it('fails on already existing resource', () => {
-  const title = random.title()
-  const description = random.description()
-  const resourceType = ''
-  const topic = ['igualdad de genero']
-  const link = random.link()
-  const image = random.image()
-  const author = ''
-  const ageRange = ''
-
-  return Resource.create({
-    title,
-    description,
-    resourceType,
-    topic,
-    link,
-    image,
-    author,
-    ageRange,
-  }).then((resource) => {
-    return createResource(
-      title,
-      description,
-      resourceType,
-      topic,
-      link,
-      image,
-      author,
-      ageRange
-    )
-      .then(() => {
-        throw new Error('should not reach this point')
-      })
-      .catch((error) => {
-        expect(error).to.be.instanceOf(DuplicityError)
-        expect(error.message).to.equal('resource already exists')
-      })
   })
 })
