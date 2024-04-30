@@ -12,7 +12,7 @@ dotenv.config()
 
 describe('createResource', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL_TEST))
-  beforeEach(() => Resource.deleteMany())
+  // beforeEach(() => Resource.deleteMany())
 
   // HAPPY path - book
   it('succeeds on new book being correctly created', () => {
@@ -88,7 +88,7 @@ describe('createResource', () => {
     const title = random.title()
     const description = random.description()
     const resourceType = ''
-    const topic = ['igualdad de genero']
+    const topic = ['bullying']
     const link = random.link()
     const image = random.image()
     const author = ''
@@ -113,7 +113,7 @@ describe('createResource', () => {
     const title = random.title()
     const description = random.description()
     const resourceType = 'activity'
-    const topic = ['igualdad de genero']
+    const topic = ['diversidad cultural', 'diversidad funcional']
     const link = random.link()
     const image = random.image()
     const author = ''

@@ -1,11 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import { Form, Field, Button } from '../components'
 import { useState } from 'react'
 import logic from '../logic'
 
 function NewResource() {
   const [resourceType, setResourceType] = useState('activity')
+  const navigate = useNavigate()
 
   function handleCreateResourceSuccess() {
+    navigate('/resources')
     console.log('resource created successfully')
   }
   function handleSubmit(event) {
@@ -46,8 +49,7 @@ function NewResource() {
 
   return (
     <>
-      <h2>Recursos</h2>
-      <h3>Añade un recurso</h3>
+      <h3>Crea un recurso</h3>
       <Form onSubmit={handleSubmit}>
         {/* fieldset is an element used to group together part of a form. legend is used for the caption,ie.title */}
         <fieldset>

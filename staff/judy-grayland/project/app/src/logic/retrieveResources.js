@@ -1,20 +1,12 @@
-import { validate, errors } from '../../../shared'
+import { errors } from '../../../shared'
 import { SystemError } from '../../../shared/errors'
 
-function registerUser(name, email, password) {
-  validate.text(name, 'name')
-  validate.email(email, 'email')
-  validate.password(password, 'password')
-
+function retrieveResources() {
   const req = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, password }),
+    method: 'GET',
   }
 
-  return fetch(`${import.meta.env.VITE_API_URL}/users`, req)
+  return fetch(`${import.meta.env.VITE_API_URL}/resources`, req)
     .catch((error) => {
       throw new SystemError(error.message)
     })
@@ -29,7 +21,9 @@ function registerUser(name, email, password) {
             throw new errors[body.error](body.message)
           })
       }
+
+      return res.json()
     })
 }
 
-export default registerUser
+export default retrieveResources

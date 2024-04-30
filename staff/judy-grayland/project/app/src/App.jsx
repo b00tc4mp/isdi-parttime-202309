@@ -9,6 +9,7 @@ import logic from './logic'
 import Profile from './pages/Profile'
 import Home from './pages/Home'
 import NewResource from './pages/NewResource'
+import ResourcesList from './pages/ResourcesList'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { useNavigate } from 'react-router-dom'
@@ -37,6 +38,7 @@ function App() {
         <nav>
           <NavLink to="profile">Profile</NavLink>
           <NavLink to="/">Home</NavLink>
+          <NavLink to="resources">Resources</NavLink>
           <Button onClick={handleLogout}>Log out</Button>
         </nav>
       </header>
@@ -44,6 +46,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="resources" element={<ResourcesList />} />
         <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<Profile />} />
         </Route>
