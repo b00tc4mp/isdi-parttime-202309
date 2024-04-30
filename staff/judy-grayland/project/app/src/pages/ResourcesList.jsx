@@ -13,6 +13,8 @@ function ResourcesList() {
     <>
       <h2>Resources</h2>
       <Resource></Resource>
+      <Resource></Resource>
+      <Resource></Resource>
       <Button onClick={handleNewResourceClick}>Crear nuevo recurso</Button>
     </>
   )
