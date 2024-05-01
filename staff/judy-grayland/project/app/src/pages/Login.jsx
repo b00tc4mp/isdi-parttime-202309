@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 function Login(props) {
   const navigate = useNavigate()
   function authenticateUserSuccess() {
-    console.log('user logged in successfuly')
+    console.log('user logged in successfully')
     navigate('/')
   }
 

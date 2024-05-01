@@ -169,9 +169,6 @@ function NewResource() {
             <Field name="image" inputId="image-input">
               Imagen
             </Field>
-            <Field name="link" inputId="link-input">
-              Enlace
-            </Field>
             <fieldset>
               <legend>Selecciona los temas relacionados a la actividad</legend>
               <Field
@@ -295,6 +292,7 @@ function NewResource() {
             </fieldset>
           </>
         )}
+        <Button>Cancelar</Button>
         <Button type="submit">Crear</Button>
       </Form>
     </>

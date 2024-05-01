@@ -34,10 +34,33 @@ function ResourcesList() {
 
   return (
     <>
-      <h2>Resources</h2>
+      <h2>Recursos</h2>
       <p>{resources.length}</p>
-      <ResourceActivity></ResourceActivity>
-      <ResourceBook></ResourceBook>
+      {resources.map((resource) => {
+        if (resource.resourceType === 'book') {
+          return (
+            <ResourceBook
+              key={resource._id}
+              title={resource.title}
+              description={resource.description}
+              image={resource.image}
+              author={resource.author}
+              topic={resource.topic}
+            />
+          )
+        }
+
+        return (
+          <ResourceActivity
+            key={resource._id}
+            title={resource.title}
+            description={resource.description}
+            image={resource.image}
+            link={resource.link}
+            topic={resource.topic}
+          />
+        )
+      })}
 
       <Button onClick={handleNewResourceClick}>Crear nuevo recurso</Button>
     </>

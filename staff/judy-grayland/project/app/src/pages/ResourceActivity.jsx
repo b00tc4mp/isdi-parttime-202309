@@ -1,22 +1,19 @@
 import { Button } from '../components'
 
-function ResourceActivity() {
+function ResourceActivity(props) {
   return (
     <article className="resource-activity">
-      <span>Actividad</span>
-      <h2>Taller</h2>
+      {/* We hardcode the type of resource because we already know what it is because this component is only rendered for this type of resource. If we write props.resourceType we get it from the database and it's in English */}
 
-      <img src="https://www.dgenes.es/wp-content/uploads/Colegio-Concepcion-CT-federito-2.jpeg"></img>
-      <p>
-        Aromatic eu, cortado, to go sit coffee foam galão, cup caramelization
-        iced spoon barista qui lungo. Roast cortado, to go whipped blue mountain
-        rich aged, affogato froth, galão mazagran shop robust iced organic galão
-        plunger pot bar mazagran brewed.
-      </p>
-      <a>www.linkylink.com</a>
-      <p>Bullying, gender equality</p>
-      <Button>Edit</Button>
-      <Button>Delete</Button>
+      <span>Actividad</span>
+      <h2>{props.title}</h2>
+
+      <img src={props.image}></img>
+      <p>{props.description} </p>
+      <a>{props.link}</a>
+      <p>{props.topic}</p>
+      <Button>Editar</Button>
+      <Button>Eliminar</Button>
     </article>
   )
 }
