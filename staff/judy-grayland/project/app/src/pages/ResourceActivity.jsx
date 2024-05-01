@@ -1,10 +1,12 @@
-function Resource() {
-  return (
-    <article className="resource">
-      <p>Actividad</p>
-      <h2>Nombre recurso</h2>
+import { Button } from '../components'
 
-      <img src="https://www.farmersalmanac.com/wp-content/uploads/2020/11/rainbow-AdobeStock_2206323-1137x630.jpeg"></img>
+function ResourceActivity() {
+  return (
+    <article className="resource-activity">
+      <span>Actividad</span>
+      <h2>Taller</h2>
+
+      <img src="https://www.dgenes.es/wp-content/uploads/Colegio-Concepcion-CT-federito-2.jpeg"></img>
       <p>
         Aromatic eu, cortado, to go sit coffee foam galão, cup caramelization
         iced spoon barista qui lungo. Roast cortado, to go whipped blue mountain
@@ -13,8 +15,10 @@ function Resource() {
       </p>
       <a>www.linkylink.com</a>
       <p>Bullying, gender equality</p>
+      <Button>Edit</Button>
+      <Button>Delete</Button>
     </article>
   )
 }
 
-export default Resource
+export default ResourceActivity

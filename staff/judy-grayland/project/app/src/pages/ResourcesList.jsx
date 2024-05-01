@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import { Button } from '../components'
-import Resource from './ResourceActivity'
+import { ResourceActivity, ResourceBook } from '.'
 
 import logic from '../logic'
 
@@ -36,9 +36,9 @@ function ResourcesList() {
     <>
       <h2>Resources</h2>
       <p>{resources.length}</p>
-      <Resource></Resource>
-      <Resource></Resource>
-      <Resource></Resource>
+      <ResourceActivity></ResourceActivity>
+      <ResourceBook></ResourceBook>
+
       <Button onClick={handleNewResourceClick}>Crear nuevo recurso</Button>
     </>
   )
