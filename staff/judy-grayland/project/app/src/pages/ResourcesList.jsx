@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import { Button } from '../components'
-import { ResourceActivity, ResourceBook } from '.'
+import { ResourceActivity, ResourceBook, ResourceDate } from '.'
 
 import logic from '../logic'
 
@@ -45,6 +45,17 @@ function ResourcesList() {
               description={resource.description}
               image={resource.image}
               author={resource.author}
+              topic={resource.topic}
+            />
+          )
+        }
+        if (resource.resourceType === 'date') {
+          return (
+            <ResourceDate
+              key={resource._id}
+              title={resource.title}
+              description={resource.description}
+              link={resource.link}
               topic={resource.topic}
             />
           )

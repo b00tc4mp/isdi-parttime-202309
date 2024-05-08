@@ -116,26 +116,21 @@ const book = new Schema({
   ],
 })
 
-const specialDate = new Schema({
-  date: {
-    type: Date,
+const date = new Schema({
+  title: {
+    type: String,
     required: true,
   },
-  title: {
+  description: {
     type: String,
     required: true,
   },
   link: {
     type: String,
   },
-  image: {
-    type: String,
-  },
-
   tag: [
     {
       type: ObjectId,
-      ref: 'Theme',
     },
   ],
 })
@@ -144,7 +139,7 @@ const User = model('User', user)
 const Resource = model('Resource', resource)
 const Activity = model('Activity', activity)
 const Book = model('Book', book)
-const SpecialDate = model('SpecialDate', specialDate)
+const Date = model('Date', date)
 
 /*
 eg. const colegio123 = new User({ name: 'Colegio 123' })
@@ -154,4 +149,4 @@ eg. const book = new Category({ name: 'Libro' })
 
 */
 
-export { User, Resource, Activity, Book, SpecialDate }
+export { User, Resource, Activity, Book, Date }

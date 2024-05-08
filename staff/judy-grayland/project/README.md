@@ -85,7 +85,7 @@ The idea behind this app is to bring all available resources together in one pla
 - title (string)
 - description (string)
 - tags ([Tag.id])
-- date (date)
+- date (date) <= NICE TO HAVE
 - link (string)
 
 #### Tag -topic- (xenofobia, bullying, dislexia)

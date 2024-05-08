@@ -2,7 +2,7 @@ import { Button } from '../components'
 
 function ResourceBook(props) {
   return (
-    <article className="resource">
+    <article className="resource-book">
       <span>Libro</span>
       <h2>{props.title}</h2>
 

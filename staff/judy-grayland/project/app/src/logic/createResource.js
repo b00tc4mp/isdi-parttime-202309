@@ -25,7 +25,7 @@ function createResource({
     validate.text(image, 'image')
     // validate.ageRange(ageRange, 'ageRange')
   }
-  if (resourceType === 'specialDate') {
+  if (resourceType === 'date') {
     validate.text(link, 'link')
   }
 

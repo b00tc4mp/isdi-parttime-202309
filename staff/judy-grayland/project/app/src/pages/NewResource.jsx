@@ -78,10 +78,10 @@ function NewResource() {
           <Field
             name="resourceType"
             type="radio"
-            inputId="special-date-radio"
-            value="special-date"
-            checked={resourceType === 'special-date'}
-            onChange={() => setResourceType('special-date')}
+            inputId="date-radio"
+            value="date"
+            checked={resourceType === 'date'}
+            onChange={() => setResourceType('date')}
           >
             Fecha especial
           </Field>
@@ -222,19 +222,13 @@ function NewResource() {
             </fieldset>
           </>
         )}
-        {resourceType === 'special-date' && (
+        {resourceType === 'date' && (
           <>
             <Field name="title" inputId="title-input">
               Título
             </Field>
-            <Field name="date" inputId="date-input">
-              Autor
-            </Field>
             <Field name="description" inputId="description-input">
               Descripción
-            </Field>
-            <Field name="image" inputId="image-input">
-              Imagen
             </Field>
             <Field name="link" inputId="link-input">
               Enlace

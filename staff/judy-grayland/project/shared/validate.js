@@ -45,7 +45,7 @@ function resourceType(resourceType, explain) {
   if (
     resourceType !== 'book' &&
     resourceType !== 'activity' &&
-    resourceType !== 'specialDate'
+    resourceType !== 'date'
   )
     throw new TypeError(`${resourceType} is not a valid resource type`)
 }

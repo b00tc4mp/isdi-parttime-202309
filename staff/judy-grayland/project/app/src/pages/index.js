@@ -4,6 +4,7 @@ import Profile from './Profile'
 import Register from './Register'
 import ResourceActivity from './ResourceActivity'
 import ResourceBook from './ResourceBook'
+import ResourceDate from './ResourceDate'
 import ResourcesList from './ResourcesList'
 
 export {
@@ -13,5 +14,6 @@ export {
   Register,
   ResourceActivity,
   ResourceBook,
+  ResourceDate,
   ResourcesList,
 }
