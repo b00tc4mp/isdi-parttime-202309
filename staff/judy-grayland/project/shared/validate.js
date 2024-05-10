@@ -8,7 +8,10 @@ const ID_REGEX = /^[0-9A-Fa-f]{24}$/
 function text(text, explain) {
   if (typeof text !== 'string')
     throw new TypeError(explain + ' is not a string')
-  if (!text.trim().length) throw new ContentError(explain + ' is empty')
+  if (!text.trim().length) {
+    alert('por favor rellena todos los campos')
+    throw new ContentError(explain + ' is empty')
+  }
 }
 
 function id(id, explain) {
@@ -53,6 +56,7 @@ function resourceType(resourceType, explain) {
 function tagArray(tags) {
   //we check that it's actually an array
   if (!Array.isArray(tags)) {
+    alert('por favor selecciona al menos un tema')
     throw new TypeError(`${tags} must be an array`)
   }
   // we check that each element in the array is a string

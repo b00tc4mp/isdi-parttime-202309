@@ -11,6 +11,10 @@ function NewResource() {
     navigate('/resources')
     console.log('resource created successfully')
   }
+
+  function handleCancel() {
+    navigate('/resources')
+  }
   function handleSubmit(event) {
     event.preventDefault()
 
@@ -286,7 +290,7 @@ function NewResource() {
             </fieldset>
           </>
         )}
-        <Button>Cancelar</Button>
+        <Button onClick={handleCancel}>Cancelar</Button>
         <Button type="submit">Crear</Button>
       </Form>
     </>
