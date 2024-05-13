@@ -6,11 +6,10 @@ import cors from 'cors' // the Cors package is a middleware for Express.js, that
 import {
   registerUserHandler,
   authenticateUserHandler,
-  createActivityHandler,
   createResourceHandler,
   retrieveResourcesHandler,
+  deleteResourceHandler,
 } from './handlers/index.js'
-import retrieveResources from './logic/retrieveResources.js'
 
 dotenv.config()
 
@@ -32,11 +31,11 @@ mongoose
 
     server.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-    server.post('/activities', jsonBodyParser, createActivityHandler)
-
     server.post('/resources', jsonBodyParser, createResourceHandler)
 
     server.get('/resources', retrieveResourcesHandler)
+
+    server.delete('/resources', jsonBodyParser, deleteResourceHandler)
 
     // declaring endpoint for categories path
     // server.get('/categories', (req, res) => {

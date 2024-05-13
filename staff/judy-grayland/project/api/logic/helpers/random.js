@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 function name() {
   return `name-${Math.random()}`
 }
@@ -24,6 +26,12 @@ function link() {
   return `link-www.${Math.random()}.com`
 }
 
+const { ObjectId } = mongoose.Types
+
+function id() {
+  return new ObjectId().toString()
+}
+
 const random = {
   name,
   email,
@@ -33,6 +41,7 @@ const random = {
   description,
   image,
   link,
+  id,
 }
 
 export default random
