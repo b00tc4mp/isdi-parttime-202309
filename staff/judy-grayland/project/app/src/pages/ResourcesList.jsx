@@ -41,6 +41,7 @@ function ResourcesList() {
           return (
             <ResourceBook
               key={resource._id}
+              _id={resource._id}
               title={resource.title}
               description={resource.description}
               image={resource.image}
@@ -53,6 +54,7 @@ function ResourcesList() {
           return (
             <ResourceDate
               key={resource._id}
+              _id={resource._id}
               title={resource.title}
               description={resource.description}
               link={resource.link}
@@ -64,6 +66,7 @@ function ResourcesList() {
         return (
           <ResourceActivity
             key={resource._id}
+            _id={resource._id}
             title={resource.title}
             description={resource.description}
             image={resource.image}

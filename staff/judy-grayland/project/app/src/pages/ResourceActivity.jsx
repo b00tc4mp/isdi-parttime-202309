@@ -1,10 +1,10 @@
-import { Button, Topic } from '../components'
+import { Button, DeleteResourceButton } from '../components'
+
 import topicTranslations from '../logic/topicTranslations'
 
 function ResourceActivity(props) {
   const translatedTopics = props.topic.map((topic) => topicTranslations[topic])
 
-  const handleDeleteResourceClick = () => {}
   return (
     <article className="resource-activity">
       {/* We hardcode the type of resource because we already know what it is since this component is only rendered for this type of resource. If we write props.resourceType we get it from the database and it's in English */}
@@ -23,7 +23,7 @@ function ResourceActivity(props) {
         Temas: <em>{translatedTopics.join(', ')}</em>
       </p>
       <Button>Editar</Button>
-      <Button onClick={handleDeleteResourceClick}>Eliminar</Button>
+      <DeleteResourceButton resourceId={props._id} />
     </article>
   )
 }

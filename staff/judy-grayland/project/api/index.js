@@ -35,7 +35,7 @@ mongoose
 
     server.get('/resources', retrieveResourcesHandler)
 
-    server.delete('/resources', jsonBodyParser, deleteResourceHandler)
+    server.delete('/resources/:id', deleteResourceHandler)
 
     // declaring endpoint for categories path
     // server.get('/categories', (req, res) => {

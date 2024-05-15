@@ -3,10 +3,10 @@ import { errors } from 'shared'
 const { NotFoundError, ContentError } = errors
 
 export default (req, res) => {
-  const { _id } = req.body
+  const { id } = req.params
   try {
     logic
-      .deleteResource(_id)
+      .deleteResource(id)
       .then(() => res.status(200).send())
       .catch((error) => {
         let status = 500
