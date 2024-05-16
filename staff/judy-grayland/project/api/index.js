@@ -35,20 +35,8 @@ mongoose
 
     server.get('/resources', retrieveResourcesHandler)
 
+    // the :id is dynamic. we pass the id as params to specify which resource needs to be deleted
     server.delete('/resources/:id', deleteResourceHandler)
-
-    // declaring endpoint for categories path
-    // server.get('/categories', (req, res) => {
-    //   Category.find()
-    //     .then((categories) => {
-    //       console.log(categories)
-    //       res.json(categories)
-    //     })
-    //     .catch((error) => {
-    //       console.log('Error retrieving data from MongoDB', error)
-    //       res.status(500).json({ error: 'Internal server error' })
-    //     })
-    // })
 
     server.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${process.env.PORT}`)
