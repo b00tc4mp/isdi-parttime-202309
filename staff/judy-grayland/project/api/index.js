@@ -9,6 +9,7 @@ import {
   createResourceHandler,
   retrieveResourcesHandler,
   deleteResourceHandler,
+  editResourceHandler,
 } from './handlers/index.js'
 
 dotenv.config()
@@ -37,6 +38,8 @@ mongoose
 
     // the :id is dynamic. we pass the id as params to specify which resource needs to be deleted
     server.delete('/resources/:id', deleteResourceHandler)
+
+    server.patch('/resources/:id', jsonBodyParser, editResourceHandler)
 
     server.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${process.env.PORT}`)
