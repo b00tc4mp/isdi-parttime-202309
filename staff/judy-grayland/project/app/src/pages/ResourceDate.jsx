@@ -1,4 +1,4 @@
-import { Button, DeleteResourceButton } from '../components'
+import { EditResourceButton, DeleteResourceButton } from '../components'
 import topicTranslations from '../logic/topicTranslations'
 
 function ResourceDate(props) {
@@ -19,7 +19,7 @@ function ResourceDate(props) {
       <p>
         Temas: <em>{translatedTopics.join(', ')}</em>
       </p>
-      <Button>Editar</Button>
+      <EditResourceButton resourceId={props._id} />
       <DeleteResourceButton resourceId={props._id} />
     </article>
   )

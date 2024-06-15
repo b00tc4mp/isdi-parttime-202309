@@ -32,7 +32,12 @@ function Field(props) {
   return (
     <>
       <label htmlFor={props.inputId}>{props.children}</label>
-      <input name={props.name} type={props.type ?? 'text'} id={props.inputId} />
+      <input
+        name={props.name}
+        type={props.type ?? 'text'}
+        id={props.inputId}
+        value={props.value}
+      />
     </>
   )
 }

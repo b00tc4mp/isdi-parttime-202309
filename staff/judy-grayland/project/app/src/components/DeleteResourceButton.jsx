@@ -20,7 +20,7 @@ function DeleteResourceButton({ resourceId }) {
             throw new Error(error)
           })
       } catch (error) {
-        throw new Error(error)
+        throw new NotFoundError(error)
       }
     }
   }

@@ -9,6 +9,7 @@ import logic from './logic'
 import Profile from './pages/Profile'
 import Home from './pages/Home'
 import NewResource from './pages/NewResource'
+import EditResource from './pages/EditResource'
 import ResourcesList from './pages/ResourcesList'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -52,6 +53,9 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="resources/new" element={<NewResource />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="resources/:id" element={<EditResource />} />
         </Route>
       </Routes>
     </>

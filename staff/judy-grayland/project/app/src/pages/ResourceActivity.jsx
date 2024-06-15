@@ -1,4 +1,4 @@
-import { Button, DeleteResourceButton } from '../components'
+import { DeleteResourceButton, EditResourceButton } from '../components'
 
 import topicTranslations from '../logic/topicTranslations'
 
@@ -22,7 +22,7 @@ function ResourceActivity(props) {
       <p>
         Temas: <em>{translatedTopics.join(', ')}</em>
       </p>
-      <Button>Editar</Button>
+      <EditResourceButton resourceId={props._id} />
       <DeleteResourceButton resourceId={props._id} />
     </article>
   )
