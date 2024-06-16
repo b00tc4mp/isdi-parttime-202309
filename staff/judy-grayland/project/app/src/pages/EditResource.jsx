@@ -126,15 +126,21 @@ function EditResource() {
             <Field name="title" inputId="title-input" value={resource.title}>
               Título
             </Field>
-            <Field name="description" inputId="description-input">
+            <Field
+              name="description"
+              inputId="description-input"
+              value={resource.description}
+            >
               Descripción
             </Field>
-            <Field name="image" inputId="image-input">
+            <Field name="image" inputId="image-input" value={resource.image}>
               Imagen
             </Field>
-            <Field name="link" inputId="link-input">
+            <img src={resource.image}></img>
+            <Field name="link" inputId="link-input" value={resource.link}>
               Enlace
             </Field>
+
             <fieldset>
               <legend>Selecciona los temas relacionados a la actividad</legend>
               <Field
@@ -193,15 +199,20 @@ function EditResource() {
             <Field name="title" inputId="title-input" value={resource.title}>
               Título
             </Field>
-            <Field name="author" inputId="author-input">
+            <Field name="author" inputId="author-input" value={resource.author}>
               Autor
             </Field>
-            <Field name="description" inputId="description-input">
+            <Field
+              name="description"
+              inputId="description-input"
+              value={resource.description}
+            >
               Descripción
             </Field>
-            <Field name="image" inputId="image-input">
+            <Field name="image" inputId="image-input" value={resource.image}>
               Imagen
             </Field>
+            <img src={resource.image}></img>
             <fieldset>
               <legend>Selecciona los temas relacionados a la actividad</legend>
               <Field
@@ -260,10 +271,14 @@ function EditResource() {
             <Field name="title" inputId="title-input" value={resource.title}>
               Título
             </Field>
-            <Field name="description" inputId="description-input">
+            <Field
+              name="description"
+              inputId="description-input"
+              value={resource.description}
+            >
               Descripción
             </Field>
-            <Field name="link" inputId="link-input">
+            <Field name="link" inputId="link-input" value={resource.link}>
               Enlace
             </Field>
             <fieldset>
@@ -320,7 +335,7 @@ function EditResource() {
           </>
         )}
         <Button onClick={handleCancel}>Cancelar</Button>
-        <Button type="submit">Crear</Button>
+        <Button type="submit">Actualizar</Button>
       </Form>
     </>
   )
