@@ -14,7 +14,7 @@ function ResourcesList() {
     navigate('/resources/new')
   }
 
-  const displayResources = () => {
+  const fetchResources = () => {
     try {
       logic
         .retrieveResources()
@@ -29,7 +29,7 @@ function ResourcesList() {
     }
   }
   useEffect(() => {
-    displayResources()
+    fetchResources()
   }, [])
 
   return (

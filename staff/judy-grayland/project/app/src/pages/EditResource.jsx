@@ -42,7 +42,7 @@ function EditResource() {
   const [resourceType, setResourceType] = useState('activity')
   const navigate = useNavigate()
 
-  function handleCreateResourceSuccess() {
+  function handleEditResourceSuccess() {
     navigate('/resources')
   }
 
@@ -70,7 +70,7 @@ function EditResource() {
       logic
         .createResource(data)
         .then(() => {
-          handleCreateResourceSuccess()
+          handleEditResourceSuccess()
         })
         .catch((error) => {
           console.error(error)

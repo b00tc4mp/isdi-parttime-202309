@@ -16,14 +16,21 @@ function registerUser(name, email, password) {
       throw new SystemError(error.message)
     })
     .then((hash) => {
-      return User.create({ name, email, password: hash })
+      return User.find()
         .catch((error) => {
-          if (error.code === 11000) {
-            throw new DuplicityError('user already exists')
-          }
           throw new SystemError(error.message)
         })
-        .then((user) => {})
+        .then((users) => {
+          const role = users.length === 0 ? 'admin' : 'user'
+          return User.create({ name, email, password: hash, role })
+            .catch((error) => {
+              if (error.code === 11000) {
+                throw new DuplicityError('user already exists')
+              }
+              throw new SystemError(error.message)
+            })
+            .then((user) => {})
+        })
     })
 }
 
