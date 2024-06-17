@@ -9,11 +9,12 @@ export default (req, res) => {
   try {
     logic
       .authenticateUser(email, password)
-      .then((userId) => {
-        const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, {
+      .then((user) => {
+        const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXP,
         })
-        res.json({ token })
+        const role = user.role
+        res.json({ token, role })
         res.send()
       })
       .catch((error) => {

@@ -45,7 +45,7 @@ function authenticateUser(email, password) {
 
       res
         .json()
-        .then(({ token }) => {
+        .then(({ token, role }) => {
           const payloadB64 = token.slice(
             token.indexOf('.') + 1,
             token.lastIndexOf('.')
@@ -57,6 +57,7 @@ function authenticateUser(email, password) {
 
           context.sessionUserId = userId
           context.token = token
+          context.role = role
         })
         .catch((error) => {
           throw new SystemError(error)

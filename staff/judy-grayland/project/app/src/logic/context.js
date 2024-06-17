@@ -22,6 +22,18 @@ const context = {
   get token() {
     return sessionStorage.token ? sessionStorage.token : null
   },
+
+  set role(role) {
+    if (role) {
+      sessionStorage.role = role
+    } else {
+      delete sessionStorage.role
+    }
+  },
+
+  get role() {
+    return sessionStorage.role ? sessionStorage.role : null
+  },
 }
 
 export default context

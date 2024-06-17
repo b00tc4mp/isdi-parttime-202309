@@ -29,7 +29,8 @@ function authenticateUser(email, password) {
           if (!match) {
             throw new CredentialsError('wrong password')
           }
-          return user.id
+
+          return user
         })
     })
 }
