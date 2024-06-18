@@ -32,12 +32,29 @@ function Field(props) {
   return (
     <>
       <label htmlFor={props.inputId}>{props.children}</label>
+
       <input
         name={props.name}
         type={props.type ?? 'text'}
         id={props.inputId}
-        value={props.value}
-      />
+        defaultValue={props.value}
+      ></input>
+      {/* <label htmlFor={props.inputId}>{props.children}</label>
+      {props.defaultValue ? (
+        <input
+          name={props.name}
+          type={props.type ?? 'text'}
+          id={props.inputId}
+          defaultValue={props.defaultValue}
+        />
+      ) : (
+        <input
+          name={props.name}
+          type={props.type ?? 'text'}
+          id={props.inputId}
+          value={props.value}
+        />
+      )} */}
     </>
   )
 }

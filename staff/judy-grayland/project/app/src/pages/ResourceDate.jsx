@@ -1,5 +1,6 @@
 import { EditResourceButton, DeleteResourceButton } from '../components'
 import topicTranslations from '../logic/topicTranslations'
+import logic from '../logic'
 
 function ResourceDate(props) {
   const translatedTopics = props.topic.map((topic) => topicTranslations[topic])
@@ -19,8 +20,12 @@ function ResourceDate(props) {
       <p>
         Temas: <em>{translatedTopics.join(', ')}</em>
       </p>
-      <EditResourceButton resourceId={props._id} />
-      <DeleteResourceButton resourceId={props._id} />
+      {logic.context.role === 'admin' && (
+        <>
+          <EditResourceButton resourceId={props._id} />
+          <DeleteResourceButton resourceId={props._id} />
+        </>
+      )}
     </article>
   )
 }

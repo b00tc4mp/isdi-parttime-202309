@@ -76,7 +76,9 @@ function ResourcesList() {
         )
       })}
 
-      <Button onClick={handleNewResourceClick}>Crear nuevo recurso</Button>
+      {logic.context.role === 'admin' && (
+        <Button onClick={handleNewResourceClick}>Crear nuevo recurso</Button>
+      )}
     </>
   )
 }

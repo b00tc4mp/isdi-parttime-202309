@@ -56,6 +56,7 @@ function EditResource() {
     const formData = new FormData(event.currentTarget)
     const data = {}
 
+    console.log(formData.entries())
     for (let [key, val] of formData.entries()) {
       if (key === 'topic' && !data.topic) {
         data.topic = [val]
@@ -65,10 +66,11 @@ function EditResource() {
         data[key] = val
       }
     }
+    console.log(data)
 
     try {
       logic
-        .createResource(data)
+        .editResource(id, data)
         .then(() => {
           handleEditResourceSuccess()
         })
@@ -129,7 +131,7 @@ function EditResource() {
             <Field
               name="description"
               inputId="description-input"
-              value={resource.description}
+              defaultValue={resource.description}
             >
               Descripción
             </Field>
