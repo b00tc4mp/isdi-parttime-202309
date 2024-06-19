@@ -96,7 +96,8 @@ function EditResource() {
             value="activity"
             // resourceType is a variable. Checked is an attribute on an HTML tag that accepts true or false. If it coincides with the string "activity", it evaluates to true and that makes it checked.
             checked={resourceType === 'activity'}
-            onChange={() => setResourceType('activity')}
+            // onChange={() => setResourceType('activity')}
+            // disabled={true}
           >
             Actividad
           </Field>
@@ -106,7 +107,8 @@ function EditResource() {
             inputId="book-radio"
             value="book"
             checked={resourceType === 'book'}
-            onChange={() => setResourceType('book')}
+            // onChange={() => setResourceType('book')}
+            // disabled={true}
           >
             Libro
           </Field>
@@ -116,7 +118,8 @@ function EditResource() {
             inputId="date-radio"
             value="date"
             checked={resourceType === 'date'}
-            onChange={() => setResourceType('date')}
+            // onChange={() => setResourceType('date')}
+            // disabled={true}
           >
             Fecha especial
           </Field>
@@ -131,7 +134,7 @@ function EditResource() {
             <Field
               name="description"
               inputId="description-input"
-              defaultValue={resource.description}
+              value={resource.description}
             >
               Descripción
             </Field>
