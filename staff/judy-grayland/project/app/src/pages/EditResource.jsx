@@ -5,6 +5,10 @@ import logic from '../logic'
 
 function EditResource() {
   const [resource, setResource] = useState({})
+  const [resourceType, setResourceType] = useState('activity')
+  const [resourceTopic, setResourceTopic] = useState(null)
+  const navigate = useNavigate()
+
   // check url for id of resource
 
   const { id } = useParams()
@@ -20,6 +24,7 @@ function EditResource() {
           const resource = resources.find((resource) => resource._id === id)
           setResource(resource)
           setResourceType(resource.resourceType)
+          setResourceTopic(resource.topic)
         })
         .catch((error) => {
           console.error(error)
@@ -30,6 +35,7 @@ function EditResource() {
   }
   useEffect(() => {
     fetchResource()
+    console.log(resourceTopic)
   }, [])
 
   // when the resource variable changes (dependency array) do a console.log of the resource
@@ -39,15 +45,25 @@ function EditResource() {
 
   // populate the form with the data from this state we just stored
 
-  const [resourceType, setResourceType] = useState('activity')
-  const navigate = useNavigate()
-
   function handleEditResourceSuccess() {
     navigate('/resources')
   }
 
   function handleCancel() {
     navigate('/resources')
+  }
+  // if the list includes the topic, we remove it. If it doesn´t have, it adds it.
+  function handleTopicChange(topic, topicList) {
+    console.log('argumentos de la función', topicList, topic)
+    let updatedTopics = topicList
+    if (topicList.includes(topic) && topicList.length > 1) {
+      updatedTopics = topicList.filter((_topic) => _topic !== topic)
+    } else {
+      updatedTopics.push(topic)
+    }
+    console.log('lista a setear', updatedTopics)
+    setResourceTopic(updatedTopics)
+    console.log('resultado de la función', resourceTopic)
   }
 
   function handleSubmit(event) {
@@ -97,7 +113,6 @@ function EditResource() {
             // resourceType is a variable. Checked is an attribute on an HTML tag that accepts true or false. If it coincides with the string "activity", it evaluates to true and that makes it checked.
             checked={resourceType === 'activity'}
             // onChange={() => setResourceType('activity')}
-            // disabled={true}
           >
             Actividad
           </Field>
@@ -108,7 +123,6 @@ function EditResource() {
             value="book"
             checked={resourceType === 'book'}
             // onChange={() => setResourceType('book')}
-            // disabled={true}
           >
             Libro
           </Field>
@@ -119,7 +133,6 @@ function EditResource() {
             value="date"
             checked={resourceType === 'date'}
             // onChange={() => setResourceType('date')}
-            // disabled={true}
           >
             Fecha especial
           </Field>
@@ -146,57 +159,65 @@ function EditResource() {
               Enlace
             </Field>
 
-            <fieldset>
-              <legend>Selecciona los temas relacionados a la actividad</legend>
-              <Field
-                name="topic"
-                value="cultural-diversity"
-                type="checkbox"
-                inputId="cultural-diversity-check"
-              >
-                Diversidad cultural
-              </Field>
-              <Field
-                name="topic"
-                value="bullying"
-                type="checkbox"
-                inputId="bullying-check"
-              >
-                Bullying
-              </Field>
-              <Field
-                name="topic"
-                value="functional-diversity"
-                type="checkbox"
-                inputId="functional-diversity-check"
-              >
-                Diversidad funcional
-              </Field>
-              <Field
-                name="topic"
-                value="lgbt+"
-                type="checkbox"
-                inputId="lgbt+-check"
-              >
-                LGTB+
-              </Field>
-              <Field
-                name="topic"
-                value="gender-equality"
-                type="checkbox"
-                inputId="gender-equality-check"
-              >
-                Igualdad de género
-              </Field>
-              <Field
-                name="topic"
-                value="childrens-rights"
-                type="checkbox"
-                inputId="childrens-rights-check"
-              >
-                Derechos de la infancia
-              </Field>
-            </fieldset>
+            {resourceTopic && (
+              <fieldset>
+                <legend>
+                  Selecciona los temas relacionados a la actividad
+                </legend>
+                <Field
+                  name="topic"
+                  value="cultural-diversity"
+                  type="checkbox"
+                  inputId="cultural-diversity-check"
+                  checked={resourceTopic.includes('cultural-diversity')}
+                  onChange={() =>
+                    handleTopicChange('cultural-diversity', resourceTopic)
+                  }
+                >
+                  Diversidad cultural
+                </Field>
+                <Field
+                  name="topic"
+                  value="bullying"
+                  type="checkbox"
+                  inputId="bullying-check"
+                >
+                  Bullying
+                </Field>
+                <Field
+                  name="topic"
+                  value="functional-diversity"
+                  type="checkbox"
+                  inputId="functional-diversity-check"
+                >
+                  Diversidad funcional
+                </Field>
+                <Field
+                  name="topic"
+                  value="lgbt+"
+                  type="checkbox"
+                  inputId="lgbt+-check"
+                >
+                  LGTB+
+                </Field>
+                <Field
+                  name="topic"
+                  value="gender-equality"
+                  type="checkbox"
+                  inputId="gender-equality-check"
+                >
+                  Igualdad de género
+                </Field>
+                <Field
+                  name="topic"
+                  value="childrens-rights"
+                  type="checkbox"
+                  inputId="childrens-rights-check"
+                >
+                  Derechos de la infancia
+                </Field>
+              </fieldset>
+            )}
           </>
         )}
         {resourceType === 'book' && (
