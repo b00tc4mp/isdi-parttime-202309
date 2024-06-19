@@ -19,7 +19,7 @@ function description() {
   return `description-${Math.random()}`
 }
 function image() {
-  return `image-${Math.random()}`
+  return `https://picsum.photos/200/300?${Math.random()}`
 }
 
 function link() {
