@@ -52,19 +52,19 @@ function EditResource() {
   function handleCancel() {
     navigate('/resources')
   }
-  // if the list includes the topic, we remove it. If it doesn´t have, it adds it.
-  function handleTopicChange(topic, topicList) {
-    console.log('argumentos de la función', topicList, topic)
-    let updatedTopics = topicList
-    if (topicList.includes(topic) && topicList.length > 1) {
-      updatedTopics = topicList.filter((_topic) => _topic !== topic)
-    } else {
-      updatedTopics.push(topic)
-    }
-    console.log('lista a setear', updatedTopics)
-    setResourceTopic(updatedTopics)
-    console.log('resultado de la función', resourceTopic)
-  }
+  // // if the list includes the topic, we remove it. If it doesn´t have, it adds it.
+  // function handleTopicChange(topic, topicList) {
+  //   console.log('argumentos de la función', topicList, topic)
+  //   let updatedTopics = topicList
+  //   if (topicList.includes(topic) && topicList.length > 1) {
+  //     updatedTopics = topicList.filter((_topic) => _topic !== topic)
+  //   } else {
+  //     updatedTopics.push(topic)
+  //   }
+  //   console.log('lista a setear', updatedTopics)
+  //   setResourceTopic(updatedTopics)
+  //   console.log('resultado de la función', resourceTopic)
+  // }
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -106,33 +106,33 @@ function EditResource() {
         <fieldset>
           <legend>Elige el tipo de recurso:</legend>
           <Field
+            readOnly
             name="resourceType"
             type="radio"
             inputId="activity-radio"
             value="activity"
             // resourceType is a variable. Checked is an attribute on an HTML tag that accepts true or false. If it coincides with the string "activity", it evaluates to true and that makes it checked.
             checked={resourceType === 'activity'}
-            // onChange={() => setResourceType('activity')}
           >
             Actividad
           </Field>
           <Field
+            readOnly
             name="resourceType"
             type="radio"
             inputId="book-radio"
             value="book"
             checked={resourceType === 'book'}
-            // onChange={() => setResourceType('book')}
           >
             Libro
           </Field>
           <Field
+            readOnly
             name="resourceType"
             type="radio"
             inputId="date-radio"
             value="date"
             checked={resourceType === 'date'}
-            // onChange={() => setResourceType('date')}
           >
             Fecha especial
           </Field>
@@ -170,9 +170,14 @@ function EditResource() {
                   type="checkbox"
                   inputId="cultural-diversity-check"
                   checked={resourceTopic.includes('cultural-diversity')}
-                  onChange={() =>
-                    handleTopicChange('cultural-diversity', resourceTopic)
-                  }
+                  updatedListReq={{
+                    value: 'cultural-diversity',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
+                  // onChange={() =>
+                  //   handleTopicChange('cultural-diversity', resourceTopic)
+                  // }
                 >
                   Diversidad cultural
                 </Field>
@@ -181,6 +186,12 @@ function EditResource() {
                   value="bullying"
                   type="checkbox"
                   inputId="bullying-check"
+                  checked={resourceTopic.includes('bullying')}
+                  updatedListReq={{
+                    value: 'bullying',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
                 >
                   Bullying
                 </Field>
@@ -189,6 +200,12 @@ function EditResource() {
                   value="functional-diversity"
                   type="checkbox"
                   inputId="functional-diversity-check"
+                  checked={resourceTopic.includes('functional-diversity')}
+                  updatedListReq={{
+                    value: 'functional-diversity',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
                 >
                   Diversidad funcional
                 </Field>
@@ -197,6 +214,12 @@ function EditResource() {
                   value="lgbt+"
                   type="checkbox"
                   inputId="lgbt+-check"
+                  checked={resourceTopic.includes('lgbt+')}
+                  updatedListReq={{
+                    value: 'lgbt+',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
                 >
                   LGTB+
                 </Field>
@@ -205,6 +228,12 @@ function EditResource() {
                   value="gender-equality"
                   type="checkbox"
                   inputId="gender-equality-check"
+                  checked={resourceTopic.includes('gender-equality')}
+                  updatedListReq={{
+                    value: 'gender-equality',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
                 >
                   Igualdad de género
                 </Field>
@@ -213,6 +242,12 @@ function EditResource() {
                   value="childrens-rights"
                   type="checkbox"
                   inputId="childrens-rights-check"
+                  checked={resourceTopic.includes('childrens-rights')}
+                  updatedListReq={{
+                    value: 'childrens-rights',
+                    valuesList: resourceTopic,
+                    valuesListSetter: setResourceTopic,
+                  }}
                 >
                   Derechos de la infancia
                 </Field>
@@ -246,6 +281,12 @@ function EditResource() {
                 value="cultural-diversity"
                 type="checkbox"
                 inputId="cultural-diversity-check"
+                checked={resourceTopic.includes('cultural-diversity')}
+                updatedListReq={{
+                  value: 'cultural-diversity',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Diversidad cultural
               </Field>
@@ -254,6 +295,12 @@ function EditResource() {
                 value="bullying"
                 type="checkbox"
                 inputId="bullying-check"
+                checked={resourceTopic.includes('bullying')}
+                updatedListReq={{
+                  value: 'bullying',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Bullying
               </Field>
@@ -262,6 +309,12 @@ function EditResource() {
                 value="functional-diversity"
                 type="checkbox"
                 inputId="functional-diversity-check"
+                checked={resourceTopic.includes('functional-diversity')}
+                updatedListReq={{
+                  value: 'functional-diversity',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Diversidad funcional
               </Field>
@@ -270,6 +323,11 @@ function EditResource() {
                 value="lgbt+"
                 type="checkbox"
                 inputId="lgbt+-check"
+                updatedListReq={{
+                  value: 'lgbt+',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 LGTB+
               </Field>
@@ -278,6 +336,12 @@ function EditResource() {
                 value="gender-equality"
                 type="checkbox"
                 inputId="gender-equality-check"
+                checked={resourceTopic.includes('gender-equality')}
+                updatedListReq={{
+                  value: 'gender-equality',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Igualdad de género
               </Field>
@@ -286,6 +350,12 @@ function EditResource() {
                 value="childrens-rights"
                 type="checkbox"
                 inputId="childrens-rights-check"
+                checked={resourceTopic.includes('childrens-rights')}
+                updatedListReq={{
+                  value: 'childrens-rights',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Derechos de la infancia
               </Field>
@@ -314,6 +384,12 @@ function EditResource() {
                 value="cultural-diversity"
                 type="checkbox"
                 inputId="cultural-diversity-check"
+                checked={resourceTopic.includes('cultural-diversity')}
+                updatedListReq={{
+                  value: 'cultural-diversity',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Diversidad cultural
               </Field>
@@ -322,6 +398,12 @@ function EditResource() {
                 value="bullying"
                 type="checkbox"
                 inputId="bullying-check"
+                checked={resourceTopic.includes('bullying')}
+                updatedListReq={{
+                  value: 'bullying',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Bullying
               </Field>
@@ -330,6 +412,12 @@ function EditResource() {
                 value="functional-diversity"
                 type="checkbox"
                 inputId="functional-diversity-check"
+                checked={resourceTopic.includes('functional-diversity')}
+                updatedListReq={{
+                  value: 'functional-diversity',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Diversidad funcional
               </Field>
@@ -338,6 +426,11 @@ function EditResource() {
                 value="lgbt+"
                 type="checkbox"
                 inputId="lgbt+-check"
+                updatedListReq={{
+                  value: 'lgbt+',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 LGTB+
               </Field>
@@ -346,6 +439,12 @@ function EditResource() {
                 value="gender-equality"
                 type="checkbox"
                 inputId="gender-equality-check"
+                checked={resourceTopic.includes('gender-equality')}
+                updatedListReq={{
+                  value: 'gender-equality',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Igualdad de género
               </Field>
@@ -354,6 +453,12 @@ function EditResource() {
                 value="childrens-rights"
                 type="checkbox"
                 inputId="childrens-rights-check"
+                checked={resourceTopic.includes('childrens-rights')}
+                updatedListReq={{
+                  value: 'childrens-rights',
+                  valuesList: resourceTopic,
+                  valuesListSetter: setResourceTopic,
+                }}
               >
                 Derechos de la infancia
               </Field>
